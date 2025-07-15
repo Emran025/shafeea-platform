@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('units', function (Blueprint $table) {
             $table->id();
+            $table->string('code')->comment('Unit code');
+            $table->string('name_ar')->comment('Unit name in Arabic');
             $table->timestamps();
         });
     }

@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('tracking_units', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('unit_id')->constrained('units')->onDelete('cascade')->comment('FK to units table');
+            $table->string('from_surah')->comment('From Surah');
+            $table->integer('from_page')->comment('From page');
+            $table->integer('from_ayah')->comment('From ayah');
+            $table->string('to_surah')->comment('To Surah');
+            $table->integer('to_page')->comment('To page');
+            $table->integer('to_ayah')->comment('To ayah');
             $table->timestamps();
         });
     }

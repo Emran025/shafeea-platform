@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('student_reports', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('student_id')->constrained('students')->onDelete('cascade')->comment('FK to students table');
+            $table->date('report_date')->comment('Date of the report');
+            $table->text('summary')->comment('Summary of the report');
+            $table->json('details')->nullable()->comment('Detailed report data (optional)');
             $table->timestamps();
         });
     }

@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('tracking_types', function (Blueprint $table) {
             $table->id();
+            $table->string('name_en')->comment('Tracking type name in English');
+            $table->string('name_ar')->comment('Tracking type name in Arabic');
             $table->timestamps();
         });
     }

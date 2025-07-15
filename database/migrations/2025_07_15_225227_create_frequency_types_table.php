@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('frequency_types', function (Blueprint $table) {
             $table->id();
+            $table->string('name')->comment('Frequency type name');
+            $table->integer('days_between')->comment('Number of days between occurrences');
+            $table->string('description')->nullable()->comment('Description (optional)');
             $table->timestamps();
         });
     }

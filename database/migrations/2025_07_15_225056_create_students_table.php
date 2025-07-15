@@ -13,7 +13,12 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->unique()->constrained()->onDelete('cascade')->comment('FK to users table, unique per student');
+            $table->string('qualification')->comment('Student qualification');
+            $table->string('memorization_level')->comment('Memorization level');
+            $table->enum('status', ['active', 'inactive'])->default('active')->comment('Student status');
             $table->timestamps();
+            $table->softDeletes()->comment('Soft delete timestamp');
         });
     }
 
