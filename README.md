@@ -5,19 +5,19 @@
 **A modern, scalable platform for managing Quranic education circles (Halqas), connecting students, teachers, and supervisors in a seamless digital ecosystem.**
 
 [![Build Status](https://img.shields.io/github/actions/workflow/status/Qaidsaher/taj-al-waqar/laravel.yml?branch=main&style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/Qaidsaher/taj-al-waqar/actions)
-![Laravel](https://img.shields.io/badge/Laravel-11.x-FF2D20?style=for-the-badge&logo=laravel)
+![Laravel](https://img.shields.io/badge/Laravel-12.x-FF2D20?style=for-the-badge&logo=laravel)
 ![PHP](https://img.shields.io/badge/PHP-8.2%2B-777BB4?style=for-the-badge&logo=php)
 [![License](https://img.shields.io/github/license/Qaidsaher/taj-al-waqar?style=for-the-badge)](LICENSE)
 
-- [Report a Bug](https://github.com/Qaidsaher/taj-al-waqar/issues/new/choose)
-- [Request a Feature](https://github.com/Qaidsaher/taj-al-waqar/issues/new/choose)
-- [Ask a Question](https://github.com/Qaidsaher/taj-al-waqar/discussions)
+- [🐞 Report a Bug](https://github.com/Qaidsaher/taj-al-waqar/issues/new/choose)
+- [💡 Request a Feature](https://github.com/Qaidsaher/taj-al-waqar/issues/new/choose)
+- [💬 Ask a Question](https://github.com/Qaidsaher/taj-al-waqar/discussions)
 
 ---
 
 ## 📖 Table of Contents
 
-- [About The Project](#-about-the-project)
+- [✨ About The Project](#-about-the-project)
 - [🚀 Core Features](#-core-features)
 - [🛠️ Tech Stack](#️-tech-stack)
 - [🏁 Getting Started](#-getting-started)
@@ -52,7 +52,7 @@
 
 ## 🛠️ Tech Stack
 
-- **Backend:** Laravel 11, PHP 8.2+
+- **Backend:** Laravel 12, PHP >8.2
 - **Frontend:** Tailwind CSS, Vue.js (or your choice)
 - **Database:** MySQL / PostgreSQL
 - **Testing:** Pest
@@ -62,7 +62,7 @@
 
 ## 🏁 Getting Started
 
-Want to get a local copy up and running? Just follow these simple steps.
+Want to get a local copy up and running? Just follow these simple steps:
 
 1. **Clone the repo:**
     ```sh
@@ -79,7 +79,7 @@ Want to get a local copy up and running? Just follow these simple steps.
     cp .env.example .env
     php artisan key:generate
     ```
-    > Don't forget to update your `.env` file with your database credentials!
+    > 🛠️ Don't forget to update your `.env` file with your database credentials!
 
 4. **Run migrations & seed data:**
     ```sh
@@ -90,7 +90,7 @@ Want to get a local copy up and running? Just follow these simple steps.
     php artisan serve
     ```
 
-For more detailed instructions, please refer to our [Contributing Guide](CONTRIBUTING.md).
+For more detailed instructions, please refer to our [💖 Contributing Guide](CONTRIBUTING.md).
 
 ---
 
