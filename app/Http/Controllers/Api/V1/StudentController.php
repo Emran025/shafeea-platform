@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Api\ApiController;
 use Illuminate\Http\Request;
 use App\Repositories\StudentRepository;
 use App\Repositories\StudentApplicantRepository;
@@ -15,7 +15,7 @@ use App\Http\Resources\StudentResource;
 use App\Http\Resources\StudentApplicantResource;
 use App\Http\Resources\FollowUpResource;
 
-class StudentController extends Controller
+class StudentController extends ApiController
 {
     protected $students;
     protected $applicants;
@@ -29,37 +29,40 @@ class StudentController extends Controller
     public function index(Request $request)
     {
         $students = $this->students->all($request->all());
-        return StudentResource::collection($students);
+        if (method_exists($students, 'total')) {
+            return $this->paginated(StudentResource::collection($students));
+        }
+        return $this->success(StudentResource::collection($students));
     }
 
     public function show($id)
     {
         $student = $this->students->find($id);
-        return new StudentResource($student);
+        return $this->success(new StudentResource($student));
     }
 
     public function update(UpdateStudentRequest $request, $id)
     {
         $student = $this->students->update($id, $request->validated());
-        return new StudentResource($student);
+        return $this->success(new StudentResource($student), 'Student updated successfully.');
     }
 
     public function assign(AssignHalaqaRequest $request, $id)
     {
         // Implement assign logic in repository/service
-        return response()->json(['status' => 200, 'message' => 'Student assigned to halaqa successfully.']);
+        return $this->success(null, 'Student assigned to halaqa successfully.');
     }
 
     public function action(ActionRequest $request, $id)
     {
         // Implement action logic in repository/service
-        return response()->json(['status' => 200, 'message' => 'Action completed successfully.']);
+        return $this->success(null, 'Action completed successfully.');
     }
 
     public function followUp($id, Request $request)
     {
         // Implement follow-up logic in repository/service
-        return new FollowUpResource((object)[
+        return $this->success(new FollowUpResource((object)[
             'id' => 15,
             'frequency' => 'daily',
             'details' => [
@@ -69,36 +72,39 @@ class StudentController extends Controller
             ],
             'updated_at' => now(),
             'created_at' => now(),
-        ]);
+        ]));
     }
 
     public function updateFollowUp(FollowUpRequest $request, $id)
     {
         // Implement update follow-up logic in repository/service
-        return new FollowUpResource((object)[
+        return $this->success(new FollowUpResource((object)[
             'id' => 15,
             'frequency' => $request->frequency,
             'details' => $request->details,
             'updated_at' => now(),
             'created_at' => now(),
-        ]);
+        ]), 'Follow-up plan updated.');
     }
 
     public function applicants(Request $request)
     {
         $applicants = $this->applicants->all($request->all());
-        return StudentApplicantResource::collection($applicants);
+        if (method_exists($applicants, 'total')) {
+            return $this->paginated(StudentApplicantResource::collection($applicants));
+        }
+        return $this->success(StudentApplicantResource::collection($applicants));
     }
 
     public function showApplicant($id)
     {
         $applicant = $this->applicants->find($id);
-        return new StudentApplicantResource($applicant);
+        return $this->success(new StudentApplicantResource($applicant));
     }
 
     public function applicantAction(Request $request, $id)
     {
         // Implement applicant action logic in repository/service
-        return response()->json(['status' => 200, 'message' => 'Applicant accepted successfully.']);
+        return $this->success(null, 'Applicant accepted successfully.');
     }
 }
