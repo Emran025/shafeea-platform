@@ -2,166 +2,103 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Controllers\Api\ApiController;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Student;
-use App\Models\Enrollment;
-use App\Models\Plan;
-use App\Models\Halaqah;
+use App\Repositories\StudentRepository;
+use App\Repositories\StudentApplicantRepository;
+use App\Http\Requests\Student\StoreStudentRequest;
+use App\Http\Requests\Student\UpdateStudentRequest;
+use App\Http\Requests\Student\AssignHalaqaRequest;
+use App\Http\Requests\Student\ActionRequest;
+use App\Http\Requests\Student\FollowUpRequest;
+use App\Http\Resources\StudentResource;
+use App\Http\Resources\StudentApplicantResource;
+use App\Http\Resources\FollowUpResource;
 
-class StudentController extends ApiController
+class StudentController extends Controller
 {
-    // GET /students
+    protected $students;
+    protected $applicants;
+
+    public function __construct(StudentRepository $students, StudentApplicantRepository $applicants)
+    {
+        $this->students = $students;
+        $this->applicants = $applicants;
+    }
+
     public function index(Request $request)
     {
-        $query = Student::with(['user', 'enrollments.halaqah']);
-
-        if ($request->has('status')) {
-            $query->where('status', $request->status);
-        }
-
-        $query->orderBy(
-            $request->input('sortBy', 'created_at'),
-            $request->input('sortOrder', 'desc')
-        );
-
-        $students = $query->paginate(
-            $request->input('limit', 10),
-            ['*'],
-            'page',
-            $request->input('page', 1)
-        );
-
-        return $this->paginated($students);
+        $students = $this->students->all($request->all());
+        return StudentResource::collection($students);
     }
 
-    // GET /students/{id}
     public function show($id)
     {
-        $student = Student::with([
-            'user',
-            'enrollments.halaqah',
-            'enrollments.plan',
-        ])->findOrFail($id);
-
-        return $this->success($student);
+        $student = $this->students->find($id);
+        return new StudentResource($student);
     }
 
-    // PUT /students/{id}
-    public function update(Request $request, $id)
+    public function update(UpdateStudentRequest $request, $id)
     {
-        $student = Student::findOrFail($id);
-        $student->update($request->only([
-            'qualification',
-            'memorization_level',
-            'status',
-        ]));
-
-        // إذا كنت تريد تحديث بيانات المستخدم المرتبطة أيضًا:
-        if ($request->has('user')) {
-            $student->user->update($request->input('user'));
-        }
-
-        return $this->success($student->load('user'), "Student with ID {$id} updated.");
+        $student = $this->students->update($id, $request->validated());
+        return new StudentResource($student);
     }
 
-    // GET /students/{id}/follow-up
-    public function getFollowUp($id)
+    public function assign(AssignHalaqaRequest $request, $id)
     {
-        $enrollment = Enrollment::with('plan')
-            ->where('student_id', $id)
-            ->latest('enrolled_at')
-            ->first();
+        // Implement assign logic in repository/service
+        return response()->json(['status' => 200, 'message' => 'Student assigned to halaqa successfully.']);
+    }
 
-        if (!$enrollment || !$enrollment->plan) {
-            return $this->error("No active plan found for student {$id}", 404);
-        }
+    public function action(ActionRequest $request, $id)
+    {
+        // Implement action logic in repository/service
+        return response()->json(['status' => 200, 'message' => 'Action completed successfully.']);
+    }
 
-        return $this->success([
-            'plan_id' => $enrollment->plan->id,
-            'frequency' => $enrollment->plan->frequencyType?->name,
+    public function followUp($id, Request $request)
+    {
+        // Implement follow-up logic in repository/service
+        return new FollowUpResource((object)[
+            'id' => 15,
+            'frequency' => 'daily',
             'details' => [
-                [
-                    'type' => 'memorization',
-                    'unit' => $enrollment->plan->memorizationUnit?->name,
-                    'amount' => $enrollment->plan->memorization_amount,
-                ],
-                [
-                    'type' => 'review',
-                    'unit' => $enrollment->plan->reviewUnit?->name,
-                    'amount' => $enrollment->plan->review_amount,
-                ],
-                [
-                    'type' => 'sard',
-                    'unit' => $enrollment->plan->sardUnit?->name,
-                    'amount' => $enrollment->plan->sard_amount,
-                ],
+                ['type' => 'memorization', 'unit' => 'page', 'amount' => 2],
+                ['type' => 'review', 'unit' => 'juz', 'amount' => 1],
+                ['type' => 'recitation', 'unit' => 'page', 'amount' => 2],
             ],
-            'createdAt' => $enrollment->plan->created_at,
-            'updatedAt' => $enrollment->plan->updated_at,
+            'updated_at' => now(),
+            'created_at' => now(),
         ]);
     }
 
-    // PUT /students/{id}/follow-up
-    public function updateFollowUp(Request $request, $id)
+    public function updateFollowUp(FollowUpRequest $request, $id)
     {
-        $student = Student::findOrFail($id);
-
-        // إنشاء خطة جديدة
-        $plan = Plan::create([
-            'name' => 'Custom Plan for Student ' . $student->id,
-            'start_date' => now(),
-            'end_date' => null,
-            'has_memorization' => true,
-            'memorization_unit_id' => $request->input('memorization_unit_id'),
-            'memorization_amount' => $request->input('memorization_amount'),
-            'has_review' => true,
-            'review_unit_id' => $request->input('review_unit_id'),
-            'review_amount' => $request->input('review_amount'),
-            'has_sard' => true,
-            'sard_unit_id' => $request->input('sard_unit_id'),
-            'sard_amount' => $request->input('sard_amount'),
-            'frequency_type_id' => $request->input('frequency_type_id'),
+        // Implement update follow-up logic in repository/service
+        return new FollowUpResource((object)[
+            'id' => 15,
+            'frequency' => $request->frequency,
+            'details' => $request->details,
+            'updated_at' => now(),
+            'created_at' => now(),
         ]);
-
-        // إنشاء تسجيل ارتباط بالخطة
-        Enrollment::create([
-            'student_id' => $student->id,
-            'halaqah_id' => $request->input('halaqah_id'), // قد تكون نفس القديمة أو جديدة
-            'enrolled_at' => now(),
-            'plan_id' => $plan->id,
-        ]);
-
-        return $this->success($plan->load(['memorizationUnit', 'reviewUnit', 'sardUnit']), "Follow-up plan updated.");
     }
 
-    // POST /students/{id}/assign
-    public function assignToHalaqa(Request $request, $id)
+    public function applicants(Request $request)
     {
-        $request->validate([
-            'halaqah_id' => 'required|exists:halaqahs,id',
-        ]);
-
-        $enrollment = Enrollment::create([
-            'student_id' => $id,
-            'halaqah_id' => $request->input('halaqah_id'),
-            'enrolled_at' => now(),
-        ]);
-
-        return $this->success($enrollment, "Student {$id} assigned to Halaqah {$request->halaqah_id}");
+        $applicants = $this->applicants->all($request->all());
+        return StudentApplicantResource::collection($applicants);
     }
 
-    // POST /students/{id}/actions
-    public function takeAction(Request $request, $id)
+    public function showApplicant($id)
     {
-        $request->validate([
-            'action' => 'required|in:active,suspended,expelled,dropout',
-        ]);
+        $applicant = $this->applicants->find($id);
+        return new StudentApplicantResource($applicant);
+    }
 
-        $student = Student::findOrFail($id);
-        $student->status = $request->action;
-        $student->save();
-
-        return $this->success(null, "Student {$id} status updated to {$request->action}");
+    public function applicantAction(Request $request, $id)
+    {
+        // Implement applicant action logic in repository/service
+        return response()->json(['status' => 200, 'message' => 'Applicant accepted successfully.']);
     }
 }

@@ -1,0 +1,49 @@
+<?php
+
+namespace App\Repositories;
+
+use App\Models\Student;
+
+class StudentRepository
+{
+    public function all($filters = [], $pagination = true)
+    {
+        $query = Student::with(['user', 'enrollments.halaqah']);
+        if (isset($filters['status'])) {
+            $query->where('status', $filters['status']);
+        }
+        $sortBy = $filters['sortBy'] ?? 'created_at';
+        $sortOrder = $filters['sortOrder'] ?? 'desc';
+        $query->orderBy($sortBy, $sortOrder);
+        if ($pagination) {
+            $limit = $filters['limit'] ?? 10;
+            return $query->paginate($limit);
+        }
+        return $query->get();
+    }
+
+    public function find($id)
+    {
+        return Student::with(['user', 'enrollments.halaqah'])->findOrFail($id);
+    }
+
+    public function update($id, $data)
+    {
+        $student = Student::findOrFail($id);
+        $student->update($data);
+        if (isset($data['user'])) {
+            $student->user->update($data['user']);
+        }
+        return $student->fresh(['user', 'enrollments.halaqah']);
+    }
+
+    // Add methods for follow-up, assign, actions, etc. as needed
+}
+
+
+
+
+
+
+
+
