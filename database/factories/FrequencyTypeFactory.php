@@ -17,7 +17,9 @@ class FrequencyTypeFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => $this->faker->word(),
+            'days_between' => $this->faker->numberBetween(1, 30),
+            'description' => $this->faker->optional()->sentence(),
         ];
     }
 }

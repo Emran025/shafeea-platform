@@ -17,7 +17,13 @@ class TrackingDetailFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'tracking_id' => \App\Models\Tracking::factory(),
+            'tracking_type_id' => \App\Models\TrackingType::factory(),
+            'from_tracking_unit_id' => \App\Models\TrackingUnit::factory(),
+            'to_tracking_unit_id' => \App\Models\TrackingUnit::factory(),
+            'actual_amount' => $this->faker->numberBetween(1, 50),
+            'comment' => $this->faker->optional()->sentence(),
+            'score' => $this->faker->numberBetween(0, 100),
         ];
     }
 }
