@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name')->comment('Halaqah name');
             $table->string('avatar')->comment('Avatar (base64 or URL)');
-            $table->enum('gender', ['Male', 'Female'])->comment('Gender of halaqah');
+            $table->enum('gender', ['male', 'female'])->comment('Gender of halaqah');
             $table->string('residence')->comment('Residence');
             $table->integer('max_students')->comment('Maximum number of students');
             $table->integer('sum_of_students')->default(0)->comment('Current number of students');

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('schools', function (Blueprint $table) {
             $table->id();
             $table->string('name')->comment('School name');
-            $table->string('avatar')->comment('School avatar URL');
+            $table->string('logo')->comment('School avatar URL');
             $table->string('phone')->comment('School contact phone');
             $table->string('country')->comment('Country');
             $table->string('city')->comment('City');
