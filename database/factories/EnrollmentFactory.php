@@ -17,7 +17,10 @@ class EnrollmentFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'student_id' => \App\Models\Student::factory(),
+            'halaqah_id' => \App\Models\Halaqah::factory(),
+            'enrolled_at' => $this->faker->dateTime(),
+            'plan_id' => \App\Models\Plan::factory(),
         ];
     }
 }

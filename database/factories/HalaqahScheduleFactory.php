@@ -17,7 +17,10 @@ class HalaqahScheduleFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'halaqah_id' => \App\Models\Halaqah::factory(),
+            'day_of_week' => $this->faker->numberBetween(0, 6),
+            'start_time' => $this->faker->time('H:i'),
+            'end_time' => $this->faker->time('H:i'),
         ];
     }
 }
