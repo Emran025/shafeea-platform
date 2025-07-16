@@ -3,9 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 class TrackingUnit extends Model
 {
+    use HasFactory;
     /**
      * The attributes that are mass assignable.
      *
@@ -44,4 +45,5 @@ class TrackingUnit extends Model
     {
         return $this->hasMany(TrackingDetail::class, 'to_tracking_unit_id');
     }
+
 }

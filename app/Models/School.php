@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class School extends Model
 {
+    use HasFactory;
     /**
      * The attributes that are mass assignable.
      *
@@ -13,7 +15,7 @@ class School extends Model
      */
     protected $fillable = [
         'name',
-        'avatar',
+        'logo',
         'phone',
         'country',
         'city',
@@ -28,4 +30,8 @@ class School extends Model
     {
         return $this->hasMany(Halaqah::class);
     }
+    public function users()
+{
+    return $this->hasMany(User::class);
+}
 }
