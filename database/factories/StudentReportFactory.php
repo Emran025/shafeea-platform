@@ -14,16 +14,22 @@ class StudentReportFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition(): array
+    public function definition()
     {
         return [
-            'student_id' => \App\Models\Student::factory(),
-            'halaqah_id' => \App\Models\Halaqah::factory(),
-            'date' => $this->faker->date(),
-            'attendance' => $this->faker->randomElement(['present', 'absent', 'late']),
-            'behavior' => $this->faker->randomElement(['excellent', 'good', 'average', 'poor']),
-            'notes' => $this->faker->optional()->sentence(),
-            'created_by' => \App\Models\User::factory(),
+            'student_id' => \App\Models\Student::factory(), // creates related student if not provided
+            'report_date' => fake()->date(),
+            'summary' => fake()->paragraph(),
+            'details' => json_encode([
+                'attendance' => fake()->randomElement(['excellent', 'good', 'fair', 'poor']),
+                'notes' => fake()->sentences(3),
+                'scores' => [
+                    'memorization' => fake()->numberBetween(50, 100),
+                    'recitation' => fake()->numberBetween(50, 100),
+                ],
+            ]),
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }

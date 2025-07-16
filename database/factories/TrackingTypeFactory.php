@@ -17,8 +17,8 @@ class TrackingTypeFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->word(),
-            'description' => $this->faker->sentence(),
+            'name_en' => fake()->word(),
+             'name_ar' => fake()->word(),
         ];
     }
 }

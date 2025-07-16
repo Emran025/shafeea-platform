@@ -18,8 +18,8 @@ class TeacherFactory extends Factory
     {
         return [
             'user_id' => \App\Models\User::factory(),
-            'bio' => $this->faker->paragraph(),
-            'experience_years' => $this->faker->numberBetween(1, 40),
+            'bio' => fake()->paragraph(),
+            'experience_years' => fake()->numberBetween(1, 40),
         ];
     }
 }

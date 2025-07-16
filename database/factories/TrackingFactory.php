@@ -18,9 +18,9 @@ class TrackingFactory extends Factory
     {
         return [
             'plan_id' => \App\Models\Plan::factory(),
-            'date' => $this->faker->date(),
-            'note' => $this->faker->optional()->sentence(),
-            'behavior_note' => $this->faker->optional()->sentence(),
+            'date' => fake()->date(),
+            'note' => fake()->optional()->sentence(),
+            'behavior_note' => fake()->optional()->sentence(),
         ];
     }
 }

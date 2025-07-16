@@ -17,14 +17,14 @@ class HalaqahFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->word(),
-            'avatar' => $this->faker->imageUrl(200, 200, 'halaqah', true, 'Halaqah'),
-            'gender' => $this->faker->randomElement(['male', 'female']),
-            'residence' => $this->faker->city(),
-            'max_students' => $this->faker->numberBetween(10, 50),
-            'sum_of_students' => $this->faker->numberBetween(0, 50),
-            'is_active' => $this->faker->boolean(),
-            'is_deleted' => $this->faker->boolean(),
+            'name' => fake()->word(),
+            'avatar' => fake()->imageUrl(200, 200, 'halaqah', true, 'Halaqah'),
+            'gender' => fake()->randomElement(['male', 'female']),
+            'residence' => fake()->city(),
+            'max_students' => fake()->numberBetween(10, 50),
+            'sum_of_students' => fake()->numberBetween(0, 50),
+            'is_active' => fake()->boolean(),
+            'is_deleted' => fake()->boolean(),
             'teacher_id' => \App\Models\Teacher::factory(),
             'school_id' => \App\Models\School::factory(),
         ];

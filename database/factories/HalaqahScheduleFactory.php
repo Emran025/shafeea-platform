@@ -16,11 +16,15 @@ class HalaqahScheduleFactory extends Factory
      */
     public function definition(): array
     {
-        return [
-            'halaqah_id' => \App\Models\Halaqah::factory(),
-            'day_of_week' => $this->faker->numberBetween(0, 6),
-            'start_time' => $this->faker->time('H:i'),
-            'end_time' => $this->faker->time('H:i'),
+       return [
+            'halaqah_id' => \App\Models\Halaqah::factory(), // Creates related Halaqah model
+            'day_of_week' => fake()->randomElement([
+                'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'
+            ]),
+            'start_time' => fake()->time('H:i'),
+            'end_time' => fake()->time('H:i'),
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }

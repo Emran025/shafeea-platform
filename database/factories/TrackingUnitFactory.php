@@ -18,12 +18,12 @@ class TrackingUnitFactory extends Factory
     {
         return [
             'unit_id' => \App\Models\Unit::factory(),
-            'from_surah' => $this->faker->numberBetween(1, 114),
-            'from_page' => $this->faker->numberBetween(1, 604),
-            'from_ayah' => $this->faker->numberBetween(1, 286),
-            'to_surah' => $this->faker->numberBetween(1, 114),
-            'to_page' => $this->faker->numberBetween(1, 604),
-            'to_ayah' => $this->faker->numberBetween(1, 286),
+            'from_surah' => fake()->numberBetween(1, 114),
+            'from_page' => fake()->numberBetween(1, 604),
+            'from_ayah' => fake()->numberBetween(1, 286),
+            'to_surah' => fake()->numberBetween(1, 114),
+            'to_page' => fake()->numberBetween(1, 604),
+            'to_ayah' => fake()->numberBetween(1, 286),
         ];
     }
 }

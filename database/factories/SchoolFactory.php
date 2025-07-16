@@ -17,11 +17,13 @@ class SchoolFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->company(),
-            'address' => $this->faker->address(),
-            'phone' => $this->faker->phoneNumber(),
-            'email' => $this->faker->unique()->safeEmail(),
-            'logo' => $this->faker->imageUrl(200, 200, 'schools', true, 'School'),
+            'name' => fake()->company(),
+            'address' => fake()->address(),
+            'phone' => fake()->phoneNumber(),
+            'logo' => fake()->imageUrl(200, 200, 'schools', true, 'School'),
+            'country'=>fake()->country(),
+            'city'=>fake()->city(),
+            'location'=>fake()->address()
         ];
     }
 }

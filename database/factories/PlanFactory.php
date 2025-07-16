@@ -17,19 +17,19 @@ class PlanFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->word(),
-            'description' => $this->faker->optional()->sentence(),
-            'start_date' => $this->faker->date(),
-            'end_date' => $this->faker->date(),
-            'has_review' => $this->faker->boolean(),
+            'name' => fake()->word(),
+            'description' => fake()->sentence(6),
+            'start_date' => fake()->date(),
+            'end_date' => fake()->date(),
+            'has_review' => fake()->boolean(),
             'review_unit_id' => \App\Models\Unit::factory(),
-            'review_amount' => $this->faker->numberBetween(1, 50),
-            'has_memorization' => $this->faker->boolean(),
+            'review_amount' => fake()->numberBetween(1, 50),
+            'has_memorization' => fake()->boolean(),
             'memorization_unit_id' => \App\Models\Unit::factory(),
-            'memorization_amount' => $this->faker->numberBetween(1, 50),
-            'has_sard' => $this->faker->boolean(),
+            'memorization_amount' => fake()->numberBetween(1, 50),
+            'has_sard' => fake()->boolean(),
             'sard_unit_id' => \App\Models\Unit::factory(),
-            'sard_amount' => $this->faker->numberBetween(1, 50),
+            'sard_amount' => fake()->numberBetween(1, 50),
             'frequency_type_id' => \App\Models\FrequencyType::factory(),
         ];
     }

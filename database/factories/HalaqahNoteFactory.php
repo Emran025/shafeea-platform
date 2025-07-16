@@ -19,7 +19,7 @@ class HalaqahNoteFactory extends Factory
         return [
             'halaqah_id' => \App\Models\Halaqah::factory(),
             'admin_id' => \App\Models\Admin::factory(),
-            'note' => $this->faker->sentence(),
+            'note' => fake()->sentence(),
         ];
     }
 }

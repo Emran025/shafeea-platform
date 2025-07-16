@@ -18,9 +18,9 @@ class StudentFactory extends Factory
     {
         return [
             'user_id' => \App\Models\User::factory(),
-            'qualification' => $this->faker->word(),
-            'memorization_level' => $this->faker->randomElement(['beginner', 'intermediate', 'advanced']),
-            'status' => $this->faker->randomElement(['active', 'inactive', 'suspended']),
+            'qualification' => fake()->word(),
+            'memorization_level' => fake()->randomElement(['beginner', 'intermediate', 'advanced']),
+            'status' => fake()->randomElement(['active', 'inactive', 'suspended']),
         ];
     }
 }

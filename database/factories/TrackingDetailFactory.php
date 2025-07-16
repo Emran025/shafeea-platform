@@ -21,9 +21,9 @@ class TrackingDetailFactory extends Factory
             'tracking_type_id' => \App\Models\TrackingType::factory(),
             'from_tracking_unit_id' => \App\Models\TrackingUnit::factory(),
             'to_tracking_unit_id' => \App\Models\TrackingUnit::factory(),
-            'actual_amount' => $this->faker->numberBetween(1, 50),
-            'comment' => $this->faker->optional()->sentence(),
-            'score' => $this->faker->numberBetween(0, 100),
+            'actual_amount' => fake()->numberBetween(1, 50),
+            'comment' => fake()->optional()->sentence(),
+            'score' => fake()->numberBetween(0, 100),
         ];
     }
 }
