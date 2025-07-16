@@ -20,7 +20,6 @@ use App\Models\Teacher;
 use App\Models\Student;
 use App\Models\School;
 
-// Test model existence and instantiation
 it('all models exist and can be instantiated', function () {
     $models = [
         User::class,
@@ -43,15 +42,15 @@ it('all models exist and can be instantiated', function () {
         Student::class,
         School::class,
     ];
+
     foreach ($models as $model) {
         $instance = new $model();
         expect($instance)->toBeObject();
     }
 });
 
-// Test model factories
 it('all models with factories can be created', function () {
-    $factories = [
+    $models = [
         User::class,
         StudentReport::class,
         TrackingType::class,
@@ -72,10 +71,14 @@ it('all models with factories can be created', function () {
         Student::class,
         School::class,
     ];
-    foreach ($factories as $factoryModel) {
-        if (method_exists($factoryModel, 'factory')) {
-            $instance = $factoryModel::factory()->make();
-            expect($instance)->toBeObject();
+
+    foreach ($models as $model) {
+        if (!method_exists($model, 'factory')) {
+            throw new Exception("Model {$model} does not have a factory method.");
         }
+
+        $instance = $model::factory()->create(); // Create and save in DB
+        expect($instance)->toBeObject();
+        expect($instance->exists)->toBeTrue();
     }
 });
