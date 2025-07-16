@@ -25,9 +25,21 @@ class SyncController extends ApiController
         $updatedSince = $request->input('updatedSince');
         $limit = $request->input('limit', 100);
 
-        $students = Student::with(['halaqa', 'followUpPlan'])
-            ->where('updated_at', '>=', $updatedSince)
-            ->orWhere('created_at', '>=', $updatedSince)
+        $students = Student::with([
+                'user',
+                'enrollments' => function ($query) {
+                    $query->latest('enrolled_at')->limit(1);
+                },
+                'enrollments.plan.frequencyType',
+                'enrollments.plan.reviewUnit',
+                'enrollments.plan.memorizationUnit',
+                'enrollments.plan.sardUnit',
+                'enrollments.halaqah',
+            ])
+            ->where(function ($query) use ($updatedSince) {
+                $query->where('updated_at', '>=', $updatedSince)
+                      ->orWhere('created_at', '>=', $updatedSince);
+            })
             ->paginate($limit);
 
         return $this->success([
@@ -37,7 +49,7 @@ class SyncController extends ApiController
                 'limit' => $students->perPage(),
                 'total' => $students->total(),
             ],
-            'syncTimestamp' => now()->toIso8601String()
+            'syncTimestamp' => now()->toIso8601String(),
         ]);
     }
 }
