@@ -1,0 +1,28 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class HalaqahSchedule extends Model
+{
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'halaqah_id',
+        'day_of_week',
+        'start_time',
+        'end_time',
+    ];
+
+    /**
+     * Get the halaqah that owns the schedule.
+     */
+    public function halaqah()
+    {
+        return $this->belongsTo(Halaqah::class);
+    }
+}
