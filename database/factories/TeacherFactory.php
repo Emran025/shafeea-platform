@@ -17,7 +17,9 @@ class TeacherFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'user_id' => \App\Models\User::factory(),
+            'bio' => $this->faker->paragraph(),
+            'experience_years' => $this->faker->numberBetween(1, 40),
         ];
     }
 }
