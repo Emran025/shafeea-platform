@@ -2,15 +2,14 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens; // ✅ Sanctum support (or Passport if needed)
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -23,7 +22,14 @@ class User extends Authenticatable
         'password',
         'avatar',
         'phone',
+        'whatsapp',
+        'gender',
+        'birth_date',
+        'country',
+        'city',
+        'residence',
         'status',
+        'school_id',
     ];
 
     /**
@@ -37,55 +43,48 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
+     * The attributes that should be cast to native types.
      */
     protected function casts(): array
     {
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'birth_date' => 'date',
         ];
     }
 
     /**
-     * The roles that belong to the user.
+     * Relationships
      */
-    public function roles()
-    {
-        return $this->belongsToMany(Role::class);
-    }
 
-    /**
-     * The permissions that belong to the user.
-     */
-    public function permissions()
-    {
-        return $this->belongsToMany(Permission::class);
-    }
-
-    /**
-     * Get the student profile associated with the user.
-     */
     public function student()
     {
         return $this->hasOne(Student::class);
     }
 
-    /**
-     * Get the teacher profile associated with the user.
-     */
     public function teacher()
     {
         return $this->hasOne(Teacher::class);
     }
 
-    /**
-     * Get the admin profile associated with the user.
-     */
     public function admin()
     {
         return $this->hasOne(Admin::class);
+    }
+
+    public function school()
+    {
+        return $this->belongsTo(School::class);
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
+    public function permissions()
+    {
+        return $this->belongsToMany(Permission::class);
     }
 }

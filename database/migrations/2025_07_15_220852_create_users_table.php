@@ -17,12 +17,29 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            
             $table->string('avatar')->nullable()->comment('User avatar URL or path');
             $table->string('phone')->nullable()->comment('User phone number');
+            $table->string('whatsapp')->nullable()->comment('WhatsApp contact number');
+            
+            $table->enum('gender', ['Male', 'Female'])->nullable()->comment('User gender');
+            $table->date('birth_date')->nullable()->comment('Date of birth');
+            $table->string('country')->nullable();
+            $table->string('city')->nullable();
+            $table->string('residence')->nullable()->comment('Neighborhood or residence area');
+            
             $table->enum('status', ['active', 'inactive'])->default('active')->comment('User status');
+            
+            $table->foreignId('school_id')
+                  ->nullable()
+                  ->constrained('schools')
+                  ->onDelete('cascade');
+            
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
+        
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
