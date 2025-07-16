@@ -5,22 +5,36 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\StudentController;
 use App\Http\Controllers\Api\V1\ApplicantController;
 use App\Http\Controllers\Api\V1\SyncController;
-
-Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
-
-    // Students routes with name prefix 'students.'
-    Route::name('students.')->group(function () {
-        Route::get('students', [StudentController::class, 'index'])->name('index');
-        Route::get('students/{id}', [StudentController::class, 'show'])->name('show');
-        Route::put('students/{id}', [StudentController::class, 'update'])->name('update');
-
-        Route::get('students/{id}/follow-up', [StudentController::class, 'getFollowUp'])->name('followup.get');
-        Route::put('students/{id}/follow-up', [StudentController::class, 'updateFollowUp'])->name('followup.update');
-
-        Route::post('students/{id}/assign', [StudentController::class, 'assignToHalaqa'])->name('assign');
-
-        Route::post('students/{id}/actions', [StudentController::class, 'takeAction'])->name('actions');
+use App\Http\Controllers\Api\V1\HalaqaController;
+use App\Http\Controllers\Api\V1\TeacherApplicantController;
+use App\Http\Controllers\Api\V1\TeacherController;
+use App\Http\Controllers\Api\V1\FollowUpController;
+use App\Http\Controllers\Api\V1\AuthController;
+use App\Http\Controllers\Api\V1\SessionController;
+// Route::prefix(prefix: 'v1')->middleware('auth:sanctum')->group(function () {
+Route::prefix('v1')->group(function () {
+    // Auth routes with name prefix 'auth.'
+    Route::prefix('auth')->name('auth.')->group(function () {
+        Route::post('login', [AuthController::class, 'login'])->name('login');
+        Route::post('refresh', [AuthController::class, 'refresh'])->name('refresh');
+        Route::get('me', [AuthController::class, 'me'])->name('me');
+        Route::post('logout', [AuthController::class, 'logout'])->name('logout');
     });
+
+    // Students routes with prefix 'students' and name prefix 'students.'
+    Route::prefix('students')->name('students.')->group(function () {
+        Route::get('/', [StudentController::class, 'index'])->name('index');
+        Route::get('{id}', [StudentController::class, 'show'])->name('show');
+        Route::put('{id}', [StudentController::class, 'update'])->name('update');
+
+        Route::get('{id}/follow-up', [StudentController::class, 'followUp'])->name('followup.get');
+        Route::put('{id}/follow-up', [StudentController::class, 'updateFollowUp'])->name('followup.update');
+
+        Route::post('{id}/assign', [StudentController::class, 'assign'])->name('assign');
+
+        Route::post('{id}/actions', [StudentController::class, 'action'])->name('actions');
+    });
+
 
     // Applicants routes with name prefix 'students.applicants.'
     Route::prefix('students/applicants')->name('students.applicants.')->group(function () {
@@ -29,17 +43,69 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
         Route::post('{id}/actions', [ApplicantController::class, 'takeAction'])->name('actions');
         Route::post('/', [ApplicantController::class, 'store'])->name('store');
     });
+    // halqa routes with name prefix 'halaqas.'
+    Route::prefix('halaqas')->name('halaqas.')->group(function () {
+        Route::get('/', [HalaqaController::class, 'index'])->name('index');
+        Route::post('/', [HalaqaController::class, 'store'])->name('store');
+        Route::get('{id}', [HalaqaController::class, 'show'])->name('show');
+        Route::put('{id}', [HalaqaController::class, 'update'])->name('update');
+
+        Route::post('{id}/assign-students', [HalaqaController::class, 'assignStudents'])->name('assign-students');
+        Route::post('{id}/assign-teacher', [HalaqaController::class, 'assignTeacher'])->name('assign-teacher');
+
+        Route::get('{id}/teachers/history', [HalaqaController::class, 'teachersHistory'])->name('teachers.history');
+
+        Route::get('{id}/students/khatm', [HalaqaController::class, 'studentsKhatm'])->name('students.khatm');
+        Route::get('{id}/students/history', [HalaqaController::class, 'studentsHistory'])->name('students.history');
+    });
+
+
+    Route::prefix('teachers')->name('teachers.')->group(function () {
+        Route::get('/', [TeacherController::class, 'index'])->name('index');
+        Route::post('/', [TeacherController::class, 'store'])->name('store');
+        Route::get('{id}', [TeacherController::class, 'show'])->name('show');
+        Route::put('{id}', [TeacherController::class, 'update'])->name('update');
+
+        Route::post('{id}/halaqas', [TeacherController::class, 'assignHalaqas'])->name('assign-halaqas');
+        Route::get('{id}/halaqas', [TeacherController::class, 'listHalaqas'])->name('halaqas.list');
+
+        // Applicants routes under /teachers/applicants
+        Route::prefix('applicants')->name('applicants.')->group(function () {
+            Route::get('/', [TeacherApplicantController::class, 'index'])->name('index');
+            Route::get('{id}', [TeacherApplicantController::class, 'show'])->name('show');
+            Route::post('{id}/actions', [TeacherApplicantController::class, 'takeAction'])->name('actions');
+            Route::post('/', [TeacherApplicantController::class, 'store'])->name('store');
+        });
+    });
+    // Follow-ups routes grouped with prefix and name prefix
+    Route::prefix('follow-ups')->name('followups.')->group(function () {
+        Route::get('students', [FollowUpController::class, 'studentReports'])->name('students');
+        Route::get('halaqas', [FollowUpController::class, 'halaqaReports'])->name('halaqas');
+    });
 
     // Sync routes with name prefix 'sync.'
     Route::prefix('sync')->name('sync.')->group(function () {
         Route::get('students', [SyncController::class, 'students'])->name('students');
+        Route::get('teachers', [SyncController::class, 'teachers'])->name('teachers');
+        Route::get('halaqas', [SyncController::class, 'halaqas'])->name('halaqas');
+        Route::get('reports', [SyncController::class, 'reports'])->name('reports');
+    });
+    Route::prefix('account')->name('account.')->group(function () {
+        // List all active login sessions for the current user
+        Route::get('sessions', [SessionController::class, 'listSessions'])->name('sessions.list');
+        // Refresh the current session token
+        Route::post('sessions/refresh', [SessionController::class, 'refreshSession'])->name('sessions.refresh');
+        // Terminate all other login sessions except the current one
+        Route::post('sessions/terminate-all', [SessionController::class, 'terminateAllOtherSessions'])->name('sessions.terminateAll');
+        // Terminate a specific login session by ID
+        Route::delete('sessions/{id}', [SessionController::class, 'terminateSession'])->name('sessions.terminate');
     });
 });
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
+// Route::get('/user', function (Request $request) {
+//     return $request->user();
+// })->middleware('auth:sanctum');
 
-Route::get('/',function(){
-    return "saher0";
-});
+// Route::get('/', function () {
+//     return "saher0";
+// });
