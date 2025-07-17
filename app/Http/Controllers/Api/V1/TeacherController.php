@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Controllers\Api\ApiController;
+use App\Http\Controllers\Api\V1\ApiController;
 use Illuminate\Http\Request;
 use App\Repositories\TeacherRepository;
 use App\Http\Requests\Teacher\StoreTeacherRequest;
