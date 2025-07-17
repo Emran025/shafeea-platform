@@ -63,7 +63,8 @@ class ApiController extends Controller
      */
     protected function paginated($paginator, string $message = null): JsonResponse
     {
-        return $this->success([
+        $response = [
+            'success' => true,
             'data' => $paginator->items(),
             'pagination' => [
                 'total' => $paginator->total(),
@@ -71,6 +72,10 @@ class ApiController extends Controller
                 'current_page' => $paginator->currentPage(),
                 'total_pages' => $paginator->lastPage(),
             ],
-        ], $message);
+        ];
+        if ($message) {
+            $response['message'] = $message;
+        }
+        return response()->json($response);
     }
 }

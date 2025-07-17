@@ -30,7 +30,22 @@ class StudentRepository
     public function update($id, $data)
     {
         $student = Student::findOrFail($id);
-        $student->update($data);
+        // Map camelCase to snake_case
+        if (isset($data['memorizationLevel'])) {
+            $data['memorization_level'] = $data['memorizationLevel'];
+            unset($data['memorizationLevel']);
+        }
+        if (isset($data['qualification'])) {
+            $student->qualification = $data['qualification'];
+        }
+        if (isset($data['memorization_level'])) {
+            $student->memorization_level = $data['memorization_level'];
+        }
+        // Always set status if provided, else keep current
+        if (isset($data['status'])) {
+            $student->status = $data['status'];
+        }
+        $student->save();
         if (isset($data['user'])) {
             $student->user->update($data['user']);
         }

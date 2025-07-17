@@ -21,7 +21,7 @@ return new class extends Migration
             $table->integer('sum_of_students')->default(0)->comment('Current number of students');
             $table->boolean('is_active')->default(true)->comment('Is halaqah active');
             $table->boolean('is_deleted')->default(false)->comment('Is halaqah deleted');
-            $table->foreignId('teacher_id')->constrained('teachers')->onDelete('cascade')->comment('FK to teachers table');
+            $table->foreignId('teacher_id')->nullable()->constrained('teachers')->onDelete('cascade')->comment('FK to teachers table');
             $table->foreignId('school_id')->constrained('schools')->onDelete('cascade')->comment('FK to schools table');
             $table->timestamps();
             $table->softDeletes()->comment('Soft delete timestamp');

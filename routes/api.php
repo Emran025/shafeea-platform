@@ -56,7 +56,7 @@ Route::prefix('v1')->group(function () {
         Route::get('{id}/teachers/history', [HalaqaController::class, 'teachersHistory'])->name('teachers.history');
 
         Route::get('{id}/students/khatm', [HalaqaController::class, 'studentsKhatm'])->name('students.khatm');
-        Route::get('{id}/students/history', [HalaqaController::class, 'studentsHistory'])->name('students.history');
+        Route::get('{id}', [HalaqaController::class, 'studentsHistory'])->name('students.history');
     });
 
 

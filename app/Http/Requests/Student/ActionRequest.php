@@ -4,6 +4,9 @@ namespace App\Http\Requests\Student;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * @property string $action
+ */
 class ActionRequest extends FormRequest
 {
     public function authorize()

@@ -25,7 +25,7 @@ class HalaqahFactory extends Factory
             'sum_of_students' => fake()->numberBetween(0, 50),
             'is_active' => fake()->boolean(),
             'is_deleted' => fake()->boolean(),
-            'teacher_id' => \App\Models\Teacher::factory(),
+            'teacher_id' => null,
             'school_id' => \App\Models\School::factory(),
         ];
     }

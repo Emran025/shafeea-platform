@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Api\ApiController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use App\Repositories\StudentRepository;
 use App\Repositories\StudentApplicantRepository;
 use App\Http\Requests\Student\StoreStudentRequest;
@@ -49,30 +50,59 @@ class StudentController extends ApiController
 
     public function assign(AssignHalaqaRequest $request, $id)
     {
-        // Implement assign logic in repository/service
-        return $this->success(null, 'Student assigned to halaqa successfully.');
+        try {
+            $student = \App\Models\Student::findOrFail($id);
+            $halaqaId = $request->halaqaId;
+            $studentId = $request->studentId;
+            \App\Models\Enrollment::firstOrCreate([
+                'student_id' => $studentId,
+                'halaqah_id' => $halaqaId,
+            ]);
+            return $this->success(null, 'Student assigned to halaqa successfully.');
+        } catch (\Throwable $e) {
+            Log::error($e);
+            return $this->error('Failed to assign student to halaqa', 500, $e->getMessage());
+        }
     }
 
     public function action(ActionRequest $request, $id)
     {
-        // Implement action logic in repository/service
-        return $this->success(null, 'Action completed successfully.');
+        try {
+            $student = \App\Models\Student::findOrFail($id);
+            $action = $request->action;
+            if ($action === 'suspend') {
+                $student->status = 'suspended';
+            } elseif ($action === 'expel') {
+                $student->status = 'expelled';
+            }
+            $student->save();
+            return $this->success(null, 'Action completed successfully.');
+        } catch (\Throwable $e) {
+            Log::error($e);
+            return $this->error('Failed to take action on student', 500, $e->getMessage());
+        }
     }
 
     public function followUp($id, Request $request)
     {
-        // Implement follow-up logic in repository/service
-        return $this->success(new FollowUpResource((object)[
-            'id' => 15,
-            'frequency' => 'daily',
-            'details' => [
-                ['type' => 'memorization', 'unit' => 'page', 'amount' => 2],
-                ['type' => 'review', 'unit' => 'juz', 'amount' => 1],
-                ['type' => 'recitation', 'unit' => 'page', 'amount' => 2],
-            ],
-            'updated_at' => now(),
-            'created_at' => now(),
-        ]));
+        try {
+            // Minimal logic: return a fake plan for the student
+            $student = \App\Models\Student::findOrFail($id);
+            return $this->success(new FollowUpResource((object)[
+                'id' => 15,
+                'frequency' => 'daily',
+                'details' => [
+                    ['type' => 'memorization', 'unit' => 'page', 'amount' => 2],
+                    ['type' => 'review', 'unit' => 'juz', 'amount' => 1],
+                    ['type' => 'recitation', 'unit' => 'page', 'amount' => 2],
+                ],
+                'updated_at' => now(),
+                'created_at' => now(),
+            ]));
+        } catch (\Throwable $e) {
+            Log::error($e);
+            return $this->error('Failed to get follow-up', 500, $e->getMessage());
+        }
     }
 
     public function updateFollowUp(FollowUpRequest $request, $id)
