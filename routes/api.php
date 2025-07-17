@@ -85,10 +85,10 @@ Route::prefix('v1')->group(function () {
 
     // Sync routes with name prefix 'sync.'
     Route::prefix('sync')->name('sync.')->group(function () {
-        Route::get('students', [SyncController::class, 'students'])->name('students');
-        Route::get('teachers', [SyncController::class, 'teachers'])->name('teachers');
-        Route::get('halaqas', [SyncController::class, 'halaqas'])->name('halaqas');
-        Route::get('reports', [SyncController::class, 'reports'])->name('reports');
+        Route::get('students', [SyncController::class, 'syncStudents'])->name('students');
+        Route::get('teachers', [SyncController::class, 'syncTeachers'])->name('teachers');
+        Route::get('halaqas', [SyncController::class, 'syncHalaqas'])->name('halaqas');
+        Route::get('reports', [SyncController::class, 'syncReports'])->name('reports');
     });
     Route::prefix('account')->name('account.')->group(function () {
         // List all active login sessions for the current user
