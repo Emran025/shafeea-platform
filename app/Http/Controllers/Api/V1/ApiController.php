@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+
 class ApiController extends Controller
 {
     /**
@@ -70,6 +71,9 @@ class ApiController extends Controller
                 'per_page' => $paginator->perPage(),
                 'current_page' => $paginator->currentPage(),
                 'total_pages' => $paginator->lastPage(),
+                'has_more_pages' => $paginator->hasMorePages(),
+                'next_page_url' => $paginator->nextPageUrl(),
+                'prev_page_url' => $paginator->previousPageUrl(),
             ],
         ], $message);
     }
