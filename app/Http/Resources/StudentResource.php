@@ -19,7 +19,7 @@ class StudentResource extends JsonResource
             'phoneZone' => $user->phone_zone ?? null,
             'phone' => $user->phone ?? null,
             'whatsappZone' => $user->whatsapp_zone ?? null,
-            'whatsappPhone' => $user->whatsapp_phone ?? null,
+            'whatsappPhone' => $user->whatsapp?? null,
             'country' => $user->country ?? null,
             'residence' => $user->residence ?? null,
             'city' => $user->city ?? null,
