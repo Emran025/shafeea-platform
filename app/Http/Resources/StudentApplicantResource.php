@@ -11,7 +11,7 @@ class StudentApplicantResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'Avater' => $this->avatar ?? null,
+            'avatar' => $this->avatar ?? null,
             'gender' => $this->gender,
             'birthDate' => $this->birth_date,
             'email' => $this->email,
