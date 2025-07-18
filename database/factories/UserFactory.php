@@ -26,7 +26,9 @@ class UserFactory extends Factory
             // Additional fields
             'avatar' => fake()->imageUrl(300, 300, 'people', true, 'User'),
             'phone' => fake()->phoneNumber(),
+            'phone_zone' => '+967',
             'whatsapp' => fake()->phoneNumber(),
+            'whatsapp_zone' => '+967',
             'gender' => fake()->randomElement(['Male', 'Female']),
             'birth_date' => fake()->date('Y-m-d', '-10 years'),
             'country' => fake()->country(),
