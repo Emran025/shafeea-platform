@@ -64,7 +64,8 @@ class ApiController extends Controller
      */
     protected function paginated($paginator, string $message = null): JsonResponse
     {
-        return $this->success([
+        $response = [
+            'success' => true,
             'data' => $paginator->items(),
             'pagination' => [
                 'total' => $paginator->total(),
@@ -75,6 +76,30 @@ class ApiController extends Controller
                 'next_page_url' => $paginator->nextPageUrl(),
                 'prev_page_url' => $paginator->previousPageUrl(),
             ],
-        ], $message);
+        ];
+        if ($message) {
+            $response['message'] = $message;
+        }
+        return response()->json($response, 200);
+    }
+    protected function paginatedSuccess($paginator, $resource, string $message = null)
+    {
+        $response = [
+            'success' => true,
+            'data' => $resource::collection($paginator->getCollection()),
+            'pagination' => [
+                'total' => $paginator->total(),
+                'per_page' => $paginator->perPage(),
+                'current_page' => $paginator->currentPage(),
+                'total_pages' => $paginator->lastPage(),
+                'has_more_pages' => $paginator->hasMorePages(),
+                'next_page_url' => $paginator->nextPageUrl(),
+                'prev_page_url' => $paginator->previousPageUrl(),
+            ],
+        ];
+        if ($message) {
+            $response['message'] = $message;
+        }
+        return response()->json($response, 200);
     }
 }
