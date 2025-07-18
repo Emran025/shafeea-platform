@@ -3,7 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Student;
-
+use Illuminate\Pagination\LengthAwarePaginator;
 class StudentRepository
 {
     public function all($filters = [], $pagination = true)
@@ -51,14 +51,24 @@ class StudentRepository
         }
         return $student->fresh(['user', 'enrollments.halaqah']);
     }
-
+    public function sync($updatedSince, $limit, $page): LengthAwarePaginator
+    {
+        return Student::with([
+            'user',
+            'enrollments' => function ($query) {
+                $query->latest('enrolled_at')->limit(1);
+            },
+            'enrollments.plan.frequencyType',
+            'enrollments.plan.reviewUnit',
+            'enrollments.plan.memorizationUnit',
+            'enrollments.plan.sardUnit',
+            'enrollments.halaqah',
+        ])
+            ->where(function ($query) use ($updatedSince) {
+                $query->where('updated_at', '>=', $updatedSince)
+                    ->orWhere('created_at', '>=', $updatedSince);
+            })
+            ->paginate($limit, ['*'], 'page', $page);
+    }
     // Add methods for follow-up, assign, actions, etc. as needed
 }
-
-
-
-
-
-
-
-
