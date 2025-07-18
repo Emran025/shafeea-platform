@@ -137,4 +137,5 @@ class StudentController extends ApiController
         // Implement applicant action logic in repository/service
         return $this->success(null, 'Applicant accepted successfully.');
     }
+    
 }
