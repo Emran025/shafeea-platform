@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Api\V1;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Api\V1\ApiController;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends ApiController
 {
@@ -14,11 +17,62 @@ class AuthController extends ApiController
      */
     public function login(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'login' => 'required|string', // يمكن أن يكون بريد أو رقم هاتف
+            'password' => 'required|string',
+        ]);
+
+        if ($validator->fails()) {
+            return $this->error('Validation Error.',400,$validator->errors()->toArray());
+        }
+
+        $loginValue = $request->login;
+
+        if (filter_var($loginValue, FILTER_VALIDATE_EMAIL)) {
+            $loginField = 'email';
+        } elseif (preg_match('/^\+?\d{7,15}$/', $loginValue)) {
+            // تحقق من رقم هاتف (يمكن تعديل Regex حسب الشكل المطلوب)
+            $loginField = 'phone';
+        } else {
+            return $this->error('The login field must be a valid email or phone number.',  422,[]);
+        }
+
+        $credentials = [
+            $loginField => $loginValue,
+            'password' => $request->password
+        ];
+
+        if (!Auth::attempt($credentials)) {
+            return $this->error('Unauthorized. Invalid credentials.', 401,[]);
+        }
+
+        $user = User::where($loginField, $loginValue)->firstOrFail();
+
+        $token = $user->createToken('authToken')->plainTextToken;
+
+        if ($user->admin) {
+            $role = 'admin';
+        } elseif ($user->teacher) {
+            $role = 'teacher';
+        } elseif ($user->student) {
+            $role = 'student';
+        } else {
+            $role = 'user';
+        }
+
         return $this->success([
-            'token' => Str::random(60),
-            'user' => $this->mockProfile(),
-        ], 'Login successful (mock)');
+            'token' => $token,
+            'user' => [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+                'phone' => $user->phone,
+                'avatar' => $user->avatar,
+            ],
+            'role' => $role,
+        ], 'Login successful.');
     }
+
 
     /**
      * POST /auth/api/v1/refresh
@@ -71,7 +125,9 @@ class AuthController extends ApiController
             'whatsappZone' => '+1',
             'whatsappPhone' => '+1' . rand(1000000000, 9999999999),
             'qualification' => fake()->randomElement([
-                'PhD in Islamic Studies', 'MA in Arabic Linguistics', 'BA in Quranic Sciences'
+                'PhD in Islamic Studies',
+                'MA in Arabic Linguistics',
+                'BA in Quranic Sciences'
             ]),
             'experienceYears' => rand(1, 20),
             'country' => fake()->country(),
