@@ -46,8 +46,30 @@ class StudentRepository
             $student->status = $data['status'];
         }
         $student->save();
-        if (isset($data['user'])) {
-            $student->user->update($data['user']);
+        // Update related user fields if present in $data
+        $map = [
+            'name' => 'name',
+            'avatar' => 'avatar',
+            'gender' => 'gender',
+            'birthDate' => 'birth_date',
+            'email' => 'email',
+            'phoneZone' => 'phone_zone',
+            'phone' => 'phone',
+            'whatsappZone' => 'whatsapp_zone',
+            'whatsappPhone' => 'whatsapp',
+            'country' => 'country',
+            'residence' => 'residence',
+            'city' => 'city',
+        ];
+
+        $userData = [];
+        foreach ($map as $input => $column) {
+            if (isset($data[$input])) {
+                $userData[$column] = $data[$input];
+            }
+        }
+        if (!empty($userData) && $student->user) {
+            $student->user->update($userData);
         }
         return $student->fresh(['user', 'enrollments.halaqah']);
     }
