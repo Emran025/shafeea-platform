@@ -16,10 +16,10 @@ class UpdateStudentRequest extends FormRequest
         $id = request()->route('id');
         return [
             'name' => 'sometimes|required|string|max:255',
-            'Avater' => 'nullable|string',
+            'avatar' => 'nullable|string',
             'gender' => 'sometimes|required|in:Male,Female',
             'birthDate' => 'sometimes|required|date',
-            'email' => 'sometimes|required|email|unique:users,email,' . $id,
+            // 'email' => 'sometimes|required|email|unique:users,email,' . $id,
             'phoneZone' => 'sometimes|required|string',
             'phone' => 'sometimes|required|string',
             'whatsappZone' => 'nullable|string',
