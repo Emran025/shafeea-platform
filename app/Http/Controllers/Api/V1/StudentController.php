@@ -30,6 +30,7 @@ class StudentController extends ApiController
     public function index(Request $request)
     {
         $students = $this->students->all($request->all());
+        // return $students;
         if (method_exists($students, 'total')) {
             return $this->paginated(StudentResource::collection($students));
         }
@@ -44,6 +45,7 @@ class StudentController extends ApiController
 
     public function update(UpdateStudentRequest $request, $id)
     {
+        
         $student = $this->students->update($id, $request->validated());
         return $this->success(new StudentResource($student), 'Student updated successfully.');
     }
@@ -137,5 +139,5 @@ class StudentController extends ApiController
         // Implement applicant action logic in repository/service
         return $this->success(null, 'Applicant accepted successfully.');
     }
-    
+
 }
