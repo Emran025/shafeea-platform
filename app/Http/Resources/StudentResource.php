@@ -12,7 +12,7 @@ class StudentResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $user->name ?? null,
-            'Avater' => $user->avatar ?? null,
+            'avatar' => $user->avatar ?? null,
             'gender' => $user->gender ?? null,
             'birthDate' => $user->birth_date ?? null,
             'email' => $user->email ?? null,
