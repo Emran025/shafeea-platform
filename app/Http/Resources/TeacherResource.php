@@ -12,12 +12,14 @@ class TeacherResource extends JsonResource
         return [
             'id' => $this->id,
             'bio' => $this->bio,
-            'experience_years' => $this->experience_years,
+            'experienceYears' => $this->experience_years,
             'name' => $user->name ?? null,
             'email' => $user->email ?? null,
             'avatar' => $user->avatar ?? null,
             'gender' => $user->gender ?? null,
-            'birth_date' => $user->birth_date ?? null,
+            'birthDate' => $user->birth_date ?? null,
+            'phoneZone' => $user->phone_zone ?? null,
+            'whatsappZone' => $user->whatsapp_zone ?? null,
             'phone' => $user->phone ?? null,
             'whatsapp' => $user->whatsapp ?? null,
             'country' => $user->country ?? null,
@@ -29,4 +31,4 @@ class TeacherResource extends JsonResource
             // Add halaqahs or other relationships as needed
         ];
     }
-} 
+}
