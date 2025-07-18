@@ -4,10 +4,15 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Api\V1\ApiController;
 use App\Models\Student;
+use App\Repositories\StudentRepository;
+use App\Repositories\HalaqahRepository;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-
+use App\Http\Resources\StudentSyncResource;
+use App\Models\Teacher;
+use App\Http\Resources\TeacherSyncResource;
+use App\Http\Resources\HalaqahResource;
 class SyncController extends ApiController
 {
     /**
@@ -16,222 +21,50 @@ class SyncController extends ApiController
      * @param  Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    // Helper to generate random ISO8601 datetime string within the last year
-    private function randomDateSince($since = null)
+    protected StudentRepository $students;
+
+    public function __construct(StudentRepository $students)
     {
-        $since = $since ? Carbon::parse($since) : Carbon::now()->subYear();
-        $now = Carbon::now();
-        return $since->addSeconds(rand(0, $now->diffInSeconds($since)))->toIso8601String();
+        $this->students = $students;
     }
 
-    // Helper to generate a random student record for syncing
-    private function randomStudent($id = null, $updatedSince = null)
-    {
-        $updatedAt = $this->randomDateSince($updatedSince);
-
-        return [
-            'id' => $id ?? rand(1, 1000),
-            'name' => 'Student ' . Str::random(5),
-            'Avater' => base64_encode(Str::random(30)),
-            'gender' => ['Male', 'Female'][array_rand(['Male', 'Female'])],
-            'birthDate' => Carbon::now()->subYears(rand(10, 20))->toDateString(),
-            'email' => Str::random(5) . '@example.com',
-            'phoneZone' => '+966',
-            'phone' => '5' . rand(10000000, 99999999),
-            'country' => 'Saudi Arabia',
-            'residence' => 'Riyadh',
-            'city' => 'Riyadh',
-            'qualification' => 'High School',
-            'memorizationLevel' => rand(1, 10) . ' Juz',
-            'status' => ['active', 'stopped', 'dropout'][array_rand(['active', 'stopped', 'dropout'])],
-            'halaqa' => [
-                'id' => rand(1, 50),
-                'name' => 'Halaqa ' . Str::random(4),
-            ],
-            'followUpPlan' => [
-                'PlanId' => rand(1, 100),
-                'frequency' => ['daily', 'weekly', 'monthly'][array_rand(['daily', 'weekly', 'monthly'])],
-                'details' => [
-                    [
-                        'type' => 'memorization',
-                        'unit' => 'page',
-                        'amount' => rand(1, 5),
-                    ],
-                    [
-                        'type' => 'review',
-                        'unit' => 'juz',
-                        'amount' => rand(1, 3),
-                    ],
-                    [
-                        'type' => 'recitation',
-                        'unit' => 'page',
-                        'amount' => rand(1, 4),
-                    ],
-                ],
-                'updatedAt' => $updatedAt,
-                'createdAt' => Carbon::parse($updatedAt)->subDays(rand(1, 30))->toIso8601String(),
-            ],
-            'isDeleted' => (bool)rand(0, 1) && rand(0, 10) > 8, // ~20% chance deleted
-            'updatedAt' => $updatedAt,
-        ];
-    }
-
-    // GET api/v1/sync/students
     public function syncStudents(Request $request)
     {
-        $updatedSince = $request->query('updatedSince', Carbon::now()->subMonth()->toIso8601String());
-        $limit = (int) $request->query('limit', 100);
-        $page = (int) $request->query('page', 1);
-        $total = 250; // total records updated since timestamp (mocked)
+        $updatedSince = $request->input('updatedSince', now()->subMonth()->toIso8601String());
+        $limit = $request->input('limit', 100);
+        $page = $request->input('page', 1);
 
-        $data = [];
-        for ($i = 0; $i < $limit; $i++) {
-            $data[] = $this->randomStudent(null, $updatedSince);
-        }
+        $studentsPaginator = $this->students->sync($updatedSince, $limit, $page);
 
-        $syncTimestamp = Carbon::now()->toIso8601String();
-
-        return $this->success([
-            'data' => $data,
-            'pagination' => [
-                'page' => $page,
-                'limit' => $limit,
-                'total' => $total,
-            ],
-            'syncTimestamp' => $syncTimestamp,
-        ]);
+        return $this->paginatedSuccess($studentsPaginator, StudentSyncResource::class, 'students');
     }
-    // public function syncStudents(Request $request)
-    // {
-    //     $validated = $request->validate([
-    //         'updatedSince' => 'required|date_format:Y-m-d\TH:i:sP',
-    //         'page' => 'integer|min:1',
-    //         'limit' => 'integer|min:1|max:100',
-    //     ]);
-
-    //     $updatedSince = $request->input('updatedSince');
-    //     $limit = $request->input('limit', 100);
-
-    //     $students = Student::with([
-    //         'user',
-    //         'enrollments' => function ($query) {
-    //             $query->latest('enrolled_at')->limit(1);
-    //         },
-    //         'enrollments.plan.frequencyType',
-    //         'enrollments.plan.reviewUnit',
-    //         'enrollments.plan.memorizationUnit',
-    //         'enrollments.plan.sardUnit',
-    //         'enrollments.halaqah',
-    //     ])
-    //         ->where(function ($query) use ($updatedSince) {
-    //             $query->where('updated_at', '>=', $updatedSince)
-    //                 ->orWhere('created_at', '>=', $updatedSince);
-    //         })
-    //         ->paginate($limit);
-
-    //     return $this->success([
-    //         'data' => $students->items(),
-    //         'pagination' => [
-    //             'page' => $students->currentPage(),
-    //             'limit' => $students->perPage(),
-    //             'total' => $students->total(),
-    //         ],
-    //         'syncTimestamp' => now()->toIso8601String(),
-    //     ]);
-    // }
     // GET /api/v1/sync/teachers
     public function syncTeachers(Request $request)
     {
-        // Simulated inputs
-        $updatedSince = $request->query('updatedSince', null);
-        $page = (int) $request->query('page', 1);
-        $limit = (int) $request->query('limit', 100);
+        $query = Teacher::with('halaqahs');
 
-        // Sample teacher data (you can replace this with DB query with where('updated_at', '>=', $updatedSince))
-        $teachers = [
-            [
-                "id" => 1,
-                "name" => "Ahmed Mahmoud",
-                "Avater" => "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-                "gender" => "Male",
-                "birthDate" => "1985-03-10",
-                "email" => "ahmed.mahmoud.new@example.com",
-                "phoneZone" => "+20",
-                "phone" => "1012345679",
-                "country" => "Egypt",
-                "residence" => "Cairo",
-                "city" => "Cairo",
-                "qualification" => "PhD in Islamic Studies and Quranic Exegesis",
-                "experienceYears" => 11,
-                "status" => "active",
-                "assignedHalaqas" => [
-                    [
-                        "id" => 101,
-                        "name" => "Al-Fajr halaqa",
-                        "Avater" => "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-                    ]
-                ],
-                "isDeleted" => false,
-                "updatedAt" => "2023-09-21T16:00:00Z"
-            ]
-        ];
+        if ($request->has('updated_after')) {
+            $query->where('updated_at', '>', $request->input('updated_after'));
+        }
 
-        $pagination = [
-            "page" => $page,
-            "limit" => $limit,
-            "total" => 50
-        ];
+        $teachersPaginator = $query->paginate(15); // أو العدد الذي يناسبك
 
-        $syncTimestamp = Carbon::now()->toIso8601String();
-
-        return $this->success([
-            "data" => $teachers,
-            "pagination" => $pagination,
-            "syncTimestamp" => $syncTimestamp
-        ]);
+        return $this->paginatedSuccess($teachersPaginator, TeacherSyncResource::class);
     }
     // GET /api/v1/sync/halaqas
-    public function syncHalaqas(Request $request)
+    public function syncHalaqas(Request $request, HalaqahRepository $repository)
     {
         $updatedSince = $request->query('updatedSince');
         $page = (int) $request->query('page', 1);
         $limit = (int) $request->query('limit', 100);
 
-        $halaqas = [
-            [
-                "id" => 1,
-                "name" => "Al-Fajr Morning halaqa",
-                "Avater" => "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-                "gender" => "Male",
-                "residence" => "Riyadh",
-                "SumOfStudents" => 10,
-                "isActive" => false,
-                "isDeleted" => false,
-                "createdAt" => "2023-01-15T10:00:00Z",
-                "updatedAt" => "2023-09-21T19:00:00Z"
-            ],
-            [
-                "id" => 3,
-                "name" => "Al-Maghrib halaqa",
-                "Avater" => "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-                "isActive" => false,
-                "isDeleted" => true,
-                "createdAt" => "2023-01-15T10:00:00Z",
-                "updatedAt" => "2023-09-22T11:45:00Z"
-            ]
-        ];
+        $halaqas = $repository->getUpdatedSince($updatedSince, $limit, $page);
 
-        $pagination = [
-            "page" => $page,
-            "limit" => $limit,
-            "total" => 20
-        ];
-
-        return $this->success([
-            "data" => $halaqas,
-            "pagination" => $pagination,
-            "syncTimestamp" => Carbon::now()->toIso8601String()
-        ]);
+        return $this->paginatedSuccess(
+            $halaqas,
+            $halaqas,
+            Carbon::now()->toIso8601String()
+        );
     }
     //GET api/v1/sync/reports
     public function syncReports(Request $request)
