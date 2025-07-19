@@ -17,10 +17,11 @@ use App\Models\{
     TrackingUnit,
     Unit,
     User,
-    Enrollment
+    Enrollment,
+    StudentReport
 };
 use Illuminate\Support\Str;
-
+use Carbon\Carbon;
 class SeedSchoolWithAllData extends Command
 {
     /**
@@ -96,7 +97,7 @@ class SeedSchoolWithAllData extends Command
             'experience_years' => 10,
         ]);
 
-        Admin::create([
+       $admin = Admin::create([
             'user_id' => $wafa->id,
             'super_admin' => true,
         ]);
@@ -192,14 +193,48 @@ class SeedSchoolWithAllData extends Command
         }
 
         // الاشتراكات
-        foreach ($students as $student) {
+         foreach ($students as $student) {
             Enrollment::create([
                 'student_id' => $student->id,
                 'halaqah_id' => $halaqahs->random()->id,
                 'plan_id' => $plans->random()->id,
                 'enrolled_at' => now()->subDays(rand(1, 20)),
             ]);
+
+            $reportDate = Carbon::now()->subDays(rand(1, 30));
+
+            $report = StudentReport::create([
+                'student_id' => $student->id,
+                'report_date' => $reportDate,
+                'summary' => 'Student performance summary on ' . $reportDate->format('Y-m-d'),
+                'details' => json_encode([
+                    'attendance' => rand(0, 1) ? 'Present' : 'Absent',
+                    'participation' => rand(1, 10),
+                    'homework' => rand(1, 10),
+                    'notes' => Str::random(20)
+                ]),
+                'behavior' => rand(5, 10), // Score out of 10
+                'created_at' => $reportDate,
+                'updated_at' => $reportDate,
+            ]);
         }
+
+        $notificationTypes = ['alert', 'reminder', 'system'];
+
+        // 🔔 إشعارات للمشرفين (Admin Notifications)
+        foreach (range(1, 20) as $i) {
+            \App\Models\Notification::create([
+                'type' => $notificationTypes[array_rand($notificationTypes)], // اختيار عشوائي من القائمة
+                'title' => 'تقرير جديد للطالب',
+                'message' => 'تم إنشاء تقرير جديد للطالب بتاريخ ' . $reportDate->format('Y-m-d'),
+                'read' => false,
+                'user_id' => $admin->id ?? null, // تأكد من وجود علاقة user للطالب، أو استخدم null
+                'scheduled_for' => now(), // يمكن تغييرها لتكون لاحقًا إذا لزم الأمر
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
+
 
         $this->info("\n✅ تم إنشاء كافة بيانات مدرسة الوفاء بنجاح!");
     }

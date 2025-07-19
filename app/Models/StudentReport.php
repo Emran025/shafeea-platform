@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class StudentReport extends Model
 {
     use HasFactory;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -15,16 +16,25 @@ class StudentReport extends Model
      */
     protected $fillable = [
         'student_id',
-        'halaqah_id',
-        'date',
-        'attendance',
+        'report_date',
+        'summary',
+        'details',
         'behavior',
-        'notes',
-        'created_by',
     ];
 
     /**
-     * Get the student for this report.
+     * The attributes that should be cast to native types.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'report_date' => 'date',
+        'details' => 'array',  // Automatically decode JSON to array
+        'behavior' => 'float',
+    ];
+
+    /**
+     * Get the student that owns the report.
      */
     public function student()
     {
@@ -32,18 +42,26 @@ class StudentReport extends Model
     }
 
     /**
-     * Get the halaqah for this report.
+     * Scope to get recent reports.
      */
-    public function halaqah()
+    public function scopeRecent($query, $limit = 10)
     {
-        return $this->belongsTo(Halaqah::class);
+        return $query->latest('report_date')->limit($limit);
     }
 
     /**
-     * Get the user who created this report.
+     * Accessor to get a readable behavior rating.
      */
-    public function creator()
+    public function getBehaviorLabelAttribute()
     {
-        return $this->belongsTo(User::class, 'created_by');
+        $score = $this->behavior;
+
+        if ($score === null) return 'غير معروف';
+
+        if ($score >= 4.5) return 'ممتاز';
+        if ($score >= 3.5) return 'جيد جداً';
+        if ($score >= 2.5) return 'جيد';
+        if ($score >= 1.5) return 'مقبول';
+        return 'ضعيف';
     }
 }

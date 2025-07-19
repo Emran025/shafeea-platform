@@ -8,20 +8,81 @@
 
 ---
 
+## 🧾 Response Format
+
+All API responses follow a consistent structure:
+
+### Success (Non-paginated)
+```json
+{
+  "success": true,
+  "data": { ... },
+  "message": "Optional message"
+}
+```
+- `success` (boolean): Always `true` for successful requests
+- `data` (object/array): The main response data (may be omitted if not applicable)
+- `message` (string, optional): A human-readable message
+
+### Success (Paginated)
+```json
+{
+  "success": true,
+  "data": [ ... ],
+  "pagination": {
+    "total": 100,
+    "per_page": 10,
+    "current_page": 1,
+    "total_pages": 10,
+    "has_more_pages": true,
+    "next_page_url": "...",
+    "prev_page_url": "..."
+  },
+  "message": "Optional message"
+}
+```
+- `pagination` (object): Pagination details for paginated endpoints
+
+### Error
+```json
+{
+  "success": false,
+  "message": "Error message",
+  "errors": { ... } // Optional: validation or other error details
+}
+```
+- `success` (boolean): Always `false` for errors
+- `message` (string): Error message
+- `errors` (object, optional): Validation or other error details
+
+---
+
 ## 🧑 Student Management
 
 ### List Students
 
 **GET** `/api/v1/students`
 
-- **Description:** List all students (paginated).
-- **Query Params:** Supports filters, sorting, and pagination.
-- **Response:**  
-  `200 OK`  
+- **Query Params:**
+  - `page` (integer, optional): Page number
+  - `limit` (integer, optional): Items per page
+  - `status` (string, optional): Filter by status (`active`, `inactive`, `suspended`)
+  - `sortBy` (string, optional): Field to sort by
+  - `sortOrder` (string, optional): `asc` or `desc`
+- **Response:**
   ```json
   {
+    "success": true,
     "data": [ ...StudentResource... ],
-    "meta": { ... }
+    "pagination": {
+      "total": 1,
+      "per_page": 10,
+      "current_page": 1,
+      "total_pages": 1,
+      "has_more_pages": false,
+      "next_page_url": null,
+      "prev_page_url": null
+    }
   }
   ```
 
@@ -29,11 +90,10 @@
 
 **GET** `/api/v1/students/{id}`
 
-- **Description:** Get details for a specific student.
-- **Response:**  
-  `200 OK`  
+- **Response:**
   ```json
   {
+    "success": true,
     "data": { ...StudentResource... }
   }
   ```
@@ -42,14 +102,14 @@
 
 **PUT** `/api/v1/students/{id}`
 
-- **Description:** Update a student’s information.
-- **Body:**  
-  See `UpdateStudentRequest`
-- **Response:**  
-  `200 OK`  
+- **Request Body:**
+  (See previous documentation for field explanations)
+- **Response:**
   ```json
   {
-    "data": { ...StudentResource... }
+    "success": true,
+    "data": { ...StudentResource... },
+    "message": "Student updated successfully."
   }
   ```
 
@@ -61,11 +121,10 @@
 
 **GET** `/api/v1/students/{id}/plans`
 
-- **Description:** Get all plans for a student.
-- **Response:**  
-  `200 OK`  
+- **Response:**
   ```json
   {
+    "success": true,
     "data": [ ...PlanResource... ]
   }
   ```
@@ -74,11 +133,10 @@
 
 **GET** `/api/v1/students/{id}/plans/active`
 
-- **Description:** Get the most recent (active) plan for a student.
-- **Response:**  
-  `200 OK`  
+- **Response:**
   ```json
   {
+    "success": true,
     "data": { ...PlanResource... } // or null if none
   }
   ```
@@ -87,14 +145,14 @@
 
 **POST** `/api/v1/students/{id}/plans`
 
-- **Description:** Create a new plan and enroll the student.
-- **Body:**  
-  See `PlanRequest`
-- **Response:**  
-  `201 Created`  
+- **Request Body:**
+  (See previous documentation for field explanations)
+- **Response:**
   ```json
   {
-    "data": { ...PlanResource... }
+    "success": true,
+    "data": { ...PlanResource... },
+    "message": "Plan created and student enrolled."
   }
   ```
 
@@ -102,14 +160,14 @@
 
 **PUT** `/api/v1/students/plans/{planId}`
 
-- **Description:** Update an existing plan.
-- **Body:**  
-  See `PlanRequest`
-- **Response:**  
-  `200 OK`  
+- **Request Body:**
+  (See previous documentation for field explanations)
+- **Response:**
   ```json
   {
-    "data": { ...PlanResource... }
+    "success": true,
+    "data": { ...PlanResource... },
+    "message": "Plan updated."
   }
   ```
 
@@ -117,11 +175,10 @@
 
 **DELETE** `/api/v1/students/plans/{planId}`
 
-- **Description:** Delete a plan.
-- **Response:**  
-  `200 OK`  
+- **Response:**
   ```json
   {
+    "success": true,
     "message": "Plan deleted."
   }
   ```
@@ -134,11 +191,10 @@
 
 **GET** `/api/v1/students/{id}/trackings`
 
-- **Description:** Get all tracking records for all of a student's plans.
-- **Response:**  
-  `200 OK`  
+- **Response:**
   ```json
   {
+    "success": true,
     "data": [ ...TrackingResource... ]
   }
   ```
@@ -147,14 +203,14 @@
 
 **POST** `/api/v1/students/plans/{planId}/trackings`
 
-- **Description:** Create a tracking for a plan.
-- **Body:**  
-  See `TrackingRequest`
-- **Response:**  
-  `201 Created`  
+- **Request Body:**
+  (See previous documentation for field explanations)
+- **Response:**
   ```json
   {
-    "data": { ...TrackingResource... }
+    "success": true,
+    "data": { ...TrackingResource... },
+    "message": "Tracking created."
   }
   ```
 
@@ -162,14 +218,14 @@
 
 **PUT** `/api/v1/students/trackings/{trackingId}`
 
-- **Description:** Update a tracking.
-- **Body:**  
-  See `TrackingRequest`
-- **Response:**  
-  `200 OK`  
+- **Request Body:**
+  (See previous documentation for field explanations)
+- **Response:**
   ```json
   {
-    "data": { ...TrackingResource... }
+    "success": true,
+    "data": { ...TrackingResource... },
+    "message": "Tracking updated."
   }
   ```
 
@@ -177,11 +233,10 @@
 
 **DELETE** `/api/v1/students/trackings/{trackingId}`
 
-- **Description:** Delete a tracking.
-- **Response:**  
-  `200 OK`  
+- **Response:**
   ```json
   {
+    "success": true,
     "message": "Tracking deleted."
   }
   ```
@@ -194,11 +249,10 @@
 
 **GET** `/api/v1/students/trackings/{trackingId}/details`
 
-- **Description:** Get all tracking details for a tracking.
-- **Response:**  
-  `200 OK`  
+- **Response:**
   ```json
   {
+    "success": true,
     "data": [ ...TrackingDetailResource... ]
   }
   ```
@@ -207,14 +261,14 @@
 
 **POST** `/api/v1/students/trackings/{trackingId}/details`
 
-- **Description:** Add a tracking detail to a tracking.
-- **Body:**  
-  See `TrackingDetailRequest`
-- **Response:**  
-  `201 Created`  
+- **Request Body:**
+  (See previous documentation for field explanations)
+- **Response:**
   ```json
   {
-    "data": { ...TrackingDetailResource... }
+    "success": true,
+    "data": { ...TrackingDetailResource... },
+    "message": "Tracking detail added."
   }
   ```
 
@@ -222,11 +276,10 @@
 
 **DELETE** `/api/v1/students/tracking-details/{trackingDetailId}`
 
-- **Description:** Delete a tracking detail.
-- **Response:**  
-  `200 OK`  
+- **Response:**
   ```json
   {
+    "success": true,
     "message": "Tracking detail deleted."
   }
   ```
@@ -302,6 +355,7 @@ All endpoints require authentication via `auth:sanctum` middleware.
 
 ## 📝 Notes
 
-- All responses are wrapped in a `data` key.
-- Validation errors return `422 Unprocessable Entity` with error details.
+- All responses are wrapped in a `success` key and include `data` and/or `message` as appropriate.
+- Paginated endpoints include a `pagination` object.
+- Validation errors return `422 Unprocessable Entity` with error details in the `errors` key.
 - Use the correct HTTP verbs (`GET`, `POST`, `PUT`, `DELETE`). 
