@@ -33,6 +33,22 @@ Route::prefix('v1')->group(function () {
         Route::post('{id}/assign', [StudentController::class, 'assign'])->name('assign');
 
         Route::post('{id}/actions', [StudentController::class, 'action'])->name('actions');
+
+        // Plan management
+        Route::get('{id}/plans', [StudentController::class, 'getPlans'])->name('plans.list');
+        Route::get('{id}/plans/active', [StudentController::class, 'getActivePlan'])->name('plans.active');
+        Route::post('{id}/plans', [StudentController::class, 'createPlan'])->name('plans.create');
+        Route::put('plans/{planId}', [StudentController::class, 'updatePlan'])->name('plans.update');
+        Route::delete('plans/{planId}', [StudentController::class, 'deletePlan'])->name('plans.delete');
+
+        // Tracking management
+        Route::get('{id}/trackings', [StudentController::class, 'getTrackingsForStudent'])->name('trackings.list');
+        Route::post('plans/{planId}/trackings', [StudentController::class, 'createTracking'])->name('trackings.create');
+        Route::put('trackings/{trackingId}', [StudentController::class, 'updateTracking'])->name('trackings.update');
+        Route::delete('trackings/{trackingId}', [StudentController::class, 'deleteTracking'])->name('trackings.delete');
+        Route::get('trackings/{trackingId}/details', [StudentController::class, 'getTrackingDetails'])->name('trackings.details.list');
+        Route::post('trackings/{trackingId}/details', [StudentController::class, 'addTrackingDetail'])->name('trackings.details.create');
+        Route::delete('tracking-details/{trackingDetailId}', [StudentController::class, 'deleteTrackingDetail'])->name('trackings.details.delete');
     });
 
 

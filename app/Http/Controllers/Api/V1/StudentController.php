@@ -15,6 +15,12 @@ use App\Http\Requests\Student\FollowUpRequest;
 use App\Http\Resources\StudentResource;
 use App\Http\Resources\StudentApplicantResource;
 use App\Http\Resources\FollowUpResource;
+use App\Http\Requests\PlanRequest;
+use App\Http\Requests\TrackingRequest;
+use App\Http\Requests\TrackingDetailRequest;
+use App\Http\Resources\PlanResource;
+use App\Http\Resources\TrackingResource;
+use App\Http\Resources\TrackingDetailResource;
 
 class StudentController extends ApiController
 {
@@ -45,7 +51,7 @@ class StudentController extends ApiController
 
     public function update(UpdateStudentRequest $request, $id)
     {
-        
+
         $student = $this->students->update($id, $request->validated());
         return $this->success(new StudentResource($student), 'Student updated successfully.');
     }
@@ -140,4 +146,77 @@ class StudentController extends ApiController
         return $this->success(null, 'Applicant accepted successfully.');
     }
 
+    // PLAN MANAGEMENT
+    public function getPlans($studentId)
+    {
+        $plans = $this->students->getPlans($studentId);
+        return $this->success(PlanResource::collection($plans));
+    }
+
+    public function getActivePlan($studentId)
+    {
+        $plan = $this->students->getActivePlan($studentId);
+        return $this->success($plan ? new PlanResource($plan) : null);
+    }
+
+    public function createPlan(PlanRequest $request, $studentId)
+    {
+        $plan = $this->students->createPlan($studentId, $request->validated());
+        return $this->success(new PlanResource($plan), 'Plan created and student enrolled.');
+    }
+
+    public function updatePlan(PlanRequest $request, $planId)
+    {
+        $plan = $this->students->updatePlan($planId, $request->validated());
+        return $this->success(new PlanResource($plan), 'Plan updated.');
+    }
+
+    public function deletePlan($planId)
+    {
+        $this->students->deletePlan($planId);
+        return $this->success(null, 'Plan deleted.');
+    }
+
+    // TRACKING MANAGEMENT
+    public function getTrackingsForStudent($studentId)
+    {
+        $trackings = $this->students->getTrackingsForStudent($studentId);
+        return $this->success(TrackingResource::collection($trackings));
+    }
+
+    public function createTracking(TrackingRequest $request, $planId)
+    {
+        $tracking = $this->students->createTracking($planId, $request->validated());
+        return $this->success(new TrackingResource($tracking), 'Tracking created.');
+    }
+
+    public function updateTracking(TrackingRequest $request, $trackingId)
+    {
+        $tracking = $this->students->updateTracking($trackingId, $request->validated());
+        return $this->success(new TrackingResource($tracking), 'Tracking updated.');
+    }
+
+    public function deleteTracking($trackingId)
+    {
+        $this->students->deleteTracking($trackingId);
+        return $this->success(null, 'Tracking deleted.');
+    }
+
+    public function getTrackingDetails($trackingId)
+    {
+        $details = $this->students->getTrackingDetails($trackingId);
+        return $this->success(TrackingDetailResource::collection($details));
+    }
+
+    public function addTrackingDetail(TrackingDetailRequest $request, $trackingId)
+    {
+        $detail = $this->students->addTrackingDetail($trackingId, $request->validated());
+        return $this->success(new TrackingDetailResource($detail), 'Tracking detail added.');
+    }
+
+    public function deleteTrackingDetail($trackingDetailId)
+    {
+        $this->students->deleteTrackingDetail($trackingDetailId);
+        return $this->success(null, 'Tracking detail deleted.');
+    }
 }
