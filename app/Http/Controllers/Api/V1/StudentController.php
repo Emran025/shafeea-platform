@@ -21,6 +21,7 @@ use App\Http\Requests\TrackingDetailRequest;
 use App\Http\Resources\PlanResource;
 use App\Http\Resources\TrackingResource;
 use App\Http\Resources\TrackingDetailResource;
+use App\Http\Resources\StudentSyncResource;
 
 class StudentController extends ApiController
 {
@@ -46,7 +47,7 @@ class StudentController extends ApiController
     public function show($id)
     {
         $student = $this->students->find($id);
-        return $this->success(new StudentResource($student));
+        return $this->success(new StudentSyncResource($student));
     }
 
     public function update(UpdateStudentRequest $request, $id)

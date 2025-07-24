@@ -8,6 +8,7 @@ use App\Repositories\TeacherRepository;
 use App\Http\Requests\Teacher\StoreTeacherRequest;
 use App\Http\Requests\Teacher\UpdateTeacherRequest;
 use App\Http\Resources\TeacherResource;
+use App\Http\Resources\TeacherSyncResource;
 
 class TeacherController extends ApiController
 {
@@ -39,7 +40,7 @@ class TeacherController extends ApiController
     public function show($id)
     {
         $teacher = $this->teachers->find($id);
-        return $this->success(new TeacherResource($teacher));
+        return $this->success(new TeacherSyncResource($teacher));
     }
 
     public function update(UpdateTeacherRequest $request, $id)

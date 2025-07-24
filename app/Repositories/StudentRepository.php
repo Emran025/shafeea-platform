@@ -10,6 +10,7 @@ use App\Models\Halaqah;
 use App\Models\StudentReport;
 
 use Illuminate\Pagination\LengthAwarePaginator;
+
 class StudentRepository
 {
     public function all($filters = [], $pagination = true)
@@ -30,7 +31,17 @@ class StudentRepository
 
     public function find($id)
     {
-        return Student::with(['user', 'enrollments.halaqah'])->findOrFail($id);
+        return Student::with([
+            'user',
+            'enrollments' => function ($query) {
+                $query->latest('enrolled_at')->limit(1);
+            },
+            'enrollments.plan.frequencyType',
+            'enrollments.plan.reviewUnit',
+            'enrollments.plan.memorizationUnit',
+            'enrollments.plan.sardUnit',
+            'enrollments.halaqah',
+        ])->findOrFail($id);
     }
 
     public function update($id, $data)
@@ -354,6 +365,4 @@ class StudentRepository
         $detail = \App\Models\TrackingDetail::findOrFail($trackingDetailId);
         return $detail->delete();
     }
-
-
 }

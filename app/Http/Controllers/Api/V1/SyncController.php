@@ -59,7 +59,7 @@ class SyncController extends ApiController
         $limit = (int) $request->query('limit', 100);
 
         $halaqas = $repository->getUpdatedSince($updatedSince, $limit, $page);
-
+      return response()->json($halaqas);
         return $this->paginatedSuccess(
             $halaqas,
             $halaqas,
