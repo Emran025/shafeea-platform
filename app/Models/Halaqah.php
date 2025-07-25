@@ -68,12 +68,12 @@ class Halaqah extends Model
     public function students()
     {
         return $this->hasManyThrough(
-            Student::class,      // الطالب
-            Enrollment::class,   // من خلال جدول enrollments
-            'halaqah_id',        // المفتاح في enrollments الذي يشير إلى halaqah
-            'id',                // المفتاح في students
-            'id',                // المفتاح في halaqahs
-            'student_id'         // المفتاح في enrollments الذي يشير إلى student
+            Student::class,     
+            Enrollment::class, 
+            'halaqah_id',        
+            'id',               
+            'id',              
+            'student_id'        
         );
     }
 }
