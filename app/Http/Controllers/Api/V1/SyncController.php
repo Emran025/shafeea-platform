@@ -59,11 +59,11 @@ class SyncController extends ApiController
         $limit = (int) $request->query('limit', 100);
 
         $halaqas = $repository->getUpdatedSince($updatedSince, $limit, $page);
-      return response()->json($halaqas);
+    //   return response()->json(HalaqahResource::collection($halaqas));
         return $this->paginatedSuccess(
             $halaqas,
-            $halaqas,
-            Carbon::now()->toIso8601String()
+            HalaqahResource::class,
+            // Carbon::now()->toIso8601String()
         );
     }
     //GET api/v1/sync/reports

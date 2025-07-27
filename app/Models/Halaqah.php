@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 class Halaqah extends Model
 {
     use HasFactory;
@@ -63,5 +64,16 @@ class Halaqah extends Model
     public function enrollments()
     {
         return $this->hasMany(Enrollment::class);
+    }
+    public function students()
+    {
+        return $this->hasManyThrough(
+            Student::class,     
+            Enrollment::class, 
+            'halaqah_id',        
+            'id',               
+            'id',              
+            'student_id'        
+        );
     }
 }

@@ -20,7 +20,7 @@ class HalaqahResource extends JsonResource
             'avatar' => $this->avatar,
             'gender' => $this->gender ?? null,
             'residence' => $this->residence ?? null,
-            'sumOfStudents' => $this->students()->count(),
+            'sumOfStudents' => $this->students ? $this->students->count() : 0,
             'isActive' => $this->is_active,
             'isDeleted' => $this->is_deleted,
             'createdAt' => $this->created_at->toIso8601String(),
