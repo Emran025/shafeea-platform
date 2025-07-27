@@ -316,7 +316,7 @@ class StudentRepository
     public function getTrackingsForStudent(int $studentId)
     {
         $planIds = $this->getPlans($studentId)->pluck('id');
-        return \App\Models\Tracking::whereIn('plan_id', $planIds)->get();
+        return \App\Models\Tracking::whereIn('plan_id', $planIds)->with(['details'])->get();
     }
 
     /**
