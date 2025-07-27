@@ -13,6 +13,7 @@ class TrackingResource extends JsonResource
             'planId' => $this->plan_id,
             'date' => $this->date,
             'note' => $this->note,
+            'details'=> $this->details()?TrackingDetailResource::collection($this->whenLoaded('details')) : [],
             'behaviorNote' => $this->behavior_note,
             'createdAt' => $this->created_at,
             'updatedAt' => $this->updated_at,
