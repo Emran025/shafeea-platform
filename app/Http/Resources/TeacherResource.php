@@ -19,13 +19,22 @@ class TeacherResource extends JsonResource
             'gender' => $user->gender ?? null,
             'birthDate' => $user->birth_date ?? null,
             'phoneZone' => $user->phone_zone ?? null,
-            'whatsappZone' => $user->whatsapp_zone ?? null,
             'phone' => $user->phone ?? null,
-            'whatsapp' => $user->whatsapp ?? null,
+            'whatsappZone' => $user->whatsapp_zone ?? null,
+            'whatsappPhone' => $user->whatsapp ?? null,
             'country' => $user->country ?? null,
             'city' => $user->city ?? null,
             'residence' => $user->residence ?? null,
             'status' => $user->status ?? null,
+            'assignedHalaqas' => $this->whenLoaded('halaqahs', function () {
+                return $this->halaqahs->map(function ($halaqa) {
+                    return [
+                        'id' => $halaqa->id,
+                        'name' => $halaqa->name,
+                        'avatar' => $halaqa->avatar, // تأكد من الحقل
+                    ];
+                });
+            }),
             'createdAt' => $this->created_at,
             'updatedAt' => $this->updated_at,
             // Add halaqahs or other relationships as needed

@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class StudentSyncResource extends JsonResource
@@ -15,12 +14,11 @@ class StudentSyncResource extends JsonResource
     public function toArray($request)
     {
         $student = $this->resource;
-        $user = $student->user;
-
         $enrollment = $student->enrollments->first();
         $plan = $enrollment?->plan;
         $frequency = $plan?->frequencyType;
         $halaqah = $enrollment?->halaqah;
+        $user = $student->user;
 
         return [
             'id' => $student->id,
@@ -31,6 +29,8 @@ class StudentSyncResource extends JsonResource
             'email' => $user->email ?? null,
             'phoneZone' => '+967',
             'phone' => $user->phone ?? null,
+            'whatsappZone' => $user->whatsapp_zone ?? null,
+            'whatsappPhone' => $user->whatsapp ?? null,
             'country' => $user->country ?? null,
             'residence' => $user->residence ?? null,
             'city' => $user->city ?? null,
