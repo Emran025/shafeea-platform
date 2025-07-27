@@ -19,6 +19,7 @@ use App\Http\Requests\PlanRequest;
 use App\Http\Requests\TrackingRequest;
 use App\Http\Requests\TrackingDetailRequest;
 use App\Http\Resources\PlanResource;
+use App\Http\Resources\StudentPlanResource;
 use App\Http\Resources\TrackingResource;
 use App\Http\Resources\TrackingDetailResource;
 use App\Http\Resources\StudentSyncResource;
@@ -151,13 +152,13 @@ class StudentController extends ApiController
     public function getPlans($studentId)
     {
         $plans = $this->students->getPlans($studentId);
-        return $this->success(PlanResource::collection($plans));
+        return $this->success(StudentPlanResource::collection($plans));
     }
 
     public function getActivePlan($studentId)
     {
         $plan = $this->students->getActivePlan($studentId);
-        return $this->success($plan ? new PlanResource($plan) : null);
+        return $this->success($plan ? new StudentPlanResource($plan) : null);
     }
 
     public function createPlan(PlanRequest $request, $studentId)
