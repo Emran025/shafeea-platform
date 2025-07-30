@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens; // ✅ Sanctum support (or Passport if needed)
@@ -59,7 +60,13 @@ class User extends Authenticatable
     /**
      * Relationships
      */
-
+    /**
+     * Get the devices for the user.
+     */
+    public function devices(): HasMany
+    {
+        return $this->hasMany(Device::class);
+    }
     public function student()
     {
         return $this->hasOne(Student::class);

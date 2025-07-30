@@ -2,198 +2,158 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Http\Resources\HalaqahResource;
+use App\Http\Resources\StudentHistoryResource;
+use App\Http\Resources\StudentKhatmResource;
+use App\Repositories\HalaqahRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
+use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
+// Make sure you're extending your new ApiController
 class HalaqaController extends ApiController
 {
-    // GET /api/v1/halaqas
+    protected $halaqahRepository;
+
+    public function __construct(HalaqahRepository $halaqahRepository)
+    {
+        $this->halaqahRepository = $halaqahRepository;
+    }
+
     public function index(Request $request)
     {
-        $data = [
-            [
-                "id" => 1,
-                "name" => "Al-Fajr halaqa",
-                "Avater" => "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJyb2xlIjoic3VwZXJ2aXNvciJ9.cThIIo-f-Fk6cT4pL5dffF3hAblA-O2r....",
-                "isActive" => true,
-                "gender" => "Male",
-                "residence" => "Riyadh",
-                "SumOfStudents" => 10,
-                "createdAt" => "2023-01-10T08:00:00Z",
-            ]
-        ];
-        $pagination = [
-            "page" => $request->query('page', 1),
-            "limit" => $request->query('limit', 10),
-            "total" => 15
-        ];
-
-        return response()->json([
-            "data" => $data,
-            "pagination" => $pagination,
-        ], 200);
+        $halaqahs = $this->halaqahRepository->all($request->all());
+        // Use paginatedSuccess to handle paginated resource collections
+        return $this->paginatedSuccess($halaqahs, HalaqahResource::class, 'Halaqahs retrieved successfully.');
     }
 
-    // POST /api/v1/halaqas
     public function store(Request $request)
     {
-        $newHalaqa = [
-            "id" => 2,
-            "name" => $request->input('name', 'Al-Asr halaqa'),
-            "Avater" => "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJyb2xlIjoic3VwZXJ2aXNvciJ9.cThIIo-f-Fk6cT4pL5dffF3hAblA-O2r....",
-            "isActive" => true,
-            "gender" => $request->input('gender', 'Female'),
-            "residence" => $request->input('residence', 'Jeddah'),
-            "SumOfStudents" => 10,
-            "createdAt" => now()->toIso8601String(),
-            "updatedAt" => now()->toIso8601String(),
-        ];
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'avatar' => 'nullable|string',
+            'gender' => ['required', Rule::in(['Male', 'Female', 'Both'])],
+            'residence' => 'required|string|max:255',
+            'max_students' => 'required|integer|min:1',
+            'is_active' => 'sometimes|boolean',
+            'teacher_id' => 'nullable|exists:teachers,id',
+            'school_id' => 'required|exists:schools,id',
+        ]);
 
-        return response()->json($newHalaqa, 201);
+        if ($validator->fails()) {
+            // Use the error helper for validation failures
+            return $this->error('The given data was invalid.', 422, $validator->errors());
+        }
+
+        $data = $validator->validated();
+        $data['sum_of_students'] = 0;
+        $data['is_deleted'] = false;
+
+        $halaqah = $this->halaqahRepository->create($data);
+
+        // Use the success helper for a single resource creation (201)
+        return $this->success(new HalaqahResource($halaqah), 'Halaqah created successfully.', 201);
     }
 
-    // GET /api/v1/halaqas/{id}
     public function show($id)
     {
-        $halaqa = [
-            "id" => (int)$id,
-            "name" => "Al-Fajr halaqa",
-            "Avater" => "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJyb2xlIjoic3VwZXJ2aXNvciJ9.cThIIo-f-Fk6cT4pL5dffF3hAblA-O2r....",
-            "isActive" => true,
-            "gender" => "Male",
-            "residence" => "Riyadh",
-            "SumOfStudents" => 10,
-            "createdAt" => "2023-01-10T08:00:00Z",
-            "updatedAt" => "2023-09-21T18:00:00Z"
-        ];
-
-        return response()->json($halaqa, 200);
+        $halaqah = $this->halaqahRepository->find($id);
+        // Use the success helper for a single resource retrieval
+        return $this->success(new HalaqahResource($halaqah), 'Halaqah retrieved successfully.');
     }
 
-    // PUT /api/v1/halaqas/{id}
     public function update(Request $request, $id)
     {
-        $updatedHalaqa = [
-            "id" => (int)$id,
-            "name" => $request->input('name', 'Al-Fajr Morning halaqa'),
-            "Avater" => $request->input('Avater', "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."),
-            "isActive" => $request->input('isActive', false),
-            "gender" => $request->input('gender', 'Male'),
-            "residence" => $request->input('residence', 'Riyadh'),
-            "SumOfStudents" => 10,
-            "createdAt" => "2023-01-10T08:00:00Z",
-            "updatedAt" => now()->toIso8601String()
-        ];
+        $validator = Validator::make($request->all(), [
+            'name' => 'sometimes|required|string|max:255',
+            'avatar' => 'sometimes|nullable|string',
+            'gender' => ['sometimes', 'required', Rule::in(['Male', 'Female', 'Both'])],
+            'residence' => 'sometimes|required|string|max:255',
+            'max_students' => 'sometimes|required|integer|min:1',
+            'is_active' => 'sometimes|boolean',
+            'teacher_id' => 'sometimes|nullable|exists:teachers,id',
+            'school_id' => 'sometimes|required|exists:schools,id',
+        ]);
 
-        return response()->json($updatedHalaqa, 200);
+        if ($validator->fails()) {
+            return $this->error('The given data was invalid.', 422, $validator->errors());
+        }
+
+        $halaqah = $this->halaqahRepository->update($id, $validator->validated());
+
+        return $this->success(new HalaqahResource($halaqah), 'Halaqah updated successfully.');
     }
 
-    // POST /api/v1/halaqas/{id}/assign-students
     public function assignStudents(Request $request, $id)
     {
-        // Just simulate success
-        return response()->json([
-            "status" => 200,
-            "message" => "Students assigned to Halaqa successfully."
-        ], 200);
+        $validator = Validator::make($request->all(), [
+            'student_ids' => 'required|array',
+            'student_ids.*' => 'required|integer|exists:students,id',
+        ]);
+
+        if ($validator->fails()) {
+            return $this->error('The given data was invalid.', 422, $validator->errors());
+        }
+
+        try {
+            $this->halaqahRepository->assignStudents($id, $request->input('student_ids'));
+            // Use success helper for a simple message response
+            return $this->success(null, 'Students assigned to Halaqa successfully.');
+        } catch (ModelNotFoundException $e) {
+            return $this->error('Halaqa not found.', 404);
+        } catch (Exception $e) {
+            // Catches other errors like capacity exceeded
+            return $this->error($e->getMessage(), 400);
+        }
     }
 
-    // POST /api/v1/halaqas/{id}/assign-teacher
     public function assignTeacher(Request $request, $id)
     {
-        // Just simulate success
-        return response()->json([
-            "status" => 200,
-            "message" => "Teacher assigned to Halaqa successfully."
-        ], 200);
+        $validator = Validator::make($request->all(), [
+            'teacher_id' => 'required|integer|exists:teachers,id',
+        ]);
+
+        if ($validator->fails()) {
+            return $this->error('The given data was invalid.', 422, $validator->errors());
+        }
+
+        $this->halaqahRepository->assignTeacher($id, $request->input('teacher_id'));
+
+        return $this->success(null, 'Teacher assigned to Halaqa successfully.');
     }
 
-    // GET /api/v1/halaqas/{id}/teachers/history
     public function teachersHistory(Request $request, $id)
     {
-        $data = [
-            [
-                "id" => 1,
-                "name" => "Ahmed Mahmoud",
-                "Avater" => "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-                "assignedAt" => "2022-08-01T09:00:00Z",
-                "unassignedAt" => "2023-08-01T09:00:00Z"
-            ],
-            [
-                "id" => 2,
-                "name" => "Aisha Ibrahim",
-                "Avater" => "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-                "assignedAt" => "2023-08-01T09:00:00Z",
+        $teachers = $this->halaqahRepository->getTeacherHistory($id, $request->all());
+
+        // Since this is not paginated and has custom logic, we map it here
+        // and use the standard 'success' helper.
+        $data = $teachers->map(function ($teacher) {
+            return [
+                "id" => $teacher->id,
+                "name" => $teacher->user->name,
+                "Avater" => $teacher->user->avatar,
+                "assignedAt" => $teacher->created_at->toIso8601String(),
                 "unassignedAt" => null
-            ]
-        ];
+            ];
+        });
 
-        $pagination = [
-            "page" => $request->query('page', 1),
-            "limit" => $request->query('limit', 10),
-            "total" => 2
-        ];
-
-        return response()->json([
-            "data" => $data,
-            "pagination" => $pagination
-        ], 200);
+        return $this->success($data, 'Teacher history retrieved successfully.');
     }
 
-    // GET /api/v1/halaqas/{id}/students/khatm
     public function studentsKhatm(Request $request, $id)
     {
-        $data = [
-            [
-                "id" => 5,
-                "name" => "Zainab Hassan",
-                "Avater" => "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-                "completionDate" => "2023-06-15T14:00:00Z"
-            ]
-        ];
-
-        $pagination = [
-            "page" => $request->query('page', 1),
-            "limit" => $request->query('limit', 10),
-            "total" => 1
-        ];
-
-        return response()->json([
-            "data" => $data,
-            "pagination" => $pagination
-        ], 200);
+        $students = $this->halaqahRepository->getKhatmStudents($id, $request->all());
+        // Use the paginatedSuccess helper with our new StudentKhatmResource
+        return $this->paginatedSuccess($students, StudentKhatmResource::class, 'Khatm student list retrieved successfully.');
     }
 
-    // GET /api/v1/halaqas/{id}/students/history
     public function studentsHistory(Request $request, $id)
     {
-        $data = [
-            [
-                "id" => 3,
-                "name" => "Omar Ali",
-                "Avater" => "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-                "enrolledAt" => "2022-09-01T10:00:00Z",
-                "leftAt" => "2023-03-01T10:00:00Z",
-                "status" => "dropped"
-            ],
-            [
-                "id" => 4,
-                "name" => "Fatima Zahra",
-                "Avater" => "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-                "enrolledAt" => "2023-01-15T10:00:00Z",
-                "leftAt" => null,
-                "status" => "active"
-            ]
-        ];
-
-        $pagination = [
-            "page" => $request->query('page', 1),
-            "limit" => $request->query('limit', 10),
-            "total" => 2
-        ];
-
-        return response()->json([
-            "data" => $data,
-            "pagination" => $pagination
-        ], 200);
+        $enrollments = $this->halaqahRepository->getStudentHistory($id, $request->all());
+        // Use the paginatedSuccess helper with our new StudentHistoryResource
+        return $this->paginatedSuccess($enrollments, StudentHistoryResource::class, 'Student history retrieved successfully.');
     }
 }
