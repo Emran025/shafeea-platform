@@ -11,30 +11,41 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends ApiController
 {
-    /**
+     /**
      * POST /auth/api/v1/login
-     * Simulate supervisor login and return mock token/profile.
+     * Authenticate user, save device info, and return token/profile.
      */
     public function login(Request $request)
     {
+        // =========== MODIFICATION START ===========
+        // Add validation rules for device_info
         $validator = Validator::make($request->all(), [
-            'login' => 'required|string', // يمكن أن يكون بريد أو رقم هاتف
+            'login' => 'required|string',
             'password' => 'required|string',
+            'device_info' => 'sometimes|array', // 'sometimes' makes it optional
+            'device_info.device_id' => 'required_with:device_info|string',
+            'device_info.model' => 'nullable|string',
+            'device_info.manufacturer' => 'nullable|string',
+            'device_info.os_version' => 'nullable|string',
+            'device_info.app_version' => 'nullable|string',
+            'device_info.timezone' => 'nullable|string',
+            'device_info.locale' => 'nullable|string',
+            'device_info.fcm_token' => 'nullable|string',
         ]);
 
         if ($validator->fails()) {
-            return $this->error('Validation Error.',400,$validator->errors()->toArray());
+            return $this->error('Validation Error.', 422, $validator->errors()->toArray()); // Changed code to 422 for validation
         }
+        // =========== MODIFICATION END ===========
 
         $loginValue = $request->login;
 
         if (filter_var($loginValue, FILTER_VALIDATE_EMAIL)) {
             $loginField = 'email';
         } elseif (preg_match('/^\+?\d{7,15}$/', $loginValue)) {
-            // تحقق من رقم هاتف (يمكن تعديل Regex حسب الشكل المطلوب)
             $loginField = 'phone';
         } else {
-            return $this->error('The login field must be a valid email or phone number.',  422,[]);
+            return $this->error('The login field must be a valid email or phone number.',  422, []);
         }
 
         $credentials = [
@@ -43,13 +54,31 @@ class AuthController extends ApiController
         ];
 
         if (!Auth::attempt($credentials)) {
-            return $this->error('Unauthorized. Invalid credentials.', 401,[]);
+            return $this->error('Unauthorized. Invalid credentials.', 401, []);
         }
 
-        $user = User::where($loginField, $loginValue)->firstOrFail();
+        $user = Auth::user(); // More reliable to get the authenticated user this way
 
-        $token = $user->createToken('authToken')->plainTextToken;
+        // =========== MODIFICATION START ===========
+        // --- Store or update device information if provided ---
+        if ($request->has('device_info')) {
+            $deviceInfo = $request->input('device_info');
+            
+            // This will find a device with the same user_id and device_id and update it,
+            // or it will create a new device entry if one doesn't exist.
+            $user->devices()->updateOrCreate(
+                ['device_id' => $deviceInfo['device_id']], // Attributes to find by
+                $deviceInfo  // Attributes to update or create with
+            );
+        }
 
+        // --- Create a new token for the user ---
+        // Using device_id as the token name is good practice for traceability
+        $tokenName = $request->input('device_info.device_id', 'authToken');
+        $token = $user->createToken($tokenName)->plainTextToken;
+        // =========== MODIFICATION END ===========
+        
+        // Determine user role
         if ($user->admin) {
             $role = 'admin';
         } elseif ($user->teacher) {
@@ -92,18 +121,22 @@ class AuthController extends ApiController
      */
     public function me(Request $request)
     {
+        // This should return the ACTUAL authenticated user, not a mock one
+        $user = $request->user();
         return $this->success([
-            'user' => $this->mockProfile(),
-        ], 'Authenticated profile (mock)');
+            'user' => $user, // Or format it with a UserResource
+        ], 'Authenticated profile retrieved successfully.');
     }
 
     /**
      * POST /auth/api/v1/logout
-     * Simulate token invalidation.
+     * Invalidate the current user's token.
      */
     public function logout(Request $request)
     {
-        return $this->success(null, 'Successfully logged out (mock).');
+        // This should perform a REAL logout
+        $request->user()->currentAccessToken()->delete();
+        return $this->success(null, 'Successfully logged out.');
     }
 
     /**
