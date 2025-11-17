@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Api\V1\ApiController;
+use App\Events\ApiLogin;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -17,26 +18,23 @@ class AuthController extends ApiController
      */
     public function login(Request $request)
     {
-        // =========== MODIFICATION START ===========
-        // Add validation rules for device_info
         $validator = Validator::make($request->all(), [
             'login' => 'required|string',
             'password' => 'required|string',
-            'device_info' => 'sometimes|array', // 'sometimes' makes it optional
-            'device_info.device_id' => 'required_with:device_info|string',
-            'device_info.model' => 'nullable|string',
-            'device_info.manufacturer' => 'nullable|string',
-            'device_info.os_version' => 'nullable|string',
-            'device_info.app_version' => 'nullable|string',
-            'device_info.timezone' => 'nullable|string',
-            'device_info.locale' => 'nullable|string',
-            'device_info.fcm_token' => 'nullable|string',
+            'device_info' => 'required|array',
+            'device_info.device_id' => 'required|string|max:255',
+            'device_info.model' => 'required|string|max:100',
+            'device_info.manufacturer' => 'required|string|max:100',
+            'device_info.os_version' => 'required|string|max:50',
+            'device_info.app_version' => 'nullable|string|max:20',
+            'device_info.timezone' => 'nullable|string|max:50',
+            'device_info.locale' => 'nullable|string|max:10',
+            'device_info.fcm_token' => 'nullable|string|max:255',
         ]);
 
         if ($validator->fails()) {
-            return $this->error('Validation Error.', 422, $validator->errors()->toArray()); // Changed code to 422 for validation
+            return $this->error('Validation Error.', 422, $validator->errors()->toArray());
         }
-        // =========== MODIFICATION END ===========
 
         $loginValue = $request->login;
 
@@ -59,25 +57,17 @@ class AuthController extends ApiController
 
         $user = Auth::user(); // More reliable to get the authenticated user this way
 
-        // =========== MODIFICATION START ===========
-        // --- Store or update device information if provided ---
-        if ($request->has('device_info')) {
-            $deviceInfo = $request->input('device_info');
-            
-            // This will find a device with the same user_id and device_id and update it,
-            // or it will create a new device entry if one doesn't exist.
-            $user->devices()->updateOrCreate(
-                ['device_id' => $deviceInfo['device_id']], // Attributes to find by
-                $deviceInfo  // Attributes to update or create with
-            );
-        }
+        $deviceInfo = $request->input('device_info');
 
-        // --- Create a new token for the user ---
-        // Using device_id as the token name is good practice for traceability
-        $tokenName = $request->input('device_info.device_id', 'authToken');
-        $token = $user->createToken($tokenName)->plainTextToken;
-        // =========== MODIFICATION END ===========
+        $user->devices()->updateOrCreate(
+            ['device_id' => $deviceInfo['device_id']],
+            $deviceInfo
+        );
+
+        $token = $user->createToken($deviceInfo['device_id'])->plainTextToken;
         
+        event(new ApiLogin($user, $request));
+
         // Determine user role
         if ($user->admin) {
             $role = 'admin';
@@ -100,6 +90,61 @@ class AuthController extends ApiController
             ],
             'role' => $role,
         ], 'Login successful.');
+    }
+
+    /**
+     * POST /auth/api/v1/register
+     * Register a new user, save device info, and return token/profile.
+     */
+    public function register(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+            'device_info' => 'required|array',
+            'device_info.device_id' => 'required|string|max:255',
+            'device_info.model' => 'required|string|max:100',
+            'device_info.manufacturer' => 'required|string|max:100',
+            'device_info.os_version' => 'required|string|max:50',
+            'device_info.app_version' => 'nullable|string|max:20',
+            'device_info.timezone' => 'nullable|string|max:50',
+            'device_info.locale' => 'nullable|string|max:10',
+            'device_info.fcm_token' => 'nullable|string|max:255',
+        ]);
+
+        if ($validator->fails()) {
+            return $this->error('Validation Error.', 422, $validator->errors()->toArray());
+        }
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+        ]);
+
+        $deviceInfo = $request->input('device_info');
+
+        $user->devices()->updateOrCreate(
+            ['device_id' => $deviceInfo['device_id']],
+            $deviceInfo
+        );
+
+        $token = $user->createToken($deviceInfo['device_id'])->plainTextToken;
+
+        event(new ApiLogin($user, $request));
+
+        return $this->success([
+            'token' => $token,
+            'user' => [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+                'phone' => $user->phone,
+                'avatar' => $user->avatar,
+            ],
+            'role' => 'user', // Default role for new users
+        ], 'Registration successful.');
     }
 
 
