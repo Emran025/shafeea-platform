@@ -43,7 +43,8 @@ class TeacherSyncResource extends JsonResource
                 });
             }),
             'isDeleted' => (bool) $this->deleted_at,
-            'updatedAt' => optional($this->updated_at)->toIso8601String(),
+            'updatedAt' => $teacher->updated_at?->toIso8601String(),
+            'createdAt' => $teacher->created_at?->toIso8601String(),
         ];
     }
 }

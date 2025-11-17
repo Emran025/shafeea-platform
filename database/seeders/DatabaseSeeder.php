@@ -6,12 +6,10 @@ use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
+use function Laravel\Prompts\error;
+
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
-
 
     public function run(): void
     {
@@ -1091,6 +1089,7 @@ class DatabaseSeeder extends Seeder
             'التقوى',
             'الصفا',
             'المرحمة',
+            'الزهراء',
             'المعالي',
             'الضياء',
             'النبراس',
@@ -1120,102 +1119,1807 @@ class DatabaseSeeder extends Seeder
         }
 
         // ✅ قائمة الطلاب
-        $studentList = collect([
-            ['name' => 'أحمد الحداد', 'email' => 'ahmadalhadad@example.com', 'gender' => 'Male'],
-            // ...existing 20 rows...
-            ['name' => 'فارس عبد الجبار', 'email' => 'fars21@example.com', 'gender' => 'Male'],
-            ['name' => 'مروان عبد الله', 'email' => 'marwan22@example.com', 'gender' => 'Male'],
-            ['name' => 'عصام محمد', 'email' => 'essam23@example.com', 'gender' => 'Male'],
-            ['name' => 'سامي عبد الكريم', 'email' => 'sami24@example.com', 'gender' => 'Male'],
-            ['name' => 'باسم ناصر', 'email' => 'basem25@example.com', 'gender' => 'Male'],
-            ['name' => 'وليد سعيد', 'email' => 'waleed26@example.com', 'gender' => 'Male'],
-            ['name' => 'حسن عبد الله', 'email' => 'hasan27@example.com', 'gender' => 'Male'],
-            ['name' => 'عادل منصور', 'email' => 'adel28@example.com', 'gender' => 'Male'],
-            ['name' => 'سعيد عبد الرحمن', 'email' => 'saeed29@example.com', 'gender' => 'Male'],
-            ['name' => 'حنان فؤاد', 'email' => 'hanan30@example.com', 'gender' => 'Female'],
-            ['name' => 'سناء جمال', 'email' => 'sanaa31@example.com', 'gender' => 'Female'],
-            ['name' => 'دينا عبد الباري', 'email' => 'dina32@example.com', 'gender' => 'Female'],
-            ['name' => 'رنا سعيد', 'email' => 'rana33@example.com', 'gender' => 'Female'],
-            ['name' => 'عبير عبد الله', 'email' => 'abeer34@example.com', 'gender' => 'Female'],
-            ['name' => 'ياسمين محمد', 'email' => 'yasmin35@example.com', 'gender' => 'Female'],
-            ['name' => 'أروى علي', 'email' => 'arwa36@example.com', 'gender' => 'Female'],
-            ['name' => 'سوسن ناصر', 'email' => 'sawsan37@example.com', 'gender' => 'Female'],
-            ['name' => 'هالة عبد الكريم', 'email' => 'hala38@example.com', 'gender' => 'Female'],
-            ['name' => 'غادة منصور', 'email' => 'ghada39@example.com', 'gender' => 'Female'],
-            ['name' => 'نور فؤاد', 'email' => 'noor40@example.com', 'gender' => 'Female'],
+        $studentList = collect(
+            [
+                // 🟢 طلاب تم إنشاؤهم في 2023 (طلاب قدامى)
+                [
+                    'name' => 'أحمد محمد علي',
+                    'email' => 'ahmed.mohammed@example.com',
+                    'gender' => 'Male',
+                    'created_at' => '2023-03-15 08:30:00',
+                    'last_modified' => '2024-01-10 14:20:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2007,
+                    'memorization_level' => 25
+                ],
+                [
+                    'name' => 'فارس عبد الجبار',
+                    'email' => 'fares.abduljabbar@example.com',
+                    'gender' => 'Male',
+                    'created_at' => '2023-04-20 09:15:00',
+                    'last_modified' => '2024-02-15 10:45:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2008,
+                    'memorization_level' => 18
+                ],
+                [
+                    'name' => 'مريم حسن',
+                    'email' => 'mariam.hassan@example.com',
+                    'gender' => 'Female',
+                    'created_at' => '2023-05-10 10:00:00',
+                    'last_modified' => '2023-12-05 16:30:00',
+                    'is_deleted' => true,
+                    'deletion_date' => '2023-12-05 16:30:00',
+                    'birth_year' => 2009,
+                    'memorization_level' => 12
+                ],
 
+                // 🟢 طلاب 2023 إضافيون
+                [
+                    'name' => 'عبد الرحمن إبراهيم',
+                    'email' => 'abdulrahman.ibrahim@example.com',
+                    'gender' => 'Male',
+                    'created_at' => '2023-02-10 07:45:00',
+                    'last_modified' => '2024-03-20 11:20:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2006,
+                    'memorization_level' => 30
+                ],
+                [
+                    'name' => 'سلمى مصطفى',
+                    'email' => 'salma.mustafa@example.com',
+                    'gender' => 'Female',
+                    'created_at' => '2023-03-25 14:30:00',
+                    'last_modified' => '2024-02-28 09:15:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2007,
+                    'memorization_level' => 22
+                ],
+                [
+                    'name' => 'محمد خالد',
+                    'email' => 'mohammed.khaled@example.com',
+                    'gender' => 'Male',
+                    'created_at' => '2023-04-05 11:10:00',
+                    'last_modified' => '2023-11-15 13:40:00',
+                    'is_deleted' => true,
+                    'deletion_date' => '2023-11-15 13:40:00',
+                    'birth_year' => 2008,
+                    'memorization_level' => 15
+                ],
+                [
+                    'name' => 'هديل عمر',
+                    'email' => 'hadeel.omar@example.com',
+                    'gender' => 'Female',
+                    'created_at' => '2023-05-20 08:20:00',
+                    'last_modified' => '2024-04-10 16:25:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2009,
+                    'memorization_level' => 20
+                ],
+                [
+                    'name' => 'ياسر ناصر',
+                    'email' => 'yasser.nasser@example.com',
+                    'gender' => 'Male',
+                    'created_at' => '2023-06-15 10:50:00',
+                    'last_modified' => '2024-01-25 14:30:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2007,
+                    'memorization_level' => 28
+                ],
+                [
+                    'name' => 'لين طارق',
+                    'email' => 'leen.tariq@example.com',
+                    'gender' => 'Female',
+                    'created_at' => '2023-07-08 13:15:00',
+                    'last_modified' => '2023-10-20 10:45:00',
+                    'is_deleted' => true,
+                    'deletion_date' => '2023-10-20 10:45:00',
+                    'birth_year' => 2010,
+                    'memorization_level' => 8
+                ],
+                [
+                    'name' => 'عماد الدين',
+                    'email' => 'emad.aldeen@example.com',
+                    'gender' => 'Male',
+                    'created_at' => '2023-08-12 09:30:00',
+                    'last_modified' => '2024-05-15 12:10:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2006,
+                    'memorization_level' => 32
+                ],
+                [
+                    'name' => 'رنا سليمان',
+                    'email' => 'rana.suleiman@example.com',
+                    'gender' => 'Female',
+                    'created_at' => '2023-09-05 15:40:00',
+                    'last_modified' => '2024-03-08 08:20:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2008,
+                    'memorization_level' => 17
+                ],
+                [
+                    'name' => 'وليد حمدي',
+                    'email' => 'waleed.hamdi@example.com',
+                    'gender' => 'Male',
+                    'created_at' => '2023-10-18 11:25:00',
+                    'last_modified' => '2024-02-10 15:35:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2007,
+                    'memorization_level' => 24
+                ],
+                [
+                    'name' => 'جمانة فارس',
+                    'email' => 'jumana.fares@example.com',
+                    'gender' => 'Female',
+                    'created_at' => '2023-11-22 14:50:00',
+                    'last_modified' => '2024-04-25 09:40:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2009,
+                    'memorization_level' => 19
+                ],
+                [
+                    'name' => 'زياد قاسم',
+                    'email' => 'ziad.qasim@example.com',
+                    'gender' => 'Male',
+                    'created_at' => '2023-12-10 08:15:00',
+                    'last_modified' => '2024-01-18 13:55:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2008,
+                    'memorization_level' => 16
+                ],
 
-        ]);
-        $teacherList = collect([
-            ['name' => 'فاطمة الزهراء', 'email' => 'fatima21@example.com', 'gender' => 'Female'],
-            ['name' => 'سلمى عبد الله', 'email' => 'salma22@example.com', 'gender' => 'Female'],
-            ['name' => 'هدى منصور', 'email' => 'huda23@example.com', 'gender' => 'Female'],
-            ['name' => 'أميرة سعيد', 'email' => 'amira24@example.com', 'gender' => 'Female'],
-            ['name' => 'نسرين علي', 'email' => 'nasreen25@example.com', 'gender' => 'Female'],
-            ['name' => 'سحر عبد الكريم', 'email' => 'sahar26@example.com', 'gender' => 'Female'],
-            ['name' => 'ريم ناصر', 'email' => 'reem27@example.com', 'gender' => 'Female'],
-            ['name' => 'ليلى أحمد', 'email' => 'laila28@example.com', 'gender' => 'Female'],
-            ['name' => 'مريم عبد الرحمن', 'email' => 'maryam29@example.com', 'gender' => 'Female'],
-            ['name' => 'يوسف علي', 'email' => 'yousuf30@example.com', 'gender' => 'Male'],
-            ['name' => 'رامز فؤاد', 'email' => 'ramez31@example.com', 'gender' => 'Male'],
-            ['name' => 'خليل أحمد', 'email' => 'khalil32@example.com', 'gender' => 'Male'],
-            ['name' => 'محمود عبد الباري', 'email' => 'mahmoud33@example.com', 'gender' => 'Male'],
-            ['name' => 'سعد جمال', 'email' => 'saad34@example.com', 'gender' => 'Male'],
-            ['name' => 'طارق عبد الكريم', 'email' => 'tareq35@example.com', 'gender' => 'Male'],
-            ['name' => 'عمر ناصر', 'email' => 'omar36@example.com', 'gender' => 'Male'],
-            ['name' => 'فؤاد عبد الله', 'email' => 'fuad37@example.com', 'gender' => 'Male'],
-            ['name' => 'سيف محمد', 'email' => 'saif38@example.com', 'gender' => 'Male'],
-            ['name' => 'بدر سعيد', 'email' => 'badr39@example.com', 'gender' => 'Male'],
-            ['name' => 'هيثم علي', 'email' => 'haitham40@example.com', 'gender' => 'Male'],
-        ]);
+                // 🟢 طلاب تم إنشاؤهم في بداية 2024
+                [
+                    'name' => 'يوسف أحمد',
+                    'email' => 'yousuf.ahmed@example.com',
+                    'gender' => 'Male',
+                    'created_at' => '2024-01-08 08:00:00',
+                    'last_modified' => '2024-06-20 11:30:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2010,
+                    'memorization_level' => 8
+                ],
+                [
+                    'name' => 'سارة عبد الله',
+                    'email' => 'sara.abdullah@example.com',
+                    'gender' => 'Female',
+                    'created_at' => '2024-01-12 09:45:00',
+                    'last_modified' => '2024-07-15 14:20:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2009,
+                    'memorization_level' => 15
+                ],
+                [
+                    'name' => 'خالد سعيد',
+                    'email' => 'khaled.saeed@example.com',
+                    'gender' => 'Male',
+                    'created_at' => '2024-01-20 11:20:00',
+                    'last_modified' => '2024-03-10 13:15:00',
+                    'is_deleted' => true,
+                    'deletion_date' => '2024-03-10 13:15:00',
+                    'birth_year' => 2008,
+                    'memorization_level' => 3
+                ],
+
+                // 🟢 طلاب يناير 2024 إضافيون
+                [
+                    'name' => 'نور الدين',
+                    'email' => 'nour.aldeen@example.com',
+                    'gender' => 'Male',
+                    'created_at' => '2024-01-05 07:30:00',
+                    'last_modified' => '2024-08-12 10:25:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2011,
+                    'memorization_level' => 6
+                ],
+                [
+                    'name' => 'آية محمد',
+                    'email' => 'aya.mohammed@example.com',
+                    'gender' => 'Female',
+                    'created_at' => '2024-01-15 14:20:00',
+                    'last_modified' => '2024-09-05 15:40:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2010,
+                    'memorization_level' => 12
+                ],
+                [
+                    'name' => 'مازن ربيع',
+                    'email' => 'mazen.rabee@example.com',
+                    'gender' => 'Male',
+                    'created_at' => '2024-01-22 10:10:00',
+                    'last_modified' => '2024-04-18 12:30:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2009,
+                    'memorization_level' => 14
+                ],
+                [
+                    'name' => 'تالا سمير',
+                    'email' => 'tala.sameer@example.com',
+                    'gender' => 'Female',
+                    'created_at' => '2024-01-25 13:45:00',
+                    'last_modified' => '2024-02-28 09:15:00',
+                    'is_deleted' => true,
+                    'deletion_date' => '2024-02-28 09:15:00',
+                    'birth_year' => 2012,
+                    'memorization_level' => 2
+                ],
+                [
+                    'name' => 'باسل كمال',
+                    'email' => 'basel.kamal@example.com',
+                    'gender' => 'Male',
+                    'created_at' => '2024-01-28 08:50:00',
+                    'last_modified' => '2024-10-20 14:10:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2008,
+                    'memorization_level' => 18
+                ],
+
+                // 🟢 طلاب فبراير 2024
+                [
+                    'name' => 'ريم أحمد',
+                    'email' => 'reem.ahmed@example.com',
+                    'gender' => 'Female',
+                    'created_at' => '2024-02-03 09:25:00',
+                    'last_modified' => '2024-11-05 16:20:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2011,
+                    'memorization_level' => 9
+                ],
+                [
+                    'name' => 'عمران حسن',
+                    'email' => 'omran.hassan@example.com',
+                    'gender' => 'Male',
+                    'created_at' => '2024-02-08 11:40:00',
+                    'last_modified' => '2024-07-22 13:45:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2007,
+                    'memorization_level' => 23
+                ],
+                [
+                    'name' => ' أماني محمود',
+                    'email' => 'amany.mahmoud@example.com',
+                    'gender' => 'Female',
+                    'created_at' => '2024-02-14 08:40:00',
+                    'last_modified' => '2024-08-30 16:10:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2009,
+                    'memorization_level' => 14
+                ],
+                [
+                    'name' => 'فهد عادل',
+                    'email' => 'fahad.adel@example.com',
+                    'gender' => 'Male',
+                    'created_at' => '2024-02-18 14:15:00',
+                    'last_modified' => '2024-05-10 10:30:00',
+                    'is_deleted' => true,
+                    'deletion_date' => '2024-05-10 10:30:00',
+                    'birth_year' => 2010,
+                    'memorization_level' => 5
+                ],
+                [
+                    'name' => 'سهام نادر',
+                    'email' => 'siham.nader@example.com',
+                    'gender' => 'Female',
+                    'created_at' => '2024-02-22 10:05:00',
+                    'last_modified' => '2024-09-15 11:50:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2012,
+                    'memorization_level' => 4
+                ],
+
+                // 🟢 طلاب مارس 2024
+                [
+                    'name' => 'لينا محمود',
+                    'email' => 'lena.mahmoud@example.com',
+                    'gender' => 'Female',
+                    'created_at' => '2024-03-05 07:30:00',
+                    'last_modified' => '2024-08-10 09:45:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2011,
+                    'memorization_level' => 5
+                ],
+                [
+                    'name' => 'عمر ناصر',
+                    'email' => 'omar.nasser@example.com',
+                    'gender' => 'Male',
+                    'created_at' => '2024-03-15 14:00:00',
+                    'last_modified' => '2024-09-01 16:20:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2007,
+                    'memorization_level' => 22
+                ],
+                [
+                    'name' => 'ندى وائل',
+                    'email' => 'nada.wael@example.com',
+                    'gender' => 'Female',
+                    'created_at' => '2024-03-08 08:20:00',
+                    'last_modified' => '2024-10-25 14:35:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2010,
+                    'memorization_level' => 11
+                ],
+                [
+                    'name' => 'ماهر سليم',
+                    'email' => 'maher.salim@example.com',
+                    'gender' => 'Male',
+                    'created_at' => '2024-03-12 12:45:00',
+                    'last_modified' => '2024-06-18 15:20:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2008,
+                    'memorization_level' => 16
+                ],
+                [
+                    'name' => 'جنى علي',
+                    'email' => 'jana.ali@example.com',
+                    'gender' => 'Female',
+                    'created_at' => '2024-03-20 09:10:00',
+                    'last_modified' => '2024-04-15 11:25:00',
+                    'is_deleted' => true,
+                    'deletion_date' => '2024-04-15 11:25:00',
+                    'birth_year' => 2011,
+                    'memorization_level' => 3
+                ],
+                [
+                    'name' => 'رياض منصور',
+                    'email' => 'riyad.mansour@example.com',
+                    'gender' => 'Male',
+                    'created_at' => '2024-03-25 15:30:00',
+                    'last_modified' => '2024-11-10 10:40:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2009,
+                    'memorization_level' => 13
+                ],
+
+                // 🟢 طلاب أبريل 2024
+                [
+                    'name' => 'هدى ياسين',
+                    'email' => 'huda.yaseen@example.com',
+                    'gender' => 'Female',
+                    'created_at' => '2024-04-10 10:30:00',
+                    'last_modified' => '2024-06-25 12:10:00',
+                    'is_deleted' => true,
+                    'deletion_date' => '2024-06-25 12:10:00',
+                    'birth_year' => 2010,
+                    'memorization_level' => 7
+                ],
+                [
+                    'name' => 'قصي محسن',
+                    'email' => 'qusay.mohsen@example.com',
+                    'gender' => 'Male',
+                    'created_at' => '2024-04-05 08:45:00',
+                    'last_modified' => '2024-10-12 13:15:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2011,
+                    'memorization_level' => 8
+                ],
+                [
+                    'name' => 'ميار راشد',
+                    'email' => 'mayar.rashid@example.com',
+                    'gender' => 'Female',
+                    'created_at' => '2024-04-15 14:20:00',
+                    'last_modified' => '2024-09-28 16:05:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2012,
+                    'memorization_level' => 5
+                ],
+                [
+                    'name' => 'أنس جميل',
+                    'email' => 'anas.jameel@example.com',
+                    'gender' => 'Male',
+                    'created_at' => '2024-04-18 11:35:00',
+                    'last_modified' => '2024-07-10 09:50:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2009,
+                    'memorization_level' => 15
+                ],
+                [
+                    'name' => 'فاطمة زهراء',
+                    'email' => 'fatima.zahra@example.com',
+                    'gender' => 'Female',
+                    'created_at' => '2024-04-22 13:50:00',
+                    'last_modified' => '2024-08-05 14:25:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2010,
+                    'memorization_level' => 10
+                ],
+                [
+                    'name' => 'هادي نبيل',
+                    'email' => 'hadi.nabeel@example.com',
+                    'gender' => 'Male',
+                    'created_at' => '2024-04-28 09:15:00',
+                    'last_modified' => '2024-05-20 12:40:00',
+                    'is_deleted' => true,
+                    'deletion_date' => '2024-05-20 12:40:00',
+                    'birth_year' => 2008,
+                    'memorization_level' => 4
+                ],
+
+                // 🟢 طلاب مايو 2024
+                [
+                    'name' => 'رامي عدنان',
+                    'email' => 'rami.adnan@example.com',
+                    'gender' => 'Male',
+                    'created_at' => '2024-05-05 07:40:00',
+                    'last_modified' => '2024-10-18 15:30:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2007,
+                    'memorization_level' => 26
+                ],
+                [
+                    'name' => 'سجى كريم',
+                    'email' => 'saja.kareem@example.com',
+                    'gender' => 'Female',
+                    'created_at' => '2024-05-12 10:55:00',
+                    'last_modified' => '2024-11-08 11:20:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2011,
+                    'memorization_level' => 7
+                ],
+                [
+                    'name' => 'موسى حازم',
+                    'email' => 'mousa.hazem@example.com',
+                    'gender' => 'Male',
+                    'created_at' => '2024-05-18 14:10:00',
+                    'last_modified' => '2024-08-22 13:45:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2009,
+                    'memorization_level' => 17
+                ],
+                [
+                    'name' => 'يارا صباح',
+                    'email' => 'yara.sabah@example.com',
+                    'gender' => 'Female',
+                    'created_at' => '2024-05-22 12:15:00',
+                    'last_modified' => '2024-09-18 11:55:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2007,
+                    'memorization_level' => 19
+                ],
+                [
+                    'name' => 'عبد الله وليد',
+                    'email' => 'abdullah.waleed@example.com',
+                    'gender' => 'Male',
+                    'created_at' => '2024-05-25 08:30:00',
+                    'last_modified' => '2024-07-15 10:10:00',
+                    'is_deleted' => true,
+                    'deletion_date' => '2024-07-15 10:10:00',
+                    'birth_year' => 2012,
+                    'memorization_level' => 2
+                ],
+                [
+                    'name' => 'لمى سامي',
+                    'email' => 'lama.sami@example.com',
+                    'gender' => 'Female',
+                    'created_at' => '2024-05-30 16:20:00',
+                    'last_modified' => '2024-11-12 09:35:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2010,
+                    'memorization_level' => 12
+                ],
+
+                // 🟢 طلاب يونيو 2024
+                [
+                    'name' => 'آية باسل',
+                    'email' => 'aya.basel@example.com',
+                    'gender' => 'Female',
+                    'created_at' => '2024-06-08 09:25:00',
+                    'last_modified' => '2024-10-05 14:35:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2010,
+                    'memorization_level' => 11
+                ],
+                [
+                    'name' => 'ممدوح عثمان',
+                    'email' => 'mamdouh.othman@example.com',
+                    'gender' => 'Male',
+                    'created_at' => '2024-06-12 11:50:00',
+                    'last_modified' => '2024-09-25 15:15:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2008,
+                    'memorization_level' => 20
+                ],
+                [
+                    'name' => 'رؤى حسن',
+                    'email' => 'ruaa.hassan@example.com',
+                    'gender' => 'Female',
+                    'created_at' => '2024-06-18 13:35:00',
+                    'last_modified' => '2024-08-30 12:25:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2011,
+                    'memorization_level' => 8
+                ],
+                [
+                    'name' => 'صلاح الدين',
+                    'email' => 'salah.aldeen@example.com',
+                    'gender' => 'Male',
+                    'created_at' => '2024-06-22 15:40:00',
+                    'last_modified' => '2024-11-05 10:50:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2007,
+                    'memorization_level' => 27
+                ],
+                [
+                    'name' => 'نادين عماد',
+                    'email' => 'nadeen.emad@example.com',
+                    'gender' => 'Female',
+                    'created_at' => '2024-06-26 10:05:00',
+                    'last_modified' => '2024-07-20 14:30:00',
+                    'is_deleted' => true,
+                    'deletion_date' => '2024-07-20 14:30:00',
+                    'birth_year' => 2012,
+                    'memorization_level' => 3
+                ],
+                [
+                    'name' => 'حسام عادل',
+                    'email' => 'hossam.adel@example.com',
+                    'gender' => 'Male',
+                    'created_at' => '2024-06-30 08:15:00',
+                    'last_modified' => '2024-10-28 16:40:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2009,
+                    'memorization_level' => 16
+                ],
+
+                // 🟢 طلاب يوليو 2024
+                [
+                    'name' => 'زياد كمال',
+                    'email' => 'ziad.kamal@example.com',
+                    'gender' => 'Male',
+                    'created_at' => '2024-07-01 08:15:00',
+                    'last_modified' => '2024-10-15 11:40:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2012,
+                    'memorization_level' => 2
+                ],
+                [
+                    'name' => 'نورا رامي',
+                    'email' => 'nora.rami@example.com',
+                    'gender' => 'Female',
+                    'created_at' => '2024-07-05 10:30:00',
+                    'last_modified' => '2024-11-10 13:25:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2011,
+                    'memorization_level' => 6
+                ],
+                [
+                    'name' => 'مصطفى جمال',
+                    'email' => 'mustafa.jamal@example.com',
+                    'gender' => 'Male',
+                    'created_at' => '2024-07-10 14:45:00',
+                    'last_modified' => '2024-09-12 15:50:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2010,
+                    'memorization_level' => 13
+                ],
+                [
+                    'name' => 'إيناس رضا',
+                    'email' => 'inas.reda@example.com',
+                    'gender' => 'Female',
+                    'created_at' => '2024-07-15 09:20:00',
+                    'last_modified' => '2024-10-22 12:35:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2012,
+                    'memorization_level' => 4
+                ],
+                [
+                    'name' => 'باسل وليد',
+                    'email' => 'basel.waleed@example.com',
+                    'gender' => 'Male',
+                    'created_at' => '2024-07-20 09:00:00',
+                    'last_modified' => '2024-11-05 14:25:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2009,
+                    'memorization_level' => 9
+                ],
+                [
+                    'name' => 'وسام نبيل',
+                    'email' => 'wessam.nabeel@example.com',
+                    'gender' => 'Male',
+                    'created_at' => '2024-07-25 13:10:00',
+                    'last_modified' => '2024-11-08 10:50:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2011,
+                    'memorization_level' => 7
+                ],
+                [
+                    'name' => 'ميرنا ماهر',
+                    'email' => 'mirna.maher@example.com',
+                    'gender' => 'Female',
+                    'created_at' => '2024-07-28 11:55:00',
+                    'last_modified' => '2024-08-25 16:15:00',
+                    'is_deleted' => true,
+                    'deletion_date' => '2024-08-25 16:15:00',
+                    'birth_year' => 2010,
+                    'memorization_level' => 5
+                ],
+
+                // 🟢 طلاب أغسطس 2024
+                [
+                    'name' => 'ريماس علي',
+                    'email' => 'reemas.ali@example.com',
+                    'gender' => 'Female',
+                    'created_at' => '2024-08-05 13:45:00',
+                    'last_modified' => '2024-10-20 15:30:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2010,
+                    'memorization_level' => 6
+                ],
+                [
+                    'name' => 'قصي عماد',
+                    'email' => 'qusay.emad@example.com',
+                    'gender' => 'Male',
+                    'created_at' => '2024-08-10 08:25:00',
+                    'last_modified' => '2024-11-12 10:15:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2012,
+                    'memorization_level' => 1
+                ],
+                [
+                    'name' => 'دانية وسام',
+                    'email' => 'dania.wessam@example.com',
+                    'gender' => 'Female',
+                    'created_at' => '2024-08-15 10:40:00',
+                    'last_modified' => '2024-11-14 09:30:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2011,
+                    'memorization_level' => 3
+                ],
+                [
+                    'name' => 'أنور سعد',
+                    'email' => 'anwar.saad@example.com',
+                    'gender' => 'Male',
+                    'created_at' => '2024-08-20 14:55:00',
+                    'last_modified' => '2024-10-30 13:20:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2009,
+                    'memorization_level' => 14
+                ],
+                [
+                    'name' => 'سلمى ناصر',
+                    'email' => 'salma.nasser@example.com',
+                    'gender' => 'Female',
+                    'created_at' => '2024-08-25 10:10:00',
+                    'last_modified' => '2024-11-10 08:45:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2010,
+                    'memorization_level' => 6
+                ],
+                [
+                    'name' => 'مازن حمدان',
+                    'email' => 'mazen.hamdan@example.com',
+                    'gender' => 'Male',
+                    'created_at' => '2024-08-30 12:30:00',
+                    'last_modified' => '2024-09-28 15:45:00',
+                    'is_deleted' => true,
+                    'deletion_date' => '2024-09-28 15:45:00',
+                    'birth_year' => 2008,
+                    'memorization_level' => 7
+                ],
+
+                // 🟢 طلاب سبتمبر 2024
+                [
+                    'name' => 'جنى سامي',
+                    'email' => 'jana.sami@example.com',
+                    'gender' => 'Female',
+                    'created_at' => '2024-09-03 07:50:00',
+                    'last_modified' => '2024-11-14 13:40:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2011,
+                    'memorization_level' => 2
+                ],
+                [
+                    'name' => 'وليد ربيع',
+                    'email' => 'waleed.rabee@example.com',
+                    'gender' => 'Male',
+                    'created_at' => '2024-09-08 09:35:00',
+                    'last_modified' => '2024-11-06 11:55:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2010,
+                    'memorization_level' => 8
+                ],
+                [
+                    'name' => 'لارا عثمان',
+                    'email' => 'lara.othman@example.com',
+                    'gender' => 'Female',
+                    'created_at' => '2024-09-12 13:20:00',
+                    'last_modified' => '2024-10-18 14:10:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2012,
+                    'memorization_level' => 1
+                ],
+                [
+                    'name' => 'هشام قاسم',
+                    'email' => 'hesham.qasim@example.com',
+                    'gender' => 'Male',
+                    'created_at' => '2024-09-15 07:20:00',
+                    'last_modified' => '2024-11-12 10:15:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2012,
+                    'memorization_level' => 1
+                ],
+                [
+                    'name' => 'نورين محمد',
+                    'email' => 'noreen.mohammed@example.com',
+                    'gender' => 'Female',
+                    'created_at' => '2024-09-20 15:45:00',
+                    'last_modified' => '2024-11-08 12:25:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2011,
+                    'memorization_level' => 4
+                ],
+                [
+                    'name' => 'رامي زيد',
+                    'email' => 'rami.zeid@example.com',
+                    'gender' => 'Male',
+                    'created_at' => '2024-09-25 11:10:00',
+                    'last_modified' => '2024-10-15 09:40:00',
+                    'is_deleted' => true,
+                    'deletion_date' => '2024-10-15 09:40:00',
+                    'birth_year' => 2009,
+                    'memorization_level' => 6
+                ],
+                [
+                    'name' => 'ميس طلال',
+                    'email' => 'mays.talal@example.com',
+                    'gender' => 'Female',
+                    'created_at' => '2024-09-28 14:50:00',
+                    'last_modified' => '2024-11-14 13:40:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2011,
+                    'memorization_level' => 2
+                ],
+
+                // 🟢 طلاب أكتوبر 2024
+                [
+                    'name' => 'طلال زيد',
+                    'email' => 'talal.zeid@example.com',
+                    'gender' => 'Male',
+                    'created_at' => '2024-10-03 08:35:00',
+                    'last_modified' => '2024-11-15 09:25:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2008,
+                    'memorization_level' => 3
+                ],
+                [
+                    'name' => 'رنا محسن',
+                    'email' => 'rana.mohsen@example.com',
+                    'gender' => 'Female',
+                    'created_at' => '2024-10-08 10:50:00',
+                    'last_modified' => '2024-11-10 14:15:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2010,
+                    'memorization_level' => 7
+                ],
+                [
+                    'name' => 'كمال حسن',
+                    'email' => 'kamal.hassan@example.com',
+                    'gender' => 'Male',
+                    'created_at' => '2024-10-12 13:05:00',
+                    'last_modified' => '2024-11-13 16:30:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2009,
+                    'memorization_level' => 10
+                ],
+                [
+                    'name' => 'سارة نهاد',
+                    'email' => 'sara.nihad@example.com',
+                    'gender' => 'Female',
+                    'created_at' => '2024-10-15 09:25:00',
+                    'last_modified' => '2024-11-12 11:45:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2011,
+                    'memorization_level' => 5
+                ],
+                [
+                    'name' => 'محمود عيسى',
+                    'email' => 'mahmoud.essa@example.com',
+                    'gender' => 'Male',
+                    'created_at' => '2024-10-18 14:40:00',
+                    'last_modified' => '2024-11-14 13:20:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2008,
+                    'memorization_level' => 11
+                ],
+                [
+                    'name' => 'ديما كريم',
+                    'email' => 'dima.kareem@example.com',
+                    'gender' => 'Female',
+                    'created_at' => '2024-10-22 11:15:00',
+                    'last_modified' => '2024-11-16 08:30:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2012,
+                    'memorization_level' => 1
+                ],
+                [
+                    'name' => 'علياء وائل',
+                    'email' => 'alaa.wael@example.com',
+                    'gender' => 'Female',
+                    'created_at' => '2024-10-25 13:10:00',
+                    'last_modified' => '2024-11-16 08:30:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2012,
+                    'memorization_level' => 1
+                ],
+                [
+                    'name' => 'بدر نوري',
+                    'email' => 'badr.nouri@example.com',
+                    'gender' => 'Male',
+                    'created_at' => '2024-10-28 15:25:00',
+                    'last_modified' => '2024-11-15 10:55:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2010,
+                    'memorization_level' => 6
+                ],
+                [
+                    'name' => 'جود رافع',
+                    'email' => 'joud.rafe@example.com',
+                    'gender' => 'Female',
+                    'created_at' => '2024-10-30 08:45:00',
+                    'last_modified' => '2024-11-14 12:10:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2011,
+                    'memorization_level' => 3
+                ],
+
+                // 🟢 طلاب نوفمبر 2024 (أحدث الطلاب)
+                [
+                    'name' => 'زينب فاروق',
+                    'email' => 'zainab.farouq@example.com',
+                    'gender' => 'Female',
+                    'created_at' => '2024-11-02 10:20:00',
+                    'last_modified' => '2024-11-16 09:15:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2012,
+                    'memorization_level' => 1
+                ],
+                [
+                    'name' => 'عمر رفعت',
+                    'email' => 'omar.rifat@example.com',
+                    'gender' => 'Male',
+                    'created_at' => '2024-11-05 12:35:00',
+                    'last_modified' => '2024-11-16 10:40:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2011,
+                    'memorization_level' => 2
+                ],
+                [
+                    'name' => 'ميار سعيد',
+                    'email' => 'mayar.saeed@example.com',
+                    'gender' => 'Female',
+                    'created_at' => '2024-11-08 14:50:00',
+                    'last_modified' => '2024-11-16 11:25:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2010,
+                    'memorization_level' => 4
+                ],
+                [
+                    'name' => 'قصي بشار',
+                    'email' => 'qusay.bashar@example.com',
+                    'gender' => 'Male',
+                    'created_at' => '2024-11-10 09:05:00',
+                    'last_modified' => '2024-11-16 13:50:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2009,
+                    'memorization_level' => 8
+                ],
+                [
+                    'name' => 'ليندا عادل',
+                    'email' => 'linda.adel@example.com',
+                    'gender' => 'Female',
+                    'created_at' => '2024-11-12 11:30:00',
+                    'last_modified' => '2024-11-16 14:35:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2012,
+                    'memorization_level' => 1
+                ],
+                [
+                    'name' => 'أنس شاكر',
+                    'email' => 'anas.shaker@example.com',
+                    'gender' => 'Male',
+                    'created_at' => '2024-11-14 13:45:00',
+                    'last_modified' => '2024-11-16 15:20:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2010,
+                    'memorization_level' => 5
+                ],
+                [
+                    'name' => 'سلمى غالب',
+                    'email' => 'salma.ghalib@example.com',
+                    'gender' => 'Female',
+                    'created_at' => '2024-11-16 08:00:00',
+                    'last_modified' => '2024-11-16 16:10:00',
+                    'is_deleted' => false,
+                    'deletion_date' => null,
+                    'birth_year' => 2011,
+                    'memorization_level' => 2
+                ]
+            ]
+        );
+
+        $teacherList =
+            collect(
+                [
+                    // 🟢 طلاب 2023 (قدامى)
+                    [
+                        'name' => 'خالد سلمان الحربي',
+                        'email' => 'khaled.alharbi@example.com',
+                        'gender' => 'Male',
+                        'created_at' => '2023-01-15 09:20:00',
+                        'last_modified' => '2024-02-28 14:35:00',
+                        'is_deleted' => false,
+                        'deletion_date' => null,
+                        'birth_year' => 2005,
+                        'memorization_level' => 28
+                    ],
+                    [
+                        'name' => 'نورة عبد العزيز الشمري',
+                        'email' => 'nora.alshmari@example.com',
+                        'gender' => 'Female',
+                        'created_at' => '2023-02-08 10:45:00',
+                        'last_modified' => '2024-03-15 11:20:00',
+                        'is_deleted' => false,
+                        'deletion_date' => null,
+                        'birth_year' => 2006,
+                        'memorization_level' => 24
+                    ],
+                    [
+                        'name' => 'فيصل ناصر القحطاني',
+                        'email' => 'faisal.alqahtani@example.com',
+                        'gender' => 'Male',
+                        'created_at' => '2023-03-12 08:15:00',
+                        'last_modified' => '2023-11-20 16:40:00',
+                        'is_deleted' => true,
+                        'deletion_date' => '2023-11-20 16:40:00',
+                        'birth_year' => 2007,
+                        'memorization_level' => 15
+                    ],
+
+                    // 🟢 طلاب 2023 إضافيون
+                    [
+                        'name' => 'لطيفة محمد العتيبي',
+                        'email' => 'latifa.altabei@example.com',
+                        'gender' => 'Female',
+                        'created_at' => '2023-04-05 14:30:00',
+                        'last_modified' => '2024-04-10 09:55:00',
+                        'is_deleted' => false,
+                        'deletion_date' => null,
+                        'birth_year' => 2006,
+                        'memorization_level' => 26
+                    ],
+                    [
+                        'name' => 'تركي أحمد الغامدي',
+                        'email' => 'turki.alghamdi@example.com',
+                        'gender' => 'Male',
+                        'created_at' => '2023-05-18 11:10:00',
+                        'last_modified' => '2024-05-22 13:25:00',
+                        'is_deleted' => false,
+                        'deletion_date' => null,
+                        'birth_year' => 2005,
+                        'memorization_level' => 30
+                    ],
+                    [
+                        'name' => 'الجوهرة سعد السبيعي',
+                        'email' => 'aljohara.alsubaie@example.com',
+                        'gender' => 'Female',
+                        'created_at' => '2023-06-22 07:40:00',
+                        'last_modified' => '2023-12-15 12:15:00',
+                        'is_deleted' => true,
+                        'deletion_date' => '2023-12-15 12:15:00',
+                        'birth_year' => 2008,
+                        'memorization_level' => 12
+                    ],
+                    [
+                        'name' => 'بدر عبد الله الزهراني',
+                        'email' => 'badr.alzahrani@example.com',
+                        'gender' => 'Male',
+                        'created_at' => '2023-07-14 13:20:00',
+                        'last_modified' => '2024-06-18 15:30:00',
+                        'is_deleted' => false,
+                        'deletion_date' => null,
+                        'birth_year' => 2007,
+                        'memorization_level' => 22
+                    ],
+                    [
+                        'name' => 'شهد خالد المطيري',
+                        'email' => 'shahad.almutairi@example.com',
+                        'gender' => 'Female',
+                        'created_at' => '2023-08-09 09:55:00',
+                        'last_modified' => '2024-07-12 10:45:00',
+                        'is_deleted' => false,
+                        'deletion_date' => null,
+                        'birth_year' => 2006,
+                        'memorization_level' => 19
+                    ],
+                    [
+                        'name' => 'عبد الإله راشد الشهراني',
+                        'email' => 'abdulilah.alshahrani@example.com',
+                        'gender' => 'Male',
+                        'created_at' => '2023-09-25 15:10:00',
+                        'last_modified' => '2024-08-25 14:20:00',
+                        'is_deleted' => false,
+                        'deletion_date' => null,
+                        'birth_year' => 2005,
+                        'memorization_level' => 32
+                    ],
+                    [
+                        'name' => 'عهود صالح الغفيلي',
+                        'email' => 'ohood.alghufaili@example.com',
+                        'gender' => 'Female',
+                        'created_at' => '2023-10-30 08:25:00',
+                        'last_modified' => '2024-09-15 11:35:00',
+                        'is_deleted' => false,
+                        'deletion_date' => null,
+                        'birth_year' => 2007,
+                        'memorization_level' => 18
+                    ],
+                    [
+                        'name' => 'سلطان فيصل الحارثي',
+                        'email' => 'sultan.alharthi@example.com',
+                        'gender' => 'Male',
+                        'created_at' => '2023-11-18 12:50:00',
+                        'last_modified' => '2024-10-08 16:15:00',
+                        'is_deleted' => false,
+                        'deletion_date' => null,
+                        'birth_year' => 2006,
+                        'memorization_level' => 25
+                    ],
+                    [
+                        'name' => 'نوف عبد الرحمن الدوسري',
+                        'email' => 'nouf.aldossari@example.com',
+                        'gender' => 'Female',
+                        'created_at' => '2023-12-12 10:35:00',
+                        'last_modified' => '2024-11-05 13:40:00',
+                        'is_deleted' => false,
+                        'deletion_date' => null,
+                        'birth_year' => 2008,
+                        'memorization_level' => 16
+                    ],
+
+                    // 🟢 طلاب يناير 2024
+                    [
+                        'name' => 'ماجد إبراهيم السعدي',
+                        'email' => 'majed.alsadi@example.com',
+                        'gender' => 'Male',
+                        'created_at' => '2024-01-07 08:15:00',
+                        'last_modified' => '2024-10-20 09:50:00',
+                        'is_deleted' => false,
+                        'deletion_date' => null,
+                        'birth_year' => 2009,
+                        'memorization_level' => 14
+                    ],
+                    [
+                        'name' => 'جواهر محمد القصير',
+                        'email' => 'jawaher.algusair@example.com',
+                        'gender' => 'Female',
+                        'created_at' => '2024-01-14 11:30:00',
+                        'last_modified' => '2024-11-12 15:25:00',
+                        'is_deleted' => false,
+                        'deletion_date' => null,
+                        'birth_year' => 2010,
+                        'memorization_level' => 11
+                    ],
+                    [
+                        'name' => 'هاشم وليد البقمي',
+                        'email' => 'hashem.albqami@example.com',
+                        'gender' => 'Male',
+                        'created_at' => '2024-01-21 14:45:00',
+                        'last_modified' => '2024-03-12 12:10:00',
+                        'is_deleted' => true,
+                        'deletion_date' => '2024-03-12 12:10:00',
+                        'birth_year' => 2008,
+                        'memorization_level' => 4
+                    ],
+                    [
+                        'name' => 'ريماس طلال الجهني',
+                        'email' => 'reemas.aljuhani@example.com',
+                        'gender' => 'Female',
+                        'created_at' => '2024-01-25 09:20:00',
+                        'last_modified' => '2024-09-28 14:35:00',
+                        'is_deleted' => false,
+                        'deletion_date' => null,
+                        'birth_year' => 2009,
+                        'memorization_level' => 13
+                    ],
+
+                    // 🟢 طلاب فبراير 2024
+                    [
+                        'name' => 'سعيد علي اليامي',
+                        'email' => 'saeed.alyami@example.com',
+                        'gender' => 'Male',
+                        'created_at' => '2024-02-04 07:55:00',
+                        'last_modified' => '2024-11-08 10:40:00',
+                        'is_deleted' => false,
+                        'deletion_date' => null,
+                        'birth_year' => 2010,
+                        'memorization_level' => 9
+                    ],
+                    [
+                        'name' => 'فاطمة ناصر الرشيد',
+                        'email' => 'fatima.alrashed@example.com',
+                        'gender' => 'Female',
+                        'created_at' => '2024-02-11 13:10:00',
+                        'last_modified' => '2024-08-15 16:20:00',
+                        'is_deleted' => false,
+                        'deletion_date' => null,
+                        'birth_year' => 2009,
+                        'memorization_level' => 15
+                    ],
+                    [
+                        'name' => 'نايف حمدان البلوي',
+                        'email' => 'nayef.albalwi@example.com',
+                        'gender' => 'Male',
+                        'created_at' => '2024-02-17 10:25:00',
+                        'last_modified' => '2024-04-22 11:55:00',
+                        'is_deleted' => true,
+                        'deletion_date' => '2024-04-22 11:55:00',
+                        'birth_year' => 2007,
+                        'memorization_level' => 6
+                    ],
+                    [
+                        'name' => 'أبرار سليم السلمي',
+                        'email' => 'abrar.alsulami@example.com',
+                        'gender' => 'Female',
+                        'created_at' => '2024-02-22 15:40:00',
+                        'last_modified' => '2024-10-30 13:15:00',
+                        'is_deleted' => false,
+                        'deletion_date' => null,
+                        'birth_year' => 2011,
+                        'memorization_level' => 8
+                    ],
+
+                    // 🟢 طلاب مارس 2024
+                    [
+                        'name' => 'غازي مطر الشمري',
+                        'email' => 'ghazi.alshammari@example.com',
+                        'gender' => 'Male',
+                        'created_at' => '2024-03-03 08:30:00',
+                        'last_modified' => '2024-11-10 14:50:00',
+                        'is_deleted' => false,
+                        'deletion_date' => null,
+                        'birth_year' => 2008,
+                        'memorization_level' => 17
+                    ],
+                    [
+                        'name' => 'منى عادل الحمود',
+                        'email' => 'mona.alhamood@example.com',
+                        'gender' => 'Female',
+                        'created_at' => '2024-03-10 12:45:00',
+                        'last_modified' => '2024-09-05 09:35:00',
+                        'is_deleted' => false,
+                        'deletion_date' => null,
+                        'birth_year' => 2010,
+                        'memorization_level' => 12
+                    ],
+                    [
+                        'name' => 'فهد سعد القثامي',
+                        'email' => 'fahad.alqathami@example.com',
+                        'gender' => 'Male',
+                        'created_at' => '2024-03-16 14:20:00',
+                        'last_modified' => '2024-06-18 15:45:00',
+                        'is_deleted' => false,
+                        'deletion_date' => null,
+                        'birth_year' => 2009,
+                        'memorization_level' => 10
+                    ],
+                    [
+                        'name' => 'سارة عثمان السديري',
+                        'email' => 'sara.alsudairi@example.com',
+                        'gender' => 'Female',
+                        'created_at' => '2024-03-22 09:55:00',
+                        'last_modified' => '2024-05-14 11:20:00',
+                        'is_deleted' => true,
+                        'deletion_date' => '2024-05-14 11:20:00',
+                        'birth_year' => 2011,
+                        'memorization_level' => 3
+                    ],
+                    [
+                        'name' => 'وليد رجاء العوفي',
+                        'email' => 'waleed.alawfi@example.com',
+                        'gender' => 'Male',
+                        'created_at' => '2024-03-28 11:10:00',
+                        'last_modified' => '2024-11-14 16:05:00',
+                        'is_deleted' => false,
+                        'deletion_date' => null,
+                        'birth_year' => 2007,
+                        'memorization_level' => 20
+                    ],
+
+                    // 🟢 طلاب أبريل 2024
+                    [
+                        'name' => 'حصة عبد المحسن الفوزان',
+                        'email' => 'hassa.alfozan@example.com',
+                        'gender' => 'Female',
+                        'created_at' => '2024-04-05 07:25:00',
+                        'last_modified' => '2024-10-12 13:40:00',
+                        'is_deleted' => false,
+                        'deletion_date' => null,
+                        'birth_year' => 2011,
+                        'memorization_level' => 7
+                    ],
+                    [
+                        'name' => 'عبد العزيز خالد السبيعي',
+                        'email' => 'abdulaziz.alsubaie@example.com',
+                        'gender' => 'Male',
+                        'created_at' => '2024-04-12 10:40:00',
+                        'last_modified' => '2024-08-28 14:15:00',
+                        'is_deleted' => false,
+                        'deletion_date' => null,
+                        'birth_year' => 2008,
+                        'memorization_level' => 16
+                    ],
+                    [
+                        'name' => 'الجازي ناصر الهاجري',
+                        'email' => 'aljazi.alhajri@example.com',
+                        'gender' => 'Female',
+                        'created_at' => '2024-04-18 13:55:00',
+                        'last_modified' => '2024-11-06 10:30:00',
+                        'is_deleted' => false,
+                        'deletion_date' => null,
+                        'birth_year' => 2010,
+                        'memorization_level' => 11
+                    ],
+                    [
+                        'name' => 'مشعل فهيد المانع',
+                        'email' => 'mishal.almanea@example.com',
+                        'gender' => 'Male',
+                        'created_at' => '2024-04-24 15:20:00',
+                        'last_modified' => '2024-07-10 12:45:00',
+                        'is_deleted' => true,
+                        'deletion_date' => '2024-07-10 12:45:00',
+                        'birth_year' => 2009,
+                        'memorization_level' => 5
+                    ],
+
+                    // 🟢 طلاب مايو 2024
+                    [
+                        'name' => 'أمل راشد الشمري',
+                        'email' => 'amal.alshammari@example.com',
+                        'gender' => 'Female',
+                        'created_at' => '2024-05-02 08:45:00',
+                        'last_modified' => '2024-11-12 15:55:00',
+                        'is_deleted' => false,
+                        'deletion_date' => null,
+                        'birth_year' => 2012,
+                        'memorization_level' => 6
+                    ],
+                    [
+                        'name' => 'سلمان عبد الكريم السفياني',
+                        'email' => 'salman.alsufiani@example.com',
+                        'gender' => 'Male',
+                        'created_at' => '2024-05-09 11:00:00',
+                        'last_modified' => '2024-09-22 09:25:00',
+                        'is_deleted' => false,
+                        'deletion_date' => null,
+                        'birth_year' => 2011,
+                        'memorization_level' => 9
+                    ],
+                    [
+                        'name' => 'مها فهد الراشد',
+                        'email' => 'maha.alrashed@example.com',
+                        'gender' => 'Female',
+                        'created_at' => '2024-05-15 14:15:00',
+                        'last_modified' => '2024-10-18 16:40:00',
+                        'is_deleted' => false,
+                        'deletion_date' => null,
+                        'birth_year' => 2010,
+                        'memorization_level' => 13
+                    ],
+                    [
+                        'name' => 'فيصل عيادة الحربي',
+                        'email' => 'faisal.alharbi2@example.com',
+                        'gender' => 'Male',
+                        'created_at' => '2024-05-21 09:30:00',
+                        'last_modified' => '2024-06-25 11:05:00',
+                        'is_deleted' => true,
+                        'deletion_date' => '2024-06-25 11:05:00',
+                        'birth_year' => 2008,
+                        'memorization_level' => 4
+                    ],
+                    [
+                        'name' => 'نادية محمد القويز',
+                        'email' => 'nadia.alqwaiz@example.com',
+                        'gender' => 'Female',
+                        'created_at' => '2024-05-28 12:45:00',
+                        'last_modified' => '2024-11-08 14:20:00',
+                        'is_deleted' => false,
+                        'deletion_date' => null,
+                        'birth_year' => 2009,
+                        'memorization_level' => 14
+                    ],
+
+                    // 🟢 طلاب يونيو 2024
+                    [
+                        'name' => 'بندر مبارك الدوسري',
+                        'email' => 'bandar.aldossari@example.com',
+                        'gender' => 'Male',
+                        'created_at' => '2024-06-04 07:50:00',
+                        'last_modified' => '2024-10-25 10:35:00',
+                        'is_deleted' => false,
+                        'deletion_date' => null,
+                        'birth_year' => 2010,
+                        'memorization_level' => 10
+                    ],
+                    [
+                        'name' => 'هناء علي القحطاني',
+                        'email' => 'hanna.alqahtani@example.com',
+                        'gender' => 'Female',
+                        'created_at' => '2024-06-11 10:05:00',
+                        'last_modified' => '2024-11-14 13:50:00',
+                        'is_deleted' => false,
+                        'deletion_date' => null,
+                        'birth_year' => 2011,
+                        'memorization_level' => 8
+                    ],
+                    [
+                        'name' => 'راشد ناصر العتيبي',
+                        'email' => 'rashed.altabei@example.com',
+                        'gender' => 'Male',
+                        'created_at' => '2024-06-17 13:20:00',
+                        'last_modified' => '2024-08-20 15:45:00',
+                        'is_deleted' => false,
+                        'deletion_date' => null,
+                        'birth_year' => 2009,
+                        'memorization_level' => 12
+                    ],
+                    [
+                        'name' => 'أسماء وليد الشهراني',
+                        'email' => 'asma.alshahrani@example.com',
+                        'gender' => 'Female',
+                        'created_at' => '2024-06-23 15:35:00',
+                        'last_modified' => '2024-07-30 12:10:00',
+                        'is_deleted' => true,
+                        'deletion_date' => '2024-07-30 12:10:00',
+                        'birth_year' => 2012,
+                        'memorization_level' => 2
+                    ],
+
+                    // 🟢 طلاب يوليو 2024
+                    [
+                        'name' => 'ماجد طلال الجهني',
+                        'email' => 'majed.aljuhani@example.com',
+                        'gender' => 'Male',
+                        'created_at' => '2024-07-01 08:40:00',
+                        'last_modified' => '2024-11-10 16:25:00',
+                        'is_deleted' => false,
+                        'deletion_date' => null,
+                        'birth_year' => 2011,
+                        'memorization_level' => 7
+                    ],
+                    [
+                        'name' => 'سما أحمد الغامدي',
+                        'email' => 'sama.alghamdi@example.com',
+                        'gender' => 'Female',
+                        'created_at' => '2024-07-08 11:55:00',
+                        'last_modified' => '2024-10-05 09:40:00',
+                        'is_deleted' => false,
+                        'deletion_date' => null,
+                        'birth_year' => 2012,
+                        'memorization_level' => 5
+                    ],
+                    [
+                        'name' => 'نواف عبد الله البلوي',
+                        'email' => 'nawaf.albalwi@example.com',
+                        'gender' => 'Male',
+                        'created_at' => '2024-07-14 14:10:00',
+                        'last_modified' => '2024-09-15 14:55:00',
+                        'is_deleted' => false,
+                        'deletion_date' => null,
+                        'birth_year' => 2010,
+                        'memorization_level' => 9
+                    ],
+                    [
+                        'name' => 'فوزية سعد السلمي',
+                        'email' => 'fawzia.alsulami@example.com',
+                        'gender' => 'Female',
+                        'created_at' => '2024-07-20 09:25:00',
+                        'last_modified' => '2024-08-12 11:00:00',
+                        'is_deleted' => true,
+                        'deletion_date' => '2024-08-12 11:00:00',
+                        'birth_year' => 2009,
+                        'memorization_level' => 3
+                    ],
+                    [
+                        'name' => 'عبد الله راشد الشمري',
+                        'email' => 'abdullah.alshammari@example.com',
+                        'gender' => 'Male',
+                        'created_at' => '2024-07-26 12:40:00',
+                        'last_modified' => '2024-11-12 13:15:00',
+                        'is_deleted' => false,
+                        'deletion_date' => null,
+                        'birth_year' => 2008,
+                        'memorization_level' => 15
+                    ],
+
+                    // 🟢 طلاب أغسطس 2024
+                    [
+                        'name' => 'الجوهرة خالد المطيري',
+                        'email' => 'aljohara.almutairi@example.com',
+                        'gender' => 'Female',
+                        'created_at' => '2024-08-03 15:55:00',
+                        'last_modified' => '2024-11-08 10:30:00',
+                        'is_deleted' => false,
+                        'deletion_date' => null,
+                        'birth_year' => 2011,
+                        'memorization_level' => 6
+                    ],
+                    [
+                        'name' => 'سعد محمد الحارثي',
+                        'email' => 'saad.alharthi@example.com',
+                        'gender' => 'Male',
+                        'created_at' => '2024-08-09 08:10:00',
+                        'last_modified' => '2024-10-22 15:45:00',
+                        'is_deleted' => false,
+                        'deletion_date' => null,
+                        'birth_year' => 2010,
+                        'memorization_level' => 8
+                    ],
+                    [
+                        'name' => 'ميعاد عبد المحسن الفهد',
+                        'email' => 'miad.alfahad@example.com',
+                        'gender' => 'Female',
+                        'created_at' => '2024-08-15 11:25:00',
+                        'last_modified' => '2024-11-14 12:50:00',
+                        'is_deleted' => false,
+                        'deletion_date' => null,
+                        'birth_year' => 2012,
+                        'memorization_level' => 4
+                    ],
+                    [
+                        'name' => 'ياسر نايف الزهراني',
+                        'email' => 'yasser.alzahrani@example.com',
+                        'gender' => 'Male',
+                        'created_at' => '2024-08-21 14:40:00',
+                        'last_modified' => '2024-09-28 09:05:00',
+                        'is_deleted' => true,
+                        'deletion_date' => '2024-09-28 09:05:00',
+                        'birth_year' => 2009,
+                        'memorization_level' => 5
+                    ],
+                    [
+                        'name' => 'شاهيناز فارس القصير',
+                        'email' => 'shahinaz.algusair@example.com',
+                        'gender' => 'Female',
+                        'created_at' => '2024-08-27 09:55:00',
+                        'last_modified' => '2024-11-06 14:20:00',
+                        'is_deleted' => false,
+                        'deletion_date' => null,
+                        'birth_year' => 2011,
+                        'memorization_level' => 7
+                    ],
+
+                    // 🟢 طلاب سبتمبر 2024
+                    [
+                        'name' => 'فواز عيد السعدي',
+                        'email' => 'fawaz.alsadi@example.com',
+                        'gender' => 'Male',
+                        'created_at' => '2024-09-04 12:10:00',
+                        'last_modified' => '2024-11-10 16:35:00',
+                        'is_deleted' => false,
+                        'deletion_date' => null,
+                        'birth_year' => 2012,
+                        'memorization_level' => 3
+                    ],
+                    [
+                        'name' => 'ريم عبد العزيز البقمي',
+                        'email' => 'reem.albqami@example.com',
+                        'gender' => 'Female',
+                        'created_at' => '2024-09-10 15:25:00',
+                        'last_modified' => '2024-10-18 11:50:00',
+                        'is_deleted' => false,
+                        'deletion_date' => null,
+                        'birth_year' => 2010,
+                        'memorization_level' => 9
+                    ],
+                    [
+                        'name' => 'منصور حمد الجهني',
+                        'email' => 'mansour.aljuhani@example.com',
+                        'gender' => 'Male',
+                        'created_at' => '2024-09-16 08:40:00',
+                        'last_modified' => '2024-11-12 13:05:00',
+                        'is_deleted' => false,
+                        'deletion_date' => null,
+                        'birth_year' => 2009,
+                        'memorization_level' => 11
+                    ],
+                    [
+                        'name' => 'لينا سلمان اليامي',
+                        'email' => 'lena.alyami@example.com',
+                        'gender' => 'Female',
+                        'created_at' => '2024-09-22 11:55:00',
+                        'last_modified' => '2024-10-08 15:20:00',
+                        'is_deleted' => true,
+                        'deletion_date' => '2024-10-08 15:20:00',
+                        'birth_year' => 2011,
+                        'memorization_level' => 2
+                    ],
+                    [
+                        'name' => 'بدرية ناصر الرشيد',
+                        'email' => 'badria.alrashed@example.com',
+                        'gender' => 'Female',
+                        'created_at' => '2024-09-28 14:10:00',
+                        'last_modified' => '2024-11-14 10:45:00',
+                        'is_deleted' => false,
+                        'deletion_date' => null,
+                        'birth_year' => 2012,
+                        'memorization_level' => 4
+                    ],
+
+                    // 🟢 طلاب أكتوبر 2024
+                    [
+                        'name' => 'نايف مطلق البلوي',
+                        'email' => 'nayef.albalwi2@example.com',
+                        'gender' => 'Male',
+                        'created_at' => '2024-10-05 09:25:00',
+                        'last_modified' => '2024-11-08 12:00:00',
+                        'is_deleted' => false,
+                        'deletion_date' => null,
+                        'birth_year' => 2011,
+                        'memorization_level' => 5
+                    ],
+                    [
+                        'name' => 'أروى فهد السلمي',
+                        'email' => 'arwa.alsulami@example.com',
+                        'gender' => 'Female',
+                        'created_at' => '2024-10-11 12:40:00',
+                        'last_modified' => '2024-11-13 14:15:00',
+                        'is_deleted' => false,
+                        'deletion_date' => null,
+                        'birth_year' => 2010,
+                        'memorization_level' => 7
+                    ],
+                    [
+                        'name' => 'مشاري عبد الكريم الشمري',
+                        'email' => 'mishari.alshammari@example.com',
+                        'gender' => 'Male',
+                        'created_at' => '2024-10-17 15:55:00',
+                        'last_modified' => '2024-11-15 16:30:00',
+                        'is_deleted' => false,
+                        'deletion_date' => null,
+                        'birth_year' => 2009,
+                        'memorization_level' => 10
+                    ],
+                    [
+                        'name' => 'تهاني راشد الحمود',
+                        'email' => 'tahani.alhamood@example.com',
+                        'gender' => 'Female',
+                        'created_at' => '2024-10-23 08:10:00',
+                        'last_modified' => '2024-11-12 11:25:00',
+                        'is_deleted' => false,
+                        'deletion_date' => null,
+                        'birth_year' => 2012,
+                        'memorization_level' => 3
+                    ],
+                    [
+                        'name' => 'فهد عوض القثامي',
+                        'email' => 'fahad.alqathami2@example.com',
+                        'gender' => 'Male',
+                        'created_at' => '2024-10-29 11:25:00',
+                        'last_modified' => '2024-11-14 13:40:00',
+                        'is_deleted' => false,
+                        'deletion_date' => null,
+                        'birth_year' => 2008,
+                        'memorization_level' => 12
+                    ],
+
+                    // 🟢 طلاب نوفمبر 2024 (أحدث الطلاب)
+                    [
+                        'name' => 'نادية عثمان السديري',
+                        'email' => 'nadia.alsudairi@example.com',
+                        'gender' => 'Female',
+                        'created_at' => '2024-11-02 14:40:00',
+                        'last_modified' => '2024-11-16 09:55:00',
+                        'is_deleted' => false,
+                        'deletion_date' => null,
+                        'birth_year' => 2011,
+                        'memorization_level' => 2
+                    ],
+                    [
+                        'name' => 'راجح رجاء العوفي',
+                        'email' => 'rajih.alawfi@example.com',
+                        'gender' => 'Male',
+                        'created_at' => '2024-11-06 08:55:00',
+                        'last_modified' => '2024-11-16 11:10:00',
+                        'is_deleted' => false,
+                        'deletion_date' => null,
+                        'birth_year' => 2010,
+                        'memorization_level' => 4
+                    ],
+                    [
+                        'name' => 'مها عبد المحسن الفوزان',
+                        'email' => 'maha.alfozan@example.com',
+                        'gender' => 'Female',
+                        'created_at' => '2024-11-10 12:10:00',
+                        'last_modified' => '2024-11-16 14:25:00',
+                        'is_deleted' => false,
+                        'deletion_date' => null,
+                        'birth_year' => 2012,
+                        'memorization_level' => 1
+                    ],
+                    [
+                        'name' => 'سليمان خالد السبيعي',
+                        'email' => 'sulaiman.alsubaie@example.com',
+                        'gender' => 'Male',
+                        'created_at' => '2024-11-14 15:25:00',
+                        'last_modified' => '2024-11-16 16:40:00',
+                        'is_deleted' => false,
+                        'deletion_date' => null,
+                        'birth_year' => 2009,
+                        'memorization_level' => 6
+                    ],
+                    [
+                        'name' => 'الجازي ناصر الهاجري',
+                        'email' => 'aljazi.alhajri2@example.com',
+                        'gender' => 'Female',
+                        'created_at' => '2024-11-16 09:40:00',
+                        'last_modified' => '2024-11-16 17:00:00',
+                        'is_deleted' => false,
+                        'deletion_date' => null,
+                        'birth_year' => 2011,
+                        'memorization_level' => 1
+                    ]
+                ]
+            );
 
         $students = collect();
         foreach ($studentList as $studentData) {
             $user = \App\Models\User::create([
                 'name' => $studentData['name'],
                 'email' => $studentData['email'],
-                'password' => bcrypt('password'),
+                'password' => bcrypt('password1234'),
                 'avatar' => 'https://example.com/student.jpg',
                 'gender' => $studentData['gender'],
-                'birth_date' => '2007-05-' . rand(10, 28),
+                'birth_date' => $this->generateBirthDate($studentData['birth_year']),
                 'phone' => '+9677' . rand(10000000, 99999999),
                 'whatsapp' => '+9677' . rand(10000000, 99999999),
                 'country' => 'اليمن',
-                'city' => 'عدن',
-                'residence' => 'المنصورة',
+                'city' => $this->getRandomCity(),
+                'residence' => $this->getRandomResidence(),
                 'school_id' => $schools->random()->id,
+                'created_at' => $studentData['created_at'],
+                'updated_at' => $studentData['last_modified'],
             ]);
 
             $students->push(\App\Models\Student::create([
                 'user_id' => $user->id,
-                'qualification' => 'ثانوي',
-                'memorization_level' => rand(1, 10) . ' أجزاء',
-                'status' => 'active',
+                'qualification' => $this->getQualification($studentData['birth_year']),
+                'memorization_level' => $studentData['memorization_level'],
+                'status' => $studentData['is_deleted'] ? 'inactive' : 'active',
+                'created_at' => $studentData['created_at'],
+                'updated_at' => $studentData['last_modified'],
             ]));
+
+            // // إذا كان محذوفاً، نقوم بتحديث تاريخ الحذف
+            // if ($studentData['is_deleted']) {
+            //     $user->update([
+            //         'deleted_at' => $studentData['deletion_date'],
+            //         'updated_at' => $studentData['deletion_date']
+            //     ]);
+
+            //     $students->update([
+            // 'status' => 'inactive',
+            // 'updated_at' => $studentData['deletion_date']
+            //     ]);
+            // }
         }
 
-        // ✅ المعلمين
         $teachers = collect();
         foreach ($teacherList as $teacherData) {
             $user = \App\Models\User::create([
                 'name' => $teacherData['name'],
                 'email' => $teacherData['email'],
-                'password' => bcrypt('password'),
+                'password' => bcrypt('password1234'),
+                'avatar' => 'https://example.com/teacher.jpg',
+                'gender' => $teacherData['gender'],
+                'birth_date' => $this->generateBirthDate($teacherData['birth_year']),
+                'phone' => '+9677' . rand(10000000, 99999999),
+                'whatsapp' => '+9677' . rand(10000000, 99999999),
+                'country' => 'اليمن',
+                'city' => $this->getRandomCity(),
+                'residence' => $this->getRandomResidence(),
+                'school_id' => $schools->random()->id,
+                'created_at' => $teacherData['created_at'],
+                'updated_at' => $teacherData['last_modified'],
+            ]);
+
+            $teachers->push(\App\Models\Teacher::create([
+                'user_id' => $user->id,
+                'bio' => 'معلم متخصص في تحفيظ القرآن',
+                'experience_years' => rand(1, 20),
+                'created_at' => $teacherData['created_at'],
+                'updated_at' => $teacherData['last_modified'],
+            ]));
+        } {
+            $admin = collect();
+            $user = \App\Models\User::create([
+                'name' => "عمران غالب محمد ناصر",
+                'email' => "amran@naser.com",
+                'password' => bcrypt('amran$$$025'),
                 'avatar' => 'https://example.com/teacher.jpg',
                 'gender' => $teacherData['gender'],
                 'birth_date' => '1980-01-' . rand(10, 28),
-                'phone' => '+9677' . rand(10000000, 99999999),
-                'whatsapp' => '+9677' . rand(10000000, 99999999),
+                'phone' => '+967739123473',
+                'whatsapp' => '+96771989025',
                 'country' => 'اليمن',
                 'city' => 'صنعاء',
                 'residence' => 'التحرير',
                 'school_id' => $schools->random()->id,
             ]);
 
-            $teachers->push(\App\Models\Teacher::create([
+            $admin->push(\App\Models\Admin::create([
                 'user_id' => $user->id,
-                'bio' => 'معلم متخصص في تحفيظ القرآن',
-                'experience_years' => rand(5, 15),
+                'super_admin' => false,
             ]));
         }
 
@@ -1268,7 +2972,6 @@ class DatabaseSeeder extends Seeder
             ])
         );
 
-        // ✅ الخطط
         $plans = collect();
         foreach (range(1, 10) as $i) {
             $plans->push(\App\Models\Plan::create([
@@ -1289,7 +2992,6 @@ class DatabaseSeeder extends Seeder
             ]));
         }
 
-        // ✅ الاشتراكات
         $enrollments = collect();
         foreach ($students as $student) {
             $enrollments->push(\App\Models\Enrollment::create([
@@ -1300,7 +3002,6 @@ class DatabaseSeeder extends Seeder
             ]));
         }
 
-        // ✅ تتبعات يومية
         $trackings = collect();
         foreach (range(1, 10) as $i) {
             $trackings->push(\App\Models\Tracking::create([
@@ -1311,14 +3012,12 @@ class DatabaseSeeder extends Seeder
             ]));
         }
 
-        // ✅ أنواع التتبع
         $trackingTypes = collect([
             ['name_ar' => 'حفظ', 'name_en' => 'Memorization'],
             ['name_ar' => 'مراجعة', 'name_en' => 'Review'],
             ['name_ar' => 'سرد', 'name_en' => 'Recitation'],
         ])->map(fn($t) => \App\Models\TrackingType::create($t));
 
-        // ✅ وحدات التتبع
         $trackingUnits = collect();
         foreach ($trackingUnitArray as $trackingUnitData) {
             $trackingUnits->push(\App\Models\TrackingUnit::create([
@@ -1346,5 +3045,43 @@ class DatabaseSeeder extends Seeder
         }
 
         echo "✅ تم إنشاء 20 مدرسة، 20 طالب، 20 معلم، 20 حلقة، وجميع البيانات المرتبطة بها بنجاح.\n";
+    }
+
+
+
+
+
+    private function generateBirthDate($birthYear)
+    {
+        $month = rand(1, 12);
+        $day = rand(1, 28);
+        return "{$birthYear}-{$month}-{$day}";
+    }
+
+    private function getRandomCity()
+    {
+        $cities = ['صنعاء', 'عدن', 'تعز', 'الحديدة', 'إب', 'ذمار', 'مأرب'];
+        return $cities[array_rand($cities)];
+    }
+
+    private function getRandomResidence()
+    {
+        $residences = ['التحرير', 'المنصورة', 'الشهداء', 'الروضة', 'السلام', 'الوحدة', 'الثورة'];
+        return $residences[array_rand($residences)];
+    }
+
+    private function getQualification($birthYear)
+    {
+        $age = date('Y') - $birthYear;
+
+        if ($age >= 18) {
+            return 'جامعي';
+        } elseif ($age >= 15) {
+            return 'ثانوي';
+        } elseif ($age >= 12) {
+            return 'إعدادي';
+        } else {
+            return 'ابتدائي';
+        }
     }
 }
