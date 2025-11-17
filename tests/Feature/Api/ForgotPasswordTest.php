@@ -13,7 +13,10 @@ test('reset password link can be requested via api', function () {
 
     postJson('/api/v1/forgot-password', ['email' => $user->email])
         ->assertStatus(200)
-        ->assertJson(['status' => __('A reset link will be sent if the account exists.')]);
+        ->assertJson([
+            'status' => 'success',
+            'message' => 'If the email exists, a reset link has been sent.'
+        ]);
 
     Notification::assertSentTo($user, ResetPassword::class);
 });
@@ -21,11 +24,23 @@ test('reset password link can be requested via api', function () {
 test('reset password link returns validation error for invalid email', function () {
     postJson('/api/v1/forgot-password', ['email' => 'not-an-email'])
         ->assertStatus(422)
-        ->assertJsonValidationErrors(['email']);
+        ->assertJson([
+            'status' => 'error',
+            'message' => 'The given data was invalid.',
+            'errors' => [
+                'email' => ['The email must be a valid email address.'],
+            ],
+        ]);
 });
 
 test('reset password link returns validation error for missing email', function () {
     postJson('/api/v1/forgot-password', [])
         ->assertStatus(422)
-        ->assertJsonValidationErrors(['email']);
+        ->assertJson([
+            'status' => 'error',
+            'message' => 'The given data was invalid.',
+            'errors' => [
+                'email' => ['The email field is required.'],
+            ],
+        ]);
 });
