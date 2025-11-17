@@ -4,40 +4,15 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Api\V1\ApiController;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use Carbon\Carbon;
+use App\Services\SessionService;
 
 class SessionController extends ApiController
 {
-    // Helper to generate mock sessions data
-    private function generateSessions()
+    protected $sessionService;
+
+    public function __construct(SessionService $sessionService)
     {
-        return [
-            [
-                'id' => 'session_12345',
-                'device' => [
-                    'browser' => 'Chrome',
-                    'os' => 'Windows 10',
-                    'platform' => 'Desktop',
-                ],
-                'startTime' => Carbon::now()->subHours(2)->toIso8601String(),
-                'ipAddress' => '192.168.1.100',
-                'location' => 'Riyadh, Saudi Arabia',
-                'isCurrent' => true,
-            ],
-            [
-                'id' => 'session_67890',
-                'device' => [
-                    'browser' => 'Safari',
-                    'os' => 'iOS 16',
-                    'platform' => 'Mobile',
-                ],
-                'startTime' => Carbon::now()->subDay()->toIso8601String(),
-                'ipAddress' => '10.0.0.5',
-                'location' => 'Jeddah, Saudi Arabia',
-                'isCurrent' => false,
-            ],
-        ];
+        $this->sessionService = $sessionService;
     }
 
     /**
@@ -46,12 +21,8 @@ class SessionController extends ApiController
      */
     public function listSessions(Request $request)
     {
-        // In real app: retrieve sessions for authenticated user from DB/session store
-        $sessions = $this->generateSessions();
-
-        return $this->success([
-            'data' => $sessions
-        ]);
+        $result = $this->sessionService->listSessions($request);
+        return $this->success($result['data']);
     }
 
     /**
@@ -60,14 +31,8 @@ class SessionController extends ApiController
      */
     public function refreshSession(Request $request)
     {
-        // In real app: generate a new JWT token or refresh token for current session
-        $newToken = 'new_refreshed_jwt_token_' . Str::random(10);
-        $expiresAt = Carbon::now()->addHours(2)->toIso8601String();
-
-        return $this->success([
-            'token' => $newToken,
-            'expiresAt' => $expiresAt,
-        ]);
+        $result = $this->sessionService->refreshSession($request);
+        return $this->success($result);
     }
 
     /**
@@ -76,9 +41,7 @@ class SessionController extends ApiController
      */
     public function terminateAllOtherSessions(Request $request)
     {
-        // In real app: find all sessions except current and terminate them
-        $terminatedCount = 1; // mocked
-
+        $terminatedCount = $this->sessionService->terminateAllOtherSessions($request);
         return $this->success([
             'terminatedSessionsCount' => $terminatedCount,
             'message' => 'All other sessions have been terminated.'
@@ -89,11 +52,12 @@ class SessionController extends ApiController
      * DELETE /account/sessions/{id}
      * Terminate a specific login session.
      */
-    public function terminateSession($id)
+    public function terminateSession($id, Request $request)
     {
-        // In real app: find session by $id and terminate it
-        // Here we just assume success
-
-        return $this->success(null, 'Session terminated successfully.');
+        $success = $this->sessionService->terminateSession($id, $request);
+        if ($success) {
+            return $this->success(null, 'Session terminated successfully.');
+        }
+        return $this->error('Session not found or you do not have permission to terminate it.', 404);
     }
 }
