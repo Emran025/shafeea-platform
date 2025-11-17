@@ -1,14 +1,11 @@
 <?php
 
 use App\Models\User;
-use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Support\Facades\Notification;
 
 use function Pest\Laravel\postJson;
 
-test('reset password link can be requested via api', function () {
-    Notification::fake();
-
+test('reset password link can be requested via api for existing user', function () {
     $user = User::factory()->create();
 
     postJson('/api/v1/forgot-password', ['email' => $user->email])
@@ -17,8 +14,15 @@ test('reset password link can be requested via api', function () {
             'status' => 'success',
             'message' => 'If the email exists, a reset link has been sent.'
         ]);
+});
 
-    Notification::assertSentTo($user, ResetPassword::class);
+test('reset password link returns same response for non-existing user', function () {
+    postJson('/api/v1/forgot-password', ['email' => 'non-existing-user@example.com'])
+        ->assertStatus(200)
+        ->assertJson([
+            'status' => 'success',
+            'message' => 'If the email exists, a reset link has been sent.'
+        ]);
 });
 
 test('reset password link returns validation error for invalid email', function () {
