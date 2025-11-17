@@ -9,7 +9,14 @@ dataset('login_users', [
     'User with other email' => [['login' => 'user2@example.com', 'password' => 'password3']],
 ]);
 
-test('users can login with valid credentials', function (array $credentials) {
+$deviceInfo = [
+    'device_id' => 'test-device-id',
+    'model' => 'Test Model',
+    'manufacturer' => 'Test Manufacturer',
+    'os_version' => 'Test OS 1.0',
+];
+
+test('users can login with valid credentials and device info', function (array $credentials) use ($deviceInfo) {
     // إنشاء المستخدم بناءً على ما إذا كان تسجيل الدخول بريدًا إلكترونيًا أو رقم هاتف
     User::factory()->create([
         'email' => filter_var($credentials['login'], FILTER_VALIDATE_EMAIL) ? $credentials['login'] : null,
@@ -17,8 +24,10 @@ test('users can login with valid credentials', function (array $credentials) {
         'password' => bcrypt($credentials['password']),
     ]);
 
+    $payload = array_merge($credentials, ['device_info' => $deviceInfo]);
+
     // إرسال طلب تسجيل الدخول
-    $response = postJson('/api/v1/auth/login', $credentials);
+    $response = postJson('/api/v1/auth/login', $payload);
 
     // التحقق من نجاح الاستجابة وبنية البيانات
     $response->assertStatus(200);
@@ -31,3 +40,29 @@ test('users can login with valid credentials', function (array $credentials) {
         ]
     ]);
 })->with('login_users');
+
+test('new users can register with valid data and device info', function () use ($deviceInfo) {
+    $userData = [
+        'name' => 'Test User',
+        'email' => 'test@example.com',
+        'password' => 'password',
+        'password_confirmation' => 'password',
+    ];
+
+    $payload = array_merge($userData, ['device_info' => $deviceInfo]);
+
+    $response = postJson('/api/v1/auth/register', $payload);
+
+    $response->assertStatus(200);
+    $response->assertJsonStructure([
+        'success',
+        'message',
+        'data' => [
+            'token',
+            'user' => ['id', 'name', 'email', 'phone'],
+        ]
+    ]);
+
+    $this->assertDatabaseHas('users', ['email' => 'test@example.com']);
+    $this->assertDatabaseHas('devices', ['device_id' => 'test-device-id']);
+});
