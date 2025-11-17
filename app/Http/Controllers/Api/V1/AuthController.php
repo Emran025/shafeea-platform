@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Api\V1\ApiController;
+use App\Events\ApiLogin;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -11,7 +12,7 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends ApiController
 {
-     /**
+    /**
      * POST /auth/api/v1/login
      * Authenticate user, save device info, and return token/profile.
      */
@@ -64,7 +65,9 @@ class AuthController extends ApiController
         );
 
         $token = $user->createToken($deviceInfo['device_id'])->plainTextToken;
-        
+
+        event(new ApiLogin($user, $request));
+
         // Determine user role
         if ($user->admin) {
             $role = 'admin';
@@ -128,6 +131,9 @@ class AuthController extends ApiController
         );
 
         $token = $user->createToken($deviceInfo['device_id'])->plainTextToken;
+
+
+        event(new ApiLogin($user, $request));
 
         return $this->success([
             'token' => $token,
