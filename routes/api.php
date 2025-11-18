@@ -18,8 +18,8 @@ Route::prefix('v1')->group(function () {
         Route::post('forgot-password', [AuthController::class, 'forgotPassword'])->name('password.email');
         Route::post('login', [AuthController::class, 'login'])->name('login');
         Route::post('refresh', [AuthController::class, 'refresh'])->name('refresh');
-        Route::get('me', [AuthController::class, 'me'])->name('me');
-        Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+        Route::get('me', [AuthController::class, 'me'])->middleware('auth:sanctum')->name('me');
+        Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:sanctum')->name('logout');
     });
 
     // Students routes with prefix 'students' and name prefix 'students.'
