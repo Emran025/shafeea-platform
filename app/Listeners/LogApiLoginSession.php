@@ -30,10 +30,11 @@ class LogApiLoginSession
         $user = $event->user;
         $request = $event->request;
         $deviceInfo = $request->input('device_info');
+        $deviceId = $deviceInfo['device_id'] ?? hash('sha256', $request->userAgent() . $request->ip());
 
         $payload = base64_encode(serialize([
             'type' => 'api_login',
-            'device_id' => $deviceInfo['device_id'],
+            'device_id' => $deviceId,
             'login_timestamp' => now()->toISOString(),
             'token_created' => true
         ]));
@@ -43,6 +44,8 @@ class LogApiLoginSession
             'user_id' => $user->id,
             'ip_address' => $request->ip(),
             'user_agent' => $request->userAgent(),
+            'device_id' => $deviceId,
+            'login_time' => now(),
             'payload' => $payload,
             'last_activity' => now()->timestamp,
         ]);
