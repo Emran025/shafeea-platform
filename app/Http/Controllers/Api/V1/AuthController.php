@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Password;
 class AuthController extends ApiController
 {
     /**
-     * POST /auth/api/v1/login
+     * POST /api/v1/auth/login
      * Authenticate user, save device info, and return token/profile.
      */
     public function login(Request $request)
@@ -90,7 +90,7 @@ class AuthController extends ApiController
     }
 
     /**
-     * POST /auth/api/v1/register
+     * POST /api/v1/auth/register
      * Register a new user, save device info, and return token/profile.
      */
     public function register(Request $request)
@@ -142,7 +142,7 @@ class AuthController extends ApiController
 
 
     /**
-     * POST /auth/api/v1/refresh
+     * POST /api/v1/auth/refresh
      * Return a new mock token and expiration time.
      */
     public function refresh(Request $request)
@@ -154,7 +154,7 @@ class AuthController extends ApiController
     }
 
     /**
-     * GET /auth/api/v1/me
+     * GET /api/v1/auth/me
      * Return the current supervisor profile (mock).
      */
     public function me(Request $request)
@@ -167,7 +167,7 @@ class AuthController extends ApiController
     }
 
     /**
-     * POST /auth/api/v1/logout
+     * POST /api/v1/auth/logout
      * Invalidate the current user's token.
      */
     public function logout(Request $request)
@@ -181,7 +181,7 @@ class AuthController extends ApiController
     }
 
     /**
-     * POST /auth/api/v1/forgot-password
+     * POST /api/v1/auth/forgot-password
      * Handle an incoming password reset link request.
      *
      * @param  \Illuminate\Http\Request  $request
