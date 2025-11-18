@@ -59,11 +59,6 @@ class AuthController extends ApiController
 
         $deviceInfo = $request->input('device_info');
 
-        $user->devices()->updateOrCreate(
-            ['device_id' => $deviceInfo['device_id']],
-            $deviceInfo
-        );
-
         $token = $user->createToken($deviceInfo['device_id'])->plainTextToken;
 
         event(new ApiLogin($user, $request));
@@ -124,11 +119,6 @@ class AuthController extends ApiController
         ]);
 
         $deviceInfo = $request->input('device_info');
-
-        $user->devices()->updateOrCreate(
-            ['device_id' => $deviceInfo['device_id']],
-            $deviceInfo
-        );
 
         $token = $user->createToken($deviceInfo['device_id'])->plainTextToken;
 
