@@ -26,16 +26,6 @@ class SessionController extends ApiController
     }
 
     /**
-     * POST /account/sessions/refresh
-     * Refresh the current session token.
-     */
-    public function refreshSession(Request $request)
-    {
-        $result = $this->sessionService->refreshSession($request);
-        return $this->success($result);
-    }
-
-    /**
      * POST /account/sessions/terminate-all
      * Terminate all other login sessions except the current one.
      */

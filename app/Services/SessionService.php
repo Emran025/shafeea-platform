@@ -13,9 +13,6 @@ class SessionService
         $user = $request->user();
         $currentSessionId = $request->session()->getId();
 
-        // Get all devices for the user
-        $devices = DB::table('devices')->where('user_id', $user->id)->get();
-
         // Base query to get sessions for the authenticated user
         $sessionsQuery = DB::table('sessions')->where('user_id', $user->id);
 
@@ -49,24 +46,15 @@ class SessionService
         $activeSessions = 0;
         $uniqueDevices = [];
 
-        $formattedSessions = $sessions->map(function ($session) use ($currentSessionId, $devices, &$activeSessions, &$uniqueDevices) {
+        $formattedSessions = $sessions->map(function ($session) use ($currentSessionId, &$activeSessions, &$uniqueDevices) {
             $parsedUA = $this->parseUserAgent($session->user_agent);
-
-            // Find a matching device. This is a best-effort fuzzy match.
-            // A more reliable method would be to store a device identifier in the session.
-            $matchingDevice = $devices->first(function ($device) use ($parsedUA) {
-                if (isset($device->os_version) && stripos($device->os_version, $parsedUA['os']) !== false) {
-                    return true;
-                }
-                return false;
-            });
 
             $deviceInfo = [
                 'browser' => $parsedUA['browser'],
                 'os' => $parsedUA['os'],
                 'platform' => $parsedUA['platform'],
-                'model' => $matchingDevice ? $matchingDevice->model : null,
-                'manufacturer' => $matchingDevice ? $matchingDevice->manufacturer : null,
+                'model' => $session->model,
+                'manufacturer' => $session->manufacturer,
             ];
 
             $lastActivity = Carbon::createFromTimestamp($session->last_activity);
@@ -78,9 +66,8 @@ class SessionService
             }
 
             // Track unique devices
-            $deviceIdentifier = $matchingDevice ? $matchingDevice->device_id : ($deviceInfo['platform'] . '-' . $deviceInfo['browser'] . '-' . $deviceInfo['os']);
-            if (!in_array($deviceIdentifier, $uniqueDevices)) {
-                $uniqueDevices[] = $deviceIdentifier;
+            if ($session->device_id && !in_array($session->device_id, $uniqueDevices)) {
+                $uniqueDevices[] = $session->device_id;
             }
 
             return [
@@ -88,16 +75,12 @@ class SessionService
                 'device_info' => $deviceInfo,
                 'ip_address' => $session->ip_address,
                 'location' => 'N/A', // Geolocation is skipped for now
-                'login_time' => 'N/A', // Login time is not available in the default sessions table
+                'login_time' => $session->login_time ? Carbon::parse($session->login_time)->toIso8601String() : 'N/A',
                 'last_activity' => $lastActivity->toIso8601String(),
                 'is_current' => $isCurrent,
                 'status' => $status,
             ];
         });
-
-        // Pre-filter analytics
-        $totalSessions = $formattedSessions->count();
-        $devicesCount = count($uniqueDevices);
 
         // Status filter
         if ($request->has('status')) {
@@ -105,14 +88,12 @@ class SessionService
             $formattedSessions = $formattedSessions->filter(function ($session) use ($status) {
                 return $session['status'] === $status;
             })->values();
-
-            // Recalculate active sessions if filtering by status
-            if ($status === 'active') {
-                $activeSessions = $formattedSessions->count();
-            } else if ($status === 'expired') {
-                $activeSessions = 0;
-            }
         }
+
+        // Post-filter analytics
+        $totalSessions = $formattedSessions->count();
+        $activeSessions = $formattedSessions->where('status', 'active')->count();
+        $devicesCount = count($uniqueDevices);
 
         return [
             'status' => 'success',
@@ -135,45 +116,84 @@ class SessionService
      */
     private function parseUserAgent($userAgent)
     {
-        $deviceType = 'desktop';
+        $platform = 'desktop';
         $browser = 'Unknown';
         $os = 'Unknown';
 
-        // Basic device detection
-        if (strpos($userAgent, 'Mobile') !== false) {
-            $deviceType = 'mobile';
-        } elseif (strpos($userAgent, 'Tablet') !== false) {
-            $deviceType = 'tablet';
+        // OS Detection
+        $os_array = [
+            '/windows nt 10/i'      => 'Windows 10',
+            '/windows nt 6.3/i'     => 'Windows 8.1',
+            '/windows nt 6.2/i'     => 'Windows 8',
+            '/windows nt 6.1/i'     => 'Windows 7',
+            '/windows nt 6.0/i'     => 'Windows Vista',
+            '/windows nt 5.2/i'     => 'Windows Server 2003/XP x64',
+            '/windows nt 5.1/i'     => 'Windows XP',
+            '/windows xp/i'         => 'Windows XP',
+            '/windows nt 5.0/i'     => 'Windows 2000',
+            '/windows me/i'         => 'Windows ME',
+            '/win98/i'              => 'Windows 98',
+            '/win95/i'              => 'Windows 95',
+            '/win16/i'              => 'Windows 3.11',
+            '/macintosh|mac os x/i' => 'Mac OS X',
+            '/mac_powerpc/i'        => 'Mac OS 9',
+            '/linux/i'              => 'Linux',
+            '/ubuntu/i'             => 'Ubuntu',
+            '/iphone|ipod|ipad/i'   => 'iOS',
+            '/android/i'            => 'Android',
+            '/blackberry/i'         => 'BlackBerry',
+            '/webos/i'              => 'Mobile',
+        ];
+
+        foreach ($os_array as $regex => $value) {
+            if (preg_match($regex, $userAgent)) {
+                $os = $value;
+                break;
+            }
         }
 
-        // Basic browser detection
-        if (strpos($userAgent, 'Chrome') !== false && strpos($userAgent, 'Edg') === false) {
-            $browser = 'Chrome';
-        } elseif (strpos($userAgent, 'Firefox') !== false) {
-            $browser = 'Firefox';
-        } elseif (strpos($userAgent, 'Safari') !== false && strpos($userAgent, 'Chrome') === false) {
-            $browser = 'Safari';
-        } elseif (strpos($userAgent, 'Edg') !== false) {
+        // Browser Detection
+        $browser_array = [
+            '/msie/i'      => 'Internet Explorer',
+            '/firefox/i'   => 'Firefox',
+            '/safari/i'    => 'Safari',
+            '/chrome/i'    => 'Chrome',
+            '/edge/i'      => 'Edge',
+            '/opera/i'     => 'Opera',
+            '/netscape/i'  => 'Netscape',
+            '/maxthon/i'   => 'Maxthon',
+            '/konqueror/i' => 'Konqueror',
+            '/mobile/i'    => 'Handheld Browser',
+        ];
+
+        if (strpos($userAgent, 'Edg') !== false) {
             $browser = 'Edge';
+        } elseif (strpos($userAgent, 'Chrome') !== false && strpos($userAgent, 'Safari') !== false) {
+            $browser = 'Chrome';
+        } elseif (strpos($userAgent, 'Safari') !== false) {
+            $browser = 'Safari';
+        } else {
+             foreach ($browser_array as $regex => $value) {
+                if (preg_match($regex, $userAgent)) {
+                    $browser = $value;
+                    break;
+                }
+            }
         }
 
-        // Basic OS detection
-        if (preg_match('/windows nt 10/i', $userAgent)) {
-            $os = 'Windows 10';
-        } elseif (preg_match('/mac os x/i', $userAgent)) {
-            $os = 'macOS';
-        } elseif (preg_match('/android/i', $userAgent)) {
-            $os = 'Android';
-        } elseif (preg_match('/iphone/i', $userAgent)) {
-            $os = 'iOS';
-        } elseif (preg_match('/linux/i', $userAgent)) {
-            $os = 'Linux';
+
+        // Platform detection
+        if (preg_match('/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|rim)|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i', $userAgent)
+            || preg_match('/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|4t|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5|i)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i', substr($userAgent, 0, 4))) {
+            $platform = 'mobile';
+        } elseif (strpos($userAgent, 'Tablet') !== false || strpos($userAgent, 'iPad') !== false) {
+            $platform = 'tablet';
         }
 
         return [
-            'platform' => $deviceType,
-            'browser' => $browser,
-            'os' => $os,
+            'platform' => $platform,
+            'browser'  => $browser,
+            'os'       => $os,
         ];
     }
 
@@ -215,25 +235,4 @@ class SessionService
             ->delete();
     }
 
-    /**
-     * Refresh the current session token.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array
-     */
-    public function refreshSession(Request $request)
-    {
-        $user = $request->user();
-
-        // Revoke the current token
-        $request->user()->currentAccessToken()->delete();
-
-        // Create a new token
-        $token = $user->createToken('api-token')->plainTextToken;
-
-        return [
-            'token' => $token,
-            'expires_at' => config('sanctum.expiration') ? now()->addMinutes(config('sanctum.expiration')) : null,
-        ];
-    }
 }

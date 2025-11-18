@@ -60,13 +60,6 @@ class User extends Authenticatable
     /**
      * Relationships
      */
-    /**
-     * Get the devices for the user.
-     */
-    public function devices(): HasMany
-    {
-        return $this->hasMany(Device::class);
-    }
     public function student()
     {
         return $this->hasOne(Student::class);
