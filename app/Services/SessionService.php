@@ -13,9 +13,6 @@ class SessionService
         $user = $request->user();
         $currentSessionId = $request->session()->getId();
 
-        // Get all devices for the user
-        $devices = DB::table('devices')->where('user_id', $user->id)->get();
-
         // Base query to get sessions for the authenticated user
         $sessionsQuery = DB::table('sessions')->where('user_id', $user->id);
 
@@ -49,17 +46,15 @@ class SessionService
         $activeSessions = 0;
         $uniqueDevices = [];
 
-        $formattedSessions = $sessions->map(function ($session) use ($currentSessionId, $devices, &$activeSessions, &$uniqueDevices) {
+        $formattedSessions = $sessions->map(function ($session) use ($currentSessionId, &$activeSessions, &$uniqueDevices) {
             $parsedUA = $this->parseUserAgent($session->user_agent);
-
-            $matchingDevice = $devices->firstWhere('device_id', $session->device_id);
 
             $deviceInfo = [
                 'browser' => $parsedUA['browser'],
                 'os' => $parsedUA['os'],
                 'platform' => $parsedUA['platform'],
-                'model' => $matchingDevice ? $matchingDevice->model : null,
-                'manufacturer' => $matchingDevice ? $matchingDevice->manufacturer : null,
+                'model' => $session->model,
+                'manufacturer' => $session->manufacturer,
             ];
 
             $lastActivity = Carbon::createFromTimestamp($session->last_activity);
