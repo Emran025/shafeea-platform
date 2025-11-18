@@ -40,7 +40,11 @@ class LogoutTest extends TestCase
             'Accept' => 'application/json',
         ])->postJson('/api/v1/auth/logout');
 
-        $response->assertStatus(401);
+        $response->assertStatus(401)
+            ->assertJson([
+                'status' => 'error',
+                'message' => 'Token is invalid or already revoked',
+            ]);
     }
 
     /** @test */
