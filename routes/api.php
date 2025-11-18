@@ -10,13 +10,12 @@ use App\Http\Controllers\Api\V1\TeacherApplicantController;
 use App\Http\Controllers\Api\V1\TeacherController;
 use App\Http\Controllers\Api\V1\FollowUpController;
 use App\Http\Controllers\Api\V1\AuthController;
-use App\Http\Controllers\Api\V1\Auth\ForgotPasswordController;
 use App\Http\Controllers\Api\V1\SessionController;
 // Route::prefix(prefix: 'v1')->middleware('auth:sanctum')->group(function () {
 Route::prefix('v1')->group(function () {
-    Route::post('forgot-password', [ForgotPasswordController::class, 'store'])->name('password.email');
     // Auth routes with name prefix 'auth.'
     Route::prefix('auth')->name('auth.')->group(function () {
+        Route::post('forgot-password', [AuthController::class, 'forgotPassword'])->name('password.email');
         Route::post('login', [AuthController::class, 'login'])->name('login');
         Route::post('refresh', [AuthController::class, 'refresh'])->name('refresh');
         Route::get('me', [AuthController::class, 'me'])->name('me');

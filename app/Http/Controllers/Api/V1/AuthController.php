@@ -9,6 +9,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Password;
 
 class AuthController extends ApiController
 {
@@ -173,6 +175,44 @@ class AuthController extends ApiController
         // This should perform a REAL logout
         $request->user()->currentAccessToken()->delete();
         return $this->success(null, 'Successfully logged out.');
+    }
+
+    /**
+     * POST /auth/api/v1/forgot-password
+     * Handle an incoming password reset link request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function forgotPassword(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => ['required', 'email'],
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'The given data was invalid.',
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+
+        $user = User::where('email', $request->email)->first();
+
+        if ($user) {
+            // TODO: UNCOMMENT WHEN EMAIL SERVICE IS READY
+            // Actual email sending logic will be here
+            // Password::sendResetLink($request->only('email'));
+
+            // CURRENT: Simulate email sending (for development)
+            Log::info('Password reset requested for: ' . $request->email);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'If the email exists, a reset link has been sent.'
+        ]);
     }
 
     /**
