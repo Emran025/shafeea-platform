@@ -11,11 +11,20 @@ use App\Http\Controllers\Api\V1\TeacherController;
 use App\Http\Controllers\Api\V1\FollowUpController;
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\SessionController;
-Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
-    // Auth routes with name prefix 'auth.'
+// Public routes
+Route::prefix('v1')->group(function() {
     Route::prefix('auth')->name('auth.')->group(function () {
-        Route::post('forgot-password', [AuthController::class, 'forgotPassword'])->name('password.email');
+        Route::post('register', [AuthController::class, 'register'])->name('register');
         Route::post('login', [AuthController::class, 'login'])->name('login');
+        Route::post('forgot-password', [AuthController::class, 'forgotPassword'])->name('password.email');
+    });
+});
+
+
+// Protected routes
+Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
+    // Auth routes
+    Route::prefix('auth')->name('auth.')->group(function () {
         Route::post('refresh', [AuthController::class, 'refresh'])->name('refresh');
         Route::get('me', [AuthController::class, 'me'])->name('me');
         Route::post('logout', [AuthController::class, 'logout'])->name('logout');
