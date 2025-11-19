@@ -26,76 +26,64 @@ class FaqSeeder extends Seeder
         $faqs = [
             // General Questions
             [
-                'category' => 'General Questions',
-                'question' => 'What is the main goal of this platform?',
-                'answer' => 'The main goal is to provide a centralized and easy-to-use system for managing educational content and tracking student progress.',
+                'category' => 'أسئلة عامة',
+                'question' => 'ما هي البنية التحتية التقنية الأساسية للمنصة؟',
+                'answer' => 'تعتمد المنصة على بنية الخدمات المصغرة (Microservices) المستضافة على AWS، مما يضمن قابلية التوسع العالية والتوافرية. نستخدم Kubernetes لإدارة الحاويات وقواعد بيانات Aurora لأداء مثالي.',
                 'tags' => ['getting-started', 'features']
             ],
             [
-                'category' => 'General Questions',
-                'question' => 'Who is the target audience for this application?',
-                'answer' => 'The application is designed for educational institutions, including schools and learning centers, as well as individual teachers and students.',
-                'tags' => ['getting-started']
+                'category' => 'أسئلة عامة',
+                'question' => 'هل تدعم المنصة التكامل مع أنظمة إدارة التعلم (LMS) الأخرى؟',
+                'answer' => 'نعم، نوفر واجهة برمجة تطبيقات (API) قوية وموثقة جيدًا تتيح التكامل السلس مع أنظمة LMS الشهيرة مثل Moodle وBlackboard. يمكن للمطورين استخدام RESTful endpoints لمزامنة البيانات.',
+                'tags' => ['getting-started', 'integrations']
             ],
 
             // Technical Support
             [
-                'category' => 'Technical Support',
-                'question' => 'I forgot my password. How can I reset it?',
-                'answer' => 'You can reset your password by clicking the "Forgot Password" link on the login page and following the on-screen instructions.',
-                'tags' => ['account-management', 'troubleshooting']
+                'category' => 'الدعم الفني',
+                'question' => 'أواجه خطأ 502 Bad Gateway عند محاولة الوصول إلى لوحة التحكم، ما السبب؟',
+                'answer' => 'عادةً ما يشير هذا الخطأ إلى مشكلة مؤقتة في الاتصال بين خوادمنا. فريقنا يعمل على حلها. يُنصح بمسح ذاكرة التخزين المؤقت للمتصفح والمحاولة مرة أخرى بعد بضع دقائق. إذا استمرت المشكلة، يرجى التحقق من صفحة حالة الخدمة أو الاتصال بالدعم الفني.',
+                'tags' => ['troubleshooting']
             ],
             [
-                'category' => 'Technical Support',
-                'question' => 'The mobile app is crashing. What should I do?',
-                'answer' => 'Please ensure your app is updated to the latest version. If the problem persists, try clearing the cache or reinstalling the app. Contact support if you need further assistance.',
+                'category' => 'الدعم الفني',
+                'question' => 'تطبيق الجوال يستهلك الكثير من طاقة البطارية، هل هناك حل؟',
+                'answer' => 'نحن ندرك هذه المشكلة في الإصدار الحالي ونعمل على تحسين أداء البطارية في التحديث القادم (v2.5.1). كحل مؤقت، يمكنك تعطيل الإشعارات الفورية وتحديث المزامنة الخلفية من إعدادات التطبيق.',
                 'tags' => ['mobile-app', 'troubleshooting']
             ],
             [
-                'category' => 'Technical Support',
-                'question' => 'How do I report a technical bug?',
-                'answer' => 'You can report a bug through the "Help & Support" section in your account dashboard. Please provide as much detail as possible.',
-                'tags' => ['troubleshooting']
+                'category' => 'الدعم الفني',
+                'question' => 'كيف يمكنني الإبلاغ عن ثغرة أمنية (Vulnerability)؟',
+                'answer' => 'نحن نأخذ الأمان على محمل الجد. يرجى إرسال تقرير مفصل عن الثغرة إلى security@example.com مع خطوات واضحة لإعادة إنتاج المشكلة. نحن نتبع سياسة الإفصاح المسؤول ونقدر مساهمات الباحثين الأمنيين.',
+                'tags' => ['troubleshooting', 'security']
             ],
 
             // Pricing and Plans
             [
-                'category' => 'Pricing and Plans',
-                'question' => 'What are the available subscription plans?',
-                'answer' => 'We offer several plans, including a free tier for basic use and premium plans for advanced features. You can find details on our Pricing page.',
-                'tags' => ['billing']
+                'category' => 'الأسعار والخطط',
+                'question' => 'هل يتم احتساب استهلاك الـ API ضمن خطط التسعير؟',
+                'answer' => 'نعم، كل خطة تسعير تأتي مع حد معين من استدعاءات الـ API شهريًا. تتضمن خطة "Enterprise" عددًا غير محدود من الاستدعاءات. يمكنك تتبع استهلاكك عبر لوحة التحكم.',
+                'tags' => ['billing', 'integrations']
             ],
             [
-                'category' => 'Pricing and Plans',
-                'question' => 'Can I change my plan later?',
-                'answer' => 'Yes, you can upgrade or downgrade your plan at any time from your account settings. Changes will be prorated.',
+                'category' => 'الأسعار والخطط',
+                'question' => 'كيف يتم التعامل مع الفواتير للخدمات الإضافية مثل التخزين السحابي الإضافي؟',
+                'answer' => 'يتم إصدار فاتورة بالخدمات الإضافية بشكل منفصل في نهاية كل دورة فوترة. تعتمد التكلفة على الاستخدام الفعلي (Pay-as-you-go) ويمكن مراقبتها من قسم "الفواتير" في حسابك.',
                 'tags' => ['billing', 'account-management']
-            ],
-            [
-                'category' => 'Pricing and Plans',
-                'question' => 'What payment methods do you accept?',
-                'answer' => 'We accept all major credit cards, as well as payments via PayPal and bank transfer for annual subscriptions.',
-                'tags' => ['billing']
             ],
 
             // User Guides
             [
-                'category' => 'User Guides',
-                'question' => 'How do I create a new student profile?',
-                'answer' => 'To create a new student profile, navigate to the "Students" section and click the "Add New Student" button. Fill in the required information and save.',
-                'tags' => ['features', 'account-management']
-            ],
-            [
-                'category' => 'User Guides',
-                'question' => 'How can I track student attendance?',
-                'answer' => 'Attendance can be tracked from the "Halaqa" (Session) view. Simply mark each student as present, absent, or late for the session.',
-                'tags' => ['features']
-            ],
-            [
-                'category' => 'User Guides',
-                'question' => 'Is it possible to export reports?',
-                'answer' => 'Yes, all reports can be exported in PDF or CSV format. Look for the "Export" button on the top right of the report page.',
+                'category' => 'أدلة المستخدم',
+                'question' => 'كيف يمكنني استخدام Webhooks لتلقي إشعارات فورية بالأحداث؟',
+                'answer' => 'يمكنك تكوين Webhooks من قسم "التكاملات" في إعدادات المطور. قم بإدخال عنوان URL الخاص بنقطة النهاية (Endpoint) واختر الأحداث التي ترغب في الاشتراك بها، مثل `student.created` أو `submission.graded`.',
                 'tags' => ['features', 'integrations']
+            ],
+            [
+                'category' => 'أدلة المستخدم',
+                'question' => 'ما هي أفضل الممارسات لتأمين حسابي باستخدام المصادقة الثنائية (2FA)؟',
+                'answer' => 'نوصي بشدة بتمكين المصادقة الثنائية باستخدام تطبيق موثوق مثل Google Authenticator أو Authy. قم بتخزين رموز الاسترداد الاحتياطية في مكان آمن. لا تشارك رموزك أبدًا وتجنب استخدام الرسائل القصيرة SMS كطريقة أساسية للمصادقة.',
+                'tags' => ['features', 'account-management', 'security']
             ]
         ];
 

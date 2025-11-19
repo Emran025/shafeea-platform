@@ -13,14 +13,14 @@ class TagSeeder extends Seeder
     public function run(): void
     {
         $tags = [
-            ['tag_name' => 'Getting Started', 'tag_slug' => 'getting-started'],
-            ['tag_name' => 'Account Management', 'tag_slug' => 'account-management'],
-            ['tag_name' => 'Billing', 'tag_slug' => 'billing'],
-            ['tag_name' => 'Features', 'tag_slug' => 'features'],
-            ['tag_name' => 'Troubleshooting', 'tag_slug' => 'troubleshooting'],
-            ['tag_name' => 'Mobile App', 'tag_slug' => 'mobile-app'],
-            ['tag_name' => 'Integrations', 'tag_slug' => 'integrations'],
-            ['tag_name' => 'Security', 'tag_slug' => 'security'],
+            ['tag_name' => 'بدء الاستخدام', 'tag_slug' => 'getting-started'],
+            ['tag_name' => 'إدارة الحساب', 'tag_slug' => 'account-management'],
+            ['tag_name' => 'الفواتير والدفع', 'tag_slug' => 'billing'],
+            ['tag_name' => 'الميزات والوظائف', 'tag_slug' => 'features'],
+            ['tag_name' => 'استكشاف الأخطاء وإصلاحها', 'tag_slug' => 'troubleshooting'],
+            ['tag_name' => 'تطبيق الجوال', 'tag_slug' => 'mobile-app'],
+            ['tag_name' => 'التكاملات', 'tag_slug' => 'integrations'],
+            ['tag_name' => 'الأمان والخصوصية', 'tag_slug' => 'security'],
         ];
 
         foreach ($tags as $tag) {

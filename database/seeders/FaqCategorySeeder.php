@@ -12,9 +12,9 @@ class FaqCategorySeeder extends Seeder
      */
     public function run(): void
     {
-        FaqCategory::create(['name' => 'General Questions', 'display_order' => 1]);
-        FaqCategory::create(['name' => 'Technical Support', 'display_order' => 2]);
-        FaqCategory::create(['name' => 'Pricing and Plans', 'display_order' => 3]);
-        FaqCategory::create(['name' => 'User Guides', 'display_order' => 4]);
+        FaqCategory::create(['name' => 'أسئلة عامة', 'display_order' => 1]);
+        FaqCategory::create(['name' => 'الدعم الفني', 'display_order' => 2]);
+        FaqCategory::create(['name' => 'الأسعار والخطط', 'display_order' => 3]);
+        FaqCategory::create(['name' => 'أدلة المستخدم', 'display_order' => 4]);
     }
 }

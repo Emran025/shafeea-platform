@@ -13,19 +13,19 @@ class ContentTypeSeeder extends Seeder
     public function run(): void
     {
         ContentType::create([
-            'name' => 'FAQ',
+            'name' => 'الأسئلة الشائعة',
             'slug' => 'faq',
         ]);
         ContentType::create([
-            'name' => 'Privacy Policy',
+            'name' => 'سياسة الخصوصية',
             'slug' => 'privacy-policy',
         ]);
         ContentType::create([
-            'name' => 'Terms of Use',
+            'name' => 'شروط الاستخدام',
             'slug' => 'terms-of-use',
         ]);
         ContentType::create([
-            'name' => 'General Content',
+            'name' => 'محتوى عام',
             'slug' => 'general-content',
         ]);
     }
