@@ -11,7 +11,14 @@ class SessionService
     public function listSessions(Request $request)
     {
         $user = $request->user();
-        $currentSessionId = $request->session()->getId();
+        $token = $request->user()->currentAccessToken();
+        $currentDeviceId = $token ? $token->name : null;
+
+        $currentSession = $currentDeviceId
+            ? DB::table('sessions')->where('device_id', $currentDeviceId)->where('user_id', $user->id)->first()
+            : null;
+
+        $currentSessionId = $currentSession ? $currentSession->id : null;
 
         // Base query to get sessions for the authenticated user
         $sessionsQuery = DB::table('sessions')->where('user_id', $user->id);
@@ -41,70 +48,29 @@ class SessionService
             }
         }
 
-        $sessions = $sessionsQuery->get();
+        $sessions = $sessionsQuery->orderBy('last_activity', 'desc')->get();
 
-        $activeSessions = 0;
-        $uniqueDevices = [];
-
-        $formattedSessions = $sessions->map(function ($session) use ($currentSessionId, &$activeSessions, &$uniqueDevices) {
-            $parsedUA = $this->parseUserAgent($session->user_agent);
-
-            $deviceInfo = [
-                'browser' => $parsedUA['browser'],
-                'os' => $parsedUA['os'],
-                'platform' => $parsedUA['platform'],
-                'model' => $session->model,
-                'manufacturer' => $session->manufacturer,
-            ];
-
-            $lastActivity = Carbon::createFromTimestamp($session->last_activity);
-            $isCurrent = $session->id === $currentSessionId;
-            $status = $lastActivity->diffInMinutes(Carbon::now()) < config('session.lifetime', 120) ? 'active' : 'expired';
-
-            if ($status === 'active') {
-                $activeSessions++;
-            }
-
-            // Track unique devices
-            if ($session->device_id && !in_array($session->device_id, $uniqueDevices)) {
-                $uniqueDevices[] = $session->device_id;
-            }
-
+        $formattedSessions = $sessions->map(function ($session) use ($currentSessionId) {
             return [
                 'id' => $session->id,
-                'device_info' => $deviceInfo,
-                'ip_address' => $session->ip_address,
-                'location' => 'N/A', // Geolocation is skipped for now
-                'login_time' => $session->login_time ? Carbon::parse($session->login_time)->toIso8601String() : 'N/A',
-                'last_activity' => $lastActivity->toIso8601String(),
-                'is_current' => $isCurrent,
-                'status' => $status,
+                'is_current_device' => $session->id === $currentSessionId,
+                'last_accessed_at' => Carbon::createFromTimestamp($session->last_activity)->toIso8601String(),
+                'device_info' => [
+                    'device_id' => $session->device_id,
+                    'device_model' => $session->model,
+                    'manufacturer' => $session->manufacturer,
+                    'os_version' => $session->os_version,
+                    'app_version' => $session->app_version,
+                    'timezone' => $session->timezone,
+                    'locale' => $session->locale,
+                    'push_notification_token' => $session->fcm_token,
+                ],
             ];
         });
 
-        // Status filter
-        if ($request->has('status')) {
-            $status = $request->input('status');
-            $formattedSessions = $formattedSessions->filter(function ($session) use ($status) {
-                return $session['status'] === $status;
-            })->values();
-        }
-
-        // Post-filter analytics
-        $totalSessions = $formattedSessions->count();
-        $activeSessions = $formattedSessions->where('status', 'active')->count();
-        $devicesCount = count($uniqueDevices);
-
         return [
             'status' => 'success',
-            'data' => [
-                'sessions' => $formattedSessions,
-                'analytics' => [
-                    'total_sessions' => $totalSessions,
-                    'active_sessions' => $activeSessions,
-                    'devices_count' => $devicesCount,
-                ],
-            ],
+            'data' => $formattedSessions,
         ];
     }
 
@@ -207,9 +173,20 @@ class SessionService
     public function terminateSession($sessionId, Request $request)
     {
         $user = $request->user();
-        $session = DB::table('sessions')->where('id', $sessionId)->first();
+        $token = $request->user()->currentAccessToken();
+        $currentDeviceId = $token ? $token->name : null;
 
-        if ($session && $session->user_id == $user->id && $session->id !== $request->session()->getId()) {
+        $currentSession = $currentDeviceId
+            ? DB::table('sessions')->where('device_id', $currentDeviceId)->where('user_id', $user->id)->first()
+            : null;
+
+        if ($currentSession && $sessionId === $currentSession->id) {
+            return false;
+        }
+
+        $sessionToDelete = DB::table('sessions')->where('id', $sessionId)->where('user_id', $user->id)->first();
+
+        if ($sessionToDelete) {
             DB::table('sessions')->where('id', $sessionId)->delete();
             return true;
         }
@@ -226,12 +203,22 @@ class SessionService
     public function terminateAllOtherSessions(Request $request)
     {
         $user = $request->user();
-        $currentSessionId = $request->session()->getId();
+        $token = $request->user()->currentAccessToken();
+        $currentDeviceId = $token ? $token->name : null;
 
-        $sessionsToDelete = DB::table('sessions')
-            ->where('user_id', $user->id)
-            ->where('id', '!=', $currentSessionId)
-            ->get();
+        $currentSession = $currentDeviceId
+            ? DB::table('sessions')->where('device_id', $currentDeviceId)->where('user_id', $user->id)->first()
+            : null;
+
+        $currentSessionId = $currentSession ? $currentSession->id : null;
+
+        $query = DB::table('sessions')->where('user_id', $user->id);
+
+        if ($currentSessionId) {
+            $query->where('id', '!=', $currentSessionId);
+        }
+
+        $sessionsToDelete = $query->get();
 
         if ($sessionsToDelete->isNotEmpty()) {
             $sessionIds = $sessionsToDelete->pluck('id')->toArray();
