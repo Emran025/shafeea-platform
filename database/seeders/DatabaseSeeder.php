@@ -14,6 +14,15 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->seedSystemData();
+
+        $this->call([
+            ContentTypeSeeder::class,
+            TagSeeder::class,
+            FaqCategorySeeder::class,
+            FaqSeeder::class,
+            PrivacyPolicySeeder::class,
+            TermsOfUseSeeder::class,
+        ]);
     }
     function seedSystemData(): void
     {
