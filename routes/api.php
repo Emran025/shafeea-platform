@@ -116,7 +116,9 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
         Route::get('halaqas', [SyncController::class, 'syncHalaqas'])->name('halaqas');
         Route::get('reports', [SyncController::class, 'syncReports'])->name('reports');
     });
-    Route::prefix('account')->name('account.')->group(function () {
+
+
+    Route::prefix('account')->name('account.')->middleware('auth:sanctum')->group(function () {
         // Get the authenticated user's profile
         Route::get('profile', [AccountController::class, 'getProfile'])->name('profile');
         // List all active login sessions for the current user

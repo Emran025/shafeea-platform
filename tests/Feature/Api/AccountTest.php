@@ -3,7 +3,7 @@
 namespace Tests\Feature\Api;
 
 use App\Models\User;
-use App\Models\Role;
+
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
@@ -15,10 +15,8 @@ class AccountTest extends TestCase
     /** @test */
     public function an_authenticated_user_can_get_their_profile()
     {
-        $role = Role::create(['name' => 'student', 'description' => 'Student']);
-        $user = User::factory()->create();
-        $user->roles()->attach($role);
 
+        $user = User::factory()->create();
         Sanctum::actingAs($user);
 
         $response = $this->getJson('/api/v1/account/profile');
@@ -27,15 +25,15 @@ class AccountTest extends TestCase
         $response->assertJson([
             'success' => true,
             'data' => [
-                'id' => $user->id,
-                'name' => $user->name,
-                'email' => $user->email,
-                'phone' => $user->phone,
-                'avatar' => $user->avatar,
-                'role' => [
-                    'id' => $role->id,
-                    'name' => $role->name,
+
+                'user' => [
+                    'id' => $user->id,
+                    'name' => $user->name,
+                    'email' => $user->email,
+                    'phone' => $user->phone,
+                    'avatar' => $user->avatar,
                 ],
+                'role' => 'user',
             ],
         ]);
     }
@@ -49,24 +47,43 @@ class AccountTest extends TestCase
     }
 
     /** @test */
-    public function a_user_without_a_role_has_a_null_role_in_their_profile()
+
+    public function an_admin_user_has_the_correct_role_in_their_profile()
     {
         $user = User::factory()->create();
-        // Note: No role is attached to the user.
-
+        \App\Models\Admin::factory()->create(['user_id' => $user->id]);
         Sanctum::actingAs($user);
 
         $response = $this->getJson('/api/v1/account/profile');
 
         $response->assertSuccessful();
-        $response->assertJson([
-            'success' => true,
-            'data' => [
-                'id' => $user->id,
-                'name' => $user->name,
-                'email' => $user->email,
-                'role' => null,
-            ],
-        ]);
+
+        $response->assertJsonPath('data.role', 'admin');
+    }
+
+    /** @test */
+    public function a_teacher_user_has_the_correct_role_in_their_profile()
+    {
+        $user = User::factory()->create();
+        \App\Models\Teacher::factory()->create(['user_id' => $user->id]);
+        Sanctum::actingAs($user);
+
+        $response = $this->getJson('/api/v1/account/profile');
+
+        $response->assertSuccessful();
+        $response->assertJsonPath('data.role', 'teacher');
+    }
+
+    /** @test */
+    public function a_student_user_has_the_correct_role_in_their_profile()
+    {
+        $user = User::factory()->create();
+        \App\Models\Student::factory()->create(['user_id' => $user->id]);
+        Sanctum::actingAs($user);
+
+        $response = $this->getJson('/api/v1/account/profile');
+
+        $response->assertSuccessful();
+        $response->assertJsonPath('data.role', 'student');
     }
 }
