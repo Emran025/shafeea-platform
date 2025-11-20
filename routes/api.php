@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\V1\TeacherController;
 use App\Http\Controllers\Api\V1\FollowUpController;
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\SessionController;
+use App\Http\Controllers\Api\V1\AccountController;
 // Public routes
 Route::prefix('v1')->group(function() {
     Route::prefix('auth')->name('auth.')->group(function () {
@@ -116,6 +117,8 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
         Route::get('reports', [SyncController::class, 'syncReports'])->name('reports');
     });
     Route::prefix('account')->name('account.')->group(function () {
+        // Get the authenticated user's profile
+        Route::get('profile', [AccountController::class, 'getProfile'])->name('profile');
         // List all active login sessions for the current user
         Route::get('sessions', [SessionController::class, 'listSessions'])->name('sessions.list');
         // Refresh the current session token
