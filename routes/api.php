@@ -129,6 +129,8 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
         Route::post('sessions/terminate-all', [SessionController::class, 'terminateAllOtherSessions'])->name('sessions.terminateAll');
         // Terminate a specific login session by ID
         Route::delete('sessions/{id}', [SessionController::class, 'terminateSession'])->name('sessions.terminate');
+        // Change password
+        Route::post('change-password', [AccountController::class, 'changePassword'])->name('password.change');
     });
 });
 

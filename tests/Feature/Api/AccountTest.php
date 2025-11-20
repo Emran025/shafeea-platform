@@ -86,4 +86,64 @@ class AccountTest extends TestCase
         $response->assertSuccessful();
         $response->assertJsonPath('data.role', 'student');
     }
+
+    /** @test */
+    public function an_authenticated_user_can_change_their_password()
+    {
+        $user = User::factory()->create(['password' => bcrypt('old-password')]);
+        Sanctum::actingAs($user);
+
+        $response = $this->postJson('/api/v1/account/change-password', [
+            'current_password' => 'old-password',
+            'password' => 'new-Pa$$w0rd',
+            'password_confirmation' => 'new-Pa$$w0rd',
+        ]);
+
+        $response->assertSuccessful();
+        $response->assertJson([
+            'success' => true,
+            'message' => 'Password changed successfully.',
+        ]);
+
+        $this->assertTrue(\ Illuminate\Support\Facades\Hash::check('new-Pa$$w0rd', $user->fresh()->password));
+    }
+
+    /** @test */
+    public function an_authenticated_user_cannot_change_their_password_with_an_incorrect_current_password()
+    {
+        $user = User::factory()->create(['password' => bcrypt('old-password')]);
+        Sanctum::actingAs($user);
+
+        $response = $this->postJson('/api/v1/account/change-password', [
+            'current_password' => 'wrong-password',
+            'password' => 'new-Pa$$w0rd',
+            'password_confirmation' => 'new-Pa$$w0rd',
+        ]);
+
+        $response->assertStatus(422);
+        $response->assertJson([
+            'success' => false,
+            'message' => 'The provided password does not match your current password.',
+        ]);
+    }
+
+    /** @test */
+    public function an_authenticated_user_cannot_change_their_password_with_an_invalid_new_password()
+    {
+        $user = User::factory()->create(['password' => bcrypt('old-password')]);
+        Sanctum::actingAs($user);
+
+        $response = $this->postJson('/api/v1/account/change-password', [
+            'current_password' => 'old-password',
+            'password' => 'short',
+            'password_confirmation' => 'short',
+        ]);
+
+        $response->assertStatus(422);
+        $response->assertJson([
+            'success' => false,
+            'message' => 'Validation failed.',
+        ]);
+        $response->assertJsonValidationErrors('password');
+    }
 }
