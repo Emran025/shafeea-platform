@@ -114,7 +114,7 @@ class HalaqahRepository
                                              ->all();
 
             $newStudentIds = array_diff($studentIds, $existingStudentIds);
-            
+
             if (empty($newStudentIds)) {
                 // No new students to add
                 return $halaqah;
@@ -124,11 +124,28 @@ class HalaqahRepository
                 throw new Exception("Assigning these students exceeds the halaqah's maximum capacity of {$halaqah->max_students}.");
             }
 
+            // Check for the existence of the default plan
+            $defaultPlanId = 1;
+            if (!\App\Models\Plan::where('id', $defaultPlanId)->exists()) {
+                throw new Exception("Default plan with ID 1 does not exist.");
+            }
+
+            // Get the most recent plan for each of the new students
+            $studentPlans = Enrollment::whereIn('student_id', $newStudentIds)
+                                      ->orderBy('created_at', 'desc')
+                                      ->get()
+                                      ->groupBy('student_id')
+                                      ->map(function ($enrollments) {
+                                          return $enrollments->first()->plan_id;
+                                      });
+
             $enrollments = [];
             foreach ($newStudentIds as $studentId) {
+                $planId = $studentPlans->get($studentId, $defaultPlanId); // Use student's plan, or default
                 $enrollments[] = [
                     'student_id' => $studentId,
                     'halaqah_id' => $id,
+                    'plan_id' => $planId,
                     'enrolled_at' => now(),
                     'created_at' => now(),
                     'updated_at' => now()
