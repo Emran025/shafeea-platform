@@ -194,11 +194,7 @@ class AuthController extends ApiController
         ]);
 
         if ($validator->fails()) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'The given data was invalid.',
-                'errors' => $validator->errors(),
-            ], 422);
+            return $this->error('The given data was invalid.', 422, $validator->errors()->toArray());
         }
 
         $user = User::where('email', $request->email)->first();
@@ -212,10 +208,7 @@ class AuthController extends ApiController
             Log::info('Password reset requested for: ' . $request->email);
         }
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'If the email exists, a reset link has been sent.'
-        ]);
+        return $this->success(null, 'If the email exists, a reset link has been sent.');
     }
 
     /**
