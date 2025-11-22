@@ -34,6 +34,7 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
         Route::post('logout', [AuthController::class, 'logout'])->name('logout');
     });
 
+
     // Applicant Submission
     Route::post('applicants', [ApplicantSubmissionController::class, 'store'])->name('applicants.store');
 

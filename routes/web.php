@@ -51,9 +51,6 @@ Route::post('/contact', function (\Illuminate\Http\Request $request) {
     return redirect()->back()->with('success', 'تم إرسال رسالتك بنجاح!');
 })->name('contact.store');
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('dashboard', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
-});
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/admin/dashboard', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin.dashboard');
