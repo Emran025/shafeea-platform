@@ -29,7 +29,7 @@ class HelpController extends ApiController
     {
         $category = FaqCategory::findOrFail($id);
         $faqs = $category->faqs()->where('is_active', true)->orderBy('display_order')->paginate(15);
-        return $this->paginatedSuccess($faqs, FaqResource::class, 'FAQs retrieved successfully.');
+        return $this->success(FaqResource::collection($faqs), 'FAQs retrieved successfully.');
     }
 
     public function listFaqs(Request $request)
@@ -49,7 +49,7 @@ class HelpController extends ApiController
         }
 
         $faqs = $query->orderBy('display_order')->paginate(15);
-        return $this->paginatedSuccess($faqs, FaqResource::class, 'FAQs retrieved successfully.');
+        return $this->success(FaqResource::collection($faqs), 'FAQs retrieved successfully.');
     }
 
     public function searchFaqs($query)
@@ -61,7 +61,7 @@ class HelpController extends ApiController
             })
             ->paginate(15);
 
-        return $this->paginatedSuccess($faqs, FaqResource::class, 'Search results retrieved successfully.');
+        return $this->success(FaqResource::collection($faqs), 'Search results retrieved successfully.');
     }
 
     public function getFaqById($id)

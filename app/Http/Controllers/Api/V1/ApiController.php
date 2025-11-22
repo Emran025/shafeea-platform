@@ -4,10 +4,15 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Traits\FormatsPagination;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class ApiController extends Controller
 {
+    use FormatsPagination;
+
     /**
      * Return a successful JSON response.
      *
@@ -26,7 +31,14 @@ class ApiController extends Controller
             $response['message'] = $message;
         }
 
-        if (!is_null($data)) {
+        if ($data instanceof AnonymousResourceCollection && $data->resource instanceof LengthAwarePaginator) {
+            $paginator = $data->resource;
+            $response['data'] = $data->collection;
+            $response['pagination'] = $this->formatPagination($paginator);
+        } elseif ($data instanceof LengthAwarePaginator) {
+            $response['data'] = $data->items();
+            $response['pagination'] = $this->formatPagination($data);
+        } elseif (!is_null($data)) {
             $response['data'] = $data;
         }
 
@@ -55,51 +67,4 @@ class ApiController extends Controller
         return response()->json($response, $code);
     }
 
-    /**
-     * Return a paginated JSON response.
-     *
-     * @param  \Illuminate\Contracts\Pagination\LengthAwarePaginator  $paginator
-     * @param  string|null  $message
-     * @return JsonResponse
-     */
-    protected function paginated($paginator, string $message = null): JsonResponse
-    {
-        $response = [
-            'success' => true,
-            'data' => $paginator->items(),
-            'pagination' => [
-                'total' => $paginator->total(),
-                'per_page' => $paginator->perPage(),
-                'current_page' => $paginator->currentPage(),
-                'total_pages' => $paginator->lastPage(),
-                'has_more_pages' => $paginator->hasMorePages(),
-                'next_page_url' => $paginator->nextPageUrl(),
-                'prev_page_url' => $paginator->previousPageUrl(),
-            ],
-        ];
-        if ($message) {
-            $response['message'] = $message;
-        }
-        return response()->json($response, 200);
-    }
-    protected function paginatedSuccess($paginator, $resource, string $message = null)
-    {
-        $response = [
-            'success' => true,
-            'data' => $resource::collection($paginator->getCollection()),
-            'pagination' => [
-                'total' => $paginator->total(),
-                'per_page' => $paginator->perPage(),
-                'current_page' => $paginator->currentPage(),
-                'total_pages' => $paginator->lastPage(),
-                'has_more_pages' => $paginator->hasMorePages(),
-                'next_page_url' => $paginator->nextPageUrl(),
-                'prev_page_url' => $paginator->previousPageUrl(),
-            ],
-        ];
-        if ($message) {
-            $response['message'] = $message;
-        }
-        return response()->json($response, 200);
-    }
 }
