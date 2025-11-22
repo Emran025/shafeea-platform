@@ -16,6 +16,18 @@ test('reset password link can be requested via api for existing user', function 
         ]);
 });
 
+test('forgot password success response has correct api structure', function () {
+    $user = User::factory()->create();
+
+    postJson('/api/v1/forgot-password', ['email' => $user->email])
+        ->assertStatus(200)
+        ->assertJsonStructure([
+            'status',
+            'message',
+            'data'
+        ]);
+});
+
 test('reset password link returns same response for non-existing user', function () {
     postJson('/api/v1/forgot-password', ['email' => 'non-existing-user@example.com'])
         ->assertStatus(200)
