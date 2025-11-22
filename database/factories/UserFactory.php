@@ -16,24 +16,25 @@ class UserFactory extends Factory
 
     public function definition(): array
     {
+        $gender = fake()->randomElement(['Male', 'Female']);
         return [
-            'name' => fake()->name(),
+            'name' => $gender === 'Male' ? fake()->name('male') : fake()->name('female'),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password' =>'password',
+            'password' => 'password',
             'remember_token' => Str::random(10),
 
             // Additional fields
             'avatar' => fake()->imageUrl(300, 300, 'people', true, 'User'),
-            'phone' => fake()->phoneNumber(),
-            'phone_zone' => '+967',
-            'whatsapp' => fake()->phoneNumber(),
-            'whatsapp_zone' => '+967',
-            'gender' => fake()->randomElement(['Male', 'Female']),
-            'birth_date' => fake()->date('Y-m-d', '-10 years'),
-            'country' => fake()->country(),
-            'city' => fake()->city(),
-            'residence' => fake()->streetAddress(),
+            'phone' => '5' . fake()->numerify('########'), // Saudi Arabian phone number format
+            'phone_zone' => '+966',
+            'whatsapp' => '5' . fake()->numerify('########'),
+            'whatsapp_zone' => '+966',
+            'gender' => $gender,
+            'birth_date' => fake()->dateTimeBetween('-40 years', '-18 years')->format('Y-m-d'),
+            'country' => 'Saudi Arabia',
+            'city' => fake()->randomElement(['Riyadh', 'Jeddah', 'Dammam', 'Mecca', 'Medina']),
+            'residence' => fake()->streetName(),
             'status' => 'active',
 
             // Ensure there's a related school (or use create method)

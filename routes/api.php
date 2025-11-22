@@ -12,6 +12,9 @@ use App\Http\Controllers\Api\V1\FollowUpController;
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\SessionController;
 use App\Http\Controllers\Api\V1\AccountController;
+use App\Http\Controllers\Api\V1\ApplicantSubmissionController;
+use App\Http\Controllers\Api\V1\Admin\AdminApplicantController;
+
 // Public routes
 Route::prefix('v1')->group(function() {
     Route::prefix('auth')->name('auth.')->group(function () {
@@ -29,6 +32,17 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
         Route::post('refresh', [AuthController::class, 'refresh'])->name('refresh');
         Route::get('me', [AuthController::class, 'me'])->name('me');
         Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+    });
+
+    // Applicant Submission
+    Route::post('applicants', [ApplicantSubmissionController::class, 'store'])->name('applicants.store');
+
+    // Admin Applicant Management
+    Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
+        Route::get('applicants', [AdminApplicantController::class, 'index'])->name('applicants.index');
+        Route::get('applicants/{id}', [AdminApplicantController::class, 'show'])->name('applicants.show');
+        Route::post('applicants/{id}/approve', [AdminApplicantController::class, 'approve'])->name('applicants.approve');
+        Route::post('applicants/{id}/reject', [AdminApplicantController::class, 'reject'])->name('applicants.reject');
     });
 
     // Students routes with prefix 'students' and name prefix 'students.'
@@ -133,11 +147,3 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
         Route::post('change-password', [AccountController::class, 'changePassword'])->name('password.change');
     });
 });
-
-// Route::get('/user', function (Request $request) {
-//     return $request->user();
-// })->middleware('auth:sanctum');
-
-// Route::get('/', function () {
-//     return "saher0";
-// });

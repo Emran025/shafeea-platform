@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             FaqSeeder::class,
             PrivacyPolicySeeder::class,
             TermsOfUseSeeder::class,
+            ApplicantSeeder::class,
         ]);
     }
     function seedSystemData(): void
