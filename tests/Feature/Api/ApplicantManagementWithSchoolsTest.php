@@ -83,7 +83,12 @@ test('an admin can approve an unassigned application and it gets assigned to the
     Sanctum::actingAs($adminUser);
 
     $applicantUser = User::factory()->create(['school_id' => null]);
-    $applicant = Applicant::factory()->create(['user_id' => $applicantUser->id, 'school_id' => null]);
+
+    $applicant = Applicant::factory()->create([
+        'user_id' => $applicantUser->id,
+        'school_id' => null,
+        'application_type' => 'student'
+    ]);
 
     $response = postJson("/api/v1/admin/applicants/{$applicant->id}/approve");
 
