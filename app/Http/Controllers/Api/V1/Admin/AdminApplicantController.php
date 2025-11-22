@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1\Admin;
 
 use App\Http\Controllers\Api\V1\ApiController;
+use App\Http\Resources\AdminApplicantResource;
 use App\Models\Applicant;
 use App\Models\Student;
 use App\Models\Teacher;
@@ -34,7 +35,7 @@ class AdminApplicantController extends ApiController
 
         $applicants = $query->paginate(15);
 
-        return $this->success($applicants);
+        return $this->success(AdminApplicantResource::collection($applicants));
     }
 
     public function show(Request $request, $id)
