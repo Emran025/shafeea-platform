@@ -36,7 +36,7 @@ class SyncController extends ApiController
 
         $studentsPaginator = $this->students->sync($updatedSince, $limit, $page);
 
-        return $this->paginatedSuccess($studentsPaginator, StudentSyncResource::class, 'students');
+        return $this->success(StudentSyncResource::collection($studentsPaginator), 'students');
     }
     // GET /api/v1/sync/teachers
     public function syncTeachers(Request $request)
@@ -49,7 +49,7 @@ class SyncController extends ApiController
 
         $teachersPaginator = $query->paginate(15); // أو العدد الذي يناسبك
 
-        return $this->paginatedSuccess($teachersPaginator, TeacherSyncResource::class);
+        return $this->success(TeacherSyncResource::collection($teachersPaginator));
     }
     // GET /api/v1/sync/halaqas
     public function syncHalaqas(Request $request, HalaqahRepository $repository)
@@ -59,12 +59,8 @@ class SyncController extends ApiController
         $limit = (int) $request->query('limit', 100);
 
         $halaqas = $repository->getUpdatedSince($updatedSince, $limit, $page);
-    //   return response()->json(HalaqahResource::collection($halaqas));
-        return $this->paginatedSuccess(
-            $halaqas,
-            HalaqahResource::class,
-            // Carbon::now()->toIso8601String()
-        );
+
+        return $this->success(HalaqahResource::collection($halaqas));
     }
     //GET api/v1/sync/reports
     public function syncReports(Request $request)
