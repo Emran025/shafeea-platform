@@ -21,7 +21,7 @@ class AdminApplicantController extends ApiController
         $query = Applicant::query()->with('user', 'school')
             ->where(function ($q) use ($adminSchoolId) {
                 $q->where('school_id', $adminSchoolId)
-                  ->orWhereNull('school_id');
+                    ->orWhereNull('school_id');
             });
 
         if ($request->has('application_type')) {
@@ -34,7 +34,7 @@ class AdminApplicantController extends ApiController
 
         $applicants = $query->paginate(15);
 
-        return $this->success($applicants, 'Applicants retrieved successfully.');
+        return $this->success($applicants);
     }
 
     public function show(Request $request, $id)
