@@ -18,7 +18,7 @@ class AdminApplicantController extends ApiController
         $admin = $request->user();
         $adminSchoolId = $admin->school_id;
 
-        $query = Applicant::query()->with('user', 'school')
+        $query = Applicant::query()->with('user')
             ->where(function ($q) use ($adminSchoolId) {
                 $q->where('school_id', $adminSchoolId)
                     ->orWhereNull('school_id');
@@ -42,7 +42,7 @@ class AdminApplicantController extends ApiController
         $admin = $request->user();
         $adminSchoolId = $admin->school_id;
 
-        $applicant = Applicant::with('user', 'school')->find($id);
+        $applicant = Applicant::with('user')->find($id);
 
         if (!$applicant) {
             return $this->error('Applicant not found.', 404);
