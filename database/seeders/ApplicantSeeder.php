@@ -21,68 +21,369 @@ class ApplicantSeeder extends Seeder
             return;
         }
 
-        // Create a variety of applicants with different statuses and types
-        $this->createPendingApplicants($schools);
-        $this->createUnderReviewApplicants($schools);
-        $this->createApprovedApplicants($schools);
-        $this->createRejectedApplicants($schools);
-    }
+        $applicants = [
+            // PENDING Applicants (15)
+            [
+                'name' => 'علي عبدالله صالح',
+                'email' => 'ali.saleh@example.com',
+                'gender' => 'Male',
+                'birth_year' => 2005,
+                'phone' => '+967771234567',
+                'country' => 'اليمن',
+                'city' => 'صنعاء',
+                'application_type' => 'student',
+                'status' => 'pending',
+                'notes' => 'مقدم جديد، يبدو متحمساً.',
+                'created_at' => '2024-10-01 10:00:00',
+            ],
+            [
+                'name' => 'فاطمة محمد أحمد',
+                'email' => 'fatima.ahmed@example.com',
+                'gender' => 'Female',
+                'birth_year' => 1995,
+                'phone' => '+967772345678',
+                'country' => 'اليمن',
+                'city' => 'عدن',
+                'application_type' => 'teacher',
+                'status' => 'pending',
+                'notes' => 'لديها خبرة سابقة في التدريس.',
+                'created_at' => '2024-10-02 11:30:00',
+            ],
+            [
+                'name' => 'حسن سالم عمر',
+                'email' => 'hasan.omar@example.com',
+                'gender' => 'Male',
+                'birth_year' => 2006,
+                'phone' => '+967773456789',
+                'country' => 'اليمن',
+                'city' => 'تعز',
+                'application_type' => 'student',
+                'status' => 'pending',
+                'notes' => 'طالب مجتهد حسب توصيات معلمه السابق.',
+                'created_at' => '2024-10-03 14:00:00',
+            ],
+            [
+                'name' => 'مريم قائد علي',
+                'email' => 'mariam.ali@example.com',
+                'gender' => 'Female',
+                'birth_year' => 2007,
+                'phone' => '+967774567890',
+                'country' => 'اليمن',
+                'city' => 'إب',
+                'application_type' => 'student',
+                'status' => 'pending',
+                'notes' => null,
+                'created_at' => '2024-10-05 09:00:00',
+            ],
+            [
+                'name' => 'أحمد ناصر حسين',
+                'email' => 'ahmed.hussein@example.com',
+                'gender' => 'Male',
+                'birth_year' => 1990,
+                'phone' => '+967775678901',
+                'country' => 'اليمن',
+                'city' => 'الحديدة',
+                'application_type' => 'teacher',
+                'status' => 'pending',
+                'notes' => 'يرغب بالعمل التطوعي.',
+                'created_at' => '2024-10-06 16:20:00',
+            ],
+            [
+                'name' => 'نورة قاسم سعيد',
+                'email' => 'noura.saeed@example.com',
+                'gender' => 'Female',
+                'birth_year' => 2004,
+                'phone' => '+967776789012',
+                'country' => 'اليمن',
+                'city' => 'ذمار',
+                'application_type' => 'student',
+                'status' => 'pending',
+                'notes' => 'أخت أحد الطلاب الحاليين.',
+                'created_at' => '2024-10-08 12:10:00',
+            ],
+            [
+                'name' => 'خالد منصور زيد',
+                'email' => 'khaled.zaid@example.com',
+                'gender' => 'Male',
+                'birth_year' => 2008,
+                'phone' => '+967777890123',
+                'country' => 'اليمن',
+                'city' => 'مأرب',
+                'application_type' => 'student',
+                'status' => 'pending',
+                'notes' => null,
+                'created_at' => '2024-10-10 10:45:00',
+            ],
+            [
+                'name' => 'سمية علي سالم',
+                'email' => 'sumaya.salem@example.com',
+                'gender' => 'Female',
+                'birth_year' => 1998,
+                'phone' => '+967778901234',
+                'country' => 'اليمن',
+                'city' => 'صنعاء',
+                'application_type' => 'teacher',
+                'status' => 'pending',
+                'notes' => 'لديها إجازة في القراءات.',
+                'created_at' => '2024-10-11 15:00:00',
+            ],
+             [
+                'name' => 'عمار ياسر محمد',
+                'email' => 'ammar.mohammed@example.com',
+                'gender' => 'Male',
+                'birth_year' => 2009,
+                'phone' => '+967779012345',
+                'country' => 'اليمن',
+                'city' => 'عدن',
+                'application_type' => 'student',
+                'status' => 'pending',
+                'notes' => 'مستواه جيد في التلاوة.',
+                'created_at' => '2024-10-12 11:15:00',
+            ],
+            [
+                'name' => 'سارة إبراهيم حسن',
+                'email' => 'sara.hassan@example.com',
+                'gender' => 'Female',
+                'birth_year' => 2006,
+                'phone' => '+967731234567',
+                'country' => 'اليمن',
+                'city' => 'تعز',
+                'application_type' => 'student',
+                'status' => 'pending',
+                'notes' => null,
+                'created_at' => '2024-10-14 09:30:00',
+            ],
+            [
+                'name' => 'يوسف خالد عبدالله',
+                'email' => 'yousef.abdullah@example.com',
+                'gender' => 'Male',
+                'birth_year' => 1992,
+                'phone' => '+967732345678',
+                'country' => 'اليمن',
+                'city' => 'صنعاء',
+                'application_type' => 'teacher',
+                'status' => 'pending',
+                'notes' => 'مدرس سابق في مركز آخر.',
+                'created_at' => '2024-10-15 13:00:00',
+            ],
+            [
+                'name' => 'آية عبدالرحمن قاسم',
+                'email' => 'aya.qasem@example.com',
+                'gender' => 'Female',
+                'birth_year' => 2005,
+                'phone' => '+967733456789',
+                'country' => 'اليمن',
+                'city' => 'إب',
+                'application_type' => 'student',
+                'status' => 'pending',
+                'notes' => 'ترغب في تعلم أحكام التجويد.',
+                'created_at' => '2024-10-17 10:00:00',
+            ],
+            [
+                'name' => 'محمد علي ناجي',
+                'email' => 'mohammed.naji@example.com',
+                'gender' => 'Male',
+                'birth_year' => 2010,
+                'phone' => '+967734567890',
+                'country' => 'اليمن',
+                'city' => 'صنعاء',
+                'application_type' => 'student',
+                'status' => 'pending',
+                'notes' => null,
+                'created_at' => '2024-10-18 11:45:00',
+            ],
+            [
+                'name' => 'هناء فؤاد سالم',
+                'email' => 'hana.salem@example.com',
+                'gender' => 'Female',
+                'birth_year' => 1988,
+                'phone' => '+967735678901',
+                'country' => 'اليمن',
+                'city' => 'عدن',
+                'application_type' => 'teacher',
+                'status' => 'pending',
+                'notes' => 'متقاعدة وترغب في تعليم الأطفال.',
+                'created_at' => '2024-10-20 14:30:00',
+            ],
+            [
+                'name' => 'عبدالعزيز سالم أحمد',
+                'email' => 'aziz.ahmed@example.com',
+                'gender' => 'Male',
+                'birth_year' => 2004,
+                'phone' => '+967736789012',
+                'country' => 'اليمن',
+                'city' => 'تعز',
+                'application_type' => 'student',
+                'status' => 'pending',
+                'notes' => 'طالب جامعي.',
+                'created_at' => '2024-10-21 16:00:00',
+            ],
+            // UNDER_REVIEW Applicants (5)
+            [
+                'name' => 'أسماء عمر حسين',
+                'email' => 'asma.hussein@example.com',
+                'gender' => 'Female',
+                'birth_year' => 2003,
+                'phone' => '+967711234567',
+                'country' => 'اليمن',
+                'city' => 'صنعاء',
+                'application_type' => 'student',
+                'status' => 'under_review',
+                'notes' => 'تمت المقابلة الأولية، في انتظار قرار اللجنة.',
+                'created_at' => '2024-09-15 09:00:00',
+            ],
+            [
+                'name' => 'طارق زياد عبدالله',
+                'email' => 'tariq.abdullah@example.com',
+                'gender' => 'Male',
+                'birth_year' => 1985,
+                'phone' => '+967712345678',
+                'country' => 'اليمن',
+                'city' => 'عدن',
+                'application_type' => 'teacher',
+                'status' => 'under_review',
+                'notes' => 'المستندات مكتملة، بانتظار نتيجة اختبار التلاوة.',
+                'created_at' => '2024-09-16 10:30:00',
+            ],
+            [
+                'name' => 'عائشة بكر سالم',
+                'email' => 'aisha.salem@example.com',
+                'gender' => 'Female',
+                'birth_year' => 2006,
+                'phone' => '+967713456789',
+                'country' => 'اليمن',
+                'city' => 'تعز',
+                'application_type' => 'student',
+                'status' => 'under_review',
+                'notes' => 'تحتاج إلى إحضار موافقة ولي الأمر.',
+                'created_at' => '2024-09-18 11:00:00',
+            ],
+            [
+                'name' => 'إبراهيم محمود علي',
+                'email' => 'ibrahim.ali@example.com',
+                'gender' => 'Male',
+                'birth_year' => 1993,
+                'phone' => '+967714567890',
+                'country' => 'اليمن',
+                'city' => 'إب',
+                'application_type' => 'teacher',
+                'status' => 'under_review',
+                'notes' => 'مقابلة شخصية مجدولة للأسبوع القادم.',
+                'created_at' => '2024-09-20 14:00:00',
+            ],
+            [
+                'name' => 'جنى وليد قاسم',
+                'email' => 'jana.qasem@example.com',
+                'gender' => 'Female',
+                'birth_year' => 2008,
+                'phone' => '+967715678901',
+                'country' => 'اليمن',
+                'city' => 'صنعاء',
+                'application_type' => 'student',
+                'status' => 'under_review',
+                'notes' => 'تم التأكد من بياناتها.',
+                'created_at' => '2024-09-22 12:00:00',
+            ],
+            // APPROVED Applicants (3)
+            [
+                'name' => 'سليمان داوود محمد',
+                'email' => 'sulaiman.mohammed@example.com',
+                'gender' => 'Male',
+                'birth_year' => 2002,
+                'phone' => '+967701234567',
+                'country' => 'اليمن',
+                'city' => 'صنعاء',
+                'application_type' => 'student',
+                'status' => 'approved',
+                'notes' => 'تم القبول، سيبدأ الدراسة في الحلقة الجديدة.',
+                'created_at' => '2024-09-01 10:00:00',
+            ],
+            [
+                'name' => 'أمينة عبدالقادر سالم',
+                'email' => 'amina.salem@example.com',
+                'gender' => 'Female',
+                'birth_year' => 1980,
+                'phone' => '+967702345678',
+                'country' => 'اليمن',
+                'city' => 'عدن',
+                'application_type' => 'teacher',
+                'status' => 'approved',
+                'notes' => 'تم قبولها كمعلمة متطوعة لحلقة السيدات.',
+                'created_at' => '2024-09-05 11:00:00',
+            ],
+            [
+                'name' => 'يحيى زكريا عبدالله',
+                'email' => 'yahya.abdullah@example.com',
+                'gender' => 'Male',
+                'birth_year' => 2007,
+                'phone' => '+967703456789',
+                'country' => 'اليمن',
+                'city' => 'تعز',
+                'application_type' => 'student',
+                'status' => 'approved',
+                'notes' => 'تم قبوله بعد اجتياز الاختبار بنجاح.',
+                'created_at' => '2024-09-10 15:30:00',
+            ],
+            // REJECTED Applicants (2)
+            [
+                'name' => 'بلقيس حميد قائد',
+                'email' => 'belqis.qaid@example.com',
+                'gender' => 'Female',
+                'birth_year' => 2001,
+                'phone' => '+967704567890',
+                'country' => 'اليمن',
+                'city' => 'صنعاء',
+                'application_type' => 'student',
+                'status' => 'rejected',
+                'notes' => 'تم الرفض لعدم اكتمال المستندات المطلوبة.',
+                'created_at' => '2024-09-08 14:00:00',
+            ],
+            [
+                'name' => 'غازي منصور علي',
+                'email' => 'ghazi.ali@example.com',
+                'gender' => 'Male',
+                'birth_year' => 1996,
+                'phone' => '+967705678901',
+                'country' => 'اليمن',
+                'city' => 'إب',
+                'application_type' => 'teacher',
+                'status' => 'rejected',
+                'notes' => 'تم الرفض بسبب عدم اجتياز المقابلة الشخصية.',
+                'created_at' => '2024-09-12 16:00:00',
+            ],
+        ];
 
-    private function createPendingApplicants($schools): void
-    {
-        // General pool of pending applicants (no specific school)
-        User::factory(20)->create(['password' => Hash::make('password')])->each(function ($user) {
-            Applicant::factory()->create([
-                'user_id' => $user->id,
-                'application_type' => $this->getRandomApplicationType(),
+        foreach ($applicants as $applicantData) {
+            $user = User::create([
+                'name' => $applicantData['name'],
+                'email' => $applicantData['email'],
+                'password' => Hash::make('password'),
+                'avatar' => 'https://i.pravatar.cc/150?u=' . $applicantData['email'],
+                'gender' => $applicantData['gender'],
+                'birth_date' => $this->generateBirthDate($applicantData['birth_year']),
+                'phone' => $applicantData['phone'],
+                'country' => $applicantData['country'],
+                'city' => $applicantData['city'],
+                'created_at' => $applicantData['created_at'],
+                'updated_at' => $applicantData['created_at'],
             ]);
-        });
 
-        // Pending applicants for specific schools
-        User::factory(30)->create(['password' => Hash::make('password')])->each(function ($user) use ($schools) {
-            Applicant::factory()->withSchool()->create([
+            Applicant::create([
                 'user_id' => $user->id,
                 'school_id' => $schools->random()->id,
-                'application_type' => $this->getRandomApplicationType(),
+                'application_type' => $applicantData['application_type'],
+                'status' => $applicantData['status'],
+                'notes' => $applicantData['notes'],
+                'created_at' => $applicantData['created_at'],
+                'updated_at' => $applicantData['created_at'],
             ]);
-        });
+        }
     }
 
-    private function createUnderReviewApplicants($schools): void
+    private function generateBirthDate($birthYear): string
     {
-        User::factory(15)->create(['password' => Hash::make('password')])->each(function ($user) use ($schools) {
-            Applicant::factory()->withSchool()->underReview()->create([
-                'user_id' => $user->id,
-                'school_id' => $schools->random()->id,
-                'application_type' => $this->getRandomApplicationType(),
-            ]);
-        });
-    }
-
-    private function createApprovedApplicants($schools): void
-    {
-        User::factory(25)->create(['password' => Hash::make('password')])->each(function ($user) use ($schools) {
-            Applicant::factory()->withSchool()->approved()->create([
-                'user_id' => $user->id,
-                'school_id' => $schools->random()->id,
-                'application_type' => $this->getRandomApplicationType(),
-            ]);
-        });
-    }
-
-    private function createRejectedApplicants($schools): void
-    {
-        User::factory(10)->create(['password' => Hash::make('password')])->each(function ($user) use ($schools) {
-            Applicant::factory()->withSchool()->rejected()->create([
-                'user_id' => $user->id,
-                'school_id' => $schools->random()->id,
-                'application_type' => $this->getRandomApplicationType(),
-            ]);
-        });
-    }
-
-    private function getRandomApplicationType(): string
-    {
-        return rand(0, 1) ? 'teacher' : 'student';
+        $month = rand(1, 12);
+        $day = rand(1, 28);
+        return "{$birthYear}-{$month}-{$day}";
     }
 }
