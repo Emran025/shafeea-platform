@@ -30,7 +30,10 @@ class SyncController extends ApiController
 
     public function syncStudents(Request $request)
     {
-        $updatedSince = $request->input('updatedSince', now()->subMonth()->toIso8601String());
+        // --------------------------------------------------------------------------------
+        // Note: The recommended date format for 'updatedSince' is ISO 8601 (e.g., '2023-01-01T00:00:00Z').
+        // --------------------------------------------------------------------------------
+        $updatedSince = $request->input('updatedSince');
         $limit = $request->input('limit', 100);
         $page = $request->input('page', 1);
 
@@ -41,10 +44,17 @@ class SyncController extends ApiController
     // GET /api/v1/sync/teachers
     public function syncTeachers(Request $request)
     {
+        // --------------------------------------------------------------------------------
+        // Note: The recommended date format for 'updatedSince' is ISO 8601 (e.g., '2023-01-01T00:00:00Z').
+        // --------------------------------------------------------------------------------
         $query = Teacher::with('halaqahs');
 
-        if ($request->has('updated_after')) {
-            $query->where('updated_at', '>', $request->input('updated_after'));
+        if ($request->has('updatedSince')) {
+            $updatedSince = $request->input('updatedSince');
+            $query->where(function ($query) use ($updatedSince) {
+                $query->where('updated_at', '>=', $updatedSince)
+                    ->orWhere('created_at', '>=', $updatedSince);
+            });
         }
 
         $teachersPaginator = $query->paginate(15); // أو العدد الذي يناسبك
@@ -54,7 +64,10 @@ class SyncController extends ApiController
     // GET /api/v1/sync/halaqas
     public function syncHalaqas(Request $request, HalaqahRepository $repository)
     {
-        $updatedSince = $request->query('updatedSince');
+        // --------------------------------------------------------------------------------
+        // Note: The recommended date format for 'updatedSince' is ISO 8601 (e.g., '2023-01-01T00:00:00Z').
+        // --------------------------------------------------------------------------------
+        $updatedSince = $request->input('updatedSince');
         $page = (int) $request->query('page', 1);
         $limit = (int) $request->query('limit', 100);
 
