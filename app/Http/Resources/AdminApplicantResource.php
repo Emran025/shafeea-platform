@@ -21,6 +21,7 @@ class AdminApplicantResource extends JsonResource
             'submitted_at' => $this->submitted_at,
             'user' => [
                 'name' => $this->user->name,
+                'gender' => $this->user->gender,
                 'residence' => $this->user->residence,
                 'city' => $this->user->city,
                 'country' => $this->user->country,

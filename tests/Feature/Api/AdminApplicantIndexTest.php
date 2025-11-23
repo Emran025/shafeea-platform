@@ -30,6 +30,7 @@ test('admin applicants index returns a summarized list', function () {
                         'submitted_at',
                         'user' => [
                             'name',
+                            'gender',
                             'residence',
                             'city',
                             'country',
