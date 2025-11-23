@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Api;
 
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -37,6 +38,40 @@ class HelpTest extends TestCase
             'توضح سياسة الخصوصية هذه كيفية جمع واستخدام وحماية معلوماتك الشخصية.',
             'نحن ملتزمون بحماية خصوصيتك وضمان أمان بياناتك.',
             'باستخدام خدماتنا، فإنك توافق على الممارسات الموضحة في هذه السياسة.',
+        ]);
+    }
+
+    /** @test */
+    public function an_authenticated_user_can_create_a_help_ticket()
+    {
+        // Arrange
+        $user = User::factory()->create();
+        $ticketData = [
+            'subject' => 'Test Subject',
+            'body' => 'Test body',
+        ];
+
+        // Act
+        $response = $this->actingAs($user)->postJson('/api/v1/help/tickets', $ticketData);
+
+        // Assert
+        $response->assertStatus(200);
+        $response->assertJsonStructure([
+            'success',
+            'data' => [
+                'id',
+                'user_id',
+                'subject',
+                'body',
+                'status',
+                'created_at',
+                'updated_at',
+            ],
+            'message'
+        ]);
+        $this->assertDatabaseHas('help_tickets', [
+            'user_id' => $user->id,
+            'subject' => 'Test Subject',
         ]);
     }
 }

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\HelpController;
+use App\Http\Controllers\Api\V1\HelpTicketController;
 use App\Http\Controllers\Api\V1\Admin\HelpController as AdminHelpController;
 
 Route::prefix('api/v1')->group(function () {
@@ -52,6 +53,9 @@ Route::prefix('api/v1')->group(function () {
         // User Consent Endpoints
         Route::post('privacy-policy/consent', [HelpController::class, 'recordPrivacyConsent'])->name('privacy-policy.consent');
         Route::post('terms-of-use/consent', [HelpController::class, 'recordTermsConsent'])->name('terms.consent');
+
+        // Help Ticket Endpoint
+        Route::post('tickets', [HelpTicketController::class, 'store'])->name('tickets.store');
 
         // Admin-only Routes
         Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
