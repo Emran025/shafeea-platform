@@ -27,8 +27,12 @@ test('admin applicants index returns a summarized list', function () {
                         'id',
                         'application_type',
                         'status',
+                        'submitted_at',
                         'user' => [
                             'name',
+                            'residence',
+                            'city',
+                            'country',
                             'email',
                             'avatar',
                         ],
