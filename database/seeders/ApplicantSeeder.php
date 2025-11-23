@@ -37,6 +37,7 @@ class ApplicantSeeder extends Seeder
                 'qualifications' => 'طالب في المرحلة الثانوية.',
                 'intent_statement' => 'الرغبة في حفظ القرآن الكريم وإتقان أحكام التجويد.',
                 'created_at' => '2024-10-01 10:00:00',
+                'school_id' => 1,
             ],
             [
                 'name' => 'فاطمة محمد أحمد',
@@ -52,6 +53,7 @@ class ApplicantSeeder extends Seeder
                 'qualifications' => 'بكالوريوس دراسات إسلامية، إجازة في رواية حفص عن عاصم.',
                 'intent_statement' => 'المساهمة في تعليم كتاب الله للأجيال القادمة.',
                 'created_at' => '2024-10-02 11:30:00',
+                'school_id' => 2,
             ],
             [
                 'name' => 'حسن سالم عمر',
@@ -67,6 +69,7 @@ class ApplicantSeeder extends Seeder
                 'qualifications' => 'طالب في الصف العاشر.',
                 'intent_statement' => 'إكمال حفظ القرآن وتثبيته.',
                 'created_at' => '2024-10-03 14:00:00',
+                'school_id' => 3,
             ],
             [
                 'name' => 'مريم قائد علي',
@@ -82,6 +85,7 @@ class ApplicantSeeder extends Seeder
                 'qualifications' => 'طالبة في المرحلة الإعدادية.',
                 'intent_statement' => 'البدء في رحلة حفظ القرآن الكريم.',
                 'created_at' => '2024-10-05 09:00:00',
+                'school_id' => 1,
             ],
             [
                 'name' => 'أحمد ناصر حسين',
@@ -97,6 +101,7 @@ class ApplicantSeeder extends Seeder
                 'qualifications' => 'دبلوم في علوم الحاسوب، حافظ لخمسة عشر جزءاً.',
                 'intent_statement' => 'خدمة كتاب الله من خلال تدريس الطلاب.',
                 'created_at' => '2024-10-06 16:20:00',
+                'school_id' => null,
             ],
             [
                 'name' => 'نورة قاسم سعيد',
@@ -112,6 +117,7 @@ class ApplicantSeeder extends Seeder
                 'qualifications' => 'طالبة جامعية، تخصص لغة عربية.',
                 'intent_statement' => 'تحسين التلاوة والحفظ.',
                 'created_at' => '2024-10-08 12:10:00',
+                'school_id' => 2,
             ],
             [
                 'name' => 'خالد منصور زيد',
@@ -127,6 +133,7 @@ class ApplicantSeeder extends Seeder
                 'qualifications' => 'طالب في الصف الثامن.',
                 'intent_statement' => 'حفظ جزء عم وتبارك.',
                 'created_at' => '2024-10-10 10:45:00',
+                'school_id' => null,
             ],
             [
                 'name' => 'سمية علي سالم',
@@ -142,6 +149,7 @@ class ApplicantSeeder extends Seeder
                 'qualifications' => 'إجازة في القراءات العشر.',
                 'intent_statement' => 'تعليم الطالبات القراءة الصحيحة للقرآن.',
                 'created_at' => '2024-10-11 15:00:00',
+                'school_id' => 1,
             ],
              [
                 'name' => 'عمار ياسر محمد',
@@ -157,6 +165,7 @@ class ApplicantSeeder extends Seeder
                 'qualifications' => 'طالب في الصف السابع.',
                 'intent_statement' => 'المشاركة في المسابقات القرآنية.',
                 'created_at' => '2024-10-12 11:15:00',
+                'school_id' => 3,
             ],
             [
                 'name' => 'سارة إبراهيم حسن',
@@ -172,6 +181,7 @@ class ApplicantSeeder extends Seeder
                 'qualifications' => 'طالبة في المرحلة الثانوية.',
                 'intent_statement' => 'حفظ القرآن كاملاً.',
                 'created_at' => '2024-10-14 09:30:00',
+                'school_id' => 2,
             ],
             [
                 'name' => 'يوسف خالد عبدالله',
@@ -187,6 +197,7 @@ class ApplicantSeeder extends Seeder
                 'qualifications' => 'خبرة 5 سنوات في تحفيظ القرآن.',
                 'intent_statement' => 'البحث عن فرصة عمل مستقرة في مجال تعليم القرآن.',
                 'created_at' => '2024-10-15 13:00:00',
+                'school_id' => null,
             ],
             [
                 'name' => 'آية عبدالرحمن قاسم',
@@ -202,6 +213,7 @@ class ApplicantSeeder extends Seeder
                 'qualifications' => 'طالبة في السنة الأولى الجامعية.',
                 'intent_statement' => 'إتقان تلاوة القرآن الكريم.',
                 'created_at' => '2024-10-17 10:00:00',
+                'school_id' => 1,
             ],
             [
                 'name' => 'محمد علي ناجي',
@@ -217,6 +229,7 @@ class ApplicantSeeder extends Seeder
                 'qualifications' => 'طالب في الصف السادس.',
                 'intent_statement' => 'حفظ خمسة أجزاء خلال هذا العام.',
                 'created_at' => '2024-10-18 11:45:00',
+                'school_id' => 3,
             ],
             [
                 'name' => 'هناء فؤاد سالم',
@@ -232,6 +245,7 @@ class ApplicantSeeder extends Seeder
                 'qualifications' => 'معلمة لغة عربية متقاعدة.',
                 'intent_statement' => 'شغل وقت الفراغ في عمل نافع.',
                 'created_at' => '2024-10-20 14:30:00',
+                'school_id' => null,
             ],
             [
                 'name' => 'عبدالعزيز سالم أحمد',
@@ -247,6 +261,7 @@ class ApplicantSeeder extends Seeder
                 'qualifications' => 'طالب في كلية الهندسة.',
                 'intent_statement' => 'المراجعة وتثبيت الحفظ السابق.',
                 'created_at' => '2024-10-21 16:00:00',
+                'school_id' => 2,
             ],
             // UNDER_REVIEW Applicants (5)
             [
@@ -263,6 +278,7 @@ class ApplicantSeeder extends Seeder
                 'qualifications' => 'طالبة في كلية الشريعة.',
                 'intent_statement' => 'الانضمام لحلقة متقدمة في الحفظ.',
                 'created_at' => '2024-09-15 09:00:00',
+                'school_id' => 1,
             ],
             [
                 'name' => 'طارق زياد عبدالله',
@@ -278,6 +294,7 @@ class ApplicantSeeder extends Seeder
                 'qualifications' => 'ماجستير في الفقه، خبرة 10 سنوات.',
                 'intent_statement' => 'الإشراف على الحلقات وتطوير المناهج.',
                 'created_at' => '2024-09-16 10:30:00',
+                'school_id' => 2,
             ],
             [
                 'name' => 'عائشة بكر سالم',
@@ -293,6 +310,7 @@ class ApplicantSeeder extends Seeder
                 'qualifications' => 'طالبة في الصف الحادي عشر.',
                 'intent_statement' => 'الاستعداد للمسابقات الدولية.',
                 'created_at' => '2024-09-18 11:00:00',
+                'school_id' => 3,
             ],
             [
                 'name' => 'إبراهيم محمود علي',
@@ -308,6 +326,7 @@ class ApplicantSeeder extends Seeder
                 'qualifications' => 'خريج كلية القرآن الكريم.',
                 'intent_statement' => 'تدريس العلوم الشرعية المتعلقة بالقرآن.',
                 'created_at' => '2024-09-20 14:00:00',
+                'school_id' => null,
             ],
             [
                 'name' => 'جنى وليد قاسم',
@@ -323,6 +342,7 @@ class ApplicantSeeder extends Seeder
                 'qualifications' => 'طالبة في الصف الثامن.',
                 'intent_statement' => 'الانضمام إلى حلقة لصديقاتها.',
                 'created_at' => '2024-09-22 12:00:00',
+                'school_id' => 1,
             ],
             // APPROVED Applicants (3)
             [
@@ -339,6 +359,7 @@ class ApplicantSeeder extends Seeder
                 'qualifications' => 'طالب جامعي.',
                 'intent_statement' => 'ختم القرآن الكريم في غضون عامين.',
                 'created_at' => '2024-09-01 10:00:00',
+                'school_id' => 1,
             ],
             [
                 'name' => 'أمينة عبدالقادر سالم',
@@ -354,6 +375,7 @@ class ApplicantSeeder extends Seeder
                 'qualifications' => 'خبرة طويلة في تدريس النساء الكبيرات.',
                 'intent_statement' => 'نشر العلم الشرعي بين النساء.',
                 'created_at' => '2024-09-05 11:00:00',
+                'school_id' => 2,
             ],
             [
                 'name' => 'يحيى زكريا عبدالله',
@@ -369,6 +391,7 @@ class ApplicantSeeder extends Seeder
                 'qualifications' => 'طالب في الصف التاسع.',
                 'intent_statement' => 'المراجعة الدائمة والمشاركة في الأنشطة.',
                 'created_at' => '2024-09-10 15:30:00',
+                'school_id' => 3,
             ],
             // REJECTED Applicants (2)
             [
@@ -385,6 +408,7 @@ class ApplicantSeeder extends Seeder
                 'qualifications' => 'طالبة جامعية.',
                 'intent_statement' => 'الرغبة في الحفظ.',
                 'created_at' => '2024-09-08 14:00:00',
+                'school_id' => 1,
             ],
             [
                 'name' => 'غازي منصور علي',
@@ -400,6 +424,7 @@ class ApplicantSeeder extends Seeder
                 'qualifications' => 'خريج ثانوية عامة.',
                 'intent_statement' => 'الحصول على وظيفة.',
                 'created_at' => '2024-09-12 16:00:00',
+                'school_id' => null,
             ],
         ];
 
@@ -414,13 +439,14 @@ class ApplicantSeeder extends Seeder
                 'phone' => $applicantData['phone'],
                 'country' => $applicantData['country'],
                 'city' => $applicantData['city'],
+                'school_id' => $applicantData['school_id'] ?? $schools->random()->id,
                 'created_at' => $applicantData['created_at'],
                 'updated_at' => $applicantData['created_at'],
             ]);
 
             Applicant::create([
                 'user_id' => $user->id,
-                'school_id' => $schools->random()->id,
+                'school_id' => $user->school_id,
                 'application_type' => $applicantData['application_type'],
                 'status' => $applicantData['status'],
                 'bio' => $applicantData['bio'],
