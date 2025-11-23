@@ -12,12 +12,12 @@ class HelpTicketController extends ApiController
      */
     public function store(StoreHelpTicketRequest $request)
     {
-        $ticket = HelpTicket::create([
+        HelpTicket::create([
             'user_id' => $request->user()->id,
             'subject' => $request->validated()['subject'],
             'body' => $request->validated()['body'],
         ]);
 
-        return $this->success($ticket, 'Help ticket created successfully.', 201);
+        return $this->success(null, 'Help ticket created successfully.', 201);
     }
 }

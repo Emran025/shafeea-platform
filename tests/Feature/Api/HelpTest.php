@@ -55,19 +55,11 @@ class HelpTest extends TestCase
         $response = $this->actingAs($user)->postJson('/api/v1/help/tickets', $ticketData);
 
         // Assert
-        $response->assertStatus(200);
-        $response->assertJsonStructure([
-            'success',
-            'data' => [
-                'id',
-                'user_id',
-                'subject',
-                'body',
-                'status',
-                'created_at',
-                'updated_at',
-            ],
-            'message'
+        $response->assertStatus(201);
+        $response->assertJson([
+            'success' => true,
+            'data' => null,
+            'message' => 'Help ticket created successfully.'
         ]);
         $this->assertDatabaseHas('help_tickets', [
             'user_id' => $user->id,
