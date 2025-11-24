@@ -129,24 +129,64 @@ test('an admin cannot see applicants for other schools', function () {
     $response->assertStatus(403);
 });
 
-test('an admin can reject an application', function () {
+test('an admin can reject an application and it returns to the pool', function () {
     $school = School::factory()->create();
     $adminUser = User::factory()->create(['school_id' => $school->id]);
     $adminRole = Role::firstOrCreate(['name' => 'admin']);
     $adminUser->roles()->attach($adminRole);
     Sanctum::actingAs($adminUser);
 
-    $applicant = Applicant::factory()->create();
+    // Applicant assigned to the admin's school
+    $applicant = Applicant::factory()->create(['school_id' => $school->id]);
 
-    $rejectionData = ['rejection_reason' => 'Does not meet requirements.'];
+    $rejectionData = ['reason' => 'Does not meet requirements.'];
     $response = postJson("/api/v1/admin/applicants/{$applicant->id}/reject", $rejectionData);
 
-    $response->assertStatus(200);
+    $response->assertStatus(200)
+        ->assertJson([
+            'status' => 'success',
+            'message' => 'Applicant rejected and returned to the general pool.',
+            'data' => null,
+        ]);
+
+    // Check that a rejection record was created
+    $this->assertDatabaseHas('applicant_rejections', [
+        'applicant_id' => $applicant->id,
+        'school_id' => $school->id,
+        'reason' => 'Does not meet requirements.',
+    ]);
+
+    // Check that the applicant's school_id is now null
     $this->assertDatabaseHas('applicants', [
         'id' => $applicant->id,
-        'status' => 'rejected',
-        'rejection_reason' => 'Does not meet requirements.',
+        'school_id' => null,
     ]);
+});
+
+test('an admin cannot see applicants they have rejected', function () {
+    $school = School::factory()->create();
+    $adminUser = User::factory()->create(['school_id' => $school->id]);
+    $adminRole = Role::firstOrCreate(['name' => 'admin']);
+    $adminUser->roles()->attach($adminRole);
+    Sanctum::actingAs($adminUser);
+
+    // Create an applicant
+    $applicant = Applicant::factory()->create(['school_id' => null]);
+
+    // Reject the applicant
+    $applicant->rejections()->create([
+        'school_id' => $school->id,
+        'reason' => 'Not a fit.',
+    ]);
+
+    // Make a request to the index
+    $response = getJson('/api/v1/admin/applicants');
+
+    // Assert the applicant is not in the response
+    $response->assertStatus(200)
+        ->assertJsonMissing([
+            ['id' => $applicant->id]
+        ]);
 });
 
 test('a user with an existing role cannot submit an application', function () {

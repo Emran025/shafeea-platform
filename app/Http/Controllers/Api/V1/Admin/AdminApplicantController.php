@@ -19,7 +19,19 @@ class AdminApplicantController extends ApiController
         $admin = $request->user();
         $adminSchoolId = $admin->school_id;
 
+        // Get user IDs of all existing students and teachers to exclude them.
+        $studentUserIds = Student::pluck('user_id');
+        $teacherUserIds = Teacher::pluck('user_id');
+        $acceptedUserIds = $studentUserIds->merge($teacherUserIds)->unique();
+
         $query = Applicant::query()->with('user')
+            // 1. Exclude applicants who are already students or teachers.
+            ->whereNotIn('user_id', $acceptedUserIds)
+            // 2. Exclude applicants rejected by the current admin's school.
+            ->whereDoesntHave('rejections', function ($q) use ($adminSchoolId) {
+                $q->where('school_id', $adminSchoolId);
+            })
+            // 3. Include applicants assigned to the admin's school or available to all.
             ->where(function ($q) use ($adminSchoolId) {
                 $q->where('school_id', $adminSchoolId)
                     ->orWhereNull('school_id');
@@ -112,7 +124,7 @@ class AdminApplicantController extends ApiController
         $adminSchoolId = $admin->school_id;
 
         $validator = Validator::make($request->all(), [
-            'rejection_reason' => 'nullable|string',
+            'reason' => 'required|string|max:1000',
         ]);
 
         if ($validator->fails()) {
@@ -130,15 +142,36 @@ class AdminApplicantController extends ApiController
             return $this->error('You are not authorized to reject this applicant.', 403);
         }
 
+        if ($applicant->status === 'approved') {
+            return $this->error('This applicant has already been approved and cannot be rejected.', 422);
+        }
+
         if ($applicant->status !== 'pending' && $applicant->status !== 'under_review') {
             return $this->error('Only pending or under_review applications can be rejected.', 422);
         }
 
-        $applicant->update([
-            'status' => 'rejected',
-            'rejection_reason' => $request->rejection_reason,
-        ]);
+        // Check if the school has already rejected this applicant
+        if ($applicant->rejections()->where('school_id', $adminSchoolId)->exists()) {
+            return $this->error('This applicant has already been rejected by your school.', 422);
+        }
 
-        return $this->success($applicant, 'Applicant rejected successfully.');
+        try {
+            DB::transaction(function () use ($applicant, $adminSchoolId, $request) {
+                $applicant->rejections()->create([
+                    'school_id' => $adminSchoolId,
+                    'reason' => $request->reason,
+                ]);
+
+                $applicant->update([
+                    'school_id' => null,
+                    'status' => 'pending', // Reset status
+                ]);
+            });
+        } catch (\Exception $e) {
+            \Log::error('Rejection Error: ' . $e->getMessage());
+            return $this->error('An error occurred during the rejection process.', 500);
+        }
+
+        return $this->success(null, 'Applicant rejected and returned to the general pool.');
     }
 }
