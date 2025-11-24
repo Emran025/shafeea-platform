@@ -83,7 +83,11 @@ Want to get a local copy up and running? Just follow these simple steps:
 
 4. **Run migrations & seed data:**
     ```sh
-    php artisan migrate --seed
+        php artisan migrate --seed
+    ```
+4. **Run migrations after clear past Data & seed data:**
+    ```sh
+        php artisan migrate:fresh --seed
     ```
 5. **Serve the application:**
     ```sh

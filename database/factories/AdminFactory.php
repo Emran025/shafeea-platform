@@ -9,17 +9,16 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class AdminFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
-    public function definition(): array
-    {
-      return [
-    'user_id' => \App\Models\User::factory(),
-    'super_admin' => fake()->boolean(),
-];
-
-    }
+  /**
+   * Define the model's default state.
+   *
+   * @return array<string, mixed>
+   */
+  public function definition(): array
+  {
+    return [
+      'user_id' => \App\Models\User::factory(),
+      'super_admin' => fake()->boolean(),
+    ];
+  }
 }
