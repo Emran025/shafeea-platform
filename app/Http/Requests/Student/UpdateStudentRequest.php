@@ -28,7 +28,7 @@ class UpdateStudentRequest extends FormRequest
             'residence' => 'sometimes|required|string',
             'city' => 'sometimes|required|string',
             'qualification' => 'sometimes|required|string',
-            'memorizationLevel' => 'sometimes|required|string',
+            'memorizationLevel' => 'sometimes|required|integer|between:0,30',
         ];
     }
 }
