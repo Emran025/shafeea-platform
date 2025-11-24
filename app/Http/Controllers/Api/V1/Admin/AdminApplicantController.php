@@ -91,7 +91,7 @@ class AdminApplicantController extends ApiController
                         'user_id' => $applicant->user_id,
                         'bio' => $applicant->bio,
                         'qualification' => $applicant->qualifications,
-                        'memorization_level' => 0,
+                        'memorization_level' => $applicant->memorization_level,
                     ]);
                 }
 
