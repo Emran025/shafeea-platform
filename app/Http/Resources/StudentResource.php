@@ -29,8 +29,10 @@ class StudentResource extends JsonResource
             'country' => $user->country ?? null,
             'residence' => $user->residence ?? null,
             'city' => $user->city ?? null,
-            'qualification' => $this->qualification,
-            'memorizationLevel' => $this->memorization_level,
+            $this->mergeWhen(!$this->collection, [
+                'qualification' => $this->qualification,
+                'memorizationLevel' => $this->memorization_level,
+            ]),
             'status' => $this->status,
             'halaqa' => $halaqah ? [
                 'id' => $halaqah->id,

@@ -17,6 +17,7 @@ class Applicant extends Model
         'bio',
         'qualifications',
         'intent_statement',
+        'memorization_level',
         'rejection_reason',
         'submitted_at',
     ];

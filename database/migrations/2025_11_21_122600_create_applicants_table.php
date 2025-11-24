@@ -20,6 +20,7 @@ return new class extends Migration
             $table->text('bio');
             $table->text('qualifications');
             $table->text('intent_statement');
+            $table->integer('memorization_level')->default(0);
             $table->text('rejection_reason')->nullable();
             $table->timestamp('submitted_at')->nullable();
             $table->timestamps();
