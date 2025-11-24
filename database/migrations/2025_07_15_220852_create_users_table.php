@@ -30,7 +30,7 @@ return new class extends Migration
             $table->string('city')->nullable();
             $table->string('residence')->nullable()->comment('Neighborhood or residence area');
 
-            $table->enum('status', ['active', 'inactive'])->default('active')->comment('User status');
+            $table->enum('status', ['active', 'inactive'])->default('inactive')->comment('User status');
 
             $table->foreignId('school_id')
                   ->nullable()

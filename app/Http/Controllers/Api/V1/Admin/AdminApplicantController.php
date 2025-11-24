@@ -90,16 +90,17 @@ class AdminApplicantController extends ApiController
                     Student::create([
                         'user_id' => $applicant->user_id,
                         'bio' => $applicant->bio,
-                        'qualification' => $applicant->qualification,
+                        'qualification' => $applicant->qualifications,
+                        'memorization_level' => 0,
                     ]);
                 }
 
                 // Assign the user to the admin's school
-                $applicant->user()->update(['school_id' => $adminSchoolId]);
+                $applicant->user()->update(['school_id' => $adminSchoolId, 'status' => 'Inactive']);
             });
         } catch (\Exception $e) {
             \Log::error('Approval Error: ' . $e->getMessage());
-            return $this->error('An error occurred during the approval process.', 500);
+            return $this->error('An error occurred during the approval process.' . $e->getMessage(), 500);
         }
 
         return $this->success($applicant->fresh(), 'Applicant approved and assigned to your school.');
