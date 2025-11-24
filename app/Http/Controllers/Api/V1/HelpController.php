@@ -136,7 +136,7 @@ class HelpController extends ApiController
     {
         return $this->recordConsent($request, 'privacy_policy');
     }
-
+    
     public function recordTermsConsent(Request $request)
     {
         return $this->recordConsent($request, 'terms_of_use');
