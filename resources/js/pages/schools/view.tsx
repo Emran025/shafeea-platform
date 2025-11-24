@@ -14,7 +14,7 @@ import {
   ChartBarIcon,
   ClockIcon
 } from '@heroicons/react/24/outline';
-import AuthenticatedLayout from '@/layouts/AuthenticatedLayout';
+import AppLayout from '@/layouts/app-layout';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, PieChart, Pie, Cell, BarChart, Bar, ResponsiveContainer } from 'recharts';
 
 interface School {
@@ -75,7 +75,7 @@ export default function Show({ school, stats }: Props) {
   const COLORS = ['#3B82F6', '#10B981', '#F59E0B', '#EF4444'];
 
   return (
-    <AuthenticatedLayout>
+    <AppLayout>
       <Head title={`${school.name} - School Details`} />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -317,6 +317,6 @@ export default function Show({ school, stats }: Props) {
           </div>
         </div>
       </div>
-    </AuthenticatedLayout>
+    </AppLayout>
   );
 }

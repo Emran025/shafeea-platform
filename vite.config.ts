@@ -18,8 +18,15 @@ export default defineConfig({
         jsx: 'automatic',
     },
     resolve: {
-        alias: {
-            'ziggy-js': resolve(__dirname, 'vendor/tightenco/ziggy'),
-        },
+        alias: [
+            {
+                find: 'ziggy-js',
+                replacement: resolve(__dirname, 'vendor/tightenco/ziggy'),
+            },
+            {
+                find: '@',
+                replacement: resolve(__dirname, 'resources/js'),
+            },
+        ],
     },
 });

@@ -11,7 +11,7 @@ import {
   ChevronRightIcon,
   FunnelIcon
 } from '@heroicons/react/24/outline';
-import AuthenticatedLayout from '@/layouts/AuthenticatedLayout';
+import AppLayout from '@/layouts/app-layout';
 
 interface School {
   id: number;
@@ -64,7 +64,7 @@ export default function Index({ schools, filters, countries, cities }: Props) {
   };
 
   return (
-    <AuthenticatedLayout>
+    <AppLayout>
       <Head title="Schools Management" />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -299,6 +299,6 @@ export default function Index({ schools, filters, countries, cities }: Props) {
           </div>
         )}
       </div>
-    </AuthenticatedLayout>
+    </AppLayout>
   );
 }
