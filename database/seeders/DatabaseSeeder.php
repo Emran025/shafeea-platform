@@ -2937,7 +2937,7 @@ class DatabaseSeeder extends Seeder
         $halaqahs = collect();
         foreach (range(1, 20) as $i) {
             $teacher = $teachers->random();
-            $halaqahs->push(\App\Models\Halaqah::create([
+            $halaqah = \App\Models\Halaqah::create([
                 'name' => "حلقة {$schoolNames[$i]}",
                 'avatar' => 'https://example.com/halaqah.png',
                 'gender' => 'male',
@@ -2946,9 +2946,14 @@ class DatabaseSeeder extends Seeder
                 'sum_of_students' => 0,
                 'is_active' => true,
                 'is_deleted' => false,
-                'teacher_id' => $teacher->id,
                 'school_id' => $teacher->user->school_id,
-            ]));
+            ]);
+            $halaqah->teachers()->attach($teacher->id, [
+                'assigned_at' => now(),
+                'is_current' => true,
+                'note' => 'تمت الإضافة بواسطة البيانات الأولية للنظام',
+            ]);
+            $halaqahs->push($halaqah);
         }
 
         // ✅ وحدات الحفظ
