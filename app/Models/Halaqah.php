@@ -22,7 +22,6 @@ class Halaqah extends Model
         'sum_of_students',
         'is_active',
         'is_deleted',
-        'teacher_id',
         'school_id',
     ];
 
@@ -35,11 +34,24 @@ class Halaqah extends Model
     }
 
     /**
-     * Get the teacher that owns the halaqah.
+     * The teachers that belong to the halaqah.
      */
-    public function teacher()
+    public function teachers()
     {
-        return $this->belongsTo(Teacher::class);
+        return $this->belongsToMany(Teacher::class, 'halaqah_teacher')
+            ->using(HalaqahTeacher::class)
+            ->withPivot('assigned_at', 'note', 'is_current');
+    }
+
+    /**
+     * Get the current teacher for the halaqah.
+     */
+    public function currentTeacher()
+    {
+        return $this->belongsToMany(Teacher::class, 'halaqah_teacher')
+            ->wherePivot('is_current', true)
+            ->using(HalaqahTeacher::class)
+            ->withPivot('assigned_at', 'note', 'is_current');
     }
 
     /**
@@ -75,5 +87,15 @@ class Halaqah extends Model
             'id',              
             'student_id'        
         );
+    }
+
+    /**
+     * Accessor to get the current teacher.
+     *
+     * @return \App\Models\Teacher|null
+     */
+    public function getTeacherAttribute()
+    {
+        return $this->currentTeacher()->first();
     }
 }

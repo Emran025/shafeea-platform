@@ -32,7 +32,7 @@ class TeacherResource extends JsonResource
                         'id' => $halaqa->id,
                         'name' => $halaqa->name,
                         'avatar' => $halaqa->avatar,
-                        'assignedAt' => $halaqa->created_at,
+                        'assignedAt' => $halaqa->pivot->assigned_at,
                     ];
                 });
             }),

@@ -28,10 +28,12 @@ class Teacher extends Model
     }
 
     /**
-     * Get the halaqahs for the teacher.
+     * The halaqahs that belong to the teacher.
      */
     public function halaqahs()
     {
-        return $this->hasMany(Halaqah::class);
+        return $this->belongsToMany(Halaqah::class, 'halaqah_teacher')
+            ->using(HalaqahTeacher::class)
+            ->withPivot('assigned_at', 'note', 'is_current');
     }
 }
