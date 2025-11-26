@@ -10,6 +10,7 @@ use App\Models\Teacher;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class AdminApplicantController extends ApiController
@@ -111,7 +112,7 @@ class AdminApplicantController extends ApiController
                 $applicant->user()->update(['school_id' => $adminSchoolId, 'status' => 'Inactive']);
             });
         } catch (\Exception $e) {
-            \Log::error('Approval Error: ' . $e->getMessage());
+            Log::error('Approval Error: ' . $e->getMessage());
             return $this->error('An error occurred during the approval process.' . $e->getMessage(), 500);
         }
 
@@ -168,7 +169,7 @@ class AdminApplicantController extends ApiController
                 ]);
             });
         } catch (\Exception $e) {
-            \Log::error('Rejection Error: ' . $e->getMessage());
+            Log::error('Rejection Error: ' . $e->getMessage());
             return $this->error('An error occurred during the rejection process.', 500);
         }
 
