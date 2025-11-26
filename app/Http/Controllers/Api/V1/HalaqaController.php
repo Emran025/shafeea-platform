@@ -44,7 +44,7 @@ class HalaqaController extends ApiController
 
         if ($validator->fails()) {
             // Use the error helper for validation failures
-            return $this.error('The given data was invalid.', 422, $validator->errors());
+            return $this->error('The given data was invalid.', 422, $validator->errors());
         }
 
         $data = $validator->validated();
