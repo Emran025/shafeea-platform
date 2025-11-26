@@ -4,7 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Student;
 use App\Models\Enrollment;
-
+use Illuminate\Support\Facades\DB;
 use App\Models\Halaqah;
 
 use App\Models\StudentReport;
@@ -36,10 +36,10 @@ class StudentRepository
             'enrollments' => function ($query) {
                 $query->latest('enrolled_at')->limit(1);
             },
-            'enrollments.plan.frequencyType',
-            'enrollments.plan.reviewUnit',
-            'enrollments.plan.memorizationUnit',
-            'enrollments.plan.sardUnit',
+            'enrollments.currentPlan.frequencyType',
+            'enrollments.currentPlan.reviewUnit',
+            'enrollments.currentPlan.memorizationUnit',
+            'enrollments.currentPlan.sardUnit',
             'enrollments.halaqah',
         ])->findOrFail($id);
     }
@@ -97,10 +97,10 @@ class StudentRepository
             'enrollments' => function ($query) {
                 $query->latest('enrolled_at')->limit(1);
             },
-            'enrollments.plan.frequencyType',
-            'enrollments.plan.reviewUnit',
-            'enrollments.plan.memorizationUnit',
-            'enrollments.plan.sardUnit',
+            'enrollments.currentPlan.frequencyType',
+            'enrollments.currentPlan.reviewUnit',
+            'enrollments.currentPlan.memorizationUnit',
+            'enrollments.currentPlan.sardUnit',
             'enrollments.halaqah',
         ])
             ->where(function ($query) use ($updatedSince) {
@@ -213,10 +213,10 @@ class StudentRepository
     public function getPlans(int $studentId)
     {
         return Enrollment::where('student_id', $studentId)
-            ->with('plan')
+            ->with('plans')
             ->get()
-            ->pluck('plan')
-            ->filter();
+            ->pluck('plans')
+            ->flatten();
     }
 
     /**
@@ -229,9 +229,9 @@ class StudentRepository
     {
         $enrollment = Enrollment::where('student_id', $studentId)
             ->orderByDesc('enrolled_at')
-            ->with('plan')
+            ->with('currentPlan')
             ->first();
-        return $enrollment ? $enrollment->plan : null;
+        return $enrollment ? $enrollment->currentPlan->first() : null;
     }
 
     /**
@@ -244,12 +244,16 @@ class StudentRepository
     public function createPlan(int $studentId, array $data)
     {
         $plan = \App\Models\Plan::create($data);
-        Enrollment::create([
-            'student_id' => $studentId,
-            'halaqah_id' => $data['halaqah_id'], // halaqah_id must be provided in $data
-            'enrolled_at' => $data['enrolled_at'] ?? now(),
-            'plan_id' => $plan->id,
-        ]);
+        $enrollment = Enrollment::where('student_id', $studentId)
+            ->where('halaqah_id', $data['halaqah_id'])
+            ->firstOrFail();
+
+        // Set all other plans for this enrollment to not be current
+        DB::table('enrollment_plan')->where('enrollment_id', $enrollment->id)->update(['is_current' => false]);
+
+        // Attach the new plan as the current one
+        $enrollment->plans()->attach($plan->id, ['is_current' => true]);
+
         return $plan;
     }
 

@@ -3007,14 +3007,15 @@ class DatabaseSeeder extends Seeder
             ]));
         }
 
-        $enrollments = collect();
+        // Enroll students and assign a current plan
         foreach ($students as $student) {
-            $enrollments->push(\App\Models\Enrollment::create([
+            $enrollment = \App\Models\Enrollment::create([
                 'student_id' => $student->id,
                 'halaqah_id' => $halaqahs->random()->id,
-                'plan_id' => $plans->random()->id,
                 'enrolled_at' => now()->subDays(rand(1, 20)),
-            ]));
+            ]);
+            // Attach a random plan and set it as current
+            $enrollment->plans()->attach($plans->random()->id, ['is_current' => true]);
         }
 
         $trackings = collect();

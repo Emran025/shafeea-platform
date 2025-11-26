@@ -15,7 +15,7 @@ class StudentSyncResource extends JsonResource
     {
         $student = $this->resource;
         $enrollment = $student->enrollments->first();
-        $plan = $enrollment?->plan;
+        $plan = $enrollment?->currentPlan->first();
         $frequency = $plan?->frequencyType;
         $halaqah = $enrollment?->halaqah;
         $user = $student->user;

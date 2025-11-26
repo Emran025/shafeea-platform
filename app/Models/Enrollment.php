@@ -36,10 +36,20 @@ class Enrollment extends Model
     }
 
     /**
-     * Get the plan for the enrollment.
+     * The plans that belong to the enrollment.
      */
-    public function plan()
+    public function plans()
     {
-        return $this->belongsTo(Plan::class);
+        return $this->belongsToMany(Plan::class, 'enrollment_plan')->withTimestamps()->withPivot('is_current');
+    }
+
+    /**
+     * Get the current plan for the enrollment.
+     */
+    public function currentPlan()
+    {
+        return $this->belongsToMany(Plan::class, 'enrollment_plan')
+                    ->wherePivot('is_current', true)
+                    ->withTimestamps();
     }
 }

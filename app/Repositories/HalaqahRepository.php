@@ -170,22 +170,11 @@ class HalaqahRepository
                 throw new Exception("Default plan with ID 1 does not exist.");
             }
 
-            // Get the most recent plan for each of the new students
-            $studentPlans = Enrollment::whereIn('student_id', $newStudentIds)
-                                      ->orderBy('created_at', 'desc')
-                                      ->get()
-                                      ->groupBy('student_id')
-                                      ->map(function ($enrollments) {
-                                          return $enrollments->first()->plan_id;
-                                      });
-
             $enrollments = [];
             foreach ($newStudentIds as $studentId) {
-                $planId = $studentPlans->get($studentId, $defaultPlanId); // Use student's plan, or default
                 $enrollments[] = [
                     'student_id' => $studentId,
                     'halaqah_id' => $id,
-                    'plan_id' => $planId,
                     'enrolled_at' => now(),
                     'created_at' => now(),
                     'updated_at' => now()
@@ -194,8 +183,27 @@ class HalaqahRepository
 
             Enrollment::insert($enrollments);
 
+            // Get the IDs of the newly created enrollments
+            $newEnrollmentIds = Enrollment::where('halaqah_id', $id)
+                                          ->whereIn('student_id', $newStudentIds)
+                                          ->pluck('id');
+
+            // Prepare the pivot data for bulk insert
+            $pivotData = [];
+            foreach ($newEnrollmentIds as $enrollmentId) {
+                $pivotData[] = [
+                    'enrollment_id' => $enrollmentId,
+                    'plan_id' => $defaultPlanId,
+                    'is_current' => true,
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ];
+            }
+
+            DB::table('enrollment_plan')->insert($pivotData);
+
             // Update the student count on the halaqah
-            $halaqah->increment('sum_of_students', count($enrollments));
+            $halaqah->increment('sum_of_students', count($newStudentIds));
 
             return $halaqah;
         });

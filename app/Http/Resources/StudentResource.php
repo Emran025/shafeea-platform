@@ -11,9 +11,10 @@ class StudentResource extends JsonResource
 
         $student = $this->resource;
         $enrollment = $student->enrollments->first();
-        $plan = $enrollment?->plan;
+        $plan = $enrollment?->currentPlan->first();
         $halaqah = $enrollment?->halaqah;
         $user = $student->user;
+        $frequency = $plan?->frequencyType;
 
         return [
             'id' => $this->id,
@@ -42,7 +43,7 @@ class StudentResource extends JsonResource
             ] : null,
             'followUpPlan' => $plan ? [
                 'PlanId' => $plan->id,
-                'frequency' => $frequency->name ?? null,
+                'frequency' => $frequency?->name ?? null,
                 'details' => [
                     [
                         'type' => 'memorization',

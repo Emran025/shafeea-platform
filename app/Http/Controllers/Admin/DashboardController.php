@@ -40,7 +40,7 @@ class DashboardController extends Controller
         $halaqahsTable = Halaqah::with(['teacher.user', 'enrollments'])->get();
         $teachersTable = Teacher::with(['user', 'halaqahs'])->get();
         $studentsTable = Student::with(['user', 'enrollments'])->get();
-        $enrollmentsTable = Enrollment::with(['student.user', 'halaqah', 'plan'])->get();
+        $enrollmentsTable = Enrollment::with(['student.user', 'halaqah', 'currentPlan'])->get();
         $adminsTable = Admin::with('user.roles')->get();
 
         // Chart Data

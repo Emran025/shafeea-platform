@@ -30,11 +30,11 @@ class Plan extends Model
     ];
 
     /**
-     * Get the enrollments for the plan.
+     * The enrollments that belong to the plan.
      */
     public function enrollments()
     {
-        return $this->hasMany(Enrollment::class);
+        return $this->belongsToMany(Enrollment::class, 'enrollment_plan')->withTimestamps()->withPivot('is_current');
     }
 
     /**
