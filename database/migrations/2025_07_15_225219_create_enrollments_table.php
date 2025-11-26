@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('student_id')->constrained('students')->onDelete('cascade')->comment('FK to students table');
             $table->foreignId('halaqah_id')->constrained('halaqahs')->onDelete('cascade')->comment('FK to halaqahs table');
             $table->timestamp('enrolled_at')->comment('Enrollment timestamp');
-            $table->foreignId('plan_id')->constrained('plans')->onDelete('cascade')->comment('FK to plans table');
+            // $table->foreignId('plan_id')->constrained('plans')->onDelete('cascade')->comment('FK to plans table');
             $table->timestamps();
         });
     }
