@@ -40,6 +40,8 @@ class StudentSyncResource extends JsonResource
             'halaqa' => $halaqah ? [
                 'id' => $halaqah->id,
                 'name' => $halaqah->name,
+                'avatar' => $halaqah->avatar,
+                'assignedAt' => $enrollment->enrolled_at,
             ] : null,
             'followUpPlan' => $plan ? [
                 'PlanId' => $plan->id,

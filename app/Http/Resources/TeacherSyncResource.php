@@ -38,7 +38,8 @@ class TeacherSyncResource extends JsonResource
                     return [
                         'id' => $halaqa->id,
                         'name' => $halaqa->name,
-                        'avatar' => $halaqa->avatar, // تأكد من الحقل
+                        'avatar' => $halaqa->avatar,
+                        'assignedAt' => $halaqa->created_at,
                     ];
                 });
             }),
