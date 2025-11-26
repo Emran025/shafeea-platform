@@ -51,7 +51,7 @@ class HalaqahRepository
     public function find($id)
     {
         // Eager load relationships for the single item view
-        return Halaqah::with(['teacher.user', 'school', 'students.user'])->findOrFail($id);
+        return Halaqah::with(['currentTeacher.user', 'school', 'students.user'])->findOrFail($id);
     }
 
     /**
@@ -62,8 +62,24 @@ class HalaqahRepository
      */
     public function create(array $data)
     {
-        return Halaqah::create($data);
+        return DB::transaction(function () use ($data) {
+            $teacherId = $data['teacher_id'] ?? null;
+            unset($data['teacher_id']);
+
+            $halaqah = Halaqah::create($data);
+
+            if ($teacherId) {
+                $halaqah->teachers()->attach($teacherId, [
+                    'assigned_at' => now(),
+                    'is_current' => true,
+                    'note' => 'تم الإسناد عند إنشاء الحلقة',
+                ]);
+            }
+
+            return $halaqah;
+        });
     }
+
 
     /**
      * Update an existing halaqah.
@@ -74,10 +90,20 @@ class HalaqahRepository
      */
     public function update($id, array $data)
     {
-        $halaqah = $this->find($id);
-        $halaqah->update($data);
-        return $halaqah->fresh(['teacher.user', 'school']); // Reload relations
+        return DB::transaction(function () use ($id, $data) {
+            $halaqah = $this->find($id);
+
+            if (isset($data['teacher_id'])) {
+                $this->assignTeacher($id, $data['teacher_id']);
+                unset($data['teacher_id']);
+            }
+
+            $halaqah->update($data);
+
+            return $halaqah->fresh(['currentTeacher.user', 'school']); // Reload relations
+        });
     }
+
 
     /**
      * Assign a teacher to a halaqah.
@@ -88,10 +114,24 @@ class HalaqahRepository
      */
     public function assignTeacher($id, $teacherId)
     {
-        $halaqah = $this->find($id);
-        $halaqah->teacher_id = $teacherId;
-        $halaqah->save();
-        return $halaqah;
+        return DB::transaction(function () use ($id, $teacherId) {
+            $halaqah = $this->find($id);
+
+            // Set all other teachers for this halaqah to not be current
+            $halaqah->teachers()->updateExistingPivot(null, ['is_current' => false]);
+
+            // Detach the teacher if they are already attached to prevent duplicates
+            $halaqah->teachers()->detach($teacherId);
+
+            // Attach the new teacher as the current one
+            $halaqah->teachers()->attach($teacherId, [
+                'assigned_at' => now(),
+                'is_current' => true,
+                'note' => 'تم الإسناد يدوياً',
+            ]);
+
+            return $halaqah;
+        });
     }
 
     /**
@@ -209,19 +249,14 @@ class HalaqahRepository
      */
     public function getTeacherHistory($id, array $filters)
     {
-        // IMPORTANT: The current database schema only stores the *current* teacher.
-        // A full history requires a separate log table (e.g., `halaqah_teacher_logs`)
-        // with `halaqah_id`, `teacher_id`, `assigned_at`, `unassigned_at`.
-        // For now, this method will only return the current teacher.
+        $halaqah = $this->find($id);
 
-        $halaqah = Halaqah::with('teacher.user')->findOrFail($id);
-
-        if ($halaqah->teacher) {
-            return collect([$halaqah->teacher]); // Return as a collection to mimic a list
-        }
-
-        return collect([]); // Return an empty collection if no teacher is assigned
+        return $halaqah->teachers()
+            ->with('user')
+            ->orderBy('pivot_assigned_at', 'desc')
+            ->get();
     }
+
 
     public function getUpdatedSince($updatedSince, $limit = 100, $page = 1)
     {

@@ -44,7 +44,7 @@ class HalaqaController extends ApiController
 
         if ($validator->fails()) {
             // Use the error helper for validation failures
-            return $this->error('The given data was invalid.', 422, $validator->errors());
+            return $this.error('The given data was invalid.', 422, $validator->errors());
         }
 
         $data = $validator->validated();
@@ -128,15 +128,14 @@ class HalaqaController extends ApiController
     {
         $teachers = $this->halaqahRepository->getTeacherHistory($id, $request->all());
 
-        // Since this is not paginated and has custom logic, we map it here
-        // and use the standard 'success' helper.
         $data = $teachers->map(function ($teacher) {
             return [
                 "id" => $teacher->id,
                 "name" => $teacher->user->name,
-                "Avater" => $teacher->user->avatar,
-                "assignedAt" => $teacher->created_at->toIso8601String(),
-                "unassignedAt" => null
+                "avatar" => $teacher->user->avatar,
+                "assigned_at" => $teacher->pivot->assigned_at,
+                "note" => $teacher->pivot->note,
+                "is_current" => $teacher->pivot->is_current,
             ];
         });
 

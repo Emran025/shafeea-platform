@@ -22,7 +22,7 @@ class HalaqahResource extends JsonResource
             'residence' => $this->residence ?? null,
             'sumOfStudents' => $this->students ? $this->students->count() : 0,
             'MaxOfStudents'=>$this->max_students,
-            'teacherId'=>$this->teacher_id,
+            'teacherId' => $this->teacher ? $this->teacher->id : null,
             'isActive' => $this->is_active,
             'isDeleted' => $this->is_deleted,
             'createdAt' => $this->created_at->toIso8601String(),
