@@ -25,7 +25,7 @@ class TeacherResource extends JsonResource
             'country' => $user->country ?? null,
             'city' => $user->city ?? null,
             'residence' => $user->residence ?? null,
-            'status' => $user->status ?? null,
+            'status' => $this->calculated_status,
             'assignedHalaqas' => $this->whenLoaded('halaqahs', function () {
                 return $this->halaqahs->map(function ($halaqa) {
                     return [
@@ -41,4 +41,5 @@ class TeacherResource extends JsonResource
             // Add halaqahs or other relationships as needed
         ];
     }
+
 }

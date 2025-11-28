@@ -32,7 +32,7 @@ class TeacherSyncResource extends JsonResource
             'city' => $user->city ?? null,
             'qualification' => $this->qualification,
             'experienceYears' => $this->experience_years,
-            'status' => $this->status,
+            'status' => $this->calculated_status,
             'assignedHalaqas' => $this->whenLoaded('halaqahs', function () {
                 return $this->halaqahs->map(function ($halaqa) {
                     return [
@@ -48,4 +48,5 @@ class TeacherSyncResource extends JsonResource
             'createdAt' => $teacher->created_at?->toIso8601String(),
         ];
     }
+
 }

@@ -36,4 +36,19 @@ class Teacher extends Model
             ->using(HalaqahTeacher::class)
             ->withPivot('assigned_at', 'note', 'is_current');
     }
+
+    /**
+     * Get the teacher's calculated status.
+     *
+     * @return int
+     */
+    public function getCalculatedStatusAttribute(): int
+    {
+        $isActive = $this->halaqahs()
+            ->where('is_active', true)
+            ->wherePivot('is_current', true)
+            ->exists();
+
+        return $isActive ? 1 : 2;
+    }
 }
