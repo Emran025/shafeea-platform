@@ -22,6 +22,16 @@ return new class extends Migration
             $table->float('score', 3)->nullable()->comment('Score (optional)');
             $table->timestamps();
         });
+
+        Schema::create('mistakes', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('tracking_detail_id')->constrained('tracking_details')->onDelete('cascade');
+            $table->integer('ayahId_quran');
+            $table->integer('wordIndex');
+            $table->integer('mistakeTypeId');
+            $table->timestamps();
+            $table->softDeletes();
+        });
     }
 
     /**
@@ -29,6 +39,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::dropIfExists('mistakes');
         Schema::dropIfExists('tracking_details');
     }
 };

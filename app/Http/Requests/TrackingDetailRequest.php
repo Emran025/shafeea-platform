@@ -20,6 +20,10 @@ class TrackingDetailRequest extends FormRequest
             'actual_amount' => 'nullable|integer',
             'comment' => 'nullable|string',
             'score' => 'nullable|numeric',
+            'mistakes' => 'nullable|array',
+            'mistakes.*.ayahId_quran' => 'required|integer',
+            'mistakes.*.wordIndex' => 'required|integer',
+            'mistakes.*.mistakeTypeId' => 'required|integer|between:0,124',
         ];
     }
 }
