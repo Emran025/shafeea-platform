@@ -53,4 +53,12 @@ class TrackingDetail extends Model
     {
         return $this->belongsTo(TrackingUnit::class, 'to_tracking_unit_id');
     }
+
+    /**
+     * Get the mistakes for the tracking detail.
+     */
+    public function mistakes()
+    {
+        return $this->hasMany(Mistake::class);
+    }
 }

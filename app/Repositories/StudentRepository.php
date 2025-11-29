@@ -280,8 +280,25 @@ class StudentRepository
      */
     public function createTracking(int $planId, array $data)
     {
-        $data['plan_id'] = $planId;
-        return \App\Models\Tracking::create($data);
+        return DB::transaction(function () use ($planId, $data) {
+            $data['plan_id'] = $planId;
+
+            $detailsData = [];
+            if (isset($data['details'])) {
+                $detailsData = $data['details'];
+                unset($data['details']);
+            }
+
+            $tracking = \App\Models\Tracking::create($data);
+
+            if (!empty($detailsData)) {
+                foreach ($detailsData as $detailData) {
+                    $this->addTrackingDetail($tracking->id, $detailData);
+                }
+            }
+
+            return $tracking->load('details.mistakes');
+        });
     }
 
     /**
@@ -293,9 +310,37 @@ class StudentRepository
      */
     public function updateTracking(int $trackingId, array $data)
     {
-        $tracking = \App\Models\Tracking::findOrFail($trackingId);
-        $tracking->update($data);
-        return $tracking;
+        return DB::transaction(function () use ($trackingId, $data) {
+            $tracking = \App\Models\Tracking::findOrFail($trackingId);
+
+            $detailsData = $data['details'] ?? [];
+            unset($data['details']);
+
+            $tracking->update($data);
+
+            $detailIds = collect($detailsData)->pluck('id')->filter();
+            $tracking->details()->whereNotIn('id', $detailIds)->delete();
+
+            foreach ($detailsData as $detailData) {
+                $mistakesData = $detailData['mistakes'] ?? [];
+                unset($detailData['mistakes']);
+
+                $detail = $tracking->details()->updateOrCreate(
+                    ['id' => $detailData['id'] ?? null],
+                    $detailData
+                );
+
+                foreach ($detail->mistakes as $mistake) {
+                    $mistake->delete();
+                }
+
+                if (!empty($mistakesData)) {
+                    $detail->mistakes()->createMany($mistakesData);
+                }
+            }
+
+            return $tracking->load('details.mistakes');
+        });
     }
 
     /**
@@ -307,8 +352,23 @@ class StudentRepository
      */
     public function addTrackingDetail(int $trackingId, array $data)
     {
-        $data['tracking_id'] = $trackingId;
-        return \App\Models\TrackingDetail::create($data);
+        return DB::transaction(function () use ($trackingId, $data) {
+            $data['tracking_id'] = $trackingId;
+
+            $mistakesData = [];
+            if (isset($data['mistakes'])) {
+                $mistakesData = $data['mistakes'];
+                unset($data['mistakes']);
+            }
+
+            $trackingDetail = \App\Models\TrackingDetail::create($data);
+
+            if (!empty($mistakesData)) {
+                $trackingDetail->mistakes()->createMany($mistakesData);
+            }
+
+            return $trackingDetail->load('mistakes');
+        });
     }
 
     /**

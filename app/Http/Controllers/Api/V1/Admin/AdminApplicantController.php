@@ -103,6 +103,7 @@ class AdminApplicantController extends ApiController
                     Student::create([
                         'user_id' => $applicant->user_id,
                         'bio' => $applicant->bio,
+
                         'qualification' => $applicant->qualifications,
                         'memorization_level' => $applicant->memorization_level,
                     ]);

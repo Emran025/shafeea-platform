@@ -19,6 +19,9 @@ class Applicant extends Model
         'qualifications',
         'intent_statement',
         'memorization_level',
+
+        'rejection_reason',
+
         'submitted_at',
     ];
 

@@ -19,6 +19,7 @@ class TrackingDetailResource extends JsonResource
             'score' => $this->score,
             'createdAt' => $this->created_at,
             'updatedAt' => $this->updated_at,
+            'mistakes' => MistakeResource::collection($this->whenLoaded('mistakes')),
         ];
     }
 }
