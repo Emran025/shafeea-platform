@@ -16,7 +16,6 @@ class Enrollment extends Model
         'student_id',
         'halaqah_id',
         'enrolled_at',
-        'plan_id',
     ];
 
     /**
@@ -51,5 +50,13 @@ class Enrollment extends Model
         return $this->belongsToMany(Plan::class, 'enrollment_plan')
                     ->wherePivot('is_current', true)
                     ->withTimestamps();
+    }
+
+    /**
+     * Get the trackings for the enrollment.
+     */
+    public function trackings()
+    {
+        return $this->hasMany(Tracking::class);
     }
 }

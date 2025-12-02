@@ -14,18 +14,18 @@ class Tracking extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'plan_id',
+        'enrollment_id',
         'date',
         'note',
         'behavior_note',
     ];
 
     /**
-     * Get the plan for the tracking.
+     * Get the enrollment for the tracking.
      */
-    public function plan()
+    public function enrollment()
     {
-        return $this->belongsTo(Plan::class);
+        return $this->belongsTo(Enrollment::class);
     }
 
     /**

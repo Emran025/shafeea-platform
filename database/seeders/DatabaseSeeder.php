@@ -3584,7 +3584,7 @@ class DatabaseSeeder extends Seeder
             unset($dayData['details']);
 
 
-            $dayData['plan_id'] = $plans->random()->id;
+            $dayData['enrollment_id'] = \App\Models\Enrollment::inRandomOrder()->first()->id;
 
             if (isset($dayData['id'])) unset($dayData['id']);
 

@@ -17,7 +17,7 @@ class TrackingFactory extends Factory
     public function definition(): array
     {
         return [
-            'plan_id' => \App\Models\Plan::factory(),
+            'enrollment_id' => \App\Models\Enrollment::factory(),
             'date' => fake()->date(),
             'note' => fake()->optional()->sentence(),
             'behavior_note' => fake()->optional()->sentence(),

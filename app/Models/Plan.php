@@ -38,14 +38,6 @@ class Plan extends Model
     }
 
     /**
-     * Get the trackings for the plan.
-     */
-    public function trackings()
-    {
-        return $this->hasMany(Tracking::class);
-    }
-
-    /**
      * Get the frequency type for the plan.
      */
     public function frequencyType()

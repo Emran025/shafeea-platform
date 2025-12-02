@@ -186,9 +186,9 @@ class StudentController extends ApiController
         return $this->success(TrackingResource::collection($trackings));
     }
 
-    public function createTracking(TrackingRequest $request, $planId)
+    public function createTracking(TrackingRequest $request, $enrollmentId)
     {
-        $tracking = $this->students->createTracking($planId, $request->validated());
+        $tracking = $this->students->createTracking($enrollmentId, $request->validated());
         return $this->success(new TrackingResource($tracking), 'Tracking created.');
     }
 

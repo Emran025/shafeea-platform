@@ -278,10 +278,10 @@ class StudentRepository
      * @param array $data
      * @return Tracking
      */
-    public function createTracking(int $planId, array $data)
+    public function createTracking(int $enrollmentId, array $data)
     {
-        return DB::transaction(function () use ($planId, $data) {
-            $data['plan_id'] = $planId;
+        return DB::transaction(function () use ($enrollmentId, $data) {
+            $data['enrollment_id'] = $enrollmentId;
 
             $detailsData = [];
             if (isset($data['details'])) {
@@ -379,8 +379,8 @@ class StudentRepository
      */
     public function getTrackingsForStudent(int $studentId)
     {
-        $planIds = $this->getPlans($studentId)->pluck('id');
-        return \App\Models\Tracking::whereIn('plan_id', $planIds)->with(['details'])->get();
+        $enrollmentIds = Enrollment::where('student_id', $studentId)->pluck('id');
+        return \App\Models\Tracking::whereIn('enrollment_id', $enrollmentIds)->with(['details'])->get();
     }
 
     /**

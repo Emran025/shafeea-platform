@@ -10,7 +10,7 @@ class TrackingResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'planId' => $this->plan_id,
+            'enrollmentId' => $this->enrollment_id,
             'date' => $this->date,
             'note' => $this->note,
             'details'=> $this->details()?TrackingDetailResource::collection($this->whenLoaded('details')) : [],

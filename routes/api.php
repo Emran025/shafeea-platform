@@ -68,7 +68,7 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
 
         // Tracking management
         Route::get('{id}/trackings', [StudentController::class, 'getTrackingsForStudent'])->name('trackings.list');
-        Route::post('plans/{planId}/trackings', [StudentController::class, 'createTracking'])->name('trackings.create');
+        Route::post('enrollments/{enrollmentId}/trackings', [StudentController::class, 'createTracking'])->name('trackings.create');
         Route::put('trackings/{trackingId}', [StudentController::class, 'updateTracking'])->name('trackings.update');
         Route::delete('trackings/{trackingId}', [StudentController::class, 'deleteTracking'])->name('trackings.delete');
         Route::get('trackings/{trackingId}/details', [StudentController::class, 'getTrackingDetails'])->name('trackings.details.list');

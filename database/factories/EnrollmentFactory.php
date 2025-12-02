@@ -20,7 +20,6 @@ class EnrollmentFactory extends Factory
             'student_id' => \App\Models\Student::factory(),
             'halaqah_id' => \App\Models\Halaqah::factory(),
             'enrolled_at' => fake()->dateTime(),
-            'plan_id' => \App\Models\Plan::factory(),
         ];
     }
 }
