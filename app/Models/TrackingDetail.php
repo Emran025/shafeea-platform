@@ -18,6 +18,7 @@ class TrackingDetail extends Model
         'from_tracking_unit_id',
         'to_tracking_unit_id',
         'actual_amount',
+        'gap',
         'comment',
         'score',
     ];

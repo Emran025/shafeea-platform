@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('tracking_type_id')->constrained('tracking_types')->onDelete('cascade')->comment('FK to tracking_types table');
             $table->foreignId('from_tracking_unit_id')->constrained('tracking_units')->onDelete('cascade')->comment('FK to tracking_units (from)');
             $table->foreignId('to_tracking_unit_id')->constrained('tracking_units')->onDelete('cascade')->comment('FK to tracking_units (to)');
+            $table->decimal('gap', 7, 4)->nullable()->comment('Last position reached: Page.Ayah (e.g., 21.141)');
             $table->integer('actual_amount')->comment('Actual amount tracked');
             $table->string('comment')->nullable()->comment('Comment (optional)');
             $table->float('score', 3)->nullable()->comment('Score (optional)');

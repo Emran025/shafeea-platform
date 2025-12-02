@@ -3101,6 +3101,432 @@ class DatabaseSeeder extends Seeder
             ]
         ];
 
+        $studentTrackings = [
+            // --- اليوم الأول: 21-07-2025 (أداء ضعيف ومتأخر) ---
+            [
+                'date' => '2025-07-21',
+                'note' => 'بداية أسبوع غير موفقة، كان الطالب مشتتاً.',
+                'behavior_note' => 3,
+                'created_at' => '2025-07-21 18:00:00',
+                'details' => [
+                    [
+                        'tracking_id' => 1001,
+                        'tracking_type_id' => 1, // Memorization
+                        'from_tracking_unit_id' => 1, // جزء 1
+                        'to_tracking_unit_id' => 1,
+                        'actual_amount' => 0,
+                        'comment' => 'لم يتمكن من الحفظ بسبب الإرهاق.',
+                        'score' => 2,
+                        'gap' => 1.001, // توقف عند البداية (صفحة 1، آية 1)
+                        'created_at' => '2025-07-21 18:00:00',
+                    ],
+                    [
+                        'tracking_id' => 1001,
+                        'tracking_type_id' => 2, // Revision
+                        'from_tracking_unit_id' => 40, // سورة النساء
+                        'to_tracking_unit_id' => 48,
+                        'actual_amount' => 8,
+                        'comment' => 'المراجعة كانت متقطعة وبها أخطاء.',
+                        'score' => 3,
+                        'gap' => 173.171, // توقف جزئي (افتراضي بناء على الوحدة 48)
+                        'created_at' => '2025-07-21 18:00:00',
+                    ],
+                    [
+                        'tracking_id' => 1001,
+                        'tracking_type_id' => 3, // Recitation
+                        'from_tracking_unit_id' => 100,
+                        'to_tracking_unit_id' => 110,
+                        'actual_amount' => 10,
+                        'comment' => 'التلاوة كانت جيدة.',
+                        'score' => 4,
+                        'gap' => 97.114, // نهاية الوحدة 110 (النساء)
+                        'created_at' => '2025-07-21 18:00:00',
+                    ],
+                ]
+            ],
+
+            // --- اليوم الثاني: 22-07-2025 (أداء ممتاز وتفوق) ---
+            [
+                'date' => '2025-07-22',
+                'note' => 'يوم استثنائي، أظهر الطالب تركيزًا عاليًا.',
+                'behavior_note' => 5,
+                'created_at' => '2025-07-22 18:00:00',
+                'details' => [
+                    [
+                        'tracking_id' => 1002,
+                        'tracking_type_id' => 1, // Memorization
+                        'from_tracking_unit_id' => 283, // الأنفال (صفحات)
+                        'to_tracking_unit_id' => 283,
+                        'actual_amount' => 2, // أنجز الضعف
+                        'comment' => 'حفظ متقن للصفحة المقررة وصفحة إضافية.',
+                        'score' => 5,
+                        'gap' => 182.041, // أتم الصفحة 182 آية 41
+                        'created_at' => '2025-07-22 18:00:00',
+                    ],
+                    [
+                        'tracking_id' => 1002,
+                        'tracking_type_id' => 2, // Revision
+                        'from_tracking_unit_id' => 50, // التوبة
+                        'to_tracking_unit_id' => 60,
+                        'actual_amount' => 11,
+                        'comment' => 'مراجعة ممتازة وثابتة.',
+                        'score' => 5,
+                        'gap' => 301.074, // نهاية الوحدة 60 (الكهف)
+                        'created_at' => '2025-07-22 18:00:00',
+                    ],
+                    [
+                        'tracking_id' => 1002,
+                        'tracking_type_id' => 3, // Recitation
+                        'from_tracking_unit_id' => 111,
+                        'to_tracking_unit_id' => 121,
+                        'actual_amount' => 10,
+                        'comment' => 'تلاوة خاشعة ومؤثرة.',
+                        'score' => 5,
+                        'gap' => 156.046, // نهاية الوحدة 121 (الأعراف)
+                        'created_at' => '2025-07-22 18:00:00',
+                    ],
+                ]
+            ],
+
+            // --- اليوم الثالث: 23-07-2025 (أداء جيد ومطابق للخطة) ---
+            [
+                'date' => '2025-07-23',
+                'note' => 'أداء مستقر، التزم بالخطة المحددة.',
+                'behavior_note' => 4,
+                'created_at' => '2025-07-23 18:00:00',
+                'details' => [
+                    [
+                        'tracking_id' => 1003,
+                        'tracking_type_id' => 1,
+                        'from_tracking_unit_id' => 284,
+                        'to_tracking_unit_id' => 284,
+                        'actual_amount' => 1,
+                        'comment' => 'حفظ جيد.',
+                        'score' => 4,
+                        'gap' => 184.061, // نهاية الوحدة 284
+                        'created_at' => '2025-07-23 18:00:00',
+                    ],
+                    [
+                        'tracking_id' => 1003,
+                        'tracking_type_id' => 2,
+                        'from_tracking_unit_id' => 61,
+                        'to_tracking_unit_id' => 70,
+                        'actual_amount' => 10,
+                        'comment' => 'مراجعة جيدة.',
+                        'score' => 4,
+                        'gap' => 391.050, // نهاية الوحدة 70 (القصص)
+                        'created_at' => '2025-07-23 18:00:00',
+                    ],
+                ]
+            ],
+
+            // --- اليوم الرابع: 24-07-2025 (استقرار) ---
+            [
+                'date' => '2025-07-24',
+                'note' => 'يوم مستقر، تم الالتزام بالخطة.',
+                'behavior_note' => 4,
+                'created_at' => '2025-07-24 18:00:00',
+                'details' => [
+                    [
+                        'tracking_id' => 1004,
+                        'tracking_type_id' => 1,
+                        'from_tracking_unit_id' => 285,
+                        'to_tracking_unit_id' => 285,
+                        'actual_amount' => 1,
+                        'comment' => 'حفظ جيد.',
+                        'score' => 4,
+                        'gap' => 189.018, // نهاية الوحدة 285
+                        'created_at' => '2025-07-24 18:00:00',
+                    ],
+                    [
+                        'tracking_id' => 1004,
+                        'tracking_type_id' => 2,
+                        'from_tracking_unit_id' => 71,
+                        'to_tracking_unit_id' => 80,
+                        'actual_amount' => 10,
+                        'comment' => 'المراجعة تمت بشكل جيد.',
+                        'score' => 4,
+                        'gap' => 491.024, // نهاية الوحدة 80 (الزخرف)
+                        'created_at' => '2025-07-24 18:00:00',
+                    ],
+                ]
+            ],
+
+            // --- اليوم الخامس: 25-07-2025 (تراجع بسيط) ---
+            [
+                'date' => '2025-07-25',
+                'note' => 'كان الطالب متعباً قليلاً.',
+                'behavior_note' => 3,
+                'created_at' => '2025-07-25 18:00:00',
+                'details' => [
+                    [
+                        'tracking_id' => 1005,
+                        'tracking_type_id' => 1,
+                        'from_tracking_unit_id' => 286,
+                        'to_tracking_unit_id' => 286,
+                        'actual_amount' => 1,
+                        'comment' => 'حفظ جيد.',
+                        'score' => 4,
+                        'gap' => 192.033, // نهاية الوحدة 286
+                        'created_at' => '2025-07-25 18:00:00',
+                    ],
+                    [
+                        'tracking_id' => 1005,
+                        'tracking_type_id' => 2,
+                        'from_tracking_unit_id' => 81,
+                        'to_tracking_unit_id' => 88,
+                        'actual_amount' => 8, // تقصير
+                        'comment' => 'لم يكمل المراجعة المقررة.',
+                        'score' => 3,
+                        'gap' => 572.001, // توقف عند منتصف الطريق (الجن)
+                        'created_at' => '2025-07-25 18:00:00',
+                    ],
+                    [
+                        'tracking_id' => 1005,
+                        'tracking_type_id' => 3,
+                        'from_tracking_unit_id' => 122,
+                        'to_tracking_unit_id' => 132,
+                        'actual_amount' => 10,
+                        'comment' => '',
+                        'score' => 4,
+                        'gap' => 206.122, // الأعراف/التوبة
+                        'created_at' => '2025-07-25 18:00:00',
+                    ],
+                ]
+            ],
+
+            // --- اليوم السادس: 26-07-2025 (يوم تعويضي جيد) ---
+            [
+                'date' => '2025-07-26',
+                'note' => 'تركيز عالٍ ورغبة في تعويض الأمس.',
+                'behavior_note' => 5,
+                'created_at' => '2025-07-26 18:00:00',
+                'details' => [
+                    [
+                        'tracking_id' => 1006,
+                        'tracking_type_id' => 1,
+                        'from_tracking_unit_id' => 287,
+                        'to_tracking_unit_id' => 287,
+                        'actual_amount' => 1,
+                        'comment' => 'حفظ متقن.',
+                        'score' => 5,
+                        'gap' => 194.045, // نهاية الوحدة 287
+                        'created_at' => '2025-07-26 18:00:00',
+                    ],
+                    [
+                        'tracking_id' => 1006,
+                        'tracking_type_id' => 2,
+                        'from_tracking_unit_id' => 89,
+                        'to_tracking_unit_id' => 100,
+                        'actual_amount' => 12,
+                        'comment' => 'راجع المقرر وزيادة لتعويض الأمس.',
+                        'score' => 5,
+                        'gap' => 46.272, // نهاية الوحدة 100 (البقرة)
+                        'created_at' => '2025-07-26 18:00:00',
+                    ],
+                ]
+            ],
+
+            // --- اليوم السابع: 27-07-2025 (غياب) ---
+            [
+                'date' => '2025-07-27',
+                'note' => 'غياب الطالب لظرف طارئ.',
+                'behavior_note' => 1,
+                'created_at' => '2025-07-27 18:00:00',
+                'details' => []
+            ],
+
+            // --- اليوم الثامن: 28-07-2025 (عودة بعد الغياب وأداء ضعيف) ---
+            [
+                'id' => 1008,
+                'date' => '2025-07-28',
+                'note' => 'العقل ما زال متأثراً بالغياب.',
+                'behavior_note' => 2,
+                'created_at' => '2025-07-28 18:00:00',
+                'details' => [
+                    [
+                        'tracking_id' => 1008,
+                        'tracking_type_id' => 1,
+                        'from_tracking_unit_id' => 288,
+                        'to_tracking_unit_id' => 288,
+                        'actual_amount' => 0,
+                        'comment' => 'لم يستطع التركيز في الحفظ.',
+                        'score' => 1,
+                        'gap' => 194.046, // لم يتحرك من بداية الوحدة 288
+                        'created_at' => '2025-07-28 18:00:00',
+                    ],
+                    [
+                        'tracking_id' => 1008,
+                        'tracking_type_id' => 2,
+                        'from_tracking_unit_id' => 101,
+                        'to_tracking_unit_id' => 105,
+                        'actual_amount' => 5,
+                        'comment' => 'مراجعة ضعيفة.',
+                        'score' => 2,
+                        'gap' => 72.171, // توقف عند آل عمران
+                        'created_at' => '2025-07-28 18:00:00',
+                    ],
+                ]
+            ],
+
+            // --- اليوم التاسع: 29-07-2025 (استعادة مستوى) ---
+            [
+                'date' => '2025-07-29',
+                'note' => 'بدأ يستعيد تركيزه.',
+                'behavior_note' => 4,
+                'created_at' => '2025-07-29 18:00:00',
+                'details' => [
+                    [
+                        'tracking_id' => 1009,
+                        'tracking_type_id' => 1,
+                        'from_tracking_unit_id' => 288, // إعادة محاولة حفظ
+                        'to_tracking_unit_id' => 288,
+                        'actual_amount' => 1,
+                        'comment' => 'تم حفظ مقرر اليوم لتعويض أمس.',
+                        'score' => 4,
+                        'gap' => 196.059, // نهاية الوحدة 288
+                        'created_at' => '2025-07-29 18:00:00',
+                    ],
+                    [
+                        'tracking_id' => 1009,
+                        'tracking_type_id' => 2,
+                        'from_tracking_unit_id' => 106,
+                        'to_tracking_unit_id' => 115,
+                        'actual_amount' => 10,
+                        'comment' => 'مراجعة جيدة.',
+                        'score' => 4,
+                        'gap' => 121.081, // نهاية الوحدة 115 (المائدة)
+                        'created_at' => '2025-07-29 18:00:00',
+                    ],
+                ]
+            ],
+
+            // --- اليوم العاشر: 30-07-2025 (أداء ممتاز) ---
+            [
+                'date' => '2025-07-30',
+                'note' => 'يوم رائع، حماس عالي.',
+                'behavior_note' => 5,
+                'created_at' => '2025-07-30 18:00:00',
+                'details' => [
+                    [
+                        'id' => 2020,
+                        'tracking_id' => 1010,
+                        'tracking_type_id' => 1,
+                        'from_tracking_unit_id' => 289,
+                        'to_tracking_unit_id' => 290,
+                        'actual_amount' => 2,
+                        'comment' => 'حفظ صفحتين بإتقان.',
+                        'score' => 5,
+                        'gap' => 201.092, // نهاية الوحدة 290 (التوبة)
+                        'created_at' => '2025-07-30 18:00:00',
+                    ],
+                ]
+            ],
+
+            // --- اليوم الحادي عشر: 31-07-2025 (تشتت) ---
+            [
+                'date' => '2025-07-31',
+                'note' => 'عانى من التشتت الذهني.',
+                'behavior_note' => 3,
+                'created_at' => '2025-07-31 18:00:00',
+                'details' => [
+                    [
+                        'tracking_id' => 1011,
+                        'tracking_type_id' => 2,
+                        'from_tracking_unit_id' => 116,
+                        'to_tracking_unit_id' => 122,
+                        'actual_amount' => 7,
+                        'comment' => 'مراجعة غير مكتملة.',
+                        'score' => 2,
+                        'gap' => 156.046, // نهاية الوحدة 122 (الأعراف)
+                        'created_at' => '2025-07-31 18:00:00',
+                    ],
+                    [
+                        'tracking_id' => 1011,
+                        'tracking_type_id' => 3,
+                        'from_tracking_unit_id' => 133,
+                        'to_tracking_unit_id' => 138,
+                        'actual_amount' => 5,
+                        'comment' => 'تلاوة سريعة.',
+                        'score' => 3,
+                        'gap' => 241.052, // نهاية الوحدة 138 (يوسف)
+                        'created_at' => '2025-07-31 18:00:00',
+                    ],
+                ]
+            ],
+
+            // --- اليوم الثاني عشر: 01-08-2025 (يوم قياسي) ---
+            [
+                'date' => '2025-08-01',
+                'note' => 'أداء قياسي لتعويض كل التقصير السابق.',
+                'behavior_note' => 5,
+                'created_at' => '2025-08-01 18:00:00',
+                'details' => [
+                    [
+
+                        'tracking_id' => 1012,
+                        'tracking_type_id' => 1,
+                        'from_tracking_unit_id' => 291,
+                        'to_tracking_unit_id' => 291,
+                        'actual_amount' => 1,
+                        'comment' => '',
+                        'score' => 5,
+                        'gap' => 204.110, // نهاية الوحدة 291 (التوبة)
+                        'created_at' => '2025-08-01 18:00:00',
+                    ],
+                    [
+
+                        'tracking_id' => 1012,
+                        'tracking_type_id' => 2,
+                        'from_tracking_unit_id' => 123,
+                        'to_tracking_unit_id' => 143,
+                        'actual_amount' => 20, // ضعف المقرر
+                        'comment' => 'مراجعة جزء كامل بإتقان.',
+                        'score' => 5,
+                        'gap' => 267.099, // نهاية الوحدة 143 (الحجر)
+                        'created_at' => '2025-08-01 18:00:00',
+                    ],
+                ]
+            ],
+
+            // --- اليوم الثالث عشر: 02-08-2025 (ختام مستقر) ---
+            [
+
+                'date' => '2025-08-02',
+                'note' => 'عودة إلى المسار الصحيح.',
+                'behavior_note' => 4,
+                'created_at' => '2025-08-02 18:00:00',
+                'details' => [
+                    [
+                        'tracking_id' => 1013,
+                        'tracking_type_id' => 1,
+                        'from_tracking_unit_id' => 292,
+                        'to_tracking_unit_id' => 292,
+                        'actual_amount' => 1,
+                        'comment' => '',
+                        'score' => 4,
+                        'gap' => 206.121, // نهاية الوحدة 292 (التوبة)
+                        'created_at' => '2025-08-02 18:00:00',
+                    ],
+                    [
+                        'id' => 2026,
+                        'tracking_id' => 1013,
+                        'tracking_type_id' => 2,
+                        'from_tracking_unit_id' => 144,
+                        'to_tracking_unit_id' => 153,
+                        'actual_amount' => 10,
+                        'comment' => '',
+                        'score' => 4,
+                        'gap' => 317.082, // نهاية الوحدة 153 (طه)
+                        'created_at' => '2025-08-02 18:00:00',
+                    ],
+                ]
+            ],
+        ];
+
+        // للتأكد، يمكنك طباعة النتائج أو استخدام json_encode لرؤيتها كـ JSON
+        // echo json_encode($studentTrackings, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+
         $plans = collect();
         foreach ($realisticPlans as $planData) {
             $plans->push(\App\Models\Plan::create([
@@ -3132,17 +3558,6 @@ class DatabaseSeeder extends Seeder
             // Attach a random plan and set it as current
             $enrollment->plans()->attach($plans->random()->id, ['is_current' => true]);
         }
-
-        $trackings = collect();
-        foreach (range(1, 10) as $i) {
-            $trackings->push(\App\Models\Tracking::create([
-                'plan_id' => $plans->random()->id,
-                'date' => now()->subDays($i),
-                'note' => 'ملاحظات اليوم',
-                'behavior_note' => rand(4, 5),
-            ]));
-        }
-
         $trackingTypes = collect([
             ['name_ar' => 'حفظ', 'name_en' => 'Memorization'],
             ['name_ar' => 'مراجعة', 'name_en' => 'Review'],
@@ -3162,18 +3577,57 @@ class DatabaseSeeder extends Seeder
             ]));
         }
 
-        // ✅ تفاصيل التتبع
-        foreach ($trackings as $track) {
-            \App\Models\TrackingDetail::create([
-                'tracking_id' => $track->id,
-                'tracking_type_id' => $trackingTypes->random()->id,
-                'from_tracking_unit_id' => $trackingUnits->random()->id,
-                'to_tracking_unit_id' => $trackingUnits->random()->id,
-                'actual_amount' => rand(1, 5),
-                'comment' => 'ممتاز مع بعض التحسين',
-                'score' => rand(4, 5),
-            ]);
+        // 3. عملية الإدخال (Loop)
+        foreach ($studentTrackings as $dayData) {
+            // نفصل التفاصيل عن البيانات الرئيسية
+            $details = $dayData['details'];
+            unset($dayData['details']);
+
+
+            $dayData['plan_id'] = $plans->random()->id;
+
+            if (isset($dayData['id'])) unset($dayData['id']);
+
+
+            $tracking = \App\Models\Tracking::create($dayData);
+
+            // إنشاء التفاصيل (Children)
+            foreach ($details as $detailData) {
+
+                $detailData['tracking_id'] = $tracking->id;
+
+                // حذف الـ id القديم للتفصيل (مثل 2001) لتجنب التعارض
+                if (isset($detailData['id'])) unset($detailData['id']);
+
+                \App\Models\TrackingDetail::create($detailData);
+            }
         }
+
+
+        // $trackings = collect();
+        // foreach (range(1, 10) as $i) {
+        //     $trackings->push(\App\Models\Tracking::create([
+        //         'plan_id' => $plans->random()->id,
+        //         'date' => now()->subDays($i),
+        //         'note' => 'ملاحظات اليوم',
+        //         'behavior_note' => rand(4, 5),
+        //     ]));
+        // }
+
+        // // ✅ تفاصيل التتبع
+        // foreach ($trackings as $track) {
+        //     \App\Models\TrackingDetail::create([
+        //         'tracking_id' => $track->id,
+        //         'tracking_type_id' => $trackingTypes->random()->id,
+        //         'from_tracking_unit_id' => $trackingUnits->random()->id,
+        //         'to_tracking_unit_id' => $trackingUnits->random()->id,
+        //         'actual_amount' => rand(1, 5),
+        //         'comment' => 'ممتاز مع بعض التحسين',
+        //         'score' => rand(4, 5),
+        //     ]);
+        // }
+
+
 
         echo "✅ تم إنشاء 20 مدرسة، 20 طالب، 20 معلم، 20 حلقة، وجميع البيانات المرتبطة بها بنجاح.\n";
     }

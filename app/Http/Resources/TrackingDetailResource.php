@@ -15,6 +15,7 @@ class TrackingDetailResource extends JsonResource
             'fromTrackingUnitId' => $this->from_tracking_unit_id,
             'toTrackingUnitId' => $this->to_tracking_unit_id,
             'actualAmount' => $this->actual_amount,
+            'gap' => $this->gap,
             'comment' => $this->comment,
             'score' => $this->score,
             'createdAt' => $this->created_at,

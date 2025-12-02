@@ -66,18 +66,18 @@ Want to get a local copy up and running? Just follow these simple steps:
 
 1. **Clone the repo:**
     ```sh
-    git clone https://github.com/Qaidsaher/taj-al-waqar.git
-    cd taj-al-waqar
+        git clone https://github.com/Qaidsaher/taj-al-waqar.git
+        cd taj-al-waqar
     ```
 2. **Install dependencies:**
     ```sh
-    composer install
-    npm install
+        composer install
+        npm install
     ```
 3. **Setup your environment:**
     ```sh
-    cp .env.example .env
-    php artisan key:generate
+        cp .env.example .env
+        php artisan key:generate
     ```
     > 🛠️ Don't forget to update your `.env` file with your database credentials!
 
@@ -91,7 +91,7 @@ Want to get a local copy up and running? Just follow these simple steps:
     ```
 5. **Serve the application:**
     ```sh
-    php artisan serve
+        php artisan serve
     ```
 
 For more detailed instructions, please refer to our [💖 Contributing Guide](CONTRIBUTING.md).
