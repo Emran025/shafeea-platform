@@ -3576,33 +3576,44 @@ class DatabaseSeeder extends Seeder
                 'to_ayah' => $trackingUnitData[7],
             ]));
         }
+        // 1. جلب جميع الـ Enrollments مرة واحدة قبل الدخول في اللوب
+        $enrollments = \App\Models\Enrollment::all();
 
-        // 3. عملية الإدخال (Loop)
-        foreach ($studentTrackings as $dayData) {
-            // نفصل التفاصيل عن البيانات الرئيسية
-            $details = $dayData['details'];
-            unset($dayData['details']);
-
-
-            $dayData['enrollment_id'] = \App\Models\Enrollment::inRandomOrder()->first()->id;
-
-            if (isset($dayData['id'])) unset($dayData['id']);
+        // 3. الدوران على كل enrollment لتكرار نفس البيانات له
+        foreach ($enrollments as $enrollment) {
+            // 2. عملية الإدخال (Loop) للبيانات المصدر
+            foreach ($studentTrackings as $sourceData) {
 
 
-            $tracking = \App\Models\Tracking::create($dayData);
+                // نأخذ نسخة من البيانات الأصلية ($sourceData) ونضعها في ($dayData)
+                // هذا ضروري لأننا سنقوم بحذف (unset) بعض العناصر، ولا نريد أن تتأثر الدورة التالية
+                $dayData = $sourceData;
 
-            // إنشاء التفاصيل (Children)
-            foreach ($details as $detailData) {
+                // نفصل التفاصيل عن البيانات الرئيسية
+                $details = $dayData['details'];
+                unset($dayData['details']);
 
-                $detailData['tracking_id'] = $tracking->id;
+                // نضع الـ enrollment_id الحالي (بدلاً من العشوائي)
+                $dayData['enrollment_id'] = $enrollment->id;
 
-                // حذف الـ id القديم للتفصيل (مثل 2001) لتجنب التعارض
-                if (isset($detailData['id'])) unset($detailData['id']);
+                // حذف الـ id القديم للتتبع لتجنب التعارض
+                if (isset($dayData['id'])) unset($dayData['id']);
 
-                \App\Models\TrackingDetail::create($detailData);
+                // إنشاء التتبع (Parent)
+                $tracking = \App\Models\Tracking::create($dayData);
+
+                // إنشاء التفاصيل (Children)
+                foreach ($details as $detailData) {
+
+                    $detailData['tracking_id'] = $tracking->id;
+
+                    // حذف الـ id القديم للتفصيل
+                    if (isset($detailData['id'])) unset($detailData['id']);
+
+                    \App\Models\TrackingDetail::create($detailData);
+                }
             }
         }
-
 
         // $trackings = collect();
         // foreach (range(1, 10) as $i) {
