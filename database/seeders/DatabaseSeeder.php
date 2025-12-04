@@ -2996,109 +2996,109 @@ class DatabaseSeeder extends Seeder
                 'memorization_unit_id' => $units->where('code', 'page')->first()->id,
                 'review_amount' => 1,
                 'review_unit_id' => $units->where('code', 'juz')->first()->id,
-                'sard_amount' => 5,
-                'sard_unit_id' => $units->where('code', 'juz')->first()->id,
-                'frequency_type_id' => $frequencies->where('name', 'يوميًا')->first()->id,
-            ],
-            [
-                'name' => 'خطة المراجعة الشاملة',
-                'description' => 'تركيز على مراجعة المحفوظ مع حفظ جديد متوسط',
-                'memorization_amount' => 1,
-                'memorization_unit_id' => $units->where('code', 'halfHizb')->first()->id,
-                'review_amount' => 2,
-                'review_unit_id' => $units->where('code', 'juz')->first()->id,
-                'sard_amount' => 10,
-                'sard_unit_id' => $units->where('code', 'juz')->first()->id,
-                'frequency_type_id' => $frequencies->where('name', 'يوميًا')->first()->id,
-            ],
-            [
-                'name' => 'خطة المتوسط للحفظ',
-                'description' => 'نصف صفحة يوميًا مع مراجعة جزء',
-                'memorization_amount' => 1,
-                'memorization_unit_id' => $units->where('code', 'quarterHizb')->first()->id,
-                'review_amount' => 1,
-                'review_unit_id' => $units->where('code', 'juz')->first()->id,
-                'sard_amount' => 3,
-                'sard_unit_id' => $units->where('code', 'juz')->first()->id,
-                'frequency_type_id' => $frequencies->where('name', 'يوميًا')->first()->id,
-            ],
-            [
-                'name' => 'خطة ربع الحزب اليومي',
-                'description' => 'ربع حزب يومي مع مراجعة نصف جزء',
-                'memorization_amount' => 1,
-                'memorization_unit_id' => $units->where('code', 'quarterHizb')->first()->id,
-                'review_amount' => 1,
-                'review_unit_id' => $units->where('code', 'halfHizb')->first()->id,
                 'sard_amount' => 2,
                 'sard_unit_id' => $units->where('code', 'juz')->first()->id,
                 'frequency_type_id' => $frequencies->where('name', 'يوميًا')->first()->id,
             ],
-            [
-                'name' => 'خطة الصفحة اليومية',
-                'description' => 'صفحة حفظ يوميًا مع مراجعة حزب',
-                'memorization_amount' => 1,
-                'memorization_unit_id' => $units->where('code', 'page')->first()->id,
-                'review_amount' => 1,
-                'review_unit_id' => $units->where('code', 'hizb')->first()->id,
-                'sard_amount' => 8,
-                'sard_unit_id' => $units->where('code', 'juz')->first()->id,
-                'frequency_type_id' => $frequencies->where('name', 'ثلاث مرات بالأسبوع')->first()->id,
-            ],
-            [
-                'name' => 'خطة نهاية الأسبوع',
-                'description' => 'تركيز على السرد والمراجعة في نهاية الأسبوع',
-                'memorization_amount' => 2,
-                'memorization_unit_id' => $units->where('code', 'page')->first()->id,
-                'review_amount' => 2,
-                'review_unit_id' => $units->where('code', 'juz')->first()->id,
-                'sard_amount' => 15,
-                'sard_unit_id' => $units->where('code', 'juz')->first()->id,
-                'frequency_type_id' => $frequencies->where('name', 'أسبوعي')->first()->id,
-            ],
-            [
-                'name' => 'خطة الحفظ السريع',
-                'description' => 'وجهين يوميًا مع مراجعة مكثفة',
-                'memorization_amount' => 2,
-                'memorization_unit_id' => $units->where('code', 'page')->first()->id,
-                'review_amount' => 3,
-                'review_unit_id' => $units->where('code', 'juz')->first()->id,
-                'sard_amount' => 20,
-                'sard_unit_id' => $units->where('code', 'juz')->first()->id,
-                'frequency_type_id' => $frequencies->where('name', 'مرتين بالأسبوع')->first()->id,
-            ],
-            [
-                'name' => 'خطة المبتدئين',
-                'description' => 'ربع حزب مع مراجعة خفيفة',
-                'memorization_amount' => 1,
-                'memorization_unit_id' => $units->where('code', 'quarterHizb')->first()->id,
-                'review_amount' => 1,
-                'review_unit_id' => $units->where('code', 'quarterHizb')->first()->id,
-                'sard_amount' => 1,
-                'sard_unit_id' => $units->where('code', 'juz')->first()->id,
-                'frequency_type_id' => $frequencies->where('name', 'يوميًا')->first()->id,
-            ],
-            [
-                'name' => 'خطة المحافظة',
-                'description' => 'مراجعة شاملة للمحفوظ مع حفظ بسيط',
-                'memorization_amount' => 1,
-                'memorization_unit_id' => $units->where('code', 'page')->first()->id,
-                'review_amount' => 5,
-                'review_unit_id' => $units->where('code', 'juz')->first()->id,
-                'sard_amount' => 30,
-                'sard_unit_id' => $units->where('code', 'juz')->first()->id,
-                'frequency_type_id' => $frequencies->where('name', 'أسبوعي')->first()->id,
-            ],
-            [
-                'name' => 'خطة التوازن',
-                'description' => 'توازن بين الحفظ الجديد والمراجعة',
-                'memorization_amount' => 1,
-                'memorization_unit_id' => $units->where('code', 'hizb')->first()->id,
-                'review_amount' => 2,
-                'review_unit_id' => $units->where('code', 'juz')->first()->id,
-                'sard_amount' => 10,
-                'sard_unit_id' => $units->where('code', 'juz')->first()->id,
-                'frequency_type_id' => $frequencies->where('name', 'ثلاث مرات بالأسبوع')->first()->id,
-            ]
+            // [
+            //     'name' => 'خطة المراجعة الشاملة',
+            //     'description' => 'تركيز على مراجعة المحفوظ مع حفظ جديد متوسط',
+            //     'memorization_amount' => 1,
+            //     'memorization_unit_id' => $units->where('code', 'halfHizb')->first()->id,
+            //     'review_amount' => 2,
+            //     'review_unit_id' => $units->where('code', 'juz')->first()->id,
+            //     'sard_amount' => 10,
+            //     'sard_unit_id' => $units->where('code', 'juz')->first()->id,
+            //     'frequency_type_id' => $frequencies->where('name', 'يوميًا')->first()->id,
+            // ],
+            // [
+            //     'name' => 'خطة المتوسط للحفظ',
+            //     'description' => 'نصف صفحة يوميًا مع مراجعة جزء',
+            //     'memorization_amount' => 1,
+            //     'memorization_unit_id' => $units->where('code', 'quarterHizb')->first()->id,
+            //     'review_amount' => 1,
+            //     'review_unit_id' => $units->where('code', 'juz')->first()->id,
+            //     'sard_amount' => 3,
+            //     'sard_unit_id' => $units->where('code', 'juz')->first()->id,
+            //     'frequency_type_id' => $frequencies->where('name', 'يوميًا')->first()->id,
+            // ],
+            // [
+            //     'name' => 'خطة ربع الحزب اليومي',
+            //     'description' => 'ربع حزب يومي مع مراجعة نصف جزء',
+            //     'memorization_amount' => 1,
+            //     'memorization_unit_id' => $units->where('code', 'quarterHizb')->first()->id,
+            //     'review_amount' => 1,
+            //     'review_unit_id' => $units->where('code', 'halfHizb')->first()->id,
+            //     'sard_amount' => 2,
+            //     'sard_unit_id' => $units->where('code', 'juz')->first()->id,
+            //     'frequency_type_id' => $frequencies->where('name', 'يوميًا')->first()->id,
+            // ],
+            // [
+            //     'name' => 'خطة الصفحة اليومية',
+            //     'description' => 'صفحة حفظ يوميًا مع مراجعة حزب',
+            //     'memorization_amount' => 1,
+            //     'memorization_unit_id' => $units->where('code', 'page')->first()->id,
+            //     'review_amount' => 1,
+            //     'review_unit_id' => $units->where('code', 'hizb')->first()->id,
+            //     'sard_amount' => 8,
+            //     'sard_unit_id' => $units->where('code', 'juz')->first()->id,
+            //     'frequency_type_id' => $frequencies->where('name', 'ثلاث مرات بالأسبوع')->first()->id,
+            // ],
+            // [
+            //     'name' => 'خطة نهاية الأسبوع',
+            //     'description' => 'تركيز على السرد والمراجعة في نهاية الأسبوع',
+            //     'memorization_amount' => 2,
+            //     'memorization_unit_id' => $units->where('code', 'page')->first()->id,
+            //     'review_amount' => 2,
+            //     'review_unit_id' => $units->where('code', 'juz')->first()->id,
+            //     'sard_amount' => 15,
+            //     'sard_unit_id' => $units->where('code', 'juz')->first()->id,
+            //     'frequency_type_id' => $frequencies->where('name', 'أسبوعي')->first()->id,
+            // ],
+            // [
+            //     'name' => 'خطة الحفظ السريع',
+            //     'description' => 'وجهين يوميًا مع مراجعة مكثفة',
+            //     'memorization_amount' => 2,
+            //     'memorization_unit_id' => $units->where('code', 'page')->first()->id,
+            //     'review_amount' => 3,
+            //     'review_unit_id' => $units->where('code', 'juz')->first()->id,
+            //     'sard_amount' => 20,
+            //     'sard_unit_id' => $units->where('code', 'juz')->first()->id,
+            //     'frequency_type_id' => $frequencies->where('name', 'مرتين بالأسبوع')->first()->id,
+            // ],
+            // [
+            //     'name' => 'خطة المبتدئين',
+            //     'description' => 'ربع حزب مع مراجعة خفيفة',
+            //     'memorization_amount' => 1,
+            //     'memorization_unit_id' => $units->where('code', 'quarterHizb')->first()->id,
+            //     'review_amount' => 1,
+            //     'review_unit_id' => $units->where('code', 'quarterHizb')->first()->id,
+            //     'sard_amount' => 1,
+            //     'sard_unit_id' => $units->where('code', 'juz')->first()->id,
+            //     'frequency_type_id' => $frequencies->where('name', 'يوميًا')->first()->id,
+            // ],
+            // [
+            //     'name' => 'خطة المحافظة',
+            //     'description' => 'مراجعة شاملة للمحفوظ مع حفظ بسيط',
+            //     'memorization_amount' => 1,
+            //     'memorization_unit_id' => $units->where('code', 'page')->first()->id,
+            //     'review_amount' => 5,
+            //     'review_unit_id' => $units->where('code', 'juz')->first()->id,
+            //     'sard_amount' => 30,
+            //     'sard_unit_id' => $units->where('code', 'juz')->first()->id,
+            //     'frequency_type_id' => $frequencies->where('name', 'أسبوعي')->first()->id,
+            // ],
+            // [
+            //     'name' => 'خطة التوازن',
+            //     'description' => 'توازن بين الحفظ الجديد والمراجعة',
+            //     'memorization_amount' => 1,
+            //     'memorization_unit_id' => $units->where('code', 'hizb')->first()->id,
+            //     'review_amount' => 2,
+            //     'review_unit_id' => $units->where('code', 'juz')->first()->id,
+            //     'sard_amount' => 10,
+            //     'sard_unit_id' => $units->where('code', 'juz')->first()->id,
+            //     'frequency_type_id' => $frequencies->where('name', 'ثلاث مرات بالأسبوع')->first()->id,
+            // ]
         ];
 
         $studentTrackings = [
@@ -3110,36 +3110,26 @@ class DatabaseSeeder extends Seeder
                 'created_at' => '2025-07-21 18:00:00',
                 'details' => [
                     [
-                        'tracking_id' => 1001,
-                        'tracking_type_id' => 1, // Memorization
-                        'from_tracking_unit_id' => 1, // جزء 1
-                        'to_tracking_unit_id' => 1,
-                        'actual_amount' => 0,
+                        
+                        'tracking_type_id' => 1,
+                        'from_tracking_unit_id' => 550,
+                        'to_tracking_unit_id' => 551,
+                        'actual_amount' => 1,
                         'comment' => 'لم يتمكن من الحفظ بسبب الإرهاق.',
-                        'score' => 2,
-                        'gap' => 1.001, // توقف عند البداية (صفحة 1، آية 1)
+                        'score' => 4,
+                        'gap' => 0.0,
                         'created_at' => '2025-07-21 18:00:00',
                     ],
+                    
                     [
-                        'tracking_id' => 1001,
-                        'tracking_type_id' => 2, // Revision
-                        'from_tracking_unit_id' => 40, // سورة النساء
-                        'to_tracking_unit_id' => 48,
-                        'actual_amount' => 8,
+                        
+                        'tracking_type_id' => 2,
+                        'from_tracking_unit_id' => 1,
+                        'to_tracking_unit_id' => 2,
+                        'actual_amount' => 10,
                         'comment' => 'المراجعة كانت متقطعة وبها أخطاء.',
                         'score' => 3,
-                        'gap' => 173.171, // توقف جزئي (افتراضي بناء على الوحدة 48)
-                        'created_at' => '2025-07-21 18:00:00',
-                    ],
-                    [
-                        'tracking_id' => 1001,
-                        'tracking_type_id' => 3, // Recitation
-                        'from_tracking_unit_id' => 100,
-                        'to_tracking_unit_id' => 110,
-                        'actual_amount' => 10,
-                        'comment' => 'التلاوة كانت جيدة.',
-                        'score' => 4,
-                        'gap' => 97.114, // نهاية الوحدة 110 (النساء)
+                        'gap' => 0.0,
                         'created_at' => '2025-07-21 18:00:00',
                     ],
                 ]
@@ -3153,37 +3143,26 @@ class DatabaseSeeder extends Seeder
                 'created_at' => '2025-07-22 18:00:00',
                 'details' => [
                     [
-                        'tracking_id' => 1002,
-                        'tracking_type_id' => 1, // Memorization
-                        'from_tracking_unit_id' => 283, // الأنفال (صفحات)
-                        'to_tracking_unit_id' => 283,
-                        'actual_amount' => 2, // أنجز الضعف
-                        'comment' => 'حفظ متقن للصفحة المقررة وصفحة إضافية.',
-                        'score' => 5,
-                        'gap' => 182.041, // أتم الصفحة 182 آية 41
-                        'created_at' => '2025-07-22 18:00:00',
+                        
+                        'tracking_type_id' => 551,
+                        'from_tracking_unit_id' => 553,
+                        'to_tracking_unit_id' => 285,
+                        'actual_amount' => 1,
+                        'comment' => 'حفظ جيد.',
+                        'score' => 4,
+                        'gap' => 189.018, // نهاية الوحدة 285
+                        'created_at' => '2025-07-24 18:00:00',
                     ],
                     [
-                        'tracking_id' => 1002,
-                        'tracking_type_id' => 2, // Revision
-                        'from_tracking_unit_id' => 50, // التوبة
-                        'to_tracking_unit_id' => 60,
-                        'actual_amount' => 11,
-                        'comment' => 'مراجعة ممتازة وثابتة.',
-                        'score' => 5,
-                        'gap' => 301.074, // نهاية الوحدة 60 (الكهف)
-                        'created_at' => '2025-07-22 18:00:00',
-                    ],
-                    [
-                        'tracking_id' => 1002,
-                        'tracking_type_id' => 3, // Recitation
-                        'from_tracking_unit_id' => 111,
-                        'to_tracking_unit_id' => 121,
+                        
+                        'tracking_type_id' => 2,
+                        'from_tracking_unit_id' => 2,
+                        'to_tracking_unit_id' => 3,
                         'actual_amount' => 10,
-                        'comment' => 'تلاوة خاشعة ومؤثرة.',
-                        'score' => 5,
-                        'gap' => 156.046, // نهاية الوحدة 121 (الأعراف)
-                        'created_at' => '2025-07-22 18:00:00',
+                        'comment' => 'المراجعة تمت بشكل جيد.',
+                        'score' => 4,
+                        'gap' => 491.024, // نهاية الوحدة 80 (الزخرف)
+                        'created_at' => '2025-07-24 18:00:00',
                     ],
                 ]
             ],
@@ -3195,26 +3174,25 @@ class DatabaseSeeder extends Seeder
                 'behavior_note' => 4,
                 'created_at' => '2025-07-23 18:00:00',
                 'details' => [
-                    [
-                        'tracking_id' => 1003,
+                    [  
                         'tracking_type_id' => 1,
-                        'from_tracking_unit_id' => 284,
-                        'to_tracking_unit_id' => 284,
+                        'from_tracking_unit_id' => 550,
+                        'to_tracking_unit_id' => 551,
                         'actual_amount' => 1,
                         'comment' => 'حفظ جيد.',
                         'score' => 4,
-                        'gap' => 184.061, // نهاية الوحدة 284
+                        'gap' => 0.0,
                         'created_at' => '2025-07-23 18:00:00',
                     ],
                     [
-                        'tracking_id' => 1003,
+                        
                         'tracking_type_id' => 2,
-                        'from_tracking_unit_id' => 61,
-                        'to_tracking_unit_id' => 70,
+                        'from_tracking_unit_id' => 1,
+                        'to_tracking_unit_id' => 2,
                         'actual_amount' => 10,
                         'comment' => 'مراجعة جيدة.',
                         'score' => 4,
-                        'gap' => 391.050, // نهاية الوحدة 70 (القصص)
+                        'gap' => 0.0,
                         'created_at' => '2025-07-23 18:00:00',
                     ],
                 ]
@@ -3228,28 +3206,37 @@ class DatabaseSeeder extends Seeder
                 'created_at' => '2025-07-24 18:00:00',
                 'details' => [
                     [
-                        'tracking_id' => 1004,
                         'tracking_type_id' => 1,
-                        'from_tracking_unit_id' => 285,
-                        'to_tracking_unit_id' => 285,
-                        'actual_amount' => 1,
-                        'comment' => 'حفظ جيد.',
-                        'score' => 4,
-                        'gap' => 189.018, // نهاية الوحدة 285
-                        'created_at' => '2025-07-24 18:00:00',
+                        'from_tracking_unit_id' => 283,
+                        'to_tracking_unit_id' => 283,
+                        'actual_amount' => 2, // أنجز الضعف
+                        'comment' => 'حفظ متقن للصفحة المقررة وصفحة إضافية.',
+                        'score' => 5,
+                        'gap' => 182.041, // أتم الصفحة 182 آية 41
+                        'created_at' => '2025-07-22 18:00:00',
                     ],
                     [
-                        'tracking_id' => 1004,
-                        'tracking_type_id' => 2,
-                        'from_tracking_unit_id' => 71,
-                        'to_tracking_unit_id' => 80,
+                        'tracking_type_id' => 2, // Revision
+                        'from_tracking_unit_id' => 50, // التوبة
+                        'to_tracking_unit_id' => 60,
+                        'actual_amount' => 11,
+                        'comment' => 'مراجعة ممتازة وثابتة.',
+                        'score' => 5,
+                        'gap' => 301.074, // نهاية الوحدة 60 (الكهف)
+                        'created_at' => '2025-07-22 18:00:00',
+                    ],
+                    [
+                        'tracking_type_id' => 3, // Recitation
+                        'from_tracking_unit_id' => 111,
+                        'to_tracking_unit_id' => 121,
                         'actual_amount' => 10,
-                        'comment' => 'المراجعة تمت بشكل جيد.',
-                        'score' => 4,
-                        'gap' => 491.024, // نهاية الوحدة 80 (الزخرف)
-                        'created_at' => '2025-07-24 18:00:00',
+                        'comment' => 'تلاوة خاشعة ومؤثرة.',
+                        'score' => 5,
+                        'gap' => 156.046, // نهاية الوحدة 121 (الأعراف)
+                        'created_at' => '2025-07-22 18:00:00',
                     ],
                 ]
+                
             ],
 
             // --- اليوم الخامس: 25-07-2025 (تراجع بسيط) ---
@@ -3260,10 +3247,10 @@ class DatabaseSeeder extends Seeder
                 'created_at' => '2025-07-25 18:00:00',
                 'details' => [
                     [
-                        'tracking_id' => 1005,
+                        
                         'tracking_type_id' => 1,
-                        'from_tracking_unit_id' => 286,
-                        'to_tracking_unit_id' => 286,
+                        'from_tracking_unit_id' => 553,
+                        'to_tracking_unit_id' => 555,
                         'actual_amount' => 1,
                         'comment' => 'حفظ جيد.',
                         'score' => 4,
@@ -3271,10 +3258,10 @@ class DatabaseSeeder extends Seeder
                         'created_at' => '2025-07-25 18:00:00',
                     ],
                     [
-                        'tracking_id' => 1005,
+                        
                         'tracking_type_id' => 2,
-                        'from_tracking_unit_id' => 81,
-                        'to_tracking_unit_id' => 88,
+                        'from_tracking_unit_id' => 3,
+                        'to_tracking_unit_id' => 4,
                         'actual_amount' => 8, // تقصير
                         'comment' => 'لم يكمل المراجعة المقررة.',
                         'score' => 3,
@@ -3282,10 +3269,10 @@ class DatabaseSeeder extends Seeder
                         'created_at' => '2025-07-25 18:00:00',
                     ],
                     [
-                        'tracking_id' => 1005,
+                        
                         'tracking_type_id' => 3,
-                        'from_tracking_unit_id' => 122,
-                        'to_tracking_unit_id' => 132,
+                        'from_tracking_unit_id' => 1,
+                        'to_tracking_unit_id' => 4,
                         'actual_amount' => 10,
                         'comment' => '',
                         'score' => 4,
@@ -3303,25 +3290,25 @@ class DatabaseSeeder extends Seeder
                 'created_at' => '2025-07-26 18:00:00',
                 'details' => [
                     [
-                        'tracking_id' => 1006,
+                        
                         'tracking_type_id' => 1,
-                        'from_tracking_unit_id' => 287,
-                        'to_tracking_unit_id' => 287,
+                        'from_tracking_unit_id' => 555,
+                        'to_tracking_unit_id' => 555,
                         'actual_amount' => 1,
                         'comment' => 'حفظ متقن.',
                         'score' => 5,
-                        'gap' => 194.045, // نهاية الوحدة 287
+                        'gap' => 0.174, // نهاية الوحدة 287
                         'created_at' => '2025-07-26 18:00:00',
                     ],
                     [
-                        'tracking_id' => 1006,
+                        
                         'tracking_type_id' => 2,
-                        'from_tracking_unit_id' => 89,
-                        'to_tracking_unit_id' => 100,
+                        'from_tracking_unit_id' => 4,
+                        'to_tracking_unit_id' => 4,
                         'actual_amount' => 12,
                         'comment' => 'راجع المقرر وزيادة لتعويض الأمس.',
                         'score' => 5,
-                        'gap' => 46.272, // نهاية الوحدة 100 (البقرة)
+                        'gap' => 10.0, // نهاية الوحدة 100 (البقرة)
                         'created_at' => '2025-07-26 18:00:00',
                     ],
                 ]
@@ -3345,7 +3332,7 @@ class DatabaseSeeder extends Seeder
                 'created_at' => '2025-07-28 18:00:00',
                 'details' => [
                     [
-                        'tracking_id' => 1008,
+                        
                         'tracking_type_id' => 1,
                         'from_tracking_unit_id' => 288,
                         'to_tracking_unit_id' => 288,
@@ -3356,7 +3343,7 @@ class DatabaseSeeder extends Seeder
                         'created_at' => '2025-07-28 18:00:00',
                     ],
                     [
-                        'tracking_id' => 1008,
+                        
                         'tracking_type_id' => 2,
                         'from_tracking_unit_id' => 101,
                         'to_tracking_unit_id' => 105,
@@ -3377,7 +3364,7 @@ class DatabaseSeeder extends Seeder
                 'created_at' => '2025-07-29 18:00:00',
                 'details' => [
                     [
-                        'tracking_id' => 1009,
+                        
                         'tracking_type_id' => 1,
                         'from_tracking_unit_id' => 288, // إعادة محاولة حفظ
                         'to_tracking_unit_id' => 288,
@@ -3388,7 +3375,7 @@ class DatabaseSeeder extends Seeder
                         'created_at' => '2025-07-29 18:00:00',
                     ],
                     [
-                        'tracking_id' => 1009,
+                        
                         'tracking_type_id' => 2,
                         'from_tracking_unit_id' => 106,
                         'to_tracking_unit_id' => 115,
@@ -3410,7 +3397,7 @@ class DatabaseSeeder extends Seeder
                 'details' => [
                     [
                         'id' => 2020,
-                        'tracking_id' => 1010,
+                        
                         'tracking_type_id' => 1,
                         'from_tracking_unit_id' => 289,
                         'to_tracking_unit_id' => 290,
@@ -3431,7 +3418,7 @@ class DatabaseSeeder extends Seeder
                 'created_at' => '2025-07-31 18:00:00',
                 'details' => [
                     [
-                        'tracking_id' => 1011,
+                        
                         'tracking_type_id' => 2,
                         'from_tracking_unit_id' => 116,
                         'to_tracking_unit_id' => 122,
@@ -3442,7 +3429,7 @@ class DatabaseSeeder extends Seeder
                         'created_at' => '2025-07-31 18:00:00',
                     ],
                     [
-                        'tracking_id' => 1011,
+                        
                         'tracking_type_id' => 3,
                         'from_tracking_unit_id' => 133,
                         'to_tracking_unit_id' => 138,
@@ -3464,7 +3451,7 @@ class DatabaseSeeder extends Seeder
                 'details' => [
                     [
 
-                        'tracking_id' => 1012,
+                        
                         'tracking_type_id' => 1,
                         'from_tracking_unit_id' => 291,
                         'to_tracking_unit_id' => 291,
@@ -3476,7 +3463,7 @@ class DatabaseSeeder extends Seeder
                     ],
                     [
 
-                        'tracking_id' => 1012,
+                        
                         'tracking_type_id' => 2,
                         'from_tracking_unit_id' => 123,
                         'to_tracking_unit_id' => 143,
@@ -3498,7 +3485,7 @@ class DatabaseSeeder extends Seeder
                 'created_at' => '2025-08-02 18:00:00',
                 'details' => [
                     [
-                        'tracking_id' => 1013,
+                        
                         'tracking_type_id' => 1,
                         'from_tracking_unit_id' => 292,
                         'to_tracking_unit_id' => 292,
@@ -3510,7 +3497,7 @@ class DatabaseSeeder extends Seeder
                     ],
                     [
                         'id' => 2026,
-                        'tracking_id' => 1013,
+                        
                         'tracking_type_id' => 2,
                         'from_tracking_unit_id' => 144,
                         'to_tracking_unit_id' => 153,
