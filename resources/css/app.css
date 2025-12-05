@@ -97,7 +97,7 @@
     /* Accent Colors */
     --accent: oklch(0.599 0.162 164.88); /* Emerald-600 */
     --accent-foreground: oklch(1 0 0);
-    --tertiary: oklch(0.543 0.184 305.77); /* Purple-600 */
+    --tertiary: oklch(76.56% 0.12881 102.999); /* Purple-600 */
     --tertiary-foreground: oklch(1 0 0);
     
     /* Success Colors */
@@ -122,7 +122,7 @@
     /* Chart Colors - Taj Al Waqar Theme */
     --chart-1: oklch(0.548 0.194 232.59); /* Blue */
     --chart-2: oklch(0.599 0.162 164.88); /* Emerald */
-    --chart-3: oklch(0.543 0.184 305.77); /* Purple */
+    --chart-3: oklch(73.58% 0.12279 167.624); /* Purple */
     --chart-4: oklch(0.768 0.137 70.67); /* Amber */
     --chart-5: oklch(0.748 0.134 27.96); /* Orange */
     
@@ -154,9 +154,9 @@
     
     /* Gradients */
     --gradient-primary: linear-gradient(135deg, oklch(0.548 0.194 232.59), oklch(0.599 0.162 164.88));
-    --gradient-secondary: linear-gradient(135deg, oklch(0.599 0.162 164.88), oklch(0.543 0.184 305.77));
-    --gradient-tertiary: linear-gradient(135deg, oklch(0.543 0.184 305.77), oklch(0.548 0.194 232.59));
-    --gradient-hero: linear-gradient(135deg, oklch(0.548 0.194 232.59) 0%, oklch(0.543 0.184 305.77) 50%, oklch(0.599 0.162 164.88) 100%);
+    --gradient-secondary: linear-gradient(135deg, oklch(0.599 0.162 164.88), oklch(74.457% 0.10714 187.467));
+    --gradient-tertiary: linear-gradient(135deg, oklch(76.987% 0.1307 104.135), oklch(50.14% 0.19045 258.58));
+    --gradient-hero: linear-gradient(135deg, oklch(0.548 0.194 232.59) 0%, oklch(74.393% 0.1077 185.965) 50%, oklch(0.599 0.162 164.88) 100%);
 }
 
 .dark {
@@ -177,7 +177,7 @@
     /* Accent Colors - Dark */
     --accent: oklch(0.749 0.122 164.88); /* Emerald-400 */
     --accent-foreground: oklch(0.145 0.016 232.59);
-    --tertiary: oklch(0.693 0.144 305.77); /* Purple-400 */
+    --tertiary: oklch(85.027% 0.09709 177.421); /* Purple-400 */
     --tertiary-foreground: oklch(0.145 0.016 232.59);
     
     /* Success Colors - Dark */
@@ -202,7 +202,7 @@
     /* Chart Colors - Dark Theme */
     --chart-1: oklch(0.698 0.154 232.59); /* Blue-400 */
     --chart-2: oklch(0.749 0.122 164.88); /* Emerald-400 */
-    --chart-3: oklch(0.693 0.144 305.77); /* Purple-400 */
+    --chart-3: oklch(84.915% 0.09917 174.463); /* Purple-400 */
     --chart-4: oklch(0.818 0.117 70.67); /* Amber-400 */
     --chart-5: oklch(0.798 0.114 27.96); /* Orange-400 */
     
@@ -218,9 +218,9 @@
     
     /* Gradients - Dark */
     --gradient-primary: linear-gradient(135deg, oklch(0.698 0.154 232.59), oklch(0.749 0.122 164.88));
-    --gradient-secondary: linear-gradient(135deg, oklch(0.749 0.122 164.88), oklch(0.693 0.144 305.77));
-    --gradient-tertiary: linear-gradient(135deg, oklch(0.693 0.144 305.77), oklch(0.698 0.154 232.59));
-    --gradient-hero: linear-gradient(135deg, oklch(0.698 0.154 232.59) 0%, oklch(0.693 0.144 305.77) 50%, oklch(0.749 0.122 164.88) 100%);
+    --gradient-secondary: linear-gradient(135deg, oklch(0.749 0.122 164.88), oklch(85.506% 0.09178 190.447));
+    --gradient-tertiary: linear-gradient(135deg, oklch(84.344% 0.08681 201.224), oklch(0.698 0.154 232.59));
+    --gradient-hero: linear-gradient(135deg, oklch(0.698 0.154 232.59) 0%, oklch(84.887% 0.09973 173.746) 50%, oklch(0.749 0.122 164.88) 100%);
 }
 
 @layer base {

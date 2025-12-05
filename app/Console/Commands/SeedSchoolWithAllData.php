@@ -22,6 +22,7 @@ use App\Models\{
 };
 use Illuminate\Support\Str;
 use Carbon\Carbon;
+
 class SeedSchoolWithAllData extends Command
 {
     /**
@@ -97,7 +98,7 @@ class SeedSchoolWithAllData extends Command
             'experience_years' => 10,
         ]);
 
-       $admin = Admin::create([
+        $admin = Admin::create([
             'user_id' => $wafa->id,
             'super_admin' => true,
         ]);
@@ -127,7 +128,7 @@ class SeedSchoolWithAllData extends Command
             ]));
         }
 
-        // الحلقات
+        // الحلقات 
         $halaqahs = collect();
         foreach (range(1, 5) as $i) {
             $teacher = $teachers->random();
@@ -193,7 +194,7 @@ class SeedSchoolWithAllData extends Command
         }
 
         // الاشتراكات
-         foreach ($students as $student) {
+        foreach ($students as $student) {
             Enrollment::create([
                 'student_id' => $student->id,
                 'halaqah_id' => $halaqahs->random()->id,

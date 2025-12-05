@@ -44,7 +44,7 @@ export default function Privacy() {
             title: "المقدمة",
             icon: FileText,
             content: [
-                "نحن في شركة تاج الوقار نقدر خصوصيتك ونلتزم بحماية معلوماتك الشخصية",
+                "نحن في شركة شفيع نقدر خصوصيتك ونلتزم بحماية معلوماتك الشخصية",
                 "تحدد هذه السياسة كيفية جمع واستخدام وحماية ومشاركة معلوماتك عند استخدام منصتنا",
                 "باستخدام خدماتنا، فإنك توافق على ممارسات جمع واستخدام المعلومات الموضحة في هذه السياسة",
                 "نلتزم بالامتثال لجميع القوانين واللوائح المحلية والدولية المتعلقة بحماية البيانات",
@@ -242,7 +242,7 @@ export default function Privacy() {
 
     return (
         <SiteLayout title="سياسة الخصوصية">
-            <Head title="سياسة الخصوصية - تاج الوقار" />
+            <Head title="سياسة الخصوصية - شفيع" />
 
             {/* Hero Section */}
             <section className="relative py-20 bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 overflow-hidden">
@@ -262,7 +262,7 @@ export default function Privacy() {
                             سياسة الخصوصية
                         </h1>
                         <p className="text-xl text-blue-100 leading-relaxed">
-                            نلتزم في تاج الوقار بحماية خصوصيتك وضمان أمان معلوماتك الشخصية. تعرف على كيفية جمع واستخدام وحماية بياناتك بأعلى معايير الأمان.
+                            نلتزم في شفيع بحماية خصوصيتك وضمان أمان معلوماتك الشخصية. تعرف على كيفية جمع واستخدام وحماية بياناتك بأعلى معايير الأمان.
                         </p>
                         <div className="mt-8 flex justify-center">
                             <div className="bg-white/10 backdrop-blur-lg rounded-lg p-4 text-white">

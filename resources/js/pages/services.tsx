@@ -56,7 +56,7 @@ export default function Services() {
 
     const serviceCategories = [
         { id: 'all', name: 'جميع الخدمات', icon: Globe },
-        { id: 'management', name: 'إدارة الحلق', icon: Users },
+        { id: 'management', name: 'إدارة الحلقات ', icon: Users },
         { id: 'education', name: 'التعليم والمناهج', icon: BookOpen },
         { id: 'analytics', name: 'التقارير والإحصائيات', icon: BarChart3 },
         { id: 'communication', name: 'التواصل', icon: MessageCircle },
@@ -258,7 +258,7 @@ export default function Services() {
 
     return (
         <SiteLayout title="خدماتنا">
-            <Head title="خدماتنا - تاج الوقار" />
+            <Head title="خدماتنا - شفيع" />
 
             {/* Hero Section */}
             <section className="relative py-20 bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 overflow-hidden">
@@ -393,7 +393,7 @@ export default function Services() {
                             المزيد من المميزات القوية
                         </h2>
                         <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-                            ميزات إضافية تجعل تجربتك مع منصة تاج الوقار استثنائية ومتكاملة
+                            ميزات إضافية تجعل تجربتك مع منصة شفيع استثنائية ومتكاملة
                         </p>
                     </div>
 
@@ -502,7 +502,7 @@ export default function Services() {
                         جاهز لتحويل مؤسستك التعليمية؟
                     </h2>
                     <p className="text-xl text-blue-100 mb-8 leading-relaxed">
-                        ابدأ رحلتك مع تاج الوقار اليوم واكتشف كيف يمكن لمنصتنا تطوير تعليم القرآن الكريم في مؤسستك
+                        ابدأ رحلتك مع شفيع اليوم واكتشف كيف يمكن لمنصتنا تطوير تعليم القرآن الكريم في مؤسستك
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                         <Button size="lg" asChild className="bg-white text-blue-600 hover:bg-gray-100">

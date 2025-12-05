@@ -2933,7 +2933,7 @@ class DatabaseSeeder extends Seeder
             ]));
         }
 
-        // ✅ الحلقات
+        // ✅ الحلقات 
         $halaqahs = collect();
         foreach (range(1, 20) as $i) {
             $teacher = $teachers->random();
@@ -3110,7 +3110,7 @@ class DatabaseSeeder extends Seeder
                 'created_at' => '2025-07-21 18:00:00',
                 'details' => [
                     [
-                        
+
                         'tracking_type_id' => 1,
                         'from_tracking_unit_id' => 550,
                         'to_tracking_unit_id' => 551,
@@ -3120,9 +3120,9 @@ class DatabaseSeeder extends Seeder
                         'gap' => 0.0,
                         'created_at' => '2025-07-21 18:00:00',
                     ],
-                    
+
                     [
-                        
+
                         'tracking_type_id' => 2,
                         'from_tracking_unit_id' => 1,
                         'to_tracking_unit_id' => 2,
@@ -3143,7 +3143,7 @@ class DatabaseSeeder extends Seeder
                 'created_at' => '2025-07-22 18:00:00',
                 'details' => [
                     [
-                        
+
                         'tracking_type_id' => 551,
                         'from_tracking_unit_id' => 553,
                         'to_tracking_unit_id' => 285,
@@ -3154,7 +3154,7 @@ class DatabaseSeeder extends Seeder
                         'created_at' => '2025-07-24 18:00:00',
                     ],
                     [
-                        
+
                         'tracking_type_id' => 2,
                         'from_tracking_unit_id' => 2,
                         'to_tracking_unit_id' => 3,
@@ -3174,7 +3174,7 @@ class DatabaseSeeder extends Seeder
                 'behavior_note' => 4,
                 'created_at' => '2025-07-23 18:00:00',
                 'details' => [
-                    [  
+                    [
                         'tracking_type_id' => 1,
                         'from_tracking_unit_id' => 550,
                         'to_tracking_unit_id' => 551,
@@ -3185,7 +3185,7 @@ class DatabaseSeeder extends Seeder
                         'created_at' => '2025-07-23 18:00:00',
                     ],
                     [
-                        
+
                         'tracking_type_id' => 2,
                         'from_tracking_unit_id' => 1,
                         'to_tracking_unit_id' => 2,
@@ -3236,7 +3236,7 @@ class DatabaseSeeder extends Seeder
                         'created_at' => '2025-07-22 18:00:00',
                     ],
                 ]
-                
+
             ],
 
             // --- اليوم الخامس: 25-07-2025 (تراجع بسيط) ---
@@ -3247,7 +3247,7 @@ class DatabaseSeeder extends Seeder
                 'created_at' => '2025-07-25 18:00:00',
                 'details' => [
                     [
-                        
+
                         'tracking_type_id' => 1,
                         'from_tracking_unit_id' => 553,
                         'to_tracking_unit_id' => 555,
@@ -3258,7 +3258,7 @@ class DatabaseSeeder extends Seeder
                         'created_at' => '2025-07-25 18:00:00',
                     ],
                     [
-                        
+
                         'tracking_type_id' => 2,
                         'from_tracking_unit_id' => 3,
                         'to_tracking_unit_id' => 4,
@@ -3269,7 +3269,7 @@ class DatabaseSeeder extends Seeder
                         'created_at' => '2025-07-25 18:00:00',
                     ],
                     [
-                        
+
                         'tracking_type_id' => 3,
                         'from_tracking_unit_id' => 1,
                         'to_tracking_unit_id' => 4,
@@ -3290,7 +3290,7 @@ class DatabaseSeeder extends Seeder
                 'created_at' => '2025-07-26 18:00:00',
                 'details' => [
                     [
-                        
+
                         'tracking_type_id' => 1,
                         'from_tracking_unit_id' => 555,
                         'to_tracking_unit_id' => 555,
@@ -3301,7 +3301,7 @@ class DatabaseSeeder extends Seeder
                         'created_at' => '2025-07-26 18:00:00',
                     ],
                     [
-                        
+
                         'tracking_type_id' => 2,
                         'from_tracking_unit_id' => 4,
                         'to_tracking_unit_id' => 4,
@@ -3332,7 +3332,7 @@ class DatabaseSeeder extends Seeder
                 'created_at' => '2025-07-28 18:00:00',
                 'details' => [
                     [
-                        
+
                         'tracking_type_id' => 1,
                         'from_tracking_unit_id' => 288,
                         'to_tracking_unit_id' => 288,
@@ -3343,7 +3343,7 @@ class DatabaseSeeder extends Seeder
                         'created_at' => '2025-07-28 18:00:00',
                     ],
                     [
-                        
+
                         'tracking_type_id' => 2,
                         'from_tracking_unit_id' => 101,
                         'to_tracking_unit_id' => 105,
@@ -3364,7 +3364,7 @@ class DatabaseSeeder extends Seeder
                 'created_at' => '2025-07-29 18:00:00',
                 'details' => [
                     [
-                        
+
                         'tracking_type_id' => 1,
                         'from_tracking_unit_id' => 288, // إعادة محاولة حفظ
                         'to_tracking_unit_id' => 288,
@@ -3375,7 +3375,7 @@ class DatabaseSeeder extends Seeder
                         'created_at' => '2025-07-29 18:00:00',
                     ],
                     [
-                        
+
                         'tracking_type_id' => 2,
                         'from_tracking_unit_id' => 106,
                         'to_tracking_unit_id' => 115,
@@ -3397,7 +3397,7 @@ class DatabaseSeeder extends Seeder
                 'details' => [
                     [
                         'id' => 2020,
-                        
+
                         'tracking_type_id' => 1,
                         'from_tracking_unit_id' => 289,
                         'to_tracking_unit_id' => 290,
@@ -3418,7 +3418,7 @@ class DatabaseSeeder extends Seeder
                 'created_at' => '2025-07-31 18:00:00',
                 'details' => [
                     [
-                        
+
                         'tracking_type_id' => 2,
                         'from_tracking_unit_id' => 116,
                         'to_tracking_unit_id' => 122,
@@ -3429,7 +3429,7 @@ class DatabaseSeeder extends Seeder
                         'created_at' => '2025-07-31 18:00:00',
                     ],
                     [
-                        
+
                         'tracking_type_id' => 3,
                         'from_tracking_unit_id' => 133,
                         'to_tracking_unit_id' => 138,
@@ -3451,7 +3451,7 @@ class DatabaseSeeder extends Seeder
                 'details' => [
                     [
 
-                        
+
                         'tracking_type_id' => 1,
                         'from_tracking_unit_id' => 291,
                         'to_tracking_unit_id' => 291,
@@ -3463,7 +3463,7 @@ class DatabaseSeeder extends Seeder
                     ],
                     [
 
-                        
+
                         'tracking_type_id' => 2,
                         'from_tracking_unit_id' => 123,
                         'to_tracking_unit_id' => 143,
@@ -3485,7 +3485,7 @@ class DatabaseSeeder extends Seeder
                 'created_at' => '2025-08-02 18:00:00',
                 'details' => [
                     [
-                        
+
                         'tracking_type_id' => 1,
                         'from_tracking_unit_id' => 292,
                         'to_tracking_unit_id' => 292,
@@ -3497,7 +3497,7 @@ class DatabaseSeeder extends Seeder
                     ],
                     [
                         'id' => 2026,
-                        
+
                         'tracking_type_id' => 2,
                         'from_tracking_unit_id' => 144,
                         'to_tracking_unit_id' => 153,

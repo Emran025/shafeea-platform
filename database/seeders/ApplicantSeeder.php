@@ -374,7 +374,7 @@ class ApplicantSeeder extends Seeder
                 'city' => 'صنعاء',
                 'application_type' => 'student',
                 'status' => 'approved',
-                'bio' => 'تم القبول، سيبدأ الدراسة في الحلقة الجديدة.',
+                'bio' => 'تم القبول، سيبدأ الدراسة في الحلقة  الجديدة.',
                 'memorization_level'  => 2,
                 'qualifications' => 'طالب جامعي.',
                 'intent_statement' => 'ختم القرآن الكريم في غضون عامين.',

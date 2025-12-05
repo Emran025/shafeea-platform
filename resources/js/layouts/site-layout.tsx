@@ -73,7 +73,7 @@ export default function SiteLayout({ children, title }: SiteLayoutProps) {
     ];
 
     const serviceItems = [
-        { name: 'إدارة الحلق', href: '/halaqahs', icon: BookOpen, description: 'إدارة شاملة للحلق القرآنية' },
+        { name: 'إدارة الحلقات ', href: '/halaqahs', icon: BookOpen, description: 'إدارة شاملة للحلق القرآنية' },
         { name: 'إدارة الطلاب', href: '/students', icon: Users, description: 'متابعة وإدارة بيانات الطلاب' },
         { name: 'التقارير والإحصائيات', href: '/reports', icon: BarChart3, description: 'تقارير مفصلة وإحصائيات دقيقة' },
         { name: 'الإعدادات', href: '/settings', icon: Settings, description: 'إعدادات النظام والتخصيص' },
@@ -126,9 +126,9 @@ export default function SiteLayout({ children, title }: SiteLayoutProps) {
                             </div>
                             <div>
                                 <h1 className="text-2xl font-bold text-gradient">
-                                    تاج الوقار
+                                    شفيع
                                 </h1>
-                                <p className="text-sm text-muted-foreground">منصة الحلق القرآنية</p>
+                                <p className="text-sm text-muted-foreground">منصة الحلقات القرآنية</p>
                             </div>
                         </Link>
 
@@ -164,7 +164,7 @@ export default function SiteLayout({ children, title }: SiteLayoutProps) {
                                     <div className="absolute top-full right-0 mt-2 w-80 bg-card rounded-xl shadow-xl border border-border py-2 z-50 animate-scale-in glass-morphism">
                                         <div className="px-4 py-3 border-b border-border">
                                             <h3 className="font-semibold text-foreground">خدمات المنصة</h3>
-                                            <p className="text-sm text-muted-foreground">حلول شاملة لإدارة الحلق القرآنية</p>
+                                            <p className="text-sm text-muted-foreground">حلول شاملة لإدارة الحلقات القرآنية</p>
                                         </div>
                                         {serviceItems.map((service, index) => {
                                             const Icon = service.icon;
@@ -381,12 +381,12 @@ export default function SiteLayout({ children, title }: SiteLayoutProps) {
                                             <BookOpen className="w-7 h-7 text-white" />
                                         </div>
                                         <div>
-                                            <h3 className="text-2xl font-bold">تاج الوقار</h3>
-                                            <p className="text-gray-400">منصة الحلق القرآنية الرائدة</p>
+                                            <h3 className="text-2xl font-bold">شفيع</h3>
+                                            <p className="text-gray-400">منصة الحلقات القرآنية الرائدة</p>
                                         </div>
                                     </div>
                                     <p className="text-gray-300 mb-6 max-w-md leading-relaxed animate-fade-in-up" style={{ animationDelay: '100ms' }}>
-                                        منصة رائدة ومتطورة في مجال إدارة الحلق القرآنية والمؤسسات التعليمية الإسلامية، نسعى لتوفير حلول تقنية متطورة ومبتكرة.
+                                        منصة رائدة ومتطورة في مجال إدارة الحلقات القرآنية والمؤسسات التعليمية الإسلامية، نسعى لتوفير حلول تقنية متطورة ومبتكرة.
                                     </p>
                                     
                                     {/* Trust Badges */}
@@ -514,7 +514,7 @@ export default function SiteLayout({ children, title }: SiteLayoutProps) {
                         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
                             <div className="flex flex-col md:flex-row items-center justify-between gap-4">
                                 <div className="text-gray-400 text-sm text-center md:text-right animate-fade-in-up">
-                                    © 2024 تاج الوقار. جميع الحقوق محفوظة. تم التطوير بـ ❤️ في المملكة العربية السعودية
+                                    © 2024 شفيع. جميع الحقوق محفوظة. تم التطوير بـ ❤️ في المملكة العربية السعودية
                                 </div>
                                 <div className="flex items-center gap-6 text-sm text-gray-400 animate-fade-in-up" style={{ animationDelay: '100ms' }}>
                                     <Link href="/terms" className="hover:text-white transition-colors hover-scale-sm">

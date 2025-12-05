@@ -121,7 +121,7 @@ export default function About() {
 
     return (
         <SiteLayout title="من نحن">
-            <Head title="من نحن - تاج الوقار" />
+            <Head title="من نحن - شفيع" />
 
             {/* Hero Section */}
             <section className="relative py-28 bg-gradient-primary overflow-hidden animate-fade-in-up">
@@ -193,7 +193,7 @@ export default function About() {
                                         رسالتنا
                                     </h3>
                                     <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                                        تطوير وتقديم منصة تقنية متكاملة وسهلة الاستخدام لإدارة الحلق القرآنية، تجمع بين الأصالة الإسلامية والتقنية الحديثة، لتيسير تعلم وحفظ القرآن الكريم.
+                                        تطوير وتقديم منصة تقنية متكاملة وسهلة الاستخدام لإدارة الحلقات القرآنية، تجمع بين الأصالة الإسلامية والتقنية الحديثة، لتيسير تعلم وحفظ القرآن الكريم.
                                     </p>
                                 </div>
                             </div>

@@ -123,7 +123,7 @@ export default function Contact() {
     if (isSubmitted) {
         return (
             <SiteLayout title="تم إرسال رسالتك">
-                <Head title="تم إرسال رسالتك - تاج الوقار" />
+                <Head title="تم إرسال رسالتك - شفيع" />
                 <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
                     <Card className="p-8 max-w-md mx-auto text-center">
                         <div className="w-16 h-16 bg-emerald-100 dark:bg-emerald-900/20 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -146,10 +146,10 @@ export default function Contact() {
 
     return (
         <SiteLayout title="تواصل معنا">
-            <Head title="تواصل معنا - تاج الوقار" />
+            <Head title="تواصل معنا - شفيع" />
 
             {/* Hero Section */}
-            <section className="relative py-20 bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 overflow-hidden">
+            <section className="relative py-20 bg-gradient-to-r from-[#B88755] via-[#D8B892] to-[#F3E5CF] overflow-hidden">
                 <div className="absolute inset-0 opacity-10">
                     <div className="absolute top-0 left-0 w-full h-full" style={{
                         backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='white' fill-opacity='0.2'%3E%3Cpath d='m0 40 40-40V0H0v40z'/%3E%3C/g%3E%3C/svg%3E")`,
@@ -166,7 +166,7 @@ export default function Contact() {
                             تواصل معنا
                         </h1>
                         <p className="text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed">
-                            فريقنا جاهز لمساعدتك ودعمك في رحلتك مع منصة تاج الوقار. تواصل معنا بالطريقة التي تناسبك
+                            فريقنا جاهز لمساعدتك ودعمك في رحلتك مع منصة شفيع. تواصل معنا بالطريقة التي تناسبك
                         </p>
                     </div>
                 </div>

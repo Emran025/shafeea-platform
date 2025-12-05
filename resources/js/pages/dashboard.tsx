@@ -165,7 +165,7 @@ export default function Dashboard({ kpis, charts, tables, notifications, alerts 
             trend="+5%"
           />
           <KPICard
-            title="الحلقات"
+            title="الحلقات "
             value={data.kpis.halaqahs}
             icon={BookOpen}
             color="text-purple-600 bg-purple-600"
@@ -289,7 +289,7 @@ export default function Dashboard({ kpis, charts, tables, notifications, alerts 
                 <TableHeader>
                   <TableRow className="bg-gray-50">
                     <TableHead className="font-semibold">الطالب</TableHead>
-                    <TableHead className="font-semibold">الحلقة</TableHead>
+                    <TableHead className="font-semibold">الحلقة </TableHead>
                     <TableHead className="font-semibold">الحالة</TableHead>
                   </TableRow>
                 </TableHeader>

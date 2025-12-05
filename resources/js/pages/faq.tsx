@@ -46,8 +46,8 @@ export default function FAQ() {
         {
             id: 'what-is-tajwaqar',
             category: 'general',
-            question: 'ما هي منصة تاج الوقار؟',
-            answer: 'تاج الوقار هي منصة تعليمية متطورة مخصصة لإدارة الحلق القرآنية والمؤسسات التعليمية الإسلامية. توفر أدوات شاملة لإدارة الطلاب والمعلمين ومتابعة التقدم في حفظ القرآن الكريم.',
+            question: 'ما هي منصة شفيع؟',
+            answer: 'شفيع هي منصة تعليمية متطورة مخصصة لإدارة الحلقات القرآنية والمؤسسات التعليمية الإسلامية. توفر أدوات شاملة لإدارة الطلاب والمعلمين ومتابعة التقدم في حفظ القرآن الكريم.',
             popular: true
         },
         {
@@ -141,7 +141,7 @@ export default function FAQ() {
 
     return (
         <SiteLayout title="الأسئلة الشائعة">
-            <Head title="الأسئلة الشائعة - تاج الوقار" />
+            <Head title="الأسئلة الشائعة - شفيع" />
 
             {/* Hero Section */}
             <section className="relative py-24 bg-gradient-primary overflow-hidden animate-fade-in-up">
@@ -167,7 +167,7 @@ export default function FAQ() {
                             الأسئلة الشائعة
                         </h1>
                         <p className="text-xl md:text-2xl text-blue-100 leading-relaxed mb-10 max-w-4xl mx-auto">
-                            نجيب على أكثر الأسئلة شيوعاً حول منصة تاج الوقار لمساعدتك في الحصول على أفضل تجربة تعليمية
+                            نجيب على أكثر الأسئلة شيوعاً حول منصة شفيع لمساعدتك في الحصول على أفضل تجربة تعليمية
                         </p>
                         
                         <div className="max-w-lg mx-auto">

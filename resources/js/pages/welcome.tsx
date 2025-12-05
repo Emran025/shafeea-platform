@@ -46,11 +46,11 @@ export default function Welcome() {
                             <div className="text-center lg:text-right">
                                 <Badge className="mb-6 bg-blue-50 text-blue-700 hover:bg-blue-100 dark:bg-blue-900/20 dark:text-blue-300 inline-flex items-center gap-2">
                                     <Star className="w-4 h-4" />
-                                    المنصة الرائدة في إدارة الحلق القرآنية
+                                    المنصة الرائدة في إدارة الحلقات القرآنية
                                 </Badge>
                                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
                                     <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 bg-clip-text text-transparent">
-                                        تاج الوقار
+                                        شفيع
                                     </span>
                                     <br />
                                     <span className="text-gray-700 dark:text-gray-200">
@@ -201,7 +201,7 @@ export default function Welcome() {
                                 مميزات متقدمة
                             </Badge>
                             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-                                حلول شاملة لإدارة الحلق القرآنية
+                                حلول شاملة لإدارة الحلقات القرآنية
                             </h2>
                             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
                                 منصة متكاملة تجمع بين التقنية الحديثة والاحتياجات التعليمية الإسلامية لتوفير تجربة تعليمية استثنائية
@@ -303,7 +303,7 @@ export default function Welcome() {
                                 نجاحات متميزة على أرض الواقع
                             </h2>
                             <p className="text-xl text-blue-100 max-w-3xl mx-auto">
-                                أرقام حقيقية تعكس نجاح وتميز منصة تاج الوقار في خدمة التعليم القرآني
+                                أرقام حقيقية تعكس نجاح وتميز منصة شفيع في خدمة التعليم القرآني
                             </p>
                         </div>
 
@@ -378,7 +378,7 @@ export default function Welcome() {
                                 آراء وتقييمات المستخدمين
                             </Badge>
                             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-                                ماذا يقول عملاؤنا عن تاج الوقار؟
+                                ماذا يقول عملاؤنا عن شفيع؟
                             </h2>
                             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
                                 تقييمات حقيقية من معلمين ومدراء مؤسسات تعليمية يستخدمون منصتنا يومياً
@@ -393,7 +393,7 @@ export default function Welcome() {
                                     ))}
                                 </div>
                                 <p className="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
-                                    "منصة رائعة جداً! ساعدتنا في تنظيم الحلق القرآنية بشكل مثالي. التقارير مفصلة والواجهة سهلة الاستخدام."
+                                    "منصة رائعة جداً! ساعدتنا في تنظيم الحلقات القرآنية بشكل مثالي. التقارير مفصلة والواجهة سهلة الاستخدام."
                                 </p>
                                 <div className="flex items-center gap-3">
                                     <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-emerald-500 rounded-full flex items-center justify-center text-white font-bold">
@@ -461,7 +461,7 @@ export default function Welcome() {
                                 الأسئلة المتكررة
                             </h2>
                             <p className="text-xl text-gray-600 dark:text-gray-300">
-                                اجابات شافية على أهم الاستفسارات حول منصة تاج الوقار
+                                اجابات شافية على أهم الاستفسارات حول منصة شفيع
                             </p>
                         </div>
 
@@ -518,10 +518,10 @@ export default function Welcome() {
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                         <div className="max-w-4xl mx-auto">
                             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-                                ابدأ رحلتك مع تاج الوقار اليوم
+                                ابدأ رحلتك مع شفيع اليوم
                             </h2>
                             <p className="text-xl text-gray-600 dark:text-gray-300 mb-10 leading-relaxed">
-                                انضم إلى آلاف المعلمين والمؤسسات التعليمية التي تثق بمنصتنا لإدارة وتطوير الحلق القرآنية بأحدث التقنيات وأفضل الممارسات
+                                انضم إلى آلاف المعلمين والمؤسسات التعليمية التي تثق بمنصتنا لإدارة وتطوير الحلقات القرآنية بأحدث التقنيات وأفضل الممارسات
                             </p>
 
                             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-12">

@@ -72,7 +72,7 @@ class HalaqahRepository
                 $halaqah->teachers()->attach($teacherId, [
                     'assigned_at' => now(),
                     'is_current' => true,
-                    'note' => 'تم الإسناد عند إنشاء الحلقة',
+                    'note' => 'تم الإسناد عند إنشاء الحلقة ',
                 ]);
             }
 
@@ -149,9 +149,9 @@ class HalaqahRepository
 
             // Filter out students who are already enrolled to prevent duplicates
             $existingStudentIds = Enrollment::where('halaqah_id', $id)
-                                             ->whereIn('student_id', $studentIds)
-                                             ->pluck('student_id')
-                                             ->all();
+                ->whereIn('student_id', $studentIds)
+                ->pluck('student_id')
+                ->all();
 
             $newStudentIds = array_diff($studentIds, $existingStudentIds);
 
@@ -185,8 +185,8 @@ class HalaqahRepository
 
             // Get the IDs of the newly created enrollments
             $newEnrollmentIds = Enrollment::where('halaqah_id', $id)
-                                          ->whereIn('student_id', $newStudentIds)
-                                          ->pluck('id');
+                ->whereIn('student_id', $newStudentIds)
+                ->pluck('id');
 
             // Prepare the pivot data for bulk insert
             $pivotData = [];
@@ -243,7 +243,7 @@ class HalaqahRepository
 
         // ASSUMPTION: A student has completed if their `status` on the `students` table is 'completed'.
         return $halaqah->students()
-            ->where('students.memorization_level','=', 30)
+            ->where('students.memorization_level', '=', 30)
             ->with('user')
             ->paginate($limit);
     }

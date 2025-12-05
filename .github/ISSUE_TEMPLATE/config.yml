@@ -1,10 +1,10 @@
 blank_issues_enabled: false
 contact_links:
   - name: 💬 Ask a Question
-    url: https://github.com/Qaidsaher/taj-al-waqar/discussions/new?category=q-a
+    url: https://github.com/Qaidsaher/shafeea/discussions/new?category=q-a
     about: Please ask and answer questions here.
   - name: 💡 Feature Idea
-    url: https://github.com/Qaidsaher/taj-al-waqar/discussions/new?category=ideas
+    url: https://github.com/Qaidsaher/shafeea/discussions/new?category=ideas
     about: Share your ideas for new features.
   - name: 🛡️ Report a Security Vulnerability
     url: ../../SECURITY.md
