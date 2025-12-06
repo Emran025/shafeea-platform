@@ -1,4 +1,4 @@
-# 💖 Contributing to Taj Al Waqar 💖
+# 💖 Contributing to Shafeea 💖
 
 Hey there, awesome developer! 👋
 
@@ -34,7 +34,7 @@ There are many amazing ways to get involved:
 - ✨ **Suggest Features:** Have a brilliant idea? We're all ears! Share it as a [Feature Request](https://github.com/Qaidsaher/shafeea/issues/new/choose).
 - 💻 **Write Code:** Ready to dive in? This is the guide for you. Fix a bug or build something new.
 - 📚 **Improve Documentation:** See a typo or a confusing section? Help us make our docs better for everyone.
-- 🌐 **Translate:** Help us bring Taj Al Waqar to more communities around the world.
+- 🌐 **Translate:** Help us bring Shafeea to more communities around the world.
 - 🧪 **Test & Review:** Try out new features, review pull requests, and help us catch issues early.
 - 🎨 **Design:** Suggest UI/UX improvements or contribute graphics and assets.
 

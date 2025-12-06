@@ -1,6 +1,6 @@
-# Taj Al Waqar (شفيع) 🕌✨
+# Shafeea (شفيع) 🕌✨
 
-![Taj Al Waqar Logo](logo-placeholder.svg)
+![Shafeea Logo](logo-placeholder.svg)
 
 **A modern, scalable platform for managing Quranic education circles (Halqas), connecting students, teachers, and supervisors in a seamless digital ecosystem.**
 
@@ -29,7 +29,7 @@
 
 ## ✨ About The Project
 
-**Taj Al Waqar** aims to revolutionize the management of Quranic education. Traditional methods often involve manual tracking and scattered communication. This project provides a centralized, digital hub that empowers supervisors to manage circles, teachers to track student progress effortlessly, and students to stay engaged with their learning journey.
+**Shafeea** aims to revolutionize the management of Quranic education. Traditional methods often involve manual tracking and scattered communication. This project provides a centralized, digital hub that empowers supervisors to manage circles, teachers to track student progress effortlessly, and students to stay engaged with their learning journey.
 
 > **Our mission:** To leverage technology to make Quranic education more accessible, organized, and effective for everyone involved.
 
