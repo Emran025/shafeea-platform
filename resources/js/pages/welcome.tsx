@@ -78,29 +78,7 @@ export default function Welcome() {
                                 </div>
 
                                 <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                                    {!auth.user ? (
-                                        <>
-                                            <Button size="lg" asChild className="text-lg px-8 py-4 bg-gradient-to-r from-blue-600 to-emerald-600 hover:from-blue-700 hover:to-emerald-700 shadow-lg hover:shadow-xl transition-all duration-300">
-                                                <Link href={route('register')}>
-                                                    <Users className="w-5 h-5 ml-2" />
-                                                    ابدأ الآن مجاناً
-                                                </Link>
-                                            </Button>
-                                            <Button size="lg" variant="outline" asChild className="text-lg px-8 py-4 border-2 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-300">
-                                                <Link href="#demo">
-                                                    <PlayCircle className="w-5 h-5 ml-2" />
-                                                    شاهد عرض توضيحي
-                                                </Link>
-                                            </Button>
-                                        </>
-                                    ) : (
-                                        <Button size="lg" asChild className="text-lg px-8 py-4 bg-gradient-to-r from-blue-600 to-emerald-600 hover:from-blue-700 hover:to-emerald-700 shadow-lg hover:shadow-xl transition-all duration-300">
-                                            <Link href={route('dashboard')}>
-                                                <BarChart3 className="w-5 h-5 ml-2" />
-                                                اذهب إلى لوحة التحكم
-                                            </Link>
-                                        </Button>
-                                    )}
+                                    {/* The register and dashboard links have been removed from here. */}
                                 </div>
                             </div>
 
@@ -523,32 +501,6 @@ export default function Welcome() {
                             <p className="text-xl text-gray-600 dark:text-gray-300 mb-10 leading-relaxed">
                                 انضم إلى آلاف المعلمين والمؤسسات التعليمية التي تثق بمنصتنا لإدارة وتطوير الحلقات القرآنية بأحدث التقنيات وأفضل الممارسات
                             </p>
-
-                            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-12">
-                                {!auth.user ? (
-                                    <>
-                                        <Button size="lg" asChild className="text-lg px-10 py-4 bg-gradient-to-r from-blue-600 to-emerald-600 hover:from-blue-700 hover:to-emerald-700 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
-                                            <Link href={route('register')}>
-                                                <Users className="w-6 h-6 ml-2" />
-                                                ابدأ الآن مجاناً - تجربة 30 يوم
-                                            </Link>
-                                        </Button>
-                                        <Button size="lg" variant="outline" asChild className="text-lg px-10 py-4 border-2 border-gray-300 hover:border-gray-400 dark:border-gray-600 dark:hover:border-gray-500 transition-all duration-300">
-                                            <Link href="#contact">
-                                                <MessageCircle className="w-6 h-6 ml-2" />
-                                                تواصل مع فريق المبيعات
-                                            </Link>
-                                        </Button>
-                                    </>
-                                ) : (
-                                    <Button size="lg" asChild className="text-lg px-10 py-4 bg-gradient-to-r from-blue-600 to-emerald-600 hover:from-blue-700 hover:to-emerald-700 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
-                                        <Link href={route('dashboard')}>
-                                            <BarChart3 className="w-6 h-6 ml-2" />
-                                            اذهب إلى لوحة التحكم
-                                        </Link>
-                                    </Button>
-                                )}
-                            </div>
 
                             <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-500 dark:text-gray-400">
                                 <div className="flex items-center gap-2">
