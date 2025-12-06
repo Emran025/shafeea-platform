@@ -6,6 +6,8 @@
         "build:ssr": "vite build && vite build --ssr",
         "dev": "vite",
         "format": "prettier --write resources/",
+        "deploy": "npm run build && php artisan serve",
+        "ds": "npm run build && php artisan serve",
         "format:check": "prettier --check resources/",
         "lint": "eslint . --fix",
         "types": "tsc --noEmit"
