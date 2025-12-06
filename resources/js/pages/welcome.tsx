@@ -49,7 +49,7 @@ export default function Welcome() {
                                     المنصة الرائدة في إدارة الحلقات القرآنية
                                 </Badge>
                                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
-                                    <span className="gradient-primary bg-clip-text text-transparent">
+                                    <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 bg-clip-text text-transparent">
                                         شفيع
                                     </span>
                                     <br />
