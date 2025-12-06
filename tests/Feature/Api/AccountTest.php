@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
+use Illuminate\Support\Facades\Hash;
 
 class AccountTest extends TestCase
 {
@@ -105,7 +106,7 @@ class AccountTest extends TestCase
             'message' => 'Password changed successfully.',
         ]);
 
-        $this->assertTrue(\ Illuminate\Support\Facades\Hash::check('new-Pa$$w0rd', $user->fresh()->password));
+        $this->assertTrue(Hash::check('new-Pa$$w0rd', $user->fresh()->password));
     }
 
     /** @test */
