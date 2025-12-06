@@ -94,12 +94,7 @@ export default function Contact() {
             icon: Headphones,
             email: "support@tajwaqar.com"
         },
-        {
-            name: "المبيعات",
-            description: "استفسارات الاشتراكات والخطط",
-            icon: Building,
-            email: "sales@tajwaqar.com"
-        },
+
         {
             name: "الشراكات",
             description: "فرص التعاون والشراكة",
@@ -108,7 +103,7 @@ export default function Contact() {
         },
         {
             name: "المحتوى التعليمي",
-            description: "استفسارات المناهج والمحتوى",
+            description: "استفساراتإمكانيات إضافة المناهج والمحتوى",
             icon: BookOpen,
             email: "content@tajwaqar.com"
         }
@@ -149,7 +144,7 @@ export default function Contact() {
             <Head title="تواصل معنا - شفيع" />
 
             {/* Hero Section */}
-            <section className="relative py-20 bg-gradient-to-r from-[#B88755] via-[#D8B892] to-[#F3E5CF] overflow-hidden">
+            <section className="relative py-20 gradient-primary overflow-hidden">
                 <div className="absolute inset-0 opacity-10">
                     <div className="absolute top-0 left-0 w-full h-full" style={{
                         backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='white' fill-opacity='0.2'%3E%3Cpath d='m0 40 40-40V0H0v40z'/%3E%3C/g%3E%3C/svg%3E")`,

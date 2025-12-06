@@ -223,7 +223,7 @@ export default function Privacy() {
         {
             icon: Mail,
             title: "البريد الإلكتروني",
-            value: "privacy@tajwaqar.com",
+            value: "privacy@shafeea.com",
             description: "للاستفسارات حول الخصوصية"
         },
         {
@@ -245,7 +245,7 @@ export default function Privacy() {
             <Head title="سياسة الخصوصية - شفيع" />
 
             {/* Hero Section */}
-            <section className="relative py-20 bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 overflow-hidden">
+            <section className="relative py-20 gradient-primary overflow-hidden">
                 <div className="absolute inset-0 opacity-10">
                     <div className="absolute top-0 left-0 w-full h-full" style={{
                         backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='white' fill-opacity='0.2'%3E%3Cpath d='m0 40 40-40V0H0v40z'/%3E%3C/g%3E%3C/svg%3E")`,

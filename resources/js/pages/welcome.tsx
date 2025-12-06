@@ -49,7 +49,7 @@ export default function Welcome() {
                                     المنصة الرائدة في إدارة الحلقات القرآنية
                                 </Badge>
                                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
-                                    <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 bg-clip-text text-transparent">
+                                    <span className="gradient-primary bg-clip-text text-transparent">
                                         شفيع
                                     </span>
                                     <br />
@@ -112,7 +112,7 @@ export default function Welcome() {
                                             <BookOpen className="w-8 h-8" />
                                             <div>
                                                 <h3 className="text-xl font-bold">لوحة التحكم الرئيسية</h3>
-                                                <p className="text-blue-100">إدارة شاملة ومتقدمة للحلق القرآنية</p>
+                                                <p className="text-blue-100">إدارة شاملة ومتقدمة للحلقات القرآنية</p>
                                             </div>
                                         </div>
                                     </div>
@@ -285,7 +285,7 @@ export default function Welcome() {
                 </section>
 
                 {/* Enhanced Statistics Section */}
-                <section className="py-24 bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 relative overflow-hidden">
+                <section className="py-24 gradient-primary relative overflow-hidden">
                     {/* Background Pattern */}
                     <div className="absolute inset-0 opacity-10">
                         <div className="absolute top-0 left-0 w-full h-full" style={{

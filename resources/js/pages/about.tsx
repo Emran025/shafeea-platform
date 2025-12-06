@@ -168,7 +168,7 @@ export default function About() {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                         <div>
-                            <Badge className="mb-6 bg-gradient-to-r from-blue-100 to-blue-200 text-blue-700 hover:from-blue-200 hover:to-blue-300 dark:bg-gradient-to-r dark:from-blue-900/20 dark:to-blue-800/20 dark:text-blue-300 transition-all duration-300">
+                            <Badge className="mb-6 gradient-primary text-white hover:from-blue-200 hover:to-blue-300 dark:bg-gradient-to-r dark:from-blue-900/20 dark:to-blue-800/20 dark:text-blue-300 transition-all duration-300">
                                 <Target className="w-4 h-4 ml-1" />
                                 رؤيتنا ورسالتنا
                             </Badge>
@@ -279,7 +279,7 @@ export default function About() {
             <section className="py-24 bg-white dark:bg-gray-900 animate-fade-in-up">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-16">
-                        <Badge className="mb-4 bg-gradient-to-r from-purple-100 to-purple-200 text-purple-700 hover:from-purple-200 hover:to-purple-300 dark:bg-gradient-to-r dark:from-purple-900/20 dark:to-purple-800/20 dark:text-purple-300 transition-all duration-300">
+                        <Badge className="mb-4 gradient-primary hover:from-purple-200 hover:to-purple-300 dark:bg-gradient-to-r dark:from-purple-900/20 dark:to-purple-800/20 dark:text-purple-300 transition-all duration-300">
                             <Calendar className="w-4 h-4 ml-1" />
                             مسيرتنا عبر السنوات
                         </Badge>

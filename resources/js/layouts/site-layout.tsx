@@ -73,7 +73,7 @@ export default function SiteLayout({ children, title }: SiteLayoutProps) {
     ];
 
     const serviceItems = [
-        { name: 'إدارة الحلقات ', href: '/halaqahs', icon: BookOpen, description: 'إدارة شاملة للحلق القرآنية' },
+        { name: 'إدارة الحلقات ', href: '/halaqahs', icon: BookOpen, description: 'إدارة شاملة للحلقات القرآنية' },
         { name: 'إدارة الطلاب', href: '/students', icon: Users, description: 'متابعة وإدارة بيانات الطلاب' },
         { name: 'التقارير والإحصائيات', href: '/reports', icon: BarChart3, description: 'تقارير مفصلة وإحصائيات دقيقة' },
         { name: 'الإعدادات', href: '/settings', icon: Settings, description: 'إعدادات النظام والتخصيص' },
@@ -97,7 +97,7 @@ export default function SiteLayout({ children, title }: SiteLayoutProps) {
                         </div>
                         <div className="flex items-center gap-2 hover-scale-sm">
                             <Mail className="w-4 h-4" />
-                            <span>info@tajwaqar.com</span>
+                            <span>info@shafeea.com</span>
                         </div>
                     </div>
                     <div className="flex items-center gap-4">
@@ -386,7 +386,7 @@ export default function SiteLayout({ children, title }: SiteLayoutProps) {
                                         </div>
                                     </div>
                                     <p className="text-gray-300 mb-6 max-w-md leading-relaxed animate-fade-in-up" style={{ animationDelay: '100ms' }}>
-                                        منصة رائدة ومتطورة في مجال إدارة الحلقات القرآنية والمؤسسات التعليمية الإسلامية، نسعى لتوفير حلول تقنية متطورة ومبتكرة.
+                                        منصة رائدة ومتطورة في مجال إدارة التعليم القرآني والمؤسسات التعليمية الإسلامية، نسعى لتوفير حلول تقنية متطورة ومبتكرة.
                                     </p>
                                     
                                     {/* Trust Badges */}
@@ -451,8 +451,8 @@ export default function SiteLayout({ children, title }: SiteLayoutProps) {
                                             <Mail className="w-5 h-5 text-blue-400 mt-0.5 flex-shrink-0" />
                                             <div>
                                                 <div className="text-gray-300">البريد الإلكتروني</div>
-                                                <a href="mailto:info@tajwaqar.com" className="text-white hover:text-blue-400 transition-colors">
-                                                    info@tajwaqar.com
+                                                <a href="mailto:info@shafeea.com" className="text-white hover:text-blue-400 transition-colors">
+                                                    info@shafeea.com
                                                 </a>
                                             </div>
                                         </li>
@@ -476,8 +476,8 @@ export default function SiteLayout({ children, title }: SiteLayoutProps) {
                                             <Globe className="w-5 h-5 text-yellow-400 mt-0.5 flex-shrink-0" />
                                             <div>
                                                 <div className="text-gray-300">الموقع الإلكتروني</div>
-                                                <a href="https://tajwaqar.com" className="text-white hover:text-yellow-400 transition-colors">
-                                                    www.tajwaqar.com
+                                                <a href="https://shafeea.com" className="text-white hover:text-yellow-400 transition-colors">
+                                                    www.shafeea.com
                                                 </a>
                                             </div>
                                         </li>

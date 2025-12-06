@@ -44,7 +44,7 @@ export default function FAQ() {
 
     const faqData = [
         {
-            id: 'what-is-tajwaqar',
+            id: 'what-is-shafeea',
             category: 'general',
             question: 'ما هي منصة شفيع؟',
             answer: 'شفيع هي منصة تعليمية متطورة مخصصة لإدارة الحلقات القرآنية والمؤسسات التعليمية الإسلامية. توفر أدوات شاملة لإدارة الطلاب والمعلمين ومتابعة التقدم في حفظ القرآن الكريم.',
