@@ -8,7 +8,7 @@ use function Pest\Laravel\postJson;
 test('reset password link can be requested via api for existing user', function () {
     $user = User::factory()->create();
 
-    postJson('/api/v1/forgot-password', ['email' => $user->email])
+    postJson('/api/v1/auth/forgot-password', ['email' => $user->email])
         ->assertStatus(200)
         ->assertJson([
             'status' => 'success',
@@ -19,7 +19,7 @@ test('reset password link can be requested via api for existing user', function 
 test('forgot password success response has correct api structure', function () {
     $user = User::factory()->create();
 
-    postJson('/api/v1/forgot-password', ['email' => $user->email])
+    postJson('/api/v1/auth/forgot-password', ['email' => $user->email])
         ->assertStatus(200)
         ->assertJsonStructure([
             'status',
@@ -29,7 +29,7 @@ test('forgot password success response has correct api structure', function () {
 });
 
 test('reset password link returns same response for non-existing user', function () {
-    postJson('/api/v1/forgot-password', ['email' => 'non-existing-user@example.com'])
+    postJson('/api/v1/auth/forgot-password', ['email' => 'non-existing-user@example.com'])
         ->assertStatus(200)
         ->assertJson([
             'status' => 'success',
@@ -38,7 +38,7 @@ test('reset password link returns same response for non-existing user', function
 });
 
 test('reset password link returns validation error for invalid email', function () {
-    postJson('/api/v1/forgot-password', ['email' => 'not-an-email'])
+    postJson('/api/v1/auth/forgot-password', ['email' => 'not-an-email'])
         ->assertStatus(422)
         ->assertJson([
             'status' => 'error',
@@ -50,7 +50,7 @@ test('reset password link returns validation error for invalid email', function 
 });
 
 test('reset password link returns validation error for missing email', function () {
-    postJson('/api/v1/forgot-password', [])
+    postJson('/api/v1/auth/forgot-password', [])
         ->assertStatus(422)
         ->assertJson([
             'status' => 'error',

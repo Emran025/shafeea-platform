@@ -16,6 +16,8 @@ test('a user can submit an application without a school', function () {
     Sanctum::actingAs($user);
 
     $applicationData = [
+        'name' => 'Test User',
+        'email' => 'test@test.com',
         'application_type' => 'teacher',
         'bio' => 'This is my bio.',
         'qualifications' => 'These are my qualifications.',
@@ -37,6 +39,8 @@ test('a user can submit an application with a specific school', function () {
     Sanctum::actingAs($user);
 
     $applicationData = [
+        'name' => 'Test User',
+        'email' => 'test@test.com',
         'application_type' => 'teacher',
         'bio' => 'This is my bio.',
         'qualifications' => 'These are my qualifications.',

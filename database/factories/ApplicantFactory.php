@@ -26,6 +26,8 @@ class ApplicantFactory extends Factory
             : 'أهدف إلى إتمام حفظ القرآن الكريم وتلقي العلم على يد معلمين أكفاء للانضمام إلى نخبة حفظة كتاب الله.';
 
         return [
+            'name' => fake()->name(),
+            'email' => fake()->unique()->safeEmail(),
             'user_id' => User::factory(),
             'school_id' => null,
             'application_type' => $applicationType,

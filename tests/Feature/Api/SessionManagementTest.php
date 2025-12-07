@@ -25,7 +25,11 @@ class SessionManagementTest extends TestCase
             'last_activity' => now()->getTimestamp(),
         ]);
 
-        $response = $this->actingAs($user, 'sanctum')->getJson('/api/v1/account/sessions');
+        $token = $user->createToken('test-device')->plainTextToken;
+
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->getJson('/api/v1/account/sessions');
 
         $response->assertStatus(200);
         $response->assertJsonStructure([
@@ -41,7 +45,7 @@ class SessionManagementTest extends TestCase
     public function test_user_can_terminate_a_session()
     {
         $user = User::factory()->create();
-        $this->actingAs($user, 'sanctum');
+        $token = $user->createToken('test-device')->plainTextToken;
 
         // Simulate a session for the user
         $sessionToTerminate = 'some_other_session_id';
@@ -54,7 +58,9 @@ class SessionManagementTest extends TestCase
             'last_activity' => now()->getTimestamp(),
         ]);
 
-        $response = $this->deleteJson("/api/v1/account/sessions/{$sessionToTerminate}");
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->deleteJson("/api/v1/account/sessions/{$sessionToTerminate}");
 
         $response->assertStatus(200);
         $this->assertDatabaseMissing('sessions', ['id' => $sessionToTerminate]);
@@ -63,7 +69,7 @@ class SessionManagementTest extends TestCase
     public function test_user_can_terminate_all_other_sessions()
     {
         $user = User::factory()->create();
-        $this->actingAs($user, 'sanctum');
+        $token = $user->createToken('test-device')->plainTextToken;
 
         // Simulate some other sessions for the user
         for ($i = 0; $i < 3; $i++) {
@@ -77,7 +83,9 @@ class SessionManagementTest extends TestCase
             ]);
         }
 
-        $response = $this->postJson('/api/v1/account/sessions/terminate-all');
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->postJson('/api/v1/account/sessions/terminate-all');
 
         $response->assertStatus(200);
         $response->assertJson(['data' => ['terminatedSessionsCount' => 3]]);

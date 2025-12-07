@@ -20,7 +20,8 @@ class HalaqaApiTest extends TestCase
         // 1. Arrange
         $user = User::factory()->create();
         $teacher = Teacher::factory()->create(['user_id' => $user->id]);
-        $halaqa = Halaqah::factory()->create(['teacher_id' => $teacher->id]);
+        $halaqa = Halaqah::factory()->create();
+        $halaqa->teachers()->attach($teacher);
         $students = Student::factory()->count(3)->create();
         $studentIds = $students->pluck('id')->toArray();
 
@@ -42,7 +43,8 @@ class HalaqaApiTest extends TestCase
         // 1. Arrange
         $user = User::factory()->create();
         $teacher = Teacher::factory()->create(['user_id' => $user->id]);
-        $halaqa = Halaqah::factory()->create(['teacher_id' => $teacher->id]);
+        $halaqa = Halaqah::factory()->create();
+        $halaqa->teachers()->attach($teacher);
         $student = Student::factory()->create();
 
         // Create the default plan and a custom plan
@@ -74,7 +76,8 @@ class HalaqaApiTest extends TestCase
         // 1. Arrange
         $user = User::factory()->create();
         $teacher = Teacher::factory()->create(['user_id' => $user->id]);
-        $halaqa = Halaqah::factory()->create(['teacher_id' => $teacher->id]);
+        $halaqa = Halaqah::factory()->create();
+        $halaqa->teachers()->attach($teacher);
         $student = Student::factory()->create();
 
         // Create the default plan
@@ -99,7 +102,8 @@ class HalaqaApiTest extends TestCase
         // 1. Arrange
         $user = User::factory()->create();
         $teacher = Teacher::factory()->create(['user_id' => $user->id]);
-        $halaqa = Halaqah::factory()->create(['teacher_id' => $teacher->id]);
+        $halaqa = Halaqah::factory()->create();
+        $halaqa->teachers()->attach($teacher);
         $student = Student::factory()->create();
 
         // 2. Act
