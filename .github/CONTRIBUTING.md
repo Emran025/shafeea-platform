@@ -30,8 +30,8 @@ This guide is here to make your journey as smooth as possible. Following these s
 
 There are many amazing ways to get involved:
 
-- 🐛 **Report Bugs:** Find something broken? Open a [Bug Report](https://github.com/Qaidsaher/shafeea/issues/new/choose) and help us squash it!
-- ✨ **Suggest Features:** Have a brilliant idea? We're all ears! Share it as a [Feature Request](https://github.com/Qaidsaher/shafeea/issues/new/choose).
+- 🐛 **Report Bugs:** Find something broken? Open a [Bug Report](https://github.com/Emran025/shafeea/issues/new/choose) and help us squash it!
+- ✨ **Suggest Features:** Have a brilliant idea? We're all ears! Share it as a [Feature Request](https://github.com/Emran025/shafeea/issues/new/choose).
 - 💻 **Write Code:** Ready to dive in? This is the guide for you. Fix a bug or build something new.
 - 📚 **Improve Documentation:** See a typo or a confusing section? Help us make our docs better for everyone.
 - 🌐 **Translate:** Help us bring Shafeea to more communities around the world.
@@ -218,7 +218,7 @@ A few notes on our philosophy and standards.
 
 If you get stuck or have questions:
 
-- Check the [Discussions](https://github.com/Qaidsaher/shafeea/discussions) for help or to ask questions.
+- Check the [Discussions](https://github.com/Emran025/shafeea/discussions) for help or to ask questions.
 - Open an issue if you think you've found a bug.
 - Reach out to the maintainers via the contact info in the README.
 

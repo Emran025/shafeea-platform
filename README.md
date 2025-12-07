@@ -4,14 +4,14 @@
 
 **A modern, scalable platform for managing Quranic education circles (Halqas), connecting students, teachers, and supervisors in a seamless digital ecosystem.**
 
-[![Build Status](https://img.shields.io/github/actions/workflow/status/Qaidsaher/shafeea/laravel.yml?branch=main&style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/Qaidsaher/shafeea/actions)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/Emran025/shafeea/laravel.yml?branch=main&style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/Emran025/shafeea/actions)
 ![Laravel](https://img.shields.io/badge/Laravel-12.x-FF2D20?style=for-the-badge&logo=laravel)
 ![PHP](https://img.shields.io/badge/PHP-8.2%2B-777BB4?style=for-the-badge&logo=php)
-[![License](https://img.shields.io/github/license/Qaidsaher/shafeea?style=for-the-badge)](LICENSE)
+[![License](https://img.shields.io/github/license/Emran025/shafeea?style=for-the-badge)](LICENSE)
 
-- [🐞 Report a Bug](https://github.com/Qaidsaher/shafeea/issues/new/choose)
-- [💡 Request a Feature](https://github.com/Qaidsaher/shafeea/issues/new/choose)
-- [💬 Ask a Question](https://github.com/Qaidsaher/shafeea/discussions)
+- [🐞 Report a Bug](https://github.com/Emran025/shafeea/issues/new/choose)
+- [💡 Request a Feature](https://github.com/Emran025/shafeea/issues/new/choose)
+- [💬 Ask a Question](https://github.com/Emran025/shafeea/discussions)
 
 ---
 
@@ -66,7 +66,7 @@ Want to get a local copy up and running? Just follow these simple steps:
 
 1. **Clone the repo:**
     ```sh
-        git clone https://github.com/Qaidsaher/shafeea.git
+        git clone https://github.com/Emran025/shafeea.git
         cd shafeea
     ```
 2. **Install dependencies:**
@@ -120,10 +120,10 @@ This project is distributed under the MIT License. See [LICENSE](LICENSE) for mo
 
 ## 📧 Contact
 
-**Saher Qaid** - [saherqaid2020@gmail.com](mailto:saherqaid2020@gmail.com)
+**Emran Nasser** - [amrannaser3@gmail.com](mailto:amrannaser3@gmail.com)
 
-Project Link: [https://github.com/Qaidsaher/shafeea](https://github.com/Qaidsaher/shafeea)
+Project Link: [https://github.com/Emran025/shafeea](https://github.com/Emran025/shafeea)
 
 ---
 
-\_Made with ❤️ by **Saher Qaid**\_0
+\_Made with ❤️ by **Emran Nasser**\_0

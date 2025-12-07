@@ -21,8 +21,8 @@ If you discover a security vulnerability, we would be incredibly grateful for yo
 >
 > Public disclosure of a vulnerability can put the entire community at risk. Please follow the private reporting process below.
 
-To report a vulnerability, please send a detailed email to **Saher Qaid** at:
-**[saherqaid2020@gmail.com](mailto:saherqaid2020@gmail.com)**
+To report a vulnerability, please send a detailed email to **Emran Nasser** at:
+**[amrannaser3@gmail.com](mailto:amrannaser3@gmail.com)**
 
 ---
 
