@@ -52,10 +52,4 @@ Route::post('/contact', function (\Illuminate\Http\Request $request) {
 })->name('contact.store');
 
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/admin/dashboard', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin.dashboard');
-});
-
-require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';
-require __DIR__.'/schools.php';
