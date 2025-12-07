@@ -30,7 +30,7 @@ export default function Services() {
     const serviceCategories = [
         { id: 'all', name: 'جميع الخدمات', icon: Globe },
         { id: 'management', name: 'إدارة الحلقات ', icon: Users },
-        { id: 'education', name: 'التعليم والمناهج', icon: BookOpen },
+        { id: 'education', name: 'التعليم والمنهجية', icon: BookOpen },
         { id: 'analytics', name: 'التقارير والإحصائيات', icon: BarChart3 },
         { id: 'communication', name: 'التواصل', icon: MessageCircle },
         { id: 'technology', name: 'التقنية والأمان', icon: Shield }
@@ -72,7 +72,7 @@ export default function Services() {
         {
             category: 'education',
             title: "مصحف تفاعلي ومتطور",
-            description: "مصحف تفاعلي يوفر أدوات تفاعلية لتققيد أخطاء الطلاب وملاحظاتهم والرجوع اليها من قبل الطلاب والمعلمين",
+            description: "مصحف تفاعلي يوفر أدوات تفاعلية لتقييد أخطاء الطلاب وملاحظاتهم والرجوع اليها من قبل الطلاب والمعلمين",
             icon: BookOpen,
             features: [
                 "مصحف إلكتروني بالرسم العثماني",
@@ -87,7 +87,6 @@ export default function Services() {
             image: "📖",
             popular: false
         },
-        
         {
             category: 'education',
             title: "متابعة مستمرة",
@@ -219,7 +218,6 @@ export default function Services() {
                 "التخزين: 5 جيجا"
             ],
             recommended: false,
-            color: "blue"
         },
         {
             name: "الخطة المتوسطة",
@@ -234,7 +232,6 @@ export default function Services() {
                 "التخزين: 5 جيجا"
             ],
             recommended: false,
-            color: "blue"
         },
         {
             name: "الخطة المتقدمة",
@@ -250,7 +247,6 @@ export default function Services() {
                 "تطبيق الجوال"
             ],
             recommended: true,
-            color: "emerald"
         },
         {
             name: "الخطة الاحترافية",
@@ -267,7 +263,6 @@ export default function Services() {
                 "تدريب مخصص"
             ],
             recommended: false,
-            color: "purple"
         }
     ];
 
@@ -276,7 +271,7 @@ export default function Services() {
         : mainServices.filter(service => service.category === activeCategory);
 
     return (
-        <SiteLayout title="خدماتنا">
+        <SiteLayout>
             <Head title="خدماتنا - شفيع" />
 
             {/* Hero Section */}
@@ -296,7 +291,7 @@ export default function Services() {
                         <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
                             خدماتنا المتميزة
                         </h1>
-                        <p className="text-xl text-blue-100 max-w-4xl mx-auto leading-relaxed">
+                        <p className="text-xl text-white/90 max-w-4xl mx-auto leading-relaxed">
                             مجموعة شاملة من الخدمات والحلول التقنية المتطورة لتطوير وإدارة التعليم القرآني بأحدث المعايير العالمية
                         </p>
                     </div>
@@ -304,7 +299,7 @@ export default function Services() {
             </section>
 
             {/* Service Categories Filter */}
-            <section className="py-8 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700">
+            <section className="py-8 bg-background border-b border-border">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex flex-wrap justify-center gap-4">
                         {serviceCategories.map((category) => (
@@ -312,10 +307,10 @@ export default function Services() {
                                 key={category.id}
                                 variant={activeCategory === category.id ? "default" : "outline"}
                                 onClick={() => setActiveCategory(category.id)}
-                                className={`flex items-center gap-2 ${
+                                className={`flex items-center gap-2 transition-all duration-300 ${
                                     activeCategory === category.id 
-                                        ? "bg-gradient-to-r from-blue-600 to-emerald-600 text-white" 
-                                        : "hover:bg-gray-50 dark:hover:bg-gray-800"
+                                        ? "bg-primary text-primary-foreground hover:bg-primary/90" 
+                                        : "bg-background text-foreground hover:bg-secondary hover:text-primary border-border"
                                 }`}
                             >
                                 <category.icon className="w-4 h-4" />
@@ -327,16 +322,16 @@ export default function Services() {
             </section>
 
             {/* Main Services */}
-            <section className="py-16 bg-white dark:bg-gray-900">
+            <section className="py-16 bg-background">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="space-y-12">
                         {filteredServices.map((service, index) => (
-                            <Card key={index} className="overflow-hidden hover:shadow-xl transition-all duration-300">
+                            <Card key={index} className="overflow-hidden hover:shadow-xl transition-all duration-300 border-border bg-card">
                                 <div className={`grid grid-cols-1 lg:grid-cols-2 ${index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''}`}>
                                     <div className={`p-8 ${index % 2 === 1 ? 'lg:col-start-2' : ''}`}>
                                         <div className="flex items-center gap-3 mb-4">
                                             {service.popular && (
-                                                <Badge className="bg-gradient-to-r from-orange-500 to-red-500 text-white">
+                                                <Badge className="bg-primary text-primary-foreground hover:bg-primary/90">
                                                     <Star className="w-3 h-3 ml-1" />
                                                     الأكثر طلباً
                                                 </Badge>
@@ -344,51 +339,53 @@ export default function Services() {
                                         </div>
                                         
                                         <div className="flex items-center gap-3 mb-4">
-                                            <div className="w-12 h-12 bg-gradient-to-r from-blue-100 to-emerald-100 dark:from-blue-900/20 dark:to-emerald-900/20 rounded-lg flex items-center justify-center">
-                                                <service.icon className="w-6 h-6 text-blue-600" />
+                                            {/* Icon container using secondary background to make primary icon pop */}
+                                            <div className="w-12 h-12 bg-secondary rounded-lg flex items-center justify-center border border-border">
+                                                <service.icon className="w-6 h-6 text-primary" />
                                             </div>
-                                            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">
+                                            <h3 className="text-2xl md:text-3xl font-bold text-foreground">
                                                 {service.title}
                                             </h3>
                                         </div>
                                         
-                                        <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
+                                        <p className="text-muted-foreground mb-6 leading-relaxed">
                                             {service.description}
                                         </p>
 
                                         <div className="mb-6">
-                                            <h4 className="font-semibold text-gray-900 dark:text-white mb-3">المميزات الرئيسية:</h4>
+                                            <h4 className="font-semibold text-foreground mb-3">المميزات الرئيسية:</h4>
                                             <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                                                 {service.features.map((feature, featureIndex) => (
                                                     <div key={featureIndex} className="flex items-center gap-2">
-                                                        <CheckCircle className="w-4 h-4 text-emerald-600 flex-shrink-0" />
-                                                        <span className="text-sm text-gray-600 dark:text-gray-300">{feature}</span>
+                                                        <CheckCircle className="w-4 h-4 text-primary flex-shrink-0" />
+                                                        <span className="text-sm text-muted-foreground">{feature}</span>
                                                     </div>
                                                 ))}
                                             </div>
                                         </div>
 
                                         <div className="mb-6">
-                                            <h4 className="font-semibold text-gray-900 dark:text-white mb-3">الفوائد:</h4>
+                                            <h4 className="font-semibold text-foreground mb-3">الفوائد:</h4>
                                             <div className="flex flex-wrap gap-2">
                                                 {service.benefits.map((benefit, benefitIndex) => (
-                                                    <Badge key={benefitIndex} variant="outline" className="text-xs">
+                                                    <Badge key={benefitIndex} variant="outline" className="text-xs border-border text-muted-foreground bg-muted/20">
                                                         {benefit}
                                                     </Badge>
                                                 ))}
                                             </div>
                                         </div>
 
-                                        <Button className="bg-gradient-to-r from-blue-600 to-emerald-600 hover:from-blue-700 hover:to-emerald-700">
+                                        <Button className="bg-primary text-primary-foreground hover:bg-primary/90 w-full sm:w-auto">
                                             <PlayCircle className="w-4 h-4 ml-2" />
                                             تجربة مجانية
                                         </Button>
                                     </div>
 
-                                    <div className={`bg-gradient-to-br from-blue-50 to-emerald-50 dark:from-blue-900/10 dark:to-emerald-900/10 p-8 flex items-center justify-center ${index % 2 === 1 ? 'lg:col-start-1' : ''}`}>
+                                    {/* Image Section Background changed to muted/secondary mix for softness */}
+                                    <div className={`bg-muted/30 p-8 flex items-center justify-center ${index % 2 === 1 ? 'lg:col-start-1' : ''}`}>
                                         <div className="text-center">
-                                            <div className="text-8xl mb-4">{service.image}</div>
-                                            <div className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-emerald-600 bg-clip-text text-transparent">
+                                            <div className="text-8xl mb-4 drop-shadow-sm filter grayscale-[0.2] hover:grayscale-0 transition-all duration-300">{service.image}</div>
+                                            <div className="text-4xl font-bold text-primary">
                                                 {service.title.split(' ')[0]}
                                             </div>
                                         </div>
@@ -401,31 +398,32 @@ export default function Services() {
             </section>
 
             {/* Additional Features */}
-            <section className="py-16 bg-gray-50 dark:bg-gray-800">
+            <section className="py-16 bg-muted/10">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-12">
-                        <Badge className="mb-4 bg-purple-50 text-purple-700 hover:bg-purple-100 dark:bg-purple-900/20 dark:text-purple-300">
+                        <Badge className="mb-4 bg-secondary text-primary hover:bg-secondary/80 border border-border">
                             <Zap className="w-4 h-4 ml-1" />
                             مميزات إضافية
                         </Badge>
-                        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+                        <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
                             المزيد من المميزات القوية
                         </h2>
-                        <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+                        <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
                             ميزات إضافية تجعل تجربتك مع منصة شفيع استثنائية ومتكاملة
                         </p>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {additionalFeatures.map((feature, index) => (
-                            <Card key={index} className="p-6 hover:shadow-lg transition-all duration-300 group">
-                                <div className="w-12 h-12 bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900/20 dark:to-pink-900/20 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                                    <feature.icon className="w-6 h-6 text-purple-600" />
+                            <Card key={index} className="p-6 hover:shadow-lg transition-all duration-300 group border-border bg-card">
+                                {/* Using accent background for these icons to break monotony */}
+                                <div className="w-12 h-12 bg-accent rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                                    <feature.icon className="w-6 h-6 text-primary" />
                                 </div>
-                                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                                <h3 className="text-lg font-semibold text-foreground mb-2">
                                     {feature.title}
                                 </h3>
-                                <p className="text-gray-600 dark:text-gray-300 text-sm">
+                                <p className="text-muted-foreground text-sm">
                                     {feature.description}
                                 </p>
                             </Card>
@@ -435,42 +433,42 @@ export default function Services() {
             </section>
 
             {/* Pricing Plans */}
-            <section className="py-16 bg-white dark:bg-gray-900">
+            <section className="py-16 bg-background">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-12">
-                        <Badge className="mb-4 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 dark:bg-emerald-900/20 dark:text-emerald-300">
+                        <Badge className="mb-4 bg-secondary text-primary hover:bg-secondary/80 border border-border">
                             <TrendingUp className="w-4 h-4 ml-1" />
                             خطط الاشتراك
                         </Badge>
-                        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+                        <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
                             اختر الخطة المناسبة لك
                         </h2>
-                        <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-                            خطط مرنة تناسب جميع أحجام المؤسسات التعليمية مع إمكانية الترقية في أي وقت حيث هذه الرسوم تغطي احتياجات التخزين والتشغيل الإساسية والدعم وليست ربحية
+                        <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+                            خطط مرنة تناسب جميع أحجام المؤسسات التعليمية مع إمكانية الترقية في أي وقت
                         </p>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         {pricingPlans.map((plan, index) => (
-                            <Card key={index} className={`relative overflow-hidden hover:shadow-xl transition-all duration-300 ${
-                                plan.recommended ? 'border-2 border-emerald-500 scale-105' : 'hover:scale-105'
+                            <Card key={index} className={`relative overflow-hidden hover:shadow-xl transition-all duration-300 border-border bg-card ${
+                                plan.recommended ? 'border-2 border-primary scale-105 shadow-md' : 'hover:scale-105'
                             }`}>
                                 {plan.recommended && (
-                                    <div className="absolute top-0 left-0 right-0 bg-gradient-to-r from-emerald-500 to-blue-500 text-white text-center py-2 text-sm font-medium">
+                                    <div className="absolute top-0 left-0 right-0 bg-primary text-primary-foreground text-center py-2 text-sm font-medium">
                                         الأكثر اختياراً
                                     </div>
                                 )}
                                 
                                 <CardHeader className={`text-center ${plan.recommended ? 'pt-8' : 'pt-6'}`}>
-                                    <CardTitle className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+                                    <CardTitle className="text-2xl font-bold text-foreground mb-2">
                                         {plan.name}
                                     </CardTitle>
                                     <div className="mb-4">
-                                        <span className="text-4xl font-bold text-gray-900 dark:text-white">{plan.price}</span>
-                                        <span className="text-gray-600 dark:text-gray-300 mr-2">ريال</span>
-                                        <div className="text-sm text-gray-500">{plan.period}</div>
+                                        <span className="text-4xl font-bold text-foreground">{plan.price}</span>
+                                        <span className="text-muted-foreground mr-2">ريال</span>
+                                        <div className="text-sm text-muted-foreground">{plan.period}</div>
                                     </div>
-                                    <p className="text-gray-600 dark:text-gray-300">
+                                    <p className="text-muted-foreground text-sm">
                                         {plan.description}
                                     </p>
                                 </CardHeader>
@@ -478,16 +476,16 @@ export default function Services() {
                                 <CardContent className="space-y-4">
                                     {plan.features.map((feature, featureIndex) => (
                                         <div key={featureIndex} className="flex items-center gap-2">
-                                            <CheckCircle className={`w-4 h-4 text-${plan.color}-600 flex-shrink-0`} />
-                                            <span className="text-sm text-gray-600 dark:text-gray-300">{feature}</span>
+                                            <CheckCircle className="w-4 h-4 text-primary flex-shrink-0" />
+                                            <span className="text-sm text-muted-foreground">{feature}</span>
                                         </div>
                                     ))}
                                     
                                     <Button 
                                         className={`w-full mt-6 ${
                                             plan.recommended 
-                                                ? 'bg-gradient-to-r from-emerald-600 to-blue-600 hover:from-emerald-700 hover:to-blue-700' 
-                                                : `bg-${plan.color}-600 hover:bg-${plan.color}-700`
+                                                ? 'bg-primary text-primary-foreground hover:bg-primary/90' 
+                                                : 'bg-secondary text-primary hover:bg-accent border border-border'
                                         }`}
                                         asChild
                                     >
@@ -501,10 +499,10 @@ export default function Services() {
                     </div>
 
                     <div className="text-center mt-12">
-                        <p className="text-gray-600 dark:text-gray-300 mb-4">
+                        <p className="text-muted-foreground mb-4">
                             هل تحتاج خطة مخصصة لمؤسستك الكبيرة؟
                         </p>
-                        <Button variant="outline" asChild>
+                        <Button variant="outline" asChild className="border-border text-foreground hover:bg-muted hover:text-primary">
                             <Link href="/contact">
                                 <MessageCircle className="w-4 h-4 ml-2" />
                                 تواصل معنا لعرض مخصص
@@ -520,17 +518,17 @@ export default function Services() {
                     <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
                         جاهز لتحويل مؤسستك التعليمية؟
                     </h2>
-                    <p className="text-xl text-blue-100 mb-8 leading-relaxed">
+                    <p className="text-xl text-white/90 mb-8 leading-relaxed">
                         ابدأ رحلتك مع شفيع اليوم واكتشف كيف يمكن لمنصتنا تطوير تعليم القرآن الكريم في مؤسستك
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <Button size="lg" asChild className="bg-white text-blue-600 hover:bg-gray-100">
+                        <Button size="lg" asChild className="bg-background text-foreground hover:bg-muted border-none shadow-lg">
                             <Link href={route('register')}>
                                 <Users className="w-5 h-5 ml-2" />
                                 ابدأ تجربة مجانية
                             </Link>
                         </Button>
-                        <Button size="lg" variant="outline" asChild className="border-white text-white hover:bg-white/10">
+                        <Button size="lg" variant="outline" asChild className="bg-transparent border-white/30 text-white hover:bg-white/10">
                             <Link href="/contact">
                                 <MessageCircle className="w-5 h-5 ml-2" />
                                 تحدث مع فريق المبيعات

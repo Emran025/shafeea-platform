@@ -6,9 +6,9 @@
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 
 @custom-variant dark (&:is(.dark *));
-/* Add RTL variant support */
 @custom-variant rtl (&:where([dir="rtl"], [dir="rtl"] *));
 @custom-variant ltr (&:where([dir="ltr"], [dir="ltr"] *));
+
 @theme {
     --font-sans:
         'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -61,14 +61,6 @@
     --color-sidebar-ring: var(--sidebar-ring);
 }
 
-/*
-  The default border color has changed to `currentColor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
-
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
-*/
 @layer base {
     *,
     ::after,
@@ -80,64 +72,96 @@
 }
 
 :root {
-    /* Base Colors - Light Theme */
-    --background: oklch(1 0 0);
-    --foreground: oklch(0.145 0 0);
-    --card: oklch(1 0 0);
-    --card-foreground: oklch(0.145 0 0);
-    --popover: oklch(1 0 0);
-    --popover-foreground: oklch(0.145 0 0);
+    /* 
+       =========================================
+       OCEANIC ELEGANCE THEME (Light Mode)
+       Palette: Ink Black, Prussian Blue, Dusk Blue, Dusty Denim, Alabaster Grey
+       Style: Soft Borders, Dangling Shadows.
+       =========================================
+    */
+
+    /* 
+       Background: Alabaster Grey (900 tint: #f9f9f8)
+       A very soft off-white, easier on the eyes than pure white.
+    */
+    --background: #f9f9f8; 
     
-    /* Shafeea Brand Colors */
-    --primary: oklch(0.548 0.194 232.59); /* Blue-600 */
-    --primary-foreground: oklch(1 0 0);
-    --secondary: oklch(0.972 0.015 232.59); /* Blue-50 */
-    --secondary-foreground: oklch(0.548 0.194 232.59);
+    /* 
+       Foreground: Ink Black (DEFAULT: #0d1b2a)
+       Deep, dark blue-black for excellent readability.
+    */
+    --foreground: #0d1b2a; 
     
-    /* Accent Colors */
-    --accent: oklch(0.599 0.162 164.88); /* Emerald-600 */
-    --accent-foreground: oklch(1 0 0);
-    --tertiary: oklch(76.56% 0.12881 102.999); /* Purple-600 */
-    --tertiary-foreground: oklch(1 0 0);
+    /* 
+       Cards: Pure White
+       To "lift" off the Alabaster background using shadows.
+    */
+    --card: #ffffff;
+    --card-foreground: #0d1b2a;
     
-    /* Success Colors */
-    --success: oklch(0.599 0.162 164.88); /* Emerald-600 */
-    --success-foreground: oklch(1 0 0);
+    --popover: #ffffff;
+    --popover-foreground: #0d1b2a;
     
-    /* Warning Colors */
-    --warning: oklch(0.768 0.137 70.67); /* Amber-500 */
-    --warning-foreground: oklch(1 0 0);
+    /* 
+       Primary: Prussian Blue (DEFAULT: #1b263b)
+       The main brand color. Solid and professional.
+    */
+    --primary: #1b263b; 
+    --primary-foreground: #ffffff;
     
-    /* Error/Destructive Colors */
-    --destructive: oklch(0.577 0.245 27.325); /* Red-600 */
+    /* 
+       Secondary: Alabaster Grey (DEFAULT: #e0e1dd)
+       Used for backgrounds of secondary elements/buttons.
+    */
+    --secondary: #e0e1dd; 
+    --secondary-foreground: #1b263b;
+    
+    /* 
+       Accent: Dusty Denim (900 tint: #e3e8ee)
+       For hover states and subtle highlights.
+    */
+    --accent: #e3e8ee; 
+    --accent-foreground: #1b263b;
+    
+    /* Destructive */
+    --destructive: oklch(0.577 0.245 27.325);
     --destructive-foreground: oklch(1 0 0);
     
-    /* Neutral Colors */
-    --muted: oklch(0.97 0.005 232.59);
-    --muted-foreground: oklch(0.556 0.016 232.59);
-    --border: oklch(0.922 0.008 232.59);
-    --input: oklch(0.922 0.008 232.59);
-    --ring: oklch(0.548 0.194 232.59);
+    /* 
+       Neutral Elements
+       Muted text uses Dusk Blue (#415a77) for a softer look than grey.
+    */
+    --muted: #f2f3f1; /* Alabaster 800 */
+    --muted-foreground: #415a77; 
     
-    /* Chart Colors - Shafeea Theme */
-    --chart-1: oklch(0.548 0.194 232.59); /* Blue */
-    --chart-2: oklch(0.599 0.162 164.88); /* Emerald */
-    --chart-3: oklch(73.58% 0.12279 167.624); /* Purple */
-    --chart-4: oklch(0.768 0.137 70.67); /* Amber */
-    --chart-5: oklch(0.748 0.134 27.96); /* Orange */
+    /* 
+       Borders: CALM & SUBTLE
+       Using Alabaster Grey (#e0e1dd) instead of dark colors.
+       This removes the "sharpness" you disliked.
+    */
+    --border: #e0e1dd; 
+    --input: #e0e1dd;
+    --ring: #778da9; /* Dusty Denim ring for focus */
     
-    /* Radius */
+    /* Chart Colors - Mapped to Palette */
+    --chart-1: #1b263b; /* Prussian */
+    --chart-2: #415a77; /* Dusk */
+    --chart-3: #778da9; /* Dusty */
+    --chart-4: #0d1b2a; /* Ink */
+    --chart-5: #e0e1dd; /* Alabaster */
+    
+    /* Radius - Restored to original soft curve */
     --radius: 0.625rem;
     
-    /* Sidebar Colors */
-    --sidebar: oklch(0.985 0.002 232.59);
-    --sidebar-foreground: oklch(0.145 0.016 232.59);
-    --sidebar-primary: oklch(0.548 0.194 232.59);
-    --sidebar-primary-foreground: oklch(1 0 0);
-    --sidebar-accent: oklch(0.97 0.005 232.59);
-    --sidebar-accent-foreground: oklch(0.145 0.016 232.59);
-    --sidebar-border: oklch(0.922 0.008 232.59);
-    --sidebar-ring: oklch(0.548 0.194 232.59);
+    /* Sidebar */
+    --sidebar: #f9f9f8;
+    --sidebar-foreground: #0d1b2a;
+    --sidebar-primary: #1b263b;
+    --sidebar-primary-foreground: #ffffff;
+    --sidebar-accent: #e3e8ee;
+    --sidebar-accent-foreground: #1b263b;
+    --sidebar-border: #e0e1dd;
+    --sidebar-ring: #778da9;
     
     /* Animation Durations */
     --animation-fast: 150ms;
@@ -145,22 +169,34 @@
     --animation-slow: 350ms;
     --animation-slower: 500ms;
     
-    /* Shadow Levels */
-    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-    --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+    /* 
+       Shadows: "DANGLING" & SOFT
+       Using Ink Black with very low opacity to create depth without harsh lines.
+    */
+    --shadow-sm: 0 1px 2px 0 rgb(13 27 42 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(13 27 42 / 0.08), 0 2px 4px -2px rgb(13 27 42 / 0.08);
+    --shadow-lg: 0 10px 15px -3px rgb(13 27 42 / 0.08), 0 4px 6px -4px rgb(13 27 42 / 0.08);
+    --shadow-xl: 0 20px 25px -5px rgb(13 27 42 / 0.08), 0 8px 10px -6px rgb(13 27 42 / 0.08);
+    --shadow-2xl: 0 25px 50px -12px rgb(13 27 42 / 0.15);
     
-    /* Gradients */
-    --gradient-primary: linear-gradient(135deg, oklch(0.548 0.194 232.59), oklch(0.599 0.162 164.88));
-    --gradient-secondary: linear-gradient(135deg, oklch(0.599 0.162 164.88), oklch(74.457% 0.10714 187.467));
-    --gradient-tertiary: linear-gradient(135deg, oklch(76.987% 0.1307 104.135), oklch(50.14% 0.19045 258.58));
-    --gradient-hero: linear-gradient(135deg, oklch(0.548 0.194 232.59) 0%, oklch(74.393% 0.1077 185.965) 50%, oklch(0.599 0.162 164.88) 100%);
+    /* 
+       GRADIENTS
+       Smooth flow from Ink Black -> Prussian Blue -> Dusk Blue
+    */
+    --gradient-primary: linear-gradient(135deg, #1b263b, #415a77);
+    --gradient-secondary: linear-gradient(135deg, #778da9, #e0e1dd);
+    --gradient-tertiary: linear-gradient(135deg, #0d1b2a, #415a77);
+    
+    /* Hero Gradient: Deep and Mysterious */
+    --gradient-hero: linear-gradient(135deg, #0d1b2a 0%, #1b263b 50%, #415a77 100%);
 }
 
 .dark {
-    /* Base Colors - Dark Theme */
+    /* 
+       =========================================
+       DARK THEME (UNCHANGED)
+       =========================================
+    */
     --background: oklch(0.145 0.016 232.59);
     --foreground: oklch(0.985 0.002 232.59);
     --card: oklch(0.205 0.016 232.59);
@@ -168,45 +204,37 @@
     --popover: oklch(0.205 0.016 232.59);
     --popover-foreground: oklch(0.985 0.002 232.59);
     
-    /* Shafeea Brand Colors - Dark */
-    --primary: oklch(0.698 0.154 232.59); /* Blue-400 */
+    --primary: oklch(0.698 0.154 232.59); 
     --primary-foreground: oklch(0.145 0.016 232.59);
-    --secondary: oklch(0.269 0.016 232.59); /* Blue-800 */
+    --secondary: oklch(0.269 0.016 232.59); 
     --secondary-foreground: oklch(0.985 0.002 232.59);
     
-    /* Accent Colors - Dark */
-    --accent: oklch(0.749 0.122 164.88); /* Emerald-400 */
+    --accent: oklch(0.749 0.122 164.88); 
     --accent-foreground: oklch(0.145 0.016 232.59);
-    --tertiary: oklch(85.027% 0.09709 177.421); /* Purple-400 */
+    --tertiary: oklch(85.027% 0.09709 177.421); 
     --tertiary-foreground: oklch(0.145 0.016 232.59);
     
-    /* Success Colors - Dark */
-    --success: oklch(0.749 0.122 164.88); /* Emerald-400 */
+    --success: oklch(0.749 0.122 164.88); 
     --success-foreground: oklch(0.145 0.016 232.59);
     
-    /* Warning Colors - Dark */
-    --warning: oklch(0.818 0.117 70.67); /* Amber-400 */
+    --warning: oklch(0.818 0.117 70.67); 
     --warning-foreground: oklch(0.145 0.016 232.59);
     
-    /* Error/Destructive Colors - Dark */
-    --destructive: oklch(0.727 0.205 27.325); /* Red-400 */
+    --destructive: oklch(0.727 0.205 27.325); 
     --destructive-foreground: oklch(0.145 0.016 232.59);
     
-    /* Neutral Colors - Dark */
     --muted: oklch(0.269 0.016 232.59);
     --muted-foreground: oklch(0.708 0.012 232.59);
     --border: oklch(0.329 0.016 232.59);
     --input: oklch(0.329 0.016 232.59);
     --ring: oklch(0.698 0.154 232.59);
     
-    /* Chart Colors - Dark Theme */
-    --chart-1: oklch(0.698 0.154 232.59); /* Blue-400 */
-    --chart-2: oklch(0.749 0.122 164.88); /* Emerald-400 */
-    --chart-3: oklch(84.915% 0.09917 174.463); /* Purple-400 */
-    --chart-4: oklch(0.818 0.117 70.67); /* Amber-400 */
-    --chart-5: oklch(0.798 0.114 27.96); /* Orange-400 */
+    --chart-1: oklch(0.698 0.154 232.59); 
+    --chart-2: oklch(0.749 0.122 164.88); 
+    --chart-3: oklch(84.915% 0.09917 174.463); 
+    --chart-4: oklch(0.818 0.117 70.67); 
+    --chart-5: oklch(0.798 0.114 27.96); 
     
-    /* Sidebar Colors - Dark */
     --sidebar: oklch(0.205 0.016 232.59);
     --sidebar-foreground: oklch(0.985 0.002 232.59);
     --sidebar-primary: oklch(0.698 0.154 232.59);
@@ -216,10 +244,9 @@
     --sidebar-border: oklch(0.329 0.016 232.59);
     --sidebar-ring: oklch(0.698 0.154 232.59);
     
-    /* Gradients - Dark */
     --gradient-primary: linear-gradient(135deg, oklch(0.698 0.154 232.59), oklch(0.749 0.122 164.88));
     --gradient-secondary: linear-gradient(135deg, oklch(0.749 0.122 164.88), oklch(85.506% 0.09178 190.447));
-    --gradient-tertiary: linear-gradient(135deg, oklch(84.344% 0.08681 201.224), oklch(0.698 0.154 232.59));
+    --gradient-tertiary: linear-gradient(135deg, oklch(84.344% 0.08681 201.224), oklab(63.808% -0.07923 -0.09866));
     --gradient-hero: linear-gradient(135deg, oklch(0.698 0.154 232.59) 0%, oklch(84.887% 0.09973 173.746) 50%, oklch(0.749 0.122 164.88) 100%);
 }
 
