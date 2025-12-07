@@ -12,6 +12,9 @@ Route::get('/about', function () {
     return Inertia::render('about');
 })->name('about');
 
+Route::get('/services', function () {
+    return Inertia::render('services');
+})->name('services');
 
 Route::get('/contact', function () {
     return Inertia::render('contact');
