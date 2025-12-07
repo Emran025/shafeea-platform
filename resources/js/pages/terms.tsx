@@ -261,7 +261,7 @@ export default function Terms() {
                             <div className="flex flex-col sm:flex-row gap-4 justify-center text-sm">
                                 <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300">
                                     <span>البريد الإلكتروني:</span>
-                                    <span className="font-medium text-primary">legal@tajwaqar.com</span>
+                                    <span className="font-medium text-primary">legal@shafeea.com</span>
                                 </div>
                                 <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300">
                                     <span>الهاتف:</span>

@@ -42,8 +42,8 @@ import {
     Tablet,
     Phone as PhoneIcon,
     Wifi,
-    CloudSync,
-    Backup,
+    // CloudSync,
+    // Backup,
     RefreshCw,
     Cloud
 } from 'lucide-react';

@@ -182,7 +182,7 @@ export default function SiteLayout({ children, title }: SiteLayoutProps) {
                             <div 
                                 ref={bePartOfUsDropdownRef}
                                 className="relative animate-fade-in-up" 
-                                style={{ animationDelay: '400ms' }}
+                                style={{ animationDelay: '500ms' }}
                             >
                                 <button
                                     onClick={() => setBePartOfUsDropdownOpen(!bePartOfUsDropdownOpen)}
@@ -195,7 +195,7 @@ export default function SiteLayout({ children, title }: SiteLayoutProps) {
                                 
                                 {bePartOfUsDropdownOpen && (
                                     // FIX: Changed background classes and removed glass-morphism
-                                    <div className="absolute top-full right-0 mt-2 w-80 bg-white dark:bg-gray-900 rounded-xl shadow-xl border border-border py-2 z-50 animate-scale-in">
+                                    <div className="absolute top-full right-0 mt-2 w-64 bg-white dark:bg-gray-950 rounded-xl shadow-xl border border-border py-2 z-50 animate-scale-in">
                                         <div className="px-4 py-3 border-b border-border">
 
                                             <h3 className="font-semibold text-foreground">كن جزءًا منا</h3>
@@ -253,7 +253,9 @@ export default function SiteLayout({ children, title }: SiteLayoutProps) {
                                                     className="flex items-center gap-3 px-4 py-3 text-foreground hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-primary transition-colors duration-200 animate-fade-in-up hover-lift"
                                                     style={{ animationDelay: `${index * 50}ms` }}
                                                 >
-                                                    <Icon className="w-5 h-5" />
+                                                    <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                                                        <Icon className="w-5 h-5 text-primary" />
+                                                    </div>
                                                     <span className="font-medium">{item.name}</span>
                                                 </Link>
                                             );

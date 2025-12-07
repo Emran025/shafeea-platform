@@ -65,7 +65,7 @@ export default function Contact() {
             icon: Mail,
             title: "البريد الإلكتروني",
             description: "راسلنا في أي وقت",
-            details: ["info@tajwaqar.com", "support@tajwaqar.com"],
+            details: ["info@shafeea.com", "support@shafeea.com"],
             available: "نرد خلال 24 ساعة",
             color: "emerald"
         },
@@ -92,20 +92,20 @@ export default function Contact() {
             name: "الدعم الفني",
             description: "مساعدة في استخدام المنصة",
             icon: Headphones,
-            email: "support@tajwaqar.com"
+            email: "support@shafeea.com"
         },
 
         {
             name: "الشراكات",
             description: "فرص التعاون والشراكة",
             icon: Users,
-            email: "partnerships@tajwaqar.com"
+            email: "partnerships@shafeea.com"
         },
         {
             name: "المحتوى التعليمي",
             description: "استفساراتإمكانيات إضافة المناهج والمحتوى",
             icon: BookOpen,
-            email: "content@tajwaqar.com"
+            email: "content@shafeea.com"
         }
     ];
 
