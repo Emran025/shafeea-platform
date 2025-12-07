@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { usePage, Link } from '@inertiajs/react';
+import { usePage, Link, router } from '@inertiajs/react';
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { Alert } from '@/components/ui/alert';
@@ -15,35 +15,52 @@ import {
 } from '@/components/ui/select';
 // import { motion, AnimatePresence } from 'framer-motion'; // Uncomment if framer-motion is installed
 
+interface Teacher {
+  id: number;
+  name: string;
+  email: string;
+  avatar?: string;
+  gender: 'Male' | 'Female';
+  experienceYears: number;
+  status: 'active' | 'inactive' | 'suspended';
+  bio?: string;
+}
+
+interface PaginatedTeachers {
+  data: Teacher[];
+  current_page: number;
+  last_page: number;
+}
+
 const TeachersIndex = () => {
-  const { teachers, flash } = usePage().props as any;
+  const { teachers, flash } = usePage().props as { teachers: PaginatedTeachers, flash: { success?: string } };
   const [search, setSearch] = useState('');
   const [experienceFilter, setExperienceFilter] = useState('all');
   const [statusFilter, setStatusFilter] = useState('all');
   const [genderFilter, setGenderFilter] = useState('all');
   const [page, setPage] = useState(teachers?.current_page || 1);
   const [selected, setSelected] = useState<number[]>([]);
-  const [quickView, setQuickView] = useState<any | null>(null);
+  const [quickView, setQuickView] = useState<Teacher | null>(null);
 
   // Filtered teachers
   const filteredTeachers = (teachers?.data || [])
-    .filter((teacher: any) =>
+    .filter((teacher) =>
       teacher.name.toLowerCase().includes(search.toLowerCase()) ||
       teacher.email.toLowerCase().includes(search.toLowerCase())
     )
-    .filter((teacher: any) =>
+    .filter((teacher) =>
       experienceFilter !== 'all' ? String(teacher.experienceYears) === experienceFilter : true
     )
-    .filter((teacher: any) =>
+    .filter((teacher) =>
       statusFilter !== 'all' ? teacher.status === statusFilter : true
     )
-    .filter((teacher: any) =>
+    .filter((teacher) =>
       genderFilter !== 'all' ? teacher.gender === genderFilter : true
     );
 
   const handleDelete = (id: number) => {
     if (confirm('هل أنت متأكد من حذف هذا المعلم؟')) {
-      // Implement delete logic
+      router.delete(`/schools/teachers/${id}`);
     }
   };
 
@@ -57,7 +74,7 @@ const TeachersIndex = () => {
     // Export filteredTeachers to CSV
     const csv = [
       ['الاسم', 'البريد الإلكتروني', 'الجنس', 'الخبرة', 'الحالة'],
-      ...filteredTeachers.map((t: any) => [t.name, t.email, t.gender, t.experienceYears, t.status])
+      ...filteredTeachers.map((t) => [t.name, t.email, t.gender, t.experienceYears, t.status])
     ].map(row => row.join(',')).join('\n');
     const blob = new Blob([csv], { type: 'text/csv' });
     const url = URL.createObjectURL(blob);
@@ -82,7 +99,7 @@ const TeachersIndex = () => {
   };
   const handleSelectAll = () => {
     if (selected.length === filteredTeachers.length) setSelected([]);
-    else setSelected(filteredTeachers.map((t: any) => t.id));
+    else setSelected(filteredTeachers.map((t) => t.id));
   };
 
   // Responsive card/table hybrid for mobile
@@ -104,9 +121,9 @@ const TeachersIndex = () => {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">جميع الخبرات</SelectItem>
-              {[...new Set((teachers?.data || []).map((t: any) => t.experienceYears))]
+              {[...new Set((teachers?.data || []).map((t) => t.experienceYears))]
                 .filter(Boolean)
-                .map((exp: any) => (
+                .map((exp) => (
                   <SelectItem key={exp} value={String(exp)}>{exp} سنوات</SelectItem>
                 ))}
             </SelectContent>
@@ -174,7 +191,7 @@ const TeachersIndex = () => {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {filteredTeachers.map((teacher: any) => (
+                {filteredTeachers.map((teacher) => (
                   <TableRow key={teacher.id} className={
                     `hover:bg-indigo-50 transition-all duration-200 ${selected.includes(teacher.id) ? 'bg-indigo-100' : ''}`
                   }>

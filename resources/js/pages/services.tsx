@@ -1,5 +1,4 @@
-import { type SharedData } from '@/types';
-import { Head, Link, usePage } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -11,39 +10,14 @@ import {
     Calendar,
     Smartphone,
     Globe,
-    Award,
-    Clock,
     MessageCircle,
     CheckCircle,
     Star,
     Target,
     Zap,
-    Settings,
-    Database,
-    Video,
-    Download,
-    Upload,
-    FileText,
-    Brain,
     Headphones,
-    Lock,
     TrendingUp,
-    Bell,
-    Search,
-    Filter,
-    PieChart,
-    BarChart,
-    LineChart,
-    Map,
-    Camera,
-    Mic,
     PlayCircle,
-    Monitor,
-    Tablet,
-    Phone as PhoneIcon,
-    Wifi,
-    CloudSync,
-    Backup,
     RefreshCw,
     Cloud
 } from 'lucide-react';
@@ -51,7 +25,6 @@ import { useState } from 'react';
 import SiteLayout from '@/layouts/site-layout';
 
 export default function Services() {
-    const { auth } = usePage<SharedData>().props;
     const [activeCategory, setActiveCategory] = useState('all');
 
     const serviceCategories = [

@@ -7,8 +7,12 @@ import { Alert } from '@/components/ui/alert';
 import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from '@/components/ui/select';
 import { ArrowLeft } from 'lucide-react';
 
+interface PageProps {
+    errors: Record<string, string>;
+}
+
 const CreateTeacher = () => {
-  const { errors } = usePage().props as any;
+  const { errors } = usePage<PageProps>().props;
   const { data, setData, post, processing } = useForm({
     'user.name': '',
     'user.email': '',
@@ -44,7 +48,7 @@ const CreateTeacher = () => {
         {Object.keys(errors).length > 0 && (
           <Alert variant="destructive" className="mb-4">
             <ul className="list-disc pl-5">
-              {Object.values(errors).map((err: any, i) => (
+              {Object.values(errors).map((err, i) => (
                 <li key={i}>{err}</li>
               ))}
             </ul>

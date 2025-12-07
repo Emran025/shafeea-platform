@@ -1,5 +1,4 @@
-import { type SharedData } from '@/types';
-import { Head, Link, usePage } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -12,7 +11,6 @@ import {
     Users,
     Settings,
     CreditCard,
-    Shield,
     ChevronDown,
     ChevronUp,
     Star,
@@ -29,7 +27,6 @@ import { useState } from 'react';
 import SiteLayout from '@/layouts/site-layout';
 
 export default function FAQ() {
-    const { auth } = usePage<SharedData>().props;
     const [searchQuery, setSearchQuery] = useState('');
     const [activeCategory, setActiveCategory] = useState('all');
     const [expandedItems, setExpandedItems] = useState<string[]>([]);

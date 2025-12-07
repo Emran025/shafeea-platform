@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, usePage } from '@inertiajs/react';
+import { Link } from '@inertiajs/react';
 import {
     BookOpen,
     Menu,
@@ -25,16 +25,12 @@ import {
     Sun,
     Moon
 } from 'lucide-react';
-import { type SharedData } from '@/types';
 
 interface SiteLayoutProps {
     children: React.ReactNode;
-    title?: string;
 }
 
-export default function SiteLayout({ children, title }: SiteLayoutProps) {
-    const { auth } = usePage<SharedData>().props;
-    
+export default function SiteLayout({ children }: SiteLayoutProps) {
     // -- State Management --
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [bePartOfUsDropdownOpen, setBePartOfUsDropdownOpen] = useState(false);

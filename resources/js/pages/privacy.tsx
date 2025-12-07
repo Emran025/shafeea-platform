@@ -1,5 +1,4 @@
-import { type SharedData } from '@/types';
-import { Head, usePage } from '@inertiajs/react';
+import { Head } from '@inertiajs/react';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
 import {
@@ -18,26 +17,13 @@ import {
     Settings,
     Trash2,
     Download,
-    Upload,
     RefreshCw,
-    Bell,
-    Camera,
-    Mic,
     MapPin,
-    CreditCard,
-    Server,
-    Cloud,
-    Smartphone,
-    Monitor,
-    Wifi,
-    MousePointer,
-    Activity
+    Wifi
 } from 'lucide-react';
 import SiteLayout from '@/layouts/site-layout';
 
 export default function Privacy() {
-    const { auth } = usePage<SharedData>().props;
-
     const privacySections = [
         {
             id: "introduction",

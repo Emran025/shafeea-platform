@@ -6,8 +6,42 @@ import { Badge } from '@/components/ui/badge';
 import { ArrowLeft, Edit2 } from 'lucide-react';
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/table';
 
+interface Teacher {
+    id: number;
+    name: string;
+    email: string;
+    avatar?: string;
+    gender?: string;
+    birthDate?: string;
+    phoneZone?: string;
+    phone?: string;
+    whatsappZone?: string;
+    whatsapp?: string;
+    country?: string;
+    residence?: string;
+    city?: string;
+    status: string;
+    bio?: string;
+    experienceYears?: number;
+}
+
+interface Student {
+    id: number;
+    name: string;
+    email: string;
+    avatar?: string;
+    gender?: string;
+    status?: string;
+    city?: string;
+}
+
+interface PageProps {
+    teacher: Teacher;
+    students: Student[];
+}
+
 const ShowTeacher = () => {
-  const { teacher, students } = usePage().props as any;
+  const { teacher, students } = usePage<PageProps>().props;
 
   return (
     <div className="container mx-auto py-8 px-2" dir="rtl">
@@ -72,7 +106,7 @@ const ShowTeacher = () => {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {students.map((student: any) => (
+                {students.map((student) => (
                   <TableRow key={student.id} className="hover:bg-indigo-50 transition-all duration-200">
                     <TableCell>
                       {student.avatar ? (

@@ -1,7 +1,6 @@
-import { type SharedData } from '@/types';
-import { Head, usePage } from '@inertiajs/react';
+import { Head } from '@inertiajs/react';
 import { Badge } from '@/components/ui/badge';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card } from '@/components/ui/card';
 import {
     BookOpen,
     Users,
@@ -14,19 +13,11 @@ import {
     CheckCircle,
     Star,
     Calendar,
-    MapPin,
-    Mail,
-    Phone,
-    Twitter,
-    Linkedin,
-    Github,
     Sparkles
 } from 'lucide-react';
 import SiteLayout from '@/layouts/site-layout';
 
 export default function About() {
-    const { auth } = usePage<SharedData>().props;
-
     const teamMembers = [
         {
             name: "د. محمد الأحمد",
