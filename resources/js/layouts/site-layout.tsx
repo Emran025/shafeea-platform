@@ -71,12 +71,11 @@ export default function SiteLayout({ children, title }: SiteLayoutProps) {
         { name: 'خدماتنا', href: '/services', icon: Award },
         { name: 'تواصل معنا', href: '/contact', icon: Phone },
     ];
+    
+    const bePartOfUs = [
+        { name: 'شارك كمعلم', href: '/teachers/apply', icon: Award ,  description: 'انظم كمعلم وكن جزءا في عملية المساهمة التعليمية لأي مدرية'},
+        { name: 'انظم كمدرسة', href: '/schools/apply', icon: Award ,  description: 'أضف مدرستك لتستفير من ميزاتنا الفريدة المتاحة'},
 
-    const serviceItems = [
-        { name: 'إدارة الحلقات ', href: '/halaqahs', icon: BookOpen, description: 'إدارة شاملة للحلقات القرآنية' },
-        { name: 'إدارة الطلاب', href: '/students', icon: Users, description: 'متابعة وإدارة بيانات الطلاب' },
-        { name: 'التقارير والإحصائيات', href: '/reports', icon: BarChart3, description: 'تقارير مفصلة وإحصائيات دقيقة' },
-        { name: 'الإعدادات', href: '/settings', icon: Settings, description: 'إعدادات النظام والتخصيص' },
     ];
 
     const helpItems = [
@@ -166,12 +165,12 @@ export default function SiteLayout({ children, title }: SiteLayoutProps) {
                                             <h3 className="font-semibold text-foreground">خدمات المنصة</h3>
                                             <p className="text-sm text-muted-foreground">حلول شاملة لإدارة الحلقات القرآنية</p>
                                         </div>
-                                        {serviceItems.map((service, index) => {
-                                            const Icon = service.icon;
+                                        {bePartOfUs.map((joinasType, index) => {
+                                            const Icon = joinasType.icon;
                                             return (
                                                 <Link
-                                                    key={service.name}
-                                                    href={service.href}
+                                                    key={joinasType.name}
+                                                    href={joinasType.href}
                                                     className="flex items-start gap-3 px-4 py-3 text-foreground hover:bg-muted hover:text-primary transition-colors duration-200 animate-fade-in-up hover-lift"
                                                     style={{ animationDelay: `${index * 50}ms` }}
                                                 >
@@ -179,8 +178,8 @@ export default function SiteLayout({ children, title }: SiteLayoutProps) {
                                                         <Icon className="w-5 h-5 text-primary" />
                                                     </div>
                                                     <div className="flex-1">
-                                                        <span className="font-medium block">{service.name}</span>
-                                                        <span className="text-sm text-muted-foreground">{service.description}</span>
+                                                        <span className="font-medium block">{joinasType.name}</span>
+                                                        <span className="text-sm text-muted-foreground">{joinasType.description}</span>
                                                     </div>
                                                 </Link>
                                             );
@@ -237,37 +236,6 @@ export default function SiteLayout({ children, title }: SiteLayoutProps) {
                                 {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
                             </button>
 
-                            {/* Auth Buttons */}
-                            {auth.user ? (
-                                <div className="flex items-center gap-3 animate-fade-in-up" style={{ animationDelay: '700ms' }}>
-                                    <button className="hidden md:flex items-center justify-center w-10 h-10 text-muted-foreground hover:text-primary hover:bg-muted rounded-lg transition-colors duration-200 relative hover-scale-sm">
-                                        <Bell className="w-5 h-5" />
-                                        <Badge className="absolute -top-1 -right-1 w-5 h-5 p-0 bg-destructive text-destructive-foreground text-xs flex items-center justify-center animate-bounce">
-                                            3
-                                        </Badge>
-                                    </button>
-                                    <Button asChild className="gradient-primary hover:opacity-90 shadow-lg hover:shadow-xl transition-all duration-300 hover-lift">
-                                        <Link href={route('dashboard')}>
-                                            <BarChart3 className="w-4 h-4 ml-2" />
-                                            لوحة التحكم
-                                        </Link>
-                                    </Button>
-                                </div>
-                            ) : (
-                                <div className="flex items-center gap-3 animate-fade-in-up" style={{ animationDelay: '700ms' }}>
-                                    <Button variant="ghost" asChild className="hidden sm:inline-flex hover-scale-sm">
-                                        <Link href={route('login')}>
-                                            تسجيل الدخول
-                                        </Link>
-                                    </Button>
-                                    <Button asChild className="gradient-primary hover:opacity-90 shadow-lg hover:shadow-xl transition-all duration-300 hover-lift">
-                                        <Link href={route('register')}>
-                                            <Users className="w-4 h-4 ml-2" />
-                                            إنشاء حساب
-                                        </Link>
-                                    </Button>
-                                </div>
-                            )}
 
                             {/* Mobile Menu Button */}
                             <button
@@ -299,26 +267,6 @@ export default function SiteLayout({ children, title }: SiteLayoutProps) {
                                     );
                                 })}
                                 
-                                <div className="border-t border-border mt-2 pt-2">
-                                    <div className="px-3 py-2 text-sm font-medium text-muted-foreground">الخدمات</div>
-                                    {serviceItems.map((service, index) => {
-                                        const Icon = service.icon;
-                                        return (
-                                            <Link
-                                                key={service.name}
-                                                href={service.href}
-                                                className="flex items-center gap-3 px-6 py-3 text-foreground hover:text-primary hover:bg-muted rounded-lg transition-colors duration-200 animate-fade-in-right hover-lift"
-                                                style={{ animationDelay: `${(index + 4) * 50}ms` }}
-                                            >
-                                                <Icon className="w-5 h-5" />
-                                                <div>
-                                                    <div className="font-medium">{service.name}</div>
-                                                    <div className="text-xs text-muted-foreground">{service.description}</div>
-                                                </div>
-                                            </Link>
-                                        );
-                                    })}
-                                </div>
 
                                 <div className="border-t border-border mt-2 pt-2">
                                     <div className="px-3 py-2 text-sm font-medium text-muted-foreground">المساعدة</div>
@@ -338,17 +286,6 @@ export default function SiteLayout({ children, title }: SiteLayoutProps) {
                                     })}
                                 </div>
 
-                                {!auth.user && (
-                                    <div className="border-t border-border mt-2 pt-2">
-                                        <Link
-                                            href={route('login')}
-                                            className="flex items-center gap-3 px-3 py-3 text-foreground hover:text-primary hover:bg-muted rounded-lg transition-colors duration-200 sm:hidden animate-fade-in-right hover-lift"
-                                            style={{ animationDelay: '550ms' }}
-                                        >
-                                            تسجيل الدخول
-                                        </Link>
-                                    </div>
-                                )}
                             </nav>
                         </div>
                     )}
