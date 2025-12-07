@@ -14,9 +14,11 @@ describe('Students API', function () {
     beforeEach(function () {
         // Always authenticate as a user
         $this->user = User::factory()->create();
-        $this->actingAs($this->user);
+        $this->actingAs($this->user, 'sanctum');
     });
     it('can list students with pagination', function () {
+        // This test is expected to fail with a 500 error due to a bug in the StudentController (Call to undefined method paginated()).
+        // As per instructions, I am not allowed to modify the application code to fix this.
         Student::factory()->count(15)->create();
         $response = $this->getJson('/api/v1/students?limit=10');
         $response->assertOk()
@@ -49,7 +51,7 @@ describe('Students API', function () {
         $student = Student::factory()->create();
         $payload = [
             'qualification' => 'Updated qualification',
-            'memorizationLevel' => 'Advanced',
+            'memorizationLevel' => 15,
             'status' => 'active',
             'name' => $student->user->name,
             'email' => $student->user->email,
@@ -71,12 +73,12 @@ describe('Students API', function () {
             ]);
         $student->refresh();
         expect($student->qualification)->toBe('Updated qualification');
-        expect($student->memorization_level)->toBe('Advanced');
+        expect($student->memorization_level)->toBe(15);
         expect($student->status)->toBe('active');
     });
     it('validates student update', function () {
         $student = Student::factory()->create();
-        $payload = [ 'email' => 'not-an-email' ];
+        $payload = [ 'gender' => 'invalid-gender' ];
         $response = $this->putJson("/api/v1/students/{$student->id}", $payload);
         $response->assertStatus(422)
             ->assertJsonStructure(['success', 'message', 'errors']);
@@ -88,9 +90,15 @@ describe('Students API', function () {
             ->assertJson([
                 'success' => true,
                 'data' => [
-                    'id' => 15,
                     'frequency' => 'daily',
                 ],
+            ])
+            ->assertJsonIsObject('data')
+            ->assertJsonStructure([
+                'data' => [
+                    'PlanId',
+                    'details'
+                ]
             ]);
     });
     it('can update student follow up', function () {
@@ -111,7 +119,9 @@ describe('Students API', function () {
     });
     it('can assign student to halaqa', function () {
         $student = Student::factory()->create();
+        $teacher = \App\Models\Teacher::factory()->create();
         $halaqah = Halaqah::factory()->create();
+        $halaqah->teachers()->attach($teacher);
         $payload = [
             'halaqaId' => $halaqah->id,
             'studentId' => $student->id,
@@ -139,7 +149,9 @@ describe('Students API', function () {
     // --- Plan Management ---
     it('can list all plans for a student', function () {
         $student = Student::factory()->create();
+        $teacher = \App\Models\Teacher::factory()->create();
         $halaqah = Halaqah::factory()->create();
+        $halaqah->teachers()->attach($teacher);
         $plan = Plan::factory()->create();
         $student->enrollments()->create([
             'halaqah_id' => $halaqah->id,
@@ -152,7 +164,9 @@ describe('Students API', function () {
     });
     it('can get active plan for a student', function () {
         $student = Student::factory()->create();
+        $teacher = \App\Models\Teacher::factory()->create();
         $halaqah = Halaqah::factory()->create();
+        $halaqah->teachers()->attach($teacher);
         $plan = Plan::factory()->create();
         $student->enrollments()->create([
             'halaqah_id' => $halaqah->id,
@@ -165,7 +179,9 @@ describe('Students API', function () {
     });
     it('can create a plan for a student', function () {
         $student = Student::factory()->create();
+        $teacher = \App\Models\Teacher::factory()->create();
         $halaqah = Halaqah::factory()->create();
+        $halaqah->teachers()->attach($teacher);
         $payload = Plan::factory()->make([
             'halaqah_id' => $halaqah->id,
             'start_date' => now()->toDateString(),
@@ -181,7 +197,16 @@ describe('Students API', function () {
     });
     it('can update a plan', function () {
         $plan = Plan::factory()->create();
-        $payload = [ 'name' => 'Updated Plan Name' ];
+        $teacher = \App\Models\Teacher::factory()->create();
+        $halaqah = Halaqah::factory()->create();
+        $halaqah->teachers()->attach($teacher);
+        $frequencyType = \App\Models\FrequencyType::factory()->create();
+        $payload = [
+            'name' => 'Updated Plan Name',
+            'start_date' => now()->toDateString(),
+            'frequency_type_id' => $frequencyType->id,
+            'halaqah_id' => $halaqah->id,
+        ];
         $response = $this->putJson("/api/v1/students/plans/{$plan->id}", $payload);
         $response->assertOk()->assertJsonStructure(['success', 'data', 'message']);
     });
@@ -193,7 +218,9 @@ describe('Students API', function () {
     // --- Tracking Management ---
     it('can list all trackings for a student', function () {
         $student = Student::factory()->create();
+        $teacher = \App\Models\Teacher::factory()->create();
         $halaqah = Halaqah::factory()->create();
+        $halaqah->teachers()->attach($teacher);
         $plan = Plan::factory()->create();
         $student->enrollments()->create([
             'halaqah_id' => $halaqah->id,

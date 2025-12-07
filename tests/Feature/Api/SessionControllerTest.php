@@ -18,9 +18,11 @@ class SessionControllerTest extends TestCase
         $user = User::factory()->create();
         $this->seedSessions($user->id);
 
-        Sanctum::actingAs($user, ['*'], 'web');
+        $token = $user->createToken('device_1')->plainTextToken;
 
-        $response = $this->getJson(route('account.sessions.list'));
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->getJson(route('account.sessions.list'));
 
         $response->assertStatus(200)
             ->assertJsonStructure([

@@ -35,21 +35,24 @@ it('school has users and halaqahs', function () {
 
 it('teacher has halaqahs', function () {
     $teacher = Teacher::factory()->create();
-    Halaqah::factory()->count(2)->for($teacher)->create();
+    $halaqahs = Halaqah::factory()->count(2)->create();
+    $teacher->halaqahs()->attach($halaqahs);
 
     expect($teacher->halaqahs)->toHaveCount(2);
 });
 
-it('halaqah has enrollments, school, and teacher', function () {
+it('halaqah has enrollments, school, and teachers', function () {
     $teacher = Teacher::factory()->create();
     $school = School::factory()->create();
-    $halaqah = Halaqah::factory()->for($teacher)->for($school)->create();
+    $halaqah = Halaqah::factory()->for($school)->create();
+    $halaqah->teachers()->attach($teacher);
+
 
     $student = Student::factory()->create();
     $plan = Plan::factory()->create();
     Enrollment::factory()->count(3)->for($halaqah)->for($student)->for($plan)->create();
 
-    expect($halaqah->teacher)->toBeInstanceOf(Teacher::class);
+    expect($halaqah->teachers->first())->toBeInstanceOf(Teacher::class);
     expect($halaqah->school)->toBeInstanceOf(School::class);
     expect($halaqah->enrollments)->toHaveCount(3);
 });

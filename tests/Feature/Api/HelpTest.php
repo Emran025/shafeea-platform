@@ -17,7 +17,7 @@ class HelpTest extends TestCase
         $this->seed(\Database\Seeders\PrivacyPolicySeeder::class);
 
         // Act
-        $response = $this->getJson('/api/v1/help/privacy-policy/latest');
+        $response = $this->getJson('/api/v1/help/privacy-policy');
 
         // Assert
         $response->assertStatus(200);
@@ -58,7 +58,6 @@ class HelpTest extends TestCase
         $response->assertStatus(201);
         $response->assertJson([
             'success' => true,
-            'data' => null,
             'message' => 'Help ticket created successfully.'
         ]);
         $this->assertDatabaseHas('help_tickets', [

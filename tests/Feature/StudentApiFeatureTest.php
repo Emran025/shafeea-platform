@@ -17,8 +17,8 @@ class StudentApiFeatureTest extends TestCase
     {
         parent::setUp();
         // Optionally authenticate a user if needed
-        // $this->user = User::factory()->create();
-        // $this->actingAs($this->user);
+        $this->user = User::factory()->create();
+        $this->actingAs($this->user, 'sanctum');
     }
 
     public function test_can_list_students()
@@ -106,7 +106,9 @@ class StudentApiFeatureTest extends TestCase
     public function test_can_assign_student_to_halaqa()
     {
         $student = Student::factory()->create();
+        $teacher = \App\Models\Teacher::factory()->create();
         $halaqah = Halaqah::factory()->create();
+        $halaqah->teachers()->attach($teacher);
         $payload = [
             'halaqaId' => $halaqah->id,
             'studentId' => $student->id,
