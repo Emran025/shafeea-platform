@@ -1,12 +1,8 @@
-import { type SharedData } from '@/types';
-import { Head, Link, usePage } from '@inertiajs/react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import {
     BookOpen,
     Users,
-    GraduationCap,
     BarChart3,
     CheckCircle,
     Star,
@@ -14,26 +10,14 @@ import {
     Globe,
     Smartphone,
     Clock,
-    ArrowLeft,
-    PlayCircle,
     Award,
-    Target,
     TrendingUp,
     MessageCircle,
-    Calendar,
-    MapPin,
-    Phone,
-    Mail,
-    Menu,
-    X
+    Calendar
 } from 'lucide-react';
-import { useState } from 'react';
 import SiteLayout from '@/layouts/site-layout';
 
 export default function Welcome() {
-    const { auth } = usePage<SharedData>().props;
-    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
     return (
         <>
             <SiteLayout>

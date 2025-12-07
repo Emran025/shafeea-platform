@@ -1,5 +1,4 @@
-import { type SharedData } from '@/types';
-import { Head, usePage } from '@inertiajs/react';
+import { Head } from '@inertiajs/react';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
 import {
@@ -15,8 +14,6 @@ import {
 import SiteLayout from '@/layouts/site-layout';
 
 export default function Terms() {
-    const { auth } = usePage<SharedData>().props;
-
     const sections = [
         {
             id: "definitions",

@@ -1,8 +1,7 @@
-import { type SharedData } from '@/types';
-import { Head, useForm, usePage } from '@inertiajs/react';
+import { Head, useForm } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
@@ -15,21 +14,16 @@ import {
     MessageCircle,
     Send,
     Building,
-    Globe,
     Headphones,
     CheckCircle,
     Star,
     Users,
-    BookOpen,
-    Shield,
-    Coffee,
-    Calendar
+    BookOpen
 } from 'lucide-react';
 import { useState } from 'react';
 import SiteLayout from '@/layouts/site-layout';
 
 export default function Contact() {
-    const { auth } = usePage<SharedData>().props;
     const [isSubmitted, setIsSubmitted] = useState(false);
 
     const { data, setData, post, processing, errors, reset } = useForm({

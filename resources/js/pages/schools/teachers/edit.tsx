@@ -8,8 +8,43 @@ import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from '@
 import { ArrowLeft } from 'lucide-react';
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/table';
 
+interface Teacher {
+    id: number;
+    name: string;
+    email: string;
+    avatar?: string;
+    gender?: string;
+    birthDate?: string;
+    phoneZone?: string;
+    phone?: string;
+    whatsappZone?: string;
+    whatsapp?: string;
+    country?: string;
+    residence?: string;
+    city?: string;
+    status: string;
+    bio?: string;
+    experienceYears?: number;
+}
+
+interface Student {
+    id: number;
+    name: string;
+    email: string;
+    avatar?: string;
+    gender?: string;
+    status?: string;
+    city?: string;
+}
+
+interface PageProps {
+    teacher: Teacher;
+    students: Student[];
+    errors: Record<string, string>;
+}
+
 const EditTeacher = () => {
-  const { teacher, errors, students } = usePage().props as any;
+  const { teacher, errors, students } = usePage<PageProps>().props;
   const { data, setData, put, processing } = useForm({
     'user.name': teacher?.name || '',
     'user.email': teacher?.email || '',
@@ -45,7 +80,7 @@ const EditTeacher = () => {
         {Object.keys(errors).length > 0 && (
           <Alert variant="destructive" className="mb-4">
             <ul className="list-disc pl-5">
-              {Object.values(errors).map((err: any, i) => (
+              {Object.values(errors).map((err, i) => (
                 <li key={i}>{err}</li>
               ))}
             </ul>
@@ -154,7 +189,7 @@ const EditTeacher = () => {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {students.map((student: any) => (
+                {students.map((student) => (
                   <TableRow key={student.id} className="hover:bg-indigo-50 transition-all duration-200">
                     <TableCell>
                       {student.avatar ? (

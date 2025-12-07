@@ -27,11 +27,25 @@ interface School {
   created_at: string;
 }
 
+interface PageLink {
+    url: string | null;
+    label: string;
+    active: boolean;
+}
+
+interface PageMeta {
+    current_page: number;
+    from: number;
+    to: number;
+    last_page: number;
+    total: number;
+}
+
 interface Props {
   schools: {
     data: School[];
-    links: any;
-    meta: any;
+    links: PageLink[];
+    meta: PageMeta;
   };
   filters: {
     search?: string;
@@ -281,7 +295,7 @@ export default function Index({ schools, filters, countries, cities }: Props) {
               Showing {schools.meta.from} to {schools.meta.to} of {schools.meta.total} results
             </div>
             <div className="flex gap-2">
-              {schools.links.map((link: any, index: number) => (
+              {schools.links.map((link, index) => (
                 <Link
                   key={index}
                   href={link.url || '#'}

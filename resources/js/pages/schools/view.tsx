@@ -27,8 +27,25 @@ interface School {
   address: string;
   logo?: string;
   created_at: string;
-  users: any[];
-  halaqahs: any[];
+  users: User[];
+  halaqahs: Halaqah[];
+}
+
+interface User {
+    id: number;
+    name: string;
+    email: string;
+}
+
+interface Halaqah {
+    id: number;
+    name: string;
+}
+
+interface AnalyticsData {
+    monthly_enrollments: { month: string; count: number }[];
+    gender_distribution: { name: string; count: number }[];
+    halaqah_performance: { name: string; students_count: number }[];
 }
 
 interface Stats {
@@ -46,25 +63,20 @@ interface Props {
 }
 
 export default function Show({ school, stats }: Props) {
-  const [analyticsData, setAnalyticsData] = useState<any>(null);
-  const [loading, setLoading] = useState(false);
+  const [analyticsData, setAnalyticsData] = useState<AnalyticsData | null>(null);
 
   useEffect(() => {
+    const fetchAnalytics = async () => {
+        try {
+            const response = await fetch(route('schools.analytics', school.id));
+            const data = await response.json();
+            setAnalyticsData(data);
+        } catch (error) {
+            console.error('Failed to fetch analytics:', error);
+        }
+    };
     fetchAnalytics();
-  }, []);
-
-  const fetchAnalytics = async () => {
-    setLoading(true);
-    try {
-      const response = await fetch(route('schools.analytics', school.id));
-      const data = await response.json();
-      setAnalyticsData(data);
-    } catch (error) {
-      console.error('Failed to fetch analytics:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  }, [school.id]);
 
   const handleDelete = () => {
     if (confirm('Are you sure you want to delete this school? This action cannot be undone.')) {
@@ -247,7 +259,7 @@ export default function Show({ school, stats }: Props) {
                       fill="#8884d8"
                       dataKey="count"
                     >
-                      {analyticsData.gender_distribution.map((entry: any, index: number) => (
+                      {analyticsData.gender_distribution.map((entry, index) => (
                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                       ))}
                     </Pie>
