@@ -7,12 +7,13 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 class SessionControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function it_can_list_user_sessions()
     {
         $user = User::factory()->create();
@@ -45,6 +46,7 @@ class SessionControllerTest extends TestCase
                         ],
                     ],
                 ],
+                'pagination',
             ]);
     }
 

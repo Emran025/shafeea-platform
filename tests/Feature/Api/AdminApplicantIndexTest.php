@@ -8,19 +8,24 @@ use App\Models\School;
 use Laravel\Sanctum\Sanctum;
 use function Pest\Laravel\getJson;
 
+use Pest\Plugins\Actions;
+
 test('admin applicants index returns a summarized list', function () {
     $school = School::factory()->create();
+
+    // Create an admin user correctly
     $adminUser = User::factory()->create(['school_id' => $school->id]);
-    $adminRole = Role::firstOrCreate(['name' => 'admin']);
-    $adminUser->roles()->attach($adminRole);
+    Admin::factory()->create(['user_id' => $adminUser->id]); // This is the key fix
+
     Sanctum::actingAs($adminUser);
 
-    Applicant::factory()->withSchool()->create(['school_id' => $school->id]);
+    Applicant::factory()->create(['school_id' => $school->id]);
 
     $response = getJson('/api/v1/admin/applicants');
 
     $response->assertStatus(200)
         ->assertJsonStructure([
+            'success',
             'data' => [
                 'data' => [
                     '*' => [
@@ -40,5 +45,6 @@ test('admin applicants index returns a summarized list', function () {
                     ],
                 ],
             ],
+            'pagination',
         ]);
 });

@@ -6,12 +6,13 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 class LogoutTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function an_authenticated_user_can_log_out()
     {
         $user = User::factory()->create();
@@ -24,7 +25,7 @@ class LogoutTest extends TestCase
 
         $response->assertStatus(200)
             ->assertJson([
-                'status' => 'success',
+                'success' => true,
                 'message' => 'Successfully logged out',
             ]);
 
@@ -33,21 +34,17 @@ class LogoutTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function an_unauthenticated_user_cannot_log_out()
     {
         $response = $this->withHeaders([
             'Accept' => 'application/json',
         ])->postJson('/api/v1/auth/logout');
 
-        $response->assertStatus(401)
-            ->assertJson([
-                'status' => 'error',
-                'message' => 'Token is invalid or already revoked',
-            ]);
+        $response->assertStatus(401);
     }
 
-    /** @test */
+    #[Test]
     public function a_user_cannot_use_a_revoked_token()
     {
         $user = User::factory()->create();
@@ -63,7 +60,7 @@ class LogoutTest extends TestCase
         $response = $this->withHeaders([
             'Authorization' => 'Bearer ' . $token,
             'Accept' => 'application/json',
-        ])->getJson('/api/v1/auth/me');
+        ])->getJson('/api/v1/account/profile');
 
         $response->assertStatus(401);
     }

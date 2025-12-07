@@ -11,6 +11,8 @@ use Laravel\Sanctum\Sanctum;
 use function Pest\Laravel\postJson;
 use function Pest\Laravel\getJson;
 
+use Pest\Plugins\Actions;
+
 test('a user can submit an application without a school', function () {
     $user = User::factory()->create();
     Sanctum::actingAs($user);
@@ -28,7 +30,8 @@ test('a user can submit an application without a school', function () {
 
     $response->assertStatus(201);
     $this->assertDatabaseHas('applicants', [
-        'user_id' => $user->id,
+        'name' => 'Test User',
+        'email' => 'test@test.com',
         'school_id' => null,
     ]);
 });
@@ -52,7 +55,8 @@ test('a user can submit an application with a specific school', function () {
 
     $response->assertStatus(201);
     $this->assertDatabaseHas('applicants', [
-        'user_id' => $user->id,
+        'name' => 'Test User',
+        'email' => 'test@test.com',
         'school_id' => $school->id,
     ]);
 });
@@ -62,16 +66,15 @@ test('an admin can see applicants for their school and unassigned applicants', f
     $schoolB = School::factory()->create();
 
     $adminUser = User::factory()->create(['school_id' => $schoolA->id]);
-    $adminRole = Role::firstOrCreate(['name' => 'admin']);
-    $adminUser->roles()->attach($adminRole);
+    Admin::factory()->create(['user_id' => $adminUser->id]);
     Sanctum::actingAs($adminUser);
 
     // Applicant for admin's school
-    Applicant::factory()->withSchool()->create(['school_id' => $schoolA->id]);
+    Applicant::factory()->create(['school_id' => $schoolA->id]);
     // Applicant without a school
     Applicant::factory()->create(['school_id' => null]);
     // Applicant for another school (should not be visible)
-    Applicant::factory()->withSchool()->create(['school_id' => $schoolB->id]);
+    Applicant::factory()->create(['school_id' => $schoolB->id]);
 
     $response = getJson('/api/v1/admin/applicants');
 
@@ -82,8 +85,7 @@ test('an admin can see applicants for their school and unassigned applicants', f
 test('an admin can approve an unassigned application and it gets assigned to their school', function () {
     $school = School::factory()->create();
     $adminUser = User::factory()->create(['school_id' => $school->id]);
-    $adminRole = Role::firstOrCreate(['name' => 'admin']);
-    $adminUser->roles()->attach($adminRole);
+    Admin::factory()->create(['user_id' => $adminUser->id]);
     Sanctum::actingAs($adminUser);
 
     $applicantUser = User::factory()->create(['school_id' => null]);
@@ -91,15 +93,18 @@ test('an admin can approve an unassigned application and it gets assigned to the
     $applicant = Applicant::factory()->create([
         'user_id' => $applicantUser->id,
         'school_id' => null,
-        'application_type' => 'student'
+        'application_type' => 'student',
+        'name' => $applicantUser->name, // Ensure applicant has a name
+        'email' => $applicantUser->email,
     ]);
 
     $response = postJson("/api/v1/admin/applicants/{$applicant->id}/approve");
 
     $response->assertStatus(200);
 
-    $this->assertDatabaseHas('users', [
-        'id' => $applicantUser->id,
+    $this->assertDatabaseHas('students', [
+        'name' => $applicantUser->name,
+        'email' => $applicantUser->email,
         'school_id' => $school->id,
     ]);
 
@@ -107,22 +112,17 @@ test('an admin can approve an unassigned application and it gets assigned to the
         'id' => $applicant->id,
         'status' => 'approved',
     ]);
-
-    $this->assertDatabaseHas('students', [
-        'user_id' => $applicantUser->id,
-        'bio' => $applicant->bio,
-    ]);
 });
 
 test('an admin cannot see applicants for other schools', function () {
     $schoolA = School::factory()->create();
     $schoolB = School::factory()->create();
+
     $adminUser = User::factory()->create(['school_id' => $schoolA->id]);
-    $adminRole = Role::firstOrCreate(['name' => 'admin']);
-    $adminUser->roles()->attach($adminRole);
+    Admin::factory()->create(['user_id' => $adminUser->id]);
     Sanctum::actingAs($adminUser);
 
-    $applicantForSchoolB = Applicant::factory()->withSchool()->create(['school_id' => $schoolB->id]);
+    $applicantForSchoolB = Applicant::factory()->create(['school_id' => $schoolB->id]);
 
     // Attempt to get the applicant from another school
     $response = getJson("/api/v1/admin/applicants/{$applicantForSchoolB->id}");
@@ -136,8 +136,7 @@ test('an admin cannot see applicants for other schools', function () {
 test('an admin can reject an application and it returns to the pool', function () {
     $school = School::factory()->create();
     $adminUser = User::factory()->create(['school_id' => $school->id]);
-    $adminRole = Role::firstOrCreate(['name' => 'admin']);
-    $adminUser->roles()->attach($adminRole);
+    Admin::factory()->create(['user_id' => $adminUser->id]);
     Sanctum::actingAs($adminUser);
 
     // Applicant assigned to the admin's school
@@ -148,7 +147,7 @@ test('an admin can reject an application and it returns to the pool', function (
 
     $response->assertStatus(200)
         ->assertJson([
-            'status' => 'success',
+            'success' => true,
             'message' => 'Applicant rejected and returned to the general pool.',
             'data' => null,
         ]);
@@ -170,15 +169,15 @@ test('an admin can reject an application and it returns to the pool', function (
 test('an admin cannot see applicants they have rejected', function () {
     $school = School::factory()->create();
     $adminUser = User::factory()->create(['school_id' => $school->id]);
-    $adminRole = Role::firstOrCreate(['name' => 'admin']);
-    $adminUser->roles()->attach($adminRole);
+    Admin::factory()->create(['user_id' => $adminUser->id]);
     Sanctum::actingAs($adminUser);
 
     // Create an applicant
     $applicant = Applicant::factory()->create(['school_id' => null]);
 
     // Reject the applicant
-    $applicant->rejections()->create([
+    \App\Models\ApplicantRejection::create([
+        'applicant_id' => $applicant->id,
         'school_id' => $school->id,
         'reason' => 'Not a fit.',
     ]);

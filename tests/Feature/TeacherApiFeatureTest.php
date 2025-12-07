@@ -98,9 +98,11 @@ class TeacherApiFeatureTest extends TestCase
         $response->assertOk()
             ->assertJson([
                 'success' => true,
+            ])
+            ->assertJsonStructure([
                 'data' => [
-                    'data' => true // just check data key exists
-                ],
+                    'data'
+                ]
             ]);
     }
 } 

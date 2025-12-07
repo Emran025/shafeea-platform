@@ -24,6 +24,8 @@ class ApplicantSubmissionController extends ApiController
         }
 
         $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
             'application_type' => 'required|in:teacher,student',
             'bio' => 'required|string',
             'qualifications' => 'required|string',
@@ -38,6 +40,8 @@ class ApplicantSubmissionController extends ApiController
 
         $applicant = Applicant::create([
             'user_id' => $user->id,
+            'name' => $request->name,
+            'email' => $request->email,
             'application_type' => $request->application_type,
             'bio' => $request->bio,
             'qualifications' => $request->qualifications,

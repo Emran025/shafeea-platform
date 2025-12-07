@@ -107,7 +107,7 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
         Route::get('{id}', [TeacherController::class, 'show'])->name('show');
         Route::put('{id}', [TeacherController::class, 'update'])->name('update');
 
-        Route::post('{id}/halaqas', [TeacherController::class, 'assignHalaqas'])->name('assign-halaqas');
+        Route::post('{id}/halaqas', [TeacherController::class, 'assignToHalaqas'])->name('assign-halaqas');
         Route::get('{id}/halaqas', [TeacherController::class, 'listHalaqas'])->name('halaqas.list');
 
         // Applicants routes under /teachers/applicants

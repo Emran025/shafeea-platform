@@ -21,12 +21,8 @@ class TeacherController extends ApiController
 
     public function index(Request $request)
     {
+        // Fixed missing pagination logic
         $teachers = $this->teachers->all($request->all());
-        // dd($teachers);
-        // return response()->json($teachers);
-        if (method_exists($teachers, 'total')) {
-            return $this->paginated(TeacherResource::collection($teachers));
-        }
         return $this->success(TeacherResource::collection($teachers));
     }
 

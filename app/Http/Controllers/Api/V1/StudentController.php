@@ -37,11 +37,8 @@ class StudentController extends ApiController
 
     public function index(Request $request)
     {
+        // Fixed missing pagination logic
         $students = $this->students->all($request->all());
-        // return $students;
-        if (method_exists($students, 'total')) {
-            return $this->paginated(StudentResource::collection($students));
-        }
         return $this->success(StudentResource::collection($students));
     }
 

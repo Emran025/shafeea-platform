@@ -2,7 +2,7 @@
 
 use App\Models\{User, Student, Teacher, Admin, School, Role, Permission, Halaqah, Enrollment, Plan, FrequencyType, Tracking, TrackingDetail, TrackingType, TrackingUnit, Unit};
 
-it('user has student, teacher, admin, school, roles, and permissions', function () {
+test('user has student, teacher, admin, school, roles, and permissions', function () {
     $school = School::factory()->create();
     $user = User::factory()->for($school)->create();
 
@@ -24,7 +24,7 @@ it('user has student, teacher, admin, school, roles, and permissions', function 
     expect($user->permissions)->toHaveCount(3);
 });
 
-it('school has users and halaqahs', function () {
+test('school has users and halaqahs', function () {
     $school = School::factory()->create();
     $users = User::factory()->count(2)->for($school)->create();
     $halaqahs = Halaqah::factory()->count(3)->for($school)->create();
@@ -33,7 +33,7 @@ it('school has users and halaqahs', function () {
     expect($school->halaqahs)->toHaveCount(3);
 });
 
-it('teacher has halaqahs', function () {
+test('teacher has halaqahs', function () {
     $teacher = Teacher::factory()->create();
     $halaqahs = Halaqah::factory()->count(2)->create();
     $teacher->halaqahs()->attach($halaqahs);
@@ -41,41 +41,49 @@ it('teacher has halaqahs', function () {
     expect($teacher->halaqahs)->toHaveCount(2);
 });
 
-it('halaqah has enrollments, school, and teachers', function () {
+test('halaqah has enrollments, school, and teachers', function () {
     $teacher = Teacher::factory()->create();
     $school = School::factory()->create();
     $halaqah = Halaqah::factory()->for($school)->create();
     $halaqah->teachers()->attach($teacher);
 
-
     $student = Student::factory()->create();
+    $enrollments = Enrollment::factory()->count(3)->for($halaqah)->for($student)->create();
+
+    // Attach a plan to each enrollment
     $plan = Plan::factory()->create();
-    Enrollment::factory()->count(3)->for($halaqah)->for($student)->for($plan)->create();
+    foreach ($enrollments as $enrollment) {
+        $enrollment->plans()->attach($plan->id, ['is_current' => true]);
+    }
 
     expect($halaqah->teachers->first())->toBeInstanceOf(Teacher::class);
     expect($halaqah->school)->toBeInstanceOf(School::class);
     expect($halaqah->enrollments)->toHaveCount(3);
 });
 
-it('plan has frequency type and trackings', function () {
+test('plan has frequency type and trackings', function () {
     $frequency = FrequencyType::factory()->create();
     $plan = Plan::factory()->for($frequency)->create();
-    Tracking::factory()->count(2)->for($plan)->create();
+    $enrollment = Enrollment::factory()->create();
+    $enrollment->plans()->attach($plan->id, ['is_current' => true]);
 
+    Tracking::factory()->count(2)->for($enrollment)->create();
+
+    // Since tracking is through enrollment, we check the count on the enrollment
     expect($plan->frequencyType)->toBeInstanceOf(FrequencyType::class);
-    expect($plan->trackings)->toHaveCount(2);
+    expect($enrollment->trackings)->toHaveCount(2);
 });
 
-it('tracking has tracking details', function () {
-    $plan = Plan::factory()->create();
-    $tracking = Tracking::factory()->for($plan)->create();
+test('tracking has tracking details', function () {
+    $enrollment = Enrollment::factory()->create();
+    $tracking = Tracking::factory()->for($enrollment)->create();
 
     TrackingDetail::factory()->count(2)->for($tracking)->create();
 
     expect($tracking->trackingDetails)->toHaveCount(2);
 });
 
-it('tracking detail links to tracking unit, type and unit', function () {
+test('tracking detail links to tracking unit, type and unit', function () {
     $unit = Unit::factory()->create();
     $trackingUnit1 = TrackingUnit::factory()->for($unit)->create();
     $trackingUnit2 = TrackingUnit::factory()->for($unit)->create();

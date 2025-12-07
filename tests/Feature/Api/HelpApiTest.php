@@ -12,14 +12,15 @@ use function Pest\Laravel\putJson;
 use function Pest\Laravel\deleteJson;
 use function Pest\Laravel\actingAs;
 
+use App\Models\Admin;
+
 beforeEach(function () {
     // Create a regular user
     $this->user = User::factory()->create();
 
-    // Create an admin user
+    // Create an admin user correctly
     $this->admin = User::factory()->create();
-    $adminRole = Role::create(['name' => 'admin']);
-    $this->admin->roles()->attach($adminRole);
+    Admin::factory()->create(['user_id' => $this->admin->id]);
 
     // Create a FAQ category
     $this->category = FaqCategory::factory()->create(['is_active' => true]);

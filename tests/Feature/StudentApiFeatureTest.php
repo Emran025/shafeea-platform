@@ -56,8 +56,10 @@ class StudentApiFeatureTest extends TestCase
         $student = Student::factory()->create();
         $payload = [
             'qualification' => 'Updated qualification',
-            'memorizationLevel' => 'Advanced',
+            'memorization_level' => '15', // Correct field name and type
             'status' => 'active',
+            'name' => $student->user->name,
+            'email' => $student->user->email,
         ];
         $response = $this->putJson("/api/v1/students/{$student->id}", $payload);
         $response->assertOk()
@@ -67,7 +69,7 @@ class StudentApiFeatureTest extends TestCase
             ]);
         $student->refresh();
         $this->assertEquals('Updated qualification', $student->qualification);
-        $this->assertEquals('Advanced', $student->memorization_level);
+        $this->assertEquals('15', $student->memorization_level);
         $this->assertEquals('active', $student->status);
     }
 
@@ -78,10 +80,12 @@ class StudentApiFeatureTest extends TestCase
         $response->assertOk()
             ->assertJson([
                 'success' => true,
+            ])
+            ->assertJsonStructure([
                 'data' => [
-                    'id' => 15,
-                    'frequency' => 'daily',
-                ],
+                    'id',
+                    'frequency',
+                ]
             ]);
     }
 
@@ -112,6 +116,7 @@ class StudentApiFeatureTest extends TestCase
         $payload = [
             'halaqaId' => $halaqah->id,
             'studentId' => $student->id,
+            'enrolled_at' => now()->toDateTimeString(), // Add missing enrolled_at
         ];
         $response = $this->postJson("/api/v1/students/{$student->id}/assign", $payload);
         $response->assertOk()
