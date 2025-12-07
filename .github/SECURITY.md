@@ -1,15 +1,15 @@
 # 🛡️ Security Policy
 
-The security of the **Taj Al Waqar** project is our highest priority. We deeply appreciate the efforts of security researchers and the community to help us keep our project safe. 🫶
+The security of the **Shafeea** project is our highest priority. We deeply appreciate the efforts of security researchers and the community to help us keep our project safe. 🫶
 
 ## ✅ Supported Versions
 
 We are committed to providing security updates for the following versions. Please ensure you are using a supported version before reporting.
 
-| Version   | Supported          |
-| :-------- | :----------------- |
-| **1.x**   | ✅                 |
-| **< 1.0** | ❌                 |
+| Version   | Supported |
+| :-------- | :-------- |
+| **1.x**   | ✅        |
+| **< 1.0** | ❌        |
 
 ---
 
@@ -30,10 +30,10 @@ To report a vulnerability, please send a detailed email to **Saher Qaid** at:
 
 To help us resolve the issue as quickly as possible, please include the following in your report:
 
-* 📝 **A detailed description** of the vulnerability and its potential impact.
-* 🪜 **Clear, step-by-step instructions** to reproduce the vulnerability.
-* 🧪 **Any proof-of-concept (PoC) code**, screenshots, or videos that demonstrate the issue.
-* 🏷️ **The version of the project** you were using when you discovered the vulnerability.
+- 📝 **A detailed description** of the vulnerability and its potential impact.
+- 🪜 **Clear, step-by-step instructions** to reproduce the vulnerability.
+- 🧪 **Any proof-of-concept (PoC) code**, screenshots, or videos that demonstrate the issue.
+- 🏷️ **The version of the project** you were using when you discovered the vulnerability.
 
 ### ⏳ What to Expect (Our Process)
 
@@ -48,10 +48,10 @@ After you submit your report, here is what you can expect from us:
 ## ❓ FAQ
 
 - **Q: Can I get credit for reporting a vulnerability?**
-  - A: Absolutely! We love to recognize and thank our security contributors (unless you prefer to remain anonymous).
+    - A: Absolutely! We love to recognize and thank our security contributors (unless you prefer to remain anonymous).
 - **Q: What if I have a question about security but it's not a vulnerability?**
-  - A: Please reach out via email or open a private discussion.
+    - A: Please reach out via email or open a private discussion.
 
 ---
 
-Thank you for helping keep **Taj Al Waqar** and its users safe. We truly appreciate your contribution! 🙏
+Thank you for helping keep **Shafeea** and its users safe. We truly appreciate your contribution! 🙏
