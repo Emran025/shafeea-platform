@@ -61,14 +61,14 @@ By integrating distinct portals for **Supervisors**, **Teachers**, and **Student
 
 The platform is constructed upon a modern, monolithic architecture designed for reliability and maintainability.
 
-| Component             | Specification         | Purpose                                                  |
-| :-------------------- | :-------------------- | :------------------------------------------------------- |
-| **Backend Framework** | Laravel 12            | Provides robust API routing, ORM, and queue management.  |
-| **Language**          | PHP 8.2+              | Utilizes strict typing and latest engine optimizations.  |
-| **Frontend**          | Tailwind CSS / Vue.js | Ensures a responsive, component-based user interface.    |
-| **Database**          | MySQL / PostgreSQL    | Manages relational data with high integrity constraints. |
-| **Testing Suite**     | Pest                  | Delivers expressive syntax for unit and feature testing. |
-| **Web Server**        | Nginx / Apache        | Handles HTTP requests and load balancing.                |
+| Component             | Specification                                     | Purpose                                                     |
+| :-------------------- | :------------------------------------------------ | :---------------------------------------------------------- |
+| **Backend Framework** | Laravel 12                                        | Provides robust API routing, ORM, and queue management.     |
+| **Language**          | PHP 8.2+                                          | Utilizes strict typing and latest engine optimizations.     |
+| **Frontend**          | React 19 + TypeScript + Tailwind CSS + Inertia.js | Modern component-based SPA integrated with Laravel backend. |
+| **Database**          | MySQL / PostgreSQL                                | Manages relational data with high integrity constraints.    |
+| **Testing Suite**     | Pest                                              | Delivers expressive syntax for unit and feature testing.    |
+| **Web Server**        | Nginx / Apache                                    | Handles HTTP requests and load balancing.                   |
 
 ## Getting Started
 
