@@ -10,9 +10,11 @@ export default function Apply() {
     const { data, setData, post, errors, processing } = useForm({
         name: '',
         email: '',
+        password: '',
+        password_confirmation: '',
         bio: '',
-        qualifications: '',
-        intent_statement: '',
+        qualifications: null as File | null,
+        intent_statement: null as File | null,
         memorization_level: 0,
     });
 
@@ -54,6 +56,27 @@ export default function Apply() {
                                 {errors.email && <div className="text-red-500 mt-2">{errors.email}</div>}
                             </div>
                             <div>
+                                <Label htmlFor="password">Password</Label>
+                                <Input
+                                    id="password"
+                                    type="password"
+                                    value={data.password}
+                                    onChange={(e) => setData('password', e.target.value)}
+                                    className="mt-1 block w-full"
+                                />
+                                {errors.password && <div className="text-red-500 mt-2">{errors.password}</div>}
+                            </div>
+                            <div>
+                                <Label htmlFor="password_confirmation">Confirm Password</Label>
+                                <Input
+                                    id="password_confirmation"
+                                    type="password"
+                                    value={data.password_confirmation}
+                                    onChange={(e) => setData('password_confirmation', e.target.value)}
+                                    className="mt-1 block w-full"
+                                />
+                            </div>
+                            <div>
                                 <Label htmlFor="bio">Bio</Label>
                                 <Textarea
                                     id="bio"
@@ -65,20 +88,20 @@ export default function Apply() {
                             </div>
                             <div>
                                 <Label htmlFor="qualifications">Qualifications</Label>
-                                <Textarea
+                                <Input
                                     id="qualifications"
-                                    value={data.qualifications}
-                                    onChange={(e) => setData('qualifications', e.target.value)}
+                                    type="file"
+                                    onChange={(e) => setData('qualifications', e.target.files ? e.target.files[0] : null)}
                                     className="mt-1 block w-full"
                                 />
                                 {errors.qualifications && <div className="text-red-500 mt-2">{errors.qualifications}</div>}
                             </div>
                             <div>
                                 <Label htmlFor="intent_statement">Statement of Intent</Label>
-                                <Textarea
+                                <Input
                                     id="intent_statement"
-                                    value={data.intent_statement}
-                                    onChange={(e) => setData('intent_statement', e.target.value)}
+                                    type="file"
+                                    onChange={(e) => setData('intent_statement', e.target.files ? e.target.files[0] : null)}
                                     className="mt-1 block w-full"
                                 />
                                 {errors.intent_statement && <div className="text-red-500 mt-2">{errors.intent_statement}</div>}

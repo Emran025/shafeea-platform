@@ -8,7 +8,7 @@ import SiteLayout from '@/layouts/site-layout';
 export default function Apply() {
     const { data, setData, post, errors, processing } = useForm({
         name: '',
-        logo: '',
+        logo: null as File | null,
         phone: '',
         country: '',
         city: '',
@@ -48,11 +48,11 @@ export default function Apply() {
                                 {errors.name && <div className="text-red-500 mt-2">{errors.name}</div>}
                             </div>
                             <div>
-                                <Label htmlFor="logo">Logo URL</Label>
+                                <Label htmlFor="logo">Logo</Label>
                                 <Input
                                     id="logo"
-                                    value={data.logo}
-                                    onChange={(e) => setData('logo', e.target.value)}
+                                    type="file"
+                                    onChange={(e) => setData('logo', e.target.files ? e.target.files[0] : null)}
                                     className="mt-1 block w-full"
                                 />
                                 {errors.logo && <div className="text-red-500 mt-2">{errors.logo}</div>}
