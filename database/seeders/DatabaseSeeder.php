@@ -3145,9 +3145,9 @@ class DatabaseSeeder extends Seeder
                 'details' => [
                     [
 
-                        'tracking_type_id' => 551,
-                        'from_tracking_unit_id' => 553,
-                        'to_tracking_unit_id' => 285,
+                        'tracking_type_id' => 1,
+                        'from_tracking_unit_id' => 551,
+                        'to_tracking_unit_id' => 553,
                         'actual_amount' => 1,
                         'comment' => 'حفظ جيد.',
                         'score' => 4,

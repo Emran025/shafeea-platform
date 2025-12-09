@@ -470,6 +470,8 @@ class ApplicantSeeder extends Seeder
 
             Applicant::create([
                 'user_id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
                 'school_id' => $user->school_id,
                 'application_type' => $applicantData['application_type'],
                 'status' => $applicantData['status'],
