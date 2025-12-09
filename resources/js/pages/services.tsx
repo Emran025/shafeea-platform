@@ -497,7 +497,7 @@ export default function Services() {
             </section>
 
             {/* Additional Features */}
-            <section className="py-16 bg-muted/10">
+            <section className="py-24 bg-white dark:bg-gray-950 animate-fade-in-up">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-12">
                         <Badge className="mb-4 bg-secondary text-primary hover:bg-secondary/80 border border-border">
@@ -533,95 +533,103 @@ export default function Services() {
             {/* Pricing Plans - Redesigned Modern Look */}
             <section className="py-24 relative overflow-hidden">
                 {/* Background Decor */}
-                <div className="absolute inset-0 bg-muted/30 -skew-y-3 transform origin-top-left z-0"></div>
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-3xl -z-10 pointer-events-none"></div>
+                <div className="absolute inset-0 bg-muted/30 dark:bg-black/20 -skew-y-3 transform origin-top-left z-0"></div>
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 dark:bg-primary/10 rounded-full blur-3xl -z-10 pointer-events-none"></div>
 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                     <div className="text-center mb-16">
-                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-border shadow-sm mb-6 text-primary font-medium text-sm">
+                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white dark:bg-white/5 border border-border dark:border-white/10 shadow-sm mb-6 text-primary font-medium text-sm backdrop-blur-sm">
                             <TrendingUp className="w-4 h-4" />
                             <span>استثمار ذكي لمستقبل أفضل</span>
                         </div>
                         <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-6 tracking-tight">
-                            باقات مصممة لتناسب <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-600">احتياجاتكم</span>
+                            باقات مصممة لتناسب <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-600 dark:to-blue-400">احتياجاتكم</span>
                         </h2>
                         <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
                             اختر الباقة التي تناسب حجم مؤسستك، وابدأ رحلة التحول الرقمي مع شفيع بكل يسر وسهولة.
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-center">
                         {pricingPlans.map((plan, index) => (
                             <div 
                                 key={index} 
                                 className={`relative group transition-all duration-300 ${
                                     plan.recommended 
-                                    ? 'z-10 -mt-4 mb-4 md:-mt-8 md:mb-0' 
+                                    ? 'z-10 -mt-4 mb-4 md:-mt-6 md:mb-0' 
                                     : 'hover:-translate-y-2'
                                 }`}
                             >
-                                {/* Glow Effect for Recommended */}
+                                {/* Glow Effect for Recommended - Adjusted for Dark Mode */}
                                 {plan.recommended && (
-                                    <div className="absolute -inset-[2px] bg-gradient-to-r from-primary via-blue-500 to-primary rounded-2xl opacity-75 blur-sm group-hover:opacity-100 transition duration-500"></div>
+                                    <div className="absolute -inset-[2px] bg-gradient-to-r from-primary via-blue-500 to-primary rounded-2xl opacity-75 dark:opacity-50 blur-sm group-hover:opacity-100 transition duration-500"></div>
                                 )}
 
-                                <Card className={`h-full relative overflow-hidden border-0 ${
+                                <Card className={`h-full relative overflow-hidden ${
                                     plan.recommended 
-                                        ? 'bg-card shadow-2xl rounded-xl' 
-                                        : 'bg-white/50 backdrop-blur-sm border border-border/60 hover:border-primary/30 shadow-lg hover:shadow-xl rounded-xl'
+                                        ? 'bg-card dark:bg-[#0d1b2a] shadow-2xl rounded-xl border-0 dark:border dark:border-primary/50' // Dark mode specific background for recommended
+                                        : 'bg-white/50 dark:bg-gray-900/40 backdrop-blur-md border border-border/60 dark:border-white/10 shadow-lg hover:shadow-xl rounded-xl' // Dark mode glass effect for others
                                 }`}>
                                     {plan.recommended && (
                                         <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-primary to-blue-600"></div>
                                     )}
 
                                     {plan.recommended && (
-                                        <div className="absolute top-4 left-4">
-                                            <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-primary/10 text-primary border border-primary/20">
-                                                <Star className="w-3 h-3 ml-1 fill-primary" />
+                                        <div className="absolute top-3 left-3">
+                                            <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-primary/10 text-primary border border-primary/20 dark:bg-primary/20 dark:text-white">
+                                                <Star className="w-3 h-3 ml-1 fill-primary dark:fill-white" />
                                                 الأكثر طلباً
                                             </span>
                                         </div>
                                     )}
 
-                                    <CardHeader className={`text-center pb-8 pt-10 ${plan.recommended ? 'bg-muted/30' : ''}`}>
-                                        <h3 className={`text-xl font-bold mb-2 ${plan.recommended ? 'text-primary' : 'text-foreground'}`}>
+                                    {/* Header Section */}
+                                    <CardHeader className={`text-center pb-4 pt-8 ${
+                                        plan.recommended 
+                                            ? 'bg-muted/30 dark:bg-white/5' // Better contrast in dark mode
+                                            : ''
+                                    }`}>
+                                        <h3 className={`text-lg font-bold mb-2 ${plan.recommended ? 'text-primary dark:text-blue-400' : 'text-foreground'}`}>
                                             {plan.name}
                                         </h3>
-                                        <div className="flex items-baseline justify-center gap-1 mb-4">
-                                            <span className="text-5xl font-extrabold text-foreground tracking-tight">{plan.price}</span>
-                                            <div className="flex flex-col items-start text-xs text-muted-foreground font-medium">
+                                        <div className="flex items-baseline justify-center gap-1 mb-2">
+                                            <span className="text-4xl font-extrabold text-foreground tracking-tight">{plan.price}</span>
+                                            <div className="flex flex-col items-start text-[10px] text-muted-foreground font-medium">
                                                 <span>ريال</span>
                                                 <span>{plan.period}</span>
                                             </div>
                                         </div>
-                                        <p className="text-sm text-muted-foreground px-4">
+                                        <p className="text-xs text-muted-foreground px-2">
                                             {plan.description}
                                         </p>
                                     </CardHeader>
                                     
-                                    <div className="px-6 py-2">
-                                        <div className="w-full h-px bg-border/50"></div>
+                                    <div className="px-4 py-0">
+                                        <div className="w-full h-px bg-border/50 dark:bg-white/10"></div>
                                     </div>
 
-                                    <CardContent className="pt-6 pb-8 px-8">
-                                        <ul className="space-y-4 mb-8">
+                                    {/* Content Section */}
+                                    <CardContent className="pt-4 pb-6 px-5">
+                                        <ul className="space-y-3 mb-6">
                                             {plan.features.map((feature, featureIndex) => (
-                                                <li key={featureIndex} className="flex items-start gap-3 text-sm">
-                                                    <div className={`mt-0.5 w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 ${
-                                                        plan.recommended ? 'bg-primary text-white' : 'bg-secondary text-primary'
+                                                <li key={featureIndex} className="flex items-start gap-2 text-xs">
+                                                    <div className={`mt-0.5 w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0 ${
+                                                        plan.recommended 
+                                                            ? 'bg-primary text-white' 
+                                                            : 'bg-secondary text-primary dark:bg-white/10 dark:text-blue-400'
                                                     }`}>
-                                                        <CheckCircle className="w-3.5 h-3.5" />
+                                                        <CheckCircle className="w-3 h-3" />
                                                     </div>
-                                                    <span className="text-foreground/80">{feature}</span>
+                                                    <span className="text-foreground/80 dark:text-gray-300 leading-snug">{feature}</span>
                                                 </li>
                                             ))}
                                         </ul>
                                         
                                         <Button 
-                                            className={`w-full h-12 text-base font-semibold transition-all duration-300 ${
+                                            className={`w-full h-10 text-sm font-semibold transition-all duration-300 ${
                                                 plan.recommended 
                                                     ? 'bg-primary text-white hover:bg-primary/90 shadow-lg shadow-primary/25 hover:shadow-primary/40' 
-                                                    : 'bg-white border-2 border-muted hover:border-primary hover:text-primary text-muted-foreground'
+                                                    : 'bg-white dark:bg-white/5 border-2 border-muted dark:border-white/10 hover:border-primary dark:hover:border-primary hover:text-primary dark:hover:text-white text-muted-foreground dark:text-gray-400'
                                             }`}
                                             asChild
                                         >
@@ -636,14 +644,14 @@ export default function Services() {
                     </div>
 
                     <div className="mt-16 text-center">
-                        <div className="inline-block p-1 rounded-2xl bg-white border border-border shadow-sm">
-                            <div className="flex flex-col sm:flex-row items-center gap-6 px-8 py-6 rounded-xl bg-muted/20">
+                        <div className="inline-block p-1 rounded-2xl bg-white dark:bg-gray-900 border border-border dark:border-white/10 shadow-sm">
+                            <div className="flex flex-col sm:flex-row items-center gap-6 px-8 py-6 rounded-xl bg-muted/20 dark:bg-white/5">
                                 <div className="text-right">
                                     <h4 className="font-bold text-foreground text-lg mb-1">مؤسسة تعليمية كبرى؟</h4>
                                     <p className="text-muted-foreground text-sm">لدينا حلول مخصصة للجمعيات والمجمعات الكبيرة</p>
                                 </div>
-                                <div className="h-10 w-px bg-border hidden sm:block"></div>
-                                <Button variant="outline" asChild className="border-primary text-primary hover:bg-primary hover:text-white transition-all">
+                                <div className="h-10 w-px bg-border dark:bg-white/10 hidden sm:block"></div>
+                                <Button variant="outline" asChild className="border-primary text-primary hover:bg-primary hover:text-white dark:border-blue-400 dark:text-blue-400 dark:hover:bg-blue-600 dark:hover:text-white transition-all">
                                     <Link href="/contact">
                                         <MessageCircle className="w-4 h-4 ml-2" />
                                         تواصل معنا لعرض خاص
@@ -654,7 +662,6 @@ export default function Services() {
                     </div>
                 </div>
             </section>
-
             {/* CTA Section */}
             <section className="py-16 gradient-primary">
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">

@@ -413,7 +413,7 @@ export default function Welcome() {
                 </section>
 
                 {/* Call to Action Section */}
-                <section className="py-24 bg-gray-50 dark:bg-gray-800">
+                <section className="py-24 bg-white dark:bg-gray-950 animate-fade-in-up">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                         <div className="max-w-4xl mx-auto">
                             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
