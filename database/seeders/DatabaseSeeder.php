@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             PrivacyPolicySeeder::class,
             TermsOfUseSeeder::class,
             ApplicantSeeder::class,
+            DocumentSeeder::class,
         ]);
     }
     function seedSystemData(): void

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTeacherApplicationRequest;
 use App\Models\Applicant;
+use App\Models\Document;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -21,22 +22,31 @@ class TeacherApplicationController extends Controller
     public function store(StoreTeacherApplicationRequest $request)
     {
         DB::transaction(function () use ($request) {
-            $teacherName = $request->name;
-            $qualificationsPath = $request->file('qualifications')->store("teachers/{$teacherName}/qualifications");
-            $intentStatementPath = $request->file('intent_statement')->store("teachers/{$teacherName}/intent_statements");
-
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
             ]);
 
+            foreach ($request->documents as $doc) {
+                $filePath = $doc['file']->store('public/documents');
+
+                Document::create([
+                    'user_id' => $user->id,
+                    'name' => $doc['name'],
+                    'certificate_type' => $doc['certificate_type'],
+                    'certificate_type_other' => $doc['certificate_type_other'] ?? null,
+                    'riwayah' => $doc['riwayah'] ?? null,
+                    'issuing_place' => $doc['issuing_place'] ?? null,
+                    'issuing_date' => $doc['issuing_date'] ?? null,
+                    'file_path' => $filePath,
+                ]);
+            }
+
             Applicant::create([
                 'user_id' => $user->id,
                 'application_type' => 'teacher',
                 'bio' => $request->bio,
-                'qualifications' => $qualificationsPath,
-                'intent_statement' => $intentStatementPath,
                 'memorization_level' => $request->memorization_level,
                 'submitted_at' => now(),
             ]);

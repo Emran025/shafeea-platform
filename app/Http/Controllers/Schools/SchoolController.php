@@ -69,6 +69,23 @@ class SchoolController extends Controller
     {
         $school = School::create($request->validated());
 
+        if ($request->has('documents')) {
+            foreach ($request->documents as $doc) {
+                $filePath = $doc['file']->store('public/documents');
+
+                Document::create([
+                    'user_id' => auth()->id(),
+                    'name' => $doc['name'],
+                    'certificate_type' => $doc['certificate_type'],
+                    'certificate_type_other' => $doc['certificate_type_other'] ?? null,
+                    'riwayah' => $doc['riwayah'] ?? null,
+                    'issuing_place' => $doc['issuing_place'] ?? null,
+                    'issuing_date' => $doc['issuing_date'] ?? null,
+                    'file_path' => $filePath,
+                ]);
+            }
+        }
+
         return redirect()
             ->route('schools.show', $school)
             ->with('success', 'School created successfully.');
