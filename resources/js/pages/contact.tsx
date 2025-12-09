@@ -111,7 +111,7 @@ export default function Contact() {
 
     if (isSubmitted) {
         return (
-            <SiteLayout title="تم إرسال رسالتك">
+            <SiteLayout>
                 <Head title="تم إرسال رسالتك - شفيع" />
                 <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
                     <Card className="p-8 max-w-md mx-auto text-center">
@@ -134,7 +134,7 @@ export default function Contact() {
     }
 
     return (
-        <SiteLayout title="تواصل معنا">
+        <SiteLayout>
             <Head title="تواصل معنا - شفيع" />
 
             {/* Hero Section */}

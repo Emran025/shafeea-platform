@@ -227,7 +227,7 @@ export default function Privacy() {
     ];
 
     return (
-        <SiteLayout title="سياسة الخصوصية">
+        <SiteLayout>
             <Head title="سياسة الخصوصية - شفيع" />
 
             {/* Hero Section */}

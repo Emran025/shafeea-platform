@@ -21,42 +21,57 @@ export default function Welcome() {
     return (
         <>
             <SiteLayout>
-
-
                 {/* Hero Section */}
-                <main className="relative overflow-hidden bg-gradient-primary text-white shadow-lg scale-105">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-24">
+                <main className="relative overflow-hidden gradient-hero text-white shadow-lg scale-105">
+                    
+                    {/* Background Overlays & Noise */}
+                    <div className="absolute inset-0 pointer-events-none">
+                        {/* 
+                            طبقة التعتيم الذكية:
+                            - شفافة في النهار (تظهر ألوان التيل/الزيتي)
+                            - سوداء نصف شفافة في الليل (لتعطي السواد الفخم القاتل)
+                        */}
+                        <div className="absolute inset-0 bg-transparent dark:bg-black/40 transition-colors duration-300"></div>
+                        
+                        {/* تأثير الضجيج (Noise) لتوحيد الملمس */}
+                        <div className="absolute inset-0 opacity-20 mix-blend-overlay">
+                             <div className="absolute top-0 left-0 w-full h-full bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20"></div>
+                        </div>
+                    </div>
+
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-24 relative z-10">
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                             <div className="text-center lg:text-right">
-                                <Badge className="mb-6 bg-blue-50 text-blue-700 hover:bg-blue-100 dark:bg-blue-900/20 dark:text-blue-300 inline-flex items-center gap-2">
-                                    <Star className="w-4 h-4" />
+                                <Badge className="mb-6 bg-white/10 text-white hover:bg-white/20 border border-white/20 backdrop-blur-md inline-flex items-center gap-2 shadow-sm">
+                                    <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
                                     المنصة الرائدة في إدارة الحلقات القرآنية
                                 </Badge>
-                                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
-                                    <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 bg-clip-text text-transparent">
+                                
+                                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight drop-shadow-sm">
+                                    <span className="bg-gradient-to-r from-blue-200 via-purple-200 to-emerald-200 bg-clip-text text-transparent">
                                         شفيع
                                     </span>
                                     <br />
-                                    <span className="text-gray-700 dark:text-gray-200">
+                                    <span className="text-gray-50">
                                         مستقبل التعليم القرآني
                                     </span>
                                 </h1>
-                                <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                                <p className="text-xl text-blue-50/90 mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-light">
                                     منصة متطورة ومتكاملة تجمع بين التقنية الحديثة والتراث الإسلامي لتقديم تجربة تعليمية قرآنية استثنائية تناسب العصر الرقمي
                                 </p>
 
-                                {/* Features Preview */}
+                                {/* Features Preview: */}
                                 <div className="flex flex-wrap justify-center lg:justify-start gap-4 mb-8">
-                                    <div className="flex items-center gap-2 bg-white dark:bg-gray-800 px-4 py-2 rounded-full shadow-sm border border-gray-200 dark:border-gray-700">
-                                        <CheckCircle className="w-4 h-4 text-emerald-600" />
+                                    <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full shadow-sm border border-white/10 text-white hover:bg-white/20 transition-colors">
+                                        <CheckCircle className="w-4 h-4 text-emerald-400" />
                                         <span className="text-sm font-medium">إدارة ذكية</span>
                                     </div>
-                                    <div className="flex items-center gap-2 bg-white dark:bg-gray-800 px-4 py-2 rounded-full shadow-sm border border-gray-200 dark:border-gray-700">
-                                        <CheckCircle className="w-4 h-4 text-emerald-600" />
+                                    <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full shadow-sm border border-white/10 text-white hover:bg-white/20 transition-colors">
+                                        <CheckCircle className="w-4 h-4 text-emerald-400" />
                                         <span className="text-sm font-medium">تقارير متقدمة</span>
                                     </div>
-                                    <div className="flex items-center gap-2 bg-white dark:bg-gray-800 px-4 py-2 rounded-full shadow-sm border border-gray-200 dark:border-gray-700">
-                                        <CheckCircle className="w-4 h-4 text-emerald-600" />
+                                    <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full shadow-sm border border-white/10 text-white hover:bg-white/20 transition-colors">
+                                        <CheckCircle className="w-4 h-4 text-emerald-400" />
                                         <span className="text-sm font-medium">أمان عالي</span>
                                     </div>
                                 </div>
@@ -68,10 +83,10 @@ export default function Welcome() {
                         </div>
                     </div>
 
-                    {/* Background Decorations */}
+                    {/* Background Decorations: */}
                     <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-                        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-gradient-to-br from-blue-200/20 to-emerald-200/20 rounded-full blur-3xl"></div>
-                        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-br from-purple-200/15 to-pink-200/15 rounded-full blur-3xl"></div>
+                        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-500/20 rounded-full blur-3xl mix-blend-screen animate-pulse"></div>
+                        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl mix-blend-screen animate-pulse delay-700"></div>
                     </div>
                 </main>
 

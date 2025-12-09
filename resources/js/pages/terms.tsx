@@ -150,7 +150,7 @@ export default function Terms() {
     ];
 
     return (
-        <SiteLayout title="الشروط والأحكام">
+        <SiteLayout>
             <Head title="الشروط والأحكام - تاج الوقار" />
 
             {/* Hero Section */}

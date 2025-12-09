@@ -37,12 +37,20 @@ export default function SiteLayout({ children }: SiteLayoutProps) {
     const [helpDropdownOpen, setHelpDropdownOpen] = useState(false);
     const [showScrollTop, setShowScrollTop] = useState(false);
     const [isDarkMode, setIsDarkMode] = useState(false);
+    const [currentPath, setCurrentPath] = useState('');
 
     // -- Refs for Click Detection --
     const bePartOfUsDropdownRef = useRef<HTMLDivElement>(null);
     const helpDropdownRef = useRef<HTMLDivElement>(null);
 
     // -- Effects --
+
+    // تحديد الصفحة الحالية
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            setCurrentPath(window.location.pathname);
+        }
+    }, []);
 
     /**
      * Handle clicks outside of dropdowns to close them.
@@ -88,24 +96,48 @@ export default function SiteLayout({ children }: SiteLayoutProps) {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
+    const isActive = (path: string) => currentPath === path;
+
     // -- Data --
 
+    // أعدت الألوان هنا لتكون حيوية
     const navigationItems = [
-        { name: 'الرئيسية', href: '/', icon: Home },
-        { name: 'من نحن', href: '/about', icon: Users },
-        { name: 'خدماتنا', href: '/services', icon: Award },
-        { name: 'تواصل معنا', href: '/contact', icon: Phone },
+        { 
+            name: 'الرئيسية', 
+            href: '/', 
+            icon: Home, 
+            iconColor: 'text-sky-500', 
+        },
+        { 
+            name: 'من نحن', 
+            href: '/about', 
+            icon: Users, 
+            iconColor: 'text-violet-500', 
+
+        },
+        { 
+            name: 'خدماتنا', 
+            href: '/services', 
+            icon: Award, 
+            iconColor: 'text-emerald-500', 
+        },
+        { 
+            name: 'تواصل معنا', 
+            href: '/contact', 
+            icon: Phone, 
+            iconColor: 'text-rose-500', 
+        },
     ];
     
     const bePartOfUs = [
-        { name: 'شارك كمعلم', href: '/teachers/apply', icon: Award ,  description: 'انظم كمعلم وكن جزءا في عملية المساهمة التعليمية لأي مدرسة'},
-        { name: 'انظم كمدرسة', href: '/schools/apply', icon: Award ,  description: 'أضف مدرستك لتستفيد من ميزاتنا الفريدة المتاحة'},
+        { name: 'شارك كمعلم', href: '/teachers/apply', icon: Users, color: 'text-sky-500', description: 'انظم كمعلم وكن جزءا في عملية المساهمة التعليمية'},
+        { name: 'انظم كمدرسة', href: '/schools/apply', icon: Home, color: 'text-emerald-500', description: 'أضف مدرستك لتستفيد من ميزاتنا الفريدة'},
     ];
 
     const helpItems = [
-        { name: 'الأسئلة الشائعة', href: '/faq', icon: BookOpen },
-        { name: 'مركز المساعدة', href: '/help', icon: Award },
-        { name: 'الدعم الفني', href: '/support', icon: Phone },
+        { name: 'الأسئلة الشائعة', href: '/faq', icon: BookOpen, color: 'text-amber-500' },
+        { name: 'مركز المساعدة', href: '/help', icon: Shield, color: 'text-cyan-500' },
+        { name: 'الدعم الفني', href: '/support', icon: Phone, color: 'text-indigo-500' },
     ];
 
     return (
@@ -115,25 +147,25 @@ export default function SiteLayout({ children }: SiteLayoutProps) {
             <div className="gradient-primary text-white py-2 px-4 animate-fade-in">
                 <div className="max-w-7xl mx-auto flex items-center justify-between text-sm">
                     <div className="flex items-center gap-6">
-                        <div className="flex items-center gap-2 hover-scale-sm">
+                        <div className="flex items-center gap-2 hover-scale-sm cursor-pointer">
                             <Phone className="w-4 h-4" />
                             <span>+966 50 123 4567</span>
                         </div>
-                        <div className="flex items-center gap-2 hover-scale-sm">
+                        <div className="flex items-center gap-2 hover-scale-sm cursor-pointer">
                             <Mail className="w-4 h-4" />
                             <span>info@shafeea.com</span>
                         </div>
                     </div>
                     <div className="flex items-center gap-4">
                         <div className="flex items-center gap-2">
-                            <Clock className="w-4 h-4" />
+                            <Clock className="w-4 h-4 text-emerald-300" />
                             <span>دعم 24/7</span>
                         </div>
                         <div className="flex items-center gap-3">
                             <Facebook className="w-4 h-4 hover:text-blue-200 cursor-pointer transition-colors hover-scale-sm" />
-                            <Twitter className="w-4 h-4 hover:text-blue-200 cursor-pointer transition-colors hover-scale-sm" />
-                            <Instagram className="w-4 h-4 hover:text-blue-200 cursor-pointer transition-colors hover-scale-sm" />
-                            <Linkedin className="w-4 h-4 hover:text-blue-200 cursor-pointer transition-colors hover-scale-sm" />
+                            <Twitter className="w-4 h-4 hover:text-sky-200 cursor-pointer transition-colors hover-scale-sm" />
+                            <Instagram className="w-4 h-4 hover:text-pink-200 cursor-pointer transition-colors hover-scale-sm" />
+                            <Linkedin className="w-4 h-4 hover:text-blue-300 cursor-pointer transition-colors hover-scale-sm" />
                         </div>
                     </div>
                 </div>
@@ -146,11 +178,15 @@ export default function SiteLayout({ children }: SiteLayoutProps) {
                         
                         {/* Brand Logo */}
                         <Link href="/" className="flex items-center gap-3 group hover-lift">
-                            <div className="w-12 h-12 gradient-primary rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform duration-300 shadow-lg animate-pulse-glow">
-                                <BookOpen className="w-7 h-7 text-white" />
+                            <div className="bg-white p-1.5 rounded-xl shadow-sm border border-gray-100 group-hover:shadow-md transition-all duration-300">
+                                <img 
+                                    src="logo.png" 
+                                    alt="Shafeea Logo" 
+                                    className="w-10 h-10 object-contain" 
+                                />
                             </div>
                             <div>
-                                <h1 className="text-2xl font-bold text-gradient">
+                                <h1 className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors">
                                     شفيع
                                 </h1>
                                 <p className="text-sm text-muted-foreground">المنصة القرآنية الرائدة</p>
@@ -158,21 +194,32 @@ export default function SiteLayout({ children }: SiteLayoutProps) {
                         </Link>
 
                         {/* Desktop Navigation Menu */}
-                        <nav className="hidden lg:flex items-center gap-8">
+                        <nav className="hidden lg:flex items-center gap-3">
                             {navigationItems.map((item, index) => {
                                 const Icon = item.icon;
+                                const active = isActive(item.href);
+                                
                                 return (
                                     <Link
                                         key={item.name}
                                         href={item.href}
-                                        className="flex items-center gap-2 text-foreground hover:text-primary transition-colors duration-200 font-medium hover-scale-sm animate-fade-in-up"
+                                        className={`
+                                            flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-bold transition-all duration-200 hover-scale-sm
+                                            ${active 
+                                                ? `bg-sky-50 dark:bg-sky-900/20 text-sky-700 dark:text-sky-400 border border-sky-100 dark:border-sky-800 shadow-sm` // هنا التعديل: خلفية ملونة فاتحة وحدود خفيفة
+                                                : 'text-muted-foreground hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-foreground' // حالة عدم النشاط
+                                            }
+                                        `}
                                         style={{ animationDelay: `${index * 100}ms` }}
                                     >
-                                        <Icon className="w-4 h-4" />
+                                        <Icon className={`w-4 h-4 ${active ? 'scale-110' : item.iconColor}`} />
                                         {item.name}
                                     </Link>
                                 );
                             })}
+
+                            {/* Divider */}
+                            <div className="w-px h-6 bg-border mx-1"></div>
 
                             {/* Services Dropdown */}
                             <div 
@@ -182,37 +229,39 @@ export default function SiteLayout({ children }: SiteLayoutProps) {
                             >
                                 <button
                                     onClick={() => setBePartOfUsDropdownOpen(!bePartOfUsDropdownOpen)}
-                                    className="flex items-center gap-2 text-foreground hover:text-primary transition-colors duration-200 font-medium hover-scale-sm"
+                                    className={`
+                                        flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm font-bold transition-all duration-200 hover-scale-sm
+                                        ${bePartOfUsDropdownOpen 
+                                            ? 'bg-orange-50 text-orange-600 border border-orange-100' 
+                                            : 'text-muted-foreground hover:text-foreground hover:bg-gray-50 dark:hover:bg-gray-800'}
+                                    `}
                                 >
-                                    <Settings className="w-4 h-4" />
+                                    <Settings className={`w-4 h-4 ${bePartOfUsDropdownOpen ? 'text-orange-600' : 'text-orange-500'}`} />
                                     انظم إلينا
-                                    <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${bePartOfUsDropdownOpen ? 'rotate-180' : ''}`} />
+                                    <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${bePartOfUsDropdownOpen ? 'rotate-180' : ''}`} />
                                 </button>
                                 
                                 {bePartOfUsDropdownOpen && (
-                                    // FIX: Changed background classes and removed glass-morphism
-                                    <div className="absolute top-full right-0 mt-2 w-64 bg-white dark:bg-gray-950 rounded-xl shadow-xl border border-border py-2 z-50 animate-scale-in">
-                                        <div className="px-4 py-3 border-b border-border">
-
-                                            <h3 className="font-semibold text-foreground">كن جزءًا منا</h3>
-                                            <p className="text-sm text-muted-foreground">ساهم كمعلم أو سجل مدرستك لكون جزءا منها</p>
+                                    <div className="absolute top-full right-0 mt-3 w-72 bg-card rounded-xl shadow-xl border border-border py-2 z-50 animate-scale-in">
+                                        <div className="px-4 py-3 border-b border-border bg-muted/20">
+                                            <h3 className="font-bold text-foreground">كن جزءًا منا</h3>
+                                            <p className="text-xs text-muted-foreground mt-1">ساهم كمعلم أو سجل مدرستك</p>
                                         </div>
-                                        {bePartOfUs.map((joinasType, index) => {
-                                            const Icon = joinasType.icon;
+                                        {bePartOfUs.map((item, index) => {
+                                            const Icon = item.icon;
                                             return (
                                                 <Link
-                                                    key={joinasType.name}
-                                                    href={joinasType.href}
+                                                    key={item.name}
+                                                    href={item.href}
                                                     onClick={() => setBePartOfUsDropdownOpen(false)}
-                                                    className="flex items-start gap-3 px-4 py-3 text-foreground hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-primary transition-colors duration-200 animate-fade-in-up hover-lift"
-                                                    style={{ animationDelay: `${index * 50}ms` }}
+                                                    className="flex items-start gap-3 px-4 py-3 text-foreground hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors duration-200 group"
                                                 >
-                                                    <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                                                        <Icon className="w-5 h-5 text-primary" />
+                                                    <div className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 bg-opacity-10 ${item.color.replace('text-', 'bg-')} group-hover:bg-opacity-20 transition-colors`}>
+                                                        <Icon className={`w-5 h-5 ${item.color}`} />
                                                     </div>
                                                     <div className="flex-1">
-                                                        <span className="font-medium block">{joinasType.name}</span>
-                                                        <span className="text-sm text-muted-foreground">{joinasType.description}</span>
+                                                        <span className={`font-medium block text-sm group-hover:${item.color.split(' ')[0]} transition-colors`}>{item.name}</span>
+                                                        <span className="text-xs text-muted-foreground">{item.description}</span>
                                                     </div>
                                                 </Link>
                                             );
@@ -229,16 +278,20 @@ export default function SiteLayout({ children }: SiteLayoutProps) {
                             >
                                 <button
                                     onClick={() => setHelpDropdownOpen(!helpDropdownOpen)}
-                                    className="flex items-center gap-2 text-foreground hover:text-primary transition-colors duration-200 font-medium hover-scale-sm"
+                                    className={`
+                                        flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm font-bold transition-all duration-200 hover-scale-sm
+                                        ${helpDropdownOpen 
+                                            ? 'bg-purple-50 text-purple-600 border border-purple-100' 
+                                            : 'text-muted-foreground hover:text-foreground hover:bg-gray-50 dark:hover:bg-gray-800'}
+                                    `}
                                 >
-                                    <BookOpen className="w-4 h-4" />
+                                    <BookOpen className={`w-4 h-4 ${helpDropdownOpen ? 'text-purple-600' : 'text-purple-500'}`} />
                                     المساعدة
-                                    <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${helpDropdownOpen ? 'rotate-180' : ''}`} />
+                                    <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${helpDropdownOpen ? 'rotate-180' : ''}`} />
                                 </button>
                                 
                                 {helpDropdownOpen && (
-                                    // FIX: Changed background classes and removed glass-morphism
-                                    <div className="absolute top-full right-0 mt-2 w-64 bg-white dark:bg-gray-950 rounded-xl shadow-xl border border-border py-2 z-50 animate-scale-in">
+                                    <div className="absolute top-full right-0 mt-3 w-60 bg-card rounded-xl shadow-xl border border-border py-2 z-50 animate-scale-in">
                                         {helpItems.map((item, index) => {
                                             const Icon = item.icon;
                                             return (
@@ -246,13 +299,12 @@ export default function SiteLayout({ children }: SiteLayoutProps) {
                                                     key={item.name}
                                                     href={item.href}
                                                     onClick={() => setHelpDropdownOpen(false)}
-                                                    className="flex items-center gap-3 px-4 py-3 text-foreground hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-primary transition-colors duration-200 animate-fade-in-up hover-lift"
-                                                    style={{ animationDelay: `${index * 50}ms` }}
+                                                    className="flex items-center gap-3 px-4 py-3 text-foreground hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors duration-200 group"
                                                 >
-                                                    <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                                                        <Icon className="w-5 h-5 text-primary" />
+                                                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 bg-opacity-10 ${item.color.replace('text-', 'bg-')} group-hover:bg-opacity-20`}>
+                                                        <Icon className={`w-4 h-4 ${item.color}`} />
                                                     </div>
-                                                    <span className="font-medium">{item.name}</span>
+                                                    <span className="font-medium text-sm group-hover:text-primary transition-colors">{item.name}</span>
                                                 </Link>
                                             );
                                         })}
@@ -262,16 +314,16 @@ export default function SiteLayout({ children }: SiteLayoutProps) {
                         </nav>
 
                         {/* Right Side Actions */}
-                        <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-3">
                             {/* Search Button */}
-                            <button className="hidden md:flex items-center justify-center w-10 h-10 text-muted-foreground hover:text-primary hover:bg-muted rounded-lg transition-colors duration-200 hover-scale-sm animate-fade-in-up" style={{ animationDelay: '600ms' }}>
+                            <button className="hidden md:flex items-center justify-center w-10 h-10 text-muted-foreground hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors duration-200 hover-scale-sm animate-fade-in-up" style={{ animationDelay: '600ms' }}>
                                 <Search className="w-5 h-5" />
                             </button>
 
                             {/* Dark Mode Toggle */}
                             <button
                                 onClick={toggleDarkMode}
-                                className="hidden md:flex items-center justify-center w-10 h-10 text-muted-foreground hover:text-primary hover:bg-muted rounded-lg transition-colors duration-200 hover-scale-sm animate-fade-in-up"
+                                className="hidden md:flex items-center justify-center w-10 h-10 text-muted-foreground hover:text-amber-500 hover:bg-amber-50 dark:hover:bg-amber-900/20 rounded-lg transition-colors duration-200 hover-scale-sm animate-fade-in-up"
                                 style={{ animationDelay: '650ms' }}
                             >
                                 {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
@@ -280,7 +332,7 @@ export default function SiteLayout({ children }: SiteLayoutProps) {
                             {/* Mobile Menu Button */}
                             <button
                                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                                className="lg:hidden p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors duration-200 hover-scale-sm animate-fade-in-up"
+                                className="lg:hidden p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200 hover-scale-sm animate-fade-in-up"
                                 style={{ animationDelay: '750ms' }}
                             >
                                 {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -294,14 +346,20 @@ export default function SiteLayout({ children }: SiteLayoutProps) {
                             <nav className="flex flex-col gap-2">
                                 {navigationItems.map((item, index) => {
                                     const Icon = item.icon;
+                                    const active = isActive(item.href);
                                     return (
                                         <Link
                                             key={item.name}
                                             href={item.href}
-                                            className="flex items-center gap-3 px-3 py-3 text-foreground hover:text-primary hover:bg-muted rounded-lg transition-colors duration-200 animate-fade-in-right hover-lift"
+                                            className={`
+                                                flex items-center gap-3 px-3 py-3 rounded-lg transition-colors duration-200 animate-fade-in-right hover-lift
+                                                ${active 
+                                                    ? `bg-sky-50 dark:bg-sky-900/20 text-sky-700 dark:text-sky-400 font-bold` 
+                                                    : 'text-foreground hover:bg-gray-50 dark:hover:bg-gray-800'}
+                                            `}
                                             style={{ animationDelay: `${index * 50}ms` }}
                                         >
-                                            <Icon className="w-5 h-5" />
+                                            <Icon className={`w-5 h-5 ${active ? '' : item.iconColor}`} />
                                             {item.name}
                                         </Link>
                                     );
@@ -315,10 +373,10 @@ export default function SiteLayout({ children }: SiteLayoutProps) {
                                             <Link
                                                 key={item.name}
                                                 href={item.href}
-                                                className="flex items-center gap-3 px-6 py-3 text-foreground hover:text-primary hover:bg-muted rounded-lg transition-colors duration-200 animate-fade-in-right hover-lift"
+                                                className="flex items-center gap-3 px-6 py-3 text-foreground hover:text-primary hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-colors duration-200 animate-fade-in-right hover-lift"
                                                 style={{ animationDelay: `${(index + 8) * 50}ms` }}
                                             >
-                                                <Icon className="w-5 h-5" />
+                                                <Icon className={`w-5 h-5 ${item.color}`} />
                                                 {item.name}
                                             </Link>
                                         );
@@ -333,10 +391,10 @@ export default function SiteLayout({ children }: SiteLayoutProps) {
                                             <Link
                                                 key={item.name}
                                                 href={item.href}
-                                                className="flex items-center gap-3 px-6 py-3 text-foreground hover:text-primary hover:bg-muted rounded-lg transition-colors duration-200 animate-fade-in-right hover-lift"
+                                                className="flex items-center gap-3 px-6 py-3 text-foreground hover:text-primary hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-colors duration-200 animate-fade-in-right hover-lift"
                                                 style={{ animationDelay: `${(index + 8) * 50}ms` }}
                                             >
-                                                <Icon className="w-5 h-5" />
+                                                <Icon className={`w-5 h-5 ${item.color}`} />
                                                 {item.name}
                                             </Link>
                                         );
@@ -353,149 +411,99 @@ export default function SiteLayout({ children }: SiteLayoutProps) {
                 {children}
             </main>
 
-            {/* Footer Section */}
-            <footer className="bg-gray-900 dark:bg-gray-950 text-white relative overflow-hidden">
-                {/* Background Pattern */}
-                <div className="absolute inset-0 opacity-5">
-                    <div className="absolute top-0 left-0 w-full h-full" style={{
-                        backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='5' cy='5' r='5'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-                    }}></div>
+            {/* Footer Section - The one you liked */}
+                        <footer className="bg-[#0f172a] text-white relative overflow-hidden border-t border-gray-800">
+                <div className="absolute inset-0 opacity-10 pointer-events-none">
+                    <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-900 via-gray-900 to-gray-900"></div>
                 </div>
 
                 <div className="relative z-10">
                     <div className="py-16">
                         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
                                 
-                                {/* Company Info Column */}
+                                {/* Company Info */}
                                 <div className="lg:col-span-2">
-                                    <div className="flex items-center gap-3 mb-6 animate-fade-in-up">
-                                        <div className="w-12 h-12 gradient-primary rounded-xl flex items-center justify-center shadow-lg">
-                                            <BookOpen className="w-7 h-7 text-white" />
+                                    <div className="flex items-center gap-4 mb-6">
+                                        <div className="bg-white p-2 rounded-xl shadow-lg shadow-blue-900/20">
+                                            <img src="logo.png" alt="Shafeea" className="w-10 h-10 object-contain" />
                                         </div>
                                         <div>
-                                            <h3 className="text-2xl font-bold">شفيع</h3>
-                                            <p className="text-gray-400">منصة الحلقات القرآنية الرائدة</p>
+                                            <h3 className="text-2xl font-bold text-white">شفيع</h3>
+                                            <p className="text-gray-400 text-sm">منصة التعليم القرآني</p>
                                         </div>
                                     </div>
-                                    <p className="text-gray-300 mb-6 max-w-md leading-relaxed animate-fade-in-up" style={{ animationDelay: '100ms' }}>
-                                        منصة رائدة ومتطورة في مجال إدارة التعليم القرآني والمؤسسات التعليمية الإسلامية، نسعى لتوفير حلول تقنية متطورة ومبتكرة.
+                                    <p className="text-gray-400 mb-8 max-w-md leading-relaxed text-sm">
+                                        منصة رائدة ومتطورة في مجال إدارة التعليم القرآني والمؤسسات التعليمية الإسلامية، نسعى لتوفير حلول تقنية متطورة ومبتكرة تخدم كتاب الله.
                                     </p>
                                     
-                                    {/* Trust Badges */}
-                                    <div className="flex flex-wrap gap-4 animate-fade-in-up" style={{ animationDelay: '200ms' }}>
-                                        <div className="flex items-center gap-2 glass-morphism px-3 py-2 rounded-lg hover-scale-sm">
-                                            <Shield className="w-4 h-4 text-emerald-400" />
-                                            <span className="text-sm">أمان عالي</span>
+                                    {/* Footer Badges */}
+                                    <div className="flex flex-wrap gap-3">
+                                        <div className="flex items-center gap-2 bg-gray-800/60 border border-gray-700 px-3 py-1.5 rounded text-xs text-gray-300">
+                                            <Shield className="w-3.5 h-3.5 text-emerald-400" />
+                                            <span>حماية وتشفير</span>
                                         </div>
-                                        <div className="flex items-center gap-2 glass-morphism px-3 py-2 rounded-lg hover-scale-sm">
-                                            <Award className="w-4 h-4 text-yellow-400" />
-                                            <span className="text-sm">معتمد</span>
-                                        </div>
-                                        <div className="flex items-center gap-2 glass-morphism px-3 py-2 rounded-lg hover-scale-sm">
-                                            <Clock className="w-4 h-4 text-blue-400" />
-                                            <span className="text-sm">دعم 24/7</span>
+                                        <div className="flex items-center gap-2 bg-gray-800/60 border border-gray-700 px-3 py-1.5 rounded text-xs text-gray-300">
+                                            <Award className="w-3.5 h-3.5 text-amber-400" />
+                                            <span>جودة معتمدة</span>
                                         </div>
                                     </div>
                                 </div>
 
-                                {/* Quick Links Column */}
-                                <div className="animate-fade-in-up" style={{ animationDelay: '300ms' }}>
-                                    <h4 className="text-lg font-semibold mb-6 text-white">روابط سريعة</h4>
+                                {/* Quick Links */}
+                                <div>
+                                    <h4 className="text-sm font-bold uppercase tracking-wider mb-6 text-gray-200 border-b border-gray-800 pb-2 inline-block">
+                                        روابط هامة
+                                    </h4>
                                     <ul className="space-y-3">
-                                        <li>
-                                            <Link href="/" className="text-gray-300 hover:text-white transition-colors duration-200 flex items-center gap-2 group hover-scale-sm">
-                                                <Home className="w-4 h-4 group-hover:text-blue-400" />
-                                                الرئيسية
-                                            </Link>
-                                        </li>
-                                        <li>
-                                            <Link href="/about" className="text-gray-300 hover:text-white transition-colors duration-200 flex items-center gap-2 group hover-scale-sm">
-                                                <Users className="w-4 h-4 group-hover:text-blue-400" />
-                                                من نحن
-                                            </Link>
-                                        </li>
-                                        <li>
-                                            <Link href="/services" className="text-gray-300 hover:text-white transition-colors duration-200 flex items-center gap-2 group hover-scale-sm">
-                                                <Award className="w-4 h-4 group-hover:text-blue-400" />
-                                                خدماتنا
-                                            </Link>
-                                        </li>
-                                        <li>
-                                            <Link href="/contact" className="text-gray-300 hover:text-white transition-colors duration-200 flex items-center gap-2 group hover-scale-sm">
-                                                <Phone className="w-4 h-4 group-hover:text-blue-400" />
-                                                تواصل معنا
-                                            </Link>
-                                        </li>
-                                        <li>
-                                            <Link href="/faq" className="text-gray-300 hover:text-white transition-colors duration-200 flex items-center gap-2 group hover-scale-sm">
-                                                <BookOpen className="w-4 h-4 group-hover:text-blue-400" />
-                                                الأسئلة الشائعة
-                                            </Link>
-                                        </li>
+                                        {navigationItems.map((item) => (
+                                            <li key={item.name}>
+                                                <Link href={item.href} className="text-gray-400 hover:text-white transition-all duration-200 flex items-center gap-2 text-sm group">
+                                                    <span className="w-1 h-1 bg-gray-600 rounded-full group-hover:bg-blue-400 transition-colors"></span>
+                                                    {item.name}
+                                                </Link>
+                                            </li>
+                                        ))}
                                     </ul>
                                 </div>
 
-                                {/* Contact Info Column */}
+                                {/* Contact Info */}
                                 <div>
-                                    <h4 className="text-lg font-semibold mb-6 text-white">تواصل معنا</h4>
+                                    <h4 className="text-sm font-bold uppercase tracking-wider mb-6 text-gray-200 border-b border-gray-800 pb-2 inline-block">
+                                        تواصل معنا
+                                    </h4>
                                     <ul className="space-y-4">
                                         <li className="flex items-start gap-3">
-                                            <Mail className="w-5 h-5 text-blue-400 mt-0.5 flex-shrink-0" />
-                                            <div>
-                                                <div className="text-gray-300">البريد الإلكتروني</div>
-                                                <a href="mailto:info@shafeea.com" className="text-white hover:text-blue-400 transition-colors">
-                                                    info@shafeea.com
-                                                </a>
-                                            </div>
+                                            <Mail className="w-4 h-4 text-blue-400 mt-1" />
+                                            <span className="text-sm text-gray-400 hover:text-white transition-colors cursor-pointer">info@shafeea.com</span>
                                         </li>
                                         <li className="flex items-start gap-3">
-                                            <Phone className="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" />
-                                            <div>
-                                                <div className="text-gray-300">رقم الهاتف</div>
-                                                <a href="tel:+966501234567" className="text-white hover:text-emerald-400 transition-colors">
-                                                    +966 50 123 4567
-                                                </a>
-                                            </div>
+                                            <Phone className="w-4 h-4 text-emerald-400 mt-1" />
+                                            <span className="text-sm text-gray-400 hover:text-white transition-colors cursor-pointer" dir="ltr">+966 50 123 4567</span>
                                         </li>
                                         <li className="flex items-start gap-3">
-                                            <MapPin className="w-5 h-5 text-purple-400 mt-0.5 flex-shrink-0" />
-                                            <div>
-                                                <div className="text-gray-300">العنوان</div>
-                                                <span className="text-white">الرياض، المملكة العربية السعودية</span>
-                                            </div>
-                                        </li>
-                                        <li className="flex items-start gap-3">
-                                            <Globe className="w-5 h-5 text-yellow-400 mt-0.5 flex-shrink-0" />
-                                            <div>
-                                                <div className="text-gray-300">الموقع الإلكتروني</div>
-                                                <a href="https://shafeea.com" className="text-white hover:text-yellow-400 transition-colors">
-                                                    www.shafeea.com
-                                                </a>
-                                            </div>
+                                            <MapPin className="w-4 h-4 text-purple-400 mt-1" />
+                                            <span className="text-sm text-gray-400">الرياض، المملكة العربية السعودية</span>
                                         </li>
                                     </ul>
 
-                                    {/* Social Media Links */}
-                                    <div className="mt-6">
-                                        <h5 className="text-sm font-medium text-gray-300 mb-3">تابعنا على</h5>
-                                        <div className="flex items-center gap-3">
-                                            <a href="#" className="w-10 h-10 bg-white/10 hover:bg-blue-600 rounded-lg flex items-center justify-center transition-colors duration-200 group">
-                                                <Facebook className="w-5 h-5 text-gray-300 group-hover:text-white" />
-                                            </a>
-                                            <a href="#" className="w-10 h-10 bg-white/10 hover:bg-sky-500 rounded-lg flex items-center justify-center transition-colors duration-200 group">
-                                                <Twitter className="w-5 h-5 text-gray-300 group-hover:text-white" />
-                                            </a>
-                                            <a href="#" className="w-10 h-10 bg-white/10 hover:bg-pink-600 rounded-lg flex items-center justify-center transition-colors duration-200 group">
-                                                <Instagram className="w-5 h-5 text-gray-300 group-hover:text-white" />
-                                            </a>
-                                            <a href="#" className="w-10 h-10 bg-white/10 hover:bg-blue-700 rounded-lg flex items-center justify-center transition-colors duration-200 group">
-                                                <Linkedin className="w-5 h-5 text-gray-300 group-hover:text-white" />
-                                            </a>
-                                            <a href="#" className="w-10 h-10 bg-white/10 hover:bg-red-600 rounded-lg flex items-center justify-center transition-colors duration-200 group">
-                                                <Youtube className="w-5 h-5 text-gray-300 group-hover:text-white" />
-                                            </a>
-                                        </div>
+                                    {/* Social Media - Square & Colorful */}
+                                    <div className="mt-8 flex items-center gap-2">
+                                        <a href="#" className="w-8 h-8 rounded bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-[#1877F2] hover:text-white transition-all">
+                                            <Facebook className="w-4 h-4" />
+                                        </a>
+                                        <a href="#" className="w-8 h-8 rounded bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-[#1DA1F2] hover:text-white transition-all">
+                                            <Twitter className="w-4 h-4" />
+                                        </a>
+                                        <a href="#" className="w-8 h-8 rounded bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-[#E4405F] hover:text-white transition-all">
+                                            <Instagram className="w-4 h-4" />
+                                        </a>
+                                        <a href="#" className="w-8 h-8 rounded bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-[#0A66C2] hover:text-white transition-all">
+                                            <Linkedin className="w-4 h-4" />
+                                        </a>
+                                        <a href="#" className="w-8 h-8 rounded bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-[#FF0000] hover:text-white transition-all">
+                                            <Youtube className="w-4 h-4" />
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -503,22 +511,15 @@ export default function SiteLayout({ children }: SiteLayoutProps) {
                     </div>
 
                     {/* Footer Bottom Bar */}
-                    <div className="border-t border-gray-800">
-                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                    <div className="border-t border-gray-800 bg-gray-950/50">
+                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
                             <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-                                <div className="text-gray-400 text-sm text-center md:text-right animate-fade-in-up">
-                                    © 2024 شفيع. جميع الحقوق محفوظة. تم التطوير في المملكة العربية السعودية
+                                <div className="text-gray-500 text-xs text-center md:text-right">
+                                    © {new Date().getFullYear()} منصة شفيع. جميع الحقوق محفوظة.
                                 </div>
-                                <div className="flex items-center gap-6 text-sm text-gray-400 animate-fade-in-up" style={{ animationDelay: '100ms' }}>
-                                    <Link href="/terms" className="hover:text-white transition-colors hover-scale-sm">
-                                        شروط الاستخدام
-                                    </Link>
-                                    <Link href="/privacy" className="hover:text-white transition-colors hover-scale-sm">
-                                        سياسة الخصوصية
-                                    </Link>
-                                    <Link href="/contact" className="hover:text-white transition-colors hover-scale-sm">
-                                        اتصل بنا
-                                    </Link>
+                                <div className="flex items-center gap-6 text-xs text-gray-500">
+                                    <Link href="/terms" className="hover:text-sky-400 transition-colors">شروط الاستخدام</Link>
+                                    <Link href="/privacy" className="hover:text-sky-400 transition-colors">سياسة الخصوصية</Link>
                                 </div>
                             </div>
                         </div>
@@ -530,9 +531,9 @@ export default function SiteLayout({ children }: SiteLayoutProps) {
             {showScrollTop && (
                 <button
                     onClick={scrollToTop}
-                    className="fixed bottom-8 left-8 w-12 h-12 gradient-primary hover:opacity-90 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center z-50 group hover-lift animate-bounce-slow"
+                    className="fixed bottom-8 left-8 w-10 h-10 bg-primary hover:bg-primary/90 text-white rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center z-50 animate-bounce-slow border border-white/10"
                 >
-                    <ArrowUp className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                    <ArrowUp className="w-5 h-5" />
                 </button>
             )}
         </div>

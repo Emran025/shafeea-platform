@@ -120,6 +120,7 @@ Ensure the following are installed in the local development environment:
 
 5.  **Application Launch**
     ```bash
+    npm build run
     php artisan serve
     ```
     The application will be accessible at `http://localhost:8000`.

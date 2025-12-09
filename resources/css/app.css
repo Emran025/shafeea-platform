@@ -8,7 +8,6 @@
 @custom-variant dark (&:is(.dark *));
 @custom-variant rtl (&:where([dir="rtl"], [dir="rtl"] *));
 @custom-variant ltr (&:where([dir="ltr"], [dir="ltr"] *));
-
 @theme {
     --font-sans:
         'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -72,88 +71,44 @@
 }
 
 :root {
-    /* 
-       =========================================
-       OCEANIC ELEGANCE THEME (Light Mode)
-       Palette: Ink Black, Prussian Blue, Dusk Blue, Dusty Denim, Alabaster Grey
-       Style: Soft Borders, Dangling Shadows.
-       =========================================
-    */
-
-    /* 
-       Background: Alabaster Grey (900 tint: #f9f9f8)
-       A very soft off-white, easier on the eyes than pure white.
-    */
+    /* ================= LIGHT THEME (Oceanic) ================= */
     --background: #f9f9f8; 
-    
-    /* 
-       Foreground: Ink Black (DEFAULT: #0d1b2a)
-       Deep, dark blue-black for excellent readability.
-    */
     --foreground: #0d1b2a; 
     
-    /* 
-       Cards: Pure White
-       To "lift" off the Alabaster background using shadows.
-    */
     --card: #ffffff;
     --card-foreground: #0d1b2a;
     
     --popover: #ffffff;
     --popover-foreground: #0d1b2a;
     
-    /* 
-       Primary: Prussian Blue (DEFAULT: #1b263b)
-       The main brand color. Solid and professional.
-    */
     --primary: #1b263b; 
     --primary-foreground: #ffffff;
     
-    /* 
-       Secondary: Alabaster Grey (DEFAULT: #e0e1dd)
-       Used for backgrounds of secondary elements/buttons.
-    */
     --secondary: #e0e1dd; 
     --secondary-foreground: #1b263b;
     
-    /* 
-       Accent: Dusty Denim (900 tint: #e3e8ee)
-       For hover states and subtle highlights.
-    */
     --accent: #e3e8ee; 
     --accent-foreground: #1b263b;
     
-    /* Destructive */
     --destructive: oklch(0.577 0.245 27.325);
     --destructive-foreground: oklch(1 0 0);
     
-    /* 
-       Neutral Elements
-       Muted text uses Dusk Blue (#415a77) for a softer look than grey.
-    */
-    --muted: #f2f3f1; /* Alabaster 800 */
+    --muted: #f2f3f1; 
     --muted-foreground: #415a77; 
     
-    /* 
-       Borders: CALM & SUBTLE
-       Using Alabaster Grey (#e0e1dd) instead of dark colors.
-       This removes the "sharpness" you disliked.
-    */
     --border: #e0e1dd; 
     --input: #e0e1dd;
-    --ring: #778da9; /* Dusty Denim ring for focus */
+    --ring: #778da9;
     
-    /* Chart Colors - Mapped to Palette */
-    --chart-1: #1b263b; /* Prussian */
-    --chart-2: #415a77; /* Dusk */
-    --chart-3: #778da9; /* Dusty */
-    --chart-4: #0d1b2a; /* Ink */
-    --chart-5: #e0e1dd; /* Alabaster */
+    /* Chart Colors */
+    --chart-1: #1b263b; 
+    --chart-2: #415a77; 
+    --chart-3: #778da9; 
+    --chart-4: #0d1b2a; 
+    --chart-5: #e0e1dd; 
     
-    /* Radius - Restored to original soft curve */
     --radius: 0.625rem;
     
-    /* Sidebar */
     --sidebar: #f9f9f8;
     --sidebar-foreground: #0d1b2a;
     --sidebar-primary: #1b263b;
@@ -163,91 +118,113 @@
     --sidebar-border: #e0e1dd;
     --sidebar-ring: #778da9;
     
-    /* Animation Durations */
+    /* Animations & Shadows */
     --animation-fast: 150ms;
     --animation-normal: 250ms;
     --animation-slow: 350ms;
     --animation-slower: 500ms;
     
-    /* 
-       Shadows: "DANGLING" & SOFT
-       Using Ink Black with very low opacity to create depth without harsh lines.
-    */
     --shadow-sm: 0 1px 2px 0 rgb(13 27 42 / 0.05);
     --shadow-md: 0 4px 6px -1px rgb(13 27 42 / 0.08), 0 2px 4px -2px rgb(13 27 42 / 0.08);
     --shadow-lg: 0 10px 15px -3px rgb(13 27 42 / 0.08), 0 4px 6px -4px rgb(13 27 42 / 0.08);
     --shadow-xl: 0 20px 25px -5px rgb(13 27 42 / 0.08), 0 8px 10px -6px rgb(13 27 42 / 0.08);
     --shadow-2xl: 0 25px 50px -12px rgb(13 27 42 / 0.15);
     
-    /* 
-       GRADIENTS
-       Smooth flow from Ink Black -> Prussian Blue -> Dusk Blue
-    */
+    /* Gradients (Light Mode) */
     --gradient-primary: linear-gradient(135deg, #1b263b, #415a77);
     --gradient-secondary: linear-gradient(135deg, #778da9, #e0e1dd);
     --gradient-tertiary: linear-gradient(135deg, #0d1b2a, #415a77);
     
-    /* Hero Gradient: Deep and Mysterious */
+    /* Hero Gradient (Fixed Dark Blue) */
     --gradient-hero: linear-gradient(135deg, #0d1b2a 0%, #1b263b 50%, #415a77 100%);
 }
 
 .dark {
     /* 
        =========================================
-       DARK THEME (UNCHANGED)
+       DARK THEME (Gloomy & Deep - No Green)
        =========================================
     */
-    --background: oklch(0.145 0.016 232.59);
-    --foreground: oklch(0.985 0.002 232.59);
-    --card: oklch(0.205 0.016 232.59);
-    --card-foreground: oklch(0.985 0.002 232.59);
-    --popover: oklch(0.205 0.016 232.59);
-    --popover-foreground: oklch(0.985 0.002 232.59);
     
+    /* Background: Darker/Gloomier than Root (#0d1b2a) */
+    --background: #020408; /* Almost Black Blue */
+    --foreground: #e2e8f0;
+    
+    /* Cards: Deep Dark Blue */
+    --card: #0a1120; 
+    --card-foreground: #e2e8f0;
+    
+    --popover: #0a1120;
+    --popover-foreground: #e2e8f0;
+    
+    /* 
+       PRESERVED: Primary (Bright Blue for Hover)
+       KEPT EXACTLY AS REQUESTED
+    */
     --primary: oklch(0.698 0.154 232.59); 
-    --primary-foreground: oklch(0.145 0.016 232.59);
-    --secondary: oklch(0.269 0.016 232.59); 
-    --secondary-foreground: oklch(0.985 0.002 232.59);
+    --primary-foreground: #ffffff;
     
-    --accent: oklch(0.749 0.122 164.88); 
-    --accent-foreground: oklch(0.145 0.016 232.59);
-    --tertiary: oklch(85.027% 0.09709 177.421); 
-    --tertiary-foreground: oklch(0.145 0.016 232.59);
+    /* Secondary: Dark Slate Blue */
+    --secondary: #162032; 
+    --secondary-foreground: #e2e8f0;
     
-    --success: oklch(0.749 0.122 164.88); 
-    --success-foreground: oklch(0.145 0.016 232.59);
+    /* Accent: Removed Green -> Deep Blue/Grey */
+    --accent: #1e293b; 
+    --accent-foreground: #e2e8f0;
+    
+    --tertiary: #334155; 
+    --tertiary-foreground: #e2e8f0;
+    
+    /* Success: Changed to Blue to avoid Green */
+    --success: oklch(0.698 0.154 232.59); 
+    --success-foreground: #ffffff;
     
     --warning: oklch(0.818 0.117 70.67); 
-    --warning-foreground: oklch(0.145 0.016 232.59);
+    --warning-foreground: #000000;
     
     --destructive: oklch(0.727 0.205 27.325); 
-    --destructive-foreground: oklch(0.145 0.016 232.59);
+    --destructive-foreground: #ffffff;
     
-    --muted: oklch(0.269 0.016 232.59);
-    --muted-foreground: oklch(0.708 0.012 232.59);
-    --border: oklch(0.329 0.016 232.59);
-    --input: oklch(0.329 0.016 232.59);
+    /* Neutral & Borders: Dark & Gloomy */
+    --muted: #0f172a;
+    --muted-foreground: #64748b;
+    
+    --border: #1e293b; 
+    --input: #1e293b;
+    
+    /* 
+       PRESERVED: Ring (Bright Blue)
+       KEPT EXACTLY AS REQUESTED
+    */
     --ring: oklch(0.698 0.154 232.59);
     
-    --chart-1: oklch(0.698 0.154 232.59); 
-    --chart-2: oklch(0.749 0.122 164.88); 
-    --chart-3: oklch(84.915% 0.09917 174.463); 
-    --chart-4: oklch(0.818 0.117 70.67); 
-    --chart-5: oklch(0.798 0.114 27.96); 
+    /* Chart Colors */
+    --chart-1: #3b82f6; 
+    --chart-2: #60a5fa; 
+    --chart-3: #93c5fd; 
+    --chart-4: #1b263b; 
+    --chart-5: #415a77; 
     
-    --sidebar: oklch(0.205 0.016 232.59);
-    --sidebar-foreground: oklch(0.985 0.002 232.59);
+    /* Sidebar */
+    --sidebar: #020408;
+    --sidebar-foreground: #e2e8f0;
     --sidebar-primary: oklch(0.698 0.154 232.59);
-    --sidebar-primary-foreground: oklch(0.145 0.016 232.59);
-    --sidebar-accent: oklch(0.269 0.016 232.59);
-    --sidebar-accent-foreground: oklch(0.985 0.002 232.59);
-    --sidebar-border: oklch(0.329 0.016 232.59);
+    --sidebar-primary-foreground: #ffffff;
+    --sidebar-accent: #1e293b;
+    --sidebar-accent-foreground: #e2e8f0;
+    --sidebar-border: #1e293b;
     --sidebar-ring: oklch(0.698 0.154 232.59);
     
-    --gradient-primary: linear-gradient(135deg, oklch(0.698 0.154 232.59), oklch(0.749 0.122 164.88));
-    --gradient-secondary: linear-gradient(135deg, oklch(0.749 0.122 164.88), oklch(85.506% 0.09178 190.447));
-    --gradient-tertiary: linear-gradient(135deg, oklch(84.344% 0.08681 201.224), oklab(63.808% -0.07923 -0.09866));
-    --gradient-hero: linear-gradient(135deg, oklch(0.698 0.154 232.59) 0%, oklch(84.887% 0.09973 173.746) 50%, oklch(0.749 0.122 164.88) 100%);
+    /* 
+       GRADIENTS - DARK MODE (No Green)
+       Made them deep and moody.
+    */
+    --gradient-primary: linear-gradient(135deg, #0f172a, #1e293b);
+    --gradient-secondary: linear-gradient(135deg, #1e293b, #334155);
+    --gradient-tertiary: linear-gradient(135deg, #020408, #1e293b);
+    
+    /* Hero Gradient: Matching the beautiful deep blue style */
+    --gradient-hero: linear-gradient(135deg, #0d1b2a 0%, #1b263b 50%, #415a77 100%);
 }
 
 @layer base {
