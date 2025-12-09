@@ -15,7 +15,7 @@ class StoreSchoolApplicationRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'logo' => ['required', 'string', 'max:255'],
+            'logo' => ['required', 'file', 'min:1024', 'max:20480'],
             'phone' => ['required', 'string', 'max:255'],
             'country' => ['required', 'string', 'max:255'],
             'city' => ['required', 'string', 'max:255'],

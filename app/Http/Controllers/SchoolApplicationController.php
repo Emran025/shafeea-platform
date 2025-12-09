@@ -20,7 +20,10 @@ class SchoolApplicationController extends Controller
     public function store(StoreSchoolApplicationRequest $request)
     {
         DB::transaction(function () use ($request) {
-            $school = School::create($request->safe()->only(['name', 'logo', 'phone', 'country', 'city', 'location', 'address']));
+            $schoolName = $request->name;
+            $logoPath = $request->file('logo')->store("schools/{$schoolName}/logos");
+
+            $school = School::create(array_merge($request->safe()->only(['name', 'phone', 'country', 'city', 'location', 'address']), ['logo' => $logoPath]));
 
             $user = User::create([
                 'name' => $request->admin_name,

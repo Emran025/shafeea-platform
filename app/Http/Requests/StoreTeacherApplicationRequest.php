@@ -15,10 +15,11 @@ class StoreTeacherApplicationRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
             'bio' => ['required', 'string'],
-            'qualifications' => ['required', 'string'],
-            'intent_statement' => ['required', 'string'],
+            'qualifications' => ['required', 'file', 'min:1024', 'max:20480'],
+            'intent_statement' => ['required', 'file', 'min:1024', 'max:20480'],
             'memorization_level' => ['required', 'integer'],
         ];
     }
