@@ -14,6 +14,11 @@ export default function Apply() {
         city: '',
         location: '',
         address: '',
+        admin_name: '',
+        admin_email: '',
+        admin_phone: '',
+        admin_password: '',
+        admin_password_confirmation: '',
     });
 
     function handleSubmit(e: React.FormEvent) {
@@ -102,6 +107,70 @@ export default function Apply() {
                                 />
                                 {errors.address && <div className="text-red-500 mt-2">{errors.address}</div>}
                             </div>
+
+                            <hr />
+
+                            <h2 className="text-xl font-semibold">Admin User Information</h2>
+
+                            <div>
+                                <Label htmlFor="admin_name">Admin Name</Label>
+                                <Input
+                                    id="admin_name"
+                                    value={data.admin_name}
+                                    onChange={(e) => setData('admin_name', e.target.value)}
+                                    className="mt-1 block w-full"
+                                />
+                                {errors.admin_name && <div className="text-red-500 mt-2">{errors.admin_name}</div>}
+                            </div>
+
+                            <div>
+                                <Label htmlFor="admin_email">Admin Email</Label>
+                                <Input
+                                    id="admin_email"
+                                    type="email"
+                                    value={data.admin_email}
+                                    onChange={(e) => setData('admin_email', e.target.value)}
+                                    className="mt-1 block w-full"
+                                />
+                                {errors.admin_email && <div className="text-red-500 mt-2">{errors.admin_email}</div>}
+                            </div>
+
+                            <div>
+                                <Label htmlFor="admin_phone">Admin Phone</Label>
+                                <Input
+                                    id="admin_phone"
+                                    value={data.admin_phone}
+                                    onChange={(e) => setData('admin_phone', e.target.value)}
+                                    className="mt-1 block w-full"
+                                />
+                                {errors.admin_phone && <div className="text-red-500 mt-2">{errors.admin_phone}</div>}
+                            </div>
+
+                            <div>
+                                <Label htmlFor="admin_password">Admin Password</Label>
+                                <Input
+                                    id="admin_password"
+                                    type="password"
+                                    value={data.admin_password}
+                                    onChange={(e) => setData('admin_password', e.target.value)}
+                                    className="mt-1 block w-full"
+                                />
+                                {errors.admin_password && (
+                                    <div className="text-red-500 mt-2">{errors.admin_password}</div>
+                                )}
+                            </div>
+
+                            <div>
+                                <Label htmlFor="admin_password_confirmation">Confirm Admin Password</Label>
+                                <Input
+                                    id="admin_password_confirmation"
+                                    type="password"
+                                    value={data.admin_password_confirmation}
+                                    onChange={(e) => setData('admin_password_confirmation', e.target.value)}
+                                    className="mt-1 block w-full"
+                                />
+                            </div>
+
                             <div className="flex items-center justify-end">
                                 <Button type="submit" disabled={processing}>
                                     {processing ? 'Submitting...' : 'Submit Application'}

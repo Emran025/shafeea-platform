@@ -2929,7 +2929,8 @@ class DatabaseSeeder extends Seeder
 
             $admin->push(\App\Models\Admin::create([
                 'user_id' => $user->id,
-                'super_admin' => false,
+                'super_admin' => true,
+                'status' => 'accepted',
             ]));
         }
 

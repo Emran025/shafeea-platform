@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->unique()->constrained()->onDelete('cascade')->comment('FK to users table, unique per admin');
             $table->boolean('super_admin')->default(false)->comment('Is super admin');
+            $table->enum('status', ['pending', 'accepted', 'rejected', 'suspended'])->default('pending');
             $table->timestamps();
             $table->softDeletes()->comment('Soft delete timestamp');
         });

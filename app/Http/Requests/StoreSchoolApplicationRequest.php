@@ -21,6 +21,10 @@ class StoreSchoolApplicationRequest extends FormRequest
             'city' => ['required', 'string', 'max:255'],
             'location' => ['required', 'string', 'max:255'],
             'address' => ['required', 'string', 'max:255'],
+            'admin_name' => ['required', 'string', 'max:255'],
+            'admin_email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
+            'admin_phone' => ['required', 'string', 'max:255'],
+            'admin_password' => ['required', 'string', 'min:8', 'confirmed'],
         ];
     }
 }

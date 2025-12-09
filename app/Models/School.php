@@ -31,7 +31,12 @@ class School extends Model
         return $this->hasMany(Halaqah::class);
     }
     public function users()
-{
-    return $this->hasMany(User::class);
-}
+    {
+        return $this->hasMany(User::class);
+    }
+
+    public function admin()
+    {
+        return $this->hasOneThrough(Admin::class, User::class);
+    }
 }

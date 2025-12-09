@@ -59,6 +59,10 @@ class AuthController extends ApiController
 
         $user = Auth::user(); // More reliable to get the authenticated user this way
 
+        if ($user->admin && $user->admin->status !== 'accepted') {
+            return $this->error('Your account is not active.', 403);
+        }
+
         $deviceInfo = $request->input('device_info');
 
         $token = $user->createToken($deviceInfo['device_id'])->plainTextToken;

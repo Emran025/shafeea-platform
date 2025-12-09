@@ -52,4 +52,14 @@ Route::post('/contact', function (\Illuminate\Http\Request $request) {
 })->name('contact.store');
 
 
+use App\Http\Controllers\Admin\AdminSchoolController;
+
+// Admin School Management
+Route::prefix('admin/schools')->name('admin.schools.')->middleware(['auth', 'admin'])->group(function () {
+    Route::get('/', [AdminSchoolController::class, 'index'])->name('index');
+    Route::post('/{school}/approve', [AdminSchoolController::class, 'approve'])->name('approve');
+    Route::post('/{school}/reject', [AdminSchoolController::class, 'reject'])->name('reject');
+    Route::post('/{school}/suspend', [AdminSchoolController::class, 'suspend'])->name('suspend');
+});
+
 require __DIR__.'/auth.php';
