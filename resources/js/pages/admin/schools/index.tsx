@@ -2,7 +2,7 @@ import { Head, router } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import AdminLayout from '@/layouts/admin-layout';
+import AdminLayout from '@/layouts/admin-layout.tsx';
 import { School } from '@/types';
 
 export default function SchoolApprovalDashboard({ schools }: { schools: School[] }) {
