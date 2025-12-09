@@ -135,7 +135,7 @@ export default function SiteLayout({ children }: SiteLayoutProps) {
     ];
 
     const helpItems = [
-        { name: 'الأسئلة الشائعة', href: '/faq', icon: BookOpen, color: 'text-amber-500' },
+        { name: 'الأسئلة الشائعة', href: '/faq', icon: BookOpen, color: 'text-orange-500' },
         { name: 'مركز المساعدة', href: '/help', icon: Shield, color: 'text-cyan-500' },
         { name: 'الدعم الفني', href: '/support', icon: Phone, color: 'text-indigo-500' },
     ];
