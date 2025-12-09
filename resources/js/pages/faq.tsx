@@ -31,12 +31,13 @@ export default function FAQ() {
     const [activeCategory, setActiveCategory] = useState('all');
     const [expandedItems, setExpandedItems] = useState<string[]>([]);
 
+    // تحديث الفئات بألوان مميزة
     const categories = [
-        { id: 'all', name: 'جميع الأسئلة', icon: HelpCircle },
-        { id: 'general', name: 'عام', icon: Globe },
-        { id: 'account', name: 'الحساب', icon: Settings },
-        { id: 'features', name: 'الميزات', icon: BookOpen },
-        { id: 'billing', name: 'الفواتير', icon: CreditCard }
+        { id: 'all', name: 'جميع الأسئلة', icon: HelpCircle, color: 'text-primary' },
+        { id: 'general', name: 'عام', icon: Globe, color: 'text-blue-500' },
+        { id: 'account', name: 'الحساب', icon: Settings, color: 'text-purple-500' },
+        { id: 'features', name: 'الميزات', icon: BookOpen, color: 'text-emerald-500' },
+        { id: 'billing', name: 'الفواتير', icon: CreditCard, color: 'text-rose-500' }
     ];
 
     const faqData = [
@@ -141,6 +142,7 @@ export default function FAQ() {
             <Head title="الأسئلة الشائعة - شفيع" />
 
             {/* Hero Section */}
+            {/* Hero Section */}
             <section className="relative py-24 gradient-hero overflow-hidden animate-fade-in-up">
                 
                 <div className="absolute inset-0">
@@ -202,48 +204,40 @@ export default function FAQ() {
                 </div>
             </section>
 
-            {/* Popular Questions */}
-            <section className="py-20 bg-white dark:bg-gray-900 animate-fade-in-up">
+
+            {/* Popular Questions - Clean & Solid in Light Mode */}
+            <section className="py-20 bg-background animate-fade-in-up">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-16">
-                        <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-amber-100 to-orange-100 dark:from-amber-900/20 dark:to-orange-900/20 rounded-2xl mb-6">
-                            <Star className="w-8 h-8 text-orange-600" />
-                        </div>
-                        <Badge className="mb-6 bg-gradient-to-r from-amber-50 to-orange-50 text-orange-700 hover:bg-gradient-to-r hover:from-amber-100 hover:to-orange-100 dark:bg-gradient-to-r dark:from-amber-900/20 dark:to-orange-900/20 dark:text-orange-300 transition-all duration-300 text-sm px-4 py-2">
+                        <Badge className="mb-6 bg-secondary text-primary hover:bg-secondary/80 border border-border transition-all duration-300 text-sm px-4 py-2">
                             <TrendingUp className="w-4 h-4 ml-1" />
                             الأكثر طلباً وبحثاً
                         </Badge>
-                        <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+                        <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
                             الأسئلة الأكثر شيوعاً
                         </h2>
-                        <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
+                        <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
                             إجابات سريعة وواضحة لأهم الاستفسارات حول منصتنا
                         </p>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         {popularFAQ.map((item, index) => (
-                            <Card key={item.id} className="group p-8 hover:shadow-2xl transition-all duration-500 hover-lift glass-card-subtle animate-fade-in-up border-0 bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-800 dark:to-gray-900/50 relative overflow-hidden">
-                                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                            <Card key={item.id} className="group p-8 hover:shadow-xl transition-all duration-300 hover-lift bg-card border border-border relative overflow-hidden">
+                                <div className="absolute top-0 left-0 w-1.5 h-full bg-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                                 <div className="flex items-start gap-4 mb-4">
-                                    <div className="flex-shrink-0 w-10 h-10 bg-gradient-primary rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                                        <span className="text-white font-bold text-sm">{index + 1}</span>
+                                    <div className="flex-shrink-0 w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center text-primary group-hover:scale-110 transition-transform duration-300">
+                                        <span className="font-bold text-sm">{index + 1}</span>
                                     </div>
                                     <div className="flex-1">
-                                        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-primary transition-colors duration-300">
+                                        <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors duration-300">
                                             {item.question}
                                         </h3>
                                     </div>
                                 </div>
-                                <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-base pl-14">
+                                <p className="text-muted-foreground leading-relaxed text-base pl-14">
                                     {item.answer}
                                 </p>
-                                <div className="absolute bottom-4 left-8 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                    <div className="flex items-center text-primary text-sm font-medium">
-                                        <CheckCircle className="w-4 h-4 ml-1" />
-                                        إجابة مفيدة
-                                    </div>
-                                </div>
                             </Card>
                         ))}
                     </div>
@@ -251,14 +245,14 @@ export default function FAQ() {
             </section>
 
             {/* FAQ List */}
-            <section className="py-20 bg-gradient-to-b from-gray-50 to-white dark:from-gray-800 dark:to-gray-900 animate-fade-in-up">
+            <section className="py-20 bg-muted/30 dark:bg-gray-800/50 animate-fade-in-up border-t border-border">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="lg:grid lg:grid-cols-4 lg:gap-12">
                         {/* Categories */}
                         <div className="lg:col-span-1 mb-12 lg:mb-0">
-                            <div className="sticky top-8">
-                                <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
-                                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
+                            <div className="sticky top-24">
+                                <div className="bg-card rounded-2xl p-6 shadow-sm border border-border">
+                                    <h3 className="text-xl font-bold text-foreground mb-6 flex items-center gap-2">
                                         <Filter className="w-5 h-5 text-primary" />
                                         تصنيف الأسئلة
                                     </h3>
@@ -268,13 +262,13 @@ export default function FAQ() {
                                                 key={category.id}
                                                 variant={activeCategory === category.id ? "default" : "ghost"}
                                                 onClick={() => setActiveCategory(category.id)}
-                                                className={`w-full justify-start text-right transition-all duration-300 hover-lift rounded-xl py-3 ${
+                                                className={`w-full justify-start text-right transition-all duration-300 rounded-xl py-6 ${
                                                     activeCategory === category.id 
-                                                        ? "bg-gradient-primary text-white shadow-lg scale-105" 
-                                                        : "hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300"
+                                                        ? "bg-primary text-primary-foreground shadow-md" 
+                                                        : "hover:bg-muted text-muted-foreground hover:text-foreground"
                                                 }`}
                                             >
-                                                <category.icon className="w-5 h-5 ml-3" />
+                                                <category.icon className={`w-5 h-5 ml-3 ${activeCategory === category.id ? 'text-white' : category.color}`} />
                                                 <span className="font-medium">{category.name}</span>
                                             </Button>
                                         ))}
@@ -285,49 +279,38 @@ export default function FAQ() {
 
                         {/* FAQ Items */}
                         <div className="lg:col-span-3">
-                            <div className="space-y-6">
+                            <div className="space-y-4">
                                 {filteredFAQ.length > 0 ? (
                                     filteredFAQ.map((item, index) => (
-                                        <Card key={item.id} className="group overflow-hidden hover:shadow-xl transition-all duration-500 hover-lift glass-card-subtle animate-fade-in-up border-0 bg-white dark:bg-gray-800">
+                                        <Card key={item.id} className="group overflow-hidden transition-all duration-300 border border-border bg-card hover:border-primary/50">
                                             <CardHeader
-                                                className="cursor-pointer hover:bg-gradient-to-r hover:from-primary/5 hover:to-accent/5 transition-all duration-300 hover-lift p-6"
+                                                className="cursor-pointer hover:bg-muted/30 transition-colors p-6 select-none"
                                                 onClick={() => toggleExpanded(item.id)}
                                             >
-                                                <div className="flex items-center justify-between">
+                                                <div className="flex items-center justify-between gap-4">
                                                     <div className="flex items-center gap-4 flex-1">
-                                                        <div className="flex-shrink-0 w-10 h-10 bg-gradient-primary rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                                                            <span className="text-white font-bold text-sm">{index + 1}</span>
+                                                        <div className={`flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center transition-colors ${expandedItems.includes(item.id) ? 'bg-primary text-primary-foreground' : 'bg-muted text-muted-foreground'}`}>
+                                                            <HelpCircle className="w-4 h-4" />
                                                         </div>
-                                                        <CardTitle className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-primary transition-colors duration-300 leading-tight">
+                                                        <CardTitle className={`text-lg font-bold transition-colors ${expandedItems.includes(item.id) ? 'text-primary' : 'text-foreground'}`}>
                                                             {item.question}
                                                         </CardTitle>
                                                     </div>
-                                                    <Button variant="ghost" size="sm" className="flex-shrink-0 group-hover:bg-primary/10 rounded-xl">
-                                                        {expandedItems.includes(item.id) ? (
-                                                            <ChevronUp className="w-6 h-6 text-primary" />
-                                                        ) : (
-                                                            <ChevronDown className="w-6 h-6 text-gray-400 group-hover:text-primary" />
-                                                        )}
-                                                    </Button>
+                                                    <div className={`flex-shrink-0 transition-transform duration-300 ${expandedItems.includes(item.id) ? 'rotate-180' : ''}`}>
+                                                        <ChevronDown className="w-5 h-5 text-muted-foreground" />
+                                                    </div>
                                                 </div>
                                             </CardHeader>
                                             
                                             {expandedItems.includes(item.id) && (
                                                 <CardContent className="pt-0 pb-6 px-6">
-                                                    <div className="border-t border-gray-100 dark:border-gray-700 pt-6 pl-14">
-                                                        <div className="bg-gradient-to-r from-primary/5 to-accent/5 rounded-xl p-6">
-                                                            <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-base">
-                                                                {item.answer}
-                                                            </p>
-                                                            <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-200 dark:border-gray-600">
-                                                                <div className="flex items-center text-primary text-sm font-medium">
-                                                                    <CheckCircle className="w-4 h-4 ml-1" />
-                                                                    إجابة مفيدة
-                                                                </div>
-                                                                <div className="text-xs text-gray-500">
-                                                                    تم التحديث: ديسمبر 2024
-                                                                </div>
-                                                            </div>
+                                                    <div className="pl-12 pr-2">
+                                                        <p className="text-muted-foreground leading-relaxed text-base border-r-2 border-primary/20 pr-4">
+                                                            {item.answer}
+                                                        </p>
+                                                        <div className="flex items-center gap-2 mt-4 pt-4 border-t border-border">
+                                                            <CheckCircle className="w-4 h-4 text-emerald-500" />
+                                                            <span className="text-xs text-muted-foreground">هل كانت هذه الإجابة مفيدة؟</span>
                                                         </div>
                                                     </div>
                                                 </CardContent>
@@ -335,20 +318,13 @@ export default function FAQ() {
                                         </Card>
                                     ))
                                 ) : (
-                                    <Card className="p-12 text-center glass-card-subtle animate-fade-in-up bg-white dark:bg-gray-800">
-                                        <div className="w-20 h-20 bg-gradient-to-r from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                                            <AlertCircle className="w-10 h-10 text-gray-400" />
+                                    <div className="text-center py-12">
+                                        <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto mb-4">
+                                            <Search className="w-8 h-8 text-muted-foreground" />
                                         </div>
-                                        <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-                                            لم نجد نتائج مطابقة
-                                        </h3>
-                                        <p className="text-gray-600 dark:text-gray-300 text-lg mb-6">
-                                            لم نجد أسئلة تطابق معايير بحثك. جرب استخدام كلمات مختلفة.
-                                        </p>
-                                        <Button variant="outline" onClick={() => {setSearchQuery(''); setActiveCategory('all');}} className="bg-primary/5 border-primary/20 text-primary hover:bg-primary hover:text-white">
-                                            إعادة تعيين البحث
-                                        </Button>
-                                    </Card>
+                                        <h3 className="text-lg font-bold text-foreground">لا توجد نتائج</h3>
+                                        <p className="text-muted-foreground">جرب البحث بكلمات مختلفة</p>
+                                    </div>
                                 )}
                             </div>
                         </div>
@@ -357,47 +333,32 @@ export default function FAQ() {
             </section>
 
             {/* Contact Support */}
-            <section className="py-16 bg-white dark:bg-gray-900 animate-fade-in-up">
+            <section className="py-16 bg-background animate-fade-in-up">
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                    <div className="bg-gradient-to-r from-blue-50 to-emerald-50 dark:from-blue-900/10 dark:to-emerald-900/10 rounded-2xl p-8 glass-card hover-lift transition-all duration-300">
-                        <div className="w-16 h-16 bg-gradient-to-r from-blue-100 to-emerald-100 dark:from-blue-900/20 dark:to-emerald-900/20 rounded-full flex items-center justify-center mx-auto mb-6 hover-scale-sm transition-all duration-300">
-                            <MessageCircle className="w-8 h-8 text-blue-600" />
+                    <div className="bg-muted/30 border border-border rounded-2xl p-8 hover:shadow-lg transition-all duration-300">
+                        <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <MessageCircle className="w-8 h-8 text-blue-600 dark:text-blue-400" />
                         </div>
-                        <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4">
+                        <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
                             لم تجد ما تبحث عنه؟
                         </h2>
-                        <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
+                        <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
                             فريق الدعم جاهز لمساعدتك. تواصل معنا وسنجيب خلال ساعات قليلة.
                         </p>
                         
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                            <Button asChild className="bg-gradient-primary hover:opacity-90 transition-all duration-300 hover-lift shadow-lg">
+                            <Button asChild className="bg-primary hover:bg-primary/90 text-primary-foreground h-12 px-8 text-lg shadow-lg shadow-primary/20">
                                 <Link href="/contact">
-                                    <Mail className="w-4 h-4 ml-2" />
+                                    <Mail className="w-5 h-5 ml-2" />
                                     إرسال رسالة
                                 </Link>
                             </Button>
-                            <Button variant="outline" asChild className="border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300 hover-lift">
+                            <Button variant="outline" asChild className="border-primary text-primary hover:bg-primary hover:text-white h-12 px-8 text-lg">
                                 <Link href="/contact">
-                                    <Phone className="w-4 h-4 ml-2" />
+                                    <Phone className="w-5 h-5 ml-2" />
                                     اتصل بنا
                                 </Link>
                             </Button>
-                        </div>
-
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8 text-sm">
-                            <div className="flex items-center justify-center gap-2 text-gray-600 dark:text-gray-300">
-                                <Clock className="w-4 h-4 text-emerald-600" />
-                                <span>رد خلال 24 ساعة</span>
-                            </div>
-                            <div className="flex items-center justify-center gap-2 text-gray-600 dark:text-gray-300">
-                                <CheckCircle className="w-4 h-4 text-emerald-600" />
-                                <span>دعم باللغة العربية</span>
-                            </div>
-                            <div className="flex items-center justify-center gap-2 text-gray-600 dark:text-gray-300">
-                                <Users className="w-4 h-4 text-emerald-600" />
-                                <span>فريق متخصص</span>
-                            </div>
                         </div>
                     </div>
                 </div>
