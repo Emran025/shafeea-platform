@@ -16,8 +16,10 @@ import {
     CheckCircle,
     ArrowLeft,
     ScrollText,
-    Award
+    Award,
+    PlusCircle
 } from 'lucide-react';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 export default function Apply() {
     const { data, setData, post, errors, processing } = useForm({
@@ -26,15 +28,43 @@ export default function Apply() {
         password: '',
         password_confirmation: '',
         bio: '',
-        qualifications: null as File | null,
-        intent_statement: null as File | null,
         memorization_level: 0,
+        documents: [
+            {
+                name: '',
+                certificate_type: '',
+                certificate_type_other: '',
+                riwayah: '',
+                issuing_place: '',
+                issuing_date: '',
+                file: null as File | null,
+            }
+        ]
     });
 
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
         post(route('teachers.store'));
     }
+
+    const addCertificate = () => {
+        setData('documents', [...data.documents, {
+            name: '',
+            certificate_type: '',
+            certificate_type_other: '',
+            riwayah: '',
+            issuing_place: '',
+            issuing_date: '',
+            file: null as File | null,
+        }]);
+    };
+
+    const handleDocumentChange = (index: number, field: string, value: any) => {
+        const documents = [...data.documents];
+        documents[index] = { ...documents[index], [field]: value };
+        setData('documents', documents);
+    };
+
 
     return (
         <SiteLayout>
@@ -170,50 +200,140 @@ export default function Apply() {
                                         {errors.memorization_level && <p className="text-red-500 text-xs mt-1">{errors.memorization_level}</p>}
                                     </div>
 
-                                    {/* Qualifications File Upload */}
-                                    <div className="space-y-2">
-                                        <Label htmlFor="qualifications" className="text-foreground font-medium">المؤهلات والشهادات</Label>
-                                        <div className="border-2 border-dashed border-border rounded-xl p-6 text-center hover:bg-background transition-colors relative cursor-pointer group bg-background/50">
-                                            <input
-                                                id="qualifications"
-                                                type="file"
-                                                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
-                                                onChange={(e) => setData('qualifications', e.target.files ? e.target.files[0] : null)}
-                                            />
-                                            <div className="flex flex-col items-center gap-2 group-hover:scale-105 transition-transform">
-                                                <div className="w-10 h-10 bg-emerald-100 dark:bg-emerald-900/30 rounded-full flex items-center justify-center text-emerald-600 mb-1">
-                                                    <ScrollText className="w-5 h-5" />
-                                                </div>
-                                                <p className="text-xs font-medium text-foreground truncate w-full px-2">
-                                                    {data.qualifications ? data.qualifications.name : "رفع الشهادات"}
-                                                </p>
-                                                <span className="text-[10px] text-muted-foreground">PDF, JPG (Max 5MB)</span>
+                                    {data.documents.map((doc, index) => (
+                                        <div key={index} className="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6 border-b border-border pb-6 mb-6">
+                                            {/* Document Name */}
+                                            <div className="space-y-2 md:col-span-2">
+                                                <Label htmlFor={`doc_name_${index}`} className="text-foreground font-medium">اسم الشهادة/الوثيقة</Label>
+                                                <Input
+                                                    id={`doc_name_${index}`}
+                                                    placeholder="مثال: شهادة حفظ القران"
+                                                    value={doc.name}
+                                                    onChange={(e) => handleDocumentChange(index, 'name', e.target.value)}
+                                                    className="h-12 rounded-xl bg-background border-border"
+                                                />
                                             </div>
-                                        </div>
-                                        {errors.qualifications && <p className="text-red-500 text-xs mt-1">{errors.qualifications}</p>}
-                                    </div>
 
-                                    {/* Intent Statement Upload */}
-                                    <div className="space-y-2">
-                                        <Label htmlFor="intent_statement" className="text-foreground font-medium">خطاب النية / رسالة الانضمام</Label>
-                                        <div className="border-2 border-dashed border-border rounded-xl p-6 text-center hover:bg-background transition-colors relative cursor-pointer group bg-background/50">
-                                            <input
-                                                id="intent_statement"
-                                                type="file"
-                                                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
-                                                onChange={(e) => setData('intent_statement', e.target.files ? e.target.files[0] : null)}
-                                            />
-                                            <div className="flex flex-col items-center gap-2 group-hover:scale-105 transition-transform">
-                                                <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center text-blue-600 mb-1">
-                                                    <FileText className="w-5 h-5" />
+                                            {/* Certificate Type */}
+                                            <div className="space-y-2">
+                                                <Label htmlFor={`certificate_type_${index}`}>نوع الشهادة</Label>
+                                                <Select
+                                                    onValueChange={(value) => handleDocumentChange(index, 'certificate_type', value)}
+                                                    value={doc.certificate_type}
+                                                >
+                                                    <SelectTrigger className="h-12 rounded-xl bg-background border-border">
+                                                        <SelectValue placeholder="اختر النوع" />
+                                                    </SelectTrigger>
+                                                    <SelectContent>
+                                                        <SelectItem value="شهادة حفظ قران">شهادة حفظ قران</SelectItem>
+                                                        <SelectItem value="شهادة إجازة في القران">شهادة إجازة في القران</SelectItem>
+                                                        <SelectItem value="سيرة ذاتية">سيرة ذاتية</SelectItem>
+                                                        <SelectItem value="Other">Other</SelectItem>
+                                                    </SelectContent>
+                                                </Select>
+                                            </div>
+
+                                            {/* Other Certificate Type */}
+                                            {doc.certificate_type === 'Other' && (
+                                                <div className="space-y-2">
+                                                    <Label htmlFor={`certificate_type_other_${index}`}>النوع (آخر)</Label>
+                                                    <Input
+                                                        id={`certificate_type_other_${index}`}
+                                                        placeholder="يرجى التحديد"
+                                                        value={doc.certificate_type_other}
+                                                        onChange={(e) => handleDocumentChange(index, 'certificate_type_other', e.target.value)}
+                                                        className="h-12 rounded-xl bg-background border-border"
+                                                    />
                                                 </div>
-                                                <p className="text-xs font-medium text-foreground truncate w-full px-2">
-                                                    {data.intent_statement ? data.intent_statement.name : "رفع الخطاب"}
-                                                </p>
-                                                <span className="text-[10px] text-muted-foreground">PDF, DOCX</span>
+                                            )}
+
+                                            {/* Riwayah */}
+                                            {(doc.certificate_type === 'شهادة حفظ قران' || doc.certificate_type === 'شهادة إجازة في القران') && (
+                                                <div className="space-y-2">
+                                                    <Label htmlFor={`riwayah_${index}`}>الرواية</Label>
+                                                    <Select
+                                                        onValueChange={(value) => handleDocumentChange(index, 'riwayah', value)}
+                                                        value={doc.riwayah}
+                                                    >
+                                                        <SelectTrigger className="h-12 rounded-xl bg-background border-border">
+                                                            <SelectValue placeholder="اختر الرواية" />
+                                                        </SelectTrigger>
+                                                        <SelectContent>
+                                                            <SelectItem value="قراءة الإمام نافع المدني">قراءة الإمام نافع المدني</SelectItem>
+                                                            <SelectItem value="قراءة الإمام عبد الله بن كثير المكي">قراءة الإمام عبد الله بن كثير المكي</SelectItem>
+                                                            <SelectItem value="قراءة الإمام أبو عمرو البصري">قراءة الإمام أبو عمرو البصري</SelectItem>
+                                                            <SelectItem value="قراءة الإمام بن عامر الدمشقي">قراءة الإمام بن عامر الدمشقي</SelectItem>
+                                                            <SelectItem value="قراءة الإمام عاصم بن أبي النجود الكوفي">قراءة الإمام عاصم بن أبي النجود الكوفي</SelectItem>
+                                                            <SelectItem value="قراءة الإمام حمزة الزيات">قراءة الإمام حمزة الزيات</SelectItem>
+                                                            <SelectItem value="قراءة الإمام الكسائي">قراءة الإمام الكسائي</SelectItem>
+                                                            <SelectItem value="قراءة الإمام أبو جعفر المدني">قراءة الإمام أبو جعفر المدني</SelectItem>
+                                                            <SelectItem value="قراءة الإمام يعقوب الحضرمي">قراءة الإمام يعقوب الحضرمي</SelectItem>
+                                                            <SelectItem value="قراءة الإمام خلف العاشر">قراءة الإمام خلف العاشر</SelectItem>
+                                                        </SelectContent>
+                                                    </Select>
+                                                </div>
+                                            )}
+
+                                            {/* Issuing Place and Date */}
+                                            {doc.certificate_type !== 'سيرة ذاتية' && (
+                                                <>
+                                                    <div className="space-y-2">
+                                                        <Label htmlFor={`issuing_place_${index}`}>مكان الإصدار</Label>
+                                                        <Input
+                                                            id={`issuing_place_${index}`}
+                                                            placeholder="مثال: الجمعية الخيرية لتحفيظ القرآن"
+                                                            value={doc.issuing_place}
+                                                            onChange={(e) => handleDocumentChange(index, 'issuing_place', e.target.value)}
+                                                            className="h-12 rounded-xl bg-background border-border"
+                                                        />
+                                                    </div>
+                                                    <div className="space-y-2">
+                                                        <Label htmlFor={`issuing_date_${index}`}>تاريخ الإصدار</Label>
+                                                        <Input
+                                                            id={`issuing_date_${index}`}
+                                                            type="date"
+                                                            value={doc.issuing_date}
+                                                            onChange={(e) => handleDocumentChange(index, 'issuing_date', e.target.value)}
+                                                            className="h-12 rounded-xl bg-background border-border"
+                                                        />
+                                                    </div>
+                                                </>
+                                            )}
+
+                                            {/* File Upload */}
+                                            <div className="space-y-2 md:col-span-2">
+                                                <Label htmlFor={`file_${index}`}>رفع الملف</Label>
+                                                <div className="border-2 border-dashed border-border rounded-xl p-6 text-center hover:bg-background transition-colors relative cursor-pointer group bg-background/50">
+                                                    <input
+                                                        id={`file_${index}`}
+                                                        type="file"
+                                                        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                                                        onChange={(e) => handleDocumentChange(index, 'file', e.target.files ? e.target.files[0] : null)}
+                                                    />
+                                                    <div className="flex flex-col items-center gap-2 group-hover:scale-105 transition-transform">
+                                                        <div className="w-10 h-10 bg-emerald-100 dark:bg-emerald-900/30 rounded-full flex items-center justify-center text-emerald-600 mb-1">
+                                                            <Upload className="w-5 h-5" />
+                                                        </div>
+                                                        <p className="text-xs font-medium text-foreground truncate w-full px-2">
+                                                            {doc.file ? doc.file.name : "اختر ملف"}
+                                                        </p>
+                                                        <span className="text-[10px] text-muted-foreground">PDF, JPG (Max 5MB)</span>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                        {errors.intent_statement && <p className="text-red-500 text-xs mt-1">{errors.intent_statement}</p>}
+                                    ))}
+
+                                    <div className="md:col-span-2">
+                                        <Button
+                                            type="button"
+                                            onClick={addCertificate}
+                                            variant="outline"
+                                            className="w-full h-12 rounded-xl border-dashed"
+                                        >
+                                            <PlusCircle className="w-5 h-5 mr-2" />
+                                            إضافة شهادة أخرى
+                                        </Button>
                                     </div>
                                 </div>
                             </div>

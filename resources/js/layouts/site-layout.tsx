@@ -106,38 +106,34 @@ export default function SiteLayout({ children }: SiteLayoutProps) {
             name: 'الرئيسية', 
             href: '/', 
             icon: Home, 
-            iconColor: 'text-sky-500', 
         },
         { 
             name: 'من نحن', 
             href: '/about', 
             icon: Users, 
-            iconColor: 'text-violet-500', 
 
         },
         { 
             name: 'خدماتنا', 
             href: '/services', 
             icon: Award, 
-            iconColor: 'text-emerald-500', 
         },
         { 
             name: 'تواصل معنا', 
             href: '/contact', 
             icon: Phone, 
-            iconColor: 'text-rose-500', 
         },
     ];
     
     const bePartOfUs = [
-        { name: 'شارك كمعلم', href: '/teachers/apply', icon: Users, color: 'text-sky-500', description: 'انظم كمعلم وكن جزءا في عملية المساهمة التعليمية'},
-        { name: 'انظم كمدرسة', href: '/schools/apply', icon: Home, color: 'text-emerald-500', description: 'أضف مدرستك لتستفيد من ميزاتنا الفريدة'},
+        { name: 'شارك كمعلم', href: '/teachers/apply', icon: Users,  description: 'انظم كمعلم وكن جزءا في عملية المساهمة التعليمية'},
+        { name: 'انظم كمدرسة', href: '/schools/apply', icon: Home,  description: 'أضف مدرستك لتستفيد من ميزاتنا الفريدة'},
     ];
 
     const helpItems = [
-        { name: 'الأسئلة الشائعة', href: '/faq', icon: BookOpen, color: 'text-orange-500' },
-        { name: 'مركز المساعدة', href: '/help', icon: Shield, color: 'text-cyan-500' },
-        { name: 'الدعم الفني', href: '/support', icon: Phone, color: 'text-indigo-500' },
+        { name: 'الأسئلة الشائعة', href: '/faq', icon: BookOpen},
+        { name: 'مركز المساعدة', href: '/help', icon: Shield},
+        { name: 'الدعم الفني', href: '/support', icon: Phone },
     ];
 
     return (
@@ -206,15 +202,17 @@ export default function SiteLayout({ children }: SiteLayoutProps) {
                                         className={`
                                             flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-bold transition-all duration-200 hover-scale-sm
                                             ${active 
-                                                ? `bg-sky-50 dark:bg-sky-900/20 text-sky-700 dark:text-sky-400 border border-sky-100 dark:border-sky-800 shadow-sm` // هنا التعديل: خلفية ملونة فاتحة وحدود خفيفة
-                                                : 'text-muted-foreground hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-foreground' // حالة عدم النشاط
+                                                ? `bg-gray-100 dark:bg-sky-900/20 text-black dark:text-white` // هنا التعديل: خلفية ملونة فاتحة وحدود خفيفة
+                                                : 'text-black dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-foreground' // حالة عدم النشاط
                                             }
-                                        `}
-                                        style={{ animationDelay: `${index * 100}ms` }}
-                                    >
-                                        <Icon className={`w-4 h-4 ${active ? 'scale-110' : item.iconColor}`} />
+                                            `}
+                                            style={{ animationDelay: `${index * 100}ms` }}
+                                            >
+                                        <Icon className={`w-4 h-4 ${active ? 'scale-110' : "text-black dark:text-white"}`} />
                                         {item.name}
                                     </Link>
+                                        // bg-background text-foreground hover:bg-secondary hover:text-primary border-border
+                                        // bg-primary text-primary-foreground hover:bg-primary/90
                                 );
                             })}
 
@@ -232,11 +230,11 @@ export default function SiteLayout({ children }: SiteLayoutProps) {
                                     className={`
                                         flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm font-bold transition-all duration-200 hover-scale-sm
                                         ${bePartOfUsDropdownOpen 
-                                            ? 'bg-orange-50 text-orange-600 border border-orange-100' 
+                                            ? 'bg-gray-100 dark:bg-sky-900/20  text-black dark:text-white border border-black-70 dark:border-white' 
                                             : 'text-muted-foreground hover:text-foreground hover:bg-gray-50 dark:hover:bg-gray-800'}
                                     `}
                                 >
-                                    <Settings className={`w-4 h-4 ${bePartOfUsDropdownOpen ? 'text-orange-600' : 'text-orange-500'}`} />
+                                    <Settings className={`w-4 h-4 text-black dark:text-white`} />
                                     انظم إلينا
                                     <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${bePartOfUsDropdownOpen ? 'rotate-180' : ''}`} />
                                 </button>
@@ -256,11 +254,11 @@ export default function SiteLayout({ children }: SiteLayoutProps) {
                                                     onClick={() => setBePartOfUsDropdownOpen(false)}
                                                     className="flex items-start gap-3 px-4 py-3 text-foreground hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors duration-200 group"
                                                 >
-                                                    <div className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 bg-opacity-10 ${item.color.replace('text-', 'bg-')} group-hover:bg-opacity-20 transition-colors`}>
-                                                        <Icon className={`w-5 h-5 ${item.color}`} />
+                                                    <div className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 bg-opacity-10 bg-gray-100 dark:bg-sky-900/20 group-hover:bg-opacity-20 transition-colors`}>
+                                                        <Icon className={`w-5 h-5  text-black dark:text-white`} />
                                                     </div>
                                                     <div className="flex-1">
-                                                        <span className={`font-medium block text-sm group-hover:${item.color.split(' ')[0]} transition-colors`}>{item.name}</span>
+                                                        <span className={`font-medium block text-sm group-hover: text-black dark:text-white transition-colors`}>{item.name}</span>
                                                         <span className="text-xs text-muted-foreground">{item.description}</span>
                                                     </div>
                                                 </Link>
@@ -281,11 +279,11 @@ export default function SiteLayout({ children }: SiteLayoutProps) {
                                     className={`
                                         flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm font-bold transition-all duration-200 hover-scale-sm
                                         ${helpDropdownOpen 
-                                            ? 'bg-purple-50 text-purple-600 border border-purple-100' 
+                                            ? 'bg-gray-100 dark:bg-sky-900/20  text-black dark:text-white border border-black-70 dark:border-white' 
                                             : 'text-muted-foreground hover:text-foreground hover:bg-gray-50 dark:hover:bg-gray-800'}
                                     `}
                                 >
-                                    <BookOpen className={`w-4 h-4 ${helpDropdownOpen ? 'text-purple-600' : 'text-purple-500'}`} />
+                                    <BookOpen className={`w-4 h-4  text-black dark:text-white`} />
                                     المساعدة
                                     <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${helpDropdownOpen ? 'rotate-180' : ''}`} />
                                 </button>
@@ -301,8 +299,8 @@ export default function SiteLayout({ children }: SiteLayoutProps) {
                                                     onClick={() => setHelpDropdownOpen(false)}
                                                     className="flex items-center gap-3 px-4 py-3 text-foreground hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors duration-200 group"
                                                 >
-                                                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 bg-opacity-10 ${item.color.replace('text-', 'bg-')} group-hover:bg-opacity-20`}>
-                                                        <Icon className={`w-4 h-4 ${item.color}`} />
+                                                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 bg-opacity-10 bg-gray-100 dark:bg-sky-900/20 group-hover:bg-opacity-20`}>
+                                                        <Icon className={`w-4 h-4  text-black dark:text-white`} />
                                                     </div>
                                                     <span className="font-medium text-sm group-hover:text-primary transition-colors">{item.name}</span>
                                                 </Link>
@@ -354,12 +352,12 @@ export default function SiteLayout({ children }: SiteLayoutProps) {
                                             className={`
                                                 flex items-center gap-3 px-3 py-3 rounded-lg transition-colors duration-200 animate-fade-in-right hover-lift
                                                 ${active 
-                                                    ? `bg-sky-50 dark:bg-sky-900/20 text-sky-700 dark:text-sky-400 font-bold` 
+                                                    ? `bg-gray-100 dark:bg-sky-900/20 text-black dark:text-white font-bold` 
                                                     : 'text-foreground hover:bg-gray-50 dark:hover:bg-gray-800'}
                                             `}
                                             style={{ animationDelay: `${index * 50}ms` }}
                                         >
-                                            <Icon className={`w-5 h-5 ${active ? '' : item.iconColor}`} />
+                                            <Icon className={`w-5 h-5 ${active ? '' : " text-black dark:text-white"}`} />
                                             {item.name}
                                         </Link>
                                     );
@@ -376,7 +374,7 @@ export default function SiteLayout({ children }: SiteLayoutProps) {
                                                 className="flex items-center gap-3 px-6 py-3 text-foreground hover:text-primary hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-colors duration-200 animate-fade-in-right hover-lift"
                                                 style={{ animationDelay: `${(index + 8) * 50}ms` }}
                                             >
-                                                <Icon className={`w-5 h-5 ${item.color}`} />
+                                                <Icon className={`w-5 h-5  text-black dark:text-white`} />
                                                 {item.name}
                                             </Link>
                                         );
@@ -394,7 +392,7 @@ export default function SiteLayout({ children }: SiteLayoutProps) {
                                                 className="flex items-center gap-3 px-6 py-3 text-foreground hover:text-primary hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-colors duration-200 animate-fade-in-right hover-lift"
                                                 style={{ animationDelay: `${(index + 8) * 50}ms` }}
                                             >
-                                                <Icon className={`w-5 h-5 ${item.color}`} />
+                                                <Icon className={`w-5 h-5  text-black dark:text-white`} />
                                                 {item.name}
                                             </Link>
                                         );
