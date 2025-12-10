@@ -28,6 +28,7 @@ export default function Apply() {
         password: '',
         password_confirmation: '',
         bio: '',
+        qualifications: '',
         memorization_level: 0,
         documents: [
             {
@@ -150,6 +151,38 @@ export default function Apply() {
                                         </div>
                                         {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
                                     </div>
+{/* Memorization Level */}
+                                    <div className="space-y-2 md:col-span-2">
+                                        <Label htmlFor="memorization_level" className="text-foreground font-medium">مستوى الحفظ (عدد الأجزاء)</Label>
+                                        <div className="relative">
+                                            <BookOpen className="absolute right-3 top-3 w-5 h-5 text-muted-foreground" />
+                                            <Input
+                                                id="memorization_level"
+                                                type="number"
+                                                min="0"
+                                                max="30"
+                                                placeholder="مثال: 30"
+                                                value={data.memorization_level}
+                                                onChange={(e) => setData('memorization_level', parseInt(e.target.value, 10))}
+                                                className="pr-10 h-12 rounded-xl bg-background border-border hover:border-emerald-500/50"
+                                            />
+                                        </div>
+                                        {errors.memorization_level && <p className="text-red-500 text-xs mt-1">{errors.memorization_level}</p>}
+                                    </div>
+                                    <div className="space-y-2 md:col-span-2">
+                                        <Label htmlFor="qualifications" className="text-foreground font-medium">المؤهل الأكاديمي (شهادة علمية)</Label>
+                                        <div className="relative">
+                                            <BookOpen className="absolute right-3 top-3 w-5 h-5 text-muted-foreground" />
+                                            <Input
+                                                id="qualifications"
+                                                type="text"
+                                                placeholder="مثال: ثانوية عامة علمي"
+                                                value={data.qualifications}
+                                                className="pr-10 h-12 rounded-xl bg-background border-border hover:border-emerald-500/50"
+                                            />
+                                        </div>
+                                        {errors.qualifications && <p className="text-red-500 text-xs mt-1">{errors.qualifications}</p>}
+                                    </div>
 
                                     {/* Bio */}
                                     <div className="space-y-2 md:col-span-2">
@@ -181,25 +214,7 @@ export default function Apply() {
                                 </div>
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                    {/* Memorization Level */}
-                                    <div className="space-y-2 md:col-span-2">
-                                        <Label htmlFor="memorization_level" className="text-foreground font-medium">مستوى الحفظ (عدد الأجزاء)</Label>
-                                        <div className="relative">
-                                            <BookOpen className="absolute right-3 top-3 w-5 h-5 text-muted-foreground" />
-                                            <Input
-                                                id="memorization_level"
-                                                type="number"
-                                                min="0"
-                                                max="30"
-                                                placeholder="مثال: 30"
-                                                value={data.memorization_level}
-                                                onChange={(e) => setData('memorization_level', parseInt(e.target.value, 10))}
-                                                className="pr-10 h-12 rounded-xl bg-background border-border hover:border-emerald-500/50"
-                                            />
-                                        </div>
-                                        {errors.memorization_level && <p className="text-red-500 text-xs mt-1">{errors.memorization_level}</p>}
-                                    </div>
-
+                                    
                                     {data.documents.map((doc, index) => (
                                         <div key={index} className="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6 border-b border-border pb-6 mb-6">
                                             {/* Document Name */}
@@ -337,6 +352,8 @@ export default function Apply() {
                                     </div>
                                 </div>
                             </div>
+
+
 
                             {/* 3. Account Security (White Background) */}
                             <div className="p-8 md:p-12 border-t border-border">

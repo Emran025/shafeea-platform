@@ -29,7 +29,6 @@ class ApplicantSubmissionController extends ApiController
             'application_type' => 'required|in:teacher,student',
             'bio' => 'required|string',
             'qualifications' => 'required|string',
-            'intent_statement' => 'required|string',
             'school_id' => 'nullable|exists:schools,id',
             'memorization_level' => 'sometimes|integer|between:0,30',
         ]);
@@ -45,7 +44,6 @@ class ApplicantSubmissionController extends ApiController
             'application_type' => $request->application_type,
             'bio' => $request->bio,
             'qualifications' => $request->qualifications,
-            'intent_statement' => $request->intent_statement,
             'school_id' => $request->school_id,
             'memorization_level' => $request->input('memorization_level', 0),
             'status' => 'pending',

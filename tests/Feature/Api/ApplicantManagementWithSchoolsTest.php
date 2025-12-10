@@ -23,7 +23,6 @@ test('a user can submit an application without a school', function () {
         'application_type' => 'teacher',
         'bio' => 'This is my bio.',
         'qualifications' => 'These are my qualifications.',
-        'intent_statement' => 'This is my intent statement.',
     ];
 
     $response = postJson('/api/v1/applicants', $applicationData);
@@ -47,7 +46,6 @@ test('a user can submit an application with a specific school', function () {
         'application_type' => 'teacher',
         'bio' => 'This is my bio.',
         'qualifications' => 'These are my qualifications.',
-        'intent_statement' => 'This is my intent statement.',
         'school_id' => $school->id,
     ];
 
@@ -201,7 +199,6 @@ test('a user with an existing role cannot submit an application', function () {
         'application_type' => 'student',
         'bio' => 'This is my bio.',
         'qualifications' => 'These are my qualifications.',
-        'intent_statement' => 'This is my intent statement.',
     ];
 
     $response = postJson('/api/v1/applicants', $applicationData);
@@ -218,7 +215,6 @@ test('a user cannot submit a second application while one is open', function () 
         'application_type' => 'student',
         'bio' => 'This is my bio.',
         'qualifications' => 'These are my qualifications.',
-        'intent_statement' => 'This is my intent statement.',
     ];
 
     $response = postJson('/api/v1/applicants', $applicationData);

@@ -14,14 +14,11 @@ return new class extends Migration
         Schema::create('applicants', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
-            $table->string('name');
-            $table->string('email');
             $table->foreignId('school_id')->nullable()->constrained()->onDelete('set null');
             $table->enum('application_type', ['teacher', 'student']);
             $table->enum('status', ['pending', 'under_review', 'approved', 'rejected'])->default('pending');
             $table->text('bio');
-            $table->text('qualifications');
-            $table->text('intent_statement');
+            $table->text('qualifications')->comment('Academic certificate or higher academic qualification');;
             $table->integer('memorization_level')->default(0);
             $table->text('rejection_reason')->nullable();
             $table->timestamp('submitted_at')->nullable();

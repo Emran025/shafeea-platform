@@ -47,6 +47,7 @@ class TeacherApplicationController extends Controller
                 'user_id' => $user->id,
                 'application_type' => 'teacher',
                 'bio' => $request->bio,
+                'qualifications' => $request->qualifications,                
                 'memorization_level' => $request->memorization_level,
                 'submitted_at' => now(),
             ]);

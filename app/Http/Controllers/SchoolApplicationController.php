@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreSchoolApplicationRequest;
 use App\Models\Admin;
+use App\Models\Document;
 use App\Models\School;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -32,6 +33,23 @@ class SchoolApplicationController extends Controller
                 'password' => Hash::make($request->admin_password),
                 'school_id' => $school->id,
             ]);
+
+            if ($request->has('documents')) {
+                foreach ($request->documents as $doc) {
+                    $filePath = $doc['file']->store('public/documents');
+
+                    Document::create([
+                        'user_id' => $user->id,
+                        'name' => $doc['name'],
+                        'certificate_type' => $doc['certificate_type'],
+                        'certificate_type_other' => $doc['certificate_type_other'] ?? null,
+                        'riwayah' => $doc['riwayah'] ?? null,
+                        'issuing_place' => $doc['issuing_place'] ?? null,
+                        'issuing_date' => $doc['issuing_date'] ?? null,
+                        'file_path' => $filePath,
+                    ]);
+                }
+            }
 
             Admin::create([
                 'user_id' => $user->id,

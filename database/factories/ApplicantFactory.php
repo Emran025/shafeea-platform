@@ -34,7 +34,6 @@ class ApplicantFactory extends Factory
             'status' => 'pending',
             'bio' => $bio,
             'qualifications' => $qualifications,
-            'intent_statement' => $intentStatement,
             'submitted_at' => now()->subDays($this->faker->numberBetween(1, 60)),
         ];
     }

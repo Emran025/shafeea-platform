@@ -25,6 +25,14 @@ class StoreSchoolApplicationRequest extends FormRequest
             'admin_email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'admin_phone' => ['required', 'string', 'max:255'],
             'admin_password' => ['required', 'string', 'min:8', 'confirmed'],
+            'documents' => ['nullable', 'array'],
+            'documents.*.name' => ['required_with:documents', 'string', 'max:255'],
+            'documents.*.certificate_type' => ['required_with:documents', 'string', 'in:شهادة حفظ قران,شهادة إجازة في القران,سيرة ذاتية,Other'],
+            'documents.*.certificate_type_other' => ['nullable', 'string', 'max:255'],
+            'documents.*.riwayah' => ['required_if:documents.*.certificate_type,شهادة حفظ قران,شهادة إجازة في القران', 'nullable', 'string'],
+            'documents.*.issuing_place' => ['nullable', 'string', 'max:255'],
+            'documents.*.issuing_date' => ['nullable', 'date'],
+            'documents.*.file' => ['required_with:documents', 'file', 'mimes:pdf,jpg,jpeg,png', 'max:5120'],
         ];
     }
 }
