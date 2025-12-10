@@ -7,21 +7,9 @@ import {
   MapPinIcon,
   GlobeAltIcon,
   HomeIcon,
-  PhotoIcon,
-  PlusCircleIcon,
-  DocumentPlusIcon
+  PhotoIcon
 } from '@heroicons/react/24/outline';
 import AppLayout from '@/layouts/app-layout';
-
-interface DocumentData {
-    name: string;
-    certificate_type: string;
-    certificate_type_other: string;
-    riwayah: string;
-    issuing_place: string;
-    issuing_date: string;
-    file: File | null;
-}
 
 interface FormData {
   name: string;
@@ -31,7 +19,6 @@ interface FormData {
   location: string;
   address: string;
   logo: string;
-  documents: DocumentData[];
 }
 
 export default function Create() {
@@ -43,30 +30,11 @@ export default function Create() {
     location: '',
     address: '',
     logo: '',
-    documents: [],
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     post(route('schools.store'));
-  };
-
-  const addCertificate = () => {
-    setData('documents', [...data.documents, {
-        name: '',
-        certificate_type: '',
-        certificate_type_other: '',
-        riwayah: '',
-        issuing_place: '',
-        issuing_date: '',
-        file: null,
-    }]);
-  };
-
-  const handleDocumentChange = (index: number, field: string, value: any) => {
-      const documents = [...data.documents];
-      documents[index] = { ...documents[index], [field]: value };
-      setData('documents', documents);
   };
 
   return (
@@ -258,77 +226,6 @@ export default function Create() {
                   )}
                 </div>
               </div>
-            </div>
-
-            {/* Documents Section */}
-            <div>
-              <h2 className="text-lg font-medium text-gray-900 mb-4">Certificates & Documents</h2>
-              {data.documents.map((doc, index) => (
-                <div key={index} className="grid grid-cols-1 md:grid-cols-2 gap-6 border-b border-gray-200 pb-6 mb-6">
-                    <div className="md:col-span-2">
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Document Name *</label>
-                        <input type="text" value={doc.name} onChange={(e) => handleDocumentChange(index, 'name', e.target.value)} className="w-full px-4 py-3 border rounded-lg" />
-                    </div>
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Certificate Type</label>
-                        <select value={doc.certificate_type} onChange={(e) => handleDocumentChange(index, 'certificate_type', e.target.value)} className="w-full px-4 py-3 border rounded-lg">
-                            <option value="">Select Type</option>
-                            <option value="شهادة حفظ قران">شهادة حفظ قران</option>
-                            <option value="شهادة إجازة في القران">شهادة إجازة في القران</option>
-                            <option value="سيرة ذاتية">سيرة ذاتية</option>
-                            <option value="Other">Other</option>
-                        </select>
-                    </div>
-                    {doc.certificate_type === 'Other' && (
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">Other Type</label>
-                            <input type="text" value={doc.certificate_type_other} onChange={(e) => handleDocumentChange(index, 'certificate_type_other', e.target.value)} className="w-full px-4 py-3 border rounded-lg" />
-                        </div>
-                    )}
-                    {(doc.certificate_type === 'شهادة حفظ قران' || doc.certificate_type === 'شهادة إجازة في القران') && (
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">Riwayah</label>
-                            <select value={doc.riwayah} onChange={(e) => handleDocumentChange(index, 'riwayah', e.target.value)} className="w-full px-4 py-3 border rounded-lg">
-                                <option value="">Select Riwayah</option>
-                                <option value="قراءة الإمام نافع المدني">قراءة الإمام نافع المدني</option>
-                                <option value="قراءة الإمام عبد الله بن كثير المكي">قراءة الإمام عبد الله بن كثير المكي</option>
-                                <option value="قراءة الإمام أبو عمرو البصري">قراءة الإمام أبو عمرو البصري</option>
-                                <option value="قراءة الإمام بن عامر الدمشقي">قراءة الإمام بن عامر الدمشقي</option>
-                                <option value="قراءة الإمام عاصم بن أبي النجود الكوفي">قراءة الإمام عاصم بن أبي النجود الكوفي</option>
-                                <option value="قراءة الإمام حمزة الزيات">قراءة الإمام حمزة الزيات</option>
-                                <option value="قراءة الإمام الكسائي">قراءة الإمام الكسائي</option>
-                                <option value="قراءة الإمام أبو جعفر المدني">قراءة الإمام أبو جعفر المدني</option>
-                                <option value="قراءة الإمام يعقوب الحضرمي">قراءة الإمام يعقوب الحضرمي</option>
-                                <option value="قراءة الإمام خلف العاشر">قراءة الإمام خلف العاشر</option>
-                            </select>
-                        </div>
-                    )}
-                    {doc.certificate_type !== 'سيرة ذاتية' && (
-                        <>
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">Issuing Place</label>
-                                <input type="text" value={doc.issuing_place} onChange={(e) => handleDocumentChange(index, 'issuing_place', e.target.value)} className="w-full px-4 py-3 border rounded-lg" />
-                            </div>
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">Issuing Date</label>
-                                <input type="date" value={doc.issuing_date} onChange={(e) => handleDocumentChange(index, 'issuing_date', e.target.value)} className="w-full px-4 py-3 border rounded-lg" />
-                            </div>
-                        </>
-                    )}
-                    <div className="md:col-span-2">
-                        <label className="block text-sm font-medium text-gray-700 mb-2">File</label>
-                        <input type="file" onChange={(e) => handleDocumentChange(index, 'file', e.target.files ? e.target.files[0] : null)} className="w-full px-4 py-3 border rounded-lg" />
-                    </div>
-                </div>
-              ))}
-              <button
-                  type="button"
-                  onClick={addCertificate}
-                  className="w-full flex items-center justify-center gap-2 px-4 py-3 border-2 border-dashed border-gray-300 text-gray-600 rounded-lg hover:bg-gray-50 transition-colors"
-              >
-                  <PlusCircleIcon className="w-5 h-5" />
-                  Add Another Certificate
-              </button>
             </div>
 
             {/* Actions */}

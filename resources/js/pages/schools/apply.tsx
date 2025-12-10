@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import SiteLayout from '@/layouts/site-layout';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import {
     Building2,
     UserCog,
@@ -16,7 +17,8 @@ import {
     ArrowLeft,
     School,
     CheckCircle,
-    LayoutDashboard
+    LayoutDashboard,
+    PlusCircle
 } from 'lucide-react';
 
 export default function Apply() {
@@ -33,12 +35,31 @@ export default function Apply() {
         admin_phone: '',
         admin_password: '',
         admin_password_confirmation: '',
+        documents: [],
     });
 
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
         post(route('schools.store'));
     }
+
+    const addCertificate = () => {
+        setData('documents', [...data.documents, {
+            name: '',
+            certificate_type: '',
+            certificate_type_other: '',
+            riwayah: '',
+            issuing_place: '',
+            issuing_date: '',
+            file: null,
+        }]);
+    };
+
+    const handleDocumentChange = (index: number, field: string, value: any) => {
+        const documents = [...data.documents];
+        documents[index] = { ...documents[index], [field]: value };
+        setData('documents', documents);
+    };
 
     return (
         <SiteLayout>
@@ -302,6 +323,82 @@ export default function Apply() {
                                                 className="pr-10 h-11 rounded-xl bg-background border-border hover:border-emerald-500/50 focus:ring-emerald-500/20"
                                             />
                                         </div>
+                                    </div>
+
+                                    {/* Documents */}
+                                    <div className="md:col-span-2">
+                                        <Label className="text-foreground font-medium">المؤهلات والشهادات</Label>
+                                        {data.documents.map((doc, index) => (
+                                            <div key={index} className="grid grid-cols-1 md:grid-cols-2 gap-6 border-b border-border pb-6 mb-6">
+                                                <div className="space-y-2 md:col-span-2">
+                                                    <Label htmlFor={`doc_name_${index}`} className="text-foreground font-medium">اسم الشهادة/الوثيقة</Label>
+                                                    <Input id={`doc_name_${index}`} value={doc.name} onChange={(e) => handleDocumentChange(index, 'name', e.target.value)} />
+                                                </div>
+                                                <div className="space-y-2">
+                                                    <Label htmlFor={`certificate_type_${index}`}>نوع الشهادة</Label>
+                                                    <Select onValueChange={(value) => handleDocumentChange(index, 'certificate_type', value)} value={doc.certificate_type}>
+                                                        <SelectTrigger><SelectValue placeholder="اختر النوع" /></SelectTrigger>
+                                                        <SelectContent>
+                                                            <SelectItem value="شهادة حفظ قران">شهادة حفظ قران</SelectItem>
+                                                            <SelectItem value="شهادة إجازة في القران">شهادة إجازة في القران</SelectItem>
+                                                            <SelectItem value="سيرة ذاتية">سيرة ذاتية</SelectItem>
+                                                            <SelectItem value="Other">Other</SelectItem>
+                                                        </SelectContent>
+                                                    </Select>
+                                                </div>
+                                                {doc.certificate_type === 'Other' && (
+                                                    <div className="space-y-2">
+                                                        <Label htmlFor={`certificate_type_other_${index}`}>النوع (آخر)</Label>
+                                                        <Input id={`certificate_type_other_${index}`} value={doc.certificate_type_other} onChange={(e) => handleDocumentChange(index, 'certificate_type_other', e.target.value)} />
+                                                    </div>
+                                                )}
+                                                {(doc.certificate_type === 'شهادة حفظ قران' || doc.certificate_type === 'شهادة إجازة في القران') && (
+                                                    <div className="space-y-2">
+                                                        <Label htmlFor={`riwayah_${index}`}>الرواية</Label>
+                                                        <Select onValueChange={(value) => handleDocumentChange(index, 'riwayah', value)} value={doc.riwayah}>
+                                                            <SelectTrigger><SelectValue placeholder="اختر الرواية" /></SelectTrigger>
+                                                            <SelectContent>
+                                                                <SelectItem value="قراءة الإمام نافع المدني">قراءة الإمام نافع المدني</SelectItem>
+                                                                <SelectItem value="قراءة الإمام عبد الله بن كثير المكي">قراءة الإمام عبد الله بن كثير المكي</SelectItem>
+                                                                <SelectItem value="قراءة الإمام أبو عمرو البصري">قراءة الإمام أبو عمرو البصري</SelectItem>
+                                                                <SelectItem value="قراءة الإمام بن عامر الدمشقي">قراءة الإمام بن عامر الدمشقي</SelectItem>
+                                                                <SelectItem value="قراءة الإمام عاصم بن أبي النجود الكوفي">قراءة الإمام عاصم بن أبي النجود الكوفي</SelectItem>
+                                                                <SelectItem value="قراءة الإمام حمزة الزيات">قراءة الإمام حمزة الزيات</SelectItem>
+                                                                <SelectItem value="قراءة الإمام الكسائي">قراءة الإمام الكسائي</SelectItem>
+                                                                <SelectItem value="قراءة الإمام أبو جعفر المدني">قراءة الإمام أبو جعفر المدني</SelectItem>
+                                                                <SelectItem value="قراءة الإمام يعقوب الحضرمي">قراءة الإمام يعقوب الحضرمي</SelectItem>
+                                                                <SelectItem value="قراءة الإمام خلف العاشر">قراءة الإمام خلف العاشر</SelectItem>
+                                                            </SelectContent>
+                                                        </Select>
+                                                    </div>
+                                                )}
+                                                {doc.certificate_type !== 'سيرة ذاتية' && (
+                                                    <>
+                                                        <div className="space-y-2">
+                                                            <Label htmlFor={`issuing_place_${index}`}>مكان الإصدار</Label>
+                                                            <Input id={`issuing_place_${index}`} value={doc.issuing_place} onChange={(e) => handleDocumentChange(index, 'issuing_place', e.target.value)} />
+                                                        </div>
+                                                        <div className="space-y-2">
+                                                            <Label htmlFor={`issuing_date_${index}`}>تاريخ الإصدار</Label>
+                                                            <Input id={`issuing_date_${index}`} type="date" value={doc.issuing_date} onChange={(e) => handleDocumentChange(index, 'issuing_date', e.target.value)} />
+                                                        </div>
+                                                    </>
+                                                )}
+                                                <div className="space-y-2 md:col-span-2">
+                                                    <Label htmlFor={`file_${index}`}>رفع الملف</Label>
+                                                    <Input id={`file_${index}`} type="file" onChange={(e) => handleDocumentChange(index, 'file', e.target.files ? e.target.files[0] : null)} />
+                                                </div>
+                                            </div>
+                                        ))}
+                                        <Button
+                                            type="button"
+                                            onClick={addCertificate}
+                                            variant="outline"
+                                            className="w-full h-12 rounded-xl border-dashed mt-4"
+                                        >
+                                            <PlusCircle className="w-5 h-5 mr-2" />
+                                            إضافة شهادة أخرى
+                                        </Button>
                                     </div>
                                 </div>
                             </div>

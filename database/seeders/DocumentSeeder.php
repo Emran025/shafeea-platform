@@ -20,7 +20,8 @@ class DocumentSeeder extends Seeder
         foreach ($users as $user) {
             // Create a fake file
             $fileName = 'document_' . uniqid() . '.txt';
-            Storage::disk('public')->put('documents/' . $fileName, 'This is a sample document.');
+            $filePath = 'public/documents/' . $fileName;
+            Storage::put($filePath, 'This is a sample document.');
 
             Document::create([
                 'user_id' => $user->id,
@@ -29,7 +30,7 @@ class DocumentSeeder extends Seeder
                 'riwayah' => 'قراءة الإمام عاصم بن أبي النجود الكوفي',
                 'issuing_place' => 'Sample Place',
                 'issuing_date' => now()->subYears(rand(1, 5))->format('Y-m-d'),
-                'file_path' => 'documents/' . $fileName,
+                'file_path' => $filePath,
             ]);
         }
     }
