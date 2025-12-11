@@ -1,6 +1,6 @@
 import { Head, useForm } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
@@ -9,17 +9,20 @@ import {
     User,
     Mail,
     Lock,
-    FileText,
     Upload,
     BookOpen,
     GraduationCap,
-    CheckCircle,
-    ArrowLeft,
-    ScrollText,
     Award,
-    PlusCircle
+    PlusCircle,
+    Eye,
+    EyeOff,
+    Trash2,
+    ArrowLeft,
+    CheckCircle,
+    FileText
 } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useState } from 'react';
 
 export default function Apply() {
     const { data, setData, post, errors, processing } = useForm({
@@ -29,7 +32,7 @@ export default function Apply() {
         password_confirmation: '',
         bio: '',
         qualifications: '',
-        memorization_level: 0,
+        memorization_level: '' as any, // تغيير النوع للسماح بمسح الحقل
         documents: [
             {
                 name: '',
@@ -42,6 +45,9 @@ export default function Apply() {
             }
         ]
     });
+
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
@@ -56,8 +62,16 @@ export default function Apply() {
             riwayah: '',
             issuing_place: '',
             issuing_date: '',
-            file: null as File | null,
+            file: null,
         }]);
+    };
+
+    const removeCertificate = (index: number) => {
+        const documents = [...data.documents];
+        if (documents.length > 1) {
+            documents.splice(index, 1);
+            setData('documents', documents);
+        }
     };
 
     const handleDocumentChange = (index: number, field: string, value: any) => {
@@ -66,6 +80,16 @@ export default function Apply() {
         setData('documents', documents);
     };
 
+    // --- Styles & Helpers ---
+    
+    // 1. حل مشكلة الخلفية الصفراء عند الملء التلقائي (Autofill Fix)
+    const autofillFix = "transition-all duration-300 [&:-webkit-autofill]:shadow-[0_0_0_1000px_hsl(var(--background))_inset] dark:[&:-webkit-autofill]:shadow-[0_0_0_1000px_hsl(var(--background))_inset] [&:-webkit-autofill]:-webkit-text-fill-color-foreground";
+    
+    // 2. إخفاء أسهم الأرقام (Spinners)
+    const noSpinner = "[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none";
+
+    // 3. تنسيق موحد للحقول (Focus & Hover)
+    const inputClasses = `h-12 rounded-xl bg-muted/30 border-border focus:bg-background focus:border-primary focus:ring-2 focus:ring-primary/10 hover:border-primary/50 transition-all duration-200 ${autofillFix}`;
 
     return (
         <SiteLayout>
@@ -73,13 +97,11 @@ export default function Apply() {
 
             {/* --- Hero Section --- */}
             <section className="relative py-24 gradient-hero overflow-hidden animate-fade-in-up">
-                {/* Background Effects */}
                 <div className="absolute inset-0 pointer-events-none">
                     <div className="absolute inset-0 bg-transparent dark:bg-black/40 transition-colors duration-300"></div>
                     <div className="absolute inset-0 opacity-10 mix-blend-overlay">
                          <div className="absolute top-0 left-0 w-full h-full bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20"></div>
                     </div>
-                    {/* Floating Shapes */}
                     <div className="absolute top-10 right-10 w-32 h-32 bg-white/20 rounded-full blur-3xl animate-pulse"></div>
                     <div className="absolute bottom-10 left-10 w-40 h-40 bg-white/15 rounded-full blur-3xl animate-pulse delay-1000"></div>
                 </div>
@@ -104,7 +126,7 @@ export default function Apply() {
                         {/* Decorative Top Border */}
                         <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-emerald-500 via-primary to-emerald-500"></div>
 
-                        <form onSubmit={handleSubmit}>
+                        <form onSubmit={handleSubmit} autoComplete="off">
                             
                             {/* 1. Personal Information Section */}
                             <div className="p-8 md:p-12">
@@ -120,42 +142,46 @@ export default function Apply() {
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     {/* Name */}
-                                    <div className="space-y-2 md:col-span-2">
-                                        <Label htmlFor="name" className="text-foreground font-medium">الاسم الرباعي</Label>
-                                        <div className="relative">
-                                            <User className="absolute right-3 top-3 w-5 h-5 text-muted-foreground" />
+                                    <div className="md:col-span-2">
+                                        <Label htmlFor="name" className="text-foreground font-semibold text-sm mb-2.5 block">الاسم الرباعي</Label>
+                                        <div className="relative group">
+                                            <User className="absolute right-3.5 top-3.5 w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors duration-200" />
                                             <Input
                                                 id="name"
                                                 placeholder="الاسم كما يظهر في الهوية"
                                                 value={data.name}
                                                 onChange={(e) => setData('name', e.target.value)}
-                                                className="pr-10 h-12 rounded-xl bg-muted/30 focus:bg-background border-border hover:border-primary/50 transition-all"
+                                                className={`pr-11 ${inputClasses}`}
+                                                autoComplete="off"
                                             />
                                         </div>
                                         {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
                                     </div>
 
                                     {/* Email */}
-                                    <div className="space-y-2 md:col-span-2">
-                                        <Label htmlFor="email" className="text-foreground font-medium">البريد الإلكتروني</Label>
-                                        <div className="relative">
-                                            <Mail className="absolute right-3 top-3 w-5 h-5 text-muted-foreground" />
+                                    <div className="md:col-span-2">
+                                        <Label htmlFor="email" className="text-foreground font-semibold text-sm mb-2.5 block">البريد الإلكتروني</Label>
+                                        <div className="relative group">
+                                            <Mail className="absolute right-3.5 top-3.5 w-5 h-5 text-muted-foreground z-10 group-hover:text-primary transition-colors duration-200" />
                                             <Input
                                                 id="email"
                                                 type="email"
                                                 placeholder="email@example.com"
                                                 value={data.email}
                                                 onChange={(e) => setData('email', e.target.value)}
-                                                className="pr-10 h-12 rounded-xl bg-muted/30 border-border hover:border-primary/50"
+                                                className={`pr-11 text-left ${inputClasses}`}
+                                                dir="ltr"
+                                                autoComplete="new-password"
                                             />
                                         </div>
                                         {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
                                     </div>
-{/* Memorization Level */}
-                                    <div className="space-y-2 md:col-span-2">
-                                        <Label htmlFor="memorization_level" className="text-foreground font-medium">مستوى الحفظ (عدد الأجزاء)</Label>
-                                        <div className="relative">
-                                            <BookOpen className="absolute right-3 top-3 w-5 h-5 text-muted-foreground" />
+
+                                    {/* Memorization Level - FIXED */}
+                                    <div className="md:col-span-2">
+                                        <Label htmlFor="memorization_level" className="text-foreground font-semibold text-sm mb-2.5 block">مستوى الحفظ (عدد الأجزاء)</Label>
+                                        <div className="relative group">
+                                            <BookOpen className="absolute right-3.5 top-3.5 w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors duration-200" />
                                             <Input
                                                 id="memorization_level"
                                                 type="number"
@@ -163,37 +189,54 @@ export default function Apply() {
                                                 max="30"
                                                 placeholder="مثال: 30"
                                                 value={data.memorization_level}
-                                                onChange={(e) => setData('memorization_level', parseInt(e.target.value, 10))}
-                                                className="pr-10 h-12 rounded-xl bg-background border-border hover:border-emerald-500/50"
+                                                onChange={(e) => {
+                                                    const val = e.target.value;
+                                                    // السماح بمسح الحقل (قيمة فارغة)
+                                                    if (val === '') {
+                                                        setData('memorization_level', '' as any);
+                                                        return;
+                                                    }
+                                                    const num = parseInt(val);
+                                                    // التحقق من أن الرقم بين 0 و 30
+                                                    if (!isNaN(num) && num >= 0 && num <= 30) {
+                                                        setData('memorization_level', num);
+                                                    }
+                                                }}
+                                                className={`pr-11 text-left ${inputClasses} ${noSpinner}`}
+                                                dir="ltr"
                                             />
                                         </div>
+                                        <p className="text-[10px] text-muted-foreground mt-1.5 mr-1">أدخل رقماً بين 0 و 30 جزءاً</p>
                                         {errors.memorization_level && <p className="text-red-500 text-xs mt-1">{errors.memorization_level}</p>}
                                     </div>
-                                    <div className="space-y-2 md:col-span-2">
-                                        <Label htmlFor="qualifications" className="text-foreground font-medium">المؤهل الأكاديمي (شهادة علمية)</Label>
-                                        <div className="relative">
-                                            <BookOpen className="absolute right-3 top-3 w-5 h-5 text-muted-foreground" />
+
+                                    {/* Academic Qualification */}
+                                    <div className="md:col-span-2">
+                                        <Label htmlFor="qualifications" className="text-foreground font-semibold text-sm mb-2.5 block">المؤهل الأكاديمي (شهادة علمية)</Label>
+                                        <div className="relative group">
+                                            <BookOpen className="absolute right-3.5 top-3.5 w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors duration-200" />
                                             <Input
                                                 id="qualifications"
                                                 type="text"
                                                 placeholder="مثال: ثانوية عامة علمي"
                                                 value={data.qualifications}
-                                                className="pr-10 h-12 rounded-xl bg-background border-border hover:border-emerald-500/50"
+                                                onChange={(e) => setData('qualifications', e.target.value)}
+                                                className={`pr-11 ${inputClasses}`}
                                             />
                                         </div>
                                         {errors.qualifications && <p className="text-red-500 text-xs mt-1">{errors.qualifications}</p>}
                                     </div>
 
                                     {/* Bio */}
-                                    <div className="space-y-2 md:col-span-2">
-                                        <Label htmlFor="bio" className="text-foreground font-medium">نبذة تعريفية (Bio)</Label>
-                                        <div className="relative">
+                                    <div className="md:col-span-2">
+                                        <Label htmlFor="bio" className="text-foreground font-semibold text-sm mb-2.5 block">نبذة تعريفية (Bio)</Label>
+                                        <div className="relative group">
                                             <Textarea
                                                 id="bio"
                                                 placeholder="تحدث بإيجاز عن خبرتك في تعليم القرآن الكريم..."
                                                 value={data.bio}
                                                 onChange={(e) => setData('bio', e.target.value)}
-                                                className="min-h-[120px] rounded-xl bg-muted/30 border-border hover:border-primary/50 p-4"
+                                                className="min-h-[120px] rounded-xl bg-muted/30 border-border hover:border-primary/50 focus:bg-background focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all duration-200 p-4"
                                             />
                                         </div>
                                         {errors.bio && <p className="text-red-500 text-xs mt-1">{errors.bio}</p>}
@@ -201,7 +244,7 @@ export default function Apply() {
                                 </div>
                             </div>
 
-                            {/* 2. Professional Details Section (Distinct Background) */}
+                            {/* 2. Professional Details Section */}
                             <div className="bg-muted/30 dark:bg-gray-800/20 p-8 md:p-12 border-t border-border">
                                 <div className="flex items-center gap-4 mb-8 pb-4 border-b border-border">
                                     <div className="w-12 h-12 bg-emerald-50 dark:bg-emerald-900/20 rounded-2xl flex items-center justify-center text-emerald-600 dark:text-emerald-400">
@@ -214,66 +257,83 @@ export default function Apply() {
                                 </div>
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                    
                                     {data.documents.map((doc, index) => (
-                                        <div key={index} className="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6 border-b border-border pb-6 mb-6">
+                                        <div key={index} className="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6 border-b border-border/50 pb-8 mb-2 last:border-0 last:pb-0 last:mb-0 relative group/doc">
+                                            {/* Remove Button */}
+                                            {data.documents.length > 1 && (
+                                                <button
+                                                    type="button"
+                                                    onClick={() => removeCertificate(index)}
+                                                    className="absolute top-0 left-0 p-2 text-red-400 hover:text-red-600 bg-red-50 hover:bg-red-100 rounded-lg transition-colors opacity-0 group-hover/doc:opacity-100"
+                                                    title="حذف الشهادة"
+                                                >
+                                                    <Trash2 className="w-4 h-4" />
+                                                </button>
+                                            )}
+
                                             {/* Document Name */}
-                                            <div className="space-y-2 md:col-span-2">
-                                                <Label htmlFor={`doc_name_${index}`} className="text-foreground font-medium">اسم الشهادة/الوثيقة</Label>
+                                            <div className="md:col-span-2">
+                                                <Label htmlFor={`doc_name_${index}`} className="text-foreground font-semibold text-sm mb-2.5 block">اسم الشهادة/الوثيقة</Label>
                                                 <Input
-                                                    id={`doc_name_${index}`}
                                                     placeholder="مثال: شهادة حفظ القران"
                                                     value={doc.name}
                                                     onChange={(e) => handleDocumentChange(index, 'name', e.target.value)}
-                                                    className="h-12 rounded-xl bg-background border-border"
+                                                    className={inputClasses}
                                                 />
                                             </div>
 
                                             {/* Certificate Type */}
-                                            <div className="space-y-2">
-                                                <Label htmlFor={`certificate_type_${index}`}>نوع الشهادة</Label>
+                                            <div>
+                                                <Label htmlFor={`certificate_type_${index}`} className="text-foreground font-semibold text-sm mb-2.5 block">نوع الشهادة</Label>
                                                 <Select
                                                     onValueChange={(value) => handleDocumentChange(index, 'certificate_type', value)}
                                                     value={doc.certificate_type}
                                                 >
-                                                    <SelectTrigger className="h-12 rounded-xl bg-background border-border">
+                                                    <SelectTrigger 
+                                                        className={`text-right ${inputClasses}`} 
+                                                        dir="rtl"
+                                                        style={{ fontFamily: 'Cairo, sans-serif' }}
+                                                    >
                                                         <SelectValue placeholder="اختر النوع" />
                                                     </SelectTrigger>
-                                                    <SelectContent>
+                                                    
+                                                    <SelectContent 
+                                                        dir="rtl" 
+                                                        style={{ fontFamily: 'Cairo, sans-serif' }} 
+                                                    >
                                                         <SelectItem value="شهادة حفظ قران">شهادة حفظ قران</SelectItem>
                                                         <SelectItem value="شهادة إجازة في القران">شهادة إجازة في القران</SelectItem>
                                                         <SelectItem value="سيرة ذاتية">سيرة ذاتية</SelectItem>
-                                                        <SelectItem value="Other">Other</SelectItem>
+                                                        <SelectItem value="Other">أخرى</SelectItem>
                                                     </SelectContent>
                                                 </Select>
                                             </div>
 
                                             {/* Other Certificate Type */}
                                             {doc.certificate_type === 'Other' && (
-                                                <div className="space-y-2">
-                                                    <Label htmlFor={`certificate_type_other_${index}`}>النوع (آخر)</Label>
+                                                <div>
+                                                    <Label htmlFor={`certificate_type_other_${index}`} className="text-foreground font-semibold text-sm mb-2.5 block">النوع (آخر)</Label>
                                                     <Input
-                                                        id={`certificate_type_other_${index}`}
                                                         placeholder="يرجى التحديد"
                                                         value={doc.certificate_type_other}
                                                         onChange={(e) => handleDocumentChange(index, 'certificate_type_other', e.target.value)}
-                                                        className="h-12 rounded-xl bg-background border-border"
+                                                        className={inputClasses}
                                                     />
                                                 </div>
                                             )}
 
                                             {/* Riwayah */}
                                             {(doc.certificate_type === 'شهادة حفظ قران' || doc.certificate_type === 'شهادة إجازة في القران') && (
-                                                <div className="space-y-2">
-                                                    <Label htmlFor={`riwayah_${index}`}>الرواية</Label>
+                                                <div>
+                                                    <Label htmlFor={`riwayah_${index}`} className="text-foreground font-semibold text-sm mb-2.5 block">الرواية</Label>
                                                     <Select
                                                         onValueChange={(value) => handleDocumentChange(index, 'riwayah', value)}
                                                         value={doc.riwayah}
                                                     >
-                                                        <SelectTrigger className="h-12 rounded-xl bg-background border-border">
+                                                        <SelectTrigger className={`text-right ${inputClasses}`} dir="rtl">
                                                             <SelectValue placeholder="اختر الرواية" />
                                                         </SelectTrigger>
-                                                        <SelectContent>
+                                                        <SelectContent dir="rtl">
                                                             <SelectItem value="قراءة الإمام نافع المدني">قراءة الإمام نافع المدني</SelectItem>
                                                             <SelectItem value="قراءة الإمام عبد الله بن كثير المكي">قراءة الإمام عبد الله بن كثير المكي</SelectItem>
                                                             <SelectItem value="قراءة الإمام أبو عمرو البصري">قراءة الإمام أبو عمرو البصري</SelectItem>
@@ -292,68 +352,64 @@ export default function Apply() {
                                             {/* Issuing Place and Date */}
                                             {doc.certificate_type !== 'سيرة ذاتية' && (
                                                 <>
-                                                    <div className="space-y-2">
-                                                        <Label htmlFor={`issuing_place_${index}`}>مكان الإصدار</Label>
+                                                    <div>
+                                                        <Label htmlFor={`issuing_place_${index}`} className="text-foreground font-semibold text-sm mb-2.5 block">مكان الإصدار</Label>
                                                         <Input
-                                                            id={`issuing_place_${index}`}
                                                             placeholder="مثال: الجمعية الخيرية لتحفيظ القرآن"
                                                             value={doc.issuing_place}
                                                             onChange={(e) => handleDocumentChange(index, 'issuing_place', e.target.value)}
-                                                            className="h-12 rounded-xl bg-background border-border"
+                                                            className={inputClasses}
                                                         />
                                                     </div>
-                                                    <div className="space-y-2">
-                                                        <Label htmlFor={`issuing_date_${index}`}>تاريخ الإصدار</Label>
+                                                    <div>
+                                                        <Label htmlFor={`issuing_date_${index}`} className="text-foreground font-semibold text-sm mb-2.5 block">تاريخ الإصدار</Label>
                                                         <Input
-                                                            id={`issuing_date_${index}`}
                                                             type="date"
                                                             value={doc.issuing_date}
                                                             onChange={(e) => handleDocumentChange(index, 'issuing_date', e.target.value)}
-                                                            className="h-12 rounded-xl bg-background border-border"
+                                                            className={`${inputClasses} text-left`}
+                                                            dir="ltr"
                                                         />
                                                     </div>
                                                 </>
                                             )}
 
-                                            {/* File Upload */}
-                                            <div className="space-y-2 md:col-span-2">
-                                                <Label htmlFor={`file_${index}`}>رفع الملف</Label>
-                                                <div className="border-2 border-dashed border-border rounded-xl p-6 text-center hover:bg-background transition-colors relative cursor-pointer group bg-background/50">
+                                            {/* File Upload - FIXED COLORS to PRIMARY */}
+                                            <div className="md:col-span-2">
+                                                <Label htmlFor={`file_${index}`} className="text-foreground font-semibold text-sm mb-2.5 block">رفع الملف</Label>
+                                                <div className="border-2 border-dashed border-border rounded-xl p-6 text-center hover:bg-muted/50 hover:border-primary/40 transition-all duration-300 relative cursor-pointer group bg-background/50">
                                                     <input
-                                                        id={`file_${index}`}
                                                         type="file"
                                                         className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
                                                         onChange={(e) => handleDocumentChange(index, 'file', e.target.files ? e.target.files[0] : null)}
                                                     />
-                                                    <div className="flex flex-col items-center gap-2 group-hover:scale-105 transition-transform">
-                                                        <div className="w-10 h-10 bg-emerald-100 dark:bg-emerald-900/30 rounded-full flex items-center justify-center text-emerald-600 mb-1">
-                                                            <Upload className="w-5 h-5" />
+                                                    <div className="flex flex-col items-center gap-3 group-hover:scale-105 transition-transform duration-300">
+                                                        <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary mb-1">
+                                                            <Upload className="w-6 h-6" />
                                                         </div>
-                                                        <p className="text-xs font-medium text-foreground truncate w-full px-2">
-                                                            {doc.file ? doc.file.name : "اختر ملف"}
+                                                        <p className="text-sm font-medium text-foreground truncate w-full px-2 group-hover:text-primary transition-colors">
+                                                            {doc.file ? doc.file.name : "اختر ملف (PDF, JPG)"}
                                                         </p>
-                                                        <span className="text-[10px] text-muted-foreground">PDF, JPG (Max 5MB)</span>
+                                                        <span className="text-[10px] text-muted-foreground">الحد الأقصى 5 ميجابايت</span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     ))}
 
-                                    <div className="md:col-span-2">
+                                    <div className="md:col-span-2 mt-4">
                                         <Button
                                             type="button"
                                             onClick={addCertificate}
                                             variant="outline"
-                                            className="w-full h-12 rounded-xl border-dashed"
+                                            className="w-full h-12 rounded-xl border-dashed border-2 hover:border-primary hover:text-primary hover:bg-primary/5 transition-all gap-2 text-muted-foreground"
                                         >
-                                            <PlusCircle className="w-5 h-5 mr-2" />
+                                            <PlusCircle className="w-5 h-5" />
                                             إضافة شهادة أخرى
                                         </Button>
                                     </div>
                                 </div>
                             </div>
-
-
 
                             {/* 3. Account Security (White Background) */}
                             <div className="p-8 md:p-12 border-t border-border">
@@ -369,33 +425,53 @@ export default function Apply() {
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     {/* Password */}
-                                    <div className="space-y-2">
-                                        <Label htmlFor="password" className="text-foreground font-medium">كلمة المرور</Label>
-                                        <div className="relative">
-                                            <Lock className="absolute right-3 top-3 w-5 h-5 text-muted-foreground" />
+                                    <div>
+                                        <Label htmlFor="password" className="text-foreground font-semibold text-sm mb-2.5 block">كلمة المرور</Label>
+                                        <div className="relative group">
+                                            <Lock className="absolute right-3.5 top-3.5 w-5 h-5 text-muted-foreground z-10 group-hover:text-primary transition-colors duration-200" />
                                             <Input
                                                 id="password"
-                                                type="password"
+                                                type={showPassword ? "text" : "password"}
                                                 value={data.password}
                                                 onChange={(e) => setData('password', e.target.value)}
-                                                className="pr-10 h-11 rounded-xl bg-muted/30 border-border hover:border-purple-500/50"
+                                                className={`pr-11 pl-11 text-left ${inputClasses}`}
+                                                dir="ltr"
+                                                autoComplete="new-password"
                                             />
+                                            {/* Toggle Eye Button */}
+                                            <button
+                                                type="button"
+                                                onClick={() => setShowPassword(!showPassword)}
+                                                className="absolute left-3 top-3.5 text-muted-foreground hover:text-foreground transition-colors focus:outline-none"
+                                            >
+                                                {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                                            </button>
                                         </div>
                                         {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password}</p>}
                                     </div>
 
                                     {/* Confirm Password */}
-                                    <div className="space-y-2">
-                                        <Label htmlFor="password_confirmation" className="text-foreground font-medium">تأكيد كلمة المرور</Label>
-                                        <div className="relative">
-                                            <CheckCircle className="absolute right-3 top-3 w-5 h-5 text-muted-foreground" />
+                                    <div>
+                                        <Label htmlFor="password_confirmation" className="text-foreground font-semibold text-sm mb-2.5 block">تأكيد كلمة المرور</Label>
+                                        <div className="relative group">
+                                            <CheckCircle className="absolute right-3.5 top-3.5 w-5 h-5 text-muted-foreground z-10 group-hover:text-primary transition-colors duration-200" />
                                             <Input
                                                 id="password_confirmation"
-                                                type="password"
+                                                type={showConfirmPassword ? "text" : "password"}
                                                 value={data.password_confirmation}
                                                 onChange={(e) => setData('password_confirmation', e.target.value)}
-                                                className="pr-10 h-11 rounded-xl bg-muted/30 border-border hover:border-purple-500/50"
+                                                className={`pr-11 pl-11 text-left ${inputClasses}`}
+                                                dir="ltr"
+                                                autoComplete="new-password"
                                             />
+                                            {/* Toggle Eye Button */}
+                                            <button
+                                                type="button"
+                                                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                                className="absolute left-3 top-3.5 text-muted-foreground hover:text-foreground transition-colors focus:outline-none"
+                                            >
+                                                {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
