@@ -1,48 +1,28 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link, usePage } from '@inertiajs/react';
 import AdminLayout from '@/layouts/admin-layout';
 import { Inertia } from '@inertiajs/inertia';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
-export default function SchoolsIndex() {
-    const { schools, filters } = usePage().props;
-    const [search, setSearch] = useState(filters.search || '');
-    const [status, setStatus] = useState(filters.status || '');
+export default function PendingSchools() {
+    const { schools } = usePage().props;
 
-    const handleSearch = () => {
-        Inertia.get('/dash/schools', { search, status }, { preserveState: true });
+    const handleApprove = (schoolId) => {
+        if (confirm('Are you sure you want to approve this school?')) {
+            Inertia.post(`/dash/schools/${schoolId}/approve`, {}, { preserveScroll: true });
+        }
+    };
+
+    const handleReject = (schoolId) => {
+        if (confirm('Are you sure you want to reject this school?')) {
+            Inertia.post(`/dash/schools/${schoolId}/reject`, {}, { preserveScroll: true });
+        }
     };
 
     return (
         <AdminLayout>
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">Schools</h1>
-                <div className="mt-4 flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                        <Input
-                            type="text"
-                            value={search}
-                            onChange={(e) => setSearch(e.target.value)}
-                            placeholder="Search by name, admin, or registration number"
-                            className="w-full"
-                        />
-                        <Select onValueChange={(value) => setStatus(value)} value={status}>
-                            <SelectTrigger className="w-[180px]">
-                                <SelectValue placeholder="All Statuses" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectItem value="">All Statuses</SelectItem>
-                                <SelectItem value="pending">Pending</SelectItem>
-                                <SelectItem value="accepted">Accepted</SelectItem>
-                                <SelectItem value="rejected">Rejected</SelectItem>
-                                <SelectItem value="suspended">Suspended</SelectItem>
-                            </SelectContent>
-                        </Select>
-                        <Button onClick={handleSearch}>Search</Button>
-                    </div>
-                </div>
+                <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">Pending Schools</h1>
                 <div className="mt-8 flex flex-col">
                     <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                         <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -57,15 +37,15 @@ export default function SchoolsIndex() {
                                                 Admin
                                             </th>
                                             <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
-                                                Status
+                                                Application Date
                                             </th>
                                             <th scope="col" className="relative px-6 py-3">
-                                                <span className="sr-only">Edit</span>
+                                                <span className="sr-only">Actions</span>
                                             </th>
                                         </tr>
                                     </thead>
                                     <tbody className="bg-white divide-y divide-gray-200 dark:bg-gray-900 dark:divide-gray-700">
-                                        {schools.data.map((school) => (
+                                        {schools.map((school) => (
                                             <tr key={school.id}>
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
                                                     {school.name}
@@ -74,18 +54,15 @@ export default function SchoolsIndex() {
                                                     {school.admin.user.name}
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-                                                    <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                                                        school.admin.status === 'accepted' ? 'bg-green-100 text-green-800' :
-                                                        school.admin.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
-                                                        'bg-red-100 text-red-800'
-                                                    }`}>
-                                                        {school.admin.status}
-                                                    </span>
+                                                    {new Date(school.created_at).toLocaleDateString()}
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                                    <Link href={`/dash/schools/${school.id}`} className="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-200">
-                                                        View
-                                                    </Link>
+                                                    <Button onClick={() => handleApprove(school.id)} variant="default" className="mr-4">
+                                                        Approve
+                                                    </Button>
+                                                    <Button onClick={() => handleReject(school.id)} variant="destructive">
+                                                        Reject
+                                                    </Button>
                                                 </td>
                                             </tr>
                                         ))}

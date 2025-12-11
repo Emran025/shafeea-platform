@@ -9,34 +9,67 @@ use Inertia\Inertia;
 
 class AdminSchoolController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        // This will be the new dashboard for school approvals
+        $query = School::with('admin.user')->latest();
+
+        if ($request->has('search')) {
+            $searchTerm = $request->input('search');
+            $query->where(function ($q) use ($searchTerm) {
+                $q->where('name', 'like', "%{$searchTerm}%")
+                  ->orWhereHas('admin.user', function ($userQuery) use ($searchTerm) {
+                      $userQuery->where('name', 'like', "%{$searchTerm}%");
+                  })
+                  ->orWhere('registration_number', 'like', "%{$searchTerm}%");
+            });
+        }
+
+        if ($request->has('status') && $request->input('status') !== '') {
+            $query->whereHas('admin', function ($q) use ($request) {
+                $q->where('status', $request->input('status'));
+            });
+        }
+
+        $schools = $query->paginate(15);
+
         return Inertia::render('admin/schools/index', [
+            'schools' => $schools,
+            'filters' => $request->only(['search', 'status'])
+        ]);
+    }
+
+    public function show(School $school)
+    {
+        $school->load('admin.user');
+        return Inertia::render('admin/schools/show', [
+            'school' => $school
+        ]);
+    }
+
+    public function pending()
+    {
+        return Inertia::render('admin/schools/pending', [
             'schools' => School::with('admin.user')->whereHas('admin', function ($query) {
                 $query->where('status', 'pending');
-            })->get(),
+            })->latest()->get(),
         ]);
     }
 
     public function approve(School $school)
     {
         $school->admin->update(['status' => 'accepted']);
-
         return redirect()->back()->with('success', 'School approved successfully.');
     }
 
     public function reject(School $school)
     {
         $school->admin->update(['status' => 'rejected']);
-
         return redirect()->back()->with('success', 'School rejected successfully.');
     }
 
     public function suspend(School $school)
     {
         $school->admin->update(['status' => 'suspended']);
-
         return redirect()->back()->with('success', 'School suspended successfully.');
     }
 }
