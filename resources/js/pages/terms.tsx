@@ -210,7 +210,7 @@ export default function Terms({ terms }: TermsProps) {
                                         
                                         {/* Compacted List Items */}
                                         <div className="space-y-2 pl-0 md:pl-16">
-                                            {section.content.split('\n').map((item, itemIndex) => (
+                                            {section.content.map((item, itemIndex) => (
                                                 <div key={itemIndex} className="flex items-start gap-3 p-2 rounded-lg hover:bg-muted/50 transition-colors">
                                                     <div className={`w-1.5 h-1.5 rounded-full mt-2 flex-shrink-0 ${bg.replace('/20', '')}`}></div>
                                                     <p className="text-muted-foreground leading-snug text-sm">

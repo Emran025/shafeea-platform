@@ -218,7 +218,7 @@ export default function Privacy({ privacyPolicy }: PrivacyProps) {
                                         </div>
 
                                         <div className="space-y-3">
-                                            {section.content.split('\n').map((item, itemIndex) => (
+                                            {section.content.map((item, itemIndex) => (
                                                 <div key={itemIndex} className="flex items-start gap-3">
                                                     <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
                                                     <p className="text-gray-600 dark:text-gray-300 leading-relaxed">

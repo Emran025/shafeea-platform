@@ -32,32 +32,38 @@ interface FaqProps {
 
 // Helper to create a slug from category name
 const slugify = (text: string) => {
+    const a = 'àáâäæãåāăąçćčđďèéêëēėęěğǵḧîïíīįìłḿñńǹňôöòóœøōõőṕŕřßśšşșťțûüùúūǘůűųẃẍÿýžźż·/_,:;'
+    const b = 'aaaaaaaaaacccddeeeeeeeegghiiiiiilmnnnnoooooooooprrsssssttuuuuuuuuuwxyyzzz------'
+    const p = new RegExp(a.split('').join('|'), 'g')
+
     return text.toString().toLowerCase()
-        .replace(/\s+/g, '-')       // Replace spaces with -
-        .replace(/[^\w\-]+/g, '')   // Remove all non-word chars
-        .replace(/\-\-+/g, '-')     // Replace multiple - with single -
-        .replace(/^-+/, '')         // Trim - from start of text
-        .replace(/-+$/, '');        // Trim - from end of text
+        .replace(/\s+/g, '-') // Replace spaces with -
+        .replace(p, c => b.charAt(a.indexOf(c))) // Replace special characters
+        .replace(/&/g, '-and-') // Replace & with 'and'
+        .replace(/[^\w\-]+/g, '') // Remove all non-word chars
+        .replace(/\-\-+/g, '-') // Replace multiple - with single -
+        .replace(/^-+/, '') // Trim - from start of text
+        .replace(/-+$/, '') // Trim - from end of text
 };
 
 const getCategoryIcon = (slug: string) => {
     switch (slug) {
-        case 'general': return Globe;
-        case 'account-management': return Settings;
-        case 'features': return BookOpen;
-        case 'billing-and-plans': return CreditCard;
-        case 'technical-support': return Briefcase;
+        case 'أسئلة-عامة': return Globe;
+        case 'إدارة-الحساب': return Settings;
+        case 'الميزات': return BookOpen;
+        case 'الأسعار-والخطط': return CreditCard;
+        case 'الدعم-الفني': return Briefcase;
         default: return HelpCircle;
     }
 };
 
 const getCategoryColor = (slug: string) => {
     switch (slug) {
-        case 'general': return 'text-blue-500';
-        case 'account-management': return 'text-purple-500';
-        case 'features': return 'text-emerald-500';
-        case 'billing-and-plans': return 'text-rose-500';
-        case 'technical-support': return 'text-orange-500';
+        case 'أسئلة-عامة': return 'text-blue-500';
+        case 'إدارة-الحساب': return 'text-purple-500';
+        case 'الميزات': return 'text-emerald-500';
+        case 'الأسعار-والخطط': return 'text-rose-500';
+        case 'الدعم-الفني': return 'text-orange-500';
         default: return 'text-primary';
     }
 };
