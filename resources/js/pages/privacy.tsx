@@ -22,155 +22,14 @@ import {
     Wifi
 } from 'lucide-react';
 import SiteLayout from '@/layouts/site-layout';
+import { PrivacyPolicy } from '@/types';
 
-export default function Privacy() {
-    const privacySections = [
-        {
-            id: "introduction",
-            title: "المقدمة",
-            icon: FileText,
-            content: [
-                "نحن في شركة شفيع نقدر خصوصيتك ونلتزم بحماية معلوماتك الشخصية",
-                "تحدد هذه السياسة كيفية جمع واستخدام وحماية ومشاركة معلوماتك عند استخدام منصتنا",
-                "باستخدام خدماتنا، فإنك توافق على ممارسات جمع واستخدام المعلومات الموضحة في هذه السياسة",
-                "نلتزم بالامتثال لجميع القوانين واللوائح المحلية والدولية المتعلقة بحماية البيانات",
-                "نحدث سياسة الخصوصية هذه بانتظام لتعكس أي تغييرات في ممارساتنا أو متطلبات القانون"
-            ]
-        },
-        {
-            id: "data-collection",
-            title: "البيانات التي نجمعها",
-            icon: Database,
-            content: [
-                "المعلومات الشخصية: الاسم، البريد الإلكتروني، رقم الهاتف، العنوان",
-                "بيانات الحساب: اسم المستخدم، كلمة المرور المشفرة، تفضيلات الحساب",
-                "المعلومات التعليمية: البيانات الأكاديمية، التقدم في الحفظ، النتائج والدرجات",
-                "بيانات الاستخدام: مدة الجلسات، الصفحات المزارة، الميزات المستخدمة",
-                "المعلومات التقنية: عنوان IP، نوع المتصفح، نظام التشغيل، معلومات الجهاز",
-                "ملفات تعريف الارتباط: لتحسين تجربة المستخدم وتذكر التفضيلات"
-            ]
-        },
-        {
-            id: "data-usage",
-            title: "كيف نستخدم بياناتك",
-            icon: Settings,
-            content: [
-                "تقديم وتشغيل خدمات المنصة التعليمية بكفاءة",
-                "إنشاء وإدارة حساباتكم على المنصة",
-                "تتبع التقدم الأكاديمي وتوليد التقارير التعليمية",
-                "تخصيص المحتوى والتجربة وفقاً لاحتياجاتكم",
-                "إرسال الإشعارات المهمة والتحديثات حول الخدمة",
-                "تحسين خدماتنا وتطوير ميزات جديدة",
-                "ضمان الأمان ومنع الاستخدام غير المشروع للمنصة"
-            ]
-        },
-        {
-            id: "data-sharing",
-            title: "مشاركة البيانات",
-            icon: Users,
-            content: [
-                "لا نبيع أو نؤجر معلوماتك الشخصية لأطراف ثالثة",
-                "قد نشارك البيانات مع مقدمي الخدمات الموثوقين لتشغيل المنصة",
-                "مشاركة محدودة مع المعلمين وأولياء الأمور لأغراض تعليمية",
-                "الكشف عن المعلومات عند الطلب القانوني من السلطات المختصة",
-                "مشاركة البيانات المجمعة وغير المحددة للهوية لأغراض إحصائية",
-                "جميع مقدمي الخدمة ملزمون بالحفاظ على سرية معلوماتك"
-            ]
-        },
-        {
-            id: "data-security",
-            title: "أمان البيانات",
-            icon: Shield,
-            content: [
-                "تشفير جميع البيانات الحساسة أثناء النقل والتخزين",
-                "استخدام بروتوكولات أمان متقدمة ومعايير صناعية عالية",
-                "مراقبة أمنية مستمرة لاكتشاف ومنع التهديدات",
-                "التحكم في الوصول القائم على الأدوار والصلاحيات",
-                "نسخ احتياطية منتظمة وآمنة لحماية من فقدان البيانات",
-                "فحص أمني دوري للنظام والبنية التحتية",
-                "تدريب الموظفين على أفضل ممارسات الأمان والخصوصية"
-            ]
-        },
-        {
-            id: "user-rights",
-            title: "حقوقك في البيانات",
-            icon: CheckCircle,
-            content: [
-                "الحق في الوصول إلى بياناتك الشخصية المخزنة لدينا",
-                "الحق في تصحيح أو تحديث معلوماتك الشخصية",
-                "الحق في حذف بياناتك في ظروف معينة",
-                "الحق في تقييد معالجة بياناتك",
-                "الحق في نقل بياناتك إلى خدمة أخرى",
-                "الحق في الاعتراض على معالجة بياناتك",
-                "الحق في سحب الموافقة في أي وقت"
-            ]
-        },
-        {
-            id: "cookies",
-            title: "ملفات تعريف الارتباط",
-            icon: Globe,
-            content: [
-                "نستخدم ملفات تعريف الارتباط لتحسين تجربة المستخدم",
-                "ملفات ضرورية لتشغيل المنصة الأساسي (تسجيل الدخول، الأمان)",
-                "ملفات تحليلية لفهم كيفية استخدام المنصة وتحسينها",
-                "ملفات وظيفية لتذكر تفضيلاتك وإعداداتك",
-                "يمكنك التحكم في ملفات تعريف الارتباط من خلال إعدادات متصفحك",
-                "بعض ميزات المنصة قد لا تعمل بشكل صحيح بدون هذه الملفات"
-            ]
-        },
-        {
-            id: "data-retention",
-            title: "الاحتفاظ بالبيانات",
-            icon: Clock,
-            content: [
-                "نحتفظ بمعلوماتك طالما كان حسابك نشطاً وتستخدم خدماتنا",
-                "بيانات الطلاب التعليمية قد نحتفظ بها لفترات أطول لأغراض أكاديمية",
-                "بعد إغلاق الحساب، نحذف المعلومات الشخصية خلال 90 يوماً",
-                "قد نحتفظ ببعض البيانات لفترة أطول للامتثال للمتطلبات القانونية",
-                "البيانات المجمعة وغير المحددة للهوية قد نحتفظ بها بشكل دائم",
-                "يمكنك طلب حذف بياناتك في أي وقت من خلال إعدادات الحساب"
-            ]
-        },
-        {
-            id: "international-transfers",
-            title: "نقل البيانات الدولي",
-            icon: Wifi,
-            content: [
-                "قد ننقل ونعالج بياناتك في دول أخرى لتقديم خدماتنا",
-                "جميع عمليات النقل تتم وفقاً للمعايير الدولية لحماية البيانات",
-                "نضمن مستوى حماية مناسب للبيانات في جميع الدول المستقبلة",
-                "نستخدم آليات حماية قانونية معتمدة لنقل البيانات الآمن",
-                "البيانات الحساسة تبقى مخزنة داخل المملكة العربية السعودية",
-                "يحق لك معرفة مواقع معالجة بياناتك والاعتراض عليها"
-            ]
-        },
-        {
-            id: "minors-privacy",
-            title: "خصوصية القُصَّر",
-            icon: Users,
-            content: [
-                "نحمي خصوصية الأطفال دون سن 18 عاماً بعناية خاصة",
-                "موافقة ولي الأمر مطلوبة لجمع معلومات الأطفال",
-                "لا نجمع معلومات شخصية من الأطفال أكثر مما هو ضروري",
-                "أولياء الأمور لهم الحق في مراجعة وحذف بيانات أطفالهم",
-                "الوصول لبيانات الأطفال مقيد على المعلمين المعتمدين فقط",
-                "نوفر أدوات للرقابة الأبوية وحماية الأطفال على الإنترنت"
-            ]
-        },
-        {
-            id: "updates",
-            title: "التحديثات",
-            icon: RefreshCw,
-            content: [
-                "قد نحدث سياسة الخصوصية هذه من وقت لآخر",
-                "سنخطركم بأي تغييرات جوهرية عبر البريد الإلكتروني أو إشعار على المنصة",
-                "نشجعكم على مراجعة هذه السياسة بانتظام",
-                "التغييرات تصبح سارية المفعول فور نشرها على الموقع",
-                "استمراركم في استخدام الخدمة يعني موافقتكم على السياسة المحدثة",
-                "لديكم الحق في الاعتراض على التغييرات وإغلاق الحساب"
-            ]
-        }
-    ];
+interface PrivacyProps {
+    privacyPolicy: PrivacyPolicy;
+}
+
+export default function Privacy({ privacyPolicy }: PrivacyProps) {
+    const sections = JSON.parse(privacyPolicy.sections_json);
 
     const dataProtectionPrinciples = [
         {
@@ -225,7 +84,34 @@ export default function Privacy() {
             description: "مكتب مسؤول حماية البيانات"
         }
     ];
-
+    const getIcon = (title: string) => {
+        switch (title) {
+            case 'مقدمة':
+                return FileText;
+            case 'المعلومات التي نجمعها':
+                return Database;
+            case 'كيفية استخدامنا لمعلوماتك':
+                return Settings;
+            case 'مشاركة البيانات':
+                return Users;
+            case 'أمن البيانات':
+                return Shield;
+            case 'حقوق المستخدم':
+                return CheckCircle;
+            case 'ملفات تعريف الارتباط':
+                return Globe;
+            case 'الاحتفاظ بالبيانات':
+                return Clock;
+            case 'نقل البيانات الدولي':
+                return Wifi;
+            case 'خصوصية الأطفال':
+                return Users;
+            case 'التغييرات على سياسة الخصوصية':
+                return RefreshCw;
+            default:
+                return FileText;
+        }
+    };
     return (
         <SiteLayout>
             <Head title="سياسة الخصوصية - شفيع" />
@@ -253,7 +139,7 @@ export default function Privacy() {
                         <div className="mt-8 flex justify-center">
                             <div className="bg-white/10 backdrop-blur-lg rounded-lg p-4 text-white">
                                 <p className="text-sm">
-                                    آخر تحديث: ديسمبر 2024 | ساري المفعول من: 1 يناير 2024
+                                    آخر تحديث: {new Date(privacyPolicy.last_updated).toLocaleDateString('ar-SA')} | ساري المفعول من: {new Date(privacyPolicy.last_updated).toLocaleDateString('ar-SA')}
                                 </p>
                             </div>
                         </div>
@@ -315,33 +201,36 @@ export default function Privacy() {
 
                     {/* Privacy Sections */}
                     <div className="space-y-8">
-                        {privacySections.map((section, index) => (
-                            <Card key={section.id} className="overflow-hidden hover:shadow-lg transition-all duration-300">
-                                <div className="p-6">
-                                    <div className="flex items-center gap-3 mb-4">
-                                        <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-emerald-500 rounded-lg flex items-center justify-center">
-                                            <section.icon className="w-5 h-5 text-white" />
-                                        </div>
-                                        <div>
-                                            <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                                                {index + 1}. {section.title}
-                                            </h3>
-                                        </div>
-                                    </div>
-                                    
-                                    <div className="space-y-3">
-                                        {section.content.map((item, itemIndex) => (
-                                            <div key={itemIndex} className="flex items-start gap-3">
-                                                <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
-                                                <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                                                    {item}
-                                                </p>
+                        {sections.map((section, index) => {
+                            const Icon = getIcon(section.title);
+                            return (
+                                <Card key={index} className="overflow-hidden hover:shadow-lg transition-all duration-300">
+                                    <div className="p-6">
+                                        <div className="flex items-center gap-3 mb-4">
+                                            <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-emerald-500 rounded-lg flex items-center justify-center">
+                                                <Icon className="w-5 h-5 text-white" />
                                             </div>
-                                        ))}
+                                            <div>
+                                                <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                                                    {index + 1}. {section.title}
+                                                </h3>
+                                            </div>
+                                        </div>
+
+                                        <div className="space-y-3">
+                                            {section.content.split('\n').map((item, itemIndex) => (
+                                                <div key={itemIndex} className="flex items-start gap-3">
+                                                    <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
+                                                    <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                                                        {item}
+                                                    </p>
+                                                </div>
+                                            ))}
+                                        </div>
                                     </div>
-                                </div>
-                            </Card>
-                        ))}
+                                </Card>
+                            );
+                        })}
                     </div>
 
                     {/* Your Rights Summary */}

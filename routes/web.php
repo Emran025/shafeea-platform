@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Models\PrivacyPolicy;
+use App\Models\TermsOfUse;
+use App\Models\Faq;
 
 Route::get('/', function () {
     return Inertia::render('welcome');
@@ -21,15 +24,18 @@ Route::get('/contact', function () {
 })->name('contact');
 
 Route::get('/terms', function () {
-    return Inertia::render('terms');
+    $terms = TermsOfUse::where('is_active', true)->latest('last_updated')->first();
+    return Inertia::render('terms', ['terms' => $terms]);
 })->name('terms');
 
 Route::get('/privacy', function () {
-    return Inertia::render('privacy');
+    $privacyPolicy = PrivacyPolicy::where('is_active', true)->latest('last_updated')->first();
+    return Inertia::render('privacy', ['privacyPolicy' => $privacyPolicy]);
 })->name('privacy');
 
 Route::get('/faq', function () {
-    return Inertia::render('faq');
+    $faqs = Faq::with('category', 'tags')->where('is_active', true)->get();
+    return Inertia::render('faq', ['faqs' => $faqs]);
 })->name('faq');
 
 // Contact form submission

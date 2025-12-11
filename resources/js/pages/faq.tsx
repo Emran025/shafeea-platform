@@ -12,113 +12,90 @@ import {
     Settings,
     CreditCard,
     ChevronDown,
-    ChevronUp,
     Star,
     CheckCircle,
-    AlertCircle,
     Mail,
     Phone,
     Globe,
-    Clock,
     Filter,
-    TrendingUp
+    TrendingUp,
+    Briefcase,
+    DollarSign
 } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import SiteLayout from '@/layouts/site-layout';
+import { Faq } from '@/types';
 
-export default function FAQ() {
+interface FaqProps {
+    faqs: Faq[];
+}
+
+// Helper to create a slug from category name
+const slugify = (text: string) => {
+    return text.toString().toLowerCase()
+        .replace(/\s+/g, '-')       // Replace spaces with -
+        .replace(/[^\w\-]+/g, '')   // Remove all non-word chars
+        .replace(/\-\-+/g, '-')     // Replace multiple - with single -
+        .replace(/^-+/, '')         // Trim - from start of text
+        .replace(/-+$/, '');        // Trim - from end of text
+};
+
+const getCategoryIcon = (slug: string) => {
+    switch (slug) {
+        case 'general': return Globe;
+        case 'account-management': return Settings;
+        case 'features': return BookOpen;
+        case 'billing-and-plans': return CreditCard;
+        case 'technical-support': return Briefcase;
+        default: return HelpCircle;
+    }
+};
+
+const getCategoryColor = (slug: string) => {
+    switch (slug) {
+        case 'general': return 'text-blue-500';
+        case 'account-management': return 'text-purple-500';
+        case 'features': return 'text-emerald-500';
+        case 'billing-and-plans': return 'text-rose-500';
+        case 'technical-support': return 'text-orange-500';
+        default: return 'text-primary';
+    }
+};
+
+export default function FAQ({ faqs }: FaqProps) {
     const [searchQuery, setSearchQuery] = useState('');
     const [activeCategory, setActiveCategory] = useState('all');
-    const [expandedItems, setExpandedItems] = useState<string[]>([]);
+    const [expandedItems, setExpandedItems] = useState<number[]>([]);
 
-    // تحديث الفئات بألوان مميزة
-    const categories = [
-        { id: 'all', name: 'جميع الأسئلة', icon: HelpCircle, color: 'text-primary' },
-        { id: 'general', name: 'عام', icon: Globe, color: 'text-blue-500' },
-        { id: 'account', name: 'الحساب', icon: Settings, color: 'text-purple-500' },
-        { id: 'features', name: 'الميزات', icon: BookOpen, color: 'text-emerald-500' },
-        { id: 'billing', name: 'الفواتير', icon: CreditCard, color: 'text-rose-500' }
-    ];
+    const { faqData, categories, popularFAQ } = useMemo(() => {
+        const sortedFaqs = [...faqs].sort((a, b) => b.view_count - a.view_count);
+        const popularIds = sortedFaqs.slice(0, 4).map(f => f.id);
 
-    const faqData = [
-        {
-            id: 'what-is-shafeea',
-            category: 'general',
-            question: 'ما هي منصة شفيع؟',
-            answer: 'شفيع هي منصة تعليمية متطورة مخصصة لإدارة الحلقات القرآنية والمؤسسات التعليمية الإسلامية. توفر أدوات شاملة لإدارة الطلاب والمعلمين ومتابعة التقدم في حفظ القرآن الكريم.',
-            popular: true
-        },
-        {
-            id: 'how-to-get-started',
-            category: 'general',
-            question: 'كيف يمكنني البدء باستخدام المنصة؟',
-            answer: 'يمكنك البدء بإنشاء حساب مجاني من خلال صفحة التسجيل. ستحصل على فترة تجريبية مجانية لمدة 30 يوماً لاستكشاف جميع ميزات المنصة.',
-            popular: true
-        },
-        {
-            id: 'pricing-plans',
-            category: 'general',
-            question: 'ما هي خطط الأسعار المتاحة؟',
-            answer: 'نوفر ثلاث خطط رئيسية: الأساسية (299 ريال)، المتقدمة (599 ريال)، والاحترافية (1299 ريال شهرياً). كل خطة تناسب حجم مؤسسة مختلف.',
-            popular: true
-        },
-        {
-            id: 'data-security',
-            category: 'general',
-            question: 'هل بياناتي آمنة على المنصة؟',
-            answer: 'نعم، نستخدم تشفير متقدم ونسخ احتياطية منتظمة. نلتزم بأعلى معايير الأمان الدولية وقوانين حماية البيانات.',
-            popular: true
-        },
-        {
-            id: 'create-account',
-            category: 'account',
-            question: 'كيف أنشئ حساباً جديداً؟',
-            answer: 'انقر على "التسجيل"، املأ البيانات المطلوبة، واتبع التعليمات. ستحصل على رابط تفعيل عبر البريد الإلكتروني.',
-            popular: false
-        },
-        {
-            id: 'forgot-password',
-            category: 'account',
-            question: 'نسيت كلمة المرور، ماذا أفعل؟',
-            answer: 'انقر على "نسيت كلمة المرور" في صفحة تسجيل الدخول، أدخل بريدك الإلكتروني، وستصلك تعليمات إعادة التعيين.',
-            popular: true
-        },
-        {
-            id: 'student-management',
-            category: 'features',
-            question: 'كيف أدير بيانات الطلاب؟',
-            answer: 'من لوحة التحكم، اذهب إلى "إدارة الطلاب" حيث يمكنك إضافة طلاب جدد، تعديل بياناتهم، وتتبع تقدمهم في الحفظ.',
-            popular: true
-        },
-        {
-            id: 'progress-tracking',
-            category: 'features',
-            question: 'كيف أتابع تقدم الطلاب؟',
-            answer: 'نوفر نظام متابعة شامل يسجل ما تم حفظه ومراجعته ودرجات التقييم في رسوم بيانية واضحة وتقارير مفصلة.',
-            popular: true
-        },
-        {
-            id: 'reports-generation',
-            category: 'features',
-            question: 'ما أنواع التقارير المتاحة؟',
-            answer: 'نوفر تقارير متنوعة: تقدم الطالب الفردي، تقارير الصف، الحضور والغياب، والأداء الشهري والسنوي.',
-            popular: false
-        },
-        {
-            id: 'payment-methods',
-            category: 'billing',
-            question: 'ما هي طرق الدفع المقبولة؟',
-            answer: 'نقبل جميع البطاقات الائتمانية الرئيسية، التحويل البنكي، ومدى. الدفع آمن ومشفر بالكامل.',
-            popular: false
-        },
-        {
-            id: 'refund-policy',
-            category: 'billing',
-            question: 'ما هي سياسة الاسترداد؟',
-            answer: 'نوفر ضمان استرداد لمدة 14 يوماً من تاريخ الاشتراك الأول. يمكنك إلغاء الاشتراك في أي وقت دون رسوم إضافية.',
-            popular: false
-        }
-    ];
+        const data = faqs.map(faq => ({
+            id: faq.id,
+            category: slugify(faq.category.name),
+            question: faq.question,
+            answer: faq.answer,
+            popular: popularIds.includes(faq.id)
+        }));
+
+        const uniqueCategories = [
+            { id: 'all', name: 'جميع الأسئلة', icon: HelpCircle, color: 'text-primary' },
+            ...Array.from(new Set(faqs.map(f => f.category.name))).map(name => {
+                const slug = slugify(name);
+                return {
+                    id: slug,
+                    name: name,
+                    icon: getCategoryIcon(slug),
+                    color: getCategoryColor(slug),
+                };
+            })
+        ];
+
+        const popular = data.filter(item => item.popular);
+
+        return { faqData: data, categories: uniqueCategories, popularFAQ: popular };
+    }, [faqs]);
 
     const filteredFAQ = faqData.filter(item => {
         const matchesCategory = activeCategory === 'all' || item.category === activeCategory;
@@ -127,9 +104,7 @@ export default function FAQ() {
         return matchesCategory && matchesSearch;
     });
 
-    const popularFAQ = faqData.filter(item => item.popular);
-
-    const toggleExpanded = (id: string) => {
+    const toggleExpanded = (id: number) => {
         setExpandedItems(prev => 
             prev.includes(id) 
                 ? prev.filter(item => item !== id)
@@ -142,17 +117,13 @@ export default function FAQ() {
             <Head title="الأسئلة الشائعة - شفيع" />
 
             {/* Hero Section */}
-            {/* Hero Section */}
             <section className="relative py-24 gradient-hero overflow-hidden animate-fade-in-up">
                 
                 <div className="absolute inset-0">
-
                     <div className="absolute inset-0 bg-transparent dark:bg-black/60 transition-colors duration-300"></div>
-                    
                     <div className="absolute inset-0 opacity-10 mix-blend-overlay pointer-events-none">
                         <div className="absolute top-0 left-0 w-full h-full bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20"></div>
                     </div>
-
                     <div className="absolute top-0 left-0 w-full h-full opacity-20 pointer-events-none">
                         <div className="absolute top-10 left-10 w-32 h-32 bg-white/20 rounded-full blur-3xl animate-pulse"></div>
                         <div className="absolute bottom-20 right-20 w-40 h-40 bg-white/15 rounded-full blur-3xl animate-pulse delay-1000"></div>
@@ -165,24 +136,19 @@ export default function FAQ() {
                         <div className="inline-flex items-center justify-center w-20 h-20 bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl mb-8 hover-scale-sm transition-all duration-300 shadow-xl">
                             <HelpCircle className="w-10 h-10 text-white" />
                         </div>
-                        
                         <Badge className="mb-6 bg-white/10 text-white border-white/20 hover:bg-white/20 backdrop-blur-md transition-all duration-300 text-sm px-4 py-2 shadow-sm glass-card hover-lift">
                             <Star className="w-4 h-4 ml-1 text-yellow-300" />
                             مركز المساعدة والدعم
                         </Badge>
-                        
                         <h1 className="text-5xl md:text-6xl font-bold text-white mb-8 leading-tight tracking-tight drop-shadow-sm">
                             الأسئلة الشائعة
                         </h1>
-                        
                         <p className="text-xl md:text-2xl text-blue-50/90 leading-relaxed mb-10 max-w-4xl mx-auto font-light">
                             نجيب على أكثر الأسئلة شيوعاً حول منصة شفيع لمساعدتك في الحصول على أفضل تجربة تعليمية
                         </p>
-                        
                         <div className="max-w-lg mx-auto">
                             <div className="relative group">
                                 <div className="absolute inset-0 bg-white/20 rounded-2xl blur-md opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-                                
                                 <div className="relative bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl shadow-lg transition-all duration-300 group-hover:bg-white/15">
                                     <Search className="absolute right-5 top-1/2 transform -translate-y-1/2 text-white/70 w-5 h-5" />
                                     <Input
@@ -197,15 +163,9 @@ export default function FAQ() {
                         </div>
                     </div>
                 </div>
-                {/* Background Decorations: */}
-                <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-                    <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-500/20 rounded-full blur-3xl mix-blend-screen"></div>
-                    <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl mix-blend-screen"></div>
-                </div>
             </section>
 
-
-            {/* Popular Questions - Clean & Solid in Light Mode */}
+            {/* Popular Questions */}
             <section className="py-20 bg-background animate-fade-in-up">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-16">
@@ -281,7 +241,7 @@ export default function FAQ() {
                         <div className="lg:col-span-3">
                             <div className="space-y-4">
                                 {filteredFAQ.length > 0 ? (
-                                    filteredFAQ.map((item, index) => (
+                                    filteredFAQ.map((item) => (
                                         <Card key={item.id} className="group overflow-hidden transition-all duration-300 border border-border bg-card hover:border-primary/50">
                                             <CardHeader
                                                 className="cursor-pointer hover:bg-muted/30 transition-colors p-6 select-none"
@@ -345,7 +305,6 @@ export default function FAQ() {
                         <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
                             فريق الدعم جاهز لمساعدتك. تواصل معنا وسنجيب خلال ساعات قليلة.
                         </p>
-                        
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <Button asChild className="bg-primary hover:bg-primary/90 text-primary-foreground h-12 px-8 text-lg shadow-lg shadow-primary/20">
                                 <Link href="/contact">
