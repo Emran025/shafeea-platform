@@ -20,7 +20,7 @@ import {
     ArrowLeft,
     CheckCircle,
     FileText,
-    Building,
+    Building2,
     AlertCircle,
 } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -211,7 +211,7 @@ export default function Apply({ schools }: { schools: School[] }) {
                                             الانضمام لمدرسة (اختياري)
                                         </Label>
                                         <div className="relative group">
-                                            <Building className="absolute right-3.5 top-3.5 w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors duration-200" />
+                                            <Building2 className="absolute right-3.5 top-3.5 w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors duration-200" />
                                             <Select onValueChange={(value) => setData('school_id', value)} value={data.school_id}>
                                                 <SelectTrigger className={`pr-11 ${inputClasses}`} dir="rtl">
                                                     <SelectValue placeholder="اختر مدرسة للانضمام إليها" />

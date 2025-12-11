@@ -16,7 +16,7 @@ import {
     Lock,
     Award,
     ArrowLeft,
-    School,
+    School2,
     CheckCircle,
     PlusCircle,
     Trash2,
@@ -126,7 +126,7 @@ export default function Apply() {
 
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
                     <div className="inline-flex items-center justify-center w-20 h-20 bg-white/10 backdrop-blur-lg border border-white/20 rounded-3xl mb-6 shadow-2xl hover:scale-105 transition-transform duration-300">
-                        <School className="w-10 h-10 text-white" />
+                        <School2 className="w-10 h-10 text-white" />
                     </div>
                     <h1 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
                         انضم إلى مجتمع شفيع
@@ -178,7 +178,7 @@ export default function Apply() {
                                     <div className="space-y-3 md:col-span-2">
                                         <Label htmlFor="name" className="text-foreground font-semibold text-sm">اسم المدرسة / المنشأة</Label>
                                         <div className="relative group">
-                                            <School className="absolute right-3.5 top-3.5 w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors duration-200" />
+                                            <School2 className="absolute right-3.5 top-3.5 w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors duration-200" />
                                             <Input
                                                 id="name"
                                                 placeholder="مثال: مجمع النور القرآني"
