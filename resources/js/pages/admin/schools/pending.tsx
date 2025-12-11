@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, usePage } from '@inertiajs/react';
 import AdminLayout from '@/layouts/admin-layout';
-import { Inertia } from '@inertiajs/inertia';
+import { router } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';
 
 export default function PendingSchools() {
@@ -9,13 +9,13 @@ export default function PendingSchools() {
 
     const handleApprove = (schoolId) => {
         if (confirm('Are you sure you want to approve this school?')) {
-            Inertia.post(`/dash/schools/${schoolId}/approve`, {}, { preserveScroll: true });
+            router.post(`/dash/schools/${schoolId}/approve`, {}, { preserveScroll: true });
         }
     };
 
     const handleReject = (schoolId) => {
         if (confirm('Are you sure you want to reject this school?')) {
-            Inertia.post(`/dash/schools/${schoolId}/reject`, {}, { preserveScroll: true });
+            router.post(`/dash/schools/${schoolId}/reject`, {}, { preserveScroll: true });
         }
     };
 

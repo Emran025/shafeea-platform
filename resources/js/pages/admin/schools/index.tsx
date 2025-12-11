@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, usePage } from '@inertiajs/react';
 import AdminLayout from '@/layouts/admin-layout';
-import { Inertia } from '@inertiajs/inertia';
+import { router } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -12,7 +12,7 @@ export default function SchoolsIndex() {
     const [status, setStatus] = useState(filters.status || '');
 
     const handleSearch = () => {
-        Inertia.get('/dash/schools', { search, status }, { preserveState: true });
+        router.get('/dash/schools', { search, status }, { preserveState: true });
     };
 
     return (

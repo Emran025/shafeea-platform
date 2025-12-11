@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, usePage } from '@inertiajs/react';
 import AdminLayout from '@/layouts/admin-layout';
-import { Inertia } from '@inertiajs/inertia';
+import { router } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors, DragEndEvent } from '@dnd-kit/core';
@@ -47,7 +47,7 @@ export default function InquiriesIndex() {
     );
 
     const handleFilter = () => {
-        Inertia.get('/dash/inquiries', { type }, { preserveState: true });
+        router.get('/dash/inquiries', { type }, { preserveState: true });
     };
 
     function handleDragEnd(event: DragEndEvent) {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm, usePage } from '@inertiajs/react';
 import AdminLayout from '@/layouts/admin-layout';
-import { Inertia } from '@inertiajs/inertia';
+import { router } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -164,7 +164,7 @@ export default function AccountIndex() {
                                         </p>
                                     </div>
                                     <Button
-                                        onClick={() => Inertia.delete(`/dash/account/sessions/${session.id}`, { preserveScroll: true })}
+                                        onClick={() => router.delete(`/dash/account/sessions/${session.id}`, { preserveScroll: true })}
                                         variant="destructive"
                                     >
                                         Terminate

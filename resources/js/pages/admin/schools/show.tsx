@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, usePage } from '@inertiajs/react';
 import AdminLayout from '@/layouts/admin-layout';
-import { Inertia } from '@inertiajs/inertia';
+import { router } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';
 
 export default function SchoolShow() {
@@ -9,13 +9,13 @@ export default function SchoolShow() {
 
     const handleSuspend = () => {
         if (confirm('Are you sure you want to suspend this school?')) {
-            Inertia.post(`/dash/schools/${school.id}/suspend`, {}, { preserveScroll: true });
+            router.post(`/dash/schools/${school.id}/suspend`, {}, { preserveScroll: true });
         }
     };
 
     const handleReactivate = () => {
         if (confirm('Are you sure you want to reactivate this school?')) {
-            Inertia.post(`/dash/schools/${school.id}/approve`, {}, { preserveScroll: true });
+            router.post(`/dash/schools/${school.id}/approve`, {}, { preserveScroll: true });
         }
     };
 
