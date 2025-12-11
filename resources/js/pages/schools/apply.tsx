@@ -32,6 +32,7 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 export default function Apply() {
     const { flash } = usePage<SharedData>().props;
     const { data, setData, post, errors, processing, wasSuccessful, reset } = useForm({
+        error: '',
         name: '',
         logo: null as File | null,
         phone: '',
@@ -158,11 +159,11 @@ export default function Apply() {
                                 </div>
 
                                 {flash?.success && (
-                                    <Alert variant="success" className="mb-6 animate-fade-in">
-                                        <CheckCircle className="h-4 w-4" />
-                                        <AlertTitle>نجاح!</AlertTitle>
-                                        <AlertDescription>{flash.success}</AlertDescription>
-                                    </Alert>
+                                <Alert className="mb-6 animate-fade-in bg-green-50 border-green-200 text-green-800 dark:bg-green-900/20 dark:border-green-800 dark:text-green-400">
+                                    <CheckCircle className="h-4 w-4 text-green-600 dark:text-green-400" />
+                                    <AlertTitle>نجاح!</AlertTitle>
+                                    <AlertDescription>{flash.success}</AlertDescription>
+                                </Alert>
                                 )}
                                 {errors.error && (
                                     <Alert variant="destructive" className="mb-6 animate-fade-in">

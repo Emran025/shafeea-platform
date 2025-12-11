@@ -32,6 +32,7 @@ export default function Apply({ schools }: { schools: School[] }) {
     const { flash } = usePage<SharedData>().props;
     const { data, setData, post, errors, processing, wasSuccessful, reset } = useForm({
         name: '',
+        error: '',
         email: '',
         password: '',
         password_confirmation: '',
@@ -153,8 +154,8 @@ export default function Apply({ schools }: { schools: School[] }) {
                                 </div>
 
                                 {flash?.success && (
-                                    <Alert variant="success" className="mb-6 animate-fade-in">
-                                        <CheckCircle className="h-4 w-4" />
+                                    <Alert className="mb-6 animate-fade-in bg-green-50 border-green-200 text-green-800 dark:bg-green-900/20 dark:border-green-800 dark:text-green-400">
+                                        <CheckCircle className="h-4 w-4 text-green-600 dark:text-green-400" />
                                         <AlertTitle>نجاح!</AlertTitle>
                                         <AlertDescription>{flash.success}</AlertDescription>
                                     </Alert>

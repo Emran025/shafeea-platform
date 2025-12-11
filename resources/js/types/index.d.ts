@@ -23,12 +23,19 @@ export interface NavItem {
 }
 
 export interface SharedData {
+    flash?: {
+        success?: string;
+        error?: string;
+        warning?: string;
+        info?: string;
+    };
     name: string;
     quote: { message: string; author: string };
     auth: Auth;
     ziggy: Config & { location: string };
     sidebarOpen: boolean;
     [key: string]: unknown;
+    errors?;
 }
 
 export interface User {
