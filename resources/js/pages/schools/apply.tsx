@@ -58,18 +58,19 @@ export default function Apply() {
         ]
     });
 
-    useEffect(() => {
-        if (wasSuccessful) {
-            reset();
-        }
-    }, [wasSuccessful]);
-
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
-        post(route('schools.store'));
+        post(route('schools.store'), {
+            forceFormData: true,
+            onSuccess: () => {
+                reset();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            },
+            preserveScroll: false,
+        });
     }
 
     const addCertificate = () => {
@@ -98,9 +99,20 @@ export default function Apply() {
         setData('documents', documents);
     };
 
-    // --- Styles & Helpers ---
-    const autofillFix = "transition-all duration-300 [&:-webkit-autofill]:shadow-[0_0_0_1000px_hsl(var(--background))_inset] dark:[&:-webkit-autofill]:shadow-[0_0_0_1000px_hsl(var(--background))_inset] [&:-webkit-autofill]:-webkit-text-fill-color-foreground";
-    const autofillMuted = "transition-all duration-300 [&:-webkit-autofill]:shadow-[0_0_0_1000px_#f3f4f6_inset] dark:[&:-webkit-autofill]:shadow-[0_0_0_1000px_#1f2937_inset] [&:-webkit-autofill]:-webkit-text-fill-color-foreground";
+    
+    const autofillFix = `
+        transition-colors duration-[50000s] ease-in-out 0s
+        [&:-webkit-autofill]:shadow-[inset_0_0_0_1000px_#ffffff] 
+        dark:[&:-webkit-autofill]:shadow-[inset_0_0_0_1000px_#020817]
+        [&:-webkit-autofill]:-webkit-text-fill-color-foreground
+    `;
+
+    const autofillMuted = `
+        transition-colors duration-[50000s] ease-in-out 0s
+        [&:-webkit-autofill]:shadow-[inset_0_0_0_1000px_#f3f4f6] 
+        dark:[&:-webkit-autofill]:shadow-[inset_0_0_0_1000px_#1f2937]
+        [&:-webkit-autofill]:-webkit-text-fill-color-foreground
+    `;
     
     // Base input classes based on section color
     const getInputClass = (color: 'blue' | 'emerald' | 'purple', isMuted = false) => {
@@ -525,7 +537,10 @@ export default function Apply() {
                                                         >
                                                         <SelectValue placeholder="اختر الرواية" />
                                                         </SelectTrigger>
-                                                        <SelectContent dir="rtl">
+                                                        <SelectContent 
+                                                            dir="rtl"
+                                                            style={{ fontFamily: 'Cairo, sans-serif' }} 
+                                                        >
                                                             <SelectItem value="قراءة الإمام نافع المدني">قراءة الإمام نافع المدني</SelectItem>
                                                             <SelectItem value="قراءة الإمام عبد الله بن كثير المكي">قراءة الإمام عبد الله بن كثير المكي</SelectItem>
                                                             <SelectItem value="قراءة الإمام أبو عمرو البصري">قراءة الإمام أبو عمرو البصري</SelectItem>

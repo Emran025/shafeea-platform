@@ -53,18 +53,24 @@ export default function Apply({ schools }: { schools: School[] }) {
         ],
     });
 
-    useEffect(() => {
-        if (wasSuccessful) {
-            reset();
-        }
-    }, [wasSuccessful]);
+    // تم إزالة useEffect القديم لأنه غير مضمون مع Inertia في حالات النجاح
+    // الاعتماد سيكون على onSuccess داخل handleSubmit
 
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
-        post(route('teachers.store'));
+        post(route('teachers.store'), {
+            forceFormData: true,
+            onSuccess: () => {
+                // 1. تفريغ الحقول عند النجاح
+                reset(); 
+                // 2. الصعود لأعلى الصفحة لرؤية رسالة النجاح
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            },
+            preserveScroll: false, // لضمان عدم بقاء الصفحة في الأسفل
+        });
     }
 
     const addCertificate = () => {
@@ -95,8 +101,15 @@ export default function Apply({ schools }: { schools: School[] }) {
 
     // --- Styles & Helpers ---
     
-    // 1. حل مشكلة الخلفية الصفراء عند الملء التلقائي (Autofill Fix)
-    const autofillFix = "transition-all duration-300 [&:-webkit-autofill]:shadow-[0_0_0_1000px_hsl(var(--background))_inset] dark:[&:-webkit-autofill]:shadow-[0_0_0_1000px_hsl(var(--background))_inset] [&:-webkit-autofill]:-webkit-text-fill-color-foreground";
+    // 1. إصلاح مشكلة الخلفية الصفراء (Autofill Fix) - تم تحديث الكود ليكون أكثر قوة
+    // نستخدم transition-colors بمدة طويلة جداً لمنع المتصفح من تغيير اللون للأصفر
+    // ونستخدم box-shadow inset كطبقة إضافية للأمان
+    const autofillFix = `
+        transition-colors duration-[50000s] ease-in-out 0s
+        [&:-webkit-autofill]:shadow-[inset_0_0_0_1000px_#ffffff] 
+        dark:[&:-webkit-autofill]:shadow-[inset_0_0_0_1000px_#020817]
+        [&:-webkit-autofill]:-webkit-text-fill-color-foreground
+    `;
     
     // 2. إخفاء أسهم الأرقام (Spinners)
     const noSpinner = "[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none";
@@ -253,7 +266,6 @@ export default function Apply({ schools }: { schools: School[] }) {
                                                 value={data.memorization_level}
                                                 onChange={(e) => {
                                                     const val = e.target.value;
-                                                    // السماح بمسح الحقل (قيمة فارغة)
                                                     if (val === '') {
                                                         setData('memorization_level', '' as any);
                                                         return;
@@ -397,9 +409,12 @@ export default function Apply({ schools }: { schools: School[] }) {
                                                             dir="rtl"
                                                             style={{ fontFamily: 'Cairo, sans-serif' }}
                                                         >
-                                                        <SelectValue placeholder="اختر الرواية" />
+                                                            <SelectValue placeholder="اختر الرواية" />
                                                         </SelectTrigger>
-                                                        <SelectContent dir="rtl">
+                                                        <SelectContent 
+                                                            dir="rtl"
+                                                            style={{ fontFamily: 'Cairo, sans-serif' }} 
+                                                        >
                                                             <SelectItem value="قراءة الإمام نافع المدني">قراءة الإمام نافع المدني</SelectItem>
                                                             <SelectItem value="قراءة الإمام عبد الله بن كثير المكي">قراءة الإمام عبد الله بن كثير المكي</SelectItem>
                                                             <SelectItem value="قراءة الإمام أبو عمرو البصري">قراءة الإمام أبو عمرو البصري</SelectItem>
