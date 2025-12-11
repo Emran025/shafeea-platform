@@ -1,4 +1,4 @@
-import { Head, useForm } from '@inertiajs/react';
+import { Head, useForm, usePage } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -16,18 +16,23 @@ import {
     Lock,
     Award,
     ArrowLeft,
-    School,
+    School2,
     CheckCircle,
     PlusCircle,
     Trash2,
     FileText,
     Eye,
-    EyeOff
+    EyeOff,
+    AlertCircle
 } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { SharedData } from '@/types';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 export default function Apply() {
-    const { data, setData, post, errors, processing } = useForm({
+    const { flash } = usePage<SharedData>().props;
+    const { data, setData, post, errors, processing, wasSuccessful, reset } = useForm({
+        error: '',
         name: '',
         logo: null as File | null,
         phone: '',
@@ -52,6 +57,12 @@ export default function Apply() {
             }
         ]
     });
+
+    useEffect(() => {
+        if (wasSuccessful) {
+            reset();
+        }
+    }, [wasSuccessful]);
 
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -115,7 +126,7 @@ export default function Apply() {
 
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
                     <div className="inline-flex items-center justify-center w-20 h-20 bg-white/10 backdrop-blur-lg border border-white/20 rounded-3xl mb-6 shadow-2xl hover:scale-105 transition-transform duration-300">
-                        <School className="w-10 h-10 text-white" />
+                        <School2 className="w-10 h-10 text-white" />
                     </div>
                     <h1 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
                         انضم إلى مجتمع شفيع
@@ -147,12 +158,27 @@ export default function Apply() {
                                     </div>
                                 </div>
 
+                                {flash?.success && (
+                                <Alert className="mb-6 animate-fade-in bg-green-50 border-green-200 text-green-800 dark:bg-green-900/20 dark:border-green-800 dark:text-green-400">
+                                    <CheckCircle className="h-4 w-4 text-green-600 dark:text-green-400" />
+                                    <AlertTitle>نجاح!</AlertTitle>
+                                    <AlertDescription>{flash.success}</AlertDescription>
+                                </Alert>
+                                )}
+                                {errors.error && (
+                                    <Alert variant="destructive" className="mb-6 animate-fade-in">
+                                        <AlertCircle className="h-4 w-4" />
+                                        <AlertTitle>خطأ!</AlertTitle>
+                                        <AlertDescription>{errors.error}</AlertDescription>
+                                    </Alert>
+                                )}
+
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     {/* School Name */}
                                     <div className="space-y-3 md:col-span-2">
                                         <Label htmlFor="name" className="text-foreground font-semibold text-sm">اسم المدرسة / المنشأة</Label>
                                         <div className="relative group">
-                                            <School className="absolute right-3.5 top-3.5 w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors duration-200" />
+                                            <School2 className="absolute right-3.5 top-3.5 w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors duration-200" />
                                             <Input
                                                 id="name"
                                                 placeholder="مثال: مجمع النور القرآني"
@@ -391,6 +417,7 @@ export default function Apply() {
                                     </div>
                                 </div>
                             </div>
+                            
 
                             {/* 3. Documents Section (Purple Theme) */}
                             <div className="p-8 md:p-12 border-t border-border bg-background">
@@ -430,53 +457,137 @@ export default function Apply() {
                                                         className={getInputClass('purple')}
                                                     />
                                                 </div>
+                                                
+                                            {/* Document Name */}
+                                            <div className="md:col-span-2">
+                                                <Label htmlFor={`doc_name_${index}`} className="text-foreground font-semibold text-sm mb-2.5 block">اسم الشهادة/الوثيقة</Label>
+                                                <Input
+                                                    placeholder="مثال: رخصة التحفيظ، سجل مزاولة مهنية، شهادة إجازة المشرف"
+                                                    value={doc.name}
+                                                    onChange={(e) => handleDocumentChange(index, 'name', e.target.value)}
+                                                    className={getInputClass('purple')}
+                                                />
+                                            </div>
 
-                                                {/* Type */}
-                                                <div className="space-y-3">
-                                                    <Label className="text-foreground font-semibold text-sm">نوع الوثيقة</Label>
-                                                    <Select onValueChange={(v) => handleDocumentChange(index, 'certificate_type', v)} value={doc.certificate_type}>
+                                            {/* Certificate Type */}
+                                            <div>
+                                                <Label htmlFor={`certificate_type_${index}`} className="text-foreground font-semibold text-sm mb-2.5 block">نوع الوثيقة</Label>
+                                                <Select
+                                                    onValueChange={(value) => handleDocumentChange(index, 'certificate_type', value)}
+                                                    value={doc.certificate_type}
+                                                >
+                                                    <SelectTrigger 
+                                                        className={`text-right ${getInputClass('purple')}`} 
+                                                        dir="rtl"
+                                                        style={{ fontFamily: 'Cairo, sans-serif' }}
+                                                    >
+                                                        <SelectValue placeholder="اختر النوع" />
+                                                    </SelectTrigger>
+                                                    
+                                                    <SelectContent 
+                                                        dir="rtl" 
+                                                        style={{ fontFamily: 'Cairo, sans-serif' }} 
+                                                    >
+                                                        <SelectItem value="شهادة إجازة في القران">شهادة إجازة في القران</SelectItem>
+                                                        <SelectItem value="رخصة">رخصة رسمية</SelectItem>
+                                                        <SelectItem value="سجل مهني">سجل مهني</SelectItem>
+                                                        <SelectItem value="سيرة ذاتية">سيرة المشرف الذاتية</SelectItem>
+                                                        <SelectItem value="Other">أخرى</SelectItem>
+                                                    </SelectContent>
+                                                </Select>
+                                            </div>
+
+                                            {/* Other Certificate Type */}
+                                            {doc.certificate_type === 'Other' && (
+                                                <div>
+                                                    <Label htmlFor={`certificate_type_other_${index}`} className="text-foreground font-semibold text-sm mb-2.5 block">النوع (آخر)</Label>
+                                                    <Input
+                                                        placeholder="يرجى التحديد"
+                                                        value={doc.certificate_type_other}
+                                                        onChange={(e) => handleDocumentChange(index, 'certificate_type_other', e.target.value)}
+                                                        className={getInputClass('purple')}
+                                                    />
+                                                </div>
+                                            )}
+
+                                            {/* Riwayah */}
+                                            {(doc.certificate_type === 'شهادة حفظ قران' || doc.certificate_type === 'شهادة إجازة في القران') && (
+                                                <div>
+                                                    <Label htmlFor={`riwayah_${index}`} className="text-foreground font-semibold text-sm mb-2.5 block">الرواية</Label>
+                                                    <Select
+                                                        onValueChange={(value) => handleDocumentChange(index, 'riwayah', value)}
+                                                        value={doc.riwayah}
+                                                    >
                                                         <SelectTrigger 
                                                             className={`text-right ${getInputClass('purple')}`} 
                                                             dir="rtl"
                                                             style={{ fontFamily: 'Cairo, sans-serif' }}
                                                         >
-                                                            <SelectValue placeholder="اختر النوع" />
+                                                        <SelectValue placeholder="اختر الرواية" />
                                                         </SelectTrigger>
-                                                        <SelectContent dir="rtl" style={{ fontFamily: 'Cairo, sans-serif' }}>
-                                                            <SelectItem value="رخصة">رخصة رسمية</SelectItem>
-                                                            <SelectItem value="سجل تجاري">سجل تجاري</SelectItem>
-                                                            <SelectItem value="شهادة تسجيل">شهادة تسجيل</SelectItem>
-                                                            <SelectItem value="Other">أخرى</SelectItem>
+                                                        <SelectContent dir="rtl">
+                                                            <SelectItem value="قراءة الإمام نافع المدني">قراءة الإمام نافع المدني</SelectItem>
+                                                            <SelectItem value="قراءة الإمام عبد الله بن كثير المكي">قراءة الإمام عبد الله بن كثير المكي</SelectItem>
+                                                            <SelectItem value="قراءة الإمام أبو عمرو البصري">قراءة الإمام أبو عمرو البصري</SelectItem>
+                                                            <SelectItem value="قراءة الإمام بن عامر الدمشقي">قراءة الإمام بن عامر الدمشقي</SelectItem>
+                                                            <SelectItem value="قراءة الإمام عاصم بن أبي النجود الكوفي">قراءة الإمام عاصم بن أبي النجود الكوفي</SelectItem>
+                                                            <SelectItem value="قراءة الإمام حمزة الزيات">قراءة الإمام حمزة الزيات</SelectItem>
+                                                            <SelectItem value="قراءة الإمام الكسائي">قراءة الإمام الكسائي</SelectItem>
+                                                            <SelectItem value="قراءة الإمام أبو جعفر المدني">قراءة الإمام أبو جعفر المدني</SelectItem>
+                                                            <SelectItem value="قراءة الإمام يعقوب الحضرمي">قراءة الإمام يعقوب الحضرمي</SelectItem>
+                                                            <SelectItem value="قراءة الإمام خلف العاشر">قراءة الإمام خلف العاشر</SelectItem>
                                                         </SelectContent>
                                                     </Select>
                                                 </div>
+                                            )}
 
-                                                {/* Place */}
-                                                <div className="space-y-3">
-                                                    <Label className="text-foreground font-semibold text-sm">جهة الإصدار</Label>
-                                                    <Input
-                                                        placeholder="مثال: وزارة الموارد البشرية"
-                                                        value={doc.issuing_place}
-                                                        onChange={(e) => handleDocumentChange(index, 'issuing_place', e.target.value)}
-                                                        className={getInputClass('purple')}
-                                                    />
-                                                </div>
-
-                                                {/* File Upload - Small & Clean */}
-                                                <div className="space-y-3 md:col-span-2">
-                                                    <Label className="text-foreground font-semibold text-sm">صورة الوثيقة</Label>
-                                                    <div className="border-2 border-dashed border-purple-200 dark:border-purple-800/50 rounded-xl p-4 flex items-center justify-center gap-3 hover:bg-purple-50 dark:hover:bg-purple-900/10 hover:border-purple-300 transition-all cursor-pointer relative bg-background/50">
-                                                        <input
-                                                            type="file"
-                                                            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                                                            onChange={(e) => handleDocumentChange(index, 'file', e.target.files ? e.target.files[0] : null)}
+                                            {/* Issuing Place and Date */}
+                                            {doc.certificate_type !== 'سيرة ذاتية' && (
+                                                <>
+                                                    <div>
+                                                        <Label htmlFor={`issuing_place_${index}`} className="text-foreground font-semibold text-sm mb-2.5 block">مكان الإصدار</Label>
+                                                        <Input
+                                                            placeholder="مثال: الجمعية الخيرية لتحفيظ القرآن"
+                                                            value={doc.issuing_place}
+                                                            onChange={(e) => handleDocumentChange(index, 'issuing_place', e.target.value)}
+                                                            className={getInputClass('purple')}
                                                         />
-                                                        <FileText className="w-5 h-5 text-purple-500" />
-                                                        <span className="text-sm text-purple-600 dark:text-purple-400 font-medium">
-                                                            {doc.file ? doc.file.name : "اضغط لرفع ملف الوثيقة (PDF/JPG)"}
-                                                        </span>
+                                                    </div>
+                                                    <div>
+                                                        <Label htmlFor={`issuing_date_${index}`} className="text-foreground font-semibold text-sm mb-2.5 block">تاريخ الإصدار</Label>
+                                                        <Input
+                                                            type="date"
+                                                            value={doc.issuing_date}
+                                                            onChange={(e) => handleDocumentChange(index, 'issuing_date', e.target.value)}
+                                                            className={getInputClass('purple')}
+                                                            dir="ltr"
+                                                        />
+                                                    </div>
+                                                </>
+                                            )}
+
+                                            {/* File Upload - FIXED COLORS to PRIMARY */}
+                                            <div className="md:col-span-2">
+                                                <Label htmlFor={`file_${index}`} className="text-foreground font-semibold text-sm mb-2.5 block">رفع الملف</Label>
+                                                <div className="border-2 border-dashed border-border rounded-xl p-6 text-center hover:bg-muted/50 hover:border-primary/40 transition-all duration-300 relative cursor-pointer group bg-background/50">
+                                                    <input
+                                                        type="file"
+                                                        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                                                        onChange={(e) => handleDocumentChange(index, 'file', e.target.files ? e.target.files[0] : null)}
+                                                    />
+                                                    <div className="flex flex-col items-center gap-3 group-hover:scale-105 transition-transform duration-300">
+                                                        <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary mb-1">
+                                                            <Upload className="w-6 h-6" />
+                                                        </div>
+                                                        <p className="text-sm font-medium text-foreground truncate w-full px-2 group-hover:text-primary transition-colors">
+                                                            {doc.file ? doc.file.name : "اختر ملف (PDF, JPG)"}
+                                                        </p>
+                                                        <span className="text-[10px] text-muted-foreground">الحد الأقصى 5 ميجابايت</span>
                                                     </div>
                                                 </div>
+                                            </div>
+
+
                                             </div>
                                         </div>
                                     ))}

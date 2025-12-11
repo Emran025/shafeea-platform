@@ -1,4 +1,4 @@
-import { Head, useForm } from '@inertiajs/react';
+import { Head, useForm, usePage } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -19,20 +19,27 @@ import {
     Trash2,
     ArrowLeft,
     CheckCircle,
-    FileText
+    FileText,
+    Building2,
+    AlertCircle,
 } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { School, SharedData } from '@/types';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
-export default function Apply() {
-    const { data, setData, post, errors, processing } = useForm({
+export default function Apply({ schools }: { schools: School[] }) {
+    const { flash } = usePage<SharedData>().props;
+    const { data, setData, post, errors, processing, wasSuccessful, reset } = useForm({
         name: '',
+        error: '',
         email: '',
         password: '',
         password_confirmation: '',
         bio: '',
         qualifications: '',
-        memorization_level: '' as any, // تغيير النوع للسماح بمسح الحقل
+        memorization_level: '' as any,
+        school_id: '',
         documents: [
             {
                 name: '',
@@ -42,9 +49,15 @@ export default function Apply() {
                 issuing_place: '',
                 issuing_date: '',
                 file: null as File | null,
-            }
-        ]
+            },
+        ],
     });
+
+    useEffect(() => {
+        if (wasSuccessful) {
+            reset();
+        }
+    }, [wasSuccessful]);
 
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -140,6 +153,21 @@ export default function Apply() {
                                     </div>
                                 </div>
 
+                                {flash?.success && (
+                                    <Alert className="mb-6 animate-fade-in bg-green-50 border-green-200 text-green-800 dark:bg-green-900/20 dark:border-green-800 dark:text-green-400">
+                                        <CheckCircle className="h-4 w-4 text-green-600 dark:text-green-400" />
+                                        <AlertTitle>نجاح!</AlertTitle>
+                                        <AlertDescription>{flash.success}</AlertDescription>
+                                    </Alert>
+                                )}
+                                {errors.error && (
+                                    <Alert variant="destructive" className="mb-6 animate-fade-in">
+                                        <AlertCircle className="h-4 w-4" />
+                                        <AlertTitle>خطأ!</AlertTitle>
+                                        <AlertDescription>{errors.error}</AlertDescription>
+                                    </Alert>
+                                )}
+
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     {/* Name */}
                                     <div className="md:col-span-2">
@@ -175,6 +203,40 @@ export default function Apply() {
                                             />
                                         </div>
                                         {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
+                                    </div>
+
+                                    {/* School Selection */}
+                                    <div className="md:col-span-2">
+                                        <Label htmlFor="school_id" className="text-foreground font-semibold text-sm mb-2.5 block">
+                                            الانضمام لمدرسة (اختياري)
+                                        </Label>
+                                        <div className="relative group">
+                                            <Building2 className="absolute right-3.5 top-3.5 w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors duration-200" />
+                                            <Select 
+                                                onValueChange={(value) => setData('school_id', value === "none" ? "" : value)} 
+                                                value={data.school_id ? String(data.school_id) : "none"}
+                                            >
+                                                <SelectTrigger 
+                                                        className={`pr-11 ${inputClasses}`} 
+                                                        dir="rtl"
+                                                        style={{ fontFamily: 'Cairo, sans-serif' }}
+                                                    >
+                                                    <SelectValue placeholder="اختر مدرسة للانضمام إليها" />
+                                                </SelectTrigger>
+                                                <SelectContent 
+                                                        dir="rtl" 
+                                                        style={{ fontFamily: 'Cairo, sans-serif' }} 
+                                                    >
+                                                    <SelectItem value="none">لا أنتمي لمدرسة حالياً</SelectItem>
+                                                    {schools.map((school) => (
+                                                        <SelectItem key={school.id} value={String(school.id)}>
+                                                            {school.name}
+                                                        </SelectItem>
+                                                    ))}
+                                                </SelectContent>
+                                            </Select>
+                                        </div>
+                                        {errors.school_id && <p className="text-red-500 text-xs mt-1">{errors.school_id}</p>}
                                     </div>
 
                                     {/* Memorization Level - FIXED */}
@@ -330,8 +392,12 @@ export default function Apply() {
                                                         onValueChange={(value) => handleDocumentChange(index, 'riwayah', value)}
                                                         value={doc.riwayah}
                                                     >
-                                                        <SelectTrigger className={`text-right ${inputClasses}`} dir="rtl">
-                                                            <SelectValue placeholder="اختر الرواية" />
+                                                        <SelectTrigger 
+                                                            className={`text-right ${inputClasses}`} 
+                                                            dir="rtl"
+                                                            style={{ fontFamily: 'Cairo, sans-serif' }}
+                                                        >
+                                                        <SelectValue placeholder="اختر الرواية" />
                                                         </SelectTrigger>
                                                         <SelectContent dir="rtl">
                                                             <SelectItem value="قراءة الإمام نافع المدني">قراءة الإمام نافع المدني</SelectItem>

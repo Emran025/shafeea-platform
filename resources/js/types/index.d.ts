@@ -23,12 +23,19 @@ export interface NavItem {
 }
 
 export interface SharedData {
+    flash?: {
+        success?: string;
+        error?: string;
+        warning?: string;
+        info?: string;
+    };
     name: string;
     quote: { message: string; author: string };
     auth: Auth;
     ziggy: Config & { location: string };
     sidebarOpen: boolean;
     [key: string]: unknown;
+    errors?;
 }
 
 export interface User {
@@ -41,6 +48,7 @@ export interface User {
     updated_at: string;
     [key: string]: unknown; // This allows for additional properties...
 }
+
 
 export interface Category {
     id: number;
@@ -56,3 +64,17 @@ export interface Faq {
     created_at?: string;
     updated_at?: string;
 }
+
+export interface School {
+    id: number;
+    name: string;
+    logo: string;
+    phone: string;
+    country: string;
+    city: string;
+    location: string;
+    address: string;
+    created_at: string;
+    updated_at: string;
+}
+
