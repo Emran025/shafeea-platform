@@ -14,8 +14,6 @@ import {
     Star,
     Calendar,
     Sparkles,
-    TrendingUp,
-    Zap,
     Coffee
 } from 'lucide-react';
 import SiteLayout from '@/layouts/site-layout';

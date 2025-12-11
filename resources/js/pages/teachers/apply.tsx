@@ -19,18 +19,17 @@ import {
     Trash2,
     ArrowLeft,
     CheckCircle,
-    FileText,
     Building2,
     AlertCircle,
 } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { School, SharedData } from '@/types';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 export default function Apply({ schools }: { schools: School[] }) {
     const { flash } = usePage<SharedData>().props;
-    const { data, setData, post, errors, processing, wasSuccessful, reset } = useForm({
+    const { data, setData, post, errors, processing, reset } = useForm({
         name: '',
         error: '',
         email: '',
@@ -38,7 +37,7 @@ export default function Apply({ schools }: { schools: School[] }) {
         password_confirmation: '',
         bio: '',
         qualifications: '',
-        memorization_level: '' as any,
+        memorization_level: 0,
         school_id: '',
         documents: [
             {
@@ -64,12 +63,10 @@ export default function Apply({ schools }: { schools: School[] }) {
         post(route('teachers.store'), {
             forceFormData: true,
             onSuccess: () => {
-                // 1. تفريغ الحقول عند النجاح
                 reset(); 
-                // 2. الصعود لأعلى الصفحة لرؤية رسالة النجاح
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             },
-            preserveScroll: false, // لضمان عدم بقاء الصفحة في الأسفل
+            preserveScroll: false,
         });
     }
 
@@ -100,10 +97,7 @@ export default function Apply({ schools }: { schools: School[] }) {
     };
 
     // --- Styles & Helpers ---
-    
-    // 1. إصلاح مشكلة الخلفية الصفراء (Autofill Fix) - تم تحديث الكود ليكون أكثر قوة
-    // نستخدم transition-colors بمدة طويلة جداً لمنع المتصفح من تغيير اللون للأصفر
-    // ونستخدم box-shadow inset كطبقة إضافية للأمان
+
     const autofillFix = `
         transition-colors duration-[50000s] ease-in-out 0s
         [&:-webkit-autofill]:shadow-[inset_0_0_0_1000px_#ffffff] 
@@ -111,10 +105,8 @@ export default function Apply({ schools }: { schools: School[] }) {
         [&:-webkit-autofill]:-webkit-text-fill-color-foreground
     `;
     
-    // 2. إخفاء أسهم الأرقام (Spinners)
     const noSpinner = "[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none";
 
-    // 3. تنسيق موحد للحقول (Focus & Hover)
     const inputClasses = `h-12 rounded-xl bg-muted/30 border-border focus:bg-background focus:border-primary focus:ring-2 focus:ring-primary/10 hover:border-primary/50 transition-all duration-200 ${autofillFix}`;
 
     return (

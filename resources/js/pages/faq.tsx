@@ -8,7 +8,6 @@ import {
     HelpCircle,
     MessageCircle,
     BookOpen,
-    Users,
     Settings,
     CreditCard,
     ChevronDown,
@@ -20,7 +19,6 @@ import {
     Filter,
     TrendingUp,
     Briefcase,
-    DollarSign
 } from 'lucide-react';
 import { useState, useMemo } from 'react';
 import SiteLayout from '@/layouts/site-layout';
@@ -36,11 +34,12 @@ const slugify = (text: string) => {
         .trim()
         .replace(/\s+/g, '-')           // Replace spaces with -
         .replace(/&/g, '-and-')         // Replace & with 'and'
-        .replace(/[^\w\-\u0600-\u06FF]+/g, '') // can submit arabic laters (Unicode Range)
-        .replace(/\-\-+/g, '-')         // Replace multiple - with single -
+        .replace(/[^\w\u0600-\u06FF]+/g, '') // Remove unwanted characters (Arabic + Latin letters/digits)
+        .replace(/--+/g, '-')           // Replace multiple - with single - (FIXED HERE)
         .replace(/^-+/, '')             // Trim - from start of text
         .replace(/-+$/, '');            // Trim - from end of text
 };
+
 
 const getCategoryIcon = (slug: string) => {
     switch (slug) {

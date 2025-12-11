@@ -16,7 +16,6 @@ import {
     Instagram,
     Linkedin,
     Youtube,
-    Globe,
     Clock,
     Shield,
     Award,
@@ -45,7 +44,6 @@ export default function SiteLayout({ children }: SiteLayoutProps) {
 
     // -- Effects --
 
-    // تحديد الصفحة الحالية
     useEffect(() => {
         if (typeof window !== 'undefined') {
             setCurrentPath(window.location.pathname);
@@ -245,7 +243,7 @@ export default function SiteLayout({ children }: SiteLayoutProps) {
                                             <h3 className="font-bold text-foreground">كن جزءًا منا</h3>
                                             <p className="text-xs text-muted-foreground mt-1">ساهم كمعلم أو سجل مدرستك</p>
                                         </div>
-                                        {bePartOfUs.map((item, index) => {
+                                        {bePartOfUs.map((item) => {
                                             const Icon = item.icon;
                                             return (
                                                 <Link
@@ -290,7 +288,7 @@ export default function SiteLayout({ children }: SiteLayoutProps) {
                                 
                                 {helpDropdownOpen && (
                                     <div className="absolute top-full right-0 mt-3 w-60 bg-card rounded-xl shadow-xl border border-border py-2 z-50 animate-scale-in">
-                                        {helpItems.map((item, index) => {
+                                        {helpItems.map((item) => {
                                             const Icon = item.icon;
                                             return (
                                                 <Link

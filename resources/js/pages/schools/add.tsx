@@ -9,7 +9,6 @@ import {
   HomeIcon,
   PhotoIcon,
   PlusCircleIcon,
-  DocumentPlusIcon
 } from '@heroicons/react/24/outline';
 import AppLayout from '@/layouts/app-layout';
 
