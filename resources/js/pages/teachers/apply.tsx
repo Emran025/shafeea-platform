@@ -382,8 +382,12 @@ export default function Apply({ schools }: { schools: School[] }) {
                                                         onValueChange={(value) => handleDocumentChange(index, 'riwayah', value)}
                                                         value={doc.riwayah}
                                                     >
-                                                        <SelectTrigger className={`text-right ${inputClasses}`} dir="rtl">
-                                                            <SelectValue placeholder="اختر الرواية" />
+                                                        <SelectTrigger 
+                                                            className={`text-right ${inputClasses}`} 
+                                                            dir="rtl"
+                                                            style={{ fontFamily: 'Cairo, sans-serif' }}
+                                                        >
+                                                        <SelectValue placeholder="اختر الرواية" />
                                                         </SelectTrigger>
                                                         <SelectContent dir="rtl">
                                                             <SelectItem value="قراءة الإمام نافع المدني">قراءة الإمام نافع المدني</SelectItem>
