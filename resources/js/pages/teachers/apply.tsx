@@ -212,12 +212,22 @@ export default function Apply({ schools }: { schools: School[] }) {
                                         </Label>
                                         <div className="relative group">
                                             <Building2 className="absolute right-3.5 top-3.5 w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors duration-200" />
-                                            <Select onValueChange={(value) => setData('school_id', value)} value={data.school_id}>
-                                                <SelectTrigger className={`pr-11 ${inputClasses}`} dir="rtl">
+                                            <Select 
+                                                onValueChange={(value) => setData('school_id', value === "none" ? "" : value)} 
+                                                value={data.school_id ? String(data.school_id) : "none"}
+                                            >
+                                                <SelectTrigger 
+                                                        className={`pr-11 ${inputClasses}`} 
+                                                        dir="rtl"
+                                                        style={{ fontFamily: 'Cairo, sans-serif' }}
+                                                    >
                                                     <SelectValue placeholder="اختر مدرسة للانضمام إليها" />
                                                 </SelectTrigger>
-                                                <SelectContent dir="rtl">
-                                                    <SelectItem value="">لا أنتمي لمدرسة حالياً</SelectItem>
+                                                <SelectContent 
+                                                        dir="rtl" 
+                                                        style={{ fontFamily: 'Cairo, sans-serif' }} 
+                                                    >
+                                                    <SelectItem value="none">لا أنتمي لمدرسة حالياً</SelectItem>
                                                     {schools.map((school) => (
                                                         <SelectItem key={school.id} value={String(school.id)}>
                                                             {school.name}
