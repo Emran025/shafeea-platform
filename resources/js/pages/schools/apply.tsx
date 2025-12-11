@@ -1,4 +1,4 @@
-import { Head, useForm } from '@inertiajs/react';
+import { Head, useForm, usePage } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -22,12 +22,16 @@ import {
     Trash2,
     FileText,
     Eye,
-    EyeOff
+    EyeOff,
+    AlertCircle
 } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { SharedData } from '@/types';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 export default function Apply() {
-    const { data, setData, post, errors, processing } = useForm({
+    const { flash } = usePage<SharedData>().props;
+    const { data, setData, post, errors, processing, wasSuccessful, reset } = useForm({
         name: '',
         logo: null as File | null,
         phone: '',
@@ -52,6 +56,12 @@ export default function Apply() {
             }
         ]
     });
+
+    useEffect(() => {
+        if (wasSuccessful) {
+            reset();
+        }
+    }, [wasSuccessful]);
 
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -146,6 +156,21 @@ export default function Apply() {
                                         <p className="text-muted-foreground text-sm">المعلومات الأساسية للمدرسة أو المركز</p>
                                     </div>
                                 </div>
+
+                                {flash?.success && (
+                                    <Alert variant="success" className="mb-6 animate-fade-in">
+                                        <CheckCircle className="h-4 w-4" />
+                                        <AlertTitle>نجاح!</AlertTitle>
+                                        <AlertDescription>{flash.success}</AlertDescription>
+                                    </Alert>
+                                )}
+                                {errors.error && (
+                                    <Alert variant="destructive" className="mb-6 animate-fade-in">
+                                        <AlertCircle className="h-4 w-4" />
+                                        <AlertTitle>خطأ!</AlertTitle>
+                                        <AlertDescription>{errors.error}</AlertDescription>
+                                    </Alert>
+                                )}
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     {/* School Name */}
