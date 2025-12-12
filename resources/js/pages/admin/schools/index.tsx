@@ -7,9 +7,9 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 export default function SchoolsIndex() {
-    const { schools, filters } = usePage().props;
-    const [search, setSearch] = useState(filters.search || '');
-    const [status, setStatus] = useState(filters.status || '');
+    const { schools, filters = {} } = usePage().props; 
+    const [search, setSearch] = useState(filters?.search || '');
+    const [status, setStatus] = useState(filters?.status || '');
 
     const handleSearch = () => {
         router.get('/admin/schools', { search, status }, { preserveState: true });
@@ -33,7 +33,7 @@ export default function SchoolsIndex() {
                                 <SelectValue placeholder="All Statuses" />
                             </SelectTrigger>
                             <SelectContent>
-                                <SelectItem value="">All Statuses</SelectItem>
+                                <SelectItem value="all">All Statuses</SelectItem>
                                 <SelectItem value="pending">Pending</SelectItem>
                                 <SelectItem value="accepted">Accepted</SelectItem>
                                 <SelectItem value="rejected">Rejected</SelectItem>
@@ -65,30 +65,41 @@ export default function SchoolsIndex() {
                                         </tr>
                                     </thead>
                                     <tbody className="bg-white divide-y divide-gray-200 dark:bg-gray-900 dark:divide-gray-700">
-                                        {schools.data.map((school) => (
-                                            <tr key={school.id}>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
-                                                    {school.name}
-                                                </td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-                                                    {school.admin.user.name}
-                                                </td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-                                                    <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                                                        school.admin.status === 'accepted' ? 'bg-green-100 text-green-800' :
-                                                        school.admin.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
-                                                        'bg-red-100 text-red-800'
-                                                    }`}>
-                                                        {school.admin.status}
-                                                    </span>
-                                                </td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                                    <Link href={`/admin/schools/${school.id}`} className="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-200">
-                                                        View
-                                                    </Link>
+                                        {/* 2. التحقق من وجود schools.data قبل عمل map */}
+                                        {schools?.data?.length > 0 ? (
+                                            schools.data.map((school) => (
+                                                <tr key={school.id}>
+                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
+                                                        {school.name}
+                                                    </td>
+                                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                                                        {/* 3. استخدام Optional Chaining (?.) لحماية الكود من الانهيار إذا لم يوجد مدير */}
+                                                        {school?.admin?.user?.name || 'No Admin'}
+                                                    </td>
+                                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                                                        {/* حماية الوصول للحالة */}
+                                                        <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                                                            school?.admin?.status === 'accepted' ? 'bg-green-100 text-green-800' :
+                                                            school?.admin?.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
+                                                            'bg-red-100 text-red-800'
+                                                        }`}>
+                                                            {school?.admin?.status || 'N/A'}
+                                                        </span>
+                                                    </td>
+                                                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                                        <Link href={`/admin/schools/${school.id}`} className="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-200">
+                                                            View
+                                                        </Link>
+                                                    </td>
+                                                </tr>
+                                            ))
+                                        ) : (
+                                            <tr>
+                                                <td colSpan="4" className="px-6 py-4 text-center text-gray-500">
+                                                    No schools found.
                                                 </td>
                                             </tr>
-                                        ))}
+                                        )}
                                     </tbody>
                                 </table>
                             </div>
