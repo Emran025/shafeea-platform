@@ -23,6 +23,16 @@ class StudentApplicantController extends ApiController
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
+                'avatar' => $request->avatar,
+                'phone' => $request->phone,
+                'phone_zone' => $request->phone_zone,
+                'whatsapp' => $request->whatsapp,
+                'whatsapp_zone' => $request->whatsapp_zone,
+                'gender' => $request->gender,
+                'birth_date' => $request->birth_date,
+                'country' => $request->country,
+                'city' => $request->city,
+                'residence' => $request->residence,
             ]);
 
             $applicant = StudentApplicant::create([

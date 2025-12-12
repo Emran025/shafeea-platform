@@ -29,6 +29,16 @@ class StoreStudentApplicantRequest extends FormRequest
             'qualifications' => 'required|string',
             'school_id' => 'nullable|exists:schools,id',
             'memorization_level' => 'sometimes|integer|between:0,30',
+            'avatar' => 'nullable|string',
+            'phone' => 'nullable|string',
+            'phone_zone' => 'nullable|string',
+            'whatsapp' => 'nullable|string',
+            'whatsapp_zone' => 'nullable|string',
+            'gender' => 'nullable|in:Male,Female',
+            'birth_date' => 'nullable|date',
+            'country' => 'nullable|string',
+            'city' => 'nullable|string',
+            'residence' => 'nullable|string',
         ];
     }
 }
