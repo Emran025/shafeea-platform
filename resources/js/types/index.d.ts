@@ -35,7 +35,7 @@ export interface SharedData {
     ziggy: Config & { location: string };
     sidebarOpen: boolean;
     [key: string]: unknown;
-    errors?;
+    errors?: Record<string, string>;
 }
 
 export interface User {
@@ -78,3 +78,12 @@ export interface School {
     updated_at: string;
 }
 
+export interface DocumentData {
+    name: string;
+    certificate_type: string;
+    certificate_type_other: string;
+    riwayah: string;
+    issuing_place: string;
+    issuing_date: string;
+    file: File | null;
+}

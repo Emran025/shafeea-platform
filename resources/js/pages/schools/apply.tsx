@@ -25,7 +25,7 @@ import {
     AlertCircle
 } from 'lucide-react';
 import { useState } from 'react';
-import { SharedData } from '@/types';
+import { DocumentData, SharedData } from '@/types';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 export default function Apply() {
@@ -54,7 +54,7 @@ export default function Apply() {
                 issuing_date: '',
                 file: null as File | null,
             }
-        ]
+        ] as DocumentData[],
     });
 
     const [showPassword, setShowPassword] = useState(false);
@@ -92,9 +92,9 @@ export default function Apply() {
         }
     };
 
-    const handleDocumentChange = (index: number, field: string, value: any) => {
+    const handleDocumentChange = <K extends keyof DocumentData>(index: number, field: K, value: DocumentData[K]) => {
         const documents = [...data.documents];
-        documents[index] = { ...documents[index], [field]: value };
+        documents[index][field] = value;
         setData('documents', documents);
     };
 

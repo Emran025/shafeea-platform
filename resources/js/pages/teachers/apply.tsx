@@ -24,7 +24,7 @@ import {
 } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useState } from 'react';
-import { School, SharedData } from '@/types';
+import { DocumentData, School, SharedData } from '@/types';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 export default function Apply({ schools }: { schools: School[] }) {
@@ -49,7 +49,7 @@ export default function Apply({ schools }: { schools: School[] }) {
                 issuing_date: '',
                 file: null as File | null,
             },
-        ],
+        ] as DocumentData[],
     });
 
     // تم إزالة useEffect القديم لأنه غير مضمون مع Inertia في حالات النجاح
@@ -90,9 +90,9 @@ export default function Apply({ schools }: { schools: School[] }) {
         }
     };
 
-    const handleDocumentChange = (index: number, field: string, value: any) => {
+    const handleDocumentChange = <K extends keyof DocumentData>(index: number, field: K, value: DocumentData[K]) => {
         const documents = [...data.documents];
-        documents[index] = { ...documents[index], [field]: value };
+        documents[index][field] = value;
         setData('documents', documents);
     };
 
@@ -259,7 +259,7 @@ export default function Apply({ schools }: { schools: School[] }) {
                                                 onChange={(e) => {
                                                     const val = e.target.value;
                                                     if (val === '') {
-                                                        setData('memorization_level', '' as any);
+                                                        setData('memorization_level', 0);
                                                         return;
                                                     }
                                                     const num = parseInt(val);
