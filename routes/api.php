@@ -14,6 +14,7 @@ use App\Http\Controllers\Api\V1\SessionController;
 use App\Http\Controllers\Api\V1\AccountController;
 use App\Http\Controllers\Api\V1\ApplicantSubmissionController;
 use App\Http\Controllers\Api\V1\Admin\AdminApplicantController;
+use App\Http\Controllers\Api\V1\StudentApplicantController;
 
 // Public routes
 Route::prefix('v1')->group(function() {
@@ -22,6 +23,8 @@ Route::prefix('v1')->group(function() {
         Route::post('login', [AuthController::class, 'login'])->name('login');
         Route::post('forgot-password', [AuthController::class, 'forgotPassword'])->name('password.email');
     });
+
+    Route::post('students/applicants', [StudentApplicantController::class, 'store'])->name('public.students.applicants.store');
 });
 
 
