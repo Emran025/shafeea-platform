@@ -11,16 +11,7 @@ import {
   PlusCircleIcon,
 } from '@heroicons/react/24/outline';
 import AppLayout from '@/layouts/app-layout';
-
-interface DocumentData {
-    name: string;
-    certificate_type: string;
-    certificate_type_other: string;
-    riwayah: string;
-    issuing_place: string;
-    issuing_date: string;
-    file: File | null;
-}
+import { DocumentData } from '@/types';
 
 interface FormData {
   name: string;
@@ -62,9 +53,9 @@ export default function Create() {
     }]);
   };
 
-  const handleDocumentChange = (index: number, field: string, value: any) => {
+  const handleDocumentChange = <K extends keyof DocumentData>(index: number, field: K, value: DocumentData[K]) => {
       const documents = [...data.documents];
-      documents[index] = { ...documents[index], [field]: value };
+      documents[index][field] = value;
       setData('documents', documents);
   };
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, usePage } from '@inertiajs/react';
+import { usePage } from '@inertiajs/react';
 import AdminLayout from '@/layouts/admin-layout';
 import { router } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';

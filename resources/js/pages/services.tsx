@@ -48,8 +48,16 @@ export default function Services() {
     ];
 
   
-    const getThemeStyles = (theme: any) => {
-        const styles: any = {
+    interface ThemeStyle {
+        bg: string;
+        text: string;
+        shadow: string;
+        border: string;
+        gradient: string;
+    }
+
+    const getThemeStyles = (theme: string): ThemeStyle => {
+        const styles: Record<string, ThemeStyle> = {
             blue: {
                 bg: "bg-blue-50 dark:bg-blue-900/20",
                 text: "text-blue-600 dark:text-blue-400",
