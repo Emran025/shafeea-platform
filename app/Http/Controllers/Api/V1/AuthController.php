@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Password;
+use App\Enums\AdminStatus;
 
 class AuthController extends ApiController
 {
@@ -59,7 +60,7 @@ class AuthController extends ApiController
 
         $user = Auth::user(); // More reliable to get the authenticated user this way
 
-        if ($user->admin && $user->admin->status !== 'accepted') {
+        if ($user->admin && $user->admin->status !== AdminStatus::ACCEPTED) {
             return $this->error('Your account is not active.', 403);
         }
 

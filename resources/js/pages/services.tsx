@@ -475,7 +475,7 @@ export default function Services() {
                                             </Button>
                                         </div>
 
-                                        {/* قسم الصورة المعدل: أزلت البادينج وأزلت النص السفلي */}
+                                        {/* قسم الصورة المعدل */}
                                         <div className={`bg-muted/30 p-0 flex items-center justify-center overflow-hidden h-full ${index % 2 === 1 ? 'lg:col-start-1' : ''}`}>
                                             <div className="relative w-full h-full min-h-[300px] group">
                                                 <img 
@@ -484,7 +484,6 @@ export default function Services() {
                                                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter grayscale-[0.1] hover:grayscale-0"
                                                     loading="lazy"
                                                 />
-                                                {/* طبقة تدرج لوني خفيف من نفس لون الثيم لإعطاء عمق */}
                                                 <div className={`absolute inset-0 bg-gradient-to-t ${themeStyle.gradient || 'from-black/20'} via-transparent to-transparent opacity-60`}></div>
                                             </div>
                                         </div>
@@ -530,9 +529,8 @@ export default function Services() {
                 </div>
             </section>
 
-            {/* Pricing Plans - Redesigned Modern Look */}
+            {/* Pricing Plans */}
             <section className="py-24 relative overflow-hidden">
-                {/* Background Decor */}
                 <div className="absolute inset-0 bg-muted/30 dark:bg-black/20 -skew-y-3 transform origin-top-left z-0"></div>
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 dark:bg-primary/10 rounded-full blur-3xl -z-10 pointer-events-none"></div>
 
@@ -560,15 +558,14 @@ export default function Services() {
                                     : 'hover:-translate-y-2'
                                 }`}
                             >
-                                {/* Glow Effect for Recommended - Adjusted for Dark Mode */}
                                 {plan.recommended && (
                                     <div className="absolute -inset-[2px] bg-gradient-to-r from-primary via-blue-500 to-primary rounded-2xl opacity-75 dark:opacity-50 blur-sm group-hover:opacity-100 transition duration-500"></div>
                                 )}
 
                                 <Card className={`h-full relative overflow-hidden ${
                                     plan.recommended 
-                                        ? 'bg-card dark:bg-[#0d1b2a] shadow-2xl rounded-xl border-0 dark:border dark:border-primary/50' // Dark mode specific background for recommended
-                                        : 'bg-white/50 dark:bg-gray-900/40 backdrop-blur-md border border-border/60 dark:border-white/10 shadow-lg hover:shadow-xl rounded-xl' // Dark mode glass effect for others
+                                        ? 'bg-card dark:bg-[#0d1b2a] shadow-2xl rounded-xl border-0 dark:border dark:border-primary/50' 
+                                        : 'bg-white/50 dark:bg-gray-900/40 backdrop-blur-md border border-border/60 dark:border-white/10 shadow-lg hover:shadow-xl rounded-xl'
                                 }`}>
                                     {plan.recommended && (
                                         <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-primary to-blue-600"></div>
@@ -583,10 +580,9 @@ export default function Services() {
                                         </div>
                                     )}
 
-                                    {/* Header Section */}
                                     <CardHeader className={`text-center pb-4 pt-8 ${
                                         plan.recommended 
-                                            ? 'bg-muted/30 dark:bg-white/5' // Better contrast in dark mode
+                                            ? 'bg-muted/30 dark:bg-white/5' 
                                             : ''
                                     }`}>
                                         <h3 className={`text-lg font-bold mb-2 ${plan.recommended ? 'text-primary dark:text-blue-400' : 'text-foreground'}`}>
@@ -608,7 +604,6 @@ export default function Services() {
                                         <div className="w-full h-px bg-border/50 dark:bg-white/10"></div>
                                     </div>
 
-                                    {/* Content Section */}
                                     <CardContent className="pt-4 pb-6 px-5">
                                         <ul className="space-y-3 mb-6">
                                             {plan.features.map((feature, featureIndex) => (
@@ -633,7 +628,7 @@ export default function Services() {
                                             }`}
                                             asChild
                                         >
-                                            <Link href={route('register')}>
+                                            <Link href="/register">
                                                 {plan.price === "0" ? "ابدأ مجاناً" : "اشترك الآن"}
                                             </Link>
                                         </Button>
@@ -673,7 +668,7 @@ export default function Services() {
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                         <Button size="lg" asChild className="bg-background text-foreground hover:bg-muted border-none shadow-lg">
-                            <Link href={route('register')}>
+                            <Link href="/register">
                                 <Users className="w-5 h-5 ml-2" />
                                 ابدأ تجربة مجانية
                             </Link>

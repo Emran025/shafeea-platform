@@ -16,7 +16,7 @@ export default function PoliciesIndex() {
                     <div className="mt-4 bg-white dark:bg-gray-800 shadow rounded-lg">
                         <ul className="divide-y divide-gray-200 dark:divide-gray-700">
                             {terms.map((term) => (
-                                <li key={term.id} className="px-6 py-4 flex items-center justify-between">
+                                <li key={term.version} className="px-6 py-4 flex items-center justify-between">
                                     <div>
                                         <p className="text-sm font-medium text-gray-900 dark:text-white">
                                             Version {new Date(term.last_updated).toLocaleDateString()}
@@ -26,7 +26,7 @@ export default function PoliciesIndex() {
                                         </p>
                                     </div>
                                     <Button asChild>
-                                        <Link href={`/admin/policies/terms/${term.id}/edit`}>Edit</Link>
+                                        <Link href={`/admin/policies/terms/${term.version}/edit`}>Edit</Link>
                                     </Button>
                                 </li>
                             ))}
@@ -39,7 +39,7 @@ export default function PoliciesIndex() {
                     <div className="mt-4 bg-white dark:bg-gray-800 shadow rounded-lg">
                         <ul className="divide-y divide-gray-200 dark:divide-gray-700">
                             {policies.map((policy) => (
-                                <li key={policy.id} className="px-6 py-4 flex items-center justify-between">
+                                <li key={policy.version} className="px-6 py-4 flex items-center justify-between">
                                     <div>
                                         <p className="text-sm font-medium text-gray-900 dark:text-white">
                                             Version {new Date(policy.last_updated).toLocaleDateString()}
@@ -49,7 +49,7 @@ export default function PoliciesIndex() {
                                         </p>
                                     </div>
                                     <Button asChild>
-                                        <Link href={`/admin/policies/privacy/${policy.id}/edit`}>Edit</Link>
+                                        <Link href={`/admin/policies/privacy/${policy.version}/edit`}>Edit</Link>
                                     </Button>
                                 </li>
                             ))}
