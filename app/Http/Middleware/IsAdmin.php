@@ -4,6 +4,8 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use App\Enums\AdminStatus;
+
 
 class IsAdmin
 {
@@ -11,7 +13,7 @@ class IsAdmin
     {
         $user = $request->user();
 
-        if ($user && $user->admin && $user->admin->status === 'accepted') {
+        if ($user && $user->admin && $user->admin->status === AdminStatus::ACCEPTED) {
             return $next($request);
         }
 

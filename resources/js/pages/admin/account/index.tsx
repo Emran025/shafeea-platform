@@ -24,12 +24,12 @@ export default function AccountIndex() {
 
     function handleProfileSubmit(e: React.FormEvent) {
         e.preventDefault();
-        updateProfile('/dash/account/profile');
+        updateProfile('/admin/account/profile');
     }
 
     function handlePasswordSubmit(e: React.FormEvent) {
         e.preventDefault();
-        updatePassword('/dash/account/password', {
+        updatePassword('/admin/account/password', {
             onSuccess: () => resetPasswordForm(),
         });
     }
@@ -164,7 +164,7 @@ export default function AccountIndex() {
                                         </p>
                                     </div>
                                     <Button
-                                        onClick={() => router.delete(`/dash/account/sessions/${session.id}`, { preserveScroll: true })}
+                                        onClick={() => router.delete(`/admin/account/sessions/${session.id}`, { preserveScroll: true })}
                                         variant="destructive"
                                     >
                                         Terminate

@@ -17,10 +17,10 @@ class AdminSchoolController extends Controller
             $searchTerm = $request->input('search');
             $query->where(function ($q) use ($searchTerm) {
                 $q->where('name', 'like', "%{$searchTerm}%")
-                  ->orWhereHas('admin.user', function ($userQuery) use ($searchTerm) {
-                      $userQuery->where('name', 'like', "%{$searchTerm}%");
-                  })
-                  ->orWhere('registration_number', 'like', "%{$searchTerm}%");
+                    ->orWhereHas('admin.user', function ($userQuery) use ($searchTerm) {
+                        $userQuery->where('name', 'like', "%{$searchTerm}%");
+                    })
+                    ->orWhere('registration_number', 'like', "%{$searchTerm}%");
             });
         }
 
@@ -50,7 +50,7 @@ class AdminSchoolController extends Controller
     {
         return Inertia::render('admin/schools/pending', [
             'schools' => School::with('admin.user')->whereHas('admin', function ($query) {
-                $query->where('status', 'pending');
+                $query->where('admins.status', 'pending');
             })->latest()->get(),
         ]);
     }

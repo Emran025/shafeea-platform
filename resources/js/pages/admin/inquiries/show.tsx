@@ -17,7 +17,7 @@ export default function InquiryShow() {
 
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
-        put(`/dash/inquiries/${inquiry.id}`);
+        put(`/admin/inquiries/${inquiry.id}`);
     }
 
     return (

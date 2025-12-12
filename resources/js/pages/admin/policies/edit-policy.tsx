@@ -15,7 +15,7 @@ export default function EditPolicy() {
 
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
-        put(`/dash/policies/privacy/${policy.id}`);
+        put(`/admin/policies/privacy/${policy.id}`);
     }
 
     return (

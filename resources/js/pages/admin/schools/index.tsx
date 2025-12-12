@@ -12,7 +12,7 @@ export default function SchoolsIndex() {
     const [status, setStatus] = useState(filters.status || '');
 
     const handleSearch = () => {
-        router.get('/dash/schools', { search, status }, { preserveState: true });
+        router.get('/admin/schools', { search, status }, { preserveState: true });
     };
 
     return (
@@ -83,7 +83,7 @@ export default function SchoolsIndex() {
                                                     </span>
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                                    <Link href={`/dash/schools/${school.id}`} className="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-200">
+                                                    <Link href={`/admin/schools/${school.id}`} className="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-200">
                                                         View
                                                     </Link>
                                                 </td>

@@ -15,7 +15,7 @@ export default function EditTerm() {
 
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
-        put(`/dash/policies/terms/${term.id}`);
+        put(`/admin/policies/terms/${term.id}`);
     }
 
     return (

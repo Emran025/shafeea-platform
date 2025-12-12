@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use \App\Models\School;
+
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -1118,7 +1120,7 @@ class DatabaseSeeder extends Seeder
 
         $schools = collect();
         foreach ($schoolNames as $name) {
-            $schools->push(\App\Models\School::create([
+            $school = School::create([
                 'name' => "مدرسة $name لتحفيظ القرآن",
                 'logo' => 'https://example.com/school.png',
                 'phone' => '+9677' . rand(10000000, 99999999),
@@ -1126,6 +1128,28 @@ class DatabaseSeeder extends Seeder
                 'city' => 'صنعاء',
                 'location' => '15.3694,44.1910',
                 'address' => "حي $name - شارع رئيسي",
+            ]);
+            $schools->push($school);
+            $admin = collect();
+            $user = User::create([
+                'name' => "مشرف مدرسة $name ",
+                'email' => "amran" . $school->id . "@naser.com",
+                'password' => bcrypt('amran$$$025'),
+                'avatar' => 'https://example.com/teacher.jpg',
+                'gender' => 'Male',
+                'birth_date' => '1980-01-' . rand(10, 28),
+                'phone' => '+967739123473',
+                'whatsapp' => '+96771989025',
+                'country' => 'اليمن',
+                'city' => 'صنعاء',
+                'residence' => 'التحرير',
+                'school_id' => $school->id,
+            ]);
+
+            $admin->push(\App\Models\Admin::create([
+                'user_id' => $user->id,
+                'super_admin' => false,
+                'status' => 'pending',
             ]));
         }
 
@@ -2845,7 +2869,7 @@ class DatabaseSeeder extends Seeder
 
         $students = collect();
         foreach ($studentList as $studentData) {
-            $user = \App\Models\User::create([
+            $user = User::create([
                 'name' => $studentData['name'],
                 'email' => $studentData['email'],
                 'password' => bcrypt('password1234'),
@@ -2913,7 +2937,7 @@ class DatabaseSeeder extends Seeder
             ]));
         } {
             $admin = collect();
-            $user = \App\Models\User::create([
+            $user = User::create([
                 'name' => "عمران غالب محمد ناصر",
                 'email' => "amran@naser.com",
                 'password' => bcrypt('amran$$$025'),

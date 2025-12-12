@@ -14,7 +14,7 @@ export default function AdminLoginPage() {
 
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
-        post('/dash/login');
+        post('/admin/login');
     }
 
     return (

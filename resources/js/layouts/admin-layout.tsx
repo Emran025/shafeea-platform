@@ -20,12 +20,12 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
     const navigationItems = [
-        { name: 'Dashboard', href: '/dash', icon: LayoutDashboard },
-        { name: 'Schools', href: '/dash/schools', icon: Users },
-        { name: 'Advanced Schools', href: '/dash/schools/pending', icon: Users },
-        { name: 'Inquiries', href: '/dash/inquiries', icon: HelpCircle },
-        { name: 'Policies', href: '/dash/policies', icon: FileText },
-        { name: 'Account', href: '/dash/account', icon: Settings },
+        { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
+        { name: 'Schools', href: '/admin/schools', icon: Users },
+        { name: 'Advanced Schools', href: '/admin/schools/pending', icon: Users },
+        { name: 'Inquiries', href: '/admin/inquiries', icon: HelpCircle },
+        { name: 'Policies', href: '/admin/policies', icon: FileText },
+        { name: 'Account', href: '/admin/account', icon: Settings },
     ];
 
     return (
@@ -38,7 +38,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                     } transition-transform duration-300 ease-in-out lg:relative lg:translate-x-0 lg:flex-shrink-0`}
                 >
                     <div className="flex items-center justify-between p-4 border-b border-border">
-                        <Link href="/dash" className="flex items-center gap-2 group hover-lift">
+                        <Link href="/admin" className="flex items-center gap-2 group hover-lift">
                             <div className="bg-white p-1.5 rounded-xl shadow-sm border border-gray-100 group-hover:shadow-md transition-all duration-300">
                                 <img src="/logo.png" alt="Shafeea Logo" className="w-10 h-10 object-contain" />
                             </div>

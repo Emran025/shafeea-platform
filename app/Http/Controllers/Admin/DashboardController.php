@@ -23,8 +23,8 @@ class DashboardController extends Controller
 
         // Grouped counts
         $studentsByQualification = Student::select('qualification', DB::raw('count(*) as total'))->groupBy('qualification')->get();
-        $studentsByGender = Student::select('gender', DB::raw('count(*) as total'))->groupBy('gender')->get();
-        $activeEnrollments = Enrollment::where('status', 'active')->count();
+        $studentsByGender = Student::select(DB::raw('count(*) as total'))->get();
+        $activeEnrollments =  Enrollment::where('created_at', '>=', 'updated_at')->count();
         $admins = AdminModel::with('user.roles')->get();
         $scheduledHalaqahs = HalaqahSchedule::whereBetween('start_time', [now()->startOfWeek(), now()->endOfWeek()])->count();
 
@@ -38,7 +38,7 @@ class DashboardController extends Controller
             ->get();
 
         // Table Data
-        $halaqahsTable = Halaqah::with(['teacher.user', 'enrollments'])->get();
+        $halaqahsTable = Halaqah::with(['teachers.user', 'enrollments'])->get();
         $teachersTable = Teacher::with(['user', 'halaqahs'])->get();
         $studentsTable = Student::with(['user', 'enrollments'])->get();
         $enrollmentsTable = Enrollment::with(['student.user', 'halaqah', 'currentPlan'])->get();
@@ -60,7 +60,7 @@ class DashboardController extends Controller
         $behaviorTrends = StudentReport::selectRaw('DATE(created_at) as date, AVG(behavior) as avg_behavior')
             ->where('created_at', '>=', now()->subMonths(6))
             ->groupBy('date')->orderBy('date')->get();
-        $enrollmentStatus = Enrollment::select('status', DB::raw('count(*) as total'))->groupBy('status')->get();
+        // $enrollmentStatus = Enrollment::select('status', DB::raw('count(*) as total'))->groupBy('status')->get();
         $genderPerHalaqah = Halaqah::with(['enrollments.student'])->get()->map(function ($halaqah) {
             $genders = $halaqah->enrollments->groupBy(fn($e) => $e->student->gender ?? 'unknown')->map->count();
             return [
@@ -75,7 +75,7 @@ class DashboardController extends Controller
         $lowBehaviorStudents = StudentReport::where('behavior', '<', 2)->with('student.user')->get();
         $upcomingSchedules = HalaqahSchedule::whereBetween('start_time', [now(), now()->addDays(3)])->get();
 
-        return Inertia::render('/dashboard', [
+        return Inertia::render('admin/dashboard', [
             'kpis' => [
                 'students' => $totalStudents,
                 'teachers' => $totalTeachers,
@@ -92,7 +92,7 @@ class DashboardController extends Controller
                 'studentsPerHalaqah' => $studentsPerHalaqah,
                 'enrollmentTrends' => $enrollmentTrends,
                 'behaviorTrends' => $behaviorTrends,
-                'enrollmentStatus' => $enrollmentStatus,
+                //'enrollmentStatus' => $enrollmentStatus,
                 'genderPerHalaqah' => $genderPerHalaqah,
             ],
             'tables' => [

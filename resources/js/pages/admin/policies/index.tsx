@@ -26,7 +26,7 @@ export default function PoliciesIndex() {
                                         </p>
                                     </div>
                                     <Button asChild>
-                                        <Link href={`/dash/policies/terms/${term.id}/edit`}>Edit</Link>
+                                        <Link href={`/admin/policies/terms/${term.id}/edit`}>Edit</Link>
                                     </Button>
                                 </li>
                             ))}
@@ -49,7 +49,7 @@ export default function PoliciesIndex() {
                                         </p>
                                     </div>
                                     <Button asChild>
-                                        <Link href={`/dash/policies/privacy/${policy.id}/edit`}>Edit</Link>
+                                        <Link href={`/admin/policies/privacy/${policy.id}/edit`}>Edit</Link>
                                     </Button>
                                 </li>
                             ))}

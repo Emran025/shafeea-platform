@@ -59,7 +59,7 @@ Route::post('/contact', function (\Illuminate\Http\Request $request) {
 
 
 // Include admin routes
-Route::prefix('/admin')->name('admin.')->group(function () {
+Route::prefix('admin')->name('admin.')->group(function () {
     require __DIR__ . '/admin.php';
 });
 

@@ -9,13 +9,13 @@ export default function PendingSchools() {
 
     const handleApprove = (schoolId) => {
         if (confirm('Are you sure you want to approve this school?')) {
-            router.post(`/dash/schools/${schoolId}/approve`, {}, { preserveScroll: true });
+            router.post(`/admin/schools/${schoolId}/approve`, {}, { preserveScroll: true });
         }
     };
 
     const handleReject = (schoolId) => {
         if (confirm('Are you sure you want to reject this school?')) {
-            router.post(`/dash/schools/${schoolId}/reject`, {}, { preserveScroll: true });
+            router.post(`/admin/schools/${schoolId}/reject`, {}, { preserveScroll: true });
         }
     };
 

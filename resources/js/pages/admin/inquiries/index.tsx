@@ -47,7 +47,7 @@ export default function InquiriesIndex() {
     );
 
     const handleFilter = () => {
-        router.get('/dash/inquiries', { type }, { preserveState: true });
+        router.get('/admin/inquiries', { type }, { preserveState: true });
     };
 
     function handleDragEnd(event: DragEndEvent) {
@@ -59,7 +59,7 @@ export default function InquiriesIndex() {
                 const newIndex = items.findIndex((item) => item.id === over.id);
                 const newOrder = arrayMove(items, oldIndex, newIndex);
 
-                axios.post('/dash/inquiries/reorder', {
+                axios.post('/admin/inquiries/reorder', {
                     order: newOrder.map((item) => item.id),
                 });
 
@@ -104,7 +104,7 @@ export default function InquiriesIndex() {
                                                 <span className="text-xs text-gray-500 dark:text-gray-400">
                                                     {new Date(inquiry.created_at).toLocaleDateString()}
                                                 </span>
-                                                <Link href={`/dash/inquiries/${inquiry.id}`} className="text-sm font-medium text-primary hover:text-primary/80">
+                                                <Link href={`/admin/inquiries/${inquiry.id}`} className="text-sm font-medium text-primary hover:text-primary/80">
                                                     View Details
                                                 </Link>
                                             </div>

@@ -9,13 +9,13 @@ export default function SchoolShow() {
 
     const handleSuspend = () => {
         if (confirm('Are you sure you want to suspend this school?')) {
-            router.post(`/dash/schools/${school.id}/suspend`, {}, { preserveScroll: true });
+            router.post(`/admin/schools/${school.id}/suspend`, {}, { preserveScroll: true });
         }
     };
 
     const handleReactivate = () => {
         if (confirm('Are you sure you want to reactivate this school?')) {
-            router.post(`/dash/schools/${school.id}/approve`, {}, { preserveScroll: true });
+            router.post(`/admin/schools/${school.id}/approve`, {}, { preserveScroll: true });
         }
     };
 
