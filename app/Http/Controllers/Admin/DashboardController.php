@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-use App\Models\{Student, Teacher, Halaqah, Enrollment, Admin, StudentReport, HalaqahSchedule, Notification};
+use App\Models\{Student, Teacher, Halaqah, Enrollment, StudentReport, HalaqahSchedule, Notification};
+use App\Models\Admin as AdminModel;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
@@ -19,19 +20,19 @@ class DashboardController extends Controller
         $totalHalaqahs = Halaqah::count();
         $newEnrollments = Enrollment::where('created_at', '>=', now()->subDays(30))->count();
         $avgBehavior = round(StudentReport::avg('behavior'), 2);
-      
+
         // Grouped counts
         $studentsByQualification = Student::select('qualification', DB::raw('count(*) as total'))->groupBy('qualification')->get();
         $studentsByGender = Student::select('gender', DB::raw('count(*) as total'))->groupBy('gender')->get();
         $activeEnrollments = Enrollment::where('status', 'active')->count();
-        $admins = Admin::with('user.roles')->get();
+        $admins = AdminModel::with('user.roles')->get();
         $scheduledHalaqahs = HalaqahSchedule::whereBetween('start_time', [now()->startOfWeek(), now()->endOfWeek()])->count();
 
         // Notifications (last 10, unread or scheduled for now)
-        $notifications = Notification::where(function($q) {
-                $q->where('read', false)
-                  ->orWhere('scheduled_for', '<=', now());
-            })
+        $notifications = Notification::where(function ($q) {
+            $q->where('read', false)
+                ->orWhere('scheduled_for', '<=', now());
+        })
             ->orderBy('created_at', 'desc')
             ->limit(10)
             ->get();
@@ -41,7 +42,7 @@ class DashboardController extends Controller
         $teachersTable = Teacher::with(['user', 'halaqahs'])->get();
         $studentsTable = Student::with(['user', 'enrollments'])->get();
         $enrollmentsTable = Enrollment::with(['student.user', 'halaqah', 'currentPlan'])->get();
-        $adminsTable = Admin::with('user.roles')->get();
+        $adminsTable = AdminModel::with('user.roles')->get();
 
         // Chart Data
         $studentsPerHalaqah = Halaqah::withCount('enrollments')->get(['id', 'name', 'enrollments_count']);
@@ -60,7 +61,7 @@ class DashboardController extends Controller
             ->where('created_at', '>=', now()->subMonths(6))
             ->groupBy('date')->orderBy('date')->get();
         $enrollmentStatus = Enrollment::select('status', DB::raw('count(*) as total'))->groupBy('status')->get();
-        $genderPerHalaqah = Halaqah::with(['enrollments.student'])->get()->map(function($halaqah) {
+        $genderPerHalaqah = Halaqah::with(['enrollments.student'])->get()->map(function ($halaqah) {
             $genders = $halaqah->enrollments->groupBy(fn($e) => $e->student->gender ?? 'unknown')->map->count();
             return [
                 'halaqah' => $halaqah->name,
@@ -74,7 +75,7 @@ class DashboardController extends Controller
         $lowBehaviorStudents = StudentReport::where('behavior', '<', 2)->with('student.user')->get();
         $upcomingSchedules = HalaqahSchedule::whereBetween('start_time', [now(), now()->addDays(3)])->get();
 
-        return Inertia::render('dashboard', [
+        return Inertia::render('/dashboard', [
             'kpis' => [
                 'students' => $totalStudents,
                 'teachers' => $totalTeachers,
@@ -109,4 +110,4 @@ class DashboardController extends Controller
             ],
         ]);
     }
-} 
+}

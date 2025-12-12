@@ -19,6 +19,6 @@ class IsAdmin
             return response()->json(['message' => 'Unauthorized.'], 403);
         }
 
-        return redirect('home');
+        return redirect('admin/dashboard');
     }
 }

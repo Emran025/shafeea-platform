@@ -8,7 +8,7 @@ use App\Models\Faq;
 
 Route::get('/', function () {
     return Inertia::render('welcome');
-})->name('home');
+})->name('welcome');
 
 // Public pages
 Route::get('/about', function () {
@@ -53,19 +53,14 @@ Route::post('/contact', function (\Illuminate\Http\Request $request) {
 
     // Here you would typically save to database or send email
     // For now, we'll just return success
-    
+
     return redirect()->back()->with('success', 'تم إرسال رسالتك بنجاح!');
 })->name('contact.store');
 
 
-use App\Http\Controllers\Admin\AdminSchoolController;
-
-// Admin School Management
-Route::prefix('admin/schools')->name('admin.schools.')->middleware(['auth', 'admin'])->group(function () {
-    Route::get('/', [AdminSchoolController::class, 'index'])->name('index');
-    Route::post('/{school}/approve', [AdminSchoolController::class, 'approve'])->name('approve');
-    Route::post('/{school}/reject', [AdminSchoolController::class, 'reject'])->name('reject');
-    Route::post('/{school}/suspend', [AdminSchoolController::class, 'suspend'])->name('suspend');
+// Include admin routes
+Route::prefix('/admin')->name('admin.')->group(function () {
+    require __DIR__ . '/admin.php';
 });
 
-require __DIR__.'/auth.php';
+// require __DIR__ . '/auth.php';

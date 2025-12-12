@@ -2,23 +2,28 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\DashboardController; // أضف هذا السطر
 use App\Http\Controllers\Admin\AdminSchoolController;
 use App\Http\Controllers\Admin\InquiryController;
 use App\Http\Controllers\Admin\PolicyController;
 use App\Http\Controllers\Admin\AccountController;
-use Inertia\Inertia;
 
-// Publicly accessible login routes
-Route::get('login', [AuthController::class, 'showLoginForm'])->name('admin.login');
-Route::post('login', [AuthController::class, 'login']);
+// Public admin login routes (accessible to guests only)
+Route::middleware('guest')->group(function () {
+    Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
+    Route::post('login', [AuthController::class, 'login'])->name('login.post');
+});
 
-// Authenticated and admin-protected routes
+// Protected admin routes (require authentication and admin privileges)
 Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/', function () {
-        return Inertia::render('admin/dashboard');
-    })->name('admin.dashboard');
+    // Dashboard - Use DashboardController instead of closure
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
-    Route::prefix('schools')->name('admin.schools.')->group(function () {
+    // Logout
+    Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+
+    // Schools management
+    Route::prefix('schools')->name('schools.')->group(function () {
         Route::get('/', [AdminSchoolController::class, 'index'])->name('index');
         Route::get('/pending', [AdminSchoolController::class, 'pending'])->name('pending');
         Route::get('/{school}', [AdminSchoolController::class, 'show'])->name('show');
@@ -27,14 +32,16 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::post('/{school}/suspend', [AdminSchoolController::class, 'suspend'])->name('suspend');
     });
 
-    Route::prefix('inquiries')->name('admin.inquiries.')->group(function () {
+    // Inquiries management
+    Route::prefix('inquiries')->name('inquiries.')->group(function () {
         Route::get('/', [InquiryController::class, 'index'])->name('index');
         Route::get('/{inquiry}', [InquiryController::class, 'show'])->name('show');
         Route::put('/{inquiry}', [InquiryController::class, 'update'])->name('update');
         Route::post('/reorder', [InquiryController::class, 'reorder'])->name('reorder');
     });
 
-    Route::prefix('policies')->name('admin.policies.')->group(function () {
+    // Policies management
+    Route::prefix('policies')->name('policies.')->group(function () {
         Route::get('/', [PolicyController::class, 'index'])->name('index');
         Route::get('/terms/{term}/edit', [PolicyController::class, 'editTerm'])->name('edit-term');
         Route::put('/terms/{term}', [PolicyController::class, 'updateTerm'])->name('update-term');
@@ -42,7 +49,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::put('/privacy/{policy}', [PolicyController::class, 'updatePolicy'])->name('update-policy');
     });
 
-    Route::prefix('account')->name('admin.account.')->group(function () {
+    // Admin account management
+    Route::prefix('account')->name('account.')->group(function () {
         Route::get('/', [AccountController::class, 'index'])->name('index');
         Route::put('/profile', [AccountController::class, 'updateProfile'])->name('update-profile');
         Route::put('/password', [AccountController::class, 'updatePassword'])->name('update-password');
