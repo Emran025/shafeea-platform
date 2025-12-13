@@ -1,19 +1,30 @@
 import React from 'react';
-import { Link, usePage } from '@inertiajs/react';
+import { usePage } from '@inertiajs/react';
 import AdminLayout from '@/layouts/admin-layout';
 import { router } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';
+import { PageProps, School, User } from '@/types';
+
+interface SchoolWithAdmin extends School {
+    admin: {
+        user: User;
+    };
+}
+
+interface PendingSchoolsProps extends PageProps {
+    schools: SchoolWithAdmin[];
+}
 
 export default function PendingSchools() {
-    const { schools } = usePage().props;
+    const { schools } = usePage<PendingSchoolsProps>().props;
 
-    const handleApprove = (schoolId) => {
+    const handleApprove = (schoolId: number) => {
         if (confirm('Are you sure you want to approve this school?')) {
             router.post(`/admin/schools/${schoolId}/approve`, {}, { preserveScroll: true });
         }
     };
 
-    const handleReject = (schoolId) => {
+    const handleReject = (schoolId: number) => {
         if (confirm('Are you sure you want to reject this school?')) {
             router.post(`/admin/schools/${schoolId}/reject`, {}, { preserveScroll: true });
         }

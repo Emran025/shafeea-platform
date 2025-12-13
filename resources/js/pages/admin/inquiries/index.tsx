@@ -1,14 +1,30 @@
-import React, { useState, useEffect } from 'react';
-import { Link, usePage, router } from '@inertiajs/react'; // تم دمج router هنا
+import React, { useState, useEffect, ReactNode } from 'react';
+import { Link, usePage, router } from '@inertiajs/react';
 import AdminLayout from '@/layouts/admin-layout';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors } from '@dnd-kit/core'; // أزلنا النوع DragEndEvent
+import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors, DragEndEvent } from '@dnd-kit/core';
 import { arrayMove, SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy, useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import axios from 'axios';
+import { PageProps, Inquiry, Faq } from '@/types';
 
-function SortableItem({ id, children }) {
+interface InquiriesIndexProps extends PageProps {
+    inquiries: {
+        data: Inquiry[];
+    } | Inquiry[];
+    filters: {
+        type?: string;
+    };
+    faqStatistics: Faq[];
+}
+
+interface SortableItemProps {
+    id: number | string;
+    children: ReactNode;
+}
+
+function SortableItem({ id, children }: SortableItemProps) {
     const {
         attributes,
         listeners,
@@ -30,17 +46,14 @@ function SortableItem({ id, children }) {
 }
 
 export default function InquiriesIndex() {
-    // 1. استخدام قيم افتراضية لتجنب الخطأ إذا كانت البيانات غير موجودة
-    const { inquiries: initialInquiries = [], filters = {}, faqStatistics = [] } = usePage().props;
+    const { inquiries: initialInquiries = [], filters = {}, faqStatistics = [] } = usePage<InquiriesIndexProps>().props;
 
-    // 2. إصلاح مشكلة .data (التحقق مما إذا كانت مصفوفة مباشرة أو كائن ترقيم)
-    // إذا كانت initialInquiries تحتوي على data نستخدمها، وإلا نستخدم initialInquiries نفسها
-    const getInquiriesArray = (data) => {
+    const getInquiriesArray = (data: { data: Inquiry[] } | Inquiry[]): Inquiry[] => {
         if (!data) return [];
         return Array.isArray(data) ? data : (data.data || []);
     };
 
-    const [inquiries, setInquiries] = useState(getInquiriesArray(initialInquiries));
+    const [inquiries, setInquiries] = useState<Inquiry[]>(getInquiriesArray(initialInquiries));
     const [type, setType] = useState(filters.type || '');
 
     useEffect(() => {
@@ -58,11 +71,9 @@ export default function InquiriesIndex() {
         router.get('/admin/inquiries', { type }, { preserveState: true });
     };
 
-    // تمت إزالة : DragEndEvent لأنه TypeScript
-    function handleDragEnd(event) {
+    function handleDragEnd(event: DragEndEvent) {
         const { active, over } = event;
 
-        // 3. التحقق من أن over ليس null قبل الوصول إلى id
         if (over && active.id !== over.id) {
             setInquiries((items) => {
                 const oldIndex = items.findIndex((item) => item.id === active.id);
@@ -101,20 +112,18 @@ export default function InquiriesIndex() {
                 </div>
                 
                 <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-                    {/* إضافة تحقق من أن inquiries مصفوفة وليست فارغة */}
                     <SortableContext items={inquiries.map(i => i.id)} strategy={verticalListSortingStrategy}>
                         <div className="mt-8 grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                             {inquiries.length > 0 ? (
-                                inquiries.map((inquiry) => (
+                                inquiries.map((inquiry: Inquiry) => (
                                     <SortableItem key={inquiry.id} id={inquiry.id}>
-                                        <div className="bg-white dark:bg-gray-800 shadow rounded-lg h-full"> {/* h-full لتحسين الشكل */}
+                                        <div className="bg-white dark:bg-gray-800 shadow rounded-lg h-full">
                                             <div className="p-4 flex flex-col h-full justify-between">
                                                 <div>
                                                     <h3 className="text-lg font-medium text-gray-900 dark:text-white">{inquiry.question}</h3>
                                                     <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
-                                                        {/* 4. حماية ضد القيم الفارغة للجواب */}
-                                                        {inquiry.answer ? 
-                                                            (inquiry.answer.length > 100 ? `${inquiry.answer.substring(0, 100)}...` : inquiry.answer) 
+                                                        {inquiry.answer 
+                                                            ? (inquiry.answer.length > 100 ? `${inquiry.answer.substring(0, 100)}...` : inquiry.answer) 
                                                             : 'No answer provided'}
                                                     </p>
                                                 </div>
@@ -141,7 +150,7 @@ export default function InquiriesIndex() {
                     <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Frequently Asked Questions Statistics</h2>
                     <div className="mt-4 bg-white dark:bg-gray-800 shadow rounded-lg">
                         <ul className="divide-y divide-gray-200 dark:divide-gray-700">
-                            {faqStatistics && faqStatistics.length > 0 ? faqStatistics.map((faq) => (
+                            {faqStatistics && faqStatistics.length > 0 ? faqStatistics.map((faq: Faq) => (
                                 <li key={faq.id} className="px-6 py-4 flex items-center justify-between">
                                     <p className="text-sm font-medium text-gray-900 dark:text-white">{faq.question}</p>
                                     <p className="text-sm text-gray-500 dark:text-gray-400">{faq.view_count} views</p>

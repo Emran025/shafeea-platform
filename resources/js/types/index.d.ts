@@ -1,5 +1,16 @@
 import { LucideIcon } from 'lucide-react';
 import type { Config } from 'ziggy-js';
+import { Inquiry, Policy, Term, PrivacyPolicy, TermsOfUse } from './models';
+
+declare module 'ziggy-js' {
+    interface RouteList extends Config {}
+}
+
+export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {
+    auth: {
+        user: User;
+    };
+};
 
 export interface Auth {
     user: User;
@@ -77,4 +88,6 @@ export interface School {
     created_at: string;
     updated_at: string;
 }
+
+export { Inquiry, Policy, Term, PrivacyPolicy, TermsOfUse };
 

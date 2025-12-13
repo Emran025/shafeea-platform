@@ -2,9 +2,15 @@ import React from 'react';
 import { Link, usePage } from '@inertiajs/react';
 import AdminLayout from '@/layouts/admin-layout';
 import { Button } from '@/components/ui/button';
+import { PageProps, Term, Policy } from '@/types';
+
+interface PoliciesIndexProps extends PageProps {
+    terms: (Term & { version: string; last_updated: string })[];
+    policies: (Policy & { version: string; last_updated: string })[];
+}
 
 export default function PoliciesIndex() {
-    const { terms, policies } = usePage().props;
+    const { terms, policies } = usePage<PoliciesIndexProps>().props;
 
     return (
         <AdminLayout>

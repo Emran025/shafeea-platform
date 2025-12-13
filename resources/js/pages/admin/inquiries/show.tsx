@@ -1,15 +1,25 @@
 import React from 'react';
 import { useForm, usePage } from '@inertiajs/react';
 import AdminLayout from '@/layouts/admin-layout';
-import { router } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import { PageProps, Inquiry } from '@/types';
+
+interface InquiryShowProps extends PageProps {
+    inquiry: Inquiry & { is_active?: boolean };
+}
+
+interface FormData {
+    question: string;
+    answer: string;
+    is_active: boolean;
+}
 
 export default function InquiryShow() {
-    const { inquiry } = usePage().props;
-    const { data, setData, put, processing, errors } = useForm({
+    const { inquiry } = usePage<InquiryShowProps>().props;
+    const { data, setData, put, processing, errors } = useForm<FormData>({
         question: inquiry.question || '',
         answer: inquiry.answer || '',
         is_active: inquiry.is_active || false,

@@ -8,9 +8,106 @@ import {
 import { 
     BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line 
 } from 'recharts';
+import { PageProps } from '@/types';
+import { LucideIcon } from 'lucide-react';
+
+// Define interfaces for the props
+interface Kpis {
+    students: number;
+    new_enrollments: number;
+    teachers: number;
+    halaqahs: number;
+    scheduled_halaqahs: number;
+    avg_behavior: number;
+}
+
+interface EnrollmentTrend {
+    month: string;
+    count: number;
+}
+
+interface GenderDistribution {
+    halaqah: string;
+    male: number;
+    female: number;
+}
+
+interface Charts {
+    enrollmentTrends: EnrollmentTrend[];
+    genderPerHalaqah: GenderDistribution[];
+}
+
+interface SimpleHalaqah {
+    id: number;
+    name: string;
+}
+
+interface StudentReport {
+    id: number;
+    behavior: number;
+    student?: {
+        user?: {
+            name: string;
+        };
+    };
+}
+
+interface UpcomingSchedule {
+    id: number;
+    // Define other properties if available and needed
+}
+
+interface Alerts {
+    fullHalaqahs: SimpleHalaqah[];
+    lowBehaviorStudents: StudentReport[];
+    upcomingSchedules: UpcomingSchedule[];
+}
+
+interface Notification {
+    id: number;
+    title?: string;
+    message?: string;
+    data?: {
+        message: string;
+    };
+    created_at: string;
+}
+
+interface TableItem {
+    name?: string;
+    user?: {
+        name: string;
+        email?: string;
+    };
+    enrollments?: unknown[];
+    qualification?: string;
+}
+
+interface Tables {
+    halaqahs: TableItem[];
+    teachers: TableItem[];
+    students: TableItem[];
+    [key: string]: TableItem[];
+}
+
+interface DashboardPageProps extends PageProps {
+    kpis: Kpis;
+    charts: Charts;
+    notifications: Notification[];
+    alerts: Alerts;
+    tables: Tables;
+}
+
+interface StatCardProps {
+    title: string;
+    value: number | string;
+    icon: LucideIcon;
+    color: string;
+    subtext?: string;
+}
 
 // مكون بسيط للبطاقات (Stats Card)
-const StatCard = ({ title, value, icon: Icon, color, subtext }) => (
+const StatCard: React.FC<StatCardProps> = ({ title, value, icon: Icon, color, subtext }) => (
     <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700">
         <div className="flex items-center justify-between">
             <div>
@@ -26,7 +123,7 @@ const StatCard = ({ title, value, icon: Icon, color, subtext }) => (
 );
 
 export default function AdminDashboard() {
-    const { kpis, charts, notifications, alerts, tables } = usePage().props;
+    const { kpis, charts, notifications, alerts, tables } = usePage<DashboardPageProps>().props;
     const [activeTab, setActiveTab] = useState('halaqahs');
 
     // تجهيز البيانات للرسم البياني (Trends)
@@ -121,7 +218,7 @@ export default function AdminDashboard() {
                                     </thead>
                                     <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
                                         {/* عرض البيانات بناءً على التبويب المختار - فقط آخر 5 صفوف */}
-                                        {tables[activeTab].slice(0, 5).map((item, idx) => (
+                                        {tables[activeTab].slice(0, 5).map((item: TableItem, idx) => (
                                             <tr key={idx}>
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
                                                     {item.name || item.user?.name || 'N/A'}
@@ -162,7 +259,7 @@ export default function AdminDashboard() {
                                     <div className="p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-md">
                                         <p className="text-sm text-red-700 dark:text-red-300 font-medium">Full Halaqahs ({alerts.fullHalaqahs.length})</p>
                                         <ul className="mt-1 text-xs text-red-600 dark:text-red-400 list-disc list-inside">
-                                            {alerts.fullHalaqahs.slice(0, 3).map(h => <li key={h.id}>{h.name}</li>)}
+                                            {alerts.fullHalaqahs.slice(0, 3).map((h: SimpleHalaqah) => <li key={h.id}>{h.name}</li>)}
                                         </ul>
                                     </div>
                                 )}
@@ -171,7 +268,7 @@ export default function AdminDashboard() {
                                     <div className="p-3 bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800 rounded-md">
                                         <p className="text-sm text-orange-700 dark:text-orange-300 font-medium">Low Behavior Score</p>
                                         <ul className="mt-1 text-xs text-orange-600 dark:text-orange-400 list-disc list-inside">
-                                            {alerts.lowBehaviorStudents.slice(0, 3).map(report => (
+                                            {alerts.lowBehaviorStudents.slice(0, 3).map((report: StudentReport) => (
                                                 <li key={report.id}>{report.student?.user?.name} ({report.behavior})</li>
                                             ))}
                                         </ul>
@@ -201,7 +298,7 @@ export default function AdminDashboard() {
                             </h3>
                             <div className="space-y-4">
                                 {notifications.length > 0 ? (
-                                    notifications.map((notif) => (
+                                    notifications.map((notif: Notification) => (
                                         <div key={notif.id} className="flex items-start pb-3 border-b border-gray-100 dark:border-gray-700 last:border-0 last:pb-0">
                                             <div className="bg-blue-100 dark:bg-blue-900 p-2 rounded-full mr-3">
                                                 <Bell className="w-3 h-3 text-blue-600 dark:text-blue-300" />

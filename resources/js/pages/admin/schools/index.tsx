@@ -5,11 +5,29 @@ import { router } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { PageProps, School, User } from '@/types';
+
+interface SchoolWithAdmin extends School {
+    admin?: {
+        user: User;
+        status: string;
+    };
+}
+
+interface SchoolsIndexProps extends PageProps {
+    schools: {
+        data: SchoolWithAdmin[];
+    };
+    filters: {
+        search?: string;
+        status?: string;
+    };
+}
 
 export default function SchoolsIndex() {
-    const { schools, filters = {} } = usePage().props; 
-    const [search, setSearch] = useState(filters?.search || '');
-    const [status, setStatus] = useState(filters?.status || '');
+    const { schools, filters = {} } = usePage<SchoolsIndexProps>().props; 
+    const [search, setSearch] = useState(filters.search || '');
+    const [status, setStatus] = useState(filters.status || '');
 
     const handleSearch = () => {
         router.get('/admin/schools', { search, status }, { preserveState: true });
@@ -65,7 +83,6 @@ export default function SchoolsIndex() {
                                         </tr>
                                     </thead>
                                     <tbody className="bg-white divide-y divide-gray-200 dark:bg-gray-900 dark:divide-gray-700">
-                                        {/* 2. التحقق من وجود schools.data قبل عمل map */}
                                         {schools?.data?.length > 0 ? (
                                             schools.data.map((school) => (
                                                 <tr key={school.id}>
@@ -73,17 +90,15 @@ export default function SchoolsIndex() {
                                                         {school.name}
                                                     </td>
                                                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-                                                        {/* 3. استخدام Optional Chaining (?.) لحماية الكود من الانهيار إذا لم يوجد مدير */}
-                                                        {school?.admin?.user?.name || 'No Admin'}
+                                                        {school.admin?.user?.name || 'No Admin'}
                                                     </td>
                                                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-                                                        {/* حماية الوصول للحالة */}
                                                         <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                                                            school?.admin?.status === 'accepted' ? 'bg-green-100 text-green-800' :
-                                                            school?.admin?.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
+                                                            school.admin?.status === 'accepted' ? 'bg-green-100 text-green-800' :
+                                                            school.admin?.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
                                                             'bg-red-100 text-red-800'
                                                         }`}>
-                                                            {school?.admin?.status || 'N/A'}
+                                                            {school.admin?.status || 'N/A'}
                                                         </span>
                                                     </td>
                                                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
@@ -95,7 +110,7 @@ export default function SchoolsIndex() {
                                             ))
                                         ) : (
                                             <tr>
-                                                <td colSpan="4" className="px-6 py-4 text-center text-gray-500">
+                                                <td colSpan={4} className="px-6 py-4 text-center text-gray-500">
                                                     No schools found.
                                                 </td>
                                             </tr>

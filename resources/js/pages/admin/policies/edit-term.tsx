@@ -1,14 +1,23 @@
 import React from 'react';
 import { useForm, usePage } from '@inertiajs/react';
 import AdminLayout from '@/layouts/admin-layout';
-import { router } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import { PageProps, Term } from '@/types';
+
+interface EditTermProps extends PageProps {
+    term: Term;
+}
+
+interface FormData {
+    content: string;
+    is_active: boolean;
+}
 
 export default function EditTerm() {
-    const { term } = usePage().props;
-    const { data, setData, put, processing, errors } = useForm({
+    const { term } = usePage<EditTermProps>().props;
+    const { data, setData, put, processing, errors } = useForm<FormData>({
         content: term.content || '',
         is_active: term.is_active || false,
     });

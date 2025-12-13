@@ -1,4 +1,4 @@
-import { Head } from '@inertiajs/react';
+import { Head, usePage } from '@inertiajs/react';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
 import {
@@ -16,14 +16,20 @@ import {
     ArrowLeft
 } from 'lucide-react';
 import SiteLayout from '@/layouts/site-layout';
-import { TermsOfUse } from '@/types';
+import { PageProps, TermsOfUse as TermsOfUseType } from '@/types';
 
-interface TermsProps {
-    terms: TermsOfUse;
+interface Section {
+    title: string;
+    content: string[];
 }
 
-export default function Terms({ terms }: TermsProps) {
-    const sections = JSON.parse(terms.sections_json);
+interface TermsProps extends PageProps {
+    terms: TermsOfUseType;
+}
+
+export default function Terms() {
+    const { terms } = usePage<TermsProps>().props;
+    const sections: Section[] = JSON.parse(terms.sections_json);
     const getIcon = (title: string) => {
         switch (title) {
             case 'قبول الشروط':

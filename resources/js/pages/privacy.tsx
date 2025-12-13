@@ -1,4 +1,4 @@
-import { Head } from '@inertiajs/react';
+import { Head, usePage } from '@inertiajs/react';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
 import {
@@ -22,14 +22,20 @@ import {
     Wifi
 } from 'lucide-react';
 import SiteLayout from '@/layouts/site-layout';
-import { PrivacyPolicy } from '@/types';
+import { PageProps, PrivacyPolicy as PrivacyPolicyType } from '@/types';
 
-interface PrivacyProps {
-    privacyPolicy: PrivacyPolicy;
+interface Section {
+    title: string;
+    content: string[];
 }
 
-export default function Privacy({ privacyPolicy }: PrivacyProps) {
-    const sections = JSON.parse(privacyPolicy.sections_json);
+interface PrivacyProps extends PageProps {
+    privacyPolicy: PrivacyPolicyType;
+}
+
+export default function Privacy() {
+    const { privacyPolicy } = usePage<PrivacyProps>().props;
+    const sections: Section[] = JSON.parse(privacyPolicy.sections_json);
 
     const dataProtectionPrinciples = [
         {

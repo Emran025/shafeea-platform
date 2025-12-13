@@ -1,11 +1,24 @@
 import React from 'react';
-import { Link, usePage } from '@inertiajs/react';
+import { usePage } from '@inertiajs/react';
 import AdminLayout from '@/layouts/admin-layout';
 import { router } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';
+import { PageProps, School, User } from '@/types';
+
+interface SchoolWithAdmin extends School {
+    admin: {
+        user: User;
+        status: string;
+    };
+    registration_number?: string;
+}
+
+interface SchoolShowProps extends PageProps {
+    school: SchoolWithAdmin;
+}
 
 export default function SchoolShow() {
-    const { school } = usePage().props;
+    const { school } = usePage<SchoolShowProps>().props;
 
     const handleSuspend = () => {
         if (confirm('Are you sure you want to suspend this school?')) {

@@ -1,14 +1,23 @@
 import React from 'react';
 import { useForm, usePage } from '@inertiajs/react';
 import AdminLayout from '@/layouts/admin-layout';
-import { router } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import { PageProps, Policy } from '@/types';
+
+interface EditPolicyProps extends PageProps {
+    policy: Policy;
+}
+
+interface FormData {
+    content: string;
+    is_active: boolean;
+}
 
 export default function EditPolicy() {
-    const { policy } = usePage().props;
-    const { data, setData, put, processing, errors } = useForm({
+    const { policy } = usePage<EditPolicyProps>().props;
+    const { data, setData, put, processing, errors } = useForm<FormData>({
         content: policy.content || '',
         is_active: policy.is_active || false,
     });
