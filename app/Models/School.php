@@ -39,4 +39,14 @@ class School extends Model
     {
         return $this->hasOneThrough(Admin::class, User::class);
     }
+
+    public function students()
+    {
+        return $this->hasMany(User::class)->whereHas('student');
+    }
+
+    public function teachers()
+    {
+        return $this->hasMany(User::class)->whereHas('teacher');
+    }
 }
