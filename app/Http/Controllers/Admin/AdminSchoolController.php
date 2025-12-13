@@ -40,9 +40,12 @@ class AdminSchoolController extends Controller
 
     public function show(School $school)
     {
-        $school->load('admin.user');
+        $school->load([
+            'admin.user.documents',
+        ])->loadCount(['halaqahs', 'students', 'teachers']);
+
         return Inertia::render('admin/schools/show', [
-            'school' => $school
+            'school' => $school,
         ]);
     }
 
