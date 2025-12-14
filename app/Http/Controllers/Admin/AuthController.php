@@ -17,7 +17,7 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $credentials = $request->validate([
+        $data = $request->validate([
             'email' => 'required|email',
             'password' => 'required',
             'device_info' => 'required|array',
@@ -30,6 +30,11 @@ class AuthController extends Controller
             'device_info.locale' => 'nullable|string|max:10',
             'device_info.fcm_token' => 'nullable|string|max:255',
         ]);
+
+        $credentials = [
+            'email' => $data['email'],
+            'password' => $data['password']
+        ];
 
         if (Auth::attempt($credentials, $request->boolean('remember'))) {
             $request->session()->regenerate();

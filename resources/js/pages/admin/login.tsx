@@ -1,12 +1,12 @@
 import React from 'react';
 import { Head, useForm } from '@inertiajs/react';
-import UAParser from 'ua-parser-js';
+import { UAParser } from 'ua-parser-js';
 import GuestLayout from '@/layouts/guest-layout';
 import { Button } from '@/components/ui/button';
 // import { Label } from '@/components/ui/label';
 // import { Checkbox } from '@/components/ui/checkbox';
 import { ShieldCheck } from 'lucide-react';
-
+import { Checkbox } from '@/components/ui/checkbox';
 import { EmailInput } from '@/components/email-input'; 
 import { PasswordInput } from '@/components/password-input'; 
 
@@ -73,20 +73,20 @@ export default function AdminLoginPage() {
                         autoComplete="current-password"
                     />
                 </div>
-
                 {/* Remember Me & Forgot Password */}
                 <div className="flex items-center justify-between">
-                    <label className="flex items-center gap-2 cursor-pointer group">
-                        <input
-                            type="checkbox"
+                    <div className="flex items-center gap-2">
+                        <Checkbox
+                            id="remember"
                             checked={data.remember}
-                            onChange={(e) => setData('remember', e.target.checked)}
-                            className="w-4 h-4 rounded border-input bg-background text-primary focus:ring-primary/20 transition-colors cursor-pointer"
-                        />
-                        <span className="text-sm text-muted-foreground group-hover:text-foreground transition-colors select-none">
+                            onCheckedChange={(checked) => setData('remember', checked as boolean)}                        />
+                        <label
+                            htmlFor="remember"
+                            className="text-sm text-muted-foreground hover:text-foreground transition-colors select-none cursor-pointer"
+                        >
                             تذكر تسجيلي
-                        </span>
-                    </label>
+                        </label>
+                    </div>
                 </div>
 
                 {/* Submit Button */}
