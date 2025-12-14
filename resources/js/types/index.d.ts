@@ -123,5 +123,5 @@ export interface Session {
     login_time?: Date | null;
 }
 
-export { Inquiry, Policy, Term, PrivacyPolicy, TermsOfUse , Session };
+export { Inquiry, PrivacyPolicy, TermsOfUse , Session };
 

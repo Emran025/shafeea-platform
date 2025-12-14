@@ -6,24 +6,9 @@ export interface Inquiry {
     [key: string]: any;
 }
 
-export interface Policy {
-    id: number;
-    content: string;
-    is_active: boolean;
-    created_at: string;
-    updated_at: string;
-}
-
-export interface Term {
-    id: number;
-    content: string;
-    is_active: boolean;
-    created_at: string;
-    updated_at: string;
-}
 
 export interface PrivacyPolicy {
-    id: number;
+    version: number;
     content: string;
     is_active: boolean;
     created_at: string;
@@ -33,7 +18,7 @@ export interface PrivacyPolicy {
 }
 
 export interface TermsOfUse {
-    id: number;
+    version: number;
     content: string;
     is_active: boolean;
     created_at: string;

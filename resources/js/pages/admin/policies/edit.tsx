@@ -5,11 +5,11 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { PageProps, Term, Policy } from '@/types';
+import { PageProps, TermsOfUse, PrivacyPolicy } from '@/types';
 import { PlusCircle, Trash2 } from 'lucide-react';
 
 interface EditPolicyProps extends PageProps {
-    policy: Policy | Term;
+    policy: PrivacyPolicy | TermsOfUse;
     type: 'policy' | 'term';
 }
 
@@ -59,9 +59,11 @@ export default function EditPolicy() {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        post(`/admin/policies/update/${type}/${policy.id}`);
+        post(`/admin/policies/update/${type}/${policy.version}`);
     };
 
+
+	 
     return (
         <AdminLayout>
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">

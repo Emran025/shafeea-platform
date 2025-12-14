@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, usePage } from '@inertiajs/react';
 import AdminLayout from '@/layouts/admin-layout';
 import { Button } from '@/components/ui/button';
-import { PageProps, Term, Policy } from '@/types';
+import { PageProps, TermsOfUse, PrivacyPolicy } from '@/types';
 import {
     Accordion,
     AccordionContent,
@@ -12,8 +12,8 @@ import {
 import PolicyDisplay from '@/components/shared/policy-display';
 
 interface PoliciesIndexProps extends PageProps {
-    terms: Term[];
-    policies: Policy[];
+    terms: TermsOfUse[];
+    policies: PrivacyPolicy[];
 }
 
 export default function PoliciesIndex() {
@@ -32,19 +32,19 @@ export default function PoliciesIndex() {
                         <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Terms of Use</h2>
                         {latestTerm && (
                             <Button asChild>
-                                <Link href={`/admin/policies/edit/term/${latestTerm.id}`}>Edit Latest Version</Link>
+                                <Link href={`/admin/policies/edit/term/${latestTerm.version}`}>Edit Latest Version</Link>
                             </Button>
                         )}
                     </div>
                     <div className="mt-4 bg-white dark:bg-gray-800 shadow rounded-lg">
                         <Accordion type="single" collapsible className="w-full">
                             {terms.map((term) => (
-                                <AccordionItem value={`term-${term.id}`} key={term.id}>
+                                <AccordionItem value={`term-${term.version}`} key={term.version}>
                                     <AccordionTrigger className="px-6 py-4">
                                         <div className="flex items-center justify-between w-full">
                                             <div>
                                                 <p className="text-sm font-medium text-gray-900 dark:text-white">
-                                                    Version {new Date(term.last_updated).toLocaleDateString()}
+                                                    Version {new Date(term.updated_at).toLocaleDateString()}
                                                 </p>
                                                 <p className={`text-xs text-left ${term.is_active ? 'text-green-500' : 'text-gray-500'}`}>
                                                     {term.is_active ? 'Active' : 'Inactive'}
@@ -66,19 +66,19 @@ export default function PoliciesIndex() {
                         <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Privacy Policy</h2>
                         {latestPolicy && (
                              <Button asChild>
-                                <Link href={`/admin/policies/edit/policy/${latestPolicy.id}`}>Edit Latest Version</Link>
+                                <Link href={`/admin/policies/edit/policy/${latestPolicy.version}`}>Edit Latest Version</Link>
                             </Button>
                         )}
                     </div>
                     <div className="mt-4 bg-white dark:bg-gray-800 shadow rounded-lg">
                         <Accordion type="single" collapsible className="w-full">
                             {policies.map((policy) => (
-                                <AccordionItem value={`policy-${policy.id}`} key={policy.id}>
+                                <AccordionItem value={`policy-${policy.version}`} key={policy.version}>
                                     <AccordionTrigger className="px-6 py-4">
                                         <div className="flex items-center justify-between w-full">
                                             <div>
                                                 <p className="text-sm font-medium text-gray-900 dark:text-white">
-                                                    Version {new Date(policy.last_updated).toLocaleDateString()}
+                                                    Version {new Date(policy.updated_at).toLocaleDateString()}
                                                 </p>
                                                 <p className={`text-xs text-left ${policy.is_active ? 'text-green-500' : 'text-gray-500'}`}>
                                                     {policy.is_active ? 'Active' : 'Inactive'}
