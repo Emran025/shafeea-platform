@@ -1,5 +1,6 @@
 import React from 'react';
 import { Head, useForm } from '@inertiajs/react';
+import UAParser from 'ua-parser-js';
 import GuestLayout from '@/layouts/guest-layout';
 import { Button } from '@/components/ui/button';
 // import { Label } from '@/components/ui/label';
@@ -14,10 +15,25 @@ export default function AdminLoginPage() {
         email: '',
         password: '',
         remember: false,
+        device_info: {},
     });
 
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
+        const parser = new UAParser();
+        const result = parser.getResult();
+        const deviceInfo = {
+            device_id: `web-${crypto.randomUUID()}`,
+            model: `${result.browser.name || ''} ${result.browser.major || ''}`.trim(),
+            manufacturer: result.device.vendor || 'WebApp',
+            os_version: `${result.os.name || ''} ${result.os.version || ''}`.trim(),
+            app_version: result.browser.version,
+            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+            locale: navigator.language,
+            fcm_token: null,
+        };
+
+        setData('device_info', deviceInfo);
         post('/admin/login');
     }
 
