@@ -1,23 +1,44 @@
-import { SidebarGroup, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
+import { SidebarGroup, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
 
-export function NavMain({ items = [] }: { items: NavItem[] }) {
-    const page = usePage();
+interface NavMainProps {
+    items: NavItem[];
+}
+
+/**
+ * NavMain Component
+ * Renders the main navigation menu items with precise active state logic.
+ */
+export function NavMain({ items }: NavMainProps) {
+    const { url } = usePage();
+    // Remove query strings to compare pure paths
+    const currentPath = url.split('?')[0];
+
     return (
-        <SidebarGroup className="px-2 py-0">
-            <SidebarGroupLabel>Platform</SidebarGroupLabel>
+        <SidebarGroup>
             <SidebarMenu>
-                {items.map((item) => (
-                    <SidebarMenuItem key={item.title}>
-                        <SidebarMenuButton asChild isActive={page.url.startsWith(item.href)} tooltip={{ children: item.title }}>
-                            <Link href={item.href} prefetch>
-                                {item.icon && <item.icon />}
-                                <span>{item.title}</span>
-                            </Link>
-                        </SidebarMenuButton>
-                    </SidebarMenuItem>
-                ))}
+                {items.map((item) => {
+                    // Strict matching logic to prevent overlapping highlights.
+                    // Returns true ONLY if the URL matches exactly.
+                    // This separates '/admin/schools' from '/admin/schools/pending'.
+                    const isActive = currentPath === item.href;
+
+                    return (
+                        <SidebarMenuItem key={item.title}>
+                            <SidebarMenuButton 
+                                asChild 
+                                isActive={isActive} 
+                                tooltip={item.title}
+                            >
+                                <Link href={item.href}>
+                                    {item.icon && <item.icon />}
+                                    <span>{item.title}</span>
+                                </Link>
+                            </SidebarMenuButton>
+                        </SidebarMenuItem>
+                    );
+                })}
             </SidebarMenu>
         </SidebarGroup>
     );

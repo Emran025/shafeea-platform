@@ -1,9 +1,13 @@
 import React from 'react';
-import { useForm } from '@inertiajs/react';
+import { Head, useForm } from '@inertiajs/react';
 import GuestLayout from '@/layouts/guest-layout';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+// import { Label } from '@/components/ui/label';
+// import { Checkbox } from '@/components/ui/checkbox';
+import { ShieldCheck } from 'lucide-react';
+
+import { EmailInput } from '@/components/email-input'; 
+import { PasswordInput } from '@/components/password-input'; 
 
 export default function AdminLoginPage() {
     const { data, setData, post, processing, errors } = useForm({
@@ -19,50 +23,64 @@ export default function AdminLoginPage() {
 
     return (
         <GuestLayout>
-            <h1 className="text-2xl font-bold text-center text-gray-900 dark:text-white">Admin Login</h1>
-            <form onSubmit={handleSubmit} className="space-y-6 mt-6">
+            <Head title="دخول المشرفين" />
+
+            {/* Header Section */}
+            <div className="text-center mb-8">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-2xl mb-4 border border-primary/20">
+                    <ShieldCheck className="w-8 h-8 text-primary" />
+                </div>
+                <h1 className="text-2xl font-bold text-foreground">لوحة التحكم</h1>
+                <p className="text-sm text-muted-foreground mt-2">تسجيل دخول المشرفين والمسؤولين</p>
+            </div>
+
+            <form onSubmit={handleSubmit} className="space-y-6">
+                
+                {/* Email Field */}
                 <div>
-                    <Label htmlFor="email">Email Address</Label>
-                    <Input
-                        id="email"
-                        type="email"
+                    <EmailInput
                         value={data.email}
                         onChange={(e) => setData('email', e.target.value)}
-                        className="mt-1 block w-full"
+                        error={errors.email}
+                        placeholder="admin@example.com"
+                        autoComplete="username"
                     />
-                    {errors.email && <p className="mt-2 text-sm text-red-600">{errors.email}</p>}
                 </div>
 
+                {/* Password Field */}
                 <div>
-                    <Label htmlFor="password">Password</Label>
-                    <Input
-                        id="password"
-                        type="password"
+                    <PasswordInput
                         value={data.password}
                         onChange={(e) => setData('password', e.target.value)}
-                        className="mt-1 block w-full"
+                        error={errors.password}
+                        placeholder="••••••••"
+                        autoComplete="current-password"
                     />
-                    {errors.password && <p className="mt-2 text-sm text-red-600">{errors.password}</p>}
                 </div>
 
+                {/* Remember Me & Forgot Password */}
                 <div className="flex items-center justify-between">
-                    <div className="flex items-center">
+                    <label className="flex items-center gap-2 cursor-pointer group">
                         <input
-                            id="remember"
                             type="checkbox"
                             checked={data.remember}
                             onChange={(e) => setData('remember', e.target.checked)}
-                            className="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
+                            className="w-4 h-4 rounded border-input bg-background text-primary focus:ring-primary/20 transition-colors cursor-pointer"
                         />
-                        <Label htmlFor="remember" className="ml-2 block text-sm text-gray-900 dark:text-gray-300">
-                            Remember me
-                        </Label>
-                    </div>
+                        <span className="text-sm text-muted-foreground group-hover:text-foreground transition-colors select-none">
+                            تذكر تسجيلي
+                        </span>
+                    </label>
                 </div>
 
+                {/* Submit Button */}
                 <div>
-                    <Button type="submit" disabled={processing} className="w-full">
-                        Sign in
+                    <Button 
+                        type="submit" 
+                        disabled={processing} 
+                        className="w-full h-11 text-base font-medium shadow-lg shadow-primary/20"
+                    >
+                        {processing ? 'جاري الدخول...' : 'تسجيل الدخول'}
                     </Button>
                 </div>
             </form>

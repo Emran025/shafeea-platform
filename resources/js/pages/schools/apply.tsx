@@ -10,23 +10,21 @@ import {
     UserCog,
     MapPin,
     Phone,
-    Mail,
     Globe,
     Upload,
-    Lock,
     Award,
     ArrowLeft,
     School2,
     CheckCircle,
     PlusCircle,
     Trash2,
-    Eye,
-    EyeOff,
-    AlertCircle
+    AlertCircle,
 } from 'lucide-react';
-import { useState } from 'react';
 import { SharedData } from '@/types';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+
+import { EmailInput } from '@/components/email-input'; 
+import { PasswordGroup } from '@/components/password-group'; 
 
 export default function Apply() {
     const { flash } = usePage<SharedData>().props;
@@ -57,8 +55,7 @@ export default function Apply() {
         ]
     });
 
-    const [showPassword, setShowPassword] = useState(false);
-    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    // تم إزالة useState الخاص بكلمات المرور والـ autofillFix لأن المكونات الجديدة تعالجها
 
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
@@ -96,28 +93,6 @@ export default function Apply() {
         const documents = [...data.documents];
         documents[index] = { ...documents[index], [field]: value };
         setData('documents', documents);
-    };
-
-    
-    const autofillFix = `
-        transition-colors duration-[50000s] ease-in-out 0s
-        [&:-webkit-autofill]:shadow-[inset_0_0_0_1000px_#ffffff] 
-        dark:[&:-webkit-autofill]:shadow-[inset_0_0_0_1000px_#020817]
-        [&:-webkit-autofill]:-webkit-text-fill-color-foreground
-    `;
-
-    const autofillMuted = `
-        transition-colors duration-[50000s] ease-in-out 0s
-        [&:-webkit-autofill]:shadow-[inset_0_0_0_1000px_#f3f4f6] 
-        dark:[&:-webkit-autofill]:shadow-[inset_0_0_0_1000px_#1f2937]
-        [&:-webkit-autofill]:-webkit-text-fill-color-foreground
-    `;
-    
-    // Base input classes based on section color
-    const getInputClass = (color: 'blue' | 'emerald' | 'purple', isMuted = false) => {
-        const baseBg = isMuted ? 'bg-muted/30' : 'bg-background';
-        const autofill = isMuted ? autofillMuted : autofillFix;
-        return `h-12 rounded-xl ${baseBg} border-border focus:bg-background focus:border-${color}-500 focus:ring-2 focus:ring-${color}-500/10 hover:border-${color}-500/50 transition-all duration-200 ${autofill}`;
     };
 
     return (
@@ -186,16 +161,16 @@ export default function Apply() {
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     {/* School Name */}
-                                    <div className="space-y-3 md:col-span-2">
-                                        <Label htmlFor="name" className="text-foreground font-semibold text-sm">اسم المدرسة / المنشأة</Label>
+                                    <div className="space-y-1 md:col-span-2">
+                                        <Label htmlFor="name" className="text-foreground font-semibold text-sm mb-2.5 block">اسم المدرسة / المنشأة</Label>
                                         <div className="relative group">
-                                            <School2 className="absolute right-3.5 top-3.5 w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors duration-200" />
+                                            <School2 className="absolute right-3.5 top-3.5 w-5 h-5 text-muted-foreground group-hover:text-blue-500 transition-colors duration-200" />
                                             <Input
                                                 id="name"
                                                 placeholder="مثال: مجمع النور القرآني"
                                                 value={data.name}
                                                 onChange={(e) => setData('name', e.target.value)}
-                                                className={`pr-11 ${getInputClass('blue', true)}`}
+                                                className="pr-11"
                                                 autoComplete="off"
                                             />
                                         </div>
@@ -203,9 +178,9 @@ export default function Apply() {
                                     </div>
 
                                     {/* Logo Upload - Visual Area */}
-                                    <div className="space-y-3 md:col-span-2">
-                                        <Label htmlFor="logo" className="text-foreground font-semibold text-sm">شعار المدرسة</Label>
-                                        <div className="border-2 border-dashed border-border rounded-xl p-6 text-center hover:bg-muted/50 hover:border-primary/40 transition-all duration-300 relative cursor-pointer group bg-card">
+                                    <div className="space-y-1 md:col-span-2">
+                                        <Label htmlFor="logo" className="text-foreground font-semibold text-sm mb-2.5 block">شعار المدرسة</Label>
+                                        <div className="border-2 border-dashed border-border rounded-xl p-6 text-center hover:bg-muted/50 hover:border-blue-500/40 transition-all duration-300 relative cursor-pointer group bg-card">
                                             <input
                                                 id="logo"
                                                 type="file"
@@ -228,16 +203,16 @@ export default function Apply() {
                                     </div>
 
                                     {/* Phone (LTR) */}
-                                    <div className="space-y-3">
-                                        <Label htmlFor="phone" className="text-foreground font-semibold text-sm">رقم الهاتف الرسمي</Label>
+                                    <div className="space-y-1">
+                                        <Label htmlFor="phone" className="text-foreground font-semibold text-sm mb-2.5 block">رقم الهاتف الرسمي</Label>
                                         <div className="relative group">
-                                            <Phone className="absolute right-3.5 top-3.5 w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors duration-200 z-10" />
+                                            <Phone className="absolute right-3.5 top-3.5 w-5 h-5 text-muted-foreground group-hover:text-blue-500 transition-colors duration-200 z-10" />
                                             <Input
                                                 id="phone"
                                                 placeholder="05xxxxxxxx"
                                                 value={data.phone}
                                                 onChange={(e) => setData('phone', e.target.value)}
-                                                className={`pr-11 text-left ${getInputClass('blue', true)}`}
+                                                className="pr-11 text-left"
                                                 dir="ltr"
                                                 autoComplete="tel"
                                             />
@@ -246,48 +221,48 @@ export default function Apply() {
                                     </div>
 
                                     {/* Country */}
-                                    <div className="space-y-3">
-                                        <Label htmlFor="country" className="text-foreground font-semibold text-sm">الدولة</Label>
+                                    <div className="space-y-1">
+                                        <Label htmlFor="country" className="text-foreground font-semibold text-sm mb-2.5 block">الدولة</Label>
                                         <div className="relative group">
-                                            <Globe className="absolute right-3.5 top-3.5 w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors duration-200" />
+                                            <Globe className="absolute right-3.5 top-3.5 w-5 h-5 text-muted-foreground group-hover:text-blue-500 transition-colors duration-200" />
                                             <Input
                                                 id="country"
                                                 placeholder="المملكة العربية السعودية"
                                                 value={data.country}
                                                 onChange={(e) => setData('country', e.target.value)}
-                                                className={`pr-11 ${getInputClass('blue', true)}`}
+                                                className="pr-11"
                                             />
                                         </div>
                                         {errors.country && <p className="text-red-500 text-xs mt-1">{errors.country}</p>}
                                     </div>
 
                                     {/* City */}
-                                    <div className="space-y-3">
-                                        <Label htmlFor="city" className="text-foreground font-semibold text-sm">المدينة</Label>
+                                    <div className="space-y-1">
+                                        <Label htmlFor="city" className="text-foreground font-semibold text-sm mb-2.5 block">المدينة</Label>
                                         <div className="relative group">
-                                            <MapPin className="absolute right-3.5 top-3.5 w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors duration-200" />
+                                            <MapPin className="absolute right-3.5 top-3.5 w-5 h-5 text-muted-foreground group-hover:text-blue-500 transition-colors duration-200" />
                                             <Input
                                                 id="city"
                                                 placeholder="الرياض"
                                                 value={data.city}
                                                 onChange={(e) => setData('city', e.target.value)}
-                                                className={`pr-11 ${getInputClass('blue', true)}`}
+                                                className="pr-11"
                                             />
                                         </div>
                                         {errors.city && <p className="text-red-500 text-xs mt-1">{errors.city}</p>}
                                     </div>
 
                                     {/* Location URL (LTR) */}
-                                    <div className="space-y-3">
-                                        <Label htmlFor="location" className="text-foreground font-semibold text-sm">رابط الموقع (Google Maps)</Label>
+                                    <div className="space-y-1">
+                                        <Label htmlFor="location" className="text-foreground font-semibold text-sm mb-2.5 block">رابط الموقع (Google Maps)</Label>
                                         <div className="relative group">
-                                            <MapPin className="absolute right-3.5 top-3.5 w-5 h-5 text-muted-foreground z-10 group-hover:text-primary transition-colors duration-200" />
+                                            <MapPin className="absolute right-3.5 top-3.5 w-5 h-5 text-muted-foreground z-10 group-hover:text-blue-500 transition-colors duration-200" />
                                             <Input
                                                 id="location"
                                                 placeholder="https://maps.google.com/..."
                                                 value={data.location}
                                                 onChange={(e) => setData('location', e.target.value)}
-                                                className={`pr-11 text-left ${getInputClass('blue', true)}`}
+                                                className="pr-11 text-left"
                                                 dir="ltr"
                                             />
                                         </div>
@@ -295,14 +270,13 @@ export default function Apply() {
                                     </div>
 
                                     {/* Address */}
-                                    <div className="space-y-3 md:col-span-2">
-                                        <Label htmlFor="address" className="text-foreground font-semibold text-sm">العنوان الوطني / التفصيلي</Label>
+                                    <div className="space-y-1 md:col-span-2">
+                                        <Label htmlFor="address" className="text-foreground font-semibold text-sm mb-2.5 block">العنوان الوطني / التفصيلي</Label>
                                         <Input
                                             id="address"
                                             placeholder="الحي، الشارع، رقم المبنى..."
                                             value={data.address}
                                             onChange={(e) => setData('address', e.target.value)}
-                                            className={getInputClass('blue', true)}
                                         />
                                         {errors.address && <p className="text-red-500 text-xs mt-1">{errors.address}</p>}
                                     </div>
@@ -323,8 +297,8 @@ export default function Apply() {
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                     {/* Admin Name */}
-                                    <div className="space-y-3">
-                                        <Label htmlFor="admin_name" className="text-foreground font-semibold text-sm">الاسم الثلاثي</Label>
+                                    <div className="space-y-1">
+                                        <Label htmlFor="admin_name" className="text-foreground font-semibold text-sm mb-2.5 block">الاسم الثلاثي</Label>
                                         <div className="relative group">
                                             <UserCog className="absolute right-3.5 top-3.5 w-5 h-5 text-muted-foreground group-hover:text-emerald-500 transition-colors duration-200" />
                                             <Input
@@ -332,7 +306,7 @@ export default function Apply() {
                                                 placeholder="اسم المدير المسؤول"
                                                 value={data.admin_name}
                                                 onChange={(e) => setData('admin_name', e.target.value)}
-                                                className={`pr-11 ${getInputClass('emerald')}`}
+                                                className="pr-11"
                                                 autoComplete="off"
                                             />
                                         </div>
@@ -340,8 +314,8 @@ export default function Apply() {
                                     </div>
 
                                     {/* Admin Phone (LTR) */}
-                                    <div className="space-y-3">
-                                        <Label htmlFor="admin_phone" className="text-foreground font-semibold text-sm">رقم الجوال (للدخول)</Label>
+                                    <div className="space-y-1">
+                                        <Label htmlFor="admin_phone" className="text-foreground font-semibold text-sm mb-2.5 block">رقم الجوال (للدخول)</Label>
                                         <div className="relative group">
                                             <Phone className="absolute right-3.5 top-3.5 w-5 h-5 text-muted-foreground z-10 group-hover:text-emerald-500 transition-colors duration-200" />
                                             <Input
@@ -349,7 +323,7 @@ export default function Apply() {
                                                 placeholder="05xxxxxxxx"
                                                 value={data.admin_phone}
                                                 onChange={(e) => setData('admin_phone', e.target.value)}
-                                                className={`pr-11 text-left ${getInputClass('emerald')}`}
+                                                className="pr-11 text-left"
                                                 dir="ltr"
                                                 autoComplete="tel"
                                             />
@@ -357,74 +331,28 @@ export default function Apply() {
                                         {errors.admin_phone && <p className="text-red-500 text-xs mt-1">{errors.admin_phone}</p>}
                                     </div>
 
-                                    {/* Admin Email (LTR) */}
-                                    <div className="space-y-3 md:col-span-2">
-                                        <Label htmlFor="admin_email" className="text-foreground font-semibold text-sm">البريد الإلكتروني</Label>
-                                        <div className="relative group">
-                                            <Mail className="absolute right-3.5 top-3.5 w-5 h-5 text-muted-foreground z-10 group-hover:text-emerald-500 transition-colors duration-200" />
-                                            <Input
-                                                id="admin_email"
-                                                type="email"
-                                                placeholder="email@example.com"
-                                                value={data.admin_email}
-                                                onChange={(e) => setData('admin_email', e.target.value)}
-                                                className={`pr-11 text-left ${getInputClass('emerald')}`}
-                                                dir="ltr"
-                                                autoComplete="new-password"
-                                            />
-                                        </div>
-                                        {errors.admin_email && <p className="text-red-500 text-xs mt-1">{errors.admin_email}</p>}
+                                    {/* Admin Email (New Component) */}
+                                    <div className="space-y-1 md:col-span-2">
+                                        <EmailInput
+                                            value={data.admin_email}
+                                            onChange={(e) => setData('admin_email', e.target.value)}
+                                            error={errors.admin_email}
+                                        />
                                     </div>
 
-                                    {/* Password */}
-                                    <div className="space-y-3">
-                                        <Label htmlFor="admin_password" className="text-foreground font-semibold text-sm">كلمة المرور</Label>
-                                        <div className="relative group">
-                                            <Lock className="absolute right-3.5 top-3.5 w-5 h-5 text-muted-foreground z-10 group-hover:text-emerald-500 transition-colors duration-200" />
-                                            <Input
-                                                id="admin_password"
-                                                type={showPassword ? "text" : "password"}
-                                                value={data.admin_password}
-                                                onChange={(e) => setData('admin_password', e.target.value)}
-                                                className={`pr-11 pl-11 text-left ${getInputClass('emerald')}`}
-                                                dir="ltr"
-                                                autoComplete="new-password"
-                                            />
-                                            {/* Eye Button */}
-                                            <button
-                                                type="button"
-                                                onClick={() => setShowPassword(!showPassword)}
-                                                className="absolute left-3 top-3.5 text-muted-foreground hover:text-foreground transition-colors focus:outline-none"
-                                            >
-                                                {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-                                            </button>
-                                        </div>
-                                        {errors.admin_password && <p className="text-red-500 text-xs mt-1">{errors.admin_password}</p>}
-                                    </div>
-
-                                    {/* Confirm Password */}
-                                    <div className="space-y-3">
-                                        <Label htmlFor="admin_password_confirmation" className="text-foreground font-semibold text-sm">تأكيد كلمة المرور</Label>
-                                        <div className="relative group">
-                                            <CheckCircle className="absolute right-3.5 top-3.5 w-5 h-5 text-muted-foreground z-10 group-hover:text-emerald-500 transition-colors duration-200" />
-                                            <Input
-                                                id="admin_password_confirmation"
-                                                type={showConfirmPassword ? "text" : "password"}
-                                                value={data.admin_password_confirmation}
-                                                onChange={(e) => setData('admin_password_confirmation', e.target.value)}
-                                                className={`pr-11 pl-11 text-left ${getInputClass('emerald')}`}
-                                                dir="ltr"
-                                                autoComplete="new-password"
-                                            />
-                                            {/* Eye Button */}
-                                            <button
-                                                type="button"
-                                                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                                                className="absolute left-3 top-3.5 text-muted-foreground hover:text-foreground transition-colors focus:outline-none"
-                                            >
-                                                {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-                                            </button>
-                                        </div>
+                                    {/* Password Group (New Component) */}
+                                    <div className="space-y-1 md:col-span-2">
+                                        <PasswordGroup
+                                            passwordValue={data.admin_password}
+                                            onPasswordChange={(e) => setData('admin_password', e.target.value)}
+                                            passwordError={errors.admin_password}
+                                            
+                                            confirmValue={data.admin_password_confirmation}
+                                            onConfirmChange={(e) => setData('admin_password_confirmation', e.target.value)}
+                                            confirmError={errors.admin_password_confirmation}
+                                            
+                                            layout="row"
+                                        />
                                     </div>
                                 </div>
                             </div>
@@ -466,7 +394,6 @@ export default function Apply() {
                                                         placeholder="مثال: رخصة التحفيظ، سجل مزاولة مهنية، شهادة إجازة المشرف"
                                                         value={doc.name}
                                                         onChange={(e) => handleDocumentChange(index, 'name', e.target.value)}
-                                                        className={getInputClass('purple')}
                                                     />
                                                 </div>
 
@@ -478,7 +405,7 @@ export default function Apply() {
                                                         value={doc.certificate_type}
                                                     >
                                                         <SelectTrigger 
-                                                            className={`text-right ${getInputClass('purple')}`} 
+                                                            className="text-right" 
                                                             dir="rtl"
                                                             style={{ fontFamily: 'Cairo, sans-serif' }}
                                                         >
@@ -506,7 +433,6 @@ export default function Apply() {
                                                             placeholder="يرجى التحديد"
                                                             value={doc.certificate_type_other}
                                                             onChange={(e) => handleDocumentChange(index, 'certificate_type_other', e.target.value)}
-                                                            className={getInputClass('purple')}
                                                         />
                                                     </div>
                                                 )}
@@ -520,7 +446,7 @@ export default function Apply() {
                                                             value={doc.riwayah}
                                                         >
                                                             <SelectTrigger 
-                                                                className={`text-right ${getInputClass('purple')}`} 
+                                                                className="text-right" 
                                                                 dir="rtl"
                                                                 style={{ fontFamily: 'Cairo, sans-serif' }}
                                                             >
@@ -554,7 +480,6 @@ export default function Apply() {
                                                                 placeholder="مثال: الجمعية الخيرية لتحفيظ القرآن"
                                                                 value={doc.issuing_place}
                                                                 onChange={(e) => handleDocumentChange(index, 'issuing_place', e.target.value)}
-                                                                className={getInputClass('purple')}
                                                             />
                                                         </div>
                                                         <div>
@@ -563,8 +488,8 @@ export default function Apply() {
                                                                 type="date"
                                                                 value={doc.issuing_date}
                                                                 onChange={(e) => handleDocumentChange(index, 'issuing_date', e.target.value)}
-                                                                className={getInputClass('purple')}
                                                                 dir="ltr"
+                                                                className="text-left"
                                                             />
                                                         </div>
                                                     </>

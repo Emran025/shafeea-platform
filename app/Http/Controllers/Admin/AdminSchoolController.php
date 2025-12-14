@@ -20,11 +20,11 @@ class AdminSchoolController extends Controller
                     ->orWhereHas('admin.user', function ($userQuery) use ($searchTerm) {
                         $userQuery->where('name', 'like', "%{$searchTerm}%");
                     })
-                    ->orWhere('registration_number', 'like', "%{$searchTerm}%");
+                    ->orWhere('schools.id', 'like', "%{$searchTerm}%");
             });
         }
 
-        if ($request->has('status') && $request->input('status') !== '') {
+        if ($request->has('status') && $request->input('status') !== '' && $request->input('status') !== null) {
             $query->whereHas('admin', function ($q) use ($request) {
                 $q->where('status', $request->input('status'));
             });
@@ -40,9 +40,12 @@ class AdminSchoolController extends Controller
 
     public function show(School $school)
     {
-        $school->load('admin.user');
+        $school->load([
+            'admin.user.documents',
+        ])->loadCount(['halaqahs', 'students', 'teachers']);
+
         return Inertia::render('admin/schools/show', [
-            'school' => $school
+            'school' => $school,
         ]);
     }
 

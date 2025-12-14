@@ -98,7 +98,7 @@
     
     --border: #e0e1dd; 
     --input: #e0e1dd;
-    --ring: #778da9;
+    --ring: #415a77;
     
     /* Chart Colors */
     --chart-1: #1b263b; 
@@ -161,7 +161,7 @@
        PRESERVED: Primary (Bright Blue for Hover)
        KEPT EXACTLY AS REQUESTED
     */
-    --primary: oklch(0.698 0.154 232.59); 
+    --primary: #00a0da; 
     --primary-foreground: #ffffff;
     
     /* Secondary: Dark Slate Blue */
@@ -196,7 +196,7 @@
        PRESERVED: Ring (Bright Blue)
        KEPT EXACTLY AS REQUESTED
     */
-    --ring: oklch(0.698 0.154 232.59);
+    --ring: #00a0da;
     
     /* Chart Colors */
     --chart-1: #3b82f6; 

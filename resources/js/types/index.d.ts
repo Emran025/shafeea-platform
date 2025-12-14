@@ -55,6 +55,15 @@ export interface User {
     email: string;
     avatar?: string;
     email_verified_at: string | null;
+    phone_zone: number | null;
+    phone: number | null;
+    whatsapp_zone: number | null;
+    whatsapp: number | null;
+    gender: 'Male' | 'Female' | null;
+    birth_date: string | null;
+    country: string | null;
+    city: string | null;
+    residence: string | null;
     created_at: string;
     updated_at: string;
     [key: string]: unknown; // This allows for additional properties...
@@ -89,5 +98,30 @@ export interface School {
     updated_at: string;
 }
 
-export { Inquiry, Policy, Term, PrivacyPolicy, TermsOfUse };
+export interface Document {
+    id: number | null,
+    name: string,
+    certificate_type: string,
+    certificate_type_other: string,
+    riwayah: string,
+    issuing_place: string,
+    issuing_date: string,
+    file: File | null,
+    file_path : string | null
+}
+type NullableString = string | null;
+
+export interface Session {
+    device_id?: NullableString;
+    model?: NullableString;
+    manufacturer?: NullableString;
+    os_version?: NullableString;
+    app_version?: NullableString;
+    timezone?: NullableString;
+    locale?: NullableString;
+    fcm_token?: NullableString;
+    login_time?: Date | null;
+}
+
+export { Inquiry, Policy, Term, PrivacyPolicy, TermsOfUse , Session };
 

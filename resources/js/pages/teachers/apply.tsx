@@ -7,25 +7,24 @@ import { Textarea } from '@/components/ui/textarea';
 import SiteLayout from '@/layouts/site-layout';
 import {
     User,
-    Mail,
-    Lock,
     Upload,
     BookOpen,
     GraduationCap,
     Award,
     PlusCircle,
-    Eye,
-    EyeOff,
     Trash2,
     ArrowLeft,
     CheckCircle,
     Building2,
     AlertCircle,
+    Lock 
 } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { useState } from 'react';
 import { School, SharedData } from '@/types';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+
+import { EmailInput } from '@/components/email-input'; 
+import { PasswordGroup } from '@/components/password-group'; 
 
 export default function Apply({ schools }: { schools: School[] }) {
     const { flash } = usePage<SharedData>().props;
@@ -52,11 +51,7 @@ export default function Apply({ schools }: { schools: School[] }) {
         ],
     });
 
-    // تم إزالة useEffect القديم لأنه غير مضمون مع Inertia في حالات النجاح
-    // الاعتماد سيكون على onSuccess داخل handleSubmit
-
-    const [showPassword, setShowPassword] = useState(false);
-    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    // تمت إزالة useState الخاص بتبديل كلمة المرور لأنه أصبح مدمجاً داخل المكونات
 
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
@@ -95,19 +90,6 @@ export default function Apply({ schools }: { schools: School[] }) {
         documents[index] = { ...documents[index], [field]: value };
         setData('documents', documents);
     };
-
-    // --- Styles & Helpers ---
-
-    const autofillFix = `
-        transition-colors duration-[50000s] ease-in-out 0s
-        [&:-webkit-autofill]:shadow-[inset_0_0_0_1000px_#ffffff] 
-        dark:[&:-webkit-autofill]:shadow-[inset_0_0_0_1000px_#020817]
-        [&:-webkit-autofill]:-webkit-text-fill-color-foreground
-    `;
-    
-    const noSpinner = "[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none";
-
-    const inputClasses = `h-12 rounded-xl bg-muted/30 border-border focus:bg-background focus:border-primary focus:ring-2 focus:ring-primary/10 hover:border-primary/50 transition-all duration-200 ${autofillFix}`;
 
     return (
         <SiteLayout>
@@ -184,30 +166,20 @@ export default function Apply({ schools }: { schools: School[] }) {
                                                 placeholder="الاسم كما يظهر في الهوية"
                                                 value={data.name}
                                                 onChange={(e) => setData('name', e.target.value)}
-                                                className={`pr-11 ${inputClasses}`}
+                                                className={`pr-11`}
                                                 autoComplete="off"
                                             />
                                         </div>
                                         {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
                                     </div>
 
-                                    {/* Email */}
+                                    {/* Email - NEW COMPONENT */}
                                     <div className="md:col-span-2">
-                                        <Label htmlFor="email" className="text-foreground font-semibold text-sm mb-2.5 block">البريد الإلكتروني</Label>
-                                        <div className="relative group">
-                                            <Mail className="absolute right-3.5 top-3.5 w-5 h-5 text-muted-foreground z-10 group-hover:text-primary transition-colors duration-200" />
-                                            <Input
-                                                id="email"
-                                                type="email"
-                                                placeholder="email@example.com"
-                                                value={data.email}
-                                                onChange={(e) => setData('email', e.target.value)}
-                                                className={`pr-11 text-left ${inputClasses}`}
-                                                dir="ltr"
-                                                autoComplete="new-password"
-                                            />
-                                        </div>
-                                        {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
+                                        <EmailInput
+                                            value={data.email}
+                                            onChange={(e) => setData('email', e.target.value)}
+                                            error={errors.email}
+                                        />
                                     </div>
 
                                     {/* School Selection */}
@@ -222,7 +194,7 @@ export default function Apply({ schools }: { schools: School[] }) {
                                                 value={data.school_id ? String(data.school_id) : "none"}
                                             >
                                                 <SelectTrigger 
-                                                        className={`pr-11 ${inputClasses}`} 
+                                                        className={`pr-11`} 
                                                         dir="rtl"
                                                         style={{ fontFamily: 'Cairo, sans-serif' }}
                                                     >
@@ -244,7 +216,7 @@ export default function Apply({ schools }: { schools: School[] }) {
                                         {errors.school_id && <p className="text-red-500 text-xs mt-1">{errors.school_id}</p>}
                                     </div>
 
-                                    {/* Memorization Level - FIXED */}
+                                    {/* Memorization Level */}
                                     <div className="md:col-span-2">
                                         <Label htmlFor="memorization_level" className="text-foreground font-semibold text-sm mb-2.5 block">مستوى الحفظ (عدد الأجزاء)</Label>
                                         <div className="relative group">
@@ -263,12 +235,11 @@ export default function Apply({ schools }: { schools: School[] }) {
                                                         return;
                                                     }
                                                     const num = parseInt(val);
-                                                    // التحقق من أن الرقم بين 0 و 30
                                                     if (!isNaN(num) && num >= 0 && num <= 30) {
                                                         setData('memorization_level', num);
                                                     }
                                                 }}
-                                                className={`pr-11 text-left ${inputClasses} ${noSpinner}`}
+                                                className={`pr-11 text-left`}
                                                 dir="ltr"
                                             />
                                         </div>
@@ -287,7 +258,7 @@ export default function Apply({ schools }: { schools: School[] }) {
                                                 placeholder="مثال: ثانوية عامة علمي"
                                                 value={data.qualifications}
                                                 onChange={(e) => setData('qualifications', e.target.value)}
-                                                className={`pr-11 ${inputClasses}`}
+                                                className={`pr-11`}
                                             />
                                         </div>
                                         {errors.qualifications && <p className="text-red-500 text-xs mt-1">{errors.qualifications}</p>}
@@ -302,7 +273,7 @@ export default function Apply({ schools }: { schools: School[] }) {
                                                 placeholder="تحدث بإيجاز عن خبرتك في تعليم القرآن الكريم..."
                                                 value={data.bio}
                                                 onChange={(e) => setData('bio', e.target.value)}
-                                                className="min-h-[120px] rounded-xl bg-muted/30 border-border hover:border-primary/50 focus:bg-background focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all duration-200 p-4"
+                                                className="min-h-[120px]"
                                             />
                                         </div>
                                         {errors.bio && <p className="text-red-500 text-xs mt-1">{errors.bio}</p>}
@@ -344,7 +315,6 @@ export default function Apply({ schools }: { schools: School[] }) {
                                                     placeholder="مثال: شهادة حفظ القران"
                                                     value={doc.name}
                                                     onChange={(e) => handleDocumentChange(index, 'name', e.target.value)}
-                                                    className={inputClasses}
                                                 />
                                             </div>
 
@@ -356,7 +326,7 @@ export default function Apply({ schools }: { schools: School[] }) {
                                                     value={doc.certificate_type}
                                                 >
                                                     <SelectTrigger 
-                                                        className={`text-right ${inputClasses}`} 
+                                                        className={`text-right`} 
                                                         dir="rtl"
                                                         style={{ fontFamily: 'Cairo, sans-serif' }}
                                                     >
@@ -383,7 +353,7 @@ export default function Apply({ schools }: { schools: School[] }) {
                                                         placeholder="يرجى التحديد"
                                                         value={doc.certificate_type_other}
                                                         onChange={(e) => handleDocumentChange(index, 'certificate_type_other', e.target.value)}
-                                                        className={inputClasses}
+                                                        
                                                     />
                                                 </div>
                                             )}
@@ -397,7 +367,7 @@ export default function Apply({ schools }: { schools: School[] }) {
                                                         value={doc.riwayah}
                                                     >
                                                         <SelectTrigger 
-                                                            className={`text-right ${inputClasses}`} 
+                                                            className={`text-right`} 
                                                             dir="rtl"
                                                             style={{ fontFamily: 'Cairo, sans-serif' }}
                                                         >
@@ -428,10 +398,11 @@ export default function Apply({ schools }: { schools: School[] }) {
                                                     <div>
                                                         <Label htmlFor={`issuing_place_${index}`} className="text-foreground font-semibold text-sm mb-2.5 block">مكان الإصدار</Label>
                                                         <Input
+                                                            type='text'
                                                             placeholder="مثال: الجمعية الخيرية لتحفيظ القرآن"
                                                             value={doc.issuing_place}
                                                             onChange={(e) => handleDocumentChange(index, 'issuing_place', e.target.value)}
-                                                            className={inputClasses}
+                                                            
                                                         />
                                                     </div>
                                                     <div>
@@ -440,14 +411,14 @@ export default function Apply({ schools }: { schools: School[] }) {
                                                             type="date"
                                                             value={doc.issuing_date}
                                                             onChange={(e) => handleDocumentChange(index, 'issuing_date', e.target.value)}
-                                                            className={`${inputClasses} text-left`}
+                                                            className={`text-left`}
                                                             dir="ltr"
                                                         />
                                                     </div>
                                                 </>
                                             )}
 
-                                            {/* File Upload - FIXED COLORS to PRIMARY */}
+                                            {/* File Upload */}
                                             <div className="md:col-span-2">
                                                 <Label htmlFor={`file_${index}`} className="text-foreground font-semibold text-sm mb-2.5 block">رفع الملف</Label>
                                                 <div className="border-2 border-dashed border-border rounded-xl p-6 text-center hover:bg-muted/50 hover:border-primary/40 transition-all duration-300 relative cursor-pointer group bg-background/50">
@@ -484,7 +455,7 @@ export default function Apply({ schools }: { schools: School[] }) {
                                 </div>
                             </div>
 
-                            {/* 3. Account Security (White Background) */}
+                            {/* 3. Account Security (NEW COMPONENT GROUP) */}
                             <div className="p-8 md:p-12 border-t border-border">
                                 <div className="flex items-center gap-4 mb-8 pb-4 border-b border-border">
                                     <div className="w-12 h-12 bg-purple-50 dark:bg-purple-900/20 rounded-2xl flex items-center justify-center text-purple-600 dark:text-purple-400">
@@ -496,58 +467,20 @@ export default function Apply({ schools }: { schools: School[] }) {
                                     </div>
                                 </div>
 
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                    {/* Password */}
-                                    <div>
-                                        <Label htmlFor="password" className="text-foreground font-semibold text-sm mb-2.5 block">كلمة المرور</Label>
-                                        <div className="relative group">
-                                            <Lock className="absolute right-3.5 top-3.5 w-5 h-5 text-muted-foreground z-10 group-hover:text-primary transition-colors duration-200" />
-                                            <Input
-                                                id="password"
-                                                type={showPassword ? "text" : "password"}
-                                                value={data.password}
-                                                onChange={(e) => setData('password', e.target.value)}
-                                                className={`pr-11 pl-11 text-left ${inputClasses}`}
-                                                dir="ltr"
-                                                autoComplete="new-password"
-                                            />
-                                            {/* Toggle Eye Button */}
-                                            <button
-                                                type="button"
-                                                onClick={() => setShowPassword(!showPassword)}
-                                                className="absolute left-3 top-3.5 text-muted-foreground hover:text-foreground transition-colors focus:outline-none"
-                                            >
-                                                {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-                                            </button>
-                                        </div>
-                                        {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password}</p>}
-                                    </div>
-
-                                    {/* Confirm Password */}
-                                    <div>
-                                        <Label htmlFor="password_confirmation" className="text-foreground font-semibold text-sm mb-2.5 block">تأكيد كلمة المرور</Label>
-                                        <div className="relative group">
-                                            <CheckCircle className="absolute right-3.5 top-3.5 w-5 h-5 text-muted-foreground z-10 group-hover:text-primary transition-colors duration-200" />
-                                            <Input
-                                                id="password_confirmation"
-                                                type={showConfirmPassword ? "text" : "password"}
-                                                value={data.password_confirmation}
-                                                onChange={(e) => setData('password_confirmation', e.target.value)}
-                                                className={`pr-11 pl-11 text-left ${inputClasses}`}
-                                                dir="ltr"
-                                                autoComplete="new-password"
-                                            />
-                                            {/* Toggle Eye Button */}
-                                            <button
-                                                type="button"
-                                                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                                                className="absolute left-3 top-3.5 text-muted-foreground hover:text-foreground transition-colors focus:outline-none"
-                                            >
-                                                {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
+                                <PasswordGroup
+                                    // 1. Password Data
+                                    passwordValue={data.password}
+                                    onPasswordChange={(e) => setData('password', e.target.value)}
+                                    passwordError={errors.password}
+                                    
+                                    // 2. Confirmation Data
+                                    confirmValue={data.password_confirmation}
+                                    onConfirmChange={(e) => setData('password_confirmation', e.target.value)}
+                                    confirmError={errors.password_confirmation}
+                                    
+                                    // 3. Settings
+                                    layout="row"
+                                />
                             </div>
 
                             {/* Footer Actions */}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link, usePage } from '@inertiajs/react';
 import AdminLayout from '@/layouts/admin-layout';
 import { router } from '@inertiajs/react';
@@ -48,10 +48,10 @@ export default function SchoolsIndex() {
                         />
                         <Select onValueChange={(value) => setStatus(value)} value={status}>
                             <SelectTrigger className="w-[180px]">
-                                <SelectValue placeholder="All Statuses" />
+                                <SelectValue placeholder="All" />
                             </SelectTrigger>
                             <SelectContent>
-                                <SelectItem value="all">All Statuses</SelectItem>
+                                <SelectItem value="all">All</SelectItem>
                                 <SelectItem value="pending">Pending</SelectItem>
                                 <SelectItem value="accepted">Accepted</SelectItem>
                                 <SelectItem value="rejected">Rejected</SelectItem>

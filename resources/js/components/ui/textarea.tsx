@@ -1,5 +1,4 @@
 import * as React from "react"
-
 import { cn } from "@/lib/utils"
 
 function Textarea({ className, ...props }: React.ComponentProps<"textarea">) {
@@ -7,7 +6,28 @@ function Textarea({ className, ...props }: React.ComponentProps<"textarea">) {
     <textarea
       data-slot="textarea"
       className={cn(
-        "border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:bg-input/30 flex field-sizing-content min-h-16 w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
+        // 1. Layout & Typography
+        "flex min-h-[80px] w-full rounded-xl px-3 py-2 text-base md:text-sm transition-all duration-200",
+        "placeholder:text-muted-foreground",
+        
+        // 2. Borders & Backgrounds (Same as Input)
+        "border-[1.5px] border-input bg-white",
+        "dark:bg-muted/20", 
+
+        // 3. Ring Styling (Same as Input)
+        "ring-1 ring-ring/10 dark:ring-white/5",
+
+        // 4. Focus State (Same as Input)
+        "focus-visible:border-primary focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/10",
+        "focus-visible:ring-offset-0",
+
+        // 5. Hover State (Same as Input)
+        "hover:border-primary/50 hover:bg-white/80 dark:hover:bg-muted/30",
+
+        // 6. Utility & Validation
+        "disabled:cursor-not-allowed disabled:opacity-50",
+        "aria-invalid:border-destructive aria-invalid:ring-destructive/20",
+
         className
       )}
       {...props}
