@@ -33,32 +33,32 @@ import { type NavItem } from '@/types';
  */
 const adminNavItems: NavItem[] = [
     {
-        title: 'Dashboard',
+        title: 'الرئيسية',
         href: '/admin',
         icon: LayoutDashboard,
     },
     {
-        title: 'Schools',
+        title: 'المدارس',
         href: '/admin/schools',
         icon: Users,
     },
     {
-        title: 'Advanced Schools',
+        title: 'المدارس المتقدمة',
         href: '/admin/schools/pending',
         icon: Users, // You might want to use 'UserPlus' or similar here to differentiate
     },
     {
-        title: 'Inquiries',
+        title: 'الدعم والمساعدة',
         href: '/admin/inquiries',
         icon: HelpCircle,
     },
     {
-        title: 'Policies',
+        title: 'السياسات والشروط',
         href: '/admin/policies',
         icon: FileText,
     },
     {
-        title: 'Account',
+        title: 'الحساب',
         href: '/admin/account',
         icon: Settings,
     },

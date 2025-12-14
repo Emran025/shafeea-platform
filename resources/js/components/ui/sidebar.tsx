@@ -132,7 +132,7 @@ function Sidebar({
     return (
       <div
         data-slot="sidebar"
-        className={cn("flex h-full w-(--sidebar-width) flex-col bg-primary text-primary-foreground", className)}
+        className={cn("flex h-full w-(--sidebar-width) flex-col bg-primary dark:bg-gray-700 text-primary-foreground", className)}
         {...props}
       >
         {children}
@@ -150,7 +150,7 @@ function Sidebar({
         <SheetContent
           data-sidebar="sidebar"
           data-mobile="true"
-          className="w-(--sidebar-width) bg-primary text-primary-foreground p-0 [&>button]:hidden"
+          className="w-(--sidebar-width) bg-primary dark:bg-gray-700 text-primary-foreground p-0 [&>button]:hidden"
           style={{ "--sidebar-width": SIDEBAR_WIDTH_MOBILE } as React.CSSProperties}
           side={side}
         >
@@ -195,7 +195,7 @@ function Sidebar({
         <div
           data-sidebar="sidebar"
           // UPDATED: Used bg-primary and text-primary-foreground for the Word-like look
-          className="flex h-full w-full flex-col bg-primary text-primary-foreground group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:border-primary-foreground/20 group-data-[variant=floating]:shadow-sm"
+          className="flex h-full w-full flex-col bg-primary dark:bg-gray-700 text-primary-foreground group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:border-primary-foreground/20 group-data-[variant=floating]:shadow-sm"
         >
           {children}
         </div>
