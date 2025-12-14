@@ -3,14 +3,24 @@ import { Link, usePage } from '@inertiajs/react';
 import AdminLayout from '@/layouts/admin-layout';
 import { Button } from '@/components/ui/button';
 import { PageProps, Term, Policy } from '@/types';
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
+} from '@/components/ui/accordion';
+import PolicyDisplay from '@/components/shared/policy-display';
 
 interface PoliciesIndexProps extends PageProps {
-    terms: (Term & { version: string; last_updated: string })[];
-    policies: (Policy & { version: string; last_updated: string })[];
+    terms: Term[];
+    policies: Policy[];
 }
 
 export default function PoliciesIndex() {
     const { terms, policies } = usePage<PoliciesIndexProps>().props;
+
+    const latestTerm = terms.length > 0 ? terms[0] : null;
+    const latestPolicy = policies.length > 0 ? policies[0] : null;
 
     return (
         <AdminLayout>
@@ -18,48 +28,70 @@ export default function PoliciesIndex() {
                 <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">Policies and Terms</h1>
 
                 <div className="mt-8">
-                    <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Terms of Use</h2>
+                    <div className="flex items-center justify-between">
+                        <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Terms of Use</h2>
+                        {latestTerm && (
+                            <Button asChild>
+                                <Link href={`/admin/policies/edit/term/${latestTerm.id}`}>Edit Latest Version</Link>
+                            </Button>
+                        )}
+                    </div>
                     <div className="mt-4 bg-white dark:bg-gray-800 shadow rounded-lg">
-                        <ul className="divide-y divide-gray-200 dark:divide-gray-700">
+                        <Accordion type="single" collapsible className="w-full">
                             {terms.map((term) => (
-                                <li key={term.version} className="px-6 py-4 flex items-center justify-between">
-                                    <div>
-                                        <p className="text-sm font-medium text-gray-900 dark:text-white">
-                                            Version {new Date(term.last_updated).toLocaleDateString()}
-                                        </p>
-                                        <p className={`text-xs ${term.is_active ? 'text-green-500' : 'text-gray-500'}`}>
-                                            {term.is_active ? 'Active' : 'Inactive'}
-                                        </p>
-                                    </div>
-                                    <Button asChild>
-                                        <Link href={`/admin/policies/terms/${term.version}/edit`}>Edit</Link>
-                                    </Button>
-                                </li>
+                                <AccordionItem value={`term-${term.id}`} key={term.id}>
+                                    <AccordionTrigger className="px-6 py-4">
+                                        <div className="flex items-center justify-between w-full">
+                                            <div>
+                                                <p className="text-sm font-medium text-gray-900 dark:text-white">
+                                                    Version {new Date(term.last_updated).toLocaleDateString()}
+                                                </p>
+                                                <p className={`text-xs text-left ${term.is_active ? 'text-green-500' : 'text-gray-500'}`}>
+                                                    {term.is_active ? 'Active' : 'Inactive'}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </AccordionTrigger>
+                                    <AccordionContent className="px-6 pb-4">
+                                        <PolicyDisplay policy={term} type="terms" />
+                                    </AccordionContent>
+                                </AccordionItem>
                             ))}
-                        </ul>
+                        </Accordion>
                     </div>
                 </div>
 
                 <div className="mt-8">
-                    <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Privacy Policy</h2>
+                    <div className="flex items-center justify-between">
+                        <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Privacy Policy</h2>
+                        {latestPolicy && (
+                             <Button asChild>
+                                <Link href={`/admin/policies/edit/policy/${latestPolicy.id}`}>Edit Latest Version</Link>
+                            </Button>
+                        )}
+                    </div>
                     <div className="mt-4 bg-white dark:bg-gray-800 shadow rounded-lg">
-                        <ul className="divide-y divide-gray-200 dark:divide-gray-700">
+                        <Accordion type="single" collapsible className="w-full">
                             {policies.map((policy) => (
-                                <li key={policy.version} className="px-6 py-4 flex items-center justify-between">
-                                    <div>
-                                        <p className="text-sm font-medium text-gray-900 dark:text-white">
-                                            Version {new Date(policy.last_updated).toLocaleDateString()}
-                                        </p>
-                                        <p className={`text-xs ${policy.is_active ? 'text-green-500' : 'text-gray-500'}`}>
-                                            {policy.is_active ? 'Active' : 'Inactive'}
-                                        </p>
-                                    </div>
-                                    <Button asChild>
-                                        <Link href={`/admin/policies/privacy/${policy.version}/edit`}>Edit</Link>
-                                    </Button>
-                                </li>
+                                <AccordionItem value={`policy-${policy.id}`} key={policy.id}>
+                                    <AccordionTrigger className="px-6 py-4">
+                                        <div className="flex items-center justify-between w-full">
+                                            <div>
+                                                <p className="text-sm font-medium text-gray-900 dark:text-white">
+                                                    Version {new Date(policy.last_updated).toLocaleDateString()}
+                                                </p>
+                                                <p className={`text-xs text-left ${policy.is_active ? 'text-green-500' : 'text-gray-500'}`}>
+                                                    {policy.is_active ? 'Active' : 'Inactive'}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </AccordionTrigger>
+                                    <AccordionContent className="px-6 pb-4">
+                                        <PolicyDisplay policy={policy} type="privacy" />
+                                    </AccordionContent>
+                                </AccordionItem>
                             ))}
-                        </ul>
+                        </Accordion>
                     </div>
                 </div>
             </div>

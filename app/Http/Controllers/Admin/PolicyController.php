@@ -7,6 +7,7 @@ use App\Models\PrivacyPolicy;
 use App\Models\TermsOfUse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Redirect;
 
 class PolicyController extends Controller
 {
@@ -21,49 +22,44 @@ class PolicyController extends Controller
         ]);
     }
 
-    public function editTerm(TermsOfUse $term)
+    public function edit($type, $id)
     {
-        return Inertia::render('admin/policies/edit-term', [
-            'term' => $term,
-        ]);
-    }
+        $policy = $type === 'policy' ? PrivacyPolicy::findOrFail($id) : TermsOfUse::findOrFail($id);
 
-    public function updateTerm(Request $request, TermsOfUse $term)
-    {
-        $request->validate([
-            'content' => 'required|string',
-            'is_active' => 'required|boolean',
-        ]);
-
-        $term->update([
-            'content' => $request->input('content'),
-            'is_active' => $request->input('is_active'),
-            'last_updated' => now(),
-        ]);
-
-        return redirect()->route('admin.policies.index')->with('success', 'Terms of Use updated successfully.');
-    }
-
-    public function editPolicy(PrivacyPolicy $policy)
-    {
-        return Inertia::render('admin/policies/edit-policy', [
+        return Inertia::render('admin/policies/edit', [
             'policy' => $policy,
+            'type' => $type,
         ]);
     }
 
-    public function updatePolicy(Request $request, PrivacyPolicy $policy)
+    public function update(Request $request, $type, $id)
     {
         $request->validate([
-            'content' => 'required|string',
-            'is_active' => 'required|boolean',
+            'sections' => 'required|array',
         ]);
 
-        $policy->update([
-            'content' => $request->input('content'),
-            'is_active' => $request->input('is_active'),
-            'last_updated' => now(),
-        ]);
+        if ($type === 'policy') {
+            $oldPolicy = PrivacyPolicy::findOrFail($id);
+            $oldPolicy->update(['is_active' => false]);
 
-        return redirect()->route('admin.policies.index')->with('success', 'Privacy Policy updated successfully.');
+            PrivacyPolicy::create([
+                'version' => $oldPolicy->version + 1,
+                'sections_json' => json_encode($request->input('sections')),
+                'is_active' => true,
+                'last_updated' => now(),
+            ]);
+        } else {
+            $oldTerm = TermsOfUse::findOrFail($id);
+            $oldTerm->update(['is_active' => false]);
+
+            TermsOfUse::create([
+                'version' => $oldTerm->version + 1,
+                'sections_json' => json_encode($request->input('sections')),
+                'is_active' => true,
+                'last_updated' => now(),
+            ]);
+        }
+
+        return Redirect::route('admin.policies.index')->with('success', 'Policy updated successfully.');
     }
 }

@@ -7,21 +7,15 @@ import {
     CheckCircle,
     AlertCircle,
     Scale,
-    Book,
     Users,
     Clock,
-    Gavel,
     Mail,
     Phone as PhoneIcon,
     ArrowLeft
 } from 'lucide-react';
 import SiteLayout from '@/layouts/site-layout';
 import { PageProps, TermsOfUse as TermsOfUseType } from '@/types';
-
-interface Section {
-    title: string;
-    content: string[];
-}
+import PolicyDisplay from '@/components/shared/policy-display';
 
 interface TermsProps extends PageProps {
     terms: TermsOfUseType;
@@ -29,98 +23,7 @@ interface TermsProps extends PageProps {
 
 export default function Terms() {
     const { terms } = usePage<TermsProps>().props;
-    const sections: Section[] = JSON.parse(terms.sections_json);
-    const getIcon = (title: string) => {
-        switch (title) {
-            case 'قبول الشروط':
-                return CheckCircle;
-            case 'حسابات المستخدمين':
-                return Users;
-            case 'استخدام الخدمات':
-                return Shield;
-            case 'محتوى المستخدم':
-                return Book;
-            case 'قواعد السلوك':
-                return Gavel;
-            case 'حقوق الملكية الفكرية':
-                return Scale;
-            case 'إنهاء الخدمة':
-                return Clock;
-            case 'إخلاء المسؤولية عن الضمانات':
-                return AlertCircle;
-            case 'تحديد المسؤولية':
-                return AlertCircle;
-            case 'التعديلات على الشروط':
-                return FileText;
-            case 'القانون الحاكم':
-                return Gavel;
-            case 'الاتصال بنا':
-                return Mail;
-            default:
-                return FileText;
-        }
-    };
-    const getColor = (title: string) => {
-        switch (title) {
-            case 'قبول الشروط':
-                return 'text-emerald-500';
-            case 'حسابات المستخدمين':
-                return 'text-violet-500';
-            case 'استخدام الخدمات':
-                return 'text-cyan-500';
-            case 'محتوى المستخدم':
-                return 'text-blue-500';
-            case 'قواعد السلوك':
-                return 'text-rose-500';
-            case 'حقوق الملكية الفكرية':
-                return 'text-amber-500';
-            case 'إنهاء الخدمة':
-                return 'text-indigo-500';
-            case 'إخلاء المسؤولية عن الضمانات':
-                return 'text-red-500';
-            case 'تحديد المسؤولية':
-                return 'text-red-500';
-            case 'التعديلات على الشروط':
-                return 'text-gray-500';
-            case 'القانون الحاكم':
-                return 'text-teal-500';
-            case 'الاتصال بنا':
-                return 'text-blue-500';
-            default:
-                return 'text-gray-500';
-        }
-    };
 
-    const getBg = (title: string) => {
-        switch (title) {
-            case 'قبول الشروط':
-                return 'bg-emerald-100 dark:bg-emerald-900/20';
-            case 'حسابات المستخدمين':
-                return 'bg-violet-100 dark:bg-violet-900/20';
-            case 'استخدام الخدمات':
-                return 'bg-cyan-100 dark:bg-cyan-900/20';
-            case 'محتوى المستخدم':
-                return 'bg-blue-100 dark:bg-blue-900/20';
-            case 'قواعد السلوك':
-                return 'bg-rose-100 dark:bg-rose-900/20';
-            case 'حقوق الملكية الفكرية':
-                return 'bg-amber-100 dark:bg-amber-900/20';
-            case 'إنهاء الخدمة':
-                return 'bg-indigo-100 dark:bg-indigo-900/20';
-            case 'إخلاء المسؤولية عن الضمانات':
-                return 'bg-red-100 dark:bg-red-900/20';
-            case 'تحديد المسؤولية':
-                return 'bg-red-100 dark:bg-red-900/20';
-            case 'التعديلات على الشروط':
-                return 'bg-gray-100 dark:bg-gray-900/20';
-            case 'القانون الحاكم':
-                return 'bg-teal-100 dark:bg-teal-900/20';
-            case 'الاتصال بنا':
-                return 'bg-blue-100 dark:bg-blue-900/20';
-            default:
-                return 'bg-gray-100 dark:bg-gray-900/20';
-        }
-    };
     return (
         <SiteLayout>
             <Head title="الشروط والأحكام - تاج الوقار" />
@@ -167,7 +70,7 @@ export default function Terms() {
                 </div>
             </section>
 
-            {/* Terms Content - Compact Vertical List */}
+            {/* Terms Content */}
             <section className="py-16 bg-background animate-fade-in-up">
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                     
@@ -187,55 +90,13 @@ export default function Terms() {
                         </div>
                     </Card>
 
-                    {/* Terms Sections - Vertical List */}
-                    <div className="space-y-6">
-                        {sections.map((section, index) => {
-                            const Icon = getIcon(section.title);
-                            const color = getColor(section.title);
-                            const bg = getBg(section.title);
-                            return (
-                                <Card key={index} className="overflow-hidden hover:shadow-lg transition-all duration-300 border border-border bg-card group">
-                                    <div className="p-6">
-                                        <div className="flex items-start gap-5 mb-4 border-b border-border/50 pb-4">
-                                            {/* Colored Icon Box */}
-                                            <div className={`flex-shrink-0 w-12 h-12 ${bg} rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform duration-300 shadow-sm`}>
-                                                <Icon className={`w-6 h-6 ${color}`} />
-                                            </div>
+                    <PolicyDisplay policy={terms} type="terms" />
 
-                                            <div className="flex-1 pt-1">
-                                                <div className="flex items-center gap-3 mb-1">
-                                                    <span className="inline-flex items-center justify-center w-6 h-6 bg-muted text-muted-foreground rounded-md text-xs font-bold border border-border">
-                                                        {index + 1}
-                                                    </span>
-                                                    <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">
-                                                        {section.title}
-                                                    </h3>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
-                                        {/* Compacted List Items */}
-                                        <div className="space-y-2 pl-0 md:pl-16">
-                                            {section.content.map((item, itemIndex) => (
-                                                <div key={itemIndex} className="flex items-start gap-3 p-2 rounded-lg hover:bg-muted/50 transition-colors">
-                                                    <div className={`w-1.5 h-1.5 rounded-full mt-2 flex-shrink-0 ${bg.replace('/20', '')}`}></div>
-                                                    <p className="text-muted-foreground leading-snug text-sm">
-                                                        {item}
-                                                    </p>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
-                                </Card>
-                            )
-                        })}
-                    </div>
-{/* --- CREATIVE BOTTOM SECTION (Re-imagined) --- */}
+                    {/* Contact and Notice Section */}
                     <div className="mt-16 grid grid-cols-1 lg:grid-cols-3 gap-6">
                         
-                        {/* 1. Contact Card - Interactive Tiles Style */}
+                        {/* Contact Card */}
                         <Card className="lg:col-span-2 p-8 border border-border bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-black relative overflow-hidden group">
-                            {/* Background Texture */}
                             <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
                             
                             <div className="relative z-10">
@@ -277,13 +138,11 @@ export default function Terms() {
                             </div>
                         </Card>
 
-                        {/* 2. Notice Card - Official Document Style */}
+                        {/* Notice Card */}
                         <Card className="lg:col-span-1 border border-amber-200 dark:border-amber-900/50 bg-amber-50/50 dark:bg-amber-950/10 p-0 overflow-hidden relative flex flex-col">
-                            {/* Top Accent Line */}
                             <div className="h-1.5 w-full bg-amber-500"></div>
                             
                             <div className="p-8 flex-1 flex flex-col justify-center relative">
-                                {/* Subtle Background Icon */}
                                 <AlertCircle className="absolute -bottom-6 -left-6 w-32 h-32 text-amber-500/5 dark:text-amber-500/10 pointer-events-none" />
                                 
                                 <div className="flex items-start gap-3 mb-4">

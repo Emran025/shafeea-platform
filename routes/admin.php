@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AuthController;
-use App\Http\Controllers\Admin\DashboardController; // أضف هذا السطر
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\AdminSchoolController;
 use App\Http\Controllers\Admin\InquiryController;
 use App\Http\Controllers\Admin\PolicyController;
@@ -43,10 +43,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     // Policies management
     Route::prefix('policies')->name('policies.')->group(function () {
         Route::get('/', [PolicyController::class, 'index'])->name('index');
-        Route::get('/terms/{term}/edit', [PolicyController::class, 'editTerm'])->name('edit-term');
-        Route::put('/terms/{term}', [PolicyController::class, 'updateTerm'])->name('update-term');
-        Route::get('/privacy/{policy}/edit', [PolicyController::class, 'editPolicy'])->name('edit-policy');
-        Route::put('/privacy/{policy}', [PolicyController::class, 'updatePolicy'])->name('update-policy');
+        Route::get('/edit/{type}/{id}', [PolicyController::class, 'edit'])->name('edit');
+        Route::post('/update/{type}/{id}', [PolicyController::class, 'update'])->name('update');
     });
 
     // Admin account management

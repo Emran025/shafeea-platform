@@ -5,29 +5,20 @@ import {
     Shield,
     Lock,
     Eye,
-    FileText,
     CheckCircle,
-    AlertCircle,
     Users,
-    Database,
     Globe,
-    Clock,
     Mail,
     Phone,
     Settings,
     Trash2,
     Download,
-    RefreshCw,
     MapPin,
-    Wifi
+    AlertCircle,
 } from 'lucide-react';
 import SiteLayout from '@/layouts/site-layout';
 import { PageProps, PrivacyPolicy as PrivacyPolicyType } from '@/types';
-
-interface Section {
-    title: string;
-    content: string[];
-}
+import PolicyDisplay from '@/components/shared/policy-display';
 
 interface PrivacyProps extends PageProps {
     privacyPolicy: PrivacyPolicyType;
@@ -35,7 +26,6 @@ interface PrivacyProps extends PageProps {
 
 export default function Privacy() {
     const { privacyPolicy } = usePage<PrivacyProps>().props;
-    const sections: Section[] = JSON.parse(privacyPolicy.sections_json);
 
     const dataProtectionPrinciples = [
         {
@@ -90,34 +80,7 @@ export default function Privacy() {
             description: "مكتب مسؤول حماية البيانات"
         }
     ];
-    const getIcon = (title: string) => {
-        switch (title) {
-            case 'مقدمة':
-                return FileText;
-            case 'المعلومات التي نجمعها':
-                return Database;
-            case 'كيفية استخدامنا لمعلوماتك':
-                return Settings;
-            case 'مشاركة البيانات':
-                return Users;
-            case 'أمن البيانات':
-                return Shield;
-            case 'حقوق المستخدم':
-                return CheckCircle;
-            case 'ملفات تعريف الارتباط':
-                return Globe;
-            case 'الاحتفاظ بالبيانات':
-                return Clock;
-            case 'نقل البيانات الدولي':
-                return Wifi;
-            case 'خصوصية الأطفال':
-                return Users;
-            case 'التغييرات على سياسة الخصوصية':
-                return RefreshCw;
-            default:
-                return FileText;
-        }
-    };
+
     return (
         <SiteLayout>
             <Head title="سياسة الخصوصية - شفيع" />
@@ -205,39 +168,7 @@ export default function Privacy() {
                         </div>
                     </Card>
 
-                    {/* Privacy Sections */}
-                    <div className="space-y-8">
-                        {sections.map((section, index) => {
-                            const Icon = getIcon(section.title);
-                            return (
-                                <Card key={index} className="overflow-hidden hover:shadow-lg transition-all duration-300">
-                                    <div className="p-6">
-                                        <div className="flex items-center gap-3 mb-4">
-                                            <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-emerald-500 rounded-lg flex items-center justify-center">
-                                                <Icon className="w-5 h-5 text-white" />
-                                            </div>
-                                            <div>
-                                                <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                                                    {index + 1}. {section.title}
-                                                </h3>
-                                            </div>
-                                        </div>
-
-                                        <div className="space-y-3">
-                                            {section.content.map((item, itemIndex) => (
-                                                <div key={itemIndex} className="flex items-start gap-3">
-                                                    <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
-                                                    <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                                                        {item}
-                                                    </p>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
-                                </Card>
-                            );
-                        })}
-                    </div>
+                    <PolicyDisplay policy={privacyPolicy} type="privacy" />
 
                     {/* Your Rights Summary */}
                     <Card className="mt-12 p-8 bg-gradient-to-r from-emerald-50 to-blue-50 dark:from-emerald-900/10 dark:to-blue-900/10 border-t-4 border-t-emerald-500">
