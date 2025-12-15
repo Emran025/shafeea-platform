@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import { Checkbox } from '@/components/ui/checkbox'; // تم إضافة هذا الاستيراد
 import { PageProps, Inquiry } from '@/types';
 
 interface InquiryShowProps extends PageProps {
@@ -64,27 +65,26 @@ export default function InquiryShow() {
                             </div>
 
                             <div className="flex items-center space-x-6">
-                                <div className="flex items-center">
-                                    <input
+                                {/* Active Checkbox */}
+                                <div className="flex items-center space-x-2">
+                                    <Checkbox
                                         id="is_active"
-                                        type="checkbox"
                                         checked={data.is_active}
-                                        onChange={(e) => setData('is_active', e.target.checked)}
-                                        className="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
+                                        onCheckedChange={(checked) => setData('is_active', !!checked)}
                                     />
-                                    <Label htmlFor="is_active" className="ml-2 block text-sm text-gray-900 dark:text-gray-300">
+                                    <Label htmlFor="is_active" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
                                         Active
                                     </Label>
                                 </div>
-                                <div className="flex items-center">
-                                    <input
+
+                                {/* Publish/Display Order Checkbox */}
+                                <div className="flex items-center space-x-2">
+                                    <Checkbox
                                         id="display_order"
-                                        type="checkbox"
                                         checked={data.display_order === 1}
-                                        onChange={(e) => setData('display_order', e.target.checked ? 1 : 0)}
-                                        className="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
+                                        onCheckedChange={(checked) => setData('display_order', checked ? 1 : 0)}
                                     />
-                                    <Label htmlFor="display_order" className="ml-2 block text-sm text-gray-900 dark:text-gray-300">
+                                    <Label htmlFor="display_order" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
                                         Publish to FAQ
                                     </Label>
                                 </div>
