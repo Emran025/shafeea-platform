@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Faq;
+use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -28,14 +29,25 @@ class InquiryController extends Controller
             });
         }
 
-        $inquiries = $query->with('category')->latest()->paginate(20);
+        if ($request->filled('tag') && $request->input('tag') !== 'all') {
+            $query->whereHas('tags', function ($q) use ($request) {
+                $q->where('faq_tag.tag_id', $request->input('tag'));
+            });
+        }
+
+        $inquiries = $query->with('category')
+            ->orderByRaw('answer IS NULL DESC')
+            ->latest()
+            ->paginate(20);
 
         $faqStatistics = Faq::orderBy('view_count', 'desc')->take(5)->get();
+        $tags = Tag::whereHas('faqs')->get();
 
         return Inertia::render('admin/inquiries/index', [
             'inquiries' => $inquiries,
-            'filters' => $request->only(['type', 'search']),
+            'filters' => $request->only(['type', 'search', 'tag']),
             'faqStatistics' => $faqStatistics,
+            'tags' => $tags,
         ]);
     }
 
