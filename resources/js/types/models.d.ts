@@ -14,6 +14,7 @@ export interface PrivacyPolicy {
     created_at: string;
     updated_at: string;
     sections_json: string;
+    summary_json: string;
     last_updated: string;
 }
 
@@ -24,5 +25,6 @@ export interface TermsOfUse {
     created_at: string;
     updated_at: string;
     sections_json: string;
+    summary_json: string;
     last_updated: string;
 }

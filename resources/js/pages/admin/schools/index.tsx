@@ -1,10 +1,17 @@
 import { useState } from 'react';
-import { Link, usePage } from '@inertiajs/react';
+import { Link, usePage, router } from '@inertiajs/react';
 import AdminLayout from '@/layouts/admin-layout';
-import { router } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { 
+    Table, 
+    TableBody, 
+    TableCell, 
+    TableHead, 
+    TableHeader, 
+    TableRow 
+} from '@/components/ui/table'; // تأكد من مسار الاستيراد الصحيح
 import { PageProps, School, User } from '@/types';
 
 interface SchoolWithAdmin extends School {
@@ -36,19 +43,21 @@ export default function SchoolsIndex() {
     return (
         <AdminLayout>
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">Schools</h1>
+                <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">الــــــــــمدارس</h1>
+                
+                {/* Filters Section */}
                 <div className="mt-4 flex items-center justify-between">
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-4 w-full md:w-auto">
                         <Input
                             type="text"
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
                             placeholder="Search by name, admin, or registration number"
-                            className="w-full"
+                            className="w-full md:w-80"
                         />
                         <Select onValueChange={(value) => setStatus(value)} value={status}>
                             <SelectTrigger className="w-[180px]">
-                                <SelectValue placeholder="All" />
+                                <SelectValue placeholder="All Status" />
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectItem value="all">All</SelectItem>
@@ -61,65 +70,56 @@ export default function SchoolsIndex() {
                         <Button onClick={handleSearch}>Search</Button>
                     </div>
                 </div>
-                <div className="mt-8 flex flex-col">
-                    <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                        <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                            <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg dark:border-gray-700">
-                                <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                                    <thead className="bg-gray-50 dark:bg-gray-800">
-                                        <tr>
-                                            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
-                                                Name
-                                            </th>
-                                            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
-                                                Admin
-                                            </th>
-                                            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
-                                                Status
-                                            </th>
-                                            <th scope="col" className="relative px-6 py-3">
-                                                <span className="sr-only">Edit</span>
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody className="bg-white divide-y divide-gray-200 dark:bg-gray-900 dark:divide-gray-700">
-                                        {schools?.data?.length > 0 ? (
-                                            schools.data.map((school) => (
-                                                <tr key={school.id}>
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
-                                                        {school.name}
-                                                    </td>
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-                                                        {school.admin?.user?.name || 'No Admin'}
-                                                    </td>
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-                                                        <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                                                            school.admin?.status === 'accepted' ? 'bg-green-100 text-green-800' :
-                                                            school.admin?.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
-                                                            'bg-red-100 text-red-800'
-                                                        }`}>
-                                                            {school.admin?.status || 'N/A'}
-                                                        </span>
-                                                    </td>
-                                                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                                        <Link href={`/admin/schools/${school.id}`} className="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-200">
-                                                            View
-                                                        </Link>
-                                                    </td>
-                                                </tr>
-                                            ))
-                                        ) : (
-                                            <tr>
-                                                <td colSpan={4} className="px-6 py-4 text-center text-gray-500">
-                                                    No schools found.
-                                                </td>
-                                            </tr>
-                                        )}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
+
+                {/* Table Section */}
+                <div className="mt-8 rounded-md border">
+                    <Table>
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead>اسم المدرسة</TableHead>
+                                <TableHead>المشرف</TableHead>
+                                <TableHead>الحالة</TableHead>
+                                <TableHead>إجراء</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            {schools?.data?.length > 0 ? (
+                                schools.data.map((school) => (
+                                    <TableRow key={school.id}>
+                                        <TableCell className="font-medium">
+                                            {school.name}
+                                        </TableCell>
+                                        <TableCell>
+                                            {school.admin?.user?.name || 'No Admin'}
+                                        </TableCell>
+                                        <TableCell>
+                                            <span className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                                                school.admin?.status === 'accepted' ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' :
+                                                school.admin?.status === 'pending' ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300' :
+                                                'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300'
+                                            }`}>
+                                                {school.admin?.status || 'N/A'}
+                                            </span>
+                                        </TableCell>
+                                        <TableCell className="text-right">
+                                            <Link 
+                                                href={`/admin/schools/${school.id}`} 
+                                                className="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300 font-medium"
+                                            >
+                                                View
+                                            </Link>
+                                        </TableCell>
+                                    </TableRow>
+                                ))
+                            ) : (
+                                <TableRow>
+                                    <TableCell colSpan={4} className="h-24 text-center">
+                                        No schools found.
+                                    </TableCell>
+                                </TableRow>
+                            )}
+                        </TableBody>
+                    </Table>
                 </div>
             </div>
         </AdminLayout>

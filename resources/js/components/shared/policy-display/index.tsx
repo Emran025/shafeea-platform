@@ -14,7 +14,8 @@ import {
     Book,
     Gavel,
     AlertCircle,
-    Mail
+    Mail,
+    Info 
 } from 'lucide-react';
 import { PrivacyPolicy as PrivacyPolicyType, TermsOfUse as TermsOfUseType } from '@/types';
 
@@ -30,70 +31,77 @@ interface PolicyDisplayProps {
 
 export default function PolicyDisplay({ policy, type }: PolicyDisplayProps) {
     const sections: Section[] = JSON.parse(policy.sections_json);
+    
+    const summary: string[] = policy.summary_json ? JSON.parse(policy.summary_json) : [];
 
     const getIcon = (title: string) => {
         if (type === 'privacy') {
             switch (title) {
-                case 'مقدمة':
-                    return FileText;
-                case 'المعلومات التي نجمعها':
-                    return Database;
-                case 'كيفية استخدامنا لمعلوماتك':
-                    return Settings;
-                case 'مشاركة البيانات':
-                    return Users;
-                case 'أمن البيانات':
-                    return Shield;
-                case 'حقوق المستخدم':
-                    return CheckCircle;
-                case 'ملفات تعريف الارتباط':
-                    return Globe;
-                case 'الاحتفاظ بالبيانات':
-                    return Clock;
-                case 'نقل البيانات الدولي':
-                    return Wifi;
-                case 'خصوصية الأطفال':
-                    return Users;
-                case 'التغييرات على سياسة الخصوصية':
-                    return RefreshCw;
-                default:
-                    return FileText;
+                case 'مقدمة': return FileText;
+                case 'المعلومات التي نجمعها': return Database;
+                case 'كيفية استخدامنا لمعلوماتك': return Settings;
+                case 'مشاركة البيانات': return Users;
+                case 'أمن البيانات': return Shield;
+                case 'حقوق المستخدم': return CheckCircle;
+                case 'ملفات تعريف الارتباط': return Globe;
+                case 'الاحتفاظ بالبيانات': return Clock;
+                case 'نقل البيانات الدولي': return Wifi;
+                case 'خصوصية الأطفال': return Users;
+                case 'التغييرات على سياسة الخصوصية': return RefreshCw;
+                default: return FileText;
             }
         } else {
             switch (title) {
-                case 'قبول الشروط':
-                    return CheckCircle;
-                case 'حسابات المستخدمين':
-                    return Users;
-                case 'استخدام الخدمات':
-                    return Shield;
-                case 'محتوى المستخدم':
-                    return Book;
-                case 'قواعد السلوك':
-                    return Gavel;
-                case 'حقوق الملكية الفكرية':
-                    return Scale;
-                case 'إنهاء الخدمة':
-                    return Clock;
-                case 'إخلاء المسؤولية عن الضمانات':
-                    return AlertCircle;
-                case 'تحديد المسؤولية':
-                    return AlertCircle;
-                case 'التعديلات على الشروط':
-                    return FileText;
-                case 'القانون الحاكم':
-                    return Gavel;
-                case 'الاتصال بنا':
-                    return Mail;
-                default:
-                    return FileText;
+                case 'قبول الشروط': return CheckCircle;
+                case 'حسابات المستخدمين': return Users;
+                case 'استخدام الخدمات': return Shield;
+                case 'محتوى المستخدم': return Book;
+                case 'قواعد السلوك': return Gavel;
+                case 'حقوق الملكية الفكرية': return Scale;
+                case 'إنهاء الخدمة': return Clock;
+                case 'إخلاء المسؤولية عن الضمانات': return AlertCircle;
+                case 'تحديد المسؤولية': return AlertCircle;
+                case 'التعديلات على الشروط': return FileText;
+                case 'القانون الحاكم': return Gavel;
+                case 'الاتصال بنا': return Mail;
+                default: return FileText;
             }
         }
+    };
+
+    const renderSummary = () => {
+        if (summary.length === 0) return null;
+
+        return (
+            <Card className="overflow-hidden shadow-md border-primary/20 bg-primary/5 mb-8">
+                <div className="p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                        <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
+                            <Info className="w-5 h-5 text-primary" />
+                        </div>
+                        <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+                            ملخص {type === 'privacy' ? 'سياسة الخصوصية' : 'شروط الاستخدام'}
+                        </h3>
+                    </div>
+                    <div className="space-y-2">
+                        {summary.map((item, index) => (
+                            <div key={index} className="flex items-start gap-3">
+                                <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2.5 flex-shrink-0"></div>
+                                <p className="text-gray-700 dark:text-gray-200 font-medium leading-relaxed">
+                                    {item}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </Card>
+        );
     };
 
     if (type === 'privacy') {
         return (
             <div className="space-y-8">
+                {renderSummary()}
                 {sections.map((section, index) => {
                     const Icon = getIcon(section.title);
                     return (
@@ -130,6 +138,9 @@ export default function PolicyDisplay({ policy, type }: PolicyDisplayProps) {
 
     return (
         <div className="space-y-6">
+            {/* عرض الملخص أولاً */}
+            {renderSummary()}
+
             {sections.map((section, index) => {
                 const Icon = getIcon(section.title);
                 return (

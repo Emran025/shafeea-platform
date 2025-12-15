@@ -36,15 +36,30 @@ class PolicyController extends Controller
     {
         $request->validate([
             'sections' => 'required|array',
+            'summary'  => 'nullable|array',
         ]);
+
+        $incrementVersion = function ($version) {
+            $parts = explode('.', $version);
+            if (count($parts) > 0) {
+                $parts[count($parts) - 1]++;
+            } else {
+                return (int)$version + 1;
+            }
+            return implode('.', $parts);
+        };
+
+        $summaryJson = json_encode($request->input('summary', []));
+        $sectionsJson = json_encode($request->input('sections'));
 
         if ($type === 'policy') {
             $oldPolicy = PrivacyPolicy::findOrFail($id);
             $oldPolicy->update(['is_active' => false]);
 
             PrivacyPolicy::create([
-                'version' => $oldPolicy->version + 1,
-                'sections_json' => json_encode($request->input('sections')),
+                'version' => $incrementVersion($oldPolicy->version),
+                'sections_json' => $sectionsJson,
+                'summary_json' => $summaryJson,
                 'is_active' => true,
                 'last_updated' => now(),
             ]);
@@ -53,13 +68,14 @@ class PolicyController extends Controller
             $oldTerm->update(['is_active' => false]);
 
             TermsOfUse::create([
-                'version' => $oldTerm->version + 1,
-                'sections_json' => json_encode($request->input('sections')),
+                'version' => $incrementVersion($oldTerm->version),
+                'sections_json' => $sectionsJson,
+                'summary_json' => $summaryJson,
                 'is_active' => true,
                 'last_updated' => now(),
             ]);
         }
 
-        return Redirect::route('admin.policies.index')->with('success', 'Policy updated successfully.');
+        return Redirect::route('admin/policies')->with('success', 'Policy updated successfully.');
     }
 }

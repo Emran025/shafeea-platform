@@ -1,7 +1,10 @@
 import * as React from "react"
-
 import { cn } from "@/lib/utils"
 
+/**
+ * Note: 'border-separate' and 'border-spacing-0' are strictly required
+ * for border-radius to work on table headers.
+ */
 function Table({ className, ...props }: React.ComponentProps<"table">) {
   return (
     <div
@@ -10,18 +13,32 @@ function Table({ className, ...props }: React.ComponentProps<"table">) {
     >
       <table
         data-slot="table"
-        className={cn("w-full caption-bottom text-sm", className)}
+        className={cn("w-full caption-bottom text-sm border-separate border-spacing-0", className)}
         {...props}
       />
     </div>
   )
 }
 
+/**
+ * Note: 
+ * We apply styles to the child `th` elements using selectors `[&_tr_th]` 
+ * instead of the container, ensuring the background respects the border radius.
+ */
 function TableHeader({ className, ...props }: React.ComponentProps<"thead">) {
   return (
     <thead
       data-slot="table-header"
-      className={cn("[&_tr]:border-b", className)}
+      className={cn(
+        "[&_tr]:border-b",
+        // 1. Apply background directly to the `th` cells
+        "[&_tr_th]:bg-card/95 [&_tr_th]:dark:bg-gray-700",
+        // 2. Round the top-left corner of the last header cell
+        "[&_tr_th:last-child]:rounded-tl-md",
+        // 3. Round the top-right corner of the first header cell
+        "[&_tr_th:first-child]:rounded-tr-md",
+        className
+      )}
       {...props}
     />
   )
@@ -68,7 +85,7 @@ function TableHead({ className, ...props }: React.ComponentProps<"th">) {
     <th
       data-slot="table-head"
       className={cn(
-        "text-foreground h-10 px-2 text-left align-middle font-medium whitespace-nowrap [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]",
+        "text-foreground h-10 px-2 text-left align-middle font-medium whitespace-nowrap [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px] text-right",
         className
       )}
       {...props}
