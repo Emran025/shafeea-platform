@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Faq;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 
 class InquiryController extends Controller
@@ -13,20 +15,26 @@ class InquiryController extends Controller
     {
         $query = Faq::query();
 
-        if ($request->has('type')) {
-            // Assuming Faq model has a 'category' relationship and a 'type' field
+        if ($request->has('type') && $request->input('type') != 'all') {
             $query->whereHas('category', function ($q) use ($request) {
                 $q->where('name', $request->input('type'));
             });
         }
 
-        $inquiries = $query->latest()->paginate(20);
+        if ($request->has('search')) {
+            $query->where(function ($q) use ($request) {
+                $q->where('question', 'like', '%' . $request->input('search') . '%')
+                    ->orWhere('answer', 'like', '%' . $request->input('search') . '%');
+            });
+        }
+
+        $inquiries = $query->with('category')->latest()->paginate(20);
 
         $faqStatistics = Faq::orderBy('view_count', 'desc')->take(5)->get();
 
         return Inertia::render('admin/inquiries/index', [
             'inquiries' => $inquiries,
-            'filters' => $request->only(['type']),
+            'filters' => $request->only(['type', 'search']),
             'faqStatistics' => $faqStatistics,
         ]);
     }
@@ -40,13 +48,26 @@ class InquiryController extends Controller
 
     public function update(Request $request, Faq $inquiry)
     {
-        $request->validate([
+        $wasAnswered = !empty($inquiry->answer);
+
+        $validated = $request->validate([
             'question' => 'required|string|max:255',
-            'answer' => 'required|string',
+            'answer' => 'required_if:display_order,1|nullable|string',
             'is_active' => 'required|boolean',
+            'display_order' => 'required|integer|in:0,1',
         ]);
 
-        $inquiry->update($request->all());
+        $inquiry->update($validated);
+
+        $isNewlyAnswered = !$wasAnswered && !empty($validated['answer']);
+
+        if ($isNewlyAnswered) {
+            $user = $inquiry->createdBy;
+            if ($user) {
+                // As requested, the following line is commented out to prevent actual email sending.
+                // \Mail::to($user->email)->send(new \App\Mail\InquiryResponse($inquiry));
+            }
+        }
 
         return redirect()->route('admin.inquiries.index')->with('success', 'Inquiry updated successfully.');
     }

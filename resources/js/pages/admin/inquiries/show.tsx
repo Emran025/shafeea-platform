@@ -8,13 +8,14 @@ import { Textarea } from '@/components/ui/textarea';
 import { PageProps, Inquiry } from '@/types';
 
 interface InquiryShowProps extends PageProps {
-    inquiry: Inquiry & { is_active?: boolean };
+    inquiry: Inquiry & { is_active?: boolean; display_order?: number };
 }
 
 interface FormData {
     question: string;
     answer: string;
     is_active: boolean;
+    display_order: number;
 }
 
 export default function InquiryShow() {
@@ -22,7 +23,8 @@ export default function InquiryShow() {
     const { data, setData, put, processing, errors } = useForm<FormData>({
         question: inquiry.question || '',
         answer: inquiry.answer || '',
-        is_active: inquiry.is_active || false,
+        is_active: inquiry.is_active ?? true,
+        display_order: inquiry.display_order || 0,
     });
 
     function handleSubmit(e: React.FormEvent) {
@@ -61,17 +63,31 @@ export default function InquiryShow() {
                                 {errors.answer && <p className="mt-2 text-sm text-red-600">{errors.answer}</p>}
                             </div>
 
-                            <div className="flex items-center">
-                                <input
-                                    id="is_active"
-                                    type="checkbox"
-                                    checked={data.is_active}
-                                    onChange={(e) => setData('is_active', e.target.checked)}
-                                    className="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
-                                />
-                                <Label htmlFor="is_active" className="ml-2 block text-sm text-gray-900 dark:text-gray-300">
-                                    Publish to FAQ
-                                </Label>
+                            <div className="flex items-center space-x-6">
+                                <div className="flex items-center">
+                                    <input
+                                        id="is_active"
+                                        type="checkbox"
+                                        checked={data.is_active}
+                                        onChange={(e) => setData('is_active', e.target.checked)}
+                                        className="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
+                                    />
+                                    <Label htmlFor="is_active" className="ml-2 block text-sm text-gray-900 dark:text-gray-300">
+                                        Active
+                                    </Label>
+                                </div>
+                                <div className="flex items-center">
+                                    <input
+                                        id="display_order"
+                                        type="checkbox"
+                                        checked={data.display_order === 1}
+                                        onChange={(e) => setData('display_order', e.target.checked ? 1 : 0)}
+                                        className="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
+                                    />
+                                    <Label htmlFor="display_order" className="ml-2 block text-sm text-gray-900 dark:text-gray-300">
+                                        Publish to FAQ
+                                    </Label>
+                                </div>
                             </div>
 
                             <div className="flex justify-end">

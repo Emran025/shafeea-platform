@@ -34,7 +34,11 @@ Route::get('/privacy', function () {
 })->name('privacy');
 
 Route::get('/faq', function () {
-    $faqs = Faq::with('category', 'tags')->where('is_active', true)->get();
+    $faqs = Faq::with('category', 'tags')
+        ->where('is_active', true)
+        ->where('display_order', 1)
+        ->orderBy('display_order', 'asc')
+        ->get();
     return Inertia::render('faq', ['faqs' => $faqs]);
 })->name('faq');
 

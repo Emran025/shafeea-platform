@@ -2,6 +2,7 @@ import React, { useState, useEffect, ReactNode } from 'react';
 import { Link, usePage, router } from '@inertiajs/react';
 import AdminLayout from '@/layouts/admin-layout';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors, DragEndEvent } from '@dnd-kit/core';
 import { arrayMove, SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy, useSortable } from '@dnd-kit/sortable';
@@ -15,6 +16,7 @@ interface InquiriesIndexProps extends PageProps {
     } | Inquiry[];
     filters: {
         type?: string;
+        search?: string;
     };
     faqStatistics: Faq[];
 }
@@ -54,7 +56,8 @@ export default function InquiriesIndex() {
     };
 
     const [inquiries, setInquiries] = useState<Inquiry[]>(getInquiriesArray(initialInquiries));
-    const [type, setType] = useState(filters.type || '');
+    const [type, setType] = useState(filters.type || 'all');
+    const [search, setSearch] = useState(filters.search || '');
 
     useEffect(() => {
         setInquiries(getInquiriesArray(initialInquiries));
@@ -68,7 +71,13 @@ export default function InquiriesIndex() {
     );
 
     const handleFilter = () => {
-        router.get('/admin/inquiries', { type }, { preserveState: true });
+        router.get('/admin/inquiries', { type, search }, { preserveState: true, replace: true });
+    };
+
+    const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            handleFilter();
+        }
     };
 
     function handleDragEnd(event: DragEndEvent) {
@@ -93,7 +102,15 @@ export default function InquiriesIndex() {
         <AdminLayout>
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">Inquiries</h1>
-                <div className="mt-4 flex items-center">
+                <div className="mt-4 flex items-center gap-4">
+                    <Input
+                        type="text"
+                        placeholder="Search questions or answers..."
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                        onKeyPress={handleKeyPress}
+                        className="max-w-sm"
+                    />
                     <Select onValueChange={(value) => setType(value)} value={type}>
                         <SelectTrigger className="w-[180px]">
                             <SelectValue placeholder="All Types" />
@@ -106,7 +123,7 @@ export default function InquiriesIndex() {
                             <SelectItem value="report">Report</SelectItem>
                         </SelectContent>
                     </Select>
-                    <Button onClick={handleFilter} className="ml-4">
+                    <Button onClick={handleFilter}>
                         Filter
                     </Button>
                 </div>
@@ -120,10 +137,17 @@ export default function InquiriesIndex() {
                                         <div className="bg-white dark:bg-gray-800 shadow rounded-lg h-full">
                                             <div className="p-4 flex flex-col h-full justify-between">
                                                 <div>
-                                                    <h3 className="text-lg font-medium text-gray-900 dark:text-white">{inquiry.question}</h3>
+                                                    <div className="flex items-center justify-between">
+                                                        <h3 className="text-lg font-medium text-gray-900 dark:text-white">{inquiry.question}</h3>
+                                                        {inquiry.display_order === 1 && (
+                                                            <span className="ml-2 text-xs font-semibold bg-green-100 text-green-800 px-2 py-1 rounded-full">
+                                                                Published
+                                                            </span>
+                                                        )}
+                                                    </div>
                                                     <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
-                                                        {inquiry.answer 
-                                                            ? (inquiry.answer.length > 100 ? `${inquiry.answer.substring(0, 100)}...` : inquiry.answer) 
+                                                        {inquiry.answer
+                                                            ? (inquiry.answer.length > 100 ? `${inquiry.answer.substring(0, 100)}...` : inquiry.answer)
                                                             : 'No answer provided'}
                                                     </p>
                                                 </div>
