@@ -1,112 +1,75 @@
 # ---- Base PHP Stage ----
-# Use the official PHP 8.2 FPM image as a base.
 FROM php:8.2-fpm as base
 
-# Set working directory
 WORKDIR /var/www/html
-
-# Prevent interactive prompts during package installation
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Install system dependencies required by Laravel and common PHP extensions.
-# - libpng-dev, libjpeg-dev, libfreetype6-dev for GD extension.
-# - libzip-dev for zip extension.
-# - libpq-dev for PostgreSQL (pdo_pgsql) extension.
-# - libicu-dev for intl extension.
-# - nodejs and npm for the build stage.
-RUN apt-get update && apt-get install -y \
-    git \
-    curl \
-    unzip \
-    zip \
-    libpng-dev \
-    libjpeg-dev \
-    libfreetype6-dev \
-    libzip-dev \
-    libpq-dev \
-    libicu-dev \
-    nodejs \
-    npm \
-    nginx
+# Add the PHP extension installer script
+ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
 
-# Install PHP extensions.
-RUN docker-php-ext-install \
+# Install system dependencies and PHP extensions using the script
+# This script automatically handles dependencies for extensions like gd, zip, intl, etc.
+RUN chmod +x /usr/local/bin/install-php-extensions && \
+    install-php-extensions \
     pdo_pgsql \
     bcmath \
     gd \
     intl \
     zip \
-    opcache
+    opcache \
+    @composer
 
-# Clear apt cache to reduce image size
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+# Install Nginx and minimal system tools needed for runtime
+RUN apt-get update && apt-get install -y \
+    nginx \
+    git \
+    unzip \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Install Composer globally.
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-
-
-# ---- Composer Vendor Stage ----
-# This stage installs composer dependencies and is cached as long as composer files don't change.
-FROM base as composer_vendor
+# ---- Composer Dependencies Stage ----
+FROM base as composer_deps
 
 COPY database/ database/
 COPY composer.json composer.lock ./
+
+# Install Composer packages
 RUN composer install --no-interaction --no-plugins --no-scripts --no-dev --prefer-dist
 
+# ---- Frontend Build Stage (Node.js) ----
+# Build assets in a separate Node image to keep the final image small
+FROM node:18 as node_build
 
-# ---- Node Modules Stage ----
-# This stage installs node dependencies and is cached as long as package files don't change.
-FROM node:18 as node_modules
-
-WORKDIR /var/www/html
+WORKDIR /app
 COPY package.json package-lock.json ./
-RUN npm install
+RUN npm ci
 
-
-# ---- Build Stage ----
-# This stage builds the frontend assets.
-FROM base as build
-
-WORKDIR /var/www/html
-
-# Copy composer dependencies from the dedicated stage
-COPY --from=composer_vendor /var/www/html/vendor/ vendor/
-
-# Copy node dependencies from the dedicated stage
-COPY --from=node_modules /var/www/html/node_modules/ node_modules/
-
-# Copy the entire application source code
 COPY . .
-
-# Build the frontend assets
+# Run the build process
 RUN npm run build
 
-# Remove node modules after build to reduce image size
-RUN rm -rf node_modules
-
-
 # ---- Production Stage ----
-# This is the final, optimized image that will be deployed.
 FROM base as production
 
 WORKDIR /var/www/html
 
-# Copy the built application files from the build stage
-COPY --from=build /var/www/html/ .
+# Copy app files
+COPY . .
 
-# Set correct permissions for storage and bootstrap cache directories
+# Copy vendor files from composer_deps stage
+COPY --from=composer_deps /var/www/html/vendor/ vendor/
+
+# Copy compiled frontend assets (public/build) from node_build stage
+COPY --from=node_build /app/public/build public/build
+
+# Setup permissions
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 RUN chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
-# Expose port 9000 for PHP-FPM
-EXPOSE 9000
-
-# Copy Nginx and entrypoint configurations
+# Setup Nginx and Entrypoint
 COPY docker/nginx.conf /etc/nginx/nginx.conf
 COPY docker/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
-
-# Make the entrypoint script executable
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
-# Set the entrypoint
+EXPOSE 9000
+
 ENTRYPOINT ["docker-entrypoint.sh"]

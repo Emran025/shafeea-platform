@@ -59,7 +59,7 @@ export default function Apply() {
 
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
-        post(route('schools.store'), {
+        post(route('schools.store.apply'), {
             forceFormData: true,
             onSuccess: () => {
                 reset();
