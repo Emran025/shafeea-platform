@@ -122,6 +122,10 @@ export interface Session {
     fcm_token?: NullableString;
     login_time?: Date | null;
 }
+export interface Tag {
+    id?: int;
+    tag_name: NullableString;
+}
 
-export { Inquiry, PrivacyPolicy, TermsOfUse , Session };
+export { Inquiry, PrivacyPolicy, TermsOfUse , Session , Tag };
 

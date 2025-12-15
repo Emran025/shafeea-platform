@@ -8,17 +8,19 @@ import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, us
 import { arrayMove, SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy, useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import axios from 'axios';
-import { PageProps, Inquiry, Faq } from '@/types';
+import { PageProps, Inquiry, Faq, Tag } from '@/types';
 
 interface InquiriesIndexProps extends PageProps {
     inquiries: {
         data: Inquiry[];
-    } | Inquiry[];
+        links: any;
+    };
     filters: {
-        type?: string;
         search?: string;
+        tag?: string;
     };
     faqStatistics: Faq[];
+    tags: Tag[];
 }
 
 interface SortableItemProps {
@@ -48,19 +50,14 @@ function SortableItem({ id, children }: SortableItemProps) {
 }
 
 export default function InquiriesIndex() {
-    const { inquiries: initialInquiries = [], filters = {}, faqStatistics = [] } = usePage<InquiriesIndexProps>().props;
+    const { inquiries: initialInquiries, filters, faqStatistics, tags } = usePage<InquiriesIndexProps>().props;
 
-    const getInquiriesArray = (data: { data: Inquiry[] } | Inquiry[]): Inquiry[] => {
-        if (!data) return [];
-        return Array.isArray(data) ? data : (data.data || []);
-    };
-
-    const [inquiries, setInquiries] = useState<Inquiry[]>(getInquiriesArray(initialInquiries));
-    const [type, setType] = useState(filters.type || 'all');
+    const [inquiries, setInquiries] = useState<Inquiry[]>(initialInquiries.data);
     const [search, setSearch] = useState(filters.search || '');
+    const [tag, setTag] = useState(filters.tag || 'all');
 
     useEffect(() => {
-        setInquiries(getInquiriesArray(initialInquiries));
+        setInquiries(initialInquiries.data);
     }, [initialInquiries]);
 
     const sensors = useSensors(
@@ -71,7 +68,12 @@ export default function InquiriesIndex() {
     );
 
     const handleFilter = () => {
-        router.get('/admin/inquiries', { type, search }, { preserveState: true, replace: true });
+        router.get('/admin/inquiries', { search, tag }, { preserveState: true, replace: true });
+    };
+
+    const handleTagChange = (value: string) => {
+        setTag(value);
+        router.get('/admin/inquiries', { search, tag: value }, { preserveState: true, replace: true });
     };
 
     const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -111,16 +113,15 @@ export default function InquiriesIndex() {
                         onKeyPress={handleKeyPress}
                         className="max-w-sm"
                     />
-                    <Select onValueChange={(value) => setType(value)} value={type}>
+                    <Select onValueChange={handleTagChange} value={tag}>
                         <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="All Types" />
+                            <SelectValue placeholder="All Tags" />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="all">All Types</SelectItem>
-                            <SelectItem value="general">General</SelectItem>
-                            <SelectItem value="technical">Technical</SelectItem>
-                            <SelectItem value="suggestion">Suggestion</SelectItem>
-                            <SelectItem value="report">Report</SelectItem>
+                            <SelectItem value="all">الــكل</SelectItem>
+                            {tags.map((tag: Tag) => (
+                                <SelectItem key={tag.id} value={tag.id.toString()}>{tag.tag_name}</SelectItem>
+                            ))}
                         </SelectContent>
                     </Select>
                     <Button onClick={handleFilter}>
@@ -139,11 +140,18 @@ export default function InquiriesIndex() {
                                                 <div>
                                                     <div className="flex items-center justify-between">
                                                         <h3 className="text-lg font-medium text-gray-900 dark:text-white">{inquiry.question}</h3>
-                                                        {inquiry.display_order === 1 && (
-                                                            <span className="ml-2 text-xs font-semibold bg-green-100 text-green-800 px-2 py-1 rounded-full">
-                                                                Published
-                                                            </span>
-                                                        )}
+                                                        <div className="flex items-center space-x-2">
+                                                            {!inquiry.answer && (
+                                                                <span className="text-xs font-semibold bg-blue-100 text-blue-800 px-2 py-1 rounded-full">
+                                                                    New
+                                                                </span>
+                                                            )}
+                                                            {inquiry.display_order === 1 && (
+                                                                <span className="text-xs font-semibold bg-green-100 text-green-800 px-2 py-1 rounded-full">
+                                                                    Published
+                                                                </span>
+                                                            )}
+                                                        </div>
                                                     </div>
                                                     <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
                                                         {inquiry.answer
