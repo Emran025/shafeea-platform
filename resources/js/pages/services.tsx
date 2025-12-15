@@ -3,28 +3,15 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import {
-    BookOpen,
-    Users,
-    BarChart3,
-    Shield,
-    Calendar,
-    Smartphone,
-    Globe,
-    MessageCircle,
-    CheckCircle,
-    Star,
-    Target,
-    Zap,
-    Headphones,
-    TrendingUp,
-    PlayCircle,
-    RefreshCw,
-    Cloud
+    BookOpen, Users, BarChart3, Shield, Calendar, Smartphone,
+    Globe, MessageCircle, Star, Target, Zap, Headphones,
+    TrendingUp, RefreshCw, Cloud, CheckCircle
 } from 'lucide-react';
 import { useState } from 'react';
 import SiteLayout from '@/layouts/site-layout';
+import ServiceCard, { ServiceData } from '@/components/shared/service-card';
 
-// مسارات الصور (تأكد من وجودها في المجلد public)
+
 const SERVICE_IMAGES = {
     studentsManagement: "/images/services/students-management.jpg",
     musHafInteractive: "/images/services/mus-haf-interactive.jpg",
@@ -47,70 +34,8 @@ export default function Services() {
         { id: 'technology', name: 'التقنية والأمان', icon: Shield }
     ];
 
-  
-    const getThemeStyles = (theme: any) => {
-        const styles: any = {
-            blue: {
-                bg: "bg-blue-50 dark:bg-blue-900/20",
-                text: "text-blue-600 dark:text-blue-400",
-                shadow: "shadow-blue-500/20",
-                border: "border-blue-100 dark:border-blue-800",
-                gradient: "from-blue-500/20"
-            },
-            indigo: {
-                bg: "bg-indigo-50 dark:bg-indigo-900/20",
-                text: "text-indigo-600 dark:text-indigo-400",
-                shadow: "shadow-indigo-500/20",
-                border: "border-indigo-100 dark:border-indigo-800",
-                gradient: "from-indigo-500/20"
-            },
-            emerald: {
-                bg: "bg-emerald-50 dark:bg-emerald-900/20",
-                text: "text-emerald-600 dark:text-emerald-400",
-                shadow: "shadow-emerald-500/20",
-                border: "border-emerald-100 dark:border-emerald-800",
-                gradient: "from-emerald-500/20"
-            },
-            rose: {
-                bg: "bg-rose-50 dark:bg-rose-900/20",
-                text: "text-rose-600 dark:text-rose-400",
-                shadow: "shadow-rose-500/20",
-                border: "border-rose-100 dark:border-rose-800",
-                gradient: "from-rose-500/20"
-            },
-            amber: {
-                bg: "bg-amber-50 dark:bg-amber-900/20",
-                text: "text-amber-600 dark:text-amber-400",
-                shadow: "shadow-amber-500/20",
-                border: "border-amber-100 dark:border-amber-800",
-                gradient: "from-amber-500/20"
-            },
-            violet: {
-                bg: "bg-violet-50 dark:bg-violet-900/20",
-                text: "text-violet-600 dark:text-violet-400",
-                shadow: "shadow-violet-500/20",
-                border: "border-violet-100 dark:border-violet-800",
-                gradient: "from-violet-500/20"
-            },
-            cyan: {
-                bg: "bg-cyan-50 dark:bg-cyan-900/20",
-                text: "text-cyan-600 dark:text-cyan-400",
-                shadow: "shadow-cyan-500/20",
-                border: "border-cyan-100 dark:border-cyan-800",
-                gradient: "from-cyan-500/20"
-            },
-            orange: {
-                bg: "bg-orange-50 dark:bg-orange-900/20",
-                text: "text-orange-600 dark:text-orange-400",
-                shadow: "shadow-orange-500/20",
-                border: "border-orange-100 dark:border-orange-800",
-                gradient: "from-orange-500/20"
-            }
-        };
-        return styles[theme] || styles.blue;
-    };
-
-    const mainServices = [
+    // البيانات
+    const mainServices: ServiceData[] = [
         {
             category: 'management',
             title: "إدارة شاملة للمتقدمين الطلاب والمعلمين",
@@ -249,108 +174,33 @@ export default function Services() {
     ];
 
     const additionalFeatures = [
-        {
-            icon: Smartphone,
-            title: "تطبيق جوال متطور",
-            description: "تطبيق سهل الاستخدام للأجهزة الذكية مع جميع الميزات",
-            bg: "bg-purple-100 dark:bg-purple-900/20",
-            text: "text-purple-600 dark:text-purple-400"
-        },
-        {
-            icon: Globe,
-            title: "دعم متعدد اللغات",
-            description: "واجهة بالعربية والإنجليزية مع إمكانية إضافة لغات أخرى",
-            bg: "bg-blue-100 dark:bg-blue-900/20",
-            text: "text-blue-600 dark:text-blue-400"
-        },
-        {
-            icon: Cloud,
-            title: "التخزين السحابي",
-            description: "حفظ آمن للبيانات في السحابة مع وصول من أي مكان",
-            bg: "bg-sky-100 dark:bg-sky-900/20",
-            text: "text-sky-600 dark:text-sky-400"
-        },
-        {
-            icon: Headphones,
-            title: "دعم فني متخصص",
-            description: "فريق دعم متاح 24/7 لمساعدتك في أي وقت",
-            bg: "bg-pink-100 dark:bg-pink-900/20",
-            text: "text-pink-600 dark:text-pink-400"
-        },
-        {
-            icon: RefreshCw,
-            title: "تحديثات منتظمة",
-            description: "تحديثات دورية مجانية لإضافة ميزات جديدة وتحسينات",
-            bg: "bg-emerald-100 dark:bg-emerald-900/20",
-            text: "text-emerald-600 dark:text-emerald-400"
-        },
-        {
-            icon: Target,
-            title: "تخصيص شامل",
-            description: "إمكانية تخصيص المنصة لتناسب احتياجات مؤسستك",
-            bg: "bg-amber-100 dark:bg-amber-900/20",
-            text: "text-amber-600 dark:text-amber-400"
-        }
+        { icon: Smartphone, title: "تطبيق جوال متطور", description: "تطبيق سهل الاستخدام للأجهزة الذكية مع جميع الميزات", bg: "bg-purple-100 dark:bg-purple-900/20", text: "text-purple-600 dark:text-purple-400" },
+        { icon: Globe, title: "دعم متعدد اللغات", description: "واجهة بالعربية والإنجليزية مع إمكانية إضافة لغات أخرى", bg: "bg-blue-100 dark:bg-blue-900/20", text: "text-blue-600 dark:text-blue-400" },
+        { icon: Cloud, title: "التخزين السحابي", description: "حفظ آمن للبيانات في السحابة مع وصول من أي مكان", bg: "bg-sky-100 dark:bg-sky-900/20", text: "text-sky-600 dark:text-sky-400" },
+        { icon: Headphones, title: "دعم فني متخصص", description: "فريق دعم متاح 24/7 لمساعدتك في أي وقت", bg: "bg-pink-100 dark:bg-pink-900/20", text: "text-pink-600 dark:text-pink-400" },
+        { icon: RefreshCw, title: "تحديثات منتظمة", description: "تحديثات دورية مجانية لإضافة ميزات جديدة وتحسينات", bg: "bg-emerald-100 dark:bg-emerald-900/20", text: "text-emerald-600 dark:text-emerald-400" },
+        { icon: Target, title: "تخصيص شامل", description: "إمكانية تخصيص المنصة لتناسب احتياجات مؤسستك", bg: "bg-amber-100 dark:bg-amber-900/20", text: "text-amber-600 dark:text-amber-400" }
     ];
 
     const pricingPlans = [
         {
-            name: "الخطة الأساسية",
-            price: "0",
-            period: "سنويًا",
-            description: "مثالية للمؤسسات الصغيرة",
-            features: [
-                "حتى 100 طالب",
-                "10 معلمين",
-                "التقارير الأساسية",
-                "دعم فني بالإيميل",
-                "التخزين: 5 جيجا"
-            ],
+            name: "الخطة الأساسية", price: "0", period: "سنويًا", description: "مثالية للمؤسسات الصغيرة",
+            features: ["حتى 100 طالب", "10 معلمين", "التقارير الأساسية", "دعم فني بالإيميل", "التخزين: 5 جيجا"],
             recommended: false,
         },
         {
-            name: "الخطة المتوسطة",
-            price: "249",
-            period: "سنويًا",
-            description: "مثالية للمؤسسات الصغيرة",
-            features: [
-                "حتى 250 طالب",
-                "25 معلمين",
-                "التقارير الأساسية",
-                "دعم فني بالإيميل",
-                "التخزين: 5 جيجا"
-            ],
+            name: "الخطة المتوسطة", price: "249", period: "سنويًا", description: "مثالية للمؤسسات الصغيرة",
+            features: ["حتى 250 طالب", "25 معلمين", "التقارير الأساسية", "دعم فني بالإيميل", "التخزين: 5 جيجا"],
             recommended: false,
         },
         {
-            name: "الخطة المتقدمة",
-            price: "490",
-            period: "سنويًا",
-            description: "الأنسب للمؤسسات المتوسطة",
-            features: [
-                "حتى 1000 طالب",
-                "75 معلم",
-                "جميع التقارير",
-                "دعم فني مباشر",
-                "التخزين: 50 جيجا",
-                "تطبيق الجوال"
-            ],
+            name: "الخطة المتقدمة", price: "490", period: "سنويًا", description: "الأنسب للمؤسسات المتوسطة",
+            features: ["حتى 1000 طالب", "75 معلم", "جميع التقارير", "دعم فني مباشر", "التخزين: 50 جيجا", "تطبيق الجوال"],
             recommended: true,
         },
         {
-            name: "الخطة الاحترافية",
-            price: "990",
-            period: "سنويًا",
-            description: "للمؤسسات الكبيرة والمتقدمة",
-            features: [
-                "طلاب غير محدود",
-                "معلمين غير محدود",
-                "تقارير مخصصة",
-                "دعم فني أولوية",
-                "تخزين غير محدود",
-                "تخصيص كامل",
-                "تدريب مخصص"
-            ],
+            name: "الخطة الاحترافية", price: "990", period: "سنويًا", description: "للمؤسسات الكبيرة والمتقدمة",
+            features: ["طلاب غير محدود", "معلمين غير محدود", "تقارير مخصصة", "دعم فني أولوية", "تخزين غير محدود", "تخصيص كامل", "تدريب مخصص"],
             recommended: false,
         }
     ];
@@ -370,7 +220,6 @@ export default function Services() {
                         backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='white' fill-opacity='0.2'%3E%3Cpath d='m0 40 40-40V0H0v40z'/%3E%3C/g%3E%3C/svg%3E")`,
                     }}></div>
                 </div>
-
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                     <div className="text-center">
                         <Badge className="mb-6 bg-white/20 text-white border-white/30 hover:bg-white/30">
@@ -410,87 +259,14 @@ export default function Services() {
                 </div>
             </section>
 
-            {/* Main Services */}
+            {/* Main Services (Refactored) */}
             <section className="py-16 bg-background">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="space-y-12">
-                        {filteredServices.map((service, index) => {
-                            const themeStyle = getThemeStyles(service.theme);
-                            
-                            return (
-                                <Card key={index} className="overflow-hidden hover:shadow-xl transition-all duration-300 border-border bg-card">
-                                    <div className={`grid grid-cols-1 lg:grid-cols-2 ${index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''}`}>
-                                        <div className={`p-8 ${index % 2 === 1 ? 'lg:col-start-2' : ''}`}>
-                                            <div className="flex items-center gap-3 mb-4">
-                                                {service.popular && (
-                                                    <Badge className="bg-primary text-primary-foreground hover:bg-primary/90">
-                                                        <Star className="w-3 h-3 ml-1" />
-                                                        الأكثر طلباً
-                                                    </Badge>
-                                                )}
-                                            </div>
-                                            
-                                            <div className="flex items-center gap-4 mb-4">
-                                                <div className={`w-14 h-14 rounded-xl flex items-center justify-center border shadow-lg ${themeStyle.bg} ${themeStyle.border} ${themeStyle.shadow}`}>
-                                                    <service.icon className={`w-7 h-7 ${themeStyle.text}`} />
-                                                </div>
-                                                <h3 className="text-2xl md:text-3xl font-bold text-foreground">
-                                                    {service.title}
-                                                </h3>
-                                            </div>
-                                            
-                                            <p className="text-muted-foreground mb-6 leading-relaxed">
-                                                {service.description}
-                                            </p>
-
-                                            <div className="mb-6">
-                                                <h4 className="font-semibold text-foreground mb-3 flex items-center gap-2">
-                                                    <div className={`w-1 h-5 rounded-full ${themeStyle.bg.replace('/20', '')}`}></div>
-                                                    المميزات الرئيسية:
-                                                </h4>
-                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                                                    {service.features.map((feature, featureIndex) => (
-                                                        <div key={featureIndex} className="flex items-center gap-2">
-                                                            <CheckCircle className={`w-4 h-4 ${themeStyle.text} flex-shrink-0`} />
-                                                            <span className="text-sm text-muted-foreground">{feature}</span>
-                                                        </div>
-                                                    ))}
-                                                </div>
-                                            </div>
-
-                                            <div className="mb-6">
-                                                <h4 className="font-semibold text-foreground mb-3">الفوائد:</h4>
-                                                <div className="flex flex-wrap gap-2">
-                                                    {service.benefits.map((benefit, benefitIndex) => (
-                                                        <Badge key={benefitIndex} variant="outline" className="text-xs border-border text-muted-foreground bg-muted/20">
-                                                            {benefit}
-                                                        </Badge>
-                                                    ))}
-                                                </div>
-                                            </div>
-
-                                            <Button className="bg-primary text-primary-foreground hover:bg-primary/90 w-full sm:w-auto">
-                                                <PlayCircle className="w-4 h-4 ml-2" />
-                                                تجربة مجانية
-                                            </Button>
-                                        </div>
-
-                                        {/* قسم الصورة المعدل */}
-                                        <div className={`bg-muted/30 p-0 flex items-center justify-center overflow-hidden h-full ${index % 2 === 1 ? 'lg:col-start-1' : ''}`}>
-                                            <div className="relative w-full h-full min-h-[300px] group">
-                                                <img 
-                                                    src={service.image} 
-                                                    alt={service.title}
-                                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter grayscale-[0.1] hover:grayscale-0"
-                                                    loading="lazy"
-                                                />
-                                                <div className={`absolute inset-0 bg-gradient-to-t ${themeStyle.gradient || 'from-black/20'} via-transparent to-transparent opacity-60`}></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </Card>
-                            );
-                        })}
+                        {filteredServices.map((service, index) => (
+                            // هنا نستخدم المكون الجديد فقط
+                            <ServiceCard key={index} service={service} index={index} />
+                        ))}
                     </div>
                 </div>
             </section>
@@ -553,9 +329,7 @@ export default function Services() {
                             <div 
                                 key={index} 
                                 className={`relative group transition-all duration-300 ${
-                                    plan.recommended 
-                                    ? 'z-10 -mt-4 mb-4 md:-mt-6 md:mb-0' 
-                                    : 'hover:-translate-y-2'
+                                    plan.recommended ? 'z-10 -mt-4 mb-4 md:-mt-6 md:mb-0' : 'hover:-translate-y-2'
                                 }`}
                             >
                                 {plan.recommended && (
@@ -580,11 +354,7 @@ export default function Services() {
                                         </div>
                                     )}
 
-                                    <CardHeader className={`text-center pb-4 pt-8 ${
-                                        plan.recommended 
-                                            ? 'bg-muted/30 dark:bg-white/5' 
-                                            : ''
-                                    }`}>
+                                    <CardHeader className={`text-center pb-4 pt-8 ${plan.recommended ? 'bg-muted/30 dark:bg-white/5' : ''}`}>
                                         <h3 className={`text-lg font-bold mb-2 ${plan.recommended ? 'text-primary dark:text-blue-400' : 'text-foreground'}`}>
                                             {plan.name}
                                         </h3>
@@ -609,9 +379,7 @@ export default function Services() {
                                             {plan.features.map((feature, featureIndex) => (
                                                 <li key={featureIndex} className="flex items-start gap-2 text-xs">
                                                     <div className={`mt-0.5 w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0 ${
-                                                        plan.recommended 
-                                                            ? 'bg-primary text-white' 
-                                                            : 'bg-secondary text-primary dark:bg-white/10 dark:text-blue-400'
+                                                        plan.recommended ? 'bg-primary text-white' : 'bg-secondary text-primary dark:bg-white/10 dark:text-blue-400'
                                                     }`}>
                                                         <CheckCircle className="w-3 h-3" />
                                                     </div>

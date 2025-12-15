@@ -26,7 +26,7 @@ class AdminSchoolController extends Controller
 
         if ($request->has('status') && $request->input('status') !== '' && $request->input('status') !== null) {
             $query->whereHas('admin', function ($q) use ($request) {
-                $q->where('status', $request->input('status'));
+                $q->where('admins.status', $request->input('status'));
             });
         }
 
