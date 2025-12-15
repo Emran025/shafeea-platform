@@ -16,11 +16,11 @@ class InquiryController extends Controller
     {
         $query = Faq::query();
 
-        if ($request->has('type') && $request->input('type') != 'all') {
-            $query->whereHas('category', function ($q) use ($request) {
-                $q->where('name', $request->input('type'));
-            });
-        }
+        // if ($request->has('type') && $request->input('type') != 'all') {
+        //     $query->whereHas('category', function ($q) use ($request) {
+        //         $q->where('name', $request->input('type'));
+        //     });
+        // }
 
         if ($request->has('search')) {
             $query->where(function ($q) use ($request) {

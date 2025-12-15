@@ -16,7 +16,6 @@ interface InquiriesIndexProps extends PageProps {
         links: any;
     };
     filters: {
-        type?: string;
         search?: string;
         tag?: string;
     };
@@ -54,7 +53,6 @@ export default function InquiriesIndex() {
     const { inquiries: initialInquiries, filters, faqStatistics, tags } = usePage<InquiriesIndexProps>().props;
 
     const [inquiries, setInquiries] = useState<Inquiry[]>(initialInquiries.data);
-    const [type, setType] = useState(filters.type || 'all');
     const [search, setSearch] = useState(filters.search || '');
     const [tag, setTag] = useState(filters.tag || 'all');
 
@@ -70,12 +68,12 @@ export default function InquiriesIndex() {
     );
 
     const handleFilter = () => {
-        router.get('/admin/inquiries', { type, search, tag }, { preserveState: true, replace: true });
+        router.get('/admin/inquiries', { search, tag }, { preserveState: true, replace: true });
     };
 
     const handleTagChange = (value: string) => {
         setTag(value);
-        router.get('/admin/inquiries', { type, search, tag: value }, { preserveState: true, replace: true });
+        router.get('/admin/inquiries', { search, tag: value }, { preserveState: true, replace: true });
     };
 
     const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -115,24 +113,12 @@ export default function InquiriesIndex() {
                         onKeyPress={handleKeyPress}
                         className="max-w-sm"
                     />
-                    <Select onValueChange={(value) => setType(value)} value={type}>
-                        <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="All Types" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectItem value="all">All Types</SelectItem>
-                            <SelectItem value="general">General</SelectItem>
-                            <SelectItem value="technical">Technical</SelectItem>
-                            <SelectItem value="suggestion">Suggestion</SelectItem>
-                            <SelectItem value="report">Report</SelectItem>
-                        </SelectContent>
-                    </Select>
                     <Select onValueChange={handleTagChange} value={tag}>
                         <SelectTrigger className="w-[180px]">
                             <SelectValue placeholder="All Tags" />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="all">All Tags</SelectItem>
+                            <SelectItem value="all">الــكل</SelectItem>
                             {tags.map((tag: Tag) => (
                                 <SelectItem key={tag.id} value={tag.id.toString()}>{tag.tag_name}</SelectItem>
                             ))}
