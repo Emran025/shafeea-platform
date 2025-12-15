@@ -1,0 +1,67 @@
+# render.yaml
+# This blueprint defines a single web service for the Laravel application.
+# It uses the Dockerfile in the repository root to build the image.
+
+services:
+  # A unique name for the web service
+  - type: web
+    name: laravel-app
+    # Use 'docker' as the runtime environment
+    runtime: docker
+    # Path to the Dockerfile, relative to the repository root
+    dockerfilePath: ./Dockerfile
+    # Set environment variables.
+    # It is strongly recommended to use Render's Secret Files for sensitive
+    # data like APP_KEY and DB_PASSWORD in a real production environment.
+    envVars:
+      - key: APP_URL
+        value: https://${RENDER_EXTERNAL_URL}
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: false
+      - key: LOG_CHANNEL
+        value: stderr
+      - key: DB_CONNECTION
+        value: pgsql
+      # Example of syncing a database host from another Render service.
+      # Replace 'your-db-name' with the name of your Render PostgreSQL service.
+      - key: DB_HOST
+        fromService:
+          type: psql
+          name: your-db-name # CHANGE THIS to your Render database name
+          property: host
+      - key: DB_PORT
+        fromService:
+          type: psql
+          name: your-db-name # CHANGE THIS
+          property: port
+      - key: DB_DATABASE
+        fromService:
+          type: psql
+          name: your-db-name # CHANGE THIS
+          property: database
+      - key: DB_USERNAME
+        fromService:
+          type: psql
+          name: your-db-name # CHANGE THIS
+          property: user
+      - key: DB_PASSWORD
+        fromService:
+          type: psql
+          name: your-db-name # CHANGE THIS
+          property: password
+      - key: APP_KEY
+        generateValue: true # Render will generate a secure key
+      - key: CACHE_DRIVER
+        value: database
+      - key: SESSION_DRIVER
+        value: database
+      - key: QUEUE_CONNECTION
+        value: sync
+    # Health check to ensure the service is running
+    healthCheckPath: /
+    # Auto-deploy on pushes to the main branch
+    autoDeploy: true
+    # Branch to deploy from
+    branch: main
