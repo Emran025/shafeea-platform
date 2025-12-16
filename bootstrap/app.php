@@ -1,11 +1,13 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\HandleAppearance;
 use App\Http\Middleware\HandleInertiaRequests;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets;
+use Illuminate\Http\Request; // Required for proxy headers
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -14,6 +16,7 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__ . '/../routes/console.php',
         health: '/up',
         then: function () {
+            // Custom route files
             Route::middleware('web')
                 ->group(base_path('routes/teachers.php'));
 
@@ -29,12 +32,24 @@ return Application::configure(basePath: dirname(__DIR__))
         },
     )
     ->withMiddleware(function (Middleware $middleware) {
+        // Trust proxies for Render/Load Balancers to fix HTTPS/Mixed Content issues
+        $middleware->trustProxies(at: '*');
+        $middleware->trustProxies(headers: Request::HEADER_X_FORWARDED_FOR |
+            Request::HEADER_X_FORWARDED_HOST |
+            Request::HEADER_X_FORWARDED_PORT |
+            Request::HEADER_X_FORWARDED_PROTO |
+            Request::HEADER_X_FORWARDED_AWS_ELB
+        );
+
+        // Middleware Aliases
         $middleware->alias([
             'admin' => \App\Http\Middleware\IsAdmin::class,
         ]);
 
+        // Exempt cookies from encryption
         $middleware->encryptCookies(except: ['appearance', 'sidebar_state']);
 
+        // Append middleware to the web group
         $middleware->web(append: [
             HandleAppearance::class,
             HandleInertiaRequests::class,
@@ -42,6 +57,7 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
+        // Custom exception rendering for API
         $exceptions->render(function (\Illuminate\Auth\AuthenticationException $e, \Illuminate\Http\Request $request) {
             if ($request->is('api/*')) {
                 return response()->json([
