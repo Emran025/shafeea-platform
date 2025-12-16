@@ -1,5 +1,5 @@
 # ---- Base PHP Stage ----
-FROM php:8.2-fpm as base
+FROM php:8.2-fpm-bookworm as base
 
 WORKDIR /var/www/html
 ENV DEBIAN_FRONTEND=noninteractive
