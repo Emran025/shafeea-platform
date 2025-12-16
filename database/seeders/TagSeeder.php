@@ -24,30 +24,7 @@ class TagSeeder extends Seeder
         ];
 
         foreach ($tags as $tag) {
-            // Check for existence by slug
-            $this->smartUpdateOrCreate(Tag::class, ['tag_slug' => $tag['tag_slug']], $tag);
+            Tag::create($tag);
         }
-    }
-
-    /**
-     * Helper to safely update or create records, handling SoftDeletes automatically.
-     */
-    private function smartUpdateOrCreate($modelClass, array $searchConditions, array $data = [])
-    {
-        $query = $modelClass::query();
-
-        // Check if model uses SoftDeletes
-        if (in_array('Illuminate\Database\Eloquent\SoftDeletes', class_uses_recursive($modelClass))) {
-            $query->withTrashed();
-        }
-
-        $record = $query->updateOrCreate($searchConditions, $data);
-
-        // Restore if trashed
-        if (method_exists($record, 'trashed') && $record->trashed()) {
-            $record->restore();
-        }
-
-        return $record;
     }
 }

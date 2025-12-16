@@ -12,37 +12,21 @@ class ContentTypeSeeder extends Seeder
      */
     public function run(): void
     {
-        $types = [
-            ['name' => 'الأسئلة الشائعة', 'slug' => 'faq'],
-            ['name' => 'سياسة الخصوصية', 'slug' => 'privacy-policy'],
-            ['name' => 'شروط الاستخدام', 'slug' => 'terms-of-use'],
-            ['name' => 'محتوى عام', 'slug' => 'general-content'],
-        ];
-
-        foreach ($types as $type) {
-            $this->smartUpdateOrCreate(ContentType::class, ['slug' => $type['slug']], $type);
-        }
-    }
-
-    /**
-     * Helper to safely update or create records, handling SoftDeletes automatically.
-     */
-    private function smartUpdateOrCreate($modelClass, array $searchConditions, array $data = [])
-    {
-        $query = $modelClass::query();
-
-        // Check if model uses SoftDeletes dynamically
-        if (in_array('Illuminate\Database\Eloquent\SoftDeletes', class_uses_recursive($modelClass))) {
-            $query->withTrashed();
-        }
-
-        $record = $query->updateOrCreate($searchConditions, $data);
-
-        // Restore if trashed
-        if (method_exists($record, 'trashed') && $record->trashed()) {
-            $record->restore();
-        }
-
-        return $record;
+        ContentType::create([
+            'name' => 'الأسئلة الشائعة',
+            'slug' => 'faq',
+        ]);
+        ContentType::create([
+            'name' => 'سياسة الخصوصية',
+            'slug' => 'privacy-policy',
+        ]);
+        ContentType::create([
+            'name' => 'شروط الاستخدام',
+            'slug' => 'terms-of-use',
+        ]);
+        ContentType::create([
+            'name' => 'محتوى عام',
+            'slug' => 'general-content',
+        ]);
     }
 }

@@ -21,7 +21,6 @@ class ApplicantSeeder extends Seeder
             return;
         }
 
-
         $applicants = [
             // PENDING Applicants (15)
             [
@@ -429,39 +428,31 @@ class ApplicantSeeder extends Seeder
         ];
 
         foreach ($applicants as $applicantData) {
-            // 1. Smart Create/Update User (Safe)
-            $user = $this->smartUpdateOrCreate(
-                User::class,
-                ['email' => $applicantData['email']],
-                [
-                    'name' => $applicantData['name'],
-                    'password' => Hash::make('password'),
-                    'avatar' => 'https://i.pravatar.cc/150?u=' . $applicantData['email'],
-                    'gender' => $applicantData['gender'],
-                    'birth_date' => $this->generateBirthDate($applicantData['birth_year']),
-                    'phone' => $applicantData['phone'],
-                    'country' => $applicantData['country'],
-                    'city' => $applicantData['city'],
-                    'school_id' => $applicantData['school_id'] ?? $schools->random()->id,
-                    'created_at' => $applicantData['created_at'],
-                    'updated_at' => $applicantData['created_at'],
-                ]
-            );
+            $user = User::create([
+                'name' => $applicantData['name'],
+                'email' => $applicantData['email'],
+                'password' => Hash::make('password'),
+                'avatar' => 'https://i.pravatar.cc/150?u=' . $applicantData['email'],
+                'gender' => $applicantData['gender'],
+                'birth_date' => $this->generateBirthDate($applicantData['birth_year']),
+                'phone' => $applicantData['phone'],
+                'country' => $applicantData['country'],
+                'city' => $applicantData['city'],
+                'school_id' => $applicantData['school_id'] ?? $schools->random()->id,
+                'created_at' => $applicantData['created_at'],
+                'updated_at' => $applicantData['created_at'],
+            ]);
 
-            // 2. Smart Create/Update Applicant (Safe)
-            $this->smartUpdateOrCreate(
-                Applicant::class,
-                ['user_id' => $user->id],
-                [
-                    'school_id' => $user->school_id,
-                    'application_type' => $applicantData['application_type'],
-                    'status' => $applicantData['status'],
-                    'qualifications' => $applicantData['qualifications'],
-                    "bio" => $applicantData['bio'],
-                    'created_at' => $applicantData['created_at'],
-                    'updated_at' => $applicantData['created_at'],
-                ]
-            );
+            Applicant::create([
+                'user_id' => $user->id,
+                'school_id' => $user->school_id,
+                'application_type' => $applicantData['application_type'],
+                'status' => $applicantData['status'],
+                'qualifications' => $applicantData['qualifications'],
+                "bio" => $applicantData['bio'],
+                'created_at' => $applicantData['created_at'],
+                'updated_at' => $applicantData['created_at'],
+            ]);
         }
     }
 
@@ -470,25 +461,5 @@ class ApplicantSeeder extends Seeder
         $month = rand(1, 12);
         $day = rand(1, 28);
         return "{$birthYear}-{$month}-{$day}";
-    }
-
-    /**
-     * Helper to safely update or create records, handling SoftDeletes automatically.
-     */
-    private function smartUpdateOrCreate($modelClass, array $searchConditions, array $data = [])
-    {
-        $query = $modelClass::query();
-
-        if (in_array('Illuminate\Database\Eloquent\SoftDeletes', class_uses_recursive($modelClass))) {
-            $query->withTrashed();
-        }
-
-        $record = $query->updateOrCreate($searchConditions, $data);
-
-        if (method_exists($record, 'trashed') && $record->trashed()) {
-            $record->restore();
-        }
-
-        return $record;
     }
 }
