@@ -15,7 +15,7 @@ class FaqSeeder extends Seeder
         // Ensure categories, tags, and a user exist
         $categories = FaqCategory::all();
         $tags = Tag::all();
-        $user = User::first(); // Assumes at least one user exists
+        $user = User::first(); 
 
         if ($categories->isEmpty() || $tags->isEmpty() || !$user) {
             $this->command->info('Please seed FAQ categories, tags, and users before running the FaqSeeder.');
@@ -142,26 +142,47 @@ class FaqSeeder extends Seeder
             ],
         ];
 
-        // Clear existing FAQs to avoid duplicates
-        Faq::query()->delete();
-
         foreach ($faqs as $faqData) {
             $category = $categories->firstWhere('name', $faqData['category']);
+            
             if ($category) {
-                $faq = Faq::withTrashed()->updateOrCreate([
-                    'category_id' => $category->id,
-                    'question' => $faqData['question'],
-                    'answer' => $faqData['answer'],
-                    'created_by' => $user->id,
-                    'is_active' => true,
-                    'view_count' => rand(0, 150),
-                    'display_order' => 0, // You can adjust this as needed
-                ]);
+                // Use smartUpdateOrCreate to avoid duplicates based on the Question text
+                $faq = $this->smartUpdateOrCreate(Faq::class, 
+                    ['question' => $faqData['question']], 
+                    [
+                        'category_id' => $category->id,
+                        'answer' => $faqData['answer'],
+                        'created_by' => $user->id,
+                        'is_active' => true,
+                        'view_count' => rand(0, 150),
+                        'display_order' => 0,
+                    ]
+                );
 
-                // Attach tags
+                // Sync Tags (Attach without duplicating)
                 $tagIds = $tags->whereIn('tag_slug', $faqData['tags'])->pluck('id');
-                $faq->tags()->attach($tagIds);
+                $faq->tags()->sync($tagIds);
             }
         }
+    }
+
+    /**
+     * Helper to safely update or create records, handling SoftDeletes automatically.
+     */
+    private function smartUpdateOrCreate($modelClass, array $searchConditions, array $data = [])
+    {
+        $query = $modelClass::query();
+
+        if (in_array('Illuminate\Database\Eloquent\SoftDeletes', class_uses_recursive($modelClass))) {
+            $query->withTrashed();
+        }
+
+        $record = $query->updateOrCreate($searchConditions, $data);
+
+        if (method_exists($record, 'trashed') && $record->trashed()) {
+            $record->restore();
+        }
+
+        return $record;
     }
 }
