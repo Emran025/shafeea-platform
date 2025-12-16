@@ -155,7 +155,7 @@ class FaqSeeder extends Seeder
                     'created_by' => $user->id,
                     'is_active' => true,
                     'view_count' => rand(0, 150),
-                    'display_order' => 0, // You can adjust this as needed
+                    'display_order' => rand(0, 1), // You can adjust this as needed
                 ]);
 
                 // Attach tags

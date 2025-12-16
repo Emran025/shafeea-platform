@@ -44,7 +44,6 @@ Route::get('/faq', function () {
 
 // Contact form submission
 Route::post('/contact', function (\Illuminate\Http\Request $request) {
-    // Basic validation
     $request->validate([
         'name' => 'required|string|max:255',
         'email' => 'required|email|max:255',
@@ -55,12 +54,8 @@ Route::post('/contact', function (\Illuminate\Http\Request $request) {
         'organization' => 'nullable|string|max:255',
     ]);
 
-    // Here you would typically save to database or send email
-    // For now, we'll just return success
-
     return redirect()->back()->with('success', 'تم إرسال رسالتك بنجاح!');
 })->name('contact.store');
-
 
 // Include admin routes
 Route::prefix('admin')->name('admin.')->group(function () {
