@@ -148,7 +148,7 @@ class FaqSeeder extends Seeder
         foreach ($faqs as $faqData) {
             $category = $categories->firstWhere('name', $faqData['category']);
             if ($category) {
-                $faq = Faq::create([
+                $faq = Faq::withTrashed()->updateOrCreate([
                     'category_id' => $category->id,
                     'question' => $faqData['question'],
                     'answer' => $faqData['answer'],

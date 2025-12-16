@@ -23,7 +23,7 @@ class DocumentSeeder extends Seeder
             $filePath = 'public/documents/' . $fileName;
             Storage::put($filePath, 'This is a sample document.');
 
-            Document::create([
+            Document::withTrashed()->updateOrCreate([
                 'user_id' => $user->id,
                 'name' => 'Sample Certificate',
                 'certificate_type' => 'شهادة حفظ قران',

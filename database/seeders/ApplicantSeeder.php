@@ -428,7 +428,7 @@ class ApplicantSeeder extends Seeder
         ];
 
         foreach ($applicants as $applicantData) {
-            $user = User::create([
+            $user = User::withTrashed()->updateOrCreate([
                 'name' => $applicantData['name'],
                 'email' => $applicantData['email'],
                 'password' => Hash::make('password'),
@@ -443,7 +443,7 @@ class ApplicantSeeder extends Seeder
                 'updated_at' => $applicantData['created_at'],
             ]);
 
-            Applicant::create([
+            Applicant::withTrashed()->updateOrCreate([
                 'user_id' => $user->id,
                 'school_id' => $user->school_id,
                 'application_type' => $applicantData['application_type'],

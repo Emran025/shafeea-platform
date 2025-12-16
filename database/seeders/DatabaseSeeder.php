@@ -1120,7 +1120,7 @@ class DatabaseSeeder extends Seeder
 
         $schools = collect();
         foreach ($schoolNames as $name) {
-            $school = School::create([
+            $school = School::withTrashed()->updateOrCreate([
                 'name' => "مدرسة $name لتحفيظ القرآن",
                 'logo' => 'https://example.com/school.png',
                 'phone' => '+9677' . rand(10000000, 99999999),
@@ -1131,7 +1131,7 @@ class DatabaseSeeder extends Seeder
             ]);
             $schools->push($school);
             $admin = collect();
-            $user = User::create([
+            $user = User::withTrashed()->updateOrCreate([
                 'name' => "مشرف مدرسة $name ",
                 'email' => "amran" . $school->id . "@naser.com",
                 'password' => bcrypt('amran$$$025'),
@@ -1146,7 +1146,7 @@ class DatabaseSeeder extends Seeder
                 'school_id' => $school->id,
             ]);
 
-            $admin->push(\App\Models\Admin::create([
+            $admin->push(\App\Models\Admin::withTrashed()->updateOrCreate([
                 'user_id' => $user->id,
                 'super_admin' => false,
                 'status' => 'pending',
@@ -2869,7 +2869,7 @@ class DatabaseSeeder extends Seeder
 
         $students = collect();
         foreach ($studentList as $studentData) {
-            $user = User::create([
+            $user = User::withTrashed()->updateOrCreate([
                 'name' => $studentData['name'],
                 'email' => $studentData['email'],
                 'password' => bcrypt('password1234'),
@@ -2886,7 +2886,7 @@ class DatabaseSeeder extends Seeder
                 'updated_at' => $studentData['last_modified'],
             ]);
 
-            $students->push(\App\Models\Student::create([
+            $students->push(\App\Models\Student::withTrashed()->updateOrCreate([
                 'user_id' => $user->id,
                 'qualification' => $this->getQualification($studentData['birth_year']),
                 'memorization_level' => $studentData['memorization_level'],
@@ -2911,7 +2911,7 @@ class DatabaseSeeder extends Seeder
 
         $teachers = collect();
         foreach ($teacherList as $teacherData) {
-            $user = \App\Models\User::create([
+            $user = \App\Models\User::withTrashed()->updateOrCreate([
                 'name' => $teacherData['name'],
                 'email' => $teacherData['email'],
                 'password' => bcrypt('password1234'),
@@ -2928,7 +2928,7 @@ class DatabaseSeeder extends Seeder
                 'updated_at' => $teacherData['last_modified'],
             ]);
 
-            $teachers->push(\App\Models\Teacher::create([
+            $teachers->push(\App\Models\Teacher::withTrashed()->updateOrCreate([
                 'user_id' => $user->id,
                 'bio' => 'معلم متخصص في تحفيظ القرآن',
                 'experience_years' => rand(1, 20),
@@ -2937,7 +2937,7 @@ class DatabaseSeeder extends Seeder
             ]));
         } {
             $admin = collect();
-            $user = User::create([
+            $user = User::withTrashed()->updateOrCreate([
                 'name' => "عمران غالب محمد ناصر",
                 'email' => "amran@naser.com",
                 'password' => bcrypt('amran$$$025'),
@@ -2952,7 +2952,7 @@ class DatabaseSeeder extends Seeder
                 'school_id' => $schools->random()->id,
             ]);
 
-            $admin->push(\App\Models\Admin::create([
+            $admin->push(\App\Models\Admin::withTrashed()->updateOrCreate([
                 'user_id' => $user->id,
                 'super_admin' => true,
                 'status' => 'accepted',
@@ -2963,7 +2963,7 @@ class DatabaseSeeder extends Seeder
         $halaqahs = collect();
         foreach (range(1, 20) as $i) {
             $teacher = $teachers->random();
-            $halaqah = \App\Models\Halaqah::create([
+            $halaqah = \App\Models\Halaqah::withTrashed()->updateOrCreate([
                 'name' => "حلقة {$schoolNames[$i]}",
                 'avatar' => 'https://example.com/halaqah.png',
                 'gender' => 'male',
@@ -2991,7 +2991,7 @@ class DatabaseSeeder extends Seeder
             ['name_ar' => 'صفحة', 'code' =>  'page'],
         ])->map(
             fn($f) =>
-            \App\Models\Unit::create([
+            \App\Models\Unit::withTrashed()->updateOrCreate([
                 'code' => $f['code'],
                 'name_ar' => $f['name_ar'],
             ])
@@ -3006,7 +3006,7 @@ class DatabaseSeeder extends Seeder
             ['name' => 'ثلاث مرات بالأسبوع', 'days_between' => 2],
         ])->map(
             fn($f) =>
-            \App\Models\FrequencyType::create([
+            \App\Models\FrequencyType::withTrashed()->updateOrCreate([
                 'name' => $f['name'],
                 'days_between' => $f['days_between'],
                 'description' => "تكرار {$f['name']}",
@@ -3542,7 +3542,7 @@ class DatabaseSeeder extends Seeder
 
         $plans = collect();
         foreach ($realisticPlans as $planData) {
-            $plans->push(\App\Models\Plan::create([
+            $plans->push(\App\Models\Plan::withTrashed()->updateOrCreate([
                 'name' => $planData['name'],
                 'description' => $planData['description'],
                 'start_date' => now(),
@@ -3563,7 +3563,7 @@ class DatabaseSeeder extends Seeder
 
         // Enroll students and assign a current plan
         foreach ($students as $student) {
-            $enrollment = \App\Models\Enrollment::create([
+            $enrollment = \App\Models\Enrollment::withTrashed()->updateOrCreate([
                 'student_id' => $student->id,
                 'halaqah_id' => $halaqahs->random()->id,
                 'enrolled_at' => now()->subDays(rand(1, 20)),
@@ -3575,11 +3575,11 @@ class DatabaseSeeder extends Seeder
             ['name_ar' => 'حفظ', 'name_en' => 'Memorization'],
             ['name_ar' => 'مراجعة', 'name_en' => 'Review'],
             ['name_ar' => 'سرد', 'name_en' => 'Recitation'],
-        ])->map(fn($t) => \App\Models\TrackingType::create($t));
+        ])->map(fn($t) => \App\Models\TrackingType::withTrashed()->updateOrCreate($t));
 
         $trackingUnits = collect();
         foreach ($trackingUnitArray as $trackingUnitData) {
-            $trackingUnits->push(\App\Models\TrackingUnit::create([
+            $trackingUnits->push(\App\Models\TrackingUnit::withTrashed()->updateOrCreate([
                 'unit_id' => $trackingUnitData[1],
                 'from_surah' => $trackingUnitData[2],
                 'from_page' => $trackingUnitData[3],
@@ -3613,7 +3613,7 @@ class DatabaseSeeder extends Seeder
                 if (isset($dayData['id'])) unset($dayData['id']);
 
                 // إنشاء التتبع (Parent)
-                $tracking = \App\Models\Tracking::create($dayData);
+                $tracking = \App\Models\Tracking::withTrashed()->updateOrCreate($dayData);
 
                 // إنشاء التفاصيل (Children)
                 foreach ($details as $detailData) {
@@ -3623,14 +3623,14 @@ class DatabaseSeeder extends Seeder
                     // حذف الـ id القديم للتفصيل
                     if (isset($detailData['id'])) unset($detailData['id']);
 
-                    \App\Models\TrackingDetail::create($detailData);
+                    \App\Models\TrackingDetail::withTrashed()->updateOrCreate($detailData);
                 }
             }
         }
 
         // $trackings = collect();
         // foreach (range(1, 10) as $i) {
-        //     $trackings->push(\App\Models\Tracking::create([
+        //     $trackings->push(\App\Models\Tracking::withTrashed()->updateOrCreate([
         //         'plan_id' => $plans->random()->id,
         //         'date' => now()->subDays($i),
         //         'note' => 'ملاحظات اليوم',
@@ -3640,7 +3640,7 @@ class DatabaseSeeder extends Seeder
 
         // // ✅ تفاصيل التتبع
         // foreach ($trackings as $track) {
-        //     \App\Models\TrackingDetail::create([
+        //     \App\Models\TrackingDetail::withTrashed()->updateOrCreate([
         //         'tracking_id' => $track->id,
         //         'tracking_type_id' => $trackingTypes->random()->id,
         //         'from_tracking_unit_id' => $trackingUnits->random()->id,
