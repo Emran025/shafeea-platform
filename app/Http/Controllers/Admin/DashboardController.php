@@ -26,8 +26,9 @@ class DashboardController extends Controller
             ->get();
 
         // Fixed: Select gender column for strict group by compliance
-        $studentsByGender = Student::select('gender', DB::raw('count(*) as total'))
-            ->groupBy('gender')
+        $studentsByGender = Student::join('users', 'students.user_id', '=', 'users.id')
+            ->select('users.gender', DB::raw('count(*) as total'))
+            ->groupBy('users.gender')
             ->get();
 
         // Fixed: Use whereColumn for comparing two columns (PostgreSQL compatibility)
