@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Password;
 use App\Enums\AdminStatus;
 
+use App\Http\Requests\StoreStudentApplicantRequest;
+use App\Models\StudentApplicant;
+use Illuminate\Support\Facades\Hash;
+
+
 class AuthController extends ApiController
 {
     /**
@@ -98,12 +103,23 @@ class AuthController extends ApiController
      * POST /api/v1/auth/register
      * Register a new user, save device info, and return token/profile.
      */
-    public function register(Request $request)
+    public function register(StoreStudentApplicantRequest $request)
     {
+
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
+            'avatar' => 'nullable|string|max:255',
+            'phone' => 'nullable|string|max:255',
+            'phone_zone' => 'nullable|string|max:10',
+            'whatsapp' => 'nullable|string|max:255',
+            'whatsapp_zone' => 'nullable|string|max:10',
+            'gender' => 'nullable|in:Male,Female',
+            'birth_date' => 'nullable|date|before:today',
+            'country' => 'nullable|string|max:255',
+            'city' => 'nullable|string|max:255',
+            'residence' => 'nullable|string|max:255',
             'device_info' => 'required|array',
             'device_info.device_id' => 'required|string|max:255',
             'device_info.model' => 'required|string|max:100',
@@ -115,14 +131,35 @@ class AuthController extends ApiController
             'device_info.fcm_token' => 'nullable|string|max:255',
         ]);
 
+
         if ($validator->fails()) {
             return $this->error('Validation Error.', 422, $validator->errors()->toArray());
         }
-
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => bcrypt($request->password),
+            'password' => Hash::make($request->password),
+            'avatar' => $request->avatar,
+            'phone' => $request->phone,
+            'phone_zone' => $request->phone_zone,
+            'whatsapp' => $request->whatsapp,
+            'whatsapp_zone' => $request->whatsapp_zone,
+            'gender' => $request->gender,
+            'birth_date' => $request->birth_date,
+            'country' => $request->country,
+            'city' => $request->city,
+            'residence' => $request->residence,
+        ]);
+
+        StudentApplicant::create([
+            'user_id' => $user->id,
+            'school_id' => $request->school_id,
+            'application_type' => 'student',
+            'status' => 'pending',
+            'bio' => $request->bio,
+            'qualifications' => $request->qualifications,
+            'memorization_level' => $request->input('memorization_level', 0),
+            'submitted_at' => now(),
         ]);
 
         $deviceInfo = $request->input('device_info');
@@ -142,9 +179,8 @@ class AuthController extends ApiController
                 'avatar' => $user->avatar,
             ],
             'role' => 'user', // Default role for new users
-        ], 'Registration successful.');
+        ], 'Application submitted successfully');
     }
-
 
     /**
      * POST /api/v1/auth/refresh
