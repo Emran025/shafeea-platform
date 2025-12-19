@@ -13,9 +13,10 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Password;
 use App\Enums\AdminStatus;
 
-use App\Http\Requests\StoreStudentApplicantRequest;
 use App\Models\StudentApplicant;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Student;
+use App\Models\ApplicantRejection;
 
 
 class AuthController extends ApiController
@@ -103,23 +104,27 @@ class AuthController extends ApiController
      * POST /api/v1/auth/register
      * Register a new user, save device info, and return token/profile.
      */
-    public function register(StoreStudentApplicantRequest $request)
-    {
 
+    public function register(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+            'email' => 'required|string|email|max:255|unique:users,email',
             'password' => 'required|string|min:8|confirmed',
-            'avatar' => 'nullable|string|max:255',
-            'phone' => 'nullable|string|max:255',
-            'phone_zone' => 'nullable|string|max:10',
-            'whatsapp' => 'nullable|string|max:255',
-            'whatsapp_zone' => 'nullable|string|max:10',
+            'bio' => 'required|string',
+            'qualifications' => 'required|string',
+            'school_id' => 'nullable|exists:schools,id',
+            'memorization_level' => 'sometimes|integer|between:0,30',
+            'avatar' => 'nullable|string',
+            'phone' => 'nullable|string',
+            'phone_zone' => 'nullable|string',
+            'whatsapp' => 'nullable|string',
+            'whatsapp_zone' => 'nullable|string',
             'gender' => 'nullable|in:Male,Female',
-            'birth_date' => 'nullable|date|before:today',
-            'country' => 'nullable|string|max:255',
-            'city' => 'nullable|string|max:255',
-            'residence' => 'nullable|string|max:255',
+            'birth_date' => 'nullable|date',
+            'country' => 'nullable|string',
+            'city' => 'nullable|string',
+            'residence' => 'nullable|string',
             'device_info' => 'required|array',
             'device_info.device_id' => 'required|string|max:255',
             'device_info.model' => 'required|string|max:100',
@@ -217,6 +222,52 @@ class AuthController extends ApiController
         $request->user()->currentAccessToken()->delete();
 
         return $this->success(null, 'Successfully logged out');
+    }
+
+    /**
+     * GET /api/v1/auth/applicant-status
+     * Check the current authenticated user's applicant status.
+     * Returns applicant record, whether it was moved to students table,
+     * and any rejection reason if present.
+     */
+    public function applicantStatus(Request $request)
+    {
+        $user = $request->user();
+
+        $applicant = StudentApplicant::where('user_id', $user->id)->first();
+
+        if (! $applicant) {
+            return $this->success([
+                'exists' => false,
+                'message' => 'No application found for this user.',
+            ], 'Application status retrieved.');
+        }
+
+        // Check whether a corresponding student record exists (moved to students table)
+        $movedToStudent = Student::where('user_id', $user->id)->exists();
+
+        // Attempt to find a rejection record in applicant_rejections table
+        $rejectionRecord = ApplicantRejection::where('applicant_id', $applicant->id)->latest()->first();
+
+        $rejection = null;
+        if ($rejectionRecord) {
+            $rejection = [
+                'reason' => $rejectionRecord->reason,
+                'school_id' => $rejectionRecord->school_id,
+            ];
+        } elseif (! empty($applicant->rejection_reason)) {
+            $rejection = [
+                'reason' => $applicant->rejection_reason,
+            ];
+        }
+
+        return $this->success([
+            'exists' => true,
+            'status' => $applicant->status,
+            'moved_to_students_table' => (bool) $movedToStudent,
+            'applicant' => $applicant,
+            'rejection' => $rejection,
+        ], 'Application status retrieved.');
     }
 
     /**

@@ -16,7 +16,7 @@ use App\Http\Controllers\Api\V1\ApplicantSubmissionController;
 use App\Http\Controllers\Api\V1\Admin\AdminApplicantController;
 
 // Public routes
-Route::prefix('v1')->group(function() {
+Route::prefix('v1')->group(function () {
     Route::prefix('auth')->name('auth.')->group(function () {
         Route::post('register', [AuthController::class, 'register'])->name('register');
         Route::post('login', [AuthController::class, 'login'])->name('login');
@@ -31,6 +31,7 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
     Route::prefix('auth')->name('auth.')->group(function () {
         Route::post('refresh', [AuthController::class, 'refresh'])->name('refresh');
         Route::get('me', [AuthController::class, 'me'])->name('me');
+        Route::get('applicant-status', [AuthController::class, 'applicantStatus'])->name('applicant.status');
         Route::post('logout', [AuthController::class, 'logout'])->name('logout');
     });
 
