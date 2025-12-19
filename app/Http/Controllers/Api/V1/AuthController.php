@@ -234,19 +234,35 @@ class AuthController extends ApiController
     {
         $user = $request->user();
 
+        // First, check if the user already exists as a Student (migrated without an applicant record)
+        $student = Student::where('user_id', $user->id)->first();
+        if ($student) {
+            return $this->success([
+                'exists' => true,
+                'role' => 'student',
+                'status' => 'approved',
+                'moved_to_students_table' => true,
+                'rejection' => null,
+            ], 'User is an active student.');
+        }
+
+        // Then check if there's an applicant record
         $applicant = StudentApplicant::where('user_id', $user->id)->first();
 
         if (! $applicant) {
             return $this->success([
                 'exists' => false,
-                'message' => 'No application found for this user.',
-            ], 'Application status retrieved.');
+                'role' => 'Undifind',
+                'status' => 'Undifind',
+                'moved_to_students_table' => true,
+                'rejection' => null,
+            ], 'No application or student record found for this user.');
         }
 
-        // Check whether a corresponding student record exists (moved to students table)
-        $movedToStudent = Student::where('user_id', $user->id)->exists();
+        // Since we didn't find a student above, movedToStudent is false
+        $movedToStudent = false;
 
-        // Attempt to find a rejection record in applicant_rejections table
+        // Find latest explicit rejection entry if any
         $rejectionRecord = ApplicantRejection::where('applicant_id', $applicant->id)->latest()->first();
 
         $rejection = null;
@@ -258,14 +274,15 @@ class AuthController extends ApiController
         } elseif (! empty($applicant->rejection_reason)) {
             $rejection = [
                 'reason' => $applicant->rejection_reason,
+                'school_id' => $applicant->school_id ?? null,
             ];
         }
 
         return $this->success([
             'exists' => true,
+            'role' => 'applicant',
             'status' => $applicant->status,
             'moved_to_students_table' => (bool) $movedToStudent,
-            'applicant' => $applicant,
             'rejection' => $rejection,
         ], 'Application status retrieved.');
     }
