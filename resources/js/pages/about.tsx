@@ -308,10 +308,10 @@ export default function About() {
                 </div>
             </section>
 
-
-            {/* Our Story Timeline - Creative & Fixed Visibility */}
-            <section className="py-24 bg-white dark:bg-gray-950 animate-fade-in-up overflow-hidden">
+            {/* Our Story Timeline - Modern & Responsive Optimized */}
+            <section className="py-24 bg-white dark:bg-gray-950 overflow-hidden">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    {/* Header */}
                     <div className="text-center mb-20">
                         <Badge className="mb-4 bg-purple-50 text-purple-700 hover:bg-purple-100 dark:bg-purple-900/20 dark:text-purple-300 border border-purple-200 dark:border-purple-800">
                             <Calendar className="w-4 h-4 ml-1" />
@@ -326,48 +326,53 @@ export default function About() {
                     </div>
 
                     <div className="relative">
-                        {/* Creative Line: Gradient & Dashed in Light Mode */}
-                        <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-gradient-to-b from-transparent via-primary/50 to-transparent"></div>
+                        {/* الخط العمودي - يتغير مكانه من اليمين في الجوال إلى المنتصف في الشاشات الكبيرة */}
+                        <div className="absolute right-5 lg:right-1/2 transform lg:translate-x-1/2 w-0.5 h-full bg-gradient-to-b from-primary/5 via-primary/40 to-primary/5"></div>
                         
-                        <div className="space-y-16">
+                        <div className="space-y-12 lg:space-y-20">
                             {milestones.map((milestone, index) => (
-                                <div key={index} className={`flex items-center ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} relative group`}>
-                                    {/* Card Side */}
-                                    <div className={`w-full lg:w-5/12 ${index % 2 === 0 ? 'lg:pr-12' : 'lg:pl-12'}`}>
-                                        <Card className="p-6 relative overflow-hidden transition-all duration-300 hover:shadow-lg border-border bg-card group-hover:border-primary/40">
-                                            {/* Decorative Background Icon */}
-                                            <milestone.icon className="absolute -left-4 -bottom-4 w-24 h-24 text-foreground/5 transform rotate-12 transition-transform group-hover:rotate-0" />
+                                <div key={index} className={`relative flex items-center justify-between group`}>
+                                    
+                                    {/* 1. الجانب الفارغ (يظهر فقط في الشاشات الكبيرة للتبادل) */}
+                                    <div className={`hidden lg:block lg:w-[45%] ${index % 2 === 0 ? 'order-1' : 'order-3'}`}></div>
+
+                                    {/* 2. النقطة المركزية - تتحاذى لليمين في الجوال وللمنتصف في الكبير */}
+                                    <div className="absolute right-0 lg:right-1/2 transform lg:translate-x-1/2 flex items-center justify-center z-10">
+                                        <div className="w-10 h-10 bg-background border-4 border-primary rounded-full flex items-center justify-center shadow-xl group-hover:scale-125 transition-transform duration-500">
+                                            <div className="w-2.5 h-2.5 bg-primary rounded-full animate-pulse"></div>
+                                        </div>
+                                    </div>
+
+                                    {/* 3. بطاقة المحتوى - تأخذ العرض كاملاً في الجوال مع إزاحة لليمين للخط */}
+                                    <div className={`w-full lg:w-[45%] pr-14 lg:pr-0 ${index % 2 === 0 ? 'lg:order-3 lg:text-right' : 'lg:order-1 lg:text-left'} order-2`}>
+                                        <Card className="p-6 lg:p-8 relative overflow-hidden transition-all duration-500 hover:shadow-2xl border-border bg-card/50 backdrop-blur-sm group-hover:border-primary/40 group-hover:-translate-y-2">
+                                            {/* أيقونة خلفية خفيفة */}
+                                            <milestone.icon className="absolute -left-6 -bottom-6 w-32 h-32 text-primary/5 transform rotate-12 transition-transform duration-700 group-hover:rotate-0 group-hover:scale-110" />
                                             
                                             <div className="relative z-10">
-                                                <span className="inline-block px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-bold mb-3 border border-primary/20">
-                                                    {milestone.year}
-                                                </span>
-                                                <h3 className="text-xl font-bold text-foreground mb-2">
+                                                <div className={`flex items-center gap-3 mb-4 ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'}`}>
+                                                    <span className="px-4 py-1.5 bg-primary text-primary-foreground rounded-full text-sm font-black shadow-lg shadow-primary/20">
+                                                        {milestone.year}
+                                                    </span>
+                                                    <div className="h-px flex-1 bg-gradient-to-r from-primary/20 to-transparent"></div>
+                                                </div>
+                                                
+                                                <h3 className="text-2xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors">
                                                     {milestone.title}
                                                 </h3>
-                                                <p className="text-muted-foreground">
+                                                <p className="text-muted-foreground leading-relaxed text-lg">
                                                     {milestone.description}
                                                 </p>
                                             </div>
                                         </Card>
                                     </div>
-                                    
-                                    {/* Center Node */}
-                                    <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center justify-center">
-                                        <div className="w-10 h-10 bg-background border-4 border-primary rounded-full flex items-center justify-center shadow-lg z-10 group-hover:scale-110 transition-transform">
-                                            <div className="w-3 h-3 bg-primary rounded-full"></div>
-                                        </div>
-                                    </div>
-                                    
-                                    {/* Empty Side */}
-                                    <div className="w-full lg:w-5/12"></div>
+
                                 </div>
                             ))}
                         </div>
                     </div>
                 </div>
             </section>
-            
             {/* Team Section - Refined Cards (Fixed Structure) */}
             {/* Team Section - "The Luxurious One" */}
             <section className="py-24 bg-gray-50 dark:bg-black relative border-t border-gray-200 dark:border-gray-800">

@@ -22,18 +22,11 @@ export default function Welcome() {
         <>
             <SiteLayout>
                 {/* Hero Section */}
-                <main className="relative overflow-hidden gradient-hero text-white shadow-lg scale-105">
+                <main className="relative overflow-hidden gradient-hero text-white shadow-lg">
                     
                     {/* Background Overlays & Noise */}
                     <div className="absolute inset-0 pointer-events-none">
-                        {/* 
-                            طبقة التعتيم الذكية:
-                            - شفافة في النهار (تظهر ألوان التيل/الزيتي)
-                            - سوداء نصف شفافة في الليل (لتعطي السواد الفخم القاتل)
-                        */}
                         <div className="absolute inset-0 bg-transparent dark:bg-black/40 transition-colors duration-300"></div>
-                        
-                        {/* تأثير الضجيج (Noise) لتوحيد الملمس */}
                         <div className="absolute inset-0 opacity-20 mix-blend-overlay">
                              <div className="absolute top-0 left-0 w-full h-full bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20"></div>
                         </div>
