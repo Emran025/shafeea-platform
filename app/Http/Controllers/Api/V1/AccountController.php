@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\Api\V1;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Api\V1\ApiController;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Password;
@@ -61,7 +59,7 @@ class AccountController extends ApiController
             return $this->error('Validation failed.', 422, $validator->errors());
         }
 
-        if (!Hash::check($request->current_password, $user->password)) {
+        if (! Hash::check($request->current_password, $user->password)) {
             return $this->error('The provided password does not match your current password.', 422);
         }
 

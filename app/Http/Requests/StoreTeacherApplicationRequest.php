@@ -18,7 +18,7 @@ class StoreTeacherApplicationRequest extends FormRequest
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'bio' => ['required', 'string'],
-            'qualifications' =>  ['required', 'string'],
+            'qualifications' => ['required', 'string'],
             'memorization_level' => ['required', 'integer'],
             'documents' => ['required', 'array'],
             'documents.*.name' => ['required', 'string', 'max:255'],

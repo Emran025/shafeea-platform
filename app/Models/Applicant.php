@@ -34,8 +34,8 @@ class Applicant extends Model
         return $this->belongsTo(School::class);
     }
 
-  public function rejections(): HasMany
-  {
-    return $this->hasMany(ApplicantRejection::class);
-  }
+    public function rejections(): HasMany
+    {
+        return $this->hasMany(ApplicantRejection::class);
+    }
 }

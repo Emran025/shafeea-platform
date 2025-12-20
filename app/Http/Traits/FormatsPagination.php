@@ -8,9 +8,6 @@ trait FormatsPagination
 {
     /**
      * Formats the pagination data from a LengthAwarePaginator instance.
-     *
-     * @param  \Illuminate\Contracts\Pagination\LengthAwarePaginator  $paginator
-     * @return array
      */
     protected function formatPagination(LengthAwarePaginator $paginator): array
     {

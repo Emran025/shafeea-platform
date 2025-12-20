@@ -17,8 +17,10 @@ class TeacherRepository
         $query->orderBy($sortBy, $sortOrder);
         if ($pagination) {
             $limit = $filters['limit'] ?? 10;
+
             return $query->paginate($limit);
         }
+
         return $query->get();
     }
 
@@ -41,6 +43,7 @@ class TeacherRepository
         if (isset($data['user'])) {
             $teacher->user->update($data['user']);
         }
+
         return $teacher->fresh(['user', 'halaqahs']);
     }
 
@@ -53,6 +56,7 @@ class TeacherRepository
             }
             // Assign teacher_id to each halaqah
             \App\Models\Halaqah::whereIn('id', $halaqaIds)->update(['teacher_id' => $teacherId]);
+
             return true;
         } catch (\Throwable $e) {
             \Log::error($e);
@@ -61,4 +65,4 @@ class TeacherRepository
     }
 
     // Add methods for assign, actions, etc. as needed
-} 
+}

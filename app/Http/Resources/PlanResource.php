@@ -28,4 +28,4 @@ class PlanResource extends JsonResource
             'updatedAt' => $this->updated_at,
         ];
     }
-} 
+}

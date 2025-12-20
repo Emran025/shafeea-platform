@@ -1,9 +1,9 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\V1\Admin\HelpController as AdminHelpController;
 use App\Http\Controllers\Api\V1\HelpController;
 use App\Http\Controllers\Api\V1\HelpTicketController;
-use App\Http\Controllers\Api\V1\Admin\HelpController as AdminHelpController;
+use Illuminate\Support\Facades\Route;
 
 Route::prefix('api/v1')->group(function () {
     /*

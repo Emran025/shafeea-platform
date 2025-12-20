@@ -1,12 +1,12 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\AccountController;
+use App\Http\Controllers\Admin\AdminSchoolController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\AdminSchoolController;
 use App\Http\Controllers\Admin\InquiryController;
 use App\Http\Controllers\Admin\PolicyController;
-use App\Http\Controllers\Admin\AccountController;
+use Illuminate\Support\Facades\Route;
 
 // Public admin login routes (accessible to guests only)
 Route::middleware('guest')->group(function () {

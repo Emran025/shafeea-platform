@@ -2,21 +2,18 @@
 
 namespace Database\Seeders;
 
+use App\Models\School;
 use App\Models\User;
-use \App\Models\School;
-
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-use function Laravel\Prompts\error;
-
 class DatabaseSeeder extends Seeder
 {
-
     public function run(): void
     {
         if (User::exists()) {
             $this->command->info('⚠️  Database is already seeded. Skipping seeder to prevent duplicates.');
+
             return;
         }
         $this->seedSystemData();
@@ -32,7 +29,8 @@ class DatabaseSeeder extends Seeder
             DocumentSeeder::class,
         ]);
     }
-    function seedSystemData(): void
+
+    public function seedSystemData(): void
     {
 
         $trackingUnitArray =
@@ -1090,10 +1088,9 @@ class DatabaseSeeder extends Seeder
                 [1051, 5, 'سُورَةُ العَصۡرِ', 601, 1, 'سُورَةُ الفِيلِ', 601, 5],
                 [1052, 5, 'سُورَةُ قُرَيۡشٍ', 602, 1, 'سُورَةُ الكَوۡثَرِ', 602, 3],
                 [1053, 5, 'سُورَةُ الكَافِرُونَ', 603, 1, 'سُورَةُ المَسَدِ', 603, 5],
-                [1054, 5, 'سُورَةُ الإِخۡلَاصِ', 604, 1, 'سُورَةُ النَّاسِ', 604, 6]
+                [1054, 5, 'سُورَةُ الإِخۡلَاصِ', 604, 1, 'سُورَةُ النَّاسِ', 604, 6],
 
             ];
-
 
         // ✅ قائمة المدارس
         $schoolNames = [
@@ -1119,7 +1116,7 @@ class DatabaseSeeder extends Seeder
             'التفوق',
             'السبيل',
             'الأمل',
-            'البركة'
+            'البركة',
         ];
 
         $schools = collect();
@@ -1127,7 +1124,7 @@ class DatabaseSeeder extends Seeder
             $school = School::create([
                 'name' => "مدرسة $name لتحفيظ القرآن",
                 'logo' => 'https://example.com/school.png',
-                'phone' => '+9677' . rand(10000000, 99999999),
+                'phone' => '+9677'.rand(10000000, 99999999),
                 'country' => 'اليمن',
                 'city' => 'صنعاء',
                 'location' => '15.3694,44.1910',
@@ -1137,11 +1134,11 @@ class DatabaseSeeder extends Seeder
             $admin = collect();
             $user = User::create([
                 'name' => "مشرف مدرسة $name ",
-                'email' => "amran" . $school->id . "@naser.com",
+                'email' => 'amran'.$school->id.'@naser.com',
                 'password' => bcrypt('amran$$$025'),
                 'avatar' => 'https://example.com/teacher.jpg',
                 'gender' => 'Male',
-                'birth_date' => '1980-01-' . rand(10, 28),
+                'birth_date' => '1980-01-'.rand(10, 28),
                 'phone' => '+967739123473',
                 'whatsapp' => '+96771989025',
                 'country' => 'اليمن',
@@ -1170,7 +1167,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2007,
-                    'memorization_level' => 25
+                    'memorization_level' => 25,
                 ],
                 [
                     'name' => 'فارس عبد الجبار',
@@ -1181,7 +1178,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2008,
-                    'memorization_level' => 18
+                    'memorization_level' => 18,
                 ],
                 [
                     'name' => 'مريم حسن',
@@ -1192,7 +1189,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => true,
                     'deletion_date' => '2023-12-05 16:30:00',
                     'birth_year' => 2009,
-                    'memorization_level' => 12
+                    'memorization_level' => 12,
                 ],
 
                 // 🟢 طلاب 2023 إضافيون
@@ -1205,7 +1202,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2006,
-                    'memorization_level' => 30
+                    'memorization_level' => 30,
                 ],
                 [
                     'name' => 'سلمى مصطفى',
@@ -1216,7 +1213,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2007,
-                    'memorization_level' => 22
+                    'memorization_level' => 22,
                 ],
                 [
                     'name' => 'محمد خالد',
@@ -1227,7 +1224,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => true,
                     'deletion_date' => '2023-11-15 13:40:00',
                     'birth_year' => 2008,
-                    'memorization_level' => 15
+                    'memorization_level' => 15,
                 ],
                 [
                     'name' => 'هديل عمر',
@@ -1238,7 +1235,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2009,
-                    'memorization_level' => 20
+                    'memorization_level' => 20,
                 ],
                 [
                     'name' => 'ياسر ناصر',
@@ -1249,7 +1246,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2007,
-                    'memorization_level' => 28
+                    'memorization_level' => 28,
                 ],
                 [
                     'name' => 'لين طارق',
@@ -1260,7 +1257,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => true,
                     'deletion_date' => '2023-10-20 10:45:00',
                     'birth_year' => 2010,
-                    'memorization_level' => 8
+                    'memorization_level' => 8,
                 ],
                 [
                     'name' => 'عماد الدين',
@@ -1271,7 +1268,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2006,
-                    'memorization_level' => 32
+                    'memorization_level' => 32,
                 ],
                 [
                     'name' => 'رنا سليمان',
@@ -1282,7 +1279,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2008,
-                    'memorization_level' => 17
+                    'memorization_level' => 17,
                 ],
                 [
                     'name' => 'وليد حمدي',
@@ -1293,7 +1290,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2007,
-                    'memorization_level' => 24
+                    'memorization_level' => 24,
                 ],
                 [
                     'name' => 'جمانة فارس',
@@ -1304,7 +1301,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2009,
-                    'memorization_level' => 19
+                    'memorization_level' => 19,
                 ],
                 [
                     'name' => 'زياد قاسم',
@@ -1315,7 +1312,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2008,
-                    'memorization_level' => 16
+                    'memorization_level' => 16,
                 ],
 
                 // 🟢 طلاب تم إنشاؤهم في بداية 2024
@@ -1328,7 +1325,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2010,
-                    'memorization_level' => 8
+                    'memorization_level' => 8,
                 ],
                 [
                     'name' => 'سارة عبد الله',
@@ -1339,7 +1336,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2009,
-                    'memorization_level' => 15
+                    'memorization_level' => 15,
                 ],
                 [
                     'name' => 'خالد سعيد',
@@ -1350,7 +1347,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => true,
                     'deletion_date' => '2024-03-10 13:15:00',
                     'birth_year' => 2008,
-                    'memorization_level' => 3
+                    'memorization_level' => 3,
                 ],
 
                 // 🟢 طلاب يناير 2024 إضافيون
@@ -1363,7 +1360,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2011,
-                    'memorization_level' => 6
+                    'memorization_level' => 6,
                 ],
                 [
                     'name' => 'آية محمد',
@@ -1374,7 +1371,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2010,
-                    'memorization_level' => 12
+                    'memorization_level' => 12,
                 ],
                 [
                     'name' => 'مازن ربيع',
@@ -1385,7 +1382,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2009,
-                    'memorization_level' => 14
+                    'memorization_level' => 14,
                 ],
                 [
                     'name' => 'تالا سمير',
@@ -1396,7 +1393,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => true,
                     'deletion_date' => '2024-02-28 09:15:00',
                     'birth_year' => 2012,
-                    'memorization_level' => 2
+                    'memorization_level' => 2,
                 ],
                 [
                     'name' => 'باسل كمال',
@@ -1407,7 +1404,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2008,
-                    'memorization_level' => 18
+                    'memorization_level' => 18,
                 ],
 
                 // 🟢 طلاب فبراير 2024
@@ -1420,7 +1417,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2011,
-                    'memorization_level' => 9
+                    'memorization_level' => 9,
                 ],
                 [
                     'name' => 'عمران حسن',
@@ -1431,7 +1428,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2007,
-                    'memorization_level' => 23
+                    'memorization_level' => 23,
                 ],
                 [
                     'name' => ' أماني محمود',
@@ -1442,7 +1439,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2009,
-                    'memorization_level' => 14
+                    'memorization_level' => 14,
                 ],
                 [
                     'name' => 'فهد عادل',
@@ -1453,7 +1450,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => true,
                     'deletion_date' => '2024-05-10 10:30:00',
                     'birth_year' => 2010,
-                    'memorization_level' => 5
+                    'memorization_level' => 5,
                 ],
                 [
                     'name' => 'سهام نادر',
@@ -1464,7 +1461,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2012,
-                    'memorization_level' => 4
+                    'memorization_level' => 4,
                 ],
 
                 // 🟢 طلاب مارس 2024
@@ -1477,7 +1474,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2011,
-                    'memorization_level' => 5
+                    'memorization_level' => 5,
                 ],
                 [
                     'name' => 'عمر ناصر',
@@ -1488,7 +1485,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2007,
-                    'memorization_level' => 22
+                    'memorization_level' => 22,
                 ],
                 [
                     'name' => 'ندى وائل',
@@ -1499,7 +1496,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2010,
-                    'memorization_level' => 11
+                    'memorization_level' => 11,
                 ],
                 [
                     'name' => 'ماهر سليم',
@@ -1510,7 +1507,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2008,
-                    'memorization_level' => 16
+                    'memorization_level' => 16,
                 ],
                 [
                     'name' => 'جنى علي',
@@ -1521,7 +1518,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => true,
                     'deletion_date' => '2024-04-15 11:25:00',
                     'birth_year' => 2011,
-                    'memorization_level' => 3
+                    'memorization_level' => 3,
                 ],
                 [
                     'name' => 'رياض منصور',
@@ -1532,7 +1529,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2009,
-                    'memorization_level' => 13
+                    'memorization_level' => 13,
                 ],
 
                 // 🟢 طلاب أبريل 2024
@@ -1545,7 +1542,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => true,
                     'deletion_date' => '2024-06-25 12:10:00',
                     'birth_year' => 2010,
-                    'memorization_level' => 7
+                    'memorization_level' => 7,
                 ],
                 [
                     'name' => 'قصي محسن',
@@ -1556,7 +1553,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2011,
-                    'memorization_level' => 8
+                    'memorization_level' => 8,
                 ],
                 [
                     'name' => 'ميار راشد',
@@ -1567,7 +1564,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2012,
-                    'memorization_level' => 5
+                    'memorization_level' => 5,
                 ],
                 [
                     'name' => 'أنس جميل',
@@ -1578,7 +1575,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2009,
-                    'memorization_level' => 15
+                    'memorization_level' => 15,
                 ],
                 [
                     'name' => 'فاطمة زهراء',
@@ -1589,7 +1586,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2010,
-                    'memorization_level' => 10
+                    'memorization_level' => 10,
                 ],
                 [
                     'name' => 'هادي نبيل',
@@ -1600,7 +1597,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => true,
                     'deletion_date' => '2024-05-20 12:40:00',
                     'birth_year' => 2008,
-                    'memorization_level' => 4
+                    'memorization_level' => 4,
                 ],
 
                 // 🟢 طلاب مايو 2024
@@ -1613,7 +1610,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2007,
-                    'memorization_level' => 26
+                    'memorization_level' => 26,
                 ],
                 [
                     'name' => 'سجى كريم',
@@ -1624,7 +1621,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2011,
-                    'memorization_level' => 7
+                    'memorization_level' => 7,
                 ],
                 [
                     'name' => 'موسى حازم',
@@ -1635,7 +1632,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2009,
-                    'memorization_level' => 17
+                    'memorization_level' => 17,
                 ],
                 [
                     'name' => 'يارا صباح',
@@ -1646,7 +1643,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2007,
-                    'memorization_level' => 19
+                    'memorization_level' => 19,
                 ],
                 [
                     'name' => 'عبد الله وليد',
@@ -1657,7 +1654,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => true,
                     'deletion_date' => '2024-07-15 10:10:00',
                     'birth_year' => 2012,
-                    'memorization_level' => 2
+                    'memorization_level' => 2,
                 ],
                 [
                     'name' => 'لمى سامي',
@@ -1668,7 +1665,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2010,
-                    'memorization_level' => 12
+                    'memorization_level' => 12,
                 ],
 
                 // 🟢 طلاب يونيو 2024
@@ -1681,7 +1678,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2010,
-                    'memorization_level' => 11
+                    'memorization_level' => 11,
                 ],
                 [
                     'name' => 'ممدوح عثمان',
@@ -1692,7 +1689,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2008,
-                    'memorization_level' => 20
+                    'memorization_level' => 20,
                 ],
                 [
                     'name' => 'رؤى حسن',
@@ -1703,7 +1700,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2011,
-                    'memorization_level' => 8
+                    'memorization_level' => 8,
                 ],
                 [
                     'name' => 'صلاح الدين',
@@ -1714,7 +1711,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2007,
-                    'memorization_level' => 27
+                    'memorization_level' => 27,
                 ],
                 [
                     'name' => 'نادين عماد',
@@ -1725,7 +1722,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => true,
                     'deletion_date' => '2024-07-20 14:30:00',
                     'birth_year' => 2012,
-                    'memorization_level' => 3
+                    'memorization_level' => 3,
                 ],
                 [
                     'name' => 'حسام عادل',
@@ -1736,7 +1733,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2009,
-                    'memorization_level' => 16
+                    'memorization_level' => 16,
                 ],
 
                 // 🟢 طلاب يوليو 2024
@@ -1749,7 +1746,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2012,
-                    'memorization_level' => 2
+                    'memorization_level' => 2,
                 ],
                 [
                     'name' => 'نورا رامي',
@@ -1760,7 +1757,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2011,
-                    'memorization_level' => 6
+                    'memorization_level' => 6,
                 ],
                 [
                     'name' => 'مصطفى جمال',
@@ -1771,7 +1768,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2010,
-                    'memorization_level' => 13
+                    'memorization_level' => 13,
                 ],
                 [
                     'name' => 'إيناس رضا',
@@ -1782,7 +1779,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2012,
-                    'memorization_level' => 4
+                    'memorization_level' => 4,
                 ],
                 [
                     'name' => 'باسل وليد',
@@ -1793,7 +1790,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2009,
-                    'memorization_level' => 9
+                    'memorization_level' => 9,
                 ],
                 [
                     'name' => 'وسام نبيل',
@@ -1804,7 +1801,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2011,
-                    'memorization_level' => 7
+                    'memorization_level' => 7,
                 ],
                 [
                     'name' => 'ميرنا ماهر',
@@ -1815,7 +1812,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => true,
                     'deletion_date' => '2024-08-25 16:15:00',
                     'birth_year' => 2010,
-                    'memorization_level' => 5
+                    'memorization_level' => 5,
                 ],
 
                 // 🟢 طلاب أغسطس 2024
@@ -1828,7 +1825,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2010,
-                    'memorization_level' => 6
+                    'memorization_level' => 6,
                 ],
                 [
                     'name' => 'قصي عماد',
@@ -1839,7 +1836,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2012,
-                    'memorization_level' => 1
+                    'memorization_level' => 1,
                 ],
                 [
                     'name' => 'دانية وسام',
@@ -1850,7 +1847,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2011,
-                    'memorization_level' => 3
+                    'memorization_level' => 3,
                 ],
                 [
                     'name' => 'أنور سعد',
@@ -1861,7 +1858,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2009,
-                    'memorization_level' => 14
+                    'memorization_level' => 14,
                 ],
                 [
                     'name' => 'سلمى ناصر',
@@ -1872,7 +1869,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2010,
-                    'memorization_level' => 6
+                    'memorization_level' => 6,
                 ],
                 [
                     'name' => 'مازن حمدان',
@@ -1883,7 +1880,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => true,
                     'deletion_date' => '2024-09-28 15:45:00',
                     'birth_year' => 2008,
-                    'memorization_level' => 7
+                    'memorization_level' => 7,
                 ],
 
                 // 🟢 طلاب سبتمبر 2024
@@ -1896,7 +1893,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2011,
-                    'memorization_level' => 2
+                    'memorization_level' => 2,
                 ],
                 [
                     'name' => 'وليد ربيع',
@@ -1907,7 +1904,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2010,
-                    'memorization_level' => 8
+                    'memorization_level' => 8,
                 ],
                 [
                     'name' => 'لارا عثمان',
@@ -1918,7 +1915,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2012,
-                    'memorization_level' => 1
+                    'memorization_level' => 1,
                 ],
                 [
                     'name' => 'هشام قاسم',
@@ -1929,7 +1926,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2012,
-                    'memorization_level' => 1
+                    'memorization_level' => 1,
                 ],
                 [
                     'name' => 'نورين محمد',
@@ -1940,7 +1937,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2011,
-                    'memorization_level' => 4
+                    'memorization_level' => 4,
                 ],
                 [
                     'name' => 'رامي زيد',
@@ -1951,7 +1948,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => true,
                     'deletion_date' => '2024-10-15 09:40:00',
                     'birth_year' => 2009,
-                    'memorization_level' => 6
+                    'memorization_level' => 6,
                 ],
                 [
                     'name' => 'ميس طلال',
@@ -1962,7 +1959,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2011,
-                    'memorization_level' => 2
+                    'memorization_level' => 2,
                 ],
 
                 // 🟢 طلاب أكتوبر 2024
@@ -1975,7 +1972,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2008,
-                    'memorization_level' => 3
+                    'memorization_level' => 3,
                 ],
                 [
                     'name' => 'رنا محسن',
@@ -1986,7 +1983,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2010,
-                    'memorization_level' => 7
+                    'memorization_level' => 7,
                 ],
                 [
                     'name' => 'كمال حسن',
@@ -1997,7 +1994,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2009,
-                    'memorization_level' => 10
+                    'memorization_level' => 10,
                 ],
                 [
                     'name' => 'سارة نهاد',
@@ -2008,7 +2005,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2011,
-                    'memorization_level' => 5
+                    'memorization_level' => 5,
                 ],
                 [
                     'name' => 'محمود عيسى',
@@ -2019,7 +2016,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2008,
-                    'memorization_level' => 11
+                    'memorization_level' => 11,
                 ],
                 [
                     'name' => 'ديما كريم',
@@ -2030,7 +2027,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2012,
-                    'memorization_level' => 1
+                    'memorization_level' => 1,
                 ],
                 [
                     'name' => 'علياء وائل',
@@ -2041,7 +2038,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2012,
-                    'memorization_level' => 1
+                    'memorization_level' => 1,
                 ],
                 [
                     'name' => 'بدر نوري',
@@ -2052,7 +2049,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2010,
-                    'memorization_level' => 6
+                    'memorization_level' => 6,
                 ],
                 [
                     'name' => 'جود رافع',
@@ -2063,7 +2060,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2011,
-                    'memorization_level' => 3
+                    'memorization_level' => 3,
                 ],
 
                 // 🟢 طلاب نوفمبر 2024 (أحدث الطلاب)
@@ -2076,7 +2073,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2012,
-                    'memorization_level' => 1
+                    'memorization_level' => 1,
                 ],
                 [
                     'name' => 'عمر رفعت',
@@ -2087,7 +2084,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2011,
-                    'memorization_level' => 2
+                    'memorization_level' => 2,
                 ],
                 [
                     'name' => 'ميار سعيد',
@@ -2098,7 +2095,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2010,
-                    'memorization_level' => 4
+                    'memorization_level' => 4,
                 ],
                 [
                     'name' => 'قصي بشار',
@@ -2109,7 +2106,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2009,
-                    'memorization_level' => 8
+                    'memorization_level' => 8,
                 ],
                 [
                     'name' => 'ليندا عادل',
@@ -2120,7 +2117,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2012,
-                    'memorization_level' => 1
+                    'memorization_level' => 1,
                 ],
                 [
                     'name' => 'أنس شاكر',
@@ -2131,7 +2128,7 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2010,
-                    'memorization_level' => 5
+                    'memorization_level' => 5,
                 ],
                 [
                     'name' => 'سلمى غالب',
@@ -2142,8 +2139,8 @@ class DatabaseSeeder extends Seeder
                     'is_deleted' => false,
                     'deletion_date' => null,
                     'birth_year' => 2011,
-                    'memorization_level' => 2
-                ]
+                    'memorization_level' => 2,
+                ],
             ]
         );
 
@@ -2160,7 +2157,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => false,
                         'deletion_date' => null,
                         'birth_year' => 2005,
-                        'memorization_level' => 28
+                        'memorization_level' => 28,
                     ],
                     [
                         'name' => 'نورة عبد العزيز الشمري',
@@ -2171,7 +2168,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => false,
                         'deletion_date' => null,
                         'birth_year' => 2006,
-                        'memorization_level' => 24
+                        'memorization_level' => 24,
                     ],
                     [
                         'name' => 'فيصل ناصر القحطاني',
@@ -2182,7 +2179,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => true,
                         'deletion_date' => '2023-11-20 16:40:00',
                         'birth_year' => 2007,
-                        'memorization_level' => 15
+                        'memorization_level' => 15,
                     ],
 
                     // 🟢 طلاب 2023 إضافيون
@@ -2195,7 +2192,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => false,
                         'deletion_date' => null,
                         'birth_year' => 2006,
-                        'memorization_level' => 26
+                        'memorization_level' => 26,
                     ],
                     [
                         'name' => 'تركي أحمد الغامدي',
@@ -2206,7 +2203,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => false,
                         'deletion_date' => null,
                         'birth_year' => 2005,
-                        'memorization_level' => 30
+                        'memorization_level' => 30,
                     ],
                     [
                         'name' => 'الجوهرة سعد السبيعي',
@@ -2217,7 +2214,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => true,
                         'deletion_date' => '2023-12-15 12:15:00',
                         'birth_year' => 2008,
-                        'memorization_level' => 12
+                        'memorization_level' => 12,
                     ],
                     [
                         'name' => 'بدر عبد الله الزهراني',
@@ -2228,7 +2225,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => false,
                         'deletion_date' => null,
                         'birth_year' => 2007,
-                        'memorization_level' => 22
+                        'memorization_level' => 22,
                     ],
                     [
                         'name' => 'شهد خالد المطيري',
@@ -2239,7 +2236,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => false,
                         'deletion_date' => null,
                         'birth_year' => 2006,
-                        'memorization_level' => 19
+                        'memorization_level' => 19,
                     ],
                     [
                         'name' => 'عبد الإله راشد الشهراني',
@@ -2250,7 +2247,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => false,
                         'deletion_date' => null,
                         'birth_year' => 2005,
-                        'memorization_level' => 32
+                        'memorization_level' => 32,
                     ],
                     [
                         'name' => 'عهود صالح الغفيلي',
@@ -2261,7 +2258,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => false,
                         'deletion_date' => null,
                         'birth_year' => 2007,
-                        'memorization_level' => 18
+                        'memorization_level' => 18,
                     ],
                     [
                         'name' => 'سلطان فيصل الحارثي',
@@ -2272,7 +2269,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => false,
                         'deletion_date' => null,
                         'birth_year' => 2006,
-                        'memorization_level' => 25
+                        'memorization_level' => 25,
                     ],
                     [
                         'name' => 'نوف عبد الرحمن الدوسري',
@@ -2283,7 +2280,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => false,
                         'deletion_date' => null,
                         'birth_year' => 2008,
-                        'memorization_level' => 16
+                        'memorization_level' => 16,
                     ],
 
                     // 🟢 طلاب يناير 2024
@@ -2296,7 +2293,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => false,
                         'deletion_date' => null,
                         'birth_year' => 2009,
-                        'memorization_level' => 14
+                        'memorization_level' => 14,
                     ],
                     [
                         'name' => 'جواهر محمد القصير',
@@ -2307,7 +2304,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => false,
                         'deletion_date' => null,
                         'birth_year' => 2010,
-                        'memorization_level' => 11
+                        'memorization_level' => 11,
                     ],
                     [
                         'name' => 'هاشم وليد البقمي',
@@ -2318,7 +2315,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => true,
                         'deletion_date' => '2024-03-12 12:10:00',
                         'birth_year' => 2008,
-                        'memorization_level' => 4
+                        'memorization_level' => 4,
                     ],
                     [
                         'name' => 'ريماس طلال الجهني',
@@ -2329,7 +2326,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => false,
                         'deletion_date' => null,
                         'birth_year' => 2009,
-                        'memorization_level' => 13
+                        'memorization_level' => 13,
                     ],
 
                     // 🟢 طلاب فبراير 2024
@@ -2342,7 +2339,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => false,
                         'deletion_date' => null,
                         'birth_year' => 2010,
-                        'memorization_level' => 9
+                        'memorization_level' => 9,
                     ],
                     [
                         'name' => 'فاطمة ناصر الرشيد',
@@ -2353,7 +2350,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => false,
                         'deletion_date' => null,
                         'birth_year' => 2009,
-                        'memorization_level' => 15
+                        'memorization_level' => 15,
                     ],
                     [
                         'name' => 'نايف حمدان البلوي',
@@ -2364,7 +2361,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => true,
                         'deletion_date' => '2024-04-22 11:55:00',
                         'birth_year' => 2007,
-                        'memorization_level' => 6
+                        'memorization_level' => 6,
                     ],
                     [
                         'name' => 'أبرار سليم السلمي',
@@ -2375,7 +2372,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => false,
                         'deletion_date' => null,
                         'birth_year' => 2011,
-                        'memorization_level' => 8
+                        'memorization_level' => 8,
                     ],
 
                     // 🟢 طلاب مارس 2024
@@ -2388,7 +2385,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => false,
                         'deletion_date' => null,
                         'birth_year' => 2008,
-                        'memorization_level' => 17
+                        'memorization_level' => 17,
                     ],
                     [
                         'name' => 'منى عادل الحمود',
@@ -2399,7 +2396,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => false,
                         'deletion_date' => null,
                         'birth_year' => 2010,
-                        'memorization_level' => 12
+                        'memorization_level' => 12,
                     ],
                     [
                         'name' => 'فهد سعد القثامي',
@@ -2410,7 +2407,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => false,
                         'deletion_date' => null,
                         'birth_year' => 2009,
-                        'memorization_level' => 10
+                        'memorization_level' => 10,
                     ],
                     [
                         'name' => 'سارة عثمان السديري',
@@ -2421,7 +2418,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => true,
                         'deletion_date' => '2024-05-14 11:20:00',
                         'birth_year' => 2011,
-                        'memorization_level' => 3
+                        'memorization_level' => 3,
                     ],
                     [
                         'name' => 'وليد رجاء العوفي',
@@ -2432,7 +2429,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => false,
                         'deletion_date' => null,
                         'birth_year' => 2007,
-                        'memorization_level' => 20
+                        'memorization_level' => 20,
                     ],
 
                     // 🟢 طلاب أبريل 2024
@@ -2445,7 +2442,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => false,
                         'deletion_date' => null,
                         'birth_year' => 2011,
-                        'memorization_level' => 7
+                        'memorization_level' => 7,
                     ],
                     [
                         'name' => 'عبد العزيز خالد السبيعي',
@@ -2456,7 +2453,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => false,
                         'deletion_date' => null,
                         'birth_year' => 2008,
-                        'memorization_level' => 16
+                        'memorization_level' => 16,
                     ],
                     [
                         'name' => 'الجازي ناصر الهاجري',
@@ -2467,7 +2464,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => false,
                         'deletion_date' => null,
                         'birth_year' => 2010,
-                        'memorization_level' => 11
+                        'memorization_level' => 11,
                     ],
                     [
                         'name' => 'مشعل فهيد المانع',
@@ -2478,7 +2475,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => true,
                         'deletion_date' => '2024-07-10 12:45:00',
                         'birth_year' => 2009,
-                        'memorization_level' => 5
+                        'memorization_level' => 5,
                     ],
 
                     // 🟢 طلاب مايو 2024
@@ -2491,7 +2488,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => false,
                         'deletion_date' => null,
                         'birth_year' => 2012,
-                        'memorization_level' => 6
+                        'memorization_level' => 6,
                     ],
                     [
                         'name' => 'سلمان عبد الكريم السفياني',
@@ -2502,7 +2499,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => false,
                         'deletion_date' => null,
                         'birth_year' => 2011,
-                        'memorization_level' => 9
+                        'memorization_level' => 9,
                     ],
                     [
                         'name' => 'مها فهد الراشد',
@@ -2513,7 +2510,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => false,
                         'deletion_date' => null,
                         'birth_year' => 2010,
-                        'memorization_level' => 13
+                        'memorization_level' => 13,
                     ],
                     [
                         'name' => 'فيصل عيادة الحربي',
@@ -2524,7 +2521,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => true,
                         'deletion_date' => '2024-06-25 11:05:00',
                         'birth_year' => 2008,
-                        'memorization_level' => 4
+                        'memorization_level' => 4,
                     ],
                     [
                         'name' => 'نادية محمد القويز',
@@ -2535,7 +2532,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => false,
                         'deletion_date' => null,
                         'birth_year' => 2009,
-                        'memorization_level' => 14
+                        'memorization_level' => 14,
                     ],
 
                     // 🟢 طلاب يونيو 2024
@@ -2548,7 +2545,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => false,
                         'deletion_date' => null,
                         'birth_year' => 2010,
-                        'memorization_level' => 10
+                        'memorization_level' => 10,
                     ],
                     [
                         'name' => 'هناء علي القحطاني',
@@ -2559,7 +2556,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => false,
                         'deletion_date' => null,
                         'birth_year' => 2011,
-                        'memorization_level' => 8
+                        'memorization_level' => 8,
                     ],
                     [
                         'name' => 'راشد ناصر العتيبي',
@@ -2570,7 +2567,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => false,
                         'deletion_date' => null,
                         'birth_year' => 2009,
-                        'memorization_level' => 12
+                        'memorization_level' => 12,
                     ],
                     [
                         'name' => 'أسماء وليد الشهراني',
@@ -2581,7 +2578,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => true,
                         'deletion_date' => '2024-07-30 12:10:00',
                         'birth_year' => 2012,
-                        'memorization_level' => 2
+                        'memorization_level' => 2,
                     ],
 
                     // 🟢 طلاب يوليو 2024
@@ -2594,7 +2591,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => false,
                         'deletion_date' => null,
                         'birth_year' => 2011,
-                        'memorization_level' => 7
+                        'memorization_level' => 7,
                     ],
                     [
                         'name' => 'سما أحمد الغامدي',
@@ -2605,7 +2602,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => false,
                         'deletion_date' => null,
                         'birth_year' => 2012,
-                        'memorization_level' => 5
+                        'memorization_level' => 5,
                     ],
                     [
                         'name' => 'نواف عبد الله البلوي',
@@ -2616,7 +2613,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => false,
                         'deletion_date' => null,
                         'birth_year' => 2010,
-                        'memorization_level' => 9
+                        'memorization_level' => 9,
                     ],
                     [
                         'name' => 'فوزية سعد السلمي',
@@ -2627,7 +2624,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => true,
                         'deletion_date' => '2024-08-12 11:00:00',
                         'birth_year' => 2009,
-                        'memorization_level' => 3
+                        'memorization_level' => 3,
                     ],
                     [
                         'name' => 'عبد الله راشد الشمري',
@@ -2638,7 +2635,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => false,
                         'deletion_date' => null,
                         'birth_year' => 2008,
-                        'memorization_level' => 15
+                        'memorization_level' => 15,
                     ],
 
                     // 🟢 طلاب أغسطس 2024
@@ -2651,7 +2648,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => false,
                         'deletion_date' => null,
                         'birth_year' => 2011,
-                        'memorization_level' => 6
+                        'memorization_level' => 6,
                     ],
                     [
                         'name' => 'سعد محمد الحارثي',
@@ -2662,7 +2659,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => false,
                         'deletion_date' => null,
                         'birth_year' => 2010,
-                        'memorization_level' => 8
+                        'memorization_level' => 8,
                     ],
                     [
                         'name' => 'ميعاد عبد المحسن الفهد',
@@ -2673,7 +2670,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => false,
                         'deletion_date' => null,
                         'birth_year' => 2012,
-                        'memorization_level' => 4
+                        'memorization_level' => 4,
                     ],
                     [
                         'name' => 'ياسر نايف الزهراني',
@@ -2684,7 +2681,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => true,
                         'deletion_date' => '2024-09-28 09:05:00',
                         'birth_year' => 2009,
-                        'memorization_level' => 5
+                        'memorization_level' => 5,
                     ],
                     [
                         'name' => 'شاهيناز فارس القصير',
@@ -2695,7 +2692,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => false,
                         'deletion_date' => null,
                         'birth_year' => 2011,
-                        'memorization_level' => 7
+                        'memorization_level' => 7,
                     ],
 
                     // 🟢 طلاب سبتمبر 2024
@@ -2708,7 +2705,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => false,
                         'deletion_date' => null,
                         'birth_year' => 2012,
-                        'memorization_level' => 3
+                        'memorization_level' => 3,
                     ],
                     [
                         'name' => 'ريم عبد العزيز البقمي',
@@ -2719,7 +2716,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => false,
                         'deletion_date' => null,
                         'birth_year' => 2010,
-                        'memorization_level' => 9
+                        'memorization_level' => 9,
                     ],
                     [
                         'name' => 'منصور حمد الجهني',
@@ -2730,7 +2727,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => false,
                         'deletion_date' => null,
                         'birth_year' => 2009,
-                        'memorization_level' => 11
+                        'memorization_level' => 11,
                     ],
                     [
                         'name' => 'لينا سلمان اليامي',
@@ -2741,7 +2738,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => true,
                         'deletion_date' => '2024-10-08 15:20:00',
                         'birth_year' => 2011,
-                        'memorization_level' => 2
+                        'memorization_level' => 2,
                     ],
                     [
                         'name' => 'بدرية ناصر الرشيد',
@@ -2752,7 +2749,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => false,
                         'deletion_date' => null,
                         'birth_year' => 2012,
-                        'memorization_level' => 4
+                        'memorization_level' => 4,
                     ],
 
                     // 🟢 طلاب أكتوبر 2024
@@ -2765,7 +2762,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => false,
                         'deletion_date' => null,
                         'birth_year' => 2011,
-                        'memorization_level' => 5
+                        'memorization_level' => 5,
                     ],
                     [
                         'name' => 'أروى فهد السلمي',
@@ -2776,7 +2773,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => false,
                         'deletion_date' => null,
                         'birth_year' => 2010,
-                        'memorization_level' => 7
+                        'memorization_level' => 7,
                     ],
                     [
                         'name' => 'مشاري عبد الكريم الشمري',
@@ -2787,7 +2784,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => false,
                         'deletion_date' => null,
                         'birth_year' => 2009,
-                        'memorization_level' => 10
+                        'memorization_level' => 10,
                     ],
                     [
                         'name' => 'تهاني راشد الحمود',
@@ -2798,7 +2795,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => false,
                         'deletion_date' => null,
                         'birth_year' => 2012,
-                        'memorization_level' => 3
+                        'memorization_level' => 3,
                     ],
                     [
                         'name' => 'فهد عوض القثامي',
@@ -2809,7 +2806,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => false,
                         'deletion_date' => null,
                         'birth_year' => 2008,
-                        'memorization_level' => 12
+                        'memorization_level' => 12,
                     ],
 
                     // 🟢 طلاب نوفمبر 2024 (أحدث الطلاب)
@@ -2822,7 +2819,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => false,
                         'deletion_date' => null,
                         'birth_year' => 2011,
-                        'memorization_level' => 2
+                        'memorization_level' => 2,
                     ],
                     [
                         'name' => 'راجح رجاء العوفي',
@@ -2833,7 +2830,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => false,
                         'deletion_date' => null,
                         'birth_year' => 2010,
-                        'memorization_level' => 4
+                        'memorization_level' => 4,
                     ],
                     [
                         'name' => 'مها عبد المحسن الفوزان',
@@ -2844,7 +2841,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => false,
                         'deletion_date' => null,
                         'birth_year' => 2012,
-                        'memorization_level' => 1
+                        'memorization_level' => 1,
                     ],
                     [
                         'name' => 'سليمان خالد السبيعي',
@@ -2855,7 +2852,7 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => false,
                         'deletion_date' => null,
                         'birth_year' => 2009,
-                        'memorization_level' => 6
+                        'memorization_level' => 6,
                     ],
                     [
                         'name' => 'الجازي ناصر الهاجري',
@@ -2866,8 +2863,8 @@ class DatabaseSeeder extends Seeder
                         'is_deleted' => false,
                         'deletion_date' => null,
                         'birth_year' => 2011,
-                        'memorization_level' => 1
-                    ]
+                        'memorization_level' => 1,
+                    ],
                 ]
             );
 
@@ -2880,8 +2877,8 @@ class DatabaseSeeder extends Seeder
                 'avatar' => 'https://example.com/student.jpg',
                 'gender' => $studentData['gender'],
                 'birth_date' => $this->generateBirthDate($studentData['birth_year']),
-                'phone' => '+9677' . rand(10000000, 99999999),
-                'whatsapp' => '+9677' . rand(10000000, 99999999),
+                'phone' => '+9677'.rand(10000000, 99999999),
+                'whatsapp' => '+9677'.rand(10000000, 99999999),
                 'country' => 'اليمن',
                 'city' => $this->getRandomCity(),
                 'residence' => $this->getRandomResidence(),
@@ -2922,8 +2919,8 @@ class DatabaseSeeder extends Seeder
                 'avatar' => 'https://example.com/teacher.jpg',
                 'gender' => $teacherData['gender'],
                 'birth_date' => $this->generateBirthDate($teacherData['birth_year']),
-                'phone' => '+9677' . rand(10000000, 99999999),
-                'whatsapp' => '+9677' . rand(10000000, 99999999),
+                'phone' => '+9677'.rand(10000000, 99999999),
+                'whatsapp' => '+9677'.rand(10000000, 99999999),
                 'country' => 'اليمن',
                 'city' => $this->getRandomCity(),
                 'residence' => $this->getRandomResidence(),
@@ -2939,31 +2936,30 @@ class DatabaseSeeder extends Seeder
                 'created_at' => $teacherData['created_at'],
                 'updated_at' => $teacherData['last_modified'],
             ]));
-        } {
-            $admin = collect();
-            $user = User::create([
-                'name' => "عمران غالب محمد ناصر",
-                'email' => "amran@naser.com",
-                'password' => bcrypt('amran$$$025'),
-                'avatar' => 'https://example.com/teacher.jpg',
-                'gender' => $teacherData['gender'],
-                'birth_date' => '1980-01-' . rand(10, 28),
-                'phone' => '+967739123473',
-                'whatsapp' => '+96771989025',
-                'country' => 'اليمن',
-                'city' => 'صنعاء',
-                'residence' => 'التحرير',
-                'school_id' => $schools->random()->id,
-            ]);
-
-            $admin->push(\App\Models\Admin::create([
-                'user_id' => $user->id,
-                'super_admin' => true,
-                'status' => 'accepted',
-            ]));
         }
+        $admin = collect();
+        $user = User::create([
+            'name' => 'عمران غالب محمد ناصر',
+            'email' => 'amran@naser.com',
+            'password' => bcrypt('amran$$$025'),
+            'avatar' => 'https://example.com/teacher.jpg',
+            'gender' => $teacherData['gender'],
+            'birth_date' => '1980-01-'.rand(10, 28),
+            'phone' => '+967739123473',
+            'whatsapp' => '+96771989025',
+            'country' => 'اليمن',
+            'city' => 'صنعاء',
+            'residence' => 'التحرير',
+            'school_id' => $schools->random()->id,
+        ]);
 
-        // ✅ الحلقات 
+        $admin->push(\App\Models\Admin::create([
+            'user_id' => $user->id,
+            'super_admin' => true,
+            'status' => 'accepted',
+        ]));
+
+        // ✅ الحلقات
         $halaqahs = collect();
         foreach (range(1, 20) as $i) {
             $teacher = $teachers->random();
@@ -2988,19 +2984,17 @@ class DatabaseSeeder extends Seeder
 
         // ✅ وحدات الحفظ
         $units = collect([
-            ['name_ar' => 'جزء', 'code' =>  'juz'],
-            ['name_ar' => 'حزب', 'code' =>  'hizb'],
-            ['name_ar' => '½ حزب', 'code' =>  'halfHizb'],
-            ['name_ar' => '¼ حزب', 'code' =>  'quarterHizb'],
-            ['name_ar' => 'صفحة', 'code' =>  'page'],
+            ['name_ar' => 'جزء', 'code' => 'juz'],
+            ['name_ar' => 'حزب', 'code' => 'hizb'],
+            ['name_ar' => '½ حزب', 'code' => 'halfHizb'],
+            ['name_ar' => '¼ حزب', 'code' => 'quarterHizb'],
+            ['name_ar' => 'صفحة', 'code' => 'page'],
         ])->map(
-            fn($f) =>
-            \App\Models\Unit::create([
+            fn ($f) => \App\Models\Unit::create([
                 'code' => $f['code'],
                 'name_ar' => $f['name_ar'],
             ])
         );
-
 
         // ✅ أنواع التكرار
         $frequencies = collect([
@@ -3009,14 +3003,12 @@ class DatabaseSeeder extends Seeder
             ['name' => 'مرتين بالأسبوع', 'days_between' => 3],
             ['name' => 'ثلاث مرات بالأسبوع', 'days_between' => 2],
         ])->map(
-            fn($f) =>
-            \App\Models\FrequencyType::create([
+            fn ($f) => \App\Models\FrequencyType::create([
                 'name' => $f['name'],
                 'days_between' => $f['days_between'],
                 'description' => "تكرار {$f['name']}",
             ])
         );
-
 
         $realisticPlans = [
             [
@@ -3162,7 +3154,7 @@ class DatabaseSeeder extends Seeder
                         'gap' => 0.0,
                         'created_at' => '2025-07-21 18:00:00',
                     ],
-                ]
+                ],
             ],
 
             // --- اليوم الثاني: 22-07-2025 (أداء ممتاز وتفوق) ---
@@ -3194,7 +3186,7 @@ class DatabaseSeeder extends Seeder
                         'gap' => 491.024, // نهاية الوحدة 80 (الزخرف)
                         'created_at' => '2025-07-24 18:00:00',
                     ],
-                ]
+                ],
             ],
 
             // --- اليوم الثالث: 23-07-2025 (أداء جيد ومطابق للخطة) ---
@@ -3225,7 +3217,7 @@ class DatabaseSeeder extends Seeder
                         'gap' => 0.0,
                         'created_at' => '2025-07-23 18:00:00',
                     ],
-                ]
+                ],
             ],
 
             // --- اليوم الرابع: 24-07-2025 (استقرار) ---
@@ -3265,7 +3257,7 @@ class DatabaseSeeder extends Seeder
                         'gap' => 156.046, // نهاية الوحدة 121 (الأعراف)
                         'created_at' => '2025-07-22 18:00:00',
                     ],
-                ]
+                ],
 
             ],
 
@@ -3309,7 +3301,7 @@ class DatabaseSeeder extends Seeder
                         'gap' => 206.122, // الأعراف/التوبة
                         'created_at' => '2025-07-25 18:00:00',
                     ],
-                ]
+                ],
             ],
 
             // --- اليوم السادس: 26-07-2025 (يوم تعويضي جيد) ---
@@ -3341,7 +3333,7 @@ class DatabaseSeeder extends Seeder
                         'gap' => 10.0, // نهاية الوحدة 100 (البقرة)
                         'created_at' => '2025-07-26 18:00:00',
                     ],
-                ]
+                ],
             ],
 
             // --- اليوم السابع: 27-07-2025 (غياب) ---
@@ -3350,7 +3342,7 @@ class DatabaseSeeder extends Seeder
                 'note' => 'غياب الطالب لظرف طارئ.',
                 'behavior_note' => 1,
                 'created_at' => '2025-07-27 18:00:00',
-                'details' => []
+                'details' => [],
             ],
 
             // --- اليوم الثامن: 28-07-2025 (عودة بعد الغياب وأداء ضعيف) ---
@@ -3383,7 +3375,7 @@ class DatabaseSeeder extends Seeder
                         'gap' => 72.171, // توقف عند آل عمران
                         'created_at' => '2025-07-28 18:00:00',
                     ],
-                ]
+                ],
             ],
 
             // --- اليوم التاسع: 29-07-2025 (استعادة مستوى) ---
@@ -3415,7 +3407,7 @@ class DatabaseSeeder extends Seeder
                         'gap' => 121.081, // نهاية الوحدة 115 (المائدة)
                         'created_at' => '2025-07-29 18:00:00',
                     ],
-                ]
+                ],
             ],
 
             // --- اليوم العاشر: 30-07-2025 (أداء ممتاز) ---
@@ -3437,7 +3429,7 @@ class DatabaseSeeder extends Seeder
                         'gap' => 201.092, // نهاية الوحدة 290 (التوبة)
                         'created_at' => '2025-07-30 18:00:00',
                     ],
-                ]
+                ],
             ],
 
             // --- اليوم الحادي عشر: 31-07-2025 (تشتت) ---
@@ -3469,7 +3461,7 @@ class DatabaseSeeder extends Seeder
                         'gap' => 241.052, // نهاية الوحدة 138 (يوسف)
                         'created_at' => '2025-07-31 18:00:00',
                     ],
-                ]
+                ],
             ],
 
             // --- اليوم الثاني عشر: 01-08-2025 (يوم قياسي) ---
@@ -3480,7 +3472,6 @@ class DatabaseSeeder extends Seeder
                 'created_at' => '2025-08-01 18:00:00',
                 'details' => [
                     [
-
 
                         'tracking_type_id' => 1,
                         'from_tracking_unit_id' => 291,
@@ -3493,7 +3484,6 @@ class DatabaseSeeder extends Seeder
                     ],
                     [
 
-
                         'tracking_type_id' => 2,
                         'from_tracking_unit_id' => 123,
                         'to_tracking_unit_id' => 143,
@@ -3503,7 +3493,7 @@ class DatabaseSeeder extends Seeder
                         'gap' => 267.099, // نهاية الوحدة 143 (الحجر)
                         'created_at' => '2025-08-01 18:00:00',
                     ],
-                ]
+                ],
             ],
 
             // --- اليوم الثالث عشر: 02-08-2025 (ختام مستقر) ---
@@ -3537,7 +3527,7 @@ class DatabaseSeeder extends Seeder
                         'gap' => 317.082, // نهاية الوحدة 153 (طه)
                         'created_at' => '2025-08-02 18:00:00',
                     ],
-                ]
+                ],
             ],
         ];
 
@@ -3564,7 +3554,6 @@ class DatabaseSeeder extends Seeder
             ]));
         }
 
-
         // Enroll students and assign a current plan
         foreach ($students as $student) {
             $enrollment = \App\Models\Enrollment::create([
@@ -3579,7 +3568,7 @@ class DatabaseSeeder extends Seeder
             ['name_ar' => 'حفظ', 'name_en' => 'Memorization'],
             ['name_ar' => 'مراجعة', 'name_en' => 'Review'],
             ['name_ar' => 'سرد', 'name_en' => 'Recitation'],
-        ])->map(fn($t) => \App\Models\TrackingType::create($t));
+        ])->map(fn ($t) => \App\Models\TrackingType::create($t));
 
         $trackingUnits = collect();
         foreach ($trackingUnitArray as $trackingUnitData) {
@@ -3601,7 +3590,6 @@ class DatabaseSeeder extends Seeder
             // 2. عملية الإدخال (Loop) للبيانات المصدر
             foreach ($studentTrackings as $sourceData) {
 
-
                 // نأخذ نسخة من البيانات الأصلية ($sourceData) ونضعها في ($dayData)
                 // هذا ضروري لأننا سنقوم بحذف (unset) بعض العناصر، ولا نريد أن تتأثر الدورة التالية
                 $dayData = $sourceData;
@@ -3614,7 +3602,9 @@ class DatabaseSeeder extends Seeder
                 $dayData['enrollment_id'] = $enrollment->id;
 
                 // حذف الـ id القديم للتتبع لتجنب التعارض
-                if (isset($dayData['id'])) unset($dayData['id']);
+                if (isset($dayData['id'])) {
+                    unset($dayData['id']);
+                }
 
                 // إنشاء التتبع (Parent)
                 $tracking = \App\Models\Tracking::create($dayData);
@@ -3625,7 +3615,9 @@ class DatabaseSeeder extends Seeder
                     $detailData['tracking_id'] = $tracking->id;
 
                     // حذف الـ id القديم للتفصيل
-                    if (isset($detailData['id'])) unset($detailData['id']);
+                    if (isset($detailData['id'])) {
+                        unset($detailData['id']);
+                    }
 
                     \App\Models\TrackingDetail::create($detailData);
                 }
@@ -3655,31 +3647,28 @@ class DatabaseSeeder extends Seeder
         //     ]);
         // }
 
-
-
         echo "✅ تم إنشاء 20 مدرسة، 20 طالب، 20 معلم، 20 حلقة، وجميع البيانات المرتبطة بها بنجاح.\n";
     }
-
-
-
-
 
     private function generateBirthDate($birthYear)
     {
         $month = rand(1, 12);
         $day = rand(1, 28);
+
         return "{$birthYear}-{$month}-{$day}";
     }
 
     private function getRandomCity()
     {
         $cities = ['صنعاء', 'عدن', 'تعز', 'الحديدة', 'إب', 'ذمار', 'مأرب'];
+
         return $cities[array_rand($cities)];
     }
 
     private function getRandomResidence()
     {
         $residences = ['التحرير', 'المنصورة', 'الشهداء', 'الروضة', 'السلام', 'الوحدة', 'الثورة'];
+
         return $residences[array_rand($residences)];
     }
 

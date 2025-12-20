@@ -2,17 +2,14 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Controllers\Api\V1\ApiController;
-use App\Models\Student;
-use App\Repositories\StudentRepository;
-use App\Repositories\HalaqahRepository;
-use Carbon\Carbon;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
-use App\Http\Resources\StudentSyncResource;
-use App\Models\Teacher;
-use App\Http\Resources\TeacherSyncResource;
 use App\Http\Resources\HalaqahResource;
+use App\Http\Resources\StudentSyncResource;
+use App\Http\Resources\TeacherSyncResource;
+use App\Models\Teacher;
+use App\Repositories\HalaqahRepository;
+use App\Repositories\StudentRepository;
+use Illuminate\Http\Request;
+
 class SyncController extends ApiController
 {
     /**
@@ -41,6 +38,7 @@ class SyncController extends ApiController
 
         return $this->success(StudentSyncResource::collection($studentsPaginator), 'students');
     }
+
     // GET /api/v1/sync/teachers
     public function syncTeachers(Request $request)
     {
@@ -61,6 +59,7 @@ class SyncController extends ApiController
 
         return $this->success(TeacherSyncResource::collection($teachersPaginator));
     }
+
     // GET /api/v1/sync/halaqas
     public function syncHalaqas(Request $request, HalaqahRepository $repository)
     {
@@ -75,7 +74,8 @@ class SyncController extends ApiController
 
         return $this->success(HalaqahResource::collection($halaqas));
     }
-    //GET api/v1/sync/reports
+
+    // GET api/v1/sync/reports
     public function syncReports(Request $request)
     {
         $updatedSince = $request->query('updatedSince');
@@ -88,36 +88,36 @@ class SyncController extends ApiController
         // Sample report data
         $reports = [
             [
-                "id" => 1,
-                "trackDate" => "2023-09-21",
-                "attendance" => "present",
-                "behaviourAssessment" => 4.5,
-                "details" => [
+                'id' => 1,
+                'trackDate' => '2023-09-21',
+                'attendance' => 'present',
+                'behaviourAssessment' => 4.5,
+                'details' => [
                     [
-                        "type" => "memorization",
-                        "planned" => ["unit" => "page", "amount" => 1],
-                        "actual" => ["unit" => "page", "amount" => 1, "amountAccumulated" => 16],
-                        "gap" => 0,
-                        "note" => "Good progress."
+                        'type' => 'memorization',
+                        'planned' => ['unit' => 'page', 'amount' => 1],
+                        'actual' => ['unit' => 'page', 'amount' => 1, 'amountAccumulated' => 16],
+                        'gap' => 0,
+                        'note' => 'Good progress.',
                     ],
                     [
-                        "type" => "revision",
-                        "planned" => ["unit" => "juz", "amount" => 0.5],
-                        "actual" => ["unit" => "juz", "amount" => 0.25, "amountAccumulated" => 16],
-                        "gap" => -0.25,
-                        "performanceScore" => 4.5,
-                        "note" => "Needs improvement."
+                        'type' => 'revision',
+                        'planned' => ['unit' => 'juz', 'amount' => 0.5],
+                        'actual' => ['unit' => 'juz', 'amount' => 0.25, 'amountAccumulated' => 16],
+                        'gap' => -0.25,
+                        'performanceScore' => 4.5,
+                        'note' => 'Needs improvement.',
                     ],
                     [
-                        "type" => "recitation",
-                        "planned" => ["unit" => "hizb", "amount" => 1],
-                        "actual" => ["unit" => "hizb", "amount" => 1, "amountAccumulated" => 16],
-                        "gap" => 0,
-                        "performanceScore" => 4.5,
-                        "note" => "Stable performance."
-                    ]
-                ]
-            ]
+                        'type' => 'recitation',
+                        'planned' => ['unit' => 'hizb', 'amount' => 1],
+                        'actual' => ['unit' => 'hizb', 'amount' => 1, 'amountAccumulated' => 16],
+                        'gap' => 0,
+                        'performanceScore' => 4.5,
+                        'note' => 'Stable performance.',
+                    ],
+                ],
+            ],
         ];
 
         // Sort (not applied here, since it's static data)
@@ -132,26 +132,26 @@ class SyncController extends ApiController
 
         // Optional summary if studentId is present
         $summary = $studentId ? [
-            "totalPendingReports" => 2,
-            "totalDeviation" => -0.25,
-            "status" => "behind",
-            "studentPerformance" => [
-                "averageBehaviourScore" => 4.3,
-                "averageAchievementRate" => 89.7,
-                "averageExecutionQuality" => 4.1,
-                "reportCount" => 132
-            ]
+            'totalPendingReports' => 2,
+            'totalDeviation' => -0.25,
+            'status' => 'behind',
+            'studentPerformance' => [
+                'averageBehaviourScore' => 4.3,
+                'averageAchievementRate' => 89.7,
+                'averageExecutionQuality' => 4.1,
+                'reportCount' => 132,
+            ],
         ] : null;
 
         return $this->success([
-            "reports" => $pagedReports[0], // returning the first report as per example
-            "summary" => $summary,
-            "pagination" => [
-                "page" => $page,
-                "limit" => $limit,
-                "total" => $total
+            'reports' => $pagedReports[0], // returning the first report as per example
+            'summary' => $summary,
+            'pagination' => [
+                'page' => $page,
+                'limit' => $limit,
+                'total' => $total,
             ],
-            "syncTimestamp" => now()->toIso8601String()
+            'syncTimestamp' => now()->toIso8601String(),
         ]);
     }
 }

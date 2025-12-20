@@ -33,15 +33,14 @@ return new class extends Migration
             $table->enum('status', ['active', 'inactive'])->default('inactive')->comment('User status');
 
             $table->foreignId('school_id')
-                  ->nullable()
-                  ->constrained('schools')
-                  ->onDelete('cascade');
+                ->nullable()
+                ->constrained('schools')
+                ->onDelete('cascade');
 
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
         });
-
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();

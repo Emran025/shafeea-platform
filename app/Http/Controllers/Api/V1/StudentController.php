@@ -2,31 +2,30 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Controllers\Api\V1\ApiController;
+use App\Http\Requests\PlanRequest;
+use App\Http\Requests\Student\ActionRequest;
+use App\Http\Requests\Student\AssignHalaqaRequest;
+use App\Http\Requests\Student\FollowUpRequest;
+use App\Http\Requests\Student\UpdateStudentRequest;
+use App\Http\Requests\TrackingDetailRequest;
+use App\Http\Requests\TrackingRequest;
+use App\Http\Resources\FollowUpResource;
+use App\Http\Resources\PlanResource;
+use App\Http\Resources\StudentApplicantResource;
+use App\Http\Resources\StudentPlanResource;
+use App\Http\Resources\StudentResource;
+use App\Http\Resources\StudentSyncResource;
+use App\Http\Resources\TrackingDetailResource;
+use App\Http\Resources\TrackingResource;
+use App\Repositories\StudentApplicantRepository;
+use App\Repositories\StudentRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use App\Repositories\StudentRepository;
-use App\Repositories\StudentApplicantRepository;
-use App\Http\Requests\Student\StoreStudentRequest;
-use App\Http\Requests\Student\UpdateStudentRequest;
-use App\Http\Requests\Student\AssignHalaqaRequest;
-use App\Http\Requests\Student\ActionRequest;
-use App\Http\Requests\Student\FollowUpRequest;
-use App\Http\Resources\StudentResource;
-use App\Http\Resources\StudentApplicantResource;
-use App\Http\Resources\FollowUpResource;
-use App\Http\Requests\PlanRequest;
-use App\Http\Requests\TrackingRequest;
-use App\Http\Requests\TrackingDetailRequest;
-use App\Http\Resources\PlanResource;
-use App\Http\Resources\StudentPlanResource;
-use App\Http\Resources\TrackingResource;
-use App\Http\Resources\TrackingDetailResource;
-use App\Http\Resources\StudentSyncResource;
 
 class StudentController extends ApiController
 {
     protected $students;
+
     protected $applicants;
 
     public function __construct(StudentRepository $students, StudentApplicantRepository $applicants)
@@ -39,12 +38,14 @@ class StudentController extends ApiController
     {
         // Fixed missing pagination logic
         $students = $this->students->all($request->all());
+
         return $this->success(StudentResource::collection($students));
     }
 
     public function show($id)
     {
         $student = $this->students->find($id);
+
         return $this->success(new StudentSyncResource($student));
     }
 
@@ -52,6 +53,7 @@ class StudentController extends ApiController
     {
 
         $student = $this->students->update($id, $request->validated());
+
         return $this->success(new StudentResource($student), 'Student updated successfully.');
     }
 
@@ -65,9 +67,11 @@ class StudentController extends ApiController
                 'student_id' => $studentId,
                 'halaqah_id' => $halaqaId,
             ]);
+
             return $this->success(null, 'Student assigned to halaqa successfully.');
         } catch (\Throwable $e) {
             Log::error($e);
+
             return $this->error('Failed to assign student to halaqa', 500, $e->getMessage());
         }
     }
@@ -83,9 +87,11 @@ class StudentController extends ApiController
                 $student->status = 'expelled';
             }
             $student->save();
+
             return $this->success(null, 'Action completed successfully.');
         } catch (\Throwable $e) {
             Log::error($e);
+
             return $this->error('Failed to take action on student', 500, $e->getMessage());
         }
     }
@@ -95,7 +101,8 @@ class StudentController extends ApiController
         try {
             // Minimal logic: return a fake plan for the student
             $student = \App\Models\Student::findOrFail($id);
-            return $this->success(new FollowUpResource((object)[
+
+            return $this->success(new FollowUpResource((object) [
                 'id' => 15,
                 'frequency' => 'daily',
                 'details' => [
@@ -108,6 +115,7 @@ class StudentController extends ApiController
             ]));
         } catch (\Throwable $e) {
             Log::error($e);
+
             return $this->error('Failed to get follow-up', 500, $e->getMessage());
         }
     }
@@ -115,7 +123,7 @@ class StudentController extends ApiController
     public function updateFollowUp(FollowUpRequest $request, $id)
     {
         // Implement update follow-up logic in repository/service
-        return $this->success(new FollowUpResource((object)[
+        return $this->success(new FollowUpResource((object) [
             'id' => 15,
             'frequency' => $request->frequency,
             'details' => $request->details,
@@ -130,12 +138,14 @@ class StudentController extends ApiController
         if (method_exists($applicants, 'total')) {
             return $this->paginated(StudentApplicantResource::collection($applicants));
         }
+
         return $this->success(StudentApplicantResource::collection($applicants));
     }
 
     public function showApplicant($id)
     {
         $applicant = $this->applicants->find($id);
+
         return $this->success(new StudentApplicantResource($applicant));
     }
 
@@ -149,30 +159,35 @@ class StudentController extends ApiController
     public function getPlans($studentId)
     {
         $plans = $this->students->getPlans($studentId);
+
         return $this->success(StudentPlanResource::collection($plans));
     }
 
     public function getActivePlan($studentId)
     {
         $plan = $this->students->getActivePlan($studentId);
+
         return $this->success($plan ? new StudentPlanResource($plan) : null);
     }
 
     public function createPlan(PlanRequest $request, $studentId)
     {
         $plan = $this->students->createPlan($studentId, $request->validated());
+
         return $this->success(new PlanResource($plan), 'Plan created and student enrolled.');
     }
 
     public function updatePlan(PlanRequest $request, $planId)
     {
         $plan = $this->students->updatePlan($planId, $request->validated());
+
         return $this->success(new PlanResource($plan), 'Plan updated.');
     }
 
     public function deletePlan($planId)
     {
         $this->students->deletePlan($planId);
+
         return $this->success(null, 'Plan deleted.');
     }
 
@@ -180,42 +195,49 @@ class StudentController extends ApiController
     public function getTrackingsForStudent($studentId)
     {
         $trackings = $this->students->getTrackingsForStudent($studentId);
+
         return $this->success(TrackingResource::collection($trackings));
     }
 
     public function createTracking(TrackingRequest $request, $enrollmentId)
     {
         $tracking = $this->students->createTracking($enrollmentId, $request->validated());
+
         return $this->success(new TrackingResource($tracking), 'Tracking created.');
     }
 
     public function updateTracking(TrackingRequest $request, $trackingId)
     {
         $tracking = $this->students->updateTracking($trackingId, $request->validated());
+
         return $this->success(new TrackingResource($tracking), 'Tracking updated.');
     }
 
     public function deleteTracking($trackingId)
     {
         $this->students->deleteTracking($trackingId);
+
         return $this->success(null, 'Tracking deleted.');
     }
 
     public function getTrackingDetails($trackingId)
     {
         $details = $this->students->getTrackingDetails($trackingId);
+
         return $this->success(TrackingDetailResource::collection($details));
     }
 
     public function addTrackingDetail(TrackingDetailRequest $request, $trackingId)
     {
         $detail = $this->students->addTrackingDetail($trackingId, $request->validated());
+
         return $this->success(new TrackingDetailResource($detail), 'Tracking detail added.');
     }
 
     public function deleteTrackingDetail($trackingDetailId)
     {
         $this->students->deleteTrackingDetail($trackingDetailId);
+
         return $this->success(null, 'Tracking detail deleted.');
     }
 }

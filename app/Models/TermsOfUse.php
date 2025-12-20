@@ -10,8 +10,11 @@ class TermsOfUse extends Model
     use HasFactory;
 
     protected $table = 'terms_of_use';
+
     protected $primaryKey = 'version';
+
     public $incrementing = false;
+
     protected $keyType = 'string';
 
     protected $fillable = [

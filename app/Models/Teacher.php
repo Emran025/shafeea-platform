@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Teacher extends Model
 {
     use HasFactory;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -39,8 +40,6 @@ class Teacher extends Model
 
     /**
      * Get the teacher's calculated status.
-     *
-     * @return int
      */
     public function getCalculatedStatusAttribute(): int
     {

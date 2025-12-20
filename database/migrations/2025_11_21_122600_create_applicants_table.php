@@ -18,7 +18,7 @@ return new class extends Migration
             $table->enum('application_type', ['teacher', 'student']);
             $table->enum('status', ['pending', 'under_review', 'approved', 'rejected'])->default('pending');
             $table->text('bio');
-            $table->text('qualifications')->comment('Academic certificate or higher academic qualification');;
+            $table->text('qualifications')->comment('Academic certificate or higher academic qualification');
             $table->integer('memorization_level')->default(0);
             $table->text('rejection_reason')->nullable();
             $table->timestamp('submitted_at')->nullable();

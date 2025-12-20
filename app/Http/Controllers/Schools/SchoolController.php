@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Schools;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\School\StoreSchoolRequest;
+use App\Http\Requests\School\UpdateSchoolRequest;
 use App\Models\School;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-use App\Http\Requests\School\StoreSchoolRequest;
-use App\Http\Requests\School\UpdateSchoolRequest;
 
 class SchoolController extends Controller
 {
@@ -21,10 +21,10 @@ class SchoolController extends Controller
         // Search functionality
         if ($request->filled('search')) {
             $search = $request->search;
-            $query->where(function($q) use ($search) {
+            $query->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%{$search}%")
-                  ->orWhere('city', 'like', "%{$search}%")
-                  ->orWhere('country', 'like', "%{$search}%");
+                    ->orWhere('city', 'like', "%{$search}%")
+                    ->orWhere('country', 'like', "%{$search}%");
             });
         }
 
@@ -39,8 +39,8 @@ class SchoolController extends Controller
         }
 
         $schools = $query->withCount(['users', 'halaqahs'])
-                        ->orderBy('created_at', 'desc')
-                        ->paginate(12);
+            ->orderBy('created_at', 'desc')
+            ->paginate(12);
 
         // Get unique countries and cities for filters
         $countries = School::distinct()->pluck('country')->filter()->sort()->values();
@@ -97,14 +97,14 @@ class SchoolController extends Controller
     public function show(School $school)
     {
         $school->load([
-            'users' => function($query) {
+            'users' => function ($query) {
                 $query->with(['student', 'teacher', 'admin'])->latest();
             },
-            'halaqahs' => function($query) {
+            'halaqahs' => function ($query) {
                 $query->with(['teacher.user', 'schedules'])
-                      ->withCount('enrollments')
-                      ->latest();
-            }
+                    ->withCount('enrollments')
+                    ->latest();
+            },
         ]);
 
         // Get statistics
@@ -190,7 +190,7 @@ class SchoolController extends Controller
                     'name' => $halaqah->name,
                     'teacher' => $halaqah->teacher?->user?->name,
                     'students_count' => $halaqah->enrollments_count,
-                    'capacity_percentage' => $halaqah->max_students > 0 
+                    'capacity_percentage' => $halaqah->max_students > 0
                         ? round(($halaqah->enrollments_count / $halaqah->max_students) * 100, 1)
                         : 0,
                 ];

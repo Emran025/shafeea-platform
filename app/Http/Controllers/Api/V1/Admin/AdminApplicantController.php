@@ -58,7 +58,7 @@ class AdminApplicantController extends ApiController
 
         $applicant = Applicant::with('user')->find($id);
 
-        if (!$applicant) {
+        if (! $applicant) {
             return $this->error('Applicant not found.', 404);
         }
 
@@ -77,7 +77,7 @@ class AdminApplicantController extends ApiController
 
         $applicant = Applicant::find($id);
 
-        if (!$applicant) {
+        if (! $applicant) {
             return $this->error('Applicant not found.', 404);
         }
 
@@ -113,8 +113,9 @@ class AdminApplicantController extends ApiController
                 $applicant->user()->update(['school_id' => $adminSchoolId, 'status' => 'Inactive']);
             });
         } catch (\Exception $e) {
-            Log::error('Approval Error: ' . $e->getMessage());
-            return $this->error('An error occurred during the approval process.' . $e->getMessage(), 500);
+            Log::error('Approval Error: '.$e->getMessage());
+
+            return $this->error('An error occurred during the approval process.'.$e->getMessage(), 500);
         }
 
         return $this->success($applicant->fresh(), 'Applicant approved and assigned to your school.');
@@ -135,7 +136,7 @@ class AdminApplicantController extends ApiController
 
         $applicant = Applicant::find($id);
 
-        if (!$applicant) {
+        if (! $applicant) {
             return $this->error('Applicant not found.', 404);
         }
 
@@ -170,7 +171,8 @@ class AdminApplicantController extends ApiController
                 ]);
             });
         } catch (\Exception $e) {
-            Log::error('Rejection Error: ' . $e->getMessage());
+            Log::error('Rejection Error: '.$e->getMessage());
+
             return $this->error('An error occurred during the rejection process.', 500);
         }
 

@@ -16,6 +16,7 @@ class TeacherSyncResource extends JsonResource
     {
         $teacher = $this->resource;
         $user = $teacher->user;
+
         return [
             'id' => $teacher->id,
             'name' => $user->name ?? null,
@@ -48,5 +49,4 @@ class TeacherSyncResource extends JsonResource
             'createdAt' => $teacher->created_at?->toIso8601String(),
         ];
     }
-
 }

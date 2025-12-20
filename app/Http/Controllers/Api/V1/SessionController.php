@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Controllers\Api\V1\ApiController;
-use Illuminate\Http\Request;
 use App\Services\SessionService;
+use Illuminate\Http\Request;
 
 class SessionController extends ApiController
 {
@@ -22,6 +21,7 @@ class SessionController extends ApiController
     public function listSessions(Request $request)
     {
         $result = $this->sessionService->listSessions($request);
+
         return $this->success($result['data']);
     }
 
@@ -32,9 +32,10 @@ class SessionController extends ApiController
     public function terminateAllOtherSessions(Request $request)
     {
         $terminatedCount = $this->sessionService->terminateAllOtherSessions($request);
+
         return $this->success([
             'terminatedSessionsCount' => $terminatedCount,
-            'message' => 'All other sessions have been terminated.'
+            'message' => 'All other sessions have been terminated.',
         ]);
     }
 
@@ -52,6 +53,7 @@ class SessionController extends ApiController
         if ($success) {
             return $this->success(null, 'Session terminated successfully.');
         }
+
         return $this->error('Session not found or you do not have permission to terminate it.', 404);
     }
 }

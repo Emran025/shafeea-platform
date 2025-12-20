@@ -2,22 +2,19 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Api\V1\ApiController;
+use App\Enums\AdminStatus;
 use App\Events\ApiLogin;
+use App\Models\ApplicantRejection;
+use App\Models\Student;
+use App\Models\StudentApplicant;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Password;
-use App\Enums\AdminStatus;
-
-use App\Models\StudentApplicant;
-use Illuminate\Support\Facades\Hash;
-use App\Models\Student;
-use App\Models\ApplicantRejection;
-
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class AuthController extends ApiController
 {
@@ -52,15 +49,15 @@ class AuthController extends ApiController
         } elseif (preg_match('/^\+?\d{7,15}$/', $loginValue)) {
             $loginField = 'phone';
         } else {
-            return $this->error('The login field must be a valid email or phone number.',  422, []);
+            return $this->error('The login field must be a valid email or phone number.', 422, []);
         }
 
         $credentials = [
             $loginField => $loginValue,
-            'password' => $request->password
+            'password' => $request->password,
         ];
 
-        if (!Auth::attempt($credentials)) {
+        if (! Auth::attempt($credentials)) {
             return $this->error('Unauthorized. Invalid credentials.', 401, []);
         }
 
@@ -104,7 +101,6 @@ class AuthController extends ApiController
      * POST /api/v1/auth/register
      * Register a new user, save device info, and return token/profile.
      */
-
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -135,7 +131,6 @@ class AuthController extends ApiController
             'device_info.locale' => 'nullable|string|max:10',
             'device_info.fcm_token' => 'nullable|string|max:255',
         ]);
-
 
         if ($validator->fails()) {
             return $this->error('Validation Error.', 422, $validator->errors()->toArray());
@@ -170,7 +165,6 @@ class AuthController extends ApiController
         $deviceInfo = $request->input('device_info');
 
         $token = $user->createToken($deviceInfo['device_id'])->plainTextToken;
-
 
         event(new ApiLogin($user, $request));
 
@@ -207,6 +201,7 @@ class AuthController extends ApiController
     {
         // This should return the ACTUAL authenticated user, not a mock one
         $user = $request->user();
+
         return $this->success([
             'user' => $user, // Or format it with a UserResource
         ], 'Authenticated profile retrieved successfully.');
@@ -291,7 +286,6 @@ class AuthController extends ApiController
      * POST /api/v1/auth/forgot-password
      * Handle an incoming password reset link request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function forgotPassword(Request $request)
@@ -312,7 +306,7 @@ class AuthController extends ApiController
             // Password::sendResetLink($request->only('email'));
 
             // CURRENT: Simulate email sending (for development)
-            Log::info('Password reset requested for: ' . $request->email);
+            Log::info('Password reset requested for: '.$request->email);
         }
 
         return $this->success(null, 'If the email exists, a reset link has been sent.');
@@ -330,16 +324,16 @@ class AuthController extends ApiController
             'Avater' => base64_encode(Str::random(30)),
             'gender' => fake()->randomElement(['Male', 'Female']),
             'email' => fake()->unique()->safeEmail(),
-            'phone' => '+1' . rand(1000000000, 9999999999),
+            'phone' => '+1'.rand(1000000000, 9999999999),
             'birthDate' => fake()->date('Y-m-d', '2000-01-01'),
             'profilePictureUrl' => fake()->imageUrl(),
             'phoneZone' => '+1',
             'whatsappZone' => '+1',
-            'whatsappPhone' => '+1' . rand(1000000000, 9999999999),
+            'whatsappPhone' => '+1'.rand(1000000000, 9999999999),
             'qualification' => fake()->randomElement([
                 'PhD in Islamic Studies',
                 'MA in Arabic Linguistics',
-                'BA in Quranic Sciences'
+                'BA in Quranic Sciences',
             ]),
             'experienceYears' => rand(1, 20),
             'country' => fake()->country(),

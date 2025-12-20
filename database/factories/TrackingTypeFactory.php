@@ -18,7 +18,7 @@ class TrackingTypeFactory extends Factory
     {
         return [
             'name_en' => fake()->word(),
-             'name_ar' => fake()->word(),
+            'name_ar' => fake()->word(),
         ];
     }
 }

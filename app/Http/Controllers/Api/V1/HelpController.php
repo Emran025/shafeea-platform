@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Resources\ContentTypeResource;
 use App\Http\Resources\CategoryResource;
+use App\Http\Resources\ContentTypeResource;
 use App\Http\Resources\FaqResource;
 use App\Http\Resources\PolicyResource;
 use App\Http\Resources\TagResource;
+use App\Models\Category;
 use App\Models\ContentType;
 use App\Models\Faq;
-use App\Models\Category;
 use App\Models\PrivacyPolicy;
 use App\Models\Tag;
 use App\Models\TermsOfUse;
@@ -18,10 +18,11 @@ use Illuminate\Http\Request;
 
 class HelpController extends ApiController
 {
-    //region FAQ Methods
+    // region FAQ Methods
     public function getFaqCategories()
     {
         $categories = Category::where('is_active', true)->orderBy('display_order')->get();
+
         return $this->success(CategoryResource::collection($categories), 'FAQ categories retrieved successfully.');
     }
 
@@ -29,6 +30,7 @@ class HelpController extends ApiController
     {
         $category = Category::findOrFail($id);
         $faqs = $category->faqs()->where('is_active', true)->orderBy('display_order')->paginate(15);
+
         return $this->success(FaqResource::collection($faqs), 'FAQs retrieved successfully.');
     }
 
@@ -49,6 +51,7 @@ class HelpController extends ApiController
         }
 
         $faqs = $query->orderBy('display_order')->paginate(15);
+
         return $this->success(FaqResource::collection($faqs), 'FAQs retrieved successfully.');
     }
 
@@ -57,7 +60,7 @@ class HelpController extends ApiController
         $faqs = Faq::where('is_active', true)
             ->where(function ($q) use ($query) {
                 $q->where('question', 'LIKE', "%{$query}%")
-                  ->orWhere('answer', 'LIKE', "%{$query}%");
+                    ->orWhere('answer', 'LIKE', "%{$query}%");
             })
             ->paginate(15);
 
@@ -69,74 +72,84 @@ class HelpController extends ApiController
         $faq = Faq::where('is_active', true)->findOrFail($id);
         $faq->increment('view_count');
         $faq->load('category', 'tags');
+
         return $this->success(new FaqResource($faq), 'FAQ retrieved successfully.');
     }
-    //endregion
+    // endregion
 
-    //region Policy & Terms Methods
+    // region Policy & Terms Methods
     public function getLatestPrivacyPolicy()
     {
         $latestPolicy = PrivacyPolicy::where('is_active', true)->latest('last_updated')->firstOrFail();
+
         return $this->success(new PolicyResource($latestPolicy), 'Latest privacy policy retrieved successfully.');
     }
 
     public function listPrivacyPolicyVersions()
     {
         $versions = PrivacyPolicy::orderBy('last_updated', 'desc')->get(['version', 'last_updated']);
+
         return $this->success($versions, 'Privacy policy versions retrieved successfully.');
     }
 
     public function getPrivacyPolicyByVersion($version)
     {
         $policy = PrivacyPolicy::findOrFail($version);
+
         return $this->success(new PolicyResource($policy), 'Privacy policy retrieved successfully.');
     }
 
     public function getLatestTermsOfUse()
     {
         $latestTerms = TermsOfUse::where('is_active', true)->latest('last_updated')->firstOrFail();
+
         return $this->success(new PolicyResource($latestTerms), 'Latest terms of use retrieved successfully.');
     }
 
     public function listTermsOfUseVersions()
     {
         $versions = TermsOfUse::orderBy('last_updated', 'desc')->get(['version', 'last_updated']);
+
         return $this->success($versions, 'Terms of use versions retrieved successfully.');
     }
 
     public function getTermsOfUseByVersion($version)
     {
         $terms = TermsOfUse::findOrFail($version);
+
         return $this->success(new PolicyResource($terms), 'Terms of use retrieved successfully.');
     }
-    //endregion
+    // endregion
 
-    //region Content & Tag Methods
+    // region Content & Tag Methods
     public function listContentTypes()
     {
         $types = ContentType::where('is_active', true)->get();
+
         return $this->success(ContentTypeResource::collection($types), 'Content types retrieved successfully.');
     }
 
     public function listTags()
     {
         $tags = Tag::orderBy('usage_count', 'desc')->get();
+
         return $this->success(TagResource::collection($tags), 'Tags retrieved successfully.');
     }
 
     public function getPopularTags()
     {
         $tags = Tag::orderBy('usage_count', 'desc')->take(10)->get();
+
         return $this->success(TagResource::collection($tags), 'Popular tags retrieved successfully.');
     }
-    //endregion
+    // endregion
 
-    //region User Consent Methods
+    // region User Consent Methods
     public function recordPrivacyConsent(Request $request)
     {
         return $this->recordConsent($request, 'privacy_policy');
     }
-    
+
     public function recordTermsConsent(Request $request)
     {
         return $this->recordConsent($request, 'terms_of_use');
@@ -156,5 +169,5 @@ class HelpController extends ApiController
 
         return $this->success(null, 'Consent recorded successfully.');
     }
-    //endregion
+    // endregion
 }

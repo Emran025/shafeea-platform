@@ -2,9 +2,9 @@
 
 namespace App\Services;
 
-use Illuminate\Support\Facades\DB;
-use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SessionService
 {
@@ -41,7 +41,7 @@ class SessionService
             } elseif ($deviceType === 'desktop') {
                 $sessionsQuery->where(function ($query) {
                     $query->where('user_agent', 'not like', '%Mobile%')
-                          ->where('user_agent', 'not like', '%Tablet%');
+                        ->where('user_agent', 'not like', '%Tablet%');
                 });
             } elseif ($deviceType === 'tablet') {
                 $sessionsQuery->where('user_agent', 'like', '%Tablet%');
@@ -88,27 +88,27 @@ class SessionService
 
         // OS Detection
         $os_array = [
-            '/windows nt 10/i'      => 'Windows 10',
-            '/windows nt 6.3/i'     => 'Windows 8.1',
-            '/windows nt 6.2/i'     => 'Windows 8',
-            '/windows nt 6.1/i'     => 'Windows 7',
-            '/windows nt 6.0/i'     => 'Windows Vista',
-            '/windows nt 5.2/i'     => 'Windows Server 2003/XP x64',
-            '/windows nt 5.1/i'     => 'Windows XP',
-            '/windows xp/i'         => 'Windows XP',
-            '/windows nt 5.0/i'     => 'Windows 2000',
-            '/windows me/i'         => 'Windows ME',
-            '/win98/i'              => 'Windows 98',
-            '/win95/i'              => 'Windows 95',
-            '/win16/i'              => 'Windows 3.11',
+            '/windows nt 10/i' => 'Windows 10',
+            '/windows nt 6.3/i' => 'Windows 8.1',
+            '/windows nt 6.2/i' => 'Windows 8',
+            '/windows nt 6.1/i' => 'Windows 7',
+            '/windows nt 6.0/i' => 'Windows Vista',
+            '/windows nt 5.2/i' => 'Windows Server 2003/XP x64',
+            '/windows nt 5.1/i' => 'Windows XP',
+            '/windows xp/i' => 'Windows XP',
+            '/windows nt 5.0/i' => 'Windows 2000',
+            '/windows me/i' => 'Windows ME',
+            '/win98/i' => 'Windows 98',
+            '/win95/i' => 'Windows 95',
+            '/win16/i' => 'Windows 3.11',
             '/macintosh|mac os x/i' => 'Mac OS X',
-            '/mac_powerpc/i'        => 'Mac OS 9',
-            '/linux/i'              => 'Linux',
-            '/ubuntu/i'             => 'Ubuntu',
-            '/iphone|ipod|ipad/i'   => 'iOS',
-            '/android/i'            => 'Android',
-            '/blackberry/i'         => 'BlackBerry',
-            '/webos/i'              => 'Mobile',
+            '/mac_powerpc/i' => 'Mac OS 9',
+            '/linux/i' => 'Linux',
+            '/ubuntu/i' => 'Ubuntu',
+            '/iphone|ipod|ipad/i' => 'iOS',
+            '/android/i' => 'Android',
+            '/blackberry/i' => 'BlackBerry',
+            '/webos/i' => 'Mobile',
         ];
 
         foreach ($os_array as $regex => $value) {
@@ -120,16 +120,16 @@ class SessionService
 
         // Browser Detection
         $browser_array = [
-            '/msie/i'      => 'Internet Explorer',
-            '/firefox/i'   => 'Firefox',
-            '/safari/i'    => 'Safari',
-            '/chrome/i'    => 'Chrome',
-            '/edge/i'      => 'Edge',
-            '/opera/i'     => 'Opera',
-            '/netscape/i'  => 'Netscape',
-            '/maxthon/i'   => 'Maxthon',
+            '/msie/i' => 'Internet Explorer',
+            '/firefox/i' => 'Firefox',
+            '/safari/i' => 'Safari',
+            '/chrome/i' => 'Chrome',
+            '/edge/i' => 'Edge',
+            '/opera/i' => 'Opera',
+            '/netscape/i' => 'Netscape',
+            '/maxthon/i' => 'Maxthon',
             '/konqueror/i' => 'Konqueror',
-            '/mobile/i'    => 'Handheld Browser',
+            '/mobile/i' => 'Handheld Browser',
         ];
 
         if (strpos($userAgent, 'Edg') !== false) {
@@ -139,14 +139,13 @@ class SessionService
         } elseif (strpos($userAgent, 'Safari') !== false) {
             $browser = 'Safari';
         } else {
-             foreach ($browser_array as $regex => $value) {
+            foreach ($browser_array as $regex => $value) {
                 if (preg_match($regex, $userAgent)) {
                     $browser = $value;
                     break;
                 }
             }
         }
-
 
         // Platform detection
         if (preg_match('/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|rim)|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i', $userAgent)
@@ -158,8 +157,8 @@ class SessionService
 
         return [
             'platform' => $platform,
-            'browser'  => $browser,
-            'os'       => $os,
+            'browser' => $browser,
+            'os' => $os,
         ];
     }
 
@@ -167,7 +166,6 @@ class SessionService
      * Terminate a specific session.
      *
      * @param  string  $sessionId
-     * @param  \Illuminate\Http\Request  $request
      * @return bool
      */
     public function terminateSession($sessionId, Request $request)
@@ -188,6 +186,7 @@ class SessionService
 
         if ($sessionToDelete) {
             DB::table('sessions')->where('id', $sessionId)->delete();
+
             return true;
         }
 
@@ -197,7 +196,6 @@ class SessionService
     /**
      * Terminate all other sessions for the current user.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return int
      */
     public function terminateAllOtherSessions(Request $request)
@@ -227,5 +225,4 @@ class SessionService
 
         return $sessionsToDelete->count();
     }
-
 }

@@ -21,9 +21,9 @@ class SchoolFactory extends Factory
             'address' => fake()->address(),
             'phone' => fake()->phoneNumber(),
             'logo' => fake()->imageUrl(200, 200, 'schools', true, 'School'),
-            'country'=>fake()->country(),
-            'city'=>fake()->city(),
-            'location'=>fake()->address()
+            'country' => fake()->country(),
+            'city' => fake()->city(),
+            'location' => fake()->address(),
         ];
     }
 }

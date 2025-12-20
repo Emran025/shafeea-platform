@@ -14,12 +14,13 @@ class UpdateTeacherRequest extends FormRequest
     public function rules()
     {
         $id = request()->route('id');
+
         return [
             'bio' => 'nullable|string',
             'experience_years' => 'nullable|integer|min:0',
             'user.name' => 'sometimes|required|string|max:255',
-            'user.email' => 'sometimes|required|email|unique:users,email,' . $id,
+            'user.email' => 'sometimes|required|email|unique:users,email,'.$id,
             // Add other user fields as needed
         ];
     }
-} 
+}

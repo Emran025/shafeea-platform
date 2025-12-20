@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Models\User;
+use App\Models\Applicant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use App\Models\Applicant;
-use App\Http\Controllers\Api\V1\ApiController;
 
 class ApplicantSubmissionController extends ApiController
 {

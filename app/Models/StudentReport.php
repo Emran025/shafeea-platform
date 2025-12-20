@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class StudentReport extends Model
 {
@@ -56,12 +56,23 @@ class StudentReport extends Model
     {
         $score = $this->behavior;
 
-        if ($score === null) return 'غير معروف';
+        if ($score === null) {
+            return 'غير معروف';
+        }
 
-        if ($score >= 4.5) return 'ممتاز';
-        if ($score >= 3.5) return 'جيد جداً';
-        if ($score >= 2.5) return 'جيد';
-        if ($score >= 1.5) return 'مقبول';
+        if ($score >= 4.5) {
+            return 'ممتاز';
+        }
+        if ($score >= 3.5) {
+            return 'جيد جداً';
+        }
+        if ($score >= 2.5) {
+            return 'جيد';
+        }
+        if ($score >= 1.5) {
+            return 'مقبول';
+        }
+
         return 'ضعيف';
     }
 }

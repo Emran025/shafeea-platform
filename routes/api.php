@@ -1,19 +1,18 @@
 <?php
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\V1\StudentController;
+use App\Http\Controllers\Api\V1\AccountController;
+use App\Http\Controllers\Api\V1\Admin\AdminApplicantController;
 use App\Http\Controllers\Api\V1\ApplicantController;
-use App\Http\Controllers\Api\V1\SyncController;
+use App\Http\Controllers\Api\V1\ApplicantSubmissionController;
+use App\Http\Controllers\Api\V1\AuthController;
+use App\Http\Controllers\Api\V1\FollowUpController;
 use App\Http\Controllers\Api\V1\HalaqaController;
+use App\Http\Controllers\Api\V1\SessionController;
+use App\Http\Controllers\Api\V1\StudentController;
+use App\Http\Controllers\Api\V1\SyncController;
 use App\Http\Controllers\Api\V1\TeacherApplicantController;
 use App\Http\Controllers\Api\V1\TeacherController;
-use App\Http\Controllers\Api\V1\FollowUpController;
-use App\Http\Controllers\Api\V1\AuthController;
-use App\Http\Controllers\Api\V1\SessionController;
-use App\Http\Controllers\Api\V1\AccountController;
-use App\Http\Controllers\Api\V1\ApplicantSubmissionController;
-use App\Http\Controllers\Api\V1\Admin\AdminApplicantController;
+use Illuminate\Support\Facades\Route;
 
 // Public routes
 Route::prefix('v1')->group(function () {
@@ -24,7 +23,6 @@ Route::prefix('v1')->group(function () {
     });
 });
 
-
 // Protected routes
 Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
     // Auth routes
@@ -34,7 +32,6 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
         Route::get('applicant-status', [AuthController::class, 'applicantStatus'])->name('applicant.status');
         Route::post('logout', [AuthController::class, 'logout'])->name('logout');
     });
-
 
     // Applicant Submission
     Route::post('applicants', [ApplicantSubmissionController::class, 'store'])->name('applicants.store');
@@ -77,7 +74,6 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
         Route::delete('tracking-details/{trackingDetailId}', [StudentController::class, 'deleteTrackingDetail'])->name('trackings.details.delete');
     });
 
-
     // Applicants routes with name prefix 'students.applicants.'
     Route::prefix('students/applicants')->name('students.applicants.')->group(function () {
         Route::get('/', [ApplicantController::class, 'index'])->name('index');
@@ -100,7 +96,6 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
         Route::get('{id}/students/khatm', [HalaqaController::class, 'studentsKhatm'])->name('students.khatm');
         Route::get('{id}/students', [HalaqaController::class, 'studentsHistory'])->name('students.history');
     });
-
 
     Route::prefix('teachers')->name('teachers.')->group(function () {
         Route::get('/', [TeacherController::class, 'index'])->name('index');
@@ -132,7 +127,6 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
         Route::get('halaqas', [SyncController::class, 'syncHalaqas'])->name('halaqas');
         Route::get('reports', [SyncController::class, 'syncReports'])->name('reports');
     });
-
 
     Route::prefix('account')->name('account.')->middleware('auth:sanctum')->group(function () {
         // Get the authenticated user's profile

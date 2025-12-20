@@ -3,8 +3,6 @@
 namespace App\Listeners;
 
 use App\Events\AdminLogin;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\DB;
 
 class LogAdminLoginSession
@@ -22,7 +20,6 @@ class LogAdminLoginSession
     /**
      * Handle the event.
      *
-     * @param  \App\Events\AdminLogin  $event
      * @return void
      */
     public function handle(AdminLogin $event)
@@ -37,7 +34,7 @@ class LogAdminLoginSession
             'device_id' => $deviceInfo['device_id'] ?? null,
 
             'login_timestamp' => now()->toISOString(),
-            'token_created' => true
+            'token_created' => true,
         ]));
 
         DB::table('sessions')->insert([

@@ -20,7 +20,7 @@ class FaqFactory extends Factory
     {
         return [
             'category_id' => Category::factory(),
-            'question' => $this->faker->sentence . '?',
+            'question' => $this->faker->sentence.'?',
             'answer' => $this->faker->paragraph,
             'is_active' => true,
             'created_by' => User::factory(),

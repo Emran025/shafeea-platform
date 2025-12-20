@@ -21,4 +21,4 @@ class StoreTeacherRequest extends FormRequest
             // Add other user fields as needed
         ];
     }
-} 
+}

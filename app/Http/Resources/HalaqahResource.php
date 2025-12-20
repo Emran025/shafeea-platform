@@ -21,7 +21,7 @@ class HalaqahResource extends JsonResource
             'gender' => $this->gender ?? null,
             'residence' => $this->residence ?? null,
             'sumOfStudents' => $this->students ? $this->students->count() : 0,
-            'MaxOfStudents'=>$this->max_students,
+            'MaxOfStudents' => $this->max_students,
             'teacherId' => $this->teacher ? $this->teacher->id : null,
             'isActive' => $this->is_active,
             'isDeleted' => $this->is_deleted,

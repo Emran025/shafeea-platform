@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Halaqah extends Model
 {
     use HasFactory;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -77,15 +78,16 @@ class Halaqah extends Model
     {
         return $this->hasMany(Enrollment::class);
     }
+
     public function students()
     {
         return $this->hasManyThrough(
-            Student::class,     
-            Enrollment::class, 
-            'halaqah_id',        
-            'id',               
-            'id',              
-            'student_id'        
+            Student::class,
+            Enrollment::class,
+            'halaqah_id',
+            'id',
+            'id',
+            'student_id'
         );
     }
 

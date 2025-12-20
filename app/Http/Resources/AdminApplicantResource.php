@@ -28,7 +28,7 @@ class AdminApplicantResource extends JsonResource
                 'email' => $this->user->email,
                 'avatar' => $this->user->avatar,
             ],
-            $this->mergeWhen(!$this->collection, [
+            $this->mergeWhen(! $this->collection, [
                 'bio' => $this->bio,
                 'qualifications' => $this->qualifications,
                 'memorization_level' => $this->memorization_level,

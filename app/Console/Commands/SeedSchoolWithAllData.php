@@ -2,26 +2,20 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
-use App\Models\{
-    Admin,
-    FrequencyType,
-    Halaqah,
-    Plan,
-    School,
-    Student,
-    Teacher,
-    Tracking,
-    TrackingDetail,
-    TrackingType,
-    TrackingUnit,
-    Unit,
-    User,
-    Enrollment,
-    StudentReport
-};
-use Illuminate\Support\Str;
+use App\Models\Admin;
+use App\Models\Enrollment;
+use App\Models\FrequencyType;
+use App\Models\Halaqah;
+use App\Models\Plan;
+use App\Models\School;
+use App\Models\Student;
+use App\Models\StudentReport;
+use App\Models\Teacher;
+use App\Models\Unit;
+use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Console\Command;
+use Illuminate\Support\Str;
 
 class SeedSchoolWithAllData extends Command
 {
@@ -31,6 +25,7 @@ class SeedSchoolWithAllData extends Command
      * @var string
      */
     protected $signature = 'seed:school-wafa-full';
+
     /**
      * The console command description.
      *
@@ -49,7 +44,7 @@ class SeedSchoolWithAllData extends Command
         $school = School::create([
             'name' => 'مدرسة الوفاء لتحفيظ القرآن',
             'logo' => 'https://example.com/wafa.png',
-            'phone' => '+967' . rand(700000000, 799999999),
+            'phone' => '+967'.rand(700000000, 799999999),
             'country' => 'اليمن',
             'city' => 'صنعاء',
             'location' => '15.3694,44.1910',
@@ -61,7 +56,7 @@ class SeedSchoolWithAllData extends Command
         foreach (range(1, 10) as $i) {
             $units->push(Unit::create([
                 'code' => "JZ$i",
-                'name_ar' => "الجزء $i"
+                'name_ar' => "الجزء $i",
             ]));
         }
 
@@ -70,10 +65,10 @@ class SeedSchoolWithAllData extends Command
             ['name' => 'يومي', 'days_between' => 1],
             ['name' => 'أسبوعي', 'days_between' => 7],
             ['name' => 'كل 3 أيام', 'days_between' => 3],
-        ])->map(fn($f) => FrequencyType::create([
+        ])->map(fn ($f) => FrequencyType::create([
             'name' => $f['name'],
             'days_between' => $f['days_between'],
-            'description' => "تكرار {$f['name']}"
+            'description' => "تكرار {$f['name']}",
         ]));
 
         // وفاء كأدمين ومعلمة
@@ -84,8 +79,8 @@ class SeedSchoolWithAllData extends Command
             'avatar' => 'https://example.com/wafa.jpg',
             'gender' => 'Female',
             'birth_date' => '1985-05-01',
-            'phone' => '+9677' . rand(10000000, 99999999),
-            'whatsapp' => '+9677' . rand(10000000, 99999999),
+            'phone' => '+9677'.rand(10000000, 99999999),
+            'whatsapp' => '+9677'.rand(10000000, 99999999),
             'country' => 'اليمن',
             'city' => 'صنعاء',
             'residence' => 'الوحدة',
@@ -112,9 +107,9 @@ class SeedSchoolWithAllData extends Command
                 'password' => bcrypt('password'),
                 'avatar' => 'https://example.com/teacher.jpg',
                 'gender' => 'Male',
-                'birth_date' => '1980-01-' . rand(10, 28),
-                'phone' => '+9677' . rand(10000000, 99999999),
-                'whatsapp' => '+9677' . rand(10000000, 99999999),
+                'birth_date' => '1980-01-'.rand(10, 28),
+                'phone' => '+9677'.rand(10000000, 99999999),
+                'whatsapp' => '+9677'.rand(10000000, 99999999),
                 'country' => 'اليمن',
                 'city' => 'صنعاء',
                 'residence' => 'التحرير',
@@ -128,7 +123,7 @@ class SeedSchoolWithAllData extends Command
             ]));
         }
 
-        // الحلقات 
+        // الحلقات
         $halaqahs = collect();
         foreach (range(1, 5) as $i) {
             $teacher = $teachers->random();
@@ -155,9 +150,9 @@ class SeedSchoolWithAllData extends Command
                 'password' => bcrypt('password'),
                 'avatar' => 'https://example.com/student.jpg',
                 'gender' => 'Male',
-                'birth_date' => '2007-05-' . rand(10, 28),
-                'phone' => '+9677' . rand(10000000, 99999999),
-                'whatsapp' => '+9677' . rand(10000000, 99999999),
+                'birth_date' => '2007-05-'.rand(10, 28),
+                'phone' => '+9677'.rand(10000000, 99999999),
+                'whatsapp' => '+9677'.rand(10000000, 99999999),
                 'country' => 'اليمن',
                 'city' => 'صنعاء',
                 'residence' => 'خور مكسر',
@@ -167,7 +162,7 @@ class SeedSchoolWithAllData extends Command
             $students->push(Student::create([
                 'user_id' => $user->id,
                 'qualification' => 'ثانوي',
-                'memorization_level' => rand(1, 10) . ' أجزاء',
+                'memorization_level' => rand(1, 10).' أجزاء',
                 'status' => 'active',
             ]));
         }
@@ -207,12 +202,12 @@ class SeedSchoolWithAllData extends Command
             $report = StudentReport::create([
                 'student_id' => $student->id,
                 'report_date' => $reportDate,
-                'summary' => 'Student performance summary on ' . $reportDate->format('Y-m-d'),
+                'summary' => 'Student performance summary on '.$reportDate->format('Y-m-d'),
                 'details' => json_encode([
                     'attendance' => rand(0, 1) ? 'Present' : 'Absent',
                     'participation' => rand(1, 10),
                     'homework' => rand(1, 10),
-                    'notes' => Str::random(20)
+                    'notes' => Str::random(20),
                 ]),
                 'behavior' => rand(5, 10), // Score out of 10
                 'created_at' => $reportDate,
@@ -227,7 +222,7 @@ class SeedSchoolWithAllData extends Command
             \App\Models\Notification::create([
                 'type' => $notificationTypes[array_rand($notificationTypes)], // اختيار عشوائي من القائمة
                 'title' => 'تقرير جديد للطالب',
-                'message' => 'تم إنشاء تقرير جديد للطالب بتاريخ ' . $reportDate->format('Y-m-d'),
+                'message' => 'تم إنشاء تقرير جديد للطالب بتاريخ '.$reportDate->format('Y-m-d'),
                 'read' => false,
                 'user_id' => $admin->id ?? null, // تأكد من وجود علاقة user للطالب، أو استخدم null
                 'scheduled_for' => now(), // يمكن تغييرها لتكون لاحقًا إذا لزم الأمر
@@ -235,7 +230,6 @@ class SeedSchoolWithAllData extends Command
                 'updated_at' => now(),
             ]);
         }
-
 
         $this->info("\n✅ تم إنشاء كافة بيانات مدرسة الوفاء بنجاح!");
     }

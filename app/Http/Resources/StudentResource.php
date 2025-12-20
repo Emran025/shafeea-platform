@@ -30,7 +30,7 @@ class StudentResource extends JsonResource
             'country' => $user->country ?? null,
             'residence' => $user->residence ?? null,
             'city' => $user->city ?? null,
-            $this->mergeWhen(!$this->collection, [
+            $this->mergeWhen(! $this->collection, [
                 'qualification' => $this->qualification,
                 'memorizationLevel' => $this->memorization_level,
             ]),
@@ -64,7 +64,7 @@ class StudentResource extends JsonResource
                 'updatedAt' => $plan->updated_at?->toIso8601String() ?? null,
                 'createdAt' => $plan->created_at?->toIso8601String() ?? null,
             ] : null,
-            'isDeleted' => (bool)$student->is_deleted,
+            'isDeleted' => (bool) $student->is_deleted,
             'createdAt' => $this->created_at,
             'updatedAt' => $this->updated_at,
         ];

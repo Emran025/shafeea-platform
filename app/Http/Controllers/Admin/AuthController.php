@@ -33,7 +33,7 @@ class AuthController extends Controller
 
         $credentials = [
             'email' => $data['email'],
-            'password' => $data['password']
+            'password' => $data['password'],
         ];
 
         if (Auth::attempt($credentials, $request->boolean('remember'))) {

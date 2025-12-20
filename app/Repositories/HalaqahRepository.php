@@ -2,19 +2,18 @@
 
 namespace App\Repositories;
 
-use App\Models\Halaqah;
 use App\Models\Enrollment;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Models\Halaqah;
 use Exception;
+use Illuminate\Support\Facades\DB;
 
 class HalaqahRepository
 {
     /**
      * Get all halaqahs with filtering and pagination.
      *
-     * @param array $filters
-     * @param bool $pagination
+     * @param  array  $filters
+     * @param  bool  $pagination
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator|\Illuminate\Database\Eloquent\Collection
      */
     public function all($filters = [], $pagination = true)
@@ -27,7 +26,7 @@ class HalaqahRepository
         }
 
         if (isset($filters['name'])) {
-            $query->where('name', 'like', '%' . $filters['name'] . '%');
+            $query->where('name', 'like', '%'.$filters['name'].'%');
         }
 
         $sortBy = $filters['sortBy'] ?? 'created_at';
@@ -36,6 +35,7 @@ class HalaqahRepository
 
         if ($pagination) {
             $limit = $filters['limit'] ?? 10;
+
             return $query->paginate($limit);
         }
 
@@ -45,7 +45,7 @@ class HalaqahRepository
     /**
      * Find a single halaqah by its ID.
      *
-     * @param int $id
+     * @param  int  $id
      * @return Halaqah
      */
     public function find($id)
@@ -57,7 +57,6 @@ class HalaqahRepository
     /**
      * Create a new halaqah.
      *
-     * @param array $data
      * @return Halaqah
      */
     public function create(array $data)
@@ -80,12 +79,10 @@ class HalaqahRepository
         });
     }
 
-
     /**
      * Update an existing halaqah.
      *
-     * @param int $id
-     * @param array $data
+     * @param  int  $id
      * @return Halaqah
      */
     public function update($id, array $data)
@@ -104,12 +101,11 @@ class HalaqahRepository
         });
     }
 
-
     /**
      * Assign a teacher to a halaqah.
      *
-     * @param int $id
-     * @param int $teacherId
+     * @param  int  $id
+     * @param  int  $teacherId
      * @return Halaqah
      */
     public function assignTeacher($id, $teacherId)
@@ -137,9 +133,9 @@ class HalaqahRepository
     /**
      * Assign a list of students to a halaqah.
      *
-     * @param int $id
-     * @param array $studentIds
+     * @param  int  $id
      * @return Halaqah
+     *
      * @throws Exception
      */
     public function assignStudents($id, array $studentIds)
@@ -166,8 +162,8 @@ class HalaqahRepository
 
             // Check for the existence of the default plan
             $defaultPlanId = 1;
-            if (!\App\Models\Plan::where('id', $defaultPlanId)->exists()) {
-                throw new Exception("Default plan with ID 1 does not exist.");
+            if (! \App\Models\Plan::where('id', $defaultPlanId)->exists()) {
+                throw new Exception('Default plan with ID 1 does not exist.');
             }
 
             $enrollments = [];
@@ -177,7 +173,7 @@ class HalaqahRepository
                     'halaqah_id' => $id,
                     'enrolled_at' => now(),
                     'created_at' => now(),
-                    'updated_at' => now()
+                    'updated_at' => now(),
                 ];
             }
 
@@ -196,7 +192,7 @@ class HalaqahRepository
                     'plan_id' => $defaultPlanId,
                     'is_current' => true,
                     'created_at' => now(),
-                    'updated_at' => now()
+                    'updated_at' => now(),
                 ];
             }
 
@@ -212,8 +208,7 @@ class HalaqahRepository
     /**
      * Get the enrollment history of students for a halaqah.
      *
-     * @param int $id
-     * @param array $filters
+     * @param  int  $id
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
     public function getStudentHistory($id, array $filters)
@@ -232,8 +227,7 @@ class HalaqahRepository
     /**
      * Get students who have completed the Quran (Khatm) in a halaqah.
      *
-     * @param int $id
-     * @param array $filters
+     * @param  int  $id
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
     public function getKhatmStudents($id, array $filters)
@@ -251,8 +245,7 @@ class HalaqahRepository
     /**
      * Get the history of teachers for a halaqah.
      *
-     * @param int $id
-     * @param array $filters
+     * @param  int  $id
      * @return \Illuminate\Support\Collection
      */
     public function getTeacherHistory($id, array $filters)
@@ -264,7 +257,6 @@ class HalaqahRepository
             ->orderBy('pivot_assigned_at', 'desc')
             ->get();
     }
-
 
     public function getUpdatedSince($updatedSince, $limit = 100, $page = 1)
     {

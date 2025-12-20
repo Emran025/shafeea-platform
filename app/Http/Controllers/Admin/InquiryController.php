@@ -4,9 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Faq;
-use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 
 class InquiryController extends Controller
@@ -23,8 +21,8 @@ class InquiryController extends Controller
 
         if ($request->has('search')) {
             $query->where(function ($q) use ($request) {
-                $q->where('question', 'like', '%' . $request->input('search') . '%')
-                    ->orWhere('answer', 'like', '%' . $request->input('search') . '%');
+                $q->where('question', 'like', '%'.$request->input('search').'%')
+                    ->orWhere('answer', 'like', '%'.$request->input('search').'%');
             });
         }
 
@@ -42,13 +40,13 @@ class InquiryController extends Controller
     public function show(Faq $inquiry)
     {
         return Inertia::render('admin/inquiries/show', [
-            'inquiry' => $inquiry
+            'inquiry' => $inquiry,
         ]);
     }
 
     public function update(Request $request, Faq $inquiry)
     {
-        $wasAnswered = !empty($inquiry->answer);
+        $wasAnswered = ! empty($inquiry->answer);
 
         $validated = $request->validate([
             'question' => 'required|string|max:255',
@@ -59,7 +57,7 @@ class InquiryController extends Controller
 
         $inquiry->update($validated);
 
-        $isNewlyAnswered = !$wasAnswered && !empty($validated['answer']);
+        $isNewlyAnswered = ! $wasAnswered && ! empty($validated['answer']);
 
         if ($isNewlyAnswered) {
             $user = $inquiry->createdBy;

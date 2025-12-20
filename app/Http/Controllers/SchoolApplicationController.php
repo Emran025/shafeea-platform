@@ -10,7 +10,6 @@ use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class SchoolApplicationController extends Controller
@@ -51,7 +50,7 @@ class SchoolApplicationController extends Controller
                     foreach ($request->documents as $doc) {
                         if (isset($doc['file']) && $doc['file'] instanceof \Illuminate\Http\UploadedFile) {
                             $filePath = $doc['file']->store(
-                                'public/documents/schools/' . $school->id,
+                                'public/documents/schools/'.$school->id,
                                 'public'
                             );
 
@@ -78,13 +77,13 @@ class SchoolApplicationController extends Controller
 
             return redirect()->route('schools.apply')->with('success', 'تم تسجيل مدرستكم بنجاح! سيتم مراجعة الطلب وإشعاركم بالنتيجة.');
         } catch (\Exception $e) {
-            Log::error('School application error: ' . $e->getMessage(), [
+            Log::error('School application error: '.$e->getMessage(), [
                 'trace' => $e->getTraceAsString(),
-                'request_data' => $request->except(['admin_password', 'admin_password_confirmation'])
+                'request_data' => $request->except(['admin_password', 'admin_password_confirmation']),
             ]);
 
             return back()->withErrors([
-                'error' => 'حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى أو التواصل مع الدعم.'
+                'error' => 'حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى أو التواصل مع الدعم.',
             ])->withInput();
         }
     }

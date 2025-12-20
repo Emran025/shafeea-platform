@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class School extends Model
 {
     use HasFactory;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -30,6 +31,7 @@ class School extends Model
     {
         return $this->hasMany(Halaqah::class);
     }
+
     public function users()
     {
         return $this->hasMany(User::class);

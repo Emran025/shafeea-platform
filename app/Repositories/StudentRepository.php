@@ -2,14 +2,12 @@
 
 namespace App\Repositories;
 
-use App\Models\Student;
 use App\Models\Enrollment;
-use Illuminate\Support\Facades\DB;
 use App\Models\Halaqah;
-
+use App\Models\Student;
 use App\Models\StudentReport;
-
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\DB;
 
 class StudentRepository
 {
@@ -24,8 +22,10 @@ class StudentRepository
         $query->orderBy($sortBy, $sortOrder);
         if ($pagination) {
             $limit = $filters['limit'] ?? 10;
+
             return $query->paginate($limit);
         }
+
         return $query->get();
     }
 
@@ -85,11 +85,13 @@ class StudentRepository
                 $userData[$column] = $data[$input];
             }
         }
-        if (!empty($userData) && $student->user) {
+        if (! empty($userData) && $student->user) {
             $student->user->update($userData);
         }
+
         return $student->fresh(['user', 'enrollments.halaqah']);
     }
+
     public function sync($updatedSince, $limit, $page): LengthAwarePaginator
     {
         return Student::with([
@@ -109,24 +111,19 @@ class StudentRepository
             })
             ->paginate($limit, ['*'], 'page', $page);
     }
+
     /**
      * Delete a student by ID.
-     *
-     * @param int $id
-     * @return bool|null
      */
     public function delete(int $id): ?bool
     {
         $student = Student::findOrFail($id);
+
         return $student->delete();
     }
 
     /**
      * Register a student to a halaqah.
-     *
-     * @param int $studentId
-     * @param int $halaqahId
-     * @return bool
      */
     public function joinHalaqah(int $studentId, int $halaqahId): bool
     {
@@ -136,38 +133,35 @@ class StudentRepository
             'halaqah_id' => $halaqahId,
             'enrolled_at' => now(),
         ]);
+
         return true;
     }
 
     /**
      * Remove a student from a halaqah.
-     *
-     * @param int $studentId
-     * @param int $halaqahId
-     * @return bool
      */
     public function leaveHalaqah(int $studentId, int $halaqahId): bool
     {
         Enrollment::where('student_id', $studentId)
             ->where('halaqah_id', $halaqahId)
             ->delete();
+
         return true;
     }
 
     /**
      * Get reports of a student.
      *
-     * @param int $studentId
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public function getReports(int $studentId)
     {
         return StudentReport::where('student_id', $studentId)->get();
     }
+
     /**
      * Get all halaqahs student is enrolled in.
      *
-     * @param int $studentId
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public function getHalaqahs(int $studentId)
@@ -177,10 +171,6 @@ class StudentRepository
 
     /**
      * Check if student is enrolled in a specific halaqah.
-     *
-     * @param int $studentId
-     * @param int $halaqahId
-     * @return bool
      */
     public function isInHalaqah(int $studentId, int $halaqahId): bool
     {
@@ -192,12 +182,12 @@ class StudentRepository
     /**
      * Get student progress summary from reports.
      *
-     * @param int $studentId
      * @return array{total_reports: int, last_report: ?Report}
      */
     public function getProgress(int $studentId): array
     {
         $reports = StudentReport::where('student_id', $studentId)->orderBy('report_date', 'desc')->get();
+
         return [
             'total_reports' => $reports->count(),
             'last_report' => $reports->first() ?? null,
@@ -207,7 +197,6 @@ class StudentRepository
     /**
      * Get all plans for a student via enrollments.
      *
-     * @param int $studentId
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public function getPlans(int $studentId)
@@ -222,7 +211,6 @@ class StudentRepository
     /**
      * Get the active plan for a student (most recent enrollment).
      *
-     * @param int $studentId
      * @return Plan|null
      */
     public function getActivePlan(int $studentId)
@@ -231,14 +219,13 @@ class StudentRepository
             ->orderByDesc('enrolled_at')
             ->with('currentPlan')
             ->first();
+
         return $enrollment ? $enrollment->currentPlan->first() : null;
     }
 
     /**
      * Create a new plan and enroll the student in it.
      *
-     * @param int $studentId
-     * @param array $data
      * @return Plan
      */
     public function createPlan(int $studentId, array $data)
@@ -260,22 +247,20 @@ class StudentRepository
     /**
      * Update an existing plan.
      *
-     * @param int $planId
-     * @param array $data
      * @return Plan
      */
     public function updatePlan(int $planId, array $data)
     {
         $plan = \App\Models\Plan::findOrFail($planId);
         $plan->update($data);
+
         return $plan;
     }
 
     /**
      * Create a tracking for a plan.
      *
-     * @param int $planId
-     * @param array $data
+     * @param  int  $planId
      * @return Tracking
      */
     public function createTracking(int $enrollmentId, array $data)
@@ -291,7 +276,7 @@ class StudentRepository
 
             $tracking = \App\Models\Tracking::create($data);
 
-            if (!empty($detailsData)) {
+            if (! empty($detailsData)) {
                 foreach ($detailsData as $detailData) {
                     $this->addTrackingDetail($tracking->id, $detailData);
                 }
@@ -304,8 +289,6 @@ class StudentRepository
     /**
      * Update a tracking.
      *
-     * @param int $trackingId
-     * @param array $data
      * @return Tracking
      */
     public function updateTracking(int $trackingId, array $data)
@@ -334,7 +317,7 @@ class StudentRepository
                     $mistake->delete();
                 }
 
-                if (!empty($mistakesData)) {
+                if (! empty($mistakesData)) {
                     $detail->mistakes()->createMany($mistakesData);
                 }
             }
@@ -346,8 +329,6 @@ class StudentRepository
     /**
      * Add a tracking detail to a tracking.
      *
-     * @param int $trackingId
-     * @param array $data
      * @return TrackingDetail
      */
     public function addTrackingDetail(int $trackingId, array $data)
@@ -363,7 +344,7 @@ class StudentRepository
 
             $trackingDetail = \App\Models\TrackingDetail::create($data);
 
-            if (!empty($mistakesData)) {
+            if (! empty($mistakesData)) {
                 $trackingDetail->mistakes()->createMany($mistakesData);
             }
 
@@ -374,19 +355,18 @@ class StudentRepository
     /**
      * Get all trackings for a student (via all their plans).
      *
-     * @param int $studentId
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public function getTrackingsForStudent(int $studentId)
     {
         $enrollmentIds = Enrollment::where('student_id', $studentId)->pluck('id');
+
         return \App\Models\Tracking::whereIn('enrollment_id', $enrollmentIds)->with(['details'])->get();
     }
 
     /**
      * Get all tracking details for a tracking.
      *
-     * @param int $trackingId
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public function getTrackingDetails(int $trackingId)
@@ -396,37 +376,31 @@ class StudentRepository
 
     /**
      * Delete a plan by ID.
-     *
-     * @param int $planId
-     * @return bool|null
      */
     public function deletePlan(int $planId): ?bool
     {
         $plan = \App\Models\Plan::findOrFail($planId);
+
         return $plan->delete();
     }
 
     /**
      * Delete a tracking by ID.
-     *
-     * @param int $trackingId
-     * @return bool|null
      */
     public function deleteTracking(int $trackingId): ?bool
     {
         $tracking = \App\Models\Tracking::findOrFail($trackingId);
+
         return $tracking->delete();
     }
 
     /**
      * Delete a tracking detail by ID.
-     *
-     * @param int $trackingDetailId
-     * @return bool|null
      */
     public function deleteTrackingDetail(int $trackingDetailId): ?bool
     {
         $detail = \App\Models\TrackingDetail::findOrFail($trackingDetailId);
+
         return $detail->delete();
     }
 }

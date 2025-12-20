@@ -2,10 +2,9 @@
 
 namespace Database\Factories;
 
-use App\Models\User;
 use App\Models\School;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-
 
 class ApplicantFactory extends Factory
 {
@@ -14,12 +13,12 @@ class ApplicantFactory extends Factory
         $applicationType = $this->faker->randomElement(['teacher', 'student']);
 
         $bio = $applicationType === 'teacher'
-            ? 'مُعلم لغة عربية بخبرة تمتد لـ ' . $this->faker->numberBetween(3, 15) . ' سنوات في تدريس القرآن الكريم وعلومه. حاصل على إجازة في القراءات العشر.'
+            ? 'مُعلم لغة عربية بخبرة تمتد لـ '.$this->faker->numberBetween(3, 15).' سنوات في تدريس القرآن الكريم وعلومه. حاصل على إجازة في القراءات العشر.'
             : 'طالب علم مجتهد، أسعى لتعميق فهمي للقرآن الكريم وتلاوته. لدي خبرة سابقة في المشاركة في حلقات التحفيظ المحلية.';
 
         $qualifications = $applicationType === 'teacher'
             ? 'إجازة في علوم القرآن، شهادة في أساليب التدريس الحديثة، خبرة في التعامل مع مختلف الفئات العمرية.'
-            : 'خاتم لـ ' . $this->faker->numberBetween(5, 20) . ' أجزاء من القرآن الكريم، ومشارك فعال في الأنشطة الدينية بالمسجد المحلي.';
+            : 'خاتم لـ '.$this->faker->numberBetween(5, 20).' أجزاء من القرآن الكريم، ومشارك فعال في الأنشطة الدينية بالمسجد المحلي.';
 
         $intentStatement = $applicationType === 'teacher'
             ? 'أتطلع إلى المساهمة في تنشئة جيل جديد من حفظة القرآن، وتطبيق خبرتي في بيئة تعليمية محفزة وملهمة.'

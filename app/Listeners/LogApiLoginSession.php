@@ -3,8 +3,6 @@
 namespace App\Listeners;
 
 use App\Events\ApiLogin;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\DB;
 
 class LogApiLoginSession
@@ -22,7 +20,6 @@ class LogApiLoginSession
     /**
      * Handle the event.
      *
-     * @param  \App\Events\ApiLogin  $event
      * @return void
      */
     public function handle(ApiLogin $event)
@@ -37,7 +34,7 @@ class LogApiLoginSession
             'device_id' => $deviceInfo['device_id'] ?? null,
 
             'login_timestamp' => now()->toISOString(),
-            'token_created' => true
+            'token_created' => true,
         ]));
 
         DB::table('sessions')->insert([

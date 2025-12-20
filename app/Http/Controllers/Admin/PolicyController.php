@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\PrivacyPolicy;
 use App\Models\TermsOfUse;
 use Illuminate\Http\Request;
-use Inertia\Inertia;
 use Illuminate\Support\Facades\Redirect;
+use Inertia\Inertia;
 
 class PolicyController extends Controller
 {
@@ -36,7 +36,7 @@ class PolicyController extends Controller
     {
         $request->validate([
             'sections' => 'required|array',
-            'summary'  => 'nullable|array',
+            'summary' => 'nullable|array',
         ]);
 
         $incrementVersion = function ($version) {
@@ -44,8 +44,9 @@ class PolicyController extends Controller
             if (count($parts) > 0) {
                 $parts[count($parts) - 1]++;
             } else {
-                return (int)$version + 1;
+                return (int) $version + 1;
             }
+
             return implode('.', $parts);
         };
 

@@ -9,6 +9,7 @@ class TeacherResource extends JsonResource
     public function toArray($request)
     {
         $user = $this->user;
+
         return [
             'id' => $this->id,
             'bio' => $this->bio,
@@ -41,5 +42,4 @@ class TeacherResource extends JsonResource
             // Add halaqahs or other relationships as needed
         ];
     }
-
 }

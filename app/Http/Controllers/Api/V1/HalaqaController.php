@@ -6,11 +6,11 @@ use App\Http\Resources\HalaqahResource;
 use App\Http\Resources\StudentHistoryResource;
 use App\Http\Resources\StudentKhatmResource;
 use App\Repositories\HalaqahRepository;
+use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
-use Exception;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 // Make sure you're extending your new ApiController
 class HalaqaController extends ApiController
@@ -25,6 +25,7 @@ class HalaqaController extends ApiController
     public function index(Request $request)
     {
         $halaqahs = $this->halaqahRepository->all($request->all());
+
         // Use paginatedSuccess to handle paginated resource collections
         return $this->paginatedSuccess($halaqahs, HalaqahResource::class, 'Halaqahs retrieved successfully.');
     }
@@ -60,6 +61,7 @@ class HalaqaController extends ApiController
     public function show($id)
     {
         $halaqah = $this->halaqahRepository->find($id);
+
         // Use the success helper for a single resource retrieval
         return $this->success(new HalaqahResource($halaqah), 'Halaqah retrieved successfully.');
     }
@@ -99,6 +101,7 @@ class HalaqaController extends ApiController
 
         try {
             $this->halaqahRepository->assignStudents($id, $request->input('student_ids'));
+
             // Use success helper for a simple message response
             return $this->success(null, 'Students assigned to Halaqa successfully.');
         } catch (ModelNotFoundException $e) {
@@ -130,12 +133,12 @@ class HalaqaController extends ApiController
 
         $data = $teachers->map(function ($teacher) {
             return [
-                "id" => $teacher->id,
-                "name" => $teacher->user->name,
-                "avatar" => $teacher->user->avatar,
-                "assigned_at" => $teacher->pivot->assigned_at,
-                "note" => $teacher->pivot->note,
-                "is_current" => $teacher->pivot->is_current,
+                'id' => $teacher->id,
+                'name' => $teacher->user->name,
+                'avatar' => $teacher->user->avatar,
+                'assigned_at' => $teacher->pivot->assigned_at,
+                'note' => $teacher->pivot->note,
+                'is_current' => $teacher->pivot->is_current,
             ];
         });
 
@@ -145,6 +148,7 @@ class HalaqaController extends ApiController
     public function studentsKhatm(Request $request, $id)
     {
         $students = $this->halaqahRepository->getKhatmStudents($id, $request->all());
+
         // Use the paginatedSuccess helper with our new StudentKhatmResource
         return $this->paginatedSuccess($students, StudentKhatmResource::class, 'Khatm student list retrieved successfully.');
     }
@@ -152,6 +156,7 @@ class HalaqaController extends ApiController
     public function studentsHistory(Request $request, $id)
     {
         $enrollments = $this->halaqahRepository->getStudentHistory($id, $request->all());
+
         // Use the paginatedSuccess helper with our new StudentHistoryResource
         return $this->paginatedSuccess($enrollments, StudentHistoryResource::class, 'Student history retrieved successfully.');
     }

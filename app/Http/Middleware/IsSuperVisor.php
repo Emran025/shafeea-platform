@@ -2,10 +2,9 @@
 
 namespace App\Http\Middleware;
 
+use App\Enums\AdminStatus;
 use Closure;
 use Illuminate\Http\Request;
-use App\Enums\AdminStatus;
-
 
 class IsSuperVisor
 {

@@ -66,7 +66,7 @@ class StudentSyncResource extends JsonResource
                 'updatedAt' => $plan->updated_at?->toIso8601String() ?? null,
                 'createdAt' => $plan->created_at?->toIso8601String() ?? null,
             ] : null,
-            'isDeleted' => (bool)$student->is_deleted,
+            'isDeleted' => (bool) $student->is_deleted,
             'updatedAt' => $student->updated_at?->toIso8601String(),
             'createdAt' => $student->created_at?->toIso8601String(),
         ];

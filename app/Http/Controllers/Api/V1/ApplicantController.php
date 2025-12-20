@@ -31,6 +31,6 @@ class ApplicantController extends ApiController
     public function store(Request $request)
     {
         // TODO: create new applicant
-        return $this->success([], "Applicant created");
+        return $this->success([], 'Applicant created');
     }
 }

@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
 class Enrollment extends Model
 {
     use HasFactory;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -48,8 +50,8 @@ class Enrollment extends Model
     public function currentPlan()
     {
         return $this->belongsToMany(Plan::class, 'enrollment_plan')
-                    ->wherePivot('is_current', true)
-                    ->withTimestamps();
+            ->wherePivot('is_current', true)
+            ->withTimestamps();
     }
 
     /**

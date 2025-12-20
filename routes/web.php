@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
+use App\Models\Faq;
 use App\Models\PrivacyPolicy;
 use App\Models\TermsOfUse;
-use App\Models\Faq;
+use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 Route::get('/', function () {
     return Inertia::render('welcome');
@@ -25,11 +25,13 @@ Route::get('/contact', function () {
 
 Route::get('/terms', function () {
     $terms = TermsOfUse::where('is_active', true)->latest('last_updated')->first();
+
     return Inertia::render('terms', ['terms' => $terms]);
 })->name('terms');
 
 Route::get('/privacy', function () {
     $privacyPolicy = PrivacyPolicy::where('is_active', true)->latest('last_updated')->first();
+
     return Inertia::render('privacy', ['privacyPolicy' => $privacyPolicy]);
 })->name('privacy');
 
@@ -39,6 +41,7 @@ Route::get('/faq', function () {
         ->where('display_order', 1)
         ->orderBy('display_order', 'asc')
         ->get();
+
     return Inertia::render('faq', ['faqs' => $faqs]);
 })->name('faq');
 
@@ -59,7 +62,7 @@ Route::post('/contact', function (\Illuminate\Http\Request $request) {
 
 // Include admin routes
 Route::prefix('admin')->name('admin.')->group(function () {
-    require __DIR__ . '/admin.php';
+    require __DIR__.'/admin.php';
 });
 
 // require __DIR__ . '/auth.php';

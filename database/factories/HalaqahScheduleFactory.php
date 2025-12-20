@@ -16,10 +16,10 @@ class HalaqahScheduleFactory extends Factory
      */
     public function definition(): array
     {
-       return [
+        return [
             'halaqah_id' => \App\Models\Halaqah::factory(), // Creates related Halaqah model
             'day_of_week' => fake()->randomElement([
-                'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'
+                'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday',
             ]),
             'start_time' => fake()->time('H:i'),
             'end_time' => fake()->time('H:i'),

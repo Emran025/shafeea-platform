@@ -10,8 +10,11 @@ class PrivacyPolicy extends Model
     use HasFactory;
 
     protected $table = 'privacy_policy';
+
     protected $primaryKey = 'version';
+
     public $incrementing = false;
+
     protected $keyType = 'string';
 
     protected $fillable = [

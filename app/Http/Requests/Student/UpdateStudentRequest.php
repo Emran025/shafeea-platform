@@ -14,6 +14,7 @@ class UpdateStudentRequest extends FormRequest
     public function rules()
     {
         $id = request()->route('id');
+
         return [
             'name' => 'sometimes|required|string|max:255',
             'avatar' => 'nullable|string',

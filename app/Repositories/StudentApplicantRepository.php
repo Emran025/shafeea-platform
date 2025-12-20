@@ -3,7 +3,7 @@
 namespace App\Repositories;
 
 // Placeholder for StudentApplicant model if it does not exist
-if (!class_exists('App\\Models\\StudentApplicant')) {
+if (! class_exists('App\\Models\\StudentApplicant')) {
     eval('namespace App\\Models; class StudentApplicant extends \\Illuminate\\Database\\Eloquent\\Model {}');
 }
 
@@ -22,8 +22,10 @@ class StudentApplicantRepository
         $query->orderBy($sortBy, $sortOrder);
         if ($pagination) {
             $limit = $filters['limit'] ?? 10;
+
             return $query->paginate($limit);
         }
+
         return $query->get();
     }
 

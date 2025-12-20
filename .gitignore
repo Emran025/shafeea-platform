@@ -24,3 +24,6 @@ yarn-error.log
 /.zed
 *.log
 composer.phar
+
+tests/Feature/
+tests/Unit/

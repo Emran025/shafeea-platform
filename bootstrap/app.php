@@ -1,19 +1,19 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\HandleAppearance;
 use App\Http\Middleware\HandleInertiaRequests;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets;
-use Illuminate\Http\Request; // Required for proxy headers
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route; // Required for proxy headers
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
-        web: __DIR__ . '/../routes/web.php',
-        api: __DIR__ . '/../routes/api.php',
-        commands: __DIR__ . '/../routes/console.php',
+        web: __DIR__.'/../routes/web.php',
+        api: __DIR__.'/../routes/api.php',
+        commands: __DIR__.'/../routes/console.php',
         health: '/up',
         then: function () {
             // Custom route files
@@ -62,7 +62,7 @@ return Application::configure(basePath: dirname(__DIR__))
             if ($request->is('api/*')) {
                 return response()->json([
                     'status' => 'error',
-                    'message' => 'Token is invalid or already revoked'
+                    'message' => 'Token is invalid or already revoked',
                 ], 401);
             }
         });
