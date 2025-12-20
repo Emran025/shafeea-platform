@@ -20,10 +20,10 @@ class SchoolFactory extends Factory
             'name' => fake()->company(),
             'address' => fake()->address(),
             'phone' => fake()->phoneNumber(),
-            'logo' => fake()->imageUrl(200, 200, 'schools', true, 'School'),
-            'country' => fake()->country(),
-            'city' => fake()->city(),
-            'location' => fake()->address(),
+            'email' => fake()->unique()->safeEmail(),
+            'website' => fake()->optional()->url(),
+            'description' => fake()->optional()->paragraph(),
+            'status' => 'active',
         ];
     }
 }
