@@ -43,7 +43,7 @@ return Application::configure(basePath: dirname(__DIR__))
 
         // Middleware Aliases
         $middleware->alias([
-            'admin' => \App\Http\Middleware\IsAdmin::class,
+            'admin' => \App\Http\Middleware\IsSuperVisor::class,
         ]);
 
         // Exempt cookies from encryption
