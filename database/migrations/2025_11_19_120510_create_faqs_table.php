@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('faqs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('category_id')->constrained('faq_categories')->onDelete('cascade');
+            $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
             $table->foreignId('school_id')->nullable()->constrained('schools')->onDelete('set null');
             $table->text('question');
             $table->text('answer');

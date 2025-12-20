@@ -4,14 +4,14 @@ namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreFaqCategoryRequest extends FormRequest
+class UpdateCategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true; // Authorization is handled by the 'admin' middleware
+        return true;
     }
 
     /**
@@ -22,7 +22,7 @@ class StoreFaqCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:100',
+            'name' => 'sometimes|required|string|max:100',
             'description' => 'nullable|string',
             'is_active' => 'boolean',
             'display_order' => 'integer',

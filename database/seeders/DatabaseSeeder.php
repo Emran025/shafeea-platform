@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             ContentTypeSeeder::class,
             TagSeeder::class,
-            FaqCategorySeeder::class,
+            CategorySeeder::class,
             FaqSeeder::class,
             PrivacyPolicySeeder::class,
             TermsOfUseSeeder::class,

@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\Faq;
-use App\Models\FaqCategory;
+use App\Models\Category;
 use App\Models\PrivacyPolicy;
 use App\Models\Role;
 use App\Models\User;
@@ -23,7 +23,7 @@ beforeEach(function () {
     Admin::factory()->create(['user_id' => $this->admin->id]);
 
     // Create a FAQ category
-    $this->category = FaqCategory::factory()->create(['is_active' => true]);
+    $this->category = Category::factory()->create(['is_active' => true]);
 
     // Create a FAQ
     Faq::factory()->create([

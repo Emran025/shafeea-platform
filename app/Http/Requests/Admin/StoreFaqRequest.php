@@ -22,7 +22,7 @@ class StoreFaqRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'category_id' => 'required|exists:faq_categories,id',
+            'category_id' => 'required|exists:categories,id',
             'school_id' => 'nullable|exists:schools,id',
             'question' => 'required|string',
             'answer' => 'required|string',

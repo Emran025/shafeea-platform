@@ -3,16 +3,16 @@
 namespace App\Http\Controllers\Api\V1\Admin;
 
 use App\Http\Controllers\Api\V1\ApiController;
-use App\Http\Resources\FaqCategoryResource;
+use App\Http\Resources\CategoryResource;
 use App\Http\Resources\FaqResource;
 use App\Models\Faq;
-use App\Models\FaqCategory;
+use App\Models\Category;
 use App\Models\PrivacyPolicy;
 use App\Models\Tag;
-use App\Http\Requests\Admin\StoreFaqCategoryRequest;
+use App\Http\Requests\Admin\StoreCategoryRequest;
 use App\Http\Requests\Admin\StoreFaqRequest;
 use App\Http\Requests\Admin\StorePolicyRequest;
-use App\Http\Requests\Admin\UpdateFaqCategoryRequest;
+use App\Http\Requests\Admin\UpdateCategoryRequest;
 use App\Http\Requests\Admin\UpdateFaqRequest;
 use App\Models\TermsOfUse;
 use Illuminate\Http\Request;
@@ -21,22 +21,22 @@ use Illuminate\Support\Facades\Auth;
 class HelpController extends ApiController
 {
     //region FAQ Category Management
-    public function createFaqCategory(StoreFaqCategoryRequest $request)
+    public function createCategory(StoreCategoryRequest $request)
     {
-        $category = FaqCategory::create($request->validated());
-        return $this->success(new FaqCategoryResource($category), 'FAQ category created successfully.', 201);
+        $category = Category::create($request->validated());
+        return $this->success(new CategoryResource($category), 'FAQ category created successfully.', 201);
     }
 
-    public function updateFaqCategory(UpdateFaqCategoryRequest $request, $id)
+    public function updateCategory(UpdateCategoryRequest $request, $id)
     {
-        $category = FaqCategory::findOrFail($id);
+        $category = Category::findOrFail($id);
         $category->update($request->validated());
-        return $this->success(new FaqCategoryResource($category), 'FAQ category updated successfully.');
+        return $this->success(new CategoryResource($category), 'FAQ category updated successfully.');
     }
 
-    public function deleteFaqCategory($id)
+    public function deleteCategory($id)
     {
-        FaqCategory::findOrFail($id)->delete();
+        Category::findOrFail($id)->delete();
         return $this->success(null, 'FAQ category deleted successfully.');
     }
     //endregion

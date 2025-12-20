@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\FaqCategory;
+use App\Models\Category;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -19,7 +19,7 @@ class FaqFactory extends Factory
     public function definition(): array
     {
         return [
-            'category_id' => FaqCategory::factory(),
+            'category_id' => Category::factory(),
             'question' => $this->faker->sentence . '?',
             'answer' => $this->faker->paragraph,
             'is_active' => true,

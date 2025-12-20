@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Resources\ContentTypeResource;
-use App\Http\Resources\FaqCategoryResource;
+use App\Http\Resources\CategoryResource;
 use App\Http\Resources\FaqResource;
 use App\Http\Resources\PolicyResource;
 use App\Http\Resources\TagResource;
 use App\Models\ContentType;
 use App\Models\Faq;
-use App\Models\FaqCategory;
+use App\Models\Category;
 use App\Models\PrivacyPolicy;
 use App\Models\Tag;
 use App\Models\TermsOfUse;
@@ -21,13 +21,13 @@ class HelpController extends ApiController
     //region FAQ Methods
     public function getFaqCategories()
     {
-        $categories = FaqCategory::where('is_active', true)->orderBy('display_order')->get();
-        return $this->success(FaqCategoryResource::collection($categories), 'FAQ categories retrieved successfully.');
+        $categories = Category::where('is_active', true)->orderBy('display_order')->get();
+        return $this->success(CategoryResource::collection($categories), 'FAQ categories retrieved successfully.');
     }
 
     public function getFaqsByCategory($id)
     {
-        $category = FaqCategory::findOrFail($id);
+        $category = Category::findOrFail($id);
         $faqs = $category->faqs()->where('is_active', true)->orderBy('display_order')->paginate(15);
         return $this->success(FaqResource::collection($faqs), 'FAQs retrieved successfully.');
     }

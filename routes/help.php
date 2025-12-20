@@ -60,9 +60,9 @@ Route::prefix('api/v1')->group(function () {
         // Admin-only Routes
         Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
             // FAQ Category Management
-            Route::post('faq-categories', [AdminHelpController::class, 'createFaqCategory'])->name('faq-categories.create');
-            Route::put('faq-categories/{id}', [AdminHelpController::class, 'updateFaqCategory'])->name('faq-categories.update');
-            Route::delete('faq-categories/{id}', [AdminHelpController::class, 'deleteFaqCategory'])->name('faq-categories.delete');
+            Route::post('faq-categories', [AdminHelpController::class, 'createCategory'])->name('faq-categories.create');
+            Route::put('faq-categories/{id}', [AdminHelpController::class, 'updateCategory'])->name('faq-categories.update');
+            Route::delete('faq-categories/{id}', [AdminHelpController::class, 'deleteCategory'])->name('faq-categories.delete');
 
             // FAQ Management
             Route::post('faqs', [AdminHelpController::class, 'createFaq'])->name('faqs.create');

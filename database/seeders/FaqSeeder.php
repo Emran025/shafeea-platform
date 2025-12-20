@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Faq;
-use App\Models\FaqCategory;
+use App\Models\Category;
 use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -13,7 +13,7 @@ class FaqSeeder extends Seeder
     public function run(): void
     {
         // Ensure categories, tags, and a user exist
-        $categories = FaqCategory::all();
+        $categories = Category::all();
         $tags = Tag::all();
         $user = User::first(); // Assumes at least one user exists
 

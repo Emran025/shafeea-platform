@@ -22,7 +22,7 @@ class UpdateFaqRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'category_id' => 'sometimes|required|exists:faq_categories,id',
+            'category_id' => 'sometimes|required|exists:categories,id',
             'school_id' => 'nullable|exists:schools,id',
             'question' => 'sometimes|required|string',
             'answer' => 'sometimes|required|string',

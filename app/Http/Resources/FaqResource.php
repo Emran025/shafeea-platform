@@ -21,7 +21,7 @@ class FaqResource extends JsonResource
             'view_count' => $this->view_count,
             'is_active' => $this->is_active,
             'display_order' => $this->display_order,
-            'category' => new FaqCategoryResource($this->whenLoaded('category')),
+            'category' => new CategoryResource($this->whenLoaded('category')),
             'tags' => TagResource::collection($this->whenLoaded('tags')),
         ];
     }
