@@ -128,6 +128,8 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
         Route::get('reports', [SyncController::class, 'syncReports'])->name('reports');
     });
 
+    Route::apiResource('schools', \App\Http\Controllers\Api\V1\SchoolController::class);
+
     Route::prefix('account')->name('account.')->middleware('auth:sanctum')->group(function () {
         // Get the authenticated user's profile
         Route::get('profile', [AccountController::class, 'getProfile'])->name('profile');

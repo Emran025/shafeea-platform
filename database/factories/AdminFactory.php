@@ -2,23 +2,37 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Admin>
- */
 class AdminFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
     public function definition(): array
     {
         return [
-            'user_id' => \App\Models\User::factory(),
-            'super_admin' => fake()->boolean(),
+            'user_id' => User::factory()->admin(), // Use the admin state from UserFactory
+            'super_admin' => false,
+            'status' => 'accepted',
         ];
+    }
+
+    /**
+     * Indicate that the admin is a super admin.
+     */
+    public function superAdmin(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'super_admin' => true,
+        ]);
+    }
+
+    /**
+     * Indicate that the admin's status is pending.
+     */
+    public function pending(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'status' => 'pending',
+        ]);
     }
 }
