@@ -4,26 +4,18 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\School>
- */
 class SchoolFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
     public function definition(): array
     {
         return [
-            'name' => fake()->company(),
-            'address' => fake()->address(),
-            'phone' => fake()->phoneNumber(),
-            'logo' => fake()->imageUrl(200, 200, 'schools', true, 'School'),
-            'country' => fake()->country(),
-            'city' => fake()->city(),
-            'location' => fake()->address(),
+            'name' => 'مدرسة ' . $this->faker->company() . ' لتحفيظ القرآن',
+            'logo' => $this->faker->imageUrl(200, 200, 'schools', true, 'School'),
+            'phone' => '+9677' . $this->faker->numerify('########'), // Yemeni phone number
+            'country' => 'Yemen',
+            'city' => $this->faker->randomElement(['Sana\'a', 'Aden', 'Taiz', 'Hodeidah', 'Ibb']),
+            'location' => $this->faker->latitude() . ',' . $this->faker->longitude(),
+            'address' => $this->faker->streetAddress(),
         ];
     }
 }
