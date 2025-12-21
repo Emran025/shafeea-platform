@@ -20,26 +20,17 @@ class StudentFactory extends Factory
 
     public function withQualification(): static
     {
-        return $this->state(function (array $attributes) {
-            // Ensure user_id is created if not present
-            $user = User::find($attributes['user_id'] ?? User::factory()->student()->create()->id);
-            $birthDate = Carbon::parse($user->birth_date);
-            $age = $birthDate->age;
-
-            if ($age >= 18) {
-                $qualification = 'University';
-            } elseif ($age >= 15) {
-                $qualification = 'High School';
-            } elseif ($age >= 12) {
-                $qualification = 'Middle';
-            } else {
-                $qualification = 'Primary';
-            }
-
-            return [
-                'qualification' => $qualification,
-            ];
-        });
+        return $this->for(User::factory()->student())
+            ->afterMaking(function ($student) {
+                $age = Carbon::parse($student->user->birth_date)->age;
+                
+                $student->qualification = match (true) {
+                    $age >= 18 => 'University',
+                    $age >= 15 => 'High School',
+                    $age >= 12 => 'Middle',
+                    default => 'Primary',
+                };
+            });
     }
 
     public function inactive(): static
