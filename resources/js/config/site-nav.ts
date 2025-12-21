@@ -1,4 +1,4 @@
-import { Home, Users, Award, Phone, BookOpen, Shield, Settings, LucideIcon } from 'lucide-react';
+import { Home, Users, Award, Phone, BookOpen, Shield, LucideIcon } from 'lucide-react';
 
 // Define types for navigation items
 export interface NavigationItem {

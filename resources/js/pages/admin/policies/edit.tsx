@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { useForm, usePage } from '@inertiajs/react';
 import AdminLayout from '@/layouts/admin-layout';
 import { Button } from '@/components/ui/button';
@@ -20,7 +19,7 @@ interface Section {
 
 export default function EditPolicy() {
     const { policy, type } = usePage<EditPolicyProps>().props;
-    const { data, setData, post, errors } = useForm({
+    const { data, setData, post } = useForm({
         sections: JSON.parse(policy.sections_json) as Section[],
     });
 

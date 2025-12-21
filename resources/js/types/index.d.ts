@@ -1,10 +1,5 @@
 import { LucideIcon } from 'lucide-react';
-import type { Config } from 'ziggy-js';
-import { Inquiry, Policy, Term, PrivacyPolicy, TermsOfUse } from './models';
-
-declare module 'ziggy-js' {
-    interface RouteList extends Config {}
-}
+import { Inquiry, PrivacyPolicy, TermsOfUse } from './models';
 
 export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {
     auth: {

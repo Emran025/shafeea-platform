@@ -85,7 +85,7 @@ export default function Apply({ schools }: { schools: School[] }) {
         }
     };
 
-    const handleDocumentChange = (index: number, field: string, value: any) => {
+    const handleDocumentChange = (index: number, field: string, value: string | File | null) => {
         const documents = [...data.documents];
         documents[index] = { ...documents[index], [field]: value };
         setData('documents', documents);
@@ -231,7 +231,7 @@ export default function Apply({ schools }: { schools: School[] }) {
                                                 onChange={(e) => {
                                                     const val = e.target.value;
                                                     if (val === '') {
-                                                        setData('memorization_level', '' as any);
+                                                        setData('memorization_level', 0);
                                                         return;
                                                     }
                                                     const num = parseInt(val);

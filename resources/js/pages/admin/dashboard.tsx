@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { usePage, Link } from '@inertiajs/react';
+import { usePage } from '@inertiajs/react';
 import AdminLayout from '@/layouts/admin-layout';
 import { 
     Users, GraduationCap, BookOpen, TrendingUp, 
-    AlertTriangle, Bell, Calendar, UserCheck 
+    AlertTriangle, Bell
 } from 'lucide-react';
 import { 
     BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line 

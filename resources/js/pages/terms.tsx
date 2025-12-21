@@ -2,9 +2,7 @@ import { Head, usePage } from '@inertiajs/react';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
 import {
-    Shield,
     FileText,
-    CheckCircle,
     AlertCircle,
     Scale,
     Users,

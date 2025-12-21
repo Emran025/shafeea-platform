@@ -57,7 +57,7 @@ export function Header({
                             { label: 'انظم إلينا', open: bePartOfUsDropdownOpen, set: setBePartOfUsDropdownOpen, ref: bePartOfUsRef, items: bePartOfUs, icon: Settings },
                             { label: 'المساعدة', open: helpDropdownOpen, set: setHelpDropdownOpen, ref: helpRef, items: helpItems, icon: BookOpen }
                         ].map((dropdown) => (
-                            <div key={dropdown.label} ref={dropdown.ref as any} className="relative">
+                            <div key={dropdown.label} ref={dropdown.ref as React.RefObject<HTMLDivElement>} className="relative">
                                 <button onClick={() => dropdown.set(!dropdown.open)} className={`flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm font-bold transition-all ${dropdown.open ? 'bg-gray-100 dark:bg-sky-900/20 text-black dark:text-white' : 'text-muted-foreground hover:bg-gray-50 dark:hover:bg-gray-800'}`}>
                                     <dropdown.icon className="w-4 h-4" />
                                     {dropdown.label}
@@ -65,7 +65,7 @@ export function Header({
                                 </button>
                                 {dropdown.open && (
                                     <div className="absolute top-full right-0 mt-3 w-72 bg-card rounded-xl shadow-xl border border-border py-2 z-50 animate-scale-in">
-                                        {dropdown.items.map((subItem: any) => (
+                                        {dropdown.items.map((subItem: { name: string; href: string; icon: React.ComponentType<{ className?: string }>; description?: string }) => (
                                             <Link key={subItem.name} href={subItem.href} onClick={() => dropdown.set(false)} className="flex items-start gap-3 px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-800 group transition-colors">
                                                 <div className="w-9 h-9 rounded-lg flex items-center justify-center bg-gray-100 dark:bg-sky-900/20 group-hover:bg-primary/10 transition-colors">
                                                     <subItem.icon className="w-5 h-5 text-primary" />

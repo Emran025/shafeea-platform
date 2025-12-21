@@ -3,7 +3,7 @@ export interface Inquiry {
     question: string;
     answer: string | null;
     created_at: string;
-    [key: string]: any;
+    [key: string]: unknown;
 }
 
 

@@ -23,8 +23,16 @@ interface ServiceCardProps {
 }
 
 // دالة مساعدة لتحديد الألوان (تم نقلها هنا لتكون جزءاً من المكون)
-const getThemeStyles = (theme: string) => {
-    const styles: Record<string, any> = {
+interface ThemeStyles {
+    bg: string;
+    text: string;
+    shadow: string;
+    border: string;
+    gradient: string;
+}
+
+const getThemeStyles = (theme: string): ThemeStyles => {
+    const styles: Record<string, ThemeStyles> = {
         blue: { bg: "bg-blue-50 dark:bg-blue-900/20", text: "text-blue-600 dark:text-blue-400", shadow: "shadow-blue-500/20", border: "border-blue-100 dark:border-blue-800", gradient: "from-blue-500/20" },
         indigo: { bg: "bg-indigo-50 dark:bg-indigo-900/20", text: "text-indigo-600 dark:text-indigo-400", shadow: "shadow-indigo-500/20", border: "border-indigo-100 dark:border-indigo-800", gradient: "from-indigo-500/20" },
         emerald: { bg: "bg-emerald-50 dark:bg-emerald-900/20", text: "text-emerald-600 dark:text-emerald-400", shadow: "shadow-emerald-500/20", border: "border-emerald-100 dark:border-emerald-800", gradient: "from-emerald-500/20" },

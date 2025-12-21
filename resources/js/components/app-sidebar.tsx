@@ -6,17 +6,12 @@ import {
     Settings,
     HelpCircle,
     FileText,
-    Folder,
-    BookOpen
 } from 'lucide-react';
 
 import { NavMain } from '@/components/nav-main';
-import { NavUser } from '@/components/nav-user';
-import { NavFooter } from '@/components/nav-footer';
 import {
     Sidebar,
     SidebarContent,
-    SidebarFooter,
     SidebarHeader,
     SidebarMenu,
     SidebarMenuButton,

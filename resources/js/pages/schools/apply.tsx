@@ -89,7 +89,7 @@ export default function Apply() {
         }
     };
 
-    const handleDocumentChange = (index: number, field: string, value: any) => {
+    const handleDocumentChange = (index: number, field: string, value: string | File | null) => {
         const documents = [...data.documents];
         documents[index] = { ...documents[index], [field]: value };
         setData('documents', documents);

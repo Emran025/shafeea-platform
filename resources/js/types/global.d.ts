@@ -1,6 +1,5 @@
-import { Page } from '@inertiajs/react';
 import { User } from '@/types';
-import { Config, route as ziggyRoute } from 'ziggy-js';
+import { route as ziggyRoute } from 'ziggy-js';
 
 declare module '@inertiajs/react' {
     interface Page<T = Record<string, unknown>> {
@@ -8,15 +7,11 @@ declare module '@inertiajs/react' {
             auth: {
                 user: User;
             };
-            [key: string]: any;
+            [key: string]: unknown;
         };
     }
 }
 
 declare global {
     var route: typeof ziggyRoute;
-}
-
-declare module 'ziggy-js' {
-    interface RouteList extends Config {}
 }
