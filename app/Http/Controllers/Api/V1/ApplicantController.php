@@ -2,10 +2,20 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Http\Requests\Student\StoreStudentRequest;
+use App\Http\Resources\StudentResource;
+use App\Repositories\StudentApplicantRepository;
 use Illuminate\Http\Request;
 
 class ApplicantController extends ApiController
 {
+    protected $applicants;
+
+    public function __construct(StudentApplicantRepository $applicants)
+    {
+        $this->applicants = $applicants;
+    }
+
     // GET /students/applicants
     public function index(Request $request)
     {
@@ -28,9 +38,10 @@ class ApplicantController extends ApiController
     }
 
     // POST /students/applicants
-    public function store(Request $request)
+    public function store(StoreStudentRequest $request)
     {
-        // TODO: create new applicant
-        return $this->success([], 'Applicant created');
+        $student = $this->applicants->create($request->validated());
+
+        return $this->success(new StudentResource($student), 'Applicant created', 201);
     }
 }

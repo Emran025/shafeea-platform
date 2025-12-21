@@ -2,12 +2,14 @@
 
 namespace App\Repositories;
 
+use App\Models\StudentApplicant;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+
 // Placeholder for StudentApplicant model if it does not exist
 if (! class_exists('App\\Models\\StudentApplicant')) {
     eval('namespace App\\Models; class StudentApplicant extends \\Illuminate\\Database\\Eloquent\\Model {}');
 }
-
-use App\Models\StudentApplicant;
 
 class StudentApplicantRepository
 {
@@ -32,6 +34,16 @@ class StudentApplicantRepository
     public function find($id)
     {
         return StudentApplicant::findOrFail($id);
+    }
+
+    public function create($data)
+    {
+        $userData = $data['user'];
+        $userData['password'] = Hash::make($userData['password']);
+        $user = User::create($userData);
+        $student = $user->student()->create($data);
+
+        return $student->fresh(['user']);
     }
 
     // Add methods for actions (accept, reject, etc.)

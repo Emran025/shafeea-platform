@@ -3,6 +3,8 @@
 namespace App\Repositories;
 
 use App\Models\Teacher;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class TeacherRepository
 {
@@ -62,6 +64,16 @@ class TeacherRepository
             \Log::error($e);
             throw $e;
         }
+    }
+
+    public function create($data)
+    {
+        $userData = $data['user'];
+        $userData['password'] = Hash::make($userData['password']);
+        $user = User::create($userData);
+        $teacher = $user->teacher()->create($data);
+
+        return $teacher->fresh(['user', 'halaqahs']);
     }
 
     // Add methods for assign, actions, etc. as needed

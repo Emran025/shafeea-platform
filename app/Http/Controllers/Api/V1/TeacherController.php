@@ -28,9 +28,9 @@ class TeacherController extends ApiController
 
     public function store(StoreTeacherRequest $request)
     {
-        // Implement teacher creation logic
-        // For now, just return a success response
-        return $this->success(null, 'Teacher created successfully', 201);
+        $teacher = $this->teachers->create($request->validated());
+
+        return $this->success(new TeacherResource($teacher), 'Teacher created successfully', 201);
     }
 
     public function show($id)
