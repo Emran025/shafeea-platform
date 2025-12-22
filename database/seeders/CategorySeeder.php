@@ -16,5 +16,7 @@ class CategorySeeder extends Seeder
         Category::create(['name' => 'الدعم الفني', 'display_order' => 2]);
         Category::create(['name' => 'الأسعار والخطط', 'display_order' => 3]);
         Category::create(['name' => 'أدلة المستخدم', 'display_order' => 4]);
+
+        $this->command->info('✅ Created ' . Category::count() . ' categories.');
     }
 }

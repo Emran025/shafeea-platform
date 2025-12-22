@@ -18,8 +18,8 @@ class DocumentSeeder extends Seeder
 
         foreach ($users as $user) {
             // Create a fake file
-            $fileName = 'document_'.uniqid().'.txt';
-            $filePath = 'public/documents/'.$fileName;
+            $fileName = 'document_' . uniqid() . '.txt';
+            $filePath = 'public/documents/' . $fileName;
             Storage::put($filePath, 'This is a sample document.');
 
             Document::create([
@@ -32,5 +32,7 @@ class DocumentSeeder extends Seeder
                 'file_path' => $filePath,
             ]);
         }
+
+        $this->command->info('✅ Created documents for all users.');
     }
 }

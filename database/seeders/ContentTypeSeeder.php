@@ -28,5 +28,7 @@ class ContentTypeSeeder extends Seeder
             'name' => 'محتوى عام',
             'slug' => 'general-content',
         ]);
+
+        $this->command->info('✅ Created ' . ContentType::count() . ' content types.');
     }
 }
