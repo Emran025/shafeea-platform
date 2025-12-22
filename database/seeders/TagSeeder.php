@@ -26,5 +26,8 @@ class TagSeeder extends Seeder
         foreach ($tags as $tag) {
             Tag::create($tag);
         }
+
+        $this->command->info('✅ Created ' . Tag::count() . ' tags.');
+
     }
 }
