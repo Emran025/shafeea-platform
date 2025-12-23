@@ -5,13 +5,26 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 
+/**
+ * Class DatabaseSeeder
+ *
+ * This class serves as the primary orchestrator for the database seeding process.
+ * It ensures that all necessary system data, content management records, and
+ * demonstration data are populated in the correct order to maintain referential integrity.
+ *
+ * @package Database\Seeders
+ */
 class DatabaseSeeder extends Seeder
 {
     /**
      * Seed the application's database.
-     * 
-     * This is the main orchestrator that calls specialized seeders in the correct order.
-     * NOTE: The original seedSystemData() method (3,690 lines) has been refactored into specialized seeders.
+     *
+     * This method executes the seeding logic. It first checks if the database
+     * has already been seeded to prevent duplicate entries. If not, it calls
+     * a series of specialized seeders categorized by system data, content
+     * management, and demo infrastructure.
+     *
+     * @return void
      */
     public function run(): void
     {
@@ -41,10 +54,10 @@ class DatabaseSeeder extends Seeder
 
             // Demo data
             // School infrastructure
-            DemoSchoolSeeder::class,               // 23 schools + admin users
-            DemoStudentsSeeder::class,         // 45+ demo students with historical data
-            DemoTeachersSeeder::class,         // 45+ demo Teachers with historical data
-            DemoApplicantSeeder::class,         // 45+ demo Applicants with historical data
+            DemoSchoolSeeder::class,                // 23 schools + admin users
+            DemoStudentsSeeder::class,              // 45+ demo students with historical data
+            DemoTeachersSeeder::class,              // 45+ demo Teachers with historical data
+            DemoApplicantSeeder::class,             // 25+ demo Applicants with historical data
             DemoTrackingsPlansSeeder::class,
             DemoSupervisorSeeder::class,
             DocumentSeeder::class,
