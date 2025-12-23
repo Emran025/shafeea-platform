@@ -8,6 +8,8 @@ use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route; // Required for proxy headers
+use Illuminate\Auth\AuthenticationException ;
+use App\Http\Middleware\IsSuperVisor ;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -43,7 +45,7 @@ return Application::configure(basePath: dirname(__DIR__))
 
         // Middleware Aliases
         $middleware->alias([
-            'admin' => \App\Http\Middleware\IsSuperVisor::class,
+            'admin' => IsSuperVisor::class,
         ]);
 
         // Exempt cookies from encryption
@@ -58,7 +60,7 @@ return Application::configure(basePath: dirname(__DIR__))
     })
     ->withExceptions(function (Exceptions $exceptions) {
         // Custom exception rendering for API
-        $exceptions->render(function (\Illuminate\Auth\AuthenticationException $e, \Illuminate\Http\Request $request) {
+        $exceptions->render(function (AuthenticationException $e, Request $request) {
             if ($request->is('api/*')) {
                 return response()->json([
                     'status' => 'error',

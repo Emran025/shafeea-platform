@@ -42,16 +42,16 @@ class QuranTrackingUnitsSeeder extends Seeder
 
         $trackingUnits = collect();
 
-        foreach ($quranTrackingUnits as $trackingUnitData) {
+        foreach ($quranTrackingUnits as $Data) {
 
             $trackingUnits->push(TrackingUnit::create([
-                'unit_id' => $trackingUnitData[1],
-                'from_surah' => $trackingUnitData[2],
-                'from_page' => $trackingUnitData[3],
-                'from_ayah' => $trackingUnitData[4],
-                'to_surah' => $trackingUnitData[5],
-                'to_page' => $trackingUnitData[6],
-                'to_ayah' => $trackingUnitData[7],
+                'unit_id' => $Data[1],
+                'from_surah' => $Data[2],
+                'from_page' => $Data[3],
+                'from_ayah' => $Data[4],
+                'to_surah' => $Data[5],
+                'to_page' => $Data[6],
+                'to_ayah' => $Data[7],
             ]));
         }
 
