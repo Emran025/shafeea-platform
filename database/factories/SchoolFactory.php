@@ -18,12 +18,12 @@ class SchoolFactory extends Factory
     {
         return [
             'name' => fake()->unique()->company() . ' School',
-            'address' => fake()->address(),
+            'logo' => fake()->imageUrl(),
             'phone' => fake()->phoneNumber(),
-            'email' => fake()->unique()->safeEmail(),
-            'website' => fake()->optional()->url(),
-            'description' => fake()->optional()->paragraph(),
-            'status' => 'active',
+            'country' => 'Yemen',
+            'city' => fake()->randomElement(['Sana\'a', 'Aden', 'Taiz', 'Hodeidah', 'Ibb']),
+            'location' => fake()->streetAddress(),
+            'address' => fake()->address(),
         ];
     }
 }
