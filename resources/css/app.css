@@ -124,11 +124,12 @@
     --animation-slow: 350ms;
     --animation-slower: 500ms;
     
-    --shadow-sm: 0 1px 2px 0 rgb(13 27 42 / 0.05);
-    --shadow-md: 0 4px 6px -1px rgb(13 27 42 / 0.08), 0 2px 4px -2px rgb(13 27 42 / 0.08);
-    --shadow-lg: 0 10px 15px -3px rgb(13 27 42 / 0.08), 0 4px 6px -4px rgb(13 27 42 / 0.08);
-    --shadow-xl: 0 20px 25px -5px rgb(13 27 42 / 0.08), 0 8px 10px -6px rgb(13 27 42 / 0.08);
-    --shadow-2xl: 0 25px 50px -12px rgb(13 27 42 / 0.15);
+    --shadow-sm: 0 1px 2px 0 rgb(13 27 42 / 0.05), 0 1px 3px 0 rgb(13 27 42 / 0.1);
+    --shadow-md: 0 4px 6px -1px rgb(13 27 42 / 0.1), 0 2px 4px -2px rgb(13 27 42 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(13 27 42 / 0.1), 0 4px 6px -4px rgb(13 27 42 / 0.1), 0 0 0 1px rgb(13 27 42 / 0.05);
+    --shadow-xl: 0 20px 25px -5px rgb(13 27 42 / 0.1), 0 8px 10px -6px rgb(13 27 42 / 0.1), 0 0 0 1px rgb(13 27 42 / 0.05);
+    --shadow-2xl: 0 25px 50px -12px rgb(13 27 42 / 0.15), 0 0 0 1px rgb(13 27 42 / 0.05);
+    --shadow-inner: inset 0 2px 4px 0 rgb(13 27 42 / 0.06);
     
     /* Gradients (Light Mode) */
     --gradient-primary: linear-gradient(135deg, #1b263b, #415a77);
@@ -235,6 +236,9 @@
     body {
         @apply bg-background text-foreground font-sans;
         font-feature-settings: "rlig" 1, "calt" 1;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
     }
     
     /* Arabic Typography Improvements */
@@ -247,9 +251,9 @@
         scroll-behavior: smooth;
     }
     
-    /* Focus styles */
+    /* Focus styles - Enhanced for accessibility */
     *:focus-visible {
-        @apply outline-none ring-2 ring-ring ring-offset-2;
+        @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
     }
     
     /* Selection styles */
@@ -258,23 +262,48 @@
         color: var(--foreground);
     }
     
-    /* Custom scrollbar */
+    /* Custom scrollbar - Professional styling */
     ::-webkit-scrollbar {
-        width: 8px;
-        height: 8px;
+        width: 10px;
+        height: 10px;
     }
     
     ::-webkit-scrollbar-track {
         background: var(--muted);
+        border-radius: var(--radius);
     }
     
     ::-webkit-scrollbar-thumb {
         background: var(--muted-foreground);
         border-radius: var(--radius);
+        border: 2px solid var(--muted);
     }
     
     ::-webkit-scrollbar-thumb:hover {
         background: var(--border);
+    }
+    
+    /* Professional typography improvements */
+    h1, h2, h3, h4, h5, h6 {
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+    }
+    
+    /* Enhanced card shadows */
+    [data-slot="card"] {
+        transition: box-shadow 0.3s ease, transform 0.2s ease;
+    }
+    
+    [data-slot="card"]:hover {
+        box-shadow: var(--shadow-lg);
+    }
+    
+    /* Professional button enhancements */
+    [data-slot="button"] {
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        font-weight: 500;
+        letter-spacing: 0.01em;
     }
     
     /* Reduced motion */

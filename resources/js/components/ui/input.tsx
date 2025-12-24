@@ -13,15 +13,14 @@ function Input({ className, type, ...props }: React.ComponentProps<"input">) {
         "placeholder:text-muted-foreground",
 
         // 2. Borders & Backgrounds
-        "border-[1.5px] border-input bg-white", 
+        "border-2 border-input bg-white shadow-sm", 
         "dark:bg-muted/20", 
 
         // 3. Ring Styling
         "ring-1 ring-ring/10 dark:ring-white/5", 
 
-        // 4. Focus State
-        "focus-visible:border-primary focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/10",
-        "focus-visible:ring-offset-0",
+        // 4. Focus State - Enhanced
+        "focus-visible:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/20 focus-visible:ring-offset-2 focus-visible:shadow-md",
 
         // 5. AUTOFILL FIX (The "Invisible" Solution)
         "[&:-webkit-autofill]:transition-[background-color] [&:-webkit-autofill]:duration-[99999s]",

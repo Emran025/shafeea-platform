@@ -100,75 +100,75 @@ export default function Welcome() {
                             </p>
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                            <Card className="p-6 hover:shadow-lg transition-shadow duration-300">
-                                <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/20 rounded-lg flex items-center justify-center mb-4">
-                                    <Users className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <Card className="p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-t-4 border-t-blue-500 group">
+                                <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 dark:from-blue-600 dark:to-blue-700 rounded-xl flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                                    <Users className="w-7 h-7 text-white" />
                                 </div>
-                                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
                                     إدارة الطلاب والمعلمين
                                 </h3>
-                                <p className="text-gray-600 dark:text-gray-300">
+                                <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
                                     نظام شامل لإدارة بيانات الطلاب والمعلمين مع إمكانية التتبع والمراقبة المستمرة للتقدم الأكاديمي
                                 </p>
                             </Card>
 
-                            <Card className="p-6 hover:shadow-lg transition-shadow duration-300">
-                                <div className="w-12 h-12 bg-emerald-100 dark:bg-emerald-900/20 rounded-lg flex items-center justify-center mb-4">
-                                    <BookOpen className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
+                            <Card className="p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-t-4 border-t-emerald-500 group">
+                                <div className="w-14 h-14 bg-gradient-to-br from-emerald-500 to-emerald-600 dark:from-emerald-600 dark:to-emerald-700 rounded-xl flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                                    <BookOpen className="w-7 h-7 text-white" />
                                 </div>
-                                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
                                     منهج قرآني متطور
                                 </h3>
-                                <p className="text-gray-600 dark:text-gray-300">
+                                <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
                                     منهج تعليمي قرآني شامل مع أدوات تفاعلية لتحفيظ القرآن الكريم وتعليم التلاوة والتجويد
                                 </p>
                             </Card>
 
-                            <Card className="p-6 hover:shadow-lg transition-shadow duration-300">
-                                <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/20 rounded-lg flex items-center justify-center mb-4">
-                                    <BarChart3 className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+                            <Card className="p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-t-4 border-t-purple-500 group">
+                                <div className="w-14 h-14 bg-gradient-to-br from-purple-500 to-purple-600 dark:from-purple-600 dark:to-purple-700 rounded-xl flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                                    <BarChart3 className="w-7 h-7 text-white" />
                                 </div>
-                                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
                                     تقارير وإحصائيات
                                 </h3>
-                                <p className="text-gray-600 dark:text-gray-300">
+                                <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
                                     تقارير تفصيلية وإحصائيات دقيقة لمتابعة أداء الطلاب وتقدمهم في حفظ القرآن الكريم
                                 </p>
                             </Card>
 
-                            <Card className="p-6 hover:shadow-lg transition-shadow duration-300">
-                                <div className="w-12 h-12 bg-orange-100 dark:bg-orange-900/20 rounded-lg flex items-center justify-center mb-4">
-                                    <Calendar className="w-6 h-6 text-orange-600 dark:text-orange-400" />
+                            <Card className="p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-t-4 border-t-orange-500 group">
+                                <div className="w-14 h-14 bg-gradient-to-br from-orange-500 to-orange-600 dark:from-orange-600 dark:to-orange-700 rounded-xl flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                                    <Calendar className="w-7 h-7 text-white" />
                                 </div>
-                                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
                                     جدولة ذكية
                                 </h3>
-                                <p className="text-gray-600 dark:text-gray-300">
+                                <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
                                     نظام جدولة متقدم لتنظيم الحصص والأنشطة مع إمكانية التنبيهات التلقائية
                                 </p>
                             </Card>
 
-                            <Card className="p-6 hover:shadow-lg transition-shadow duration-300">
-                                <div className="w-12 h-12 bg-red-100 dark:bg-red-900/20 rounded-lg flex items-center justify-center mb-4">
-                                    <Shield className="w-6 h-6 text-red-600 dark:text-red-400" />
+                            <Card className="p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-t-4 border-t-red-500 group">
+                                <div className="w-14 h-14 bg-gradient-to-br from-red-500 to-red-600 dark:from-red-600 dark:to-red-700 rounded-xl flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                                    <Shield className="w-7 h-7 text-white" />
                                 </div>
-                                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
                                     أمان متقدم
                                 </h3>
-                                <p className="text-gray-600 dark:text-gray-300">
+                                <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
                                     حماية شاملة للبيانات مع نظام أمان متعدد المستويات وحفظ احتياطي تلقائي
                                 </p>
                             </Card>
 
-                            <Card className="p-6 hover:shadow-lg transition-shadow duration-300">
-                                <div className="w-12 h-12 bg-teal-100 dark:bg-teal-900/20 rounded-lg flex items-center justify-center mb-4">
-                                    <Smartphone className="w-6 h-6 text-teal-600 dark:text-teal-400" />
+                            <Card className="p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-t-4 border-t-teal-500 group">
+                                <div className="w-14 h-14 bg-gradient-to-br from-teal-500 to-teal-600 dark:from-teal-600 dark:to-teal-700 rounded-xl flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                                    <Smartphone className="w-7 h-7 text-white" />
                                 </div>
-                                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
                                     متوافق مع الأجهزة
                                 </h3>
-                                <p className="text-gray-600 dark:text-gray-300">
+                                <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
                                     تصميم متجاوب يعمل بسلاسة على جميع الأجهزة مع تطبيق جوال مخصص
                                 </p>
                             </Card>
@@ -199,59 +199,59 @@ export default function Welcome() {
                             </p>
                         </div>
 
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                             <div className="text-center group">
-                                <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 mb-4 group-hover:bg-white/20 transition-all duration-300 border border-white/20">
-                                    <div className="text-4xl md:text-6xl font-bold text-white mb-2">50+</div>
-                                    <div className="text-blue-100 font-medium">مؤسسة تعليمية</div>
-                                    <div className="text-sm text-blue-200 mt-2">تثق بالمنصة</div>
+                                <div className="bg-white/10 backdrop-blur-xl rounded-2xl p-8 mb-4 group-hover:bg-white/20 group-hover:scale-105 transition-all duration-300 border border-white/20 shadow-xl">
+                                    <div className="text-4xl md:text-6xl font-bold text-white mb-2 drop-shadow-lg">50+</div>
+                                    <div className="text-blue-100 font-semibold text-lg">مؤسسة تعليمية</div>
+                                    <div className="text-sm text-blue-200 mt-2 font-medium">تثق بالمنصة</div>
                                 </div>
                             </div>
                             <div className="text-center group">
-                                <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 mb-4 group-hover:bg-white/20 transition-all duration-300 border border-white/20">
-                                    <div className="text-4xl md:text-6xl font-bold text-white mb-2">5000+</div>
-                                    <div className="text-blue-100 font-medium">طالب وطالبة</div>
-                                    <div className="text-sm text-blue-200 mt-2">يحفظون القرآن</div>
+                                <div className="bg-white/10 backdrop-blur-xl rounded-2xl p-8 mb-4 group-hover:bg-white/20 group-hover:scale-105 transition-all duration-300 border border-white/20 shadow-xl">
+                                    <div className="text-4xl md:text-6xl font-bold text-white mb-2 drop-shadow-lg">5000+</div>
+                                    <div className="text-blue-100 font-semibold text-lg">طالب وطالبة</div>
+                                    <div className="text-sm text-blue-200 mt-2 font-medium">يحفظون القرآن</div>
                                 </div>
                             </div>
                             <div className="text-center group">
-                                <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 mb-4 group-hover:bg-white/20 transition-all duration-300 border border-white/20">
-                                    <div className="text-4xl md:text-6xl font-bold text-white mb-2">300+</div>
-                                    <div className="text-blue-100 font-medium">معلم ومعلمة</div>
-                                    <div className="text-sm text-blue-200 mt-2">مؤهلون ومتخصصون</div>
+                                <div className="bg-white/10 backdrop-blur-xl rounded-2xl p-8 mb-4 group-hover:bg-white/20 group-hover:scale-105 transition-all duration-300 border border-white/20 shadow-xl">
+                                    <div className="text-4xl md:text-6xl font-bold text-white mb-2 drop-shadow-lg">300+</div>
+                                    <div className="text-blue-100 font-semibold text-lg">معلم ومعلمة</div>
+                                    <div className="text-sm text-blue-200 mt-2 font-medium">مؤهلون ومتخصصون</div>
                                 </div>
                             </div>
                             <div className="text-center group">
-                                <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 mb-4 group-hover:bg-white/20 transition-all duration-300 border border-white/20">
-                                    <div className="text-4xl md:text-6xl font-bold text-white mb-2">95%</div>
-                                    <div className="text-blue-100 font-medium">نسبة الرضا</div>
-                                    <div className="text-sm text-blue-200 mt-2">من المستخدمين</div>
+                                <div className="bg-white/10 backdrop-blur-xl rounded-2xl p-8 mb-4 group-hover:bg-white/20 group-hover:scale-105 transition-all duration-300 border border-white/20 shadow-xl">
+                                    <div className="text-4xl md:text-6xl font-bold text-white mb-2 drop-shadow-lg">95%</div>
+                                    <div className="text-blue-100 font-semibold text-lg">نسبة الرضا</div>
+                                    <div className="text-sm text-blue-200 mt-2 font-medium">من المستخدمين</div>
                                 </div>
                             </div>
                         </div>
 
                         {/* Additional Stats */}
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
-                            <div className="text-center">
-                                <div className="inline-flex items-center justify-center w-16 h-16 bg-white/20 rounded-full mb-4">
-                                    <Award className="w-8 h-8 text-white" />
+                            <div className="text-center group">
+                                <div className="inline-flex items-center justify-center w-20 h-20 bg-white/20 backdrop-blur-lg rounded-2xl mb-4 shadow-lg group-hover:scale-110 group-hover:bg-white/30 transition-all duration-300">
+                                    <Award className="w-10 h-10 text-white" />
                                 </div>
-                                <div className="text-2xl font-bold text-white mb-2">2,847</div>
-                                <div className="text-blue-100">خاتم للقرآن الكريم</div>
+                                <div className="text-3xl font-bold text-white mb-2 drop-shadow-lg">2,847</div>
+                                <div className="text-blue-100 font-semibold">خاتم للقرآن الكريم</div>
                             </div>
-                            <div className="text-center">
-                                <div className="inline-flex items-center justify-center w-16 h-16 bg-white/20 rounded-full mb-4">
-                                    <Clock className="w-8 h-8 text-white" />
+                            <div className="text-center group">
+                                <div className="inline-flex items-center justify-center w-20 h-20 bg-white/20 backdrop-blur-lg rounded-2xl mb-4 shadow-lg group-hover:scale-110 group-hover:bg-white/30 transition-all duration-300">
+                                    <Clock className="w-10 h-10 text-white" />
                                 </div>
-                                <div className="text-2xl font-bold text-white mb-2">24/7</div>
-                                <div className="text-blue-100">دعم فني متواصل</div>
+                                <div className="text-3xl font-bold text-white mb-2 drop-shadow-lg">24/7</div>
+                                <div className="text-blue-100 font-semibold">دعم فني متواصل</div>
                             </div>
-                            <div className="text-center">
-                                <div className="inline-flex items-center justify-center w-16 h-16 bg-white/20 rounded-full mb-4">
-                                    <Globe className="w-8 h-8 text-white" />
+                            <div className="text-center group">
+                                <div className="inline-flex items-center justify-center w-20 h-20 bg-white/20 backdrop-blur-lg rounded-2xl mb-4 shadow-lg group-hover:scale-110 group-hover:bg-white/30 transition-all duration-300">
+                                    <Globe className="w-10 h-10 text-white" />
                                 </div>
-                                <div className="text-2xl font-bold text-white mb-2">15+</div>
-                                <div className="text-blue-100">دولة عربية وإسلامية</div>
+                                <div className="text-3xl font-bold text-white mb-2 drop-shadow-lg">15+</div>
+                                <div className="text-blue-100 font-semibold">دولة عربية وإسلامية</div>
                             </div>
                         </div>
                     </div>
@@ -277,63 +277,63 @@ export default function Welcome() {
                             </p>
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                            <Card className="p-6 hover:shadow-lg transition-all duration-300 border-t-4 border-t-blue-500">
-                                <div className="flex items-center gap-1 mb-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <Card className="p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-t-4 border-t-blue-500 group">
+                                <div className="flex items-center gap-1 mb-6">
                                     {[...Array(5)].map((_, i) => (
-                                        <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+                                        <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400 drop-shadow-sm" />
                                     ))}
                                 </div>
-                                <p className="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
+                                <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed text-base font-medium">
                                     "منصة رائعة جداً! ساعدتنا في تنظيم الحلقات القرآنية بشكل مثالي. التقارير مفصلة والواجهة سهلة الاستخدام."
                                 </p>
-                                <div className="flex items-center gap-3">
-                                    <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-emerald-500 rounded-full flex items-center justify-center text-white font-bold">
+                                <div className="flex items-center gap-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                                    <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-emerald-500 rounded-xl flex items-center justify-center text-white font-bold shadow-lg">
                                         أ.م
                                     </div>
                                     <div>
-                                        <div className="font-semibold text-gray-900 dark:text-white">أحمد محمد</div>
-                                        <div className="text-sm text-gray-500">مدير مركز النور القرآني</div>
+                                        <div className="font-bold text-gray-900 dark:text-white">أحمد محمد</div>
+                                        <div className="text-sm text-gray-500 font-medium">مدير مركز النور القرآني</div>
                                     </div>
                                 </div>
                             </Card>
 
-                            <Card className="p-6 hover:shadow-lg transition-all duration-300 border-t-4 border-t-emerald-500">
-                                <div className="flex items-center gap-1 mb-4">
+                            <Card className="p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-t-4 border-t-emerald-500 group">
+                                <div className="flex items-center gap-1 mb-6">
                                     {[...Array(5)].map((_, i) => (
-                                        <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+                                        <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400 drop-shadow-sm" />
                                     ))}
                                 </div>
-                                <p className="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
+                                <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed text-base font-medium">
                                     "أفضل استثمار قمنا به للمؤسسة. وفر علينا ساعات طويلة من العمل الإداري وحسّن من جودة التعليم."
                                 </p>
-                                <div className="flex items-center gap-3">
-                                    <div className="w-10 h-10 bg-gradient-to-r from-emerald-500 to-blue-500 rounded-full flex items-center justify-center text-white font-bold">
+                                <div className="flex items-center gap-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                                    <div className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-blue-500 rounded-xl flex items-center justify-center text-white font-bold shadow-lg">
                                         ف.ع
                                     </div>
                                     <div>
-                                        <div className="font-semibold text-gray-900 dark:text-white">فاطمة عبدالله</div>
-                                        <div className="text-sm text-gray-500">مديرة أكاديمية الفرقان</div>
+                                        <div className="font-bold text-gray-900 dark:text-white">فاطمة عبدالله</div>
+                                        <div className="text-sm text-gray-500 font-medium">مديرة أكاديمية الفرقان</div>
                                     </div>
                                 </div>
                             </Card>
 
-                            <Card className="p-6 hover:shadow-lg transition-all duration-300 border-t-4 border-t-purple-500">
-                                <div className="flex items-center gap-1 mb-4">
+                            <Card className="p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-t-4 border-t-purple-500 group">
+                                <div className="flex items-center gap-1 mb-6">
                                     {[...Array(5)].map((_, i) => (
-                                        <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+                                        <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400 drop-shadow-sm" />
                                     ))}
                                 </div>
-                                <p className="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
+                                <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed text-base font-medium">
                                     "الدعم الفني ممتاز والمنصة مستقرة جداً. طلابنا أحبوا النظام الجديد وأصبح التتبع أسهل بكثير."
                                 </p>
-                                <div className="flex items-center gap-3">
-                                    <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white font-bold">
+                                <div className="flex items-center gap-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                                    <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center text-white font-bold shadow-lg">
                                         م.ح
                                     </div>
                                     <div>
-                                        <div className="font-semibold text-gray-900 dark:text-white">محمد حسن</div>
-                                        <div className="text-sm text-gray-500">معلم في دار الحفاظ</div>
+                                        <div className="font-bold text-gray-900 dark:text-white">محمد حسن</div>
+                                        <div className="text-sm text-gray-500 font-medium">معلم في دار الحفاظ</div>
                                     </div>
                                 </div>
                             </Card>

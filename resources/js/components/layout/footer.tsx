@@ -4,7 +4,7 @@ import { navigationItems } from '@/config/site-nav';
 
 export function Footer() {
     return (
-        <footer className="bg-[#0f172a] text-white relative overflow-hidden border-t border-gray-800">
+        <footer className="bg-[#0f172a] text-white relative overflow-hidden border-t border-gray-800/50">
             <div className="absolute inset-0 opacity-10 pointer-events-none">
                 <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-900 via-gray-900 to-gray-900" />
             </div>
@@ -15,12 +15,12 @@ export function Footer() {
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
                             <div className="lg:col-span-2">
                                 <div className="flex items-center gap-4 mb-6">
-                                    <div className="bg-white p-2 rounded-xl shadow-lg shadow-blue-900/20">
+                                    <div className="bg-white p-2.5 rounded-xl shadow-xl shadow-blue-900/30 border border-white/10">
                                         <img src="/logo.png" alt="Shafeea" className="w-10 h-10 object-contain" />
                                     </div>
                                     <div>
-                                        <h3 className="text-2xl font-bold text-white">شفيع</h3>
-                                        <p className="text-gray-400 text-sm">منصة التعليم القرآني</p>
+                                        <h3 className="text-2xl font-bold text-white mb-1">شفيع</h3>
+                                        <p className="text-gray-400 text-sm font-medium">منصة التعليم القرآني</p>
                                     </div>
                                 </div>
                                 <p className="text-gray-400 mb-8 max-w-md leading-relaxed text-sm">
