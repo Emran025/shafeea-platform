@@ -27,26 +27,26 @@ export function Header({
     const isActive = (path: string) => currentPath === path;
 
     return (
-        <header className="bg-card/95 backdrop-blur-lg border-b border-border sticky top-0 z-50 shadow-sm">
+        <header className="bg-card/95 backdrop-blur-xl border-b border-border/50 sticky top-0 z-50 shadow-md">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-20">
                     
                     {/* Brand Logo */}
                     <Link href="/" className="flex items-center gap-3 group">
-                        <div className="bg-white p-1.5 rounded-xl shadow-sm border border-gray-100 group-hover:shadow-md transition-all">
+                        <div className="bg-white p-2 rounded-xl shadow-md border border-gray-200 group-hover:shadow-lg group-hover:scale-105 transition-all duration-300">
                             <img src="/logo.png" alt="Logo" className="w-10 h-10 object-contain" />
                         </div>
                         <div>
                             <h1 className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors">شفيع</h1>
-                            <p className="text-sm text-muted-foreground">المنصة القرآنية الرائدة</p>
+                            <p className="text-sm font-medium text-muted-foreground">المنصة القرآنية الرائدة</p>
                         </div>
                     </Link>
 
                     {/* Desktop Navigation */}
-                    <nav className="hidden lg:flex items-center gap-3">
+                    <nav className="hidden lg:flex items-center gap-2">
                         {navigationItems.map((item) => (
-                            <Link key={item.name} href={item.href} className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-bold transition-all ${isActive(item.href) ? 'bg-gray-100 dark:bg-sky-900/20 text-black dark:text-white' : 'text-black dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800'}`}>
-                                <item.icon className={`w-4 h-4 ${isActive(item.href) ? 'scale-110' : ""}`} />
+                            <Link key={item.name} href={item.href} className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 ${isActive(item.href) ? 'bg-primary/10 text-primary shadow-sm' : 'text-foreground hover:bg-accent hover:text-accent-foreground'}`}>
+                                <item.icon className={`w-4 h-4 transition-transform ${isActive(item.href) ? 'scale-110' : ""}`} />
                                 {item.name}
                             </Link>
                         ))}
@@ -58,13 +58,13 @@ export function Header({
                             { label: 'المساعدة', open: helpDropdownOpen, set: setHelpDropdownOpen, ref: helpRef, items: helpItems, icon: BookOpen }
                         ].map((dropdown) => (
                             <div key={dropdown.label} ref={dropdown.ref as React.RefObject<HTMLDivElement>} className="relative">
-                                <button onClick={() => dropdown.set(!dropdown.open)} className={`flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm font-bold transition-all ${dropdown.open ? 'bg-gray-100 dark:bg-sky-900/20 text-black dark:text-white' : 'text-muted-foreground hover:bg-gray-50 dark:hover:bg-gray-800'}`}>
+                                <button onClick={() => dropdown.set(!dropdown.open)} className={`flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 ${dropdown.open ? 'bg-primary/10 text-primary shadow-sm' : 'text-foreground hover:bg-accent hover:text-accent-foreground'}`}>
                                     <dropdown.icon className="w-4 h-4" />
                                     {dropdown.label}
                                     <ChevronDown className={`w-3 h-3 transition-transform ${dropdown.open ? 'rotate-180' : ''}`} />
                                 </button>
                                 {dropdown.open && (
-                                    <div className="absolute top-full right-0 mt-3 w-72 bg-card rounded-xl shadow-xl border border-border py-2 z-50 animate-scale-in">
+                                    <div className="absolute top-full right-0 mt-3 w-72 bg-card rounded-xl shadow-2xl border border-border/50 py-2 z-50 animate-scale-in backdrop-blur-sm">
                                         {dropdown.items.map((subItem: { name: string; href: string; icon: React.ComponentType<{ className?: string }>; description?: string }) => (
                                             <Link key={subItem.name} href={subItem.href} onClick={() => dropdown.set(false)} className="flex items-start gap-3 px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-800 group transition-colors">
                                                 <div className="w-9 h-9 rounded-lg flex items-center justify-center bg-gray-100 dark:bg-sky-900/20 group-hover:bg-primary/10 transition-colors">

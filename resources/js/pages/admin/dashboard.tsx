@@ -106,17 +106,17 @@ interface StatCardProps {
     subtext?: string;
 }
 
-// مكون بسيط للبطاقات (Stats Card)
+// مكون بسيط للبطاقات (Stats Card) - Enhanced Professional Design
 const StatCard: React.FC<StatCardProps> = ({ title, value, icon: Icon, color, subtext }) => (
-    <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700">
+    <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md hover:shadow-lg border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:-translate-y-1 group">
         <div className="flex items-center justify-between">
-            <div>
-                <p className="text-sm font-medium text-gray-500 dark:text-gray-400">{title}</p>
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mt-1">{value}</h3>
-                {subtext && <p className="text-xs text-gray-400 mt-1">{subtext}</p>}
+            <div className="flex-1">
+                <p className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-2">{title}</p>
+                <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-1">{value}</h3>
+                {subtext && <p className="text-xs font-medium text-gray-500 dark:text-gray-400 mt-1">{subtext}</p>}
             </div>
-            <div className={`p-3 rounded-full ${color}`}>
-                <Icon className="w-6 h-6 text-white" />
+            <div className={`p-4 rounded-xl ${color} shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                <Icon className="w-7 h-7 text-white" />
             </div>
         </div>
     </div>
@@ -173,8 +173,8 @@ export default function AdminDashboard() {
                     <div className="lg:col-span-2 space-y-8">
                         
                         {/* Enrollment Trends Chart */}
-                        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
-                            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Enrollment Trends (Last 6 Months)</h3>
+                        <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-shadow duration-300">
+                            <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-6">Enrollment Trends (Last 6 Months)</h3>
                             <div className="h-72 w-full">
                                 <ResponsiveContainer width="100%" height="100%">
                                     <LineChart data={trendData}>
@@ -191,7 +191,7 @@ export default function AdminDashboard() {
                         </div>
 
                         {/* Data Tables Tabs */}
-                        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+                        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-lg transition-shadow duration-300">
                             <div className="border-b border-gray-200 dark:border-gray-700 flex">
                                 {['halaqahs', 'teachers', 'students'].map((tab) => (
                                     <button
@@ -249,8 +249,8 @@ export default function AdminDashboard() {
                     <div className="space-y-8">
                         
                         {/* Alerts Section */}
-                        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
-                            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
+                        <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-shadow duration-300">
+                            <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-6 flex items-center">
                                 <AlertTriangle className="w-5 h-5 text-red-500 mr-2" />
                                 Attention Required
                             </h3>
@@ -291,8 +291,8 @@ export default function AdminDashboard() {
                         </div>
 
                         {/* Recent Notifications */}
-                        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
-                            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
+                        <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-shadow duration-300">
+                            <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-6 flex items-center">
                                 <Bell className="w-5 h-5 text-gray-500 mr-2" />
                                 Notifications
                             </h3>
@@ -317,8 +317,8 @@ export default function AdminDashboard() {
                         </div>
 
                         {/* Gender Distribution Chart (Small) */}
-                        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
-                            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Gender Distribution</h3>
+                        <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-shadow duration-300">
+                            <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-6">Gender Distribution</h3>
                             <div className="h-48 w-full">
                                 <ResponsiveContainer width="100%" height="100%">
                                     <BarChart data={charts.genderPerHalaqah.slice(0, 5)}> 
