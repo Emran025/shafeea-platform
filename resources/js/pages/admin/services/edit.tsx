@@ -1,13 +1,14 @@
 import { useForm, Link, usePage } from '@inertiajs/react';
 import AdminLayout from '@/layouts/admin-layout';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
-import { PlusCircle, Trash2, ArrowRight } from 'lucide-react';
+import { Separator } from '@/components/ui/separator';
+import { PlusCircle, Trash2, ArrowRight, Upload, Sparkles, Settings, FileText, Image as ImageIcon, Save } from 'lucide-react';
 import { PageProps } from '@/types';
 
 interface Service {
@@ -113,25 +114,39 @@ export default function EditService() {
 
     return (
         <AdminLayout>
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                <div className="flex items-center justify-between mb-6">
-                    <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">تعديل الخدمة</h1>
-                    <Button variant="outline" asChild>
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+                {/* Header */}
+                <div className="flex items-center justify-between">
+                    <div className="space-y-1">
+                        <h1 className="text-3xl font-bold text-foreground tracking-tight">تعديل الخدمة</h1>
+                        <p className="text-sm text-muted-foreground">
+                            تعديل معلومات الخدمة: {service.title}
+                        </p>
+                    </div>
+                    <Button variant="outline" asChild className="gap-2">
                         <Link href="/admin/services">
-                            <ArrowRight className="w-4 h-4 ml-2" />
+                            <ArrowRight className="w-4 h-4" />
                             العودة للقائمة
                         </Link>
                     </Button>
                 </div>
 
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                         {/* Main Form */}
                         <div className="lg:col-span-2 space-y-6">
                             {/* Basic Information */}
-                            <Card>
-                                <CardHeader>
-                                    <CardTitle>المعلومات الأساسية</CardTitle>
+                            <Card className="border-2 border-border/50 shadow-lg">
+                                <CardHeader className="pb-4">
+                                    <div className="flex items-center gap-3">
+                                        <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900/30 rounded-xl flex items-center justify-center">
+                                            <FileText className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                                        </div>
+                                        <div>
+                                            <CardTitle className="text-xl">المعلومات الأساسية</CardTitle>
+                                            <CardDescription>المعلومات الأساسية للخدمة</CardDescription>
+                                        </div>
+                                    </div>
                                 </CardHeader>
                                 <CardContent className="space-y-4">
                                     <div>
@@ -183,24 +198,66 @@ export default function EditService() {
                                         )}
                                     </div>
 
-                                    <div>
-                                        <Label htmlFor="image">رابط الصورة أو رفع ملف</Label>
-                                        <Input
-                                            id="image"
-                                            value={data.image}
-                                            onChange={(e) => setData('image', e.target.value)}
-                                            placeholder="/images/services/example.jpg"
-                                        />
-                                        {service.image && !data.image_file && (
-                                            <img src={service.image} alt="service" className="mt-2 h-24 object-cover rounded" />
-                                        )}
-                                        <div className="mt-2">
-                                            <input
-                                                id="image_file"
-                                                type="file"
-                                                accept="image/*"
-                                                onChange={(e) => setData('image_file', (e.target.files && e.target.files[0]) ? e.target.files[0] : null)}
+                                    <div className="space-y-2">
+                                        <Label htmlFor="image" className="text-sm font-semibold">
+                                            الصورة
+                                        </Label>
+                                        <div className="space-y-3">
+                                            {service.image && !data.image_file && (
+                                                <div className="relative group">
+                                                    <img 
+                                                        src={service.image} 
+                                                        alt="service" 
+                                                        className="w-full h-48 object-cover rounded-xl border-2 border-border" 
+                                                    />
+                                                    <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-xl flex items-center justify-center">
+                                                        <span className="text-white text-sm font-medium">الصورة الحالية</span>
+                                                    </div>
+                                                </div>
+                                            )}
+                                            <Input
+                                                id="image"
+                                                value={data.image}
+                                                onChange={(e) => setData('image', e.target.value)}
+                                                placeholder="https://example.com/image.jpg"
+                                                className="h-11"
                                             />
+                                            <div className="relative">
+                                                <input
+                                                    id="image_file"
+                                                    type="file"
+                                                    accept="image/*"
+                                                    onChange={(e) => setData('image_file', (e.target.files && e.target.files[0]) ? e.target.files[0] : null)}
+                                                    className="hidden"
+                                                />
+                                                <label
+                                                    htmlFor="image_file"
+                                                    className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-border rounded-xl cursor-pointer hover:bg-muted/50 hover:border-primary/50 transition-all group"
+                                                >
+                                                    <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                                                        <Upload className="w-10 h-10 mb-3 text-muted-foreground group-hover:text-primary transition-colors" />
+                                                        <p className="mb-2 text-sm text-foreground">
+                                                            <span className="font-semibold">اضغط للرفع</span> أو اسحب الملف هنا
+                                                        </p>
+                                                        <p className="text-xs text-muted-foreground">PNG, JPG, GIF حتى 5 ميجابايت</p>
+                                                    </div>
+                                                </label>
+                                            </div>
+                                            {data.image_file && (
+                                                <div className="flex items-center gap-2 p-3 bg-muted rounded-lg">
+                                                    <ImageIcon className="w-5 h-5 text-primary" />
+                                                    <span className="text-sm font-medium flex-1">{data.image_file.name}</span>
+                                                    <Button
+                                                        type="button"
+                                                        variant="ghost"
+                                                        size="sm"
+                                                        onClick={() => setData('image_file', null)}
+                                                        className="h-8 w-8 p-0"
+                                                    >
+                                                        <Trash2 className="w-4 h-4" />
+                                                    </Button>
+                                                </div>
+                                            )}
                                         </div>
                                         {errors.image && (
                                             <p className="text-sm text-red-500 mt-1">{errors.image}</p>
@@ -213,9 +270,17 @@ export default function EditService() {
                             </Card>
 
                             {/* Features */}
-                            <Card>
-                                <CardHeader>
-                                    <CardTitle>المميزات</CardTitle>
+                            <Card className="border-2 border-border/50 shadow-lg">
+                                <CardHeader className="pb-4">
+                                    <div className="flex items-center gap-3">
+                                        <div className="w-10 h-10 bg-emerald-100 dark:bg-emerald-900/30 rounded-xl flex items-center justify-center">
+                                            <Sparkles className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+                                        </div>
+                                        <div>
+                                            <CardTitle className="text-xl">المميزات</CardTitle>
+                                            <CardDescription>قائمة بمميزات الخدمة</CardDescription>
+                                        </div>
+                                    </div>
                                 </CardHeader>
                                 <CardContent className="space-y-4">
                                     {data.features.map((feature, index) => (
@@ -252,9 +317,17 @@ export default function EditService() {
                             </Card>
 
                             {/* Benefits */}
-                            <Card>
-                                <CardHeader>
-                                    <CardTitle>الفوائد</CardTitle>
+                            <Card className="border-2 border-border/50 shadow-lg">
+                                <CardHeader className="pb-4">
+                                    <div className="flex items-center gap-3">
+                                        <div className="w-10 h-10 bg-amber-100 dark:bg-amber-900/30 rounded-xl flex items-center justify-center">
+                                            <Sparkles className="w-5 h-5 text-amber-600 dark:text-amber-400" />
+                                        </div>
+                                        <div>
+                                            <CardTitle className="text-xl">الفوائد</CardTitle>
+                                            <CardDescription>قائمة بفوائد الخدمة</CardDescription>
+                                        </div>
+                                    </div>
                                 </CardHeader>
                                 <CardContent className="space-y-4">
                                     {data.benefits.map((benefit, index) => (
@@ -294,9 +367,17 @@ export default function EditService() {
                         {/* Sidebar */}
                         <div className="space-y-6">
                             {/* Display Settings */}
-                            <Card>
-                                <CardHeader>
-                                    <CardTitle>إعدادات العرض</CardTitle>
+                            <Card className="border-2 border-border/50 shadow-lg sticky top-6">
+                                <CardHeader className="pb-4">
+                                    <div className="flex items-center gap-3">
+                                        <div className="w-10 h-10 bg-purple-100 dark:bg-purple-900/30 rounded-xl flex items-center justify-center">
+                                            <Settings className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+                                        </div>
+                                        <div>
+                                            <CardTitle className="text-xl">إعدادات العرض</CardTitle>
+                                            <CardDescription>تخصيص طريقة عرض الخدمة</CardDescription>
+                                        </div>
+                                    </div>
                                 </CardHeader>
                                 <CardContent className="space-y-4">
                                     <div>
@@ -357,8 +438,15 @@ export default function EditService() {
                                         )}
                                     </div>
 
-                                    <div className="flex items-center justify-between">
-                                        <Label htmlFor="popular">خدمة شائعة</Label>
+                                    <Separator />
+
+                                    <div className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
+                                        <div className="space-y-0.5">
+                                            <Label htmlFor="popular" className="text-sm font-semibold cursor-pointer">
+                                                خدمة شائعة
+                                            </Label>
+                                            <p className="text-xs text-muted-foreground">إظهار الخدمة كخدمة مميزة</p>
+                                        </div>
                                         <Switch
                                             id="popular"
                                             checked={data.popular}
@@ -366,8 +454,13 @@ export default function EditService() {
                                         />
                                     </div>
 
-                                    <div className="flex items-center justify-between">
-                                        <Label htmlFor="is_active">نشط</Label>
+                                    <div className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
+                                        <div className="space-y-0.5">
+                                            <Label htmlFor="is_active" className="text-sm font-semibold cursor-pointer">
+                                                تفعيل الخدمة
+                                            </Label>
+                                            <p className="text-xs text-muted-foreground">إظهار الخدمة في المنصة</p>
+                                        </div>
                                         <Switch
                                             id="is_active"
                                             checked={data.is_active}
@@ -378,20 +471,30 @@ export default function EditService() {
                             </Card>
 
                             {/* Actions */}
-                            <Card>
+                            <Card className="border-2 border-border/50 shadow-lg sticky bottom-6 z-20">
                                 <CardContent className="pt-6">
-                                    <div className="space-y-2">
+                                    <div className="space-y-3">
                                         <Button 
                                             type="submit" 
-                                            className="w-full"
+                                            className="w-full h-12 gap-2 shadow-lg hover:shadow-xl"
                                             disabled={processing}
                                         >
-                                            {processing ? 'جاري الحفظ...' : 'حفظ التغييرات'}
+                                            {processing ? (
+                                                <>
+                                                    <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                                                    جاري الحفظ...
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <Save className="w-4 h-4" />
+                                                    حفظ التغييرات
+                                                </>
+                                            )}
                                         </Button>
                                         <Button 
                                             type="button" 
                                             variant="outline" 
-                                            className="w-full"
+                                            className="w-full h-11"
                                             asChild
                                         >
                                             <Link href="/admin/services">إلغاء</Link>
