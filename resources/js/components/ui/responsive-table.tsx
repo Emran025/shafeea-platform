@@ -2,7 +2,6 @@ import * as React from 'react';
 import { cn } from '@/lib/utils';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Eye, Edit, Trash2 } from 'lucide-react';
 import { Link } from '@inertiajs/react';
 
 /**
@@ -15,8 +14,8 @@ import { Link } from '@inertiajs/react';
  * - Includes action buttons
  */
 
-export interface TableColumn<T = any> {
-    key: string;
+export interface TableColumn<T extends Record<string, unknown> = Record<string, unknown>> {
+    key: Extract<keyof T, string>;
     label: string;
     render?: (item: T, index: number) => React.ReactNode;
     className?: string;
@@ -24,7 +23,7 @@ export interface TableColumn<T = any> {
     hideOnMobile?: boolean;
 }
 
-export interface TableAction<T = any> {
+export interface TableAction<T extends Record<string, unknown> = Record<string, unknown>> {
     label: string;
     icon: React.ComponentType<{ className?: string }>;
     onClick?: (item: T) => void;
@@ -33,7 +32,7 @@ export interface TableAction<T = any> {
     className?: string;
 }
 
-export interface ResponsiveTableProps<T = any> {
+export interface ResponsiveTableProps<T extends Record<string, unknown> = Record<string, unknown>> {
     data: T[];
     columns: TableColumn<T>[];
     actions?: TableAction<T>[];
@@ -43,7 +42,7 @@ export interface ResponsiveTableProps<T = any> {
     cardClassName?: string;
 }
 
-export function ResponsiveTable<T = any>({
+export function ResponsiveTable<T extends Record<string, unknown> = Record<string, unknown>>({
     data,
     columns,
     actions = [],
@@ -63,7 +62,7 @@ export function ResponsiveTable<T = any>({
     return (
         <>
             {/* Desktop Table View */}
-            <div className="hidden md:block overflow-x-auto rounded-lg border border-border bg-card">
+            <div className={cn("hidden md:block overflow-x-auto rounded-lg border border-border bg-card", className)}>
                 <table className="w-full border-separate border-spacing-0">
                     <thead>
                         <tr className="bg-muted/50">
@@ -101,7 +100,7 @@ export function ResponsiveTable<T = any>({
                                     >
                                         {column.render
                                             ? column.render(item, index)
-                                            : (item as any)[column.key]}
+                                            : ((item as Record<string, unknown>)[column.key] as React.ReactNode)}
                                     </td>
                                 ))}
                                 {actions.length > 0 && (
@@ -141,7 +140,7 @@ export function ResponsiveTable<T = any>({
             </div>
 
             {/* Mobile Card View */}
-            <div className="md:hidden space-y-4">
+            <div className={cn("md:hidden space-y-4", className)}>
                 {data.map((item, index) => (
                     <Card
                         key={keyExtractor(item, index)}
@@ -164,7 +163,7 @@ export function ResponsiveTable<T = any>({
                                         <div className="text-sm font-medium text-foreground">
                                             {column.render
                                                 ? column.render(item, index)
-                                                : (item as any)[column.key]}
+                                                : ((item as Record<string, unknown>)[column.key] as React.ReactNode)}
                                         </div>
                                     </div>
                                 ))}
