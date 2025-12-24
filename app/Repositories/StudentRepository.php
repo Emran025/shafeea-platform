@@ -220,7 +220,8 @@ class StudentRepository
             ->with('currentPlan')
             ->first();
 
-        return $enrollment ? $enrollment->currentPlan->first() : null;
+        // currentPlan is a relationship that returns a collection, get the first one
+        return $enrollment && $enrollment->currentPlan->isNotEmpty() ? $enrollment->currentPlan->first() : null;
     }
 
     /**

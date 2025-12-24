@@ -84,7 +84,8 @@ class StudentController extends ApiController
             if ($action === 'suspend') {
                 $student->status = 'suspended';
             } elseif ($action === 'expel') {
-                $student->status = 'expelled';
+                // Note: 'expelled' is not in the enum, using 'inactive' instead
+                $student->status = 'inactive';
             }
             $student->save();
 

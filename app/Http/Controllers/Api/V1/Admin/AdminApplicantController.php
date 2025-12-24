@@ -97,20 +97,19 @@ class AdminApplicantController extends ApiController
                 if ($applicant->application_type === 'teacher') {
                     Teacher::create([
                         'user_id' => $applicant->user_id,
-                        'bio' => $applicant->bio,
+                        'bio' => $applicant->bio ?? '',
                     ]);
                 } else {
                     Student::create([
                         'user_id' => $applicant->user_id,
-                        'bio' => $applicant->bio,
-
-                        'qualification' => $applicant->qualifications,
-                        'memorization_level' => $applicant->memorization_level,
+                        'qualification' => $applicant->qualifications ?? '',
+                        'memorization_level' => $applicant->memorization_level ?? '0',
+                        'status' => 'active',
                     ]);
                 }
 
                 // Assign the user to the admin's school
-                $applicant->user()->update(['school_id' => $adminSchoolId, 'status' => 'Inactive']);
+                $applicant->user()->update(['school_id' => $adminSchoolId, 'status' => 'inactive']);
             });
         } catch (\Exception $e) {
             Log::error('Approval Error: '.$e->getMessage());
