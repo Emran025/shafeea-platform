@@ -42,84 +42,136 @@ export default function SchoolsIndex() {
 
     return (
         <AdminLayout>
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">الــــــــــمدارس</h1>
+            <div className="space-y-6">
+                <div>
+                    <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">المدارس</h1>
+                    <p className="text-sm text-muted-foreground">إدارة المدارس المسجلة في المنصة</p>
+                </div>
                 
                 {/* Filters Section */}
-                <div className="mt-4 flex items-center justify-between">
-                    <div className="flex items-center gap-4 w-full md:w-auto">
+                <div className="bg-card p-4 rounded-lg border border-border shadow-sm">
+                    <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
                         <Input
                             type="text"
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
-                            placeholder="Search by name, admin, or registration number"
-                            className="w-full md:w-80"
+                            placeholder="البحث بالاسم، المشرف، أو رقم التسجيل"
+                            className="flex-1"
+                            onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
                         />
                         <Select onValueChange={(value) => setStatus(value)} value={status}>
-                            <SelectTrigger className="w-[180px]">
-                                <SelectValue placeholder="All Status" />
+                            <SelectTrigger className="w-full sm:w-[180px]">
+                                <SelectValue placeholder="جميع الحالات" />
                             </SelectTrigger>
                             <SelectContent>
-                                <SelectItem value="all">All</SelectItem>
-                                <SelectItem value="pending">Pending</SelectItem>
-                                <SelectItem value="accepted">Accepted</SelectItem>
-                                <SelectItem value="rejected">Rejected</SelectItem>
-                                <SelectItem value="suspended">Suspended</SelectItem>
+                                <SelectItem value="all">جميع الحالات</SelectItem>
+                                <SelectItem value="pending">قيد الانتظار</SelectItem>
+                                <SelectItem value="accepted">مقبولة</SelectItem>
+                                <SelectItem value="rejected">مرفوضة</SelectItem>
+                                <SelectItem value="suspended">معلقة</SelectItem>
                             </SelectContent>
                         </Select>
-                        <Button onClick={handleSearch}>Search</Button>
+                        <Button onClick={handleSearch} className="w-full sm:w-auto">بحث</Button>
                     </div>
                 </div>
 
-                {/* Table Section */}
-                <div className="mt-8 rounded-md border">
-                    <Table>
-                        <TableHeader>
-                            <TableRow>
-                                <TableHead>اسم المدرسة</TableHead>
-                                <TableHead>المشرف</TableHead>
-                                <TableHead>الحالة</TableHead>
-                                <TableHead>إجراء</TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {schools?.data?.length > 0 ? (
-                                schools.data.map((school) => (
-                                    <TableRow key={school.id}>
-                                        <TableCell className="font-medium">
-                                            {school.name}
+                {/* Table Section - Responsive */}
+                <div>
+                    {/* Desktop Table View */}
+                    <div className="hidden md:block rounded-lg border border-border bg-card overflow-hidden shadow-sm">
+                        <Table>
+                            <TableHeader>
+                                <TableRow>
+                                    <TableHead>اسم المدرسة</TableHead>
+                                    <TableHead>المشرف</TableHead>
+                                    <TableHead>الحالة</TableHead>
+                                    <TableHead className="text-right">إجراءات</TableHead>
+                                </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                                {schools?.data?.length > 0 ? (
+                                    schools.data.map((school) => (
+                                        <TableRow key={school.id} className="hover:bg-muted/50 transition-colors">
+                                            <TableCell className="font-medium">
+                                                {school.name}
+                                            </TableCell>
+                                            <TableCell>
+                                                {school.admin?.user?.name || 'لا يوجد مشرف'}
+                                            </TableCell>
+                                            <TableCell>
+                                                <span className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                                                    school.admin?.status === 'accepted' ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' :
+                                                    school.admin?.status === 'pending' ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300' :
+                                                    'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300'
+                                                }`}>
+                                                    {school.admin?.status === 'accepted' ? 'مقبولة' :
+                                                     school.admin?.status === 'pending' ? 'قيد الانتظار' :
+                                                     school.admin?.status === 'rejected' ? 'مرفوضة' :
+                                                     school.admin?.status === 'suspended' ? 'معلقة' :
+                                                     'غير متوفر'}
+                                                </span>
+                                            </TableCell>
+                                            <TableCell className="text-right">
+                                                <Link 
+                                                    href={`/admin/schools/${school.id}`} 
+                                                    className="text-primary hover:text-primary/80 font-medium transition-colors"
+                                                >
+                                                    عرض التفاصيل
+                                                </Link>
+                                            </TableCell>
+                                        </TableRow>
+                                    ))
+                                ) : (
+                                    <TableRow>
+                                        <TableCell colSpan={4} className="h-24 text-center text-muted-foreground">
+                                            لا توجد مدارس.
                                         </TableCell>
-                                        <TableCell>
-                                            {school.admin?.user?.name || 'No Admin'}
-                                        </TableCell>
-                                        <TableCell>
+                                    </TableRow>
+                                )}
+                            </TableBody>
+                        </Table>
+                    </div>
+
+                    {/* Mobile Card View */}
+                    <div className="md:hidden space-y-4">
+                        {schools?.data?.length > 0 ? (
+                            schools.data.map((school) => (
+                                <div key={school.id} className="bg-card border border-border rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow">
+                                    <div className="space-y-3">
+                                        <div>
+                                            <h3 className="font-semibold text-lg text-foreground mb-2">{school.name}</h3>
+                                            <div className="text-sm text-muted-foreground mb-2">
+                                                <span className="font-medium">المشرف:</span> {school.admin?.user?.name || 'لا يوجد مشرف'}
+                                            </div>
                                             <span className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${
                                                 school.admin?.status === 'accepted' ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' :
                                                 school.admin?.status === 'pending' ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300' :
                                                 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300'
                                             }`}>
-                                                {school.admin?.status || 'N/A'}
+                                                {school.admin?.status === 'accepted' ? 'مقبولة' :
+                                                 school.admin?.status === 'pending' ? 'قيد الانتظار' :
+                                                 school.admin?.status === 'rejected' ? 'مرفوضة' :
+                                                 school.admin?.status === 'suspended' ? 'معلقة' :
+                                                 'غير متوفر'}
                                             </span>
-                                        </TableCell>
-                                        <TableCell className="text-right">
+                                        </div>
+                                        <div className="pt-2 border-t border-border">
                                             <Link 
                                                 href={`/admin/schools/${school.id}`} 
-                                                className="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300 font-medium"
+                                                className="block w-full text-center px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors font-medium"
                                             >
-                                                View
+                                                عرض التفاصيل
                                             </Link>
-                                        </TableCell>
-                                    </TableRow>
-                                ))
-                            ) : (
-                                <TableRow>
-                                    <TableCell colSpan={4} className="h-24 text-center">
-                                        No schools found.
-                                    </TableCell>
-                                </TableRow>
-                            )}
-                        </TableBody>
-                    </Table>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))
+                        ) : (
+                            <div className="text-center py-12 text-muted-foreground">
+                                <p className="text-lg">لا توجد مدارس.</p>
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
         </AdminLayout>

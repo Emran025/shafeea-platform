@@ -75,9 +75,12 @@ export default function ServicesIndex() {
     return (
         <AdminLayout>
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                <div className="flex items-center justify-between mb-6">
-                    <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">الخدمات</h1>
-                    <Button asChild>
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
+                    <div>
+                        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">الخدمات</h1>
+                        <p className="text-sm text-muted-foreground">إدارة الخدمات المتاحة في المنصة</p>
+                    </div>
+                    <Button asChild className="w-full sm:w-auto">
                         <Link href="/admin/services/create">
                             <Plus className="w-4 h-4 ml-2" />
                             إضافة خدمة جديدة
@@ -86,18 +89,18 @@ export default function ServicesIndex() {
                 </div>
                 
                 {/* Filters Section */}
-                <div className="mt-4 flex items-center justify-between gap-4 flex-wrap">
-                    <div className="flex items-center gap-4 w-full md:w-auto flex-wrap">
+                <div className="mt-6 bg-card p-4 rounded-lg border border-border shadow-sm">
+                    <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
                         <Input
                             type="text"
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
                             placeholder="البحث في العنوان أو الوصف..."
-                            className="w-full md:w-80"
+                            className="flex-1"
                             onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
                         />
                         <Select onValueChange={(value) => setCategory(value)} value={category}>
-                            <SelectTrigger className="w-[180px]">
+                            <SelectTrigger className="w-full sm:w-[180px]">
                                 <SelectValue placeholder="جميع الفئات" />
                             </SelectTrigger>
                             <SelectContent>
@@ -110,7 +113,7 @@ export default function ServicesIndex() {
                             </SelectContent>
                         </Select>
                         <Select onValueChange={(value) => setIsActive(value)} value={isActive}>
-                            <SelectTrigger className="w-[180px]">
+                            <SelectTrigger className="w-full sm:w-[180px]">
                                 <SelectValue placeholder="جميع الحالات" />
                             </SelectTrigger>
                             <SelectContent>
@@ -119,101 +122,170 @@ export default function ServicesIndex() {
                                 <SelectItem value="0">غير نشط</SelectItem>
                             </SelectContent>
                         </Select>
-                        <Button onClick={handleSearch}>بحث</Button>
+                        <Button onClick={handleSearch} className="w-full sm:w-auto">بحث</Button>
                     </div>
                 </div>
 
-                {/* Table Section */}
-                <div className="mt-8 rounded-md border bg-white dark:bg-gray-800">
-                    <Table>
-                        <TableHeader>
-                            <TableRow>
-                                <TableHead>العنوان</TableHead>
-                                <TableHead>الفئة</TableHead>
-                                <TableHead>الأيقونة</TableHead>
-                                <TableHead>ترتيب العرض</TableHead>
-                                <TableHead>الحالة</TableHead>
-                                <TableHead>شائع</TableHead>
-                                <TableHead className="text-left">إجراءات</TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {services?.data?.length > 0 ? (
-                                services.data.map((service) => (
-                                    <TableRow key={service.id}>
-                                        <TableCell className="font-medium max-w-xs">
-                                            <div className="truncate" title={service.title}>
-                                                {service.title}
-                                            </div>
-                                        </TableCell>
-                                        <TableCell>
-                                            <span className="px-2 py-1 text-xs bg-gray-100 dark:bg-gray-700 rounded">
-                                                {categoryLabels[service.category] || service.category}
-                                            </span>
-                                        </TableCell>
-                                        <TableCell>
-                                            <span className="font-mono text-xs">{service.icon}</span>
-                                        </TableCell>
-                                        <TableCell>{service.display_order}</TableCell>
-                                        <TableCell>
-                                            <span className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                                                service.is_active 
-                                                    ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' 
-                                                    : 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300'
-                                            }`}>
-                                                {service.is_active ? 'نشط' : 'غير نشط'}
-                                            </span>
-                                        </TableCell>
-                                        <TableCell>
-                                            {service.popular ? (
-                                                <span className="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300">
-                                                    نعم
+                {/* Table Section - Responsive */}
+                <div className="mt-8">
+                    {/* Desktop Table View */}
+                    <div className="hidden md:block rounded-lg border border-border bg-card overflow-hidden shadow-sm">
+                        <Table>
+                            <TableHeader>
+                                <TableRow>
+                                    <TableHead>العنوان</TableHead>
+                                    <TableHead>الفئة</TableHead>
+                                    <TableHead>الأيقونة</TableHead>
+                                    <TableHead>ترتيب العرض</TableHead>
+                                    <TableHead>الحالة</TableHead>
+                                    <TableHead>شائع</TableHead>
+                                    <TableHead className="text-right">إجراءات</TableHead>
+                                </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                                {services?.data?.length > 0 ? (
+                                    services.data.map((service) => (
+                                        <TableRow key={service.id} className="hover:bg-muted/50 transition-colors">
+                                            <TableCell className="font-medium max-w-xs">
+                                                <div className="truncate" title={service.title}>
+                                                    {service.title}
+                                                </div>
+                                            </TableCell>
+                                            <TableCell>
+                                                <span className="px-2 py-1 text-xs bg-muted rounded-md">
+                                                    {categoryLabels[service.category] || service.category}
                                                 </span>
-                                            ) : (
-                                                <span className="text-gray-400">-</span>
-                                            )}
-                                        </TableCell>
-                                        <TableCell>
-                                            <div className="flex items-center gap-2">
-                                                <Button
-                                                    variant="ghost"
-                                                    size="sm"
-                                                    asChild
-                                                >
-                                                    <Link href={`/admin/services/${service.id}`}>
-                                                        <Eye className="w-4 h-4" />
-                                                    </Link>
-                                                </Button>
-                                                <Button
-                                                    variant="ghost"
-                                                    size="sm"
-                                                    asChild
-                                                >
-                                                    <Link href={`/admin/services/${service.id}/edit`}>
-                                                        <Edit className="w-4 h-4" />
-                                                    </Link>
-                                                </Button>
-                                                <Button
-                                                    variant="ghost"
-                                                    size="sm"
-                                                    onClick={() => handleDelete(service.id)}
-                                                    className="text-red-600 hover:text-red-700 dark:text-red-400"
-                                                >
-                                                    <Trash2 className="w-4 h-4" />
-                                                </Button>
-                                            </div>
+                                            </TableCell>
+                                            <TableCell>
+                                                <span className="font-mono text-xs text-muted-foreground">{service.icon}</span>
+                                            </TableCell>
+                                            <TableCell>{service.display_order}</TableCell>
+                                            <TableCell>
+                                                <span className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                                                    service.is_active 
+                                                        ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' 
+                                                        : 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300'
+                                                }`}>
+                                                    {service.is_active ? 'نشط' : 'غير نشط'}
+                                                </span>
+                                            </TableCell>
+                                            <TableCell>
+                                                {service.popular ? (
+                                                    <span className="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300">
+                                                        نعم
+                                                    </span>
+                                                ) : (
+                                                    <span className="text-muted-foreground">-</span>
+                                                )}
+                                            </TableCell>
+                                            <TableCell>
+                                                <div className="flex items-center gap-2 justify-end">
+                                                    <Button
+                                                        variant="ghost"
+                                                        size="sm"
+                                                        asChild
+                                                        className="h-8 w-8 p-0"
+                                                    >
+                                                        <Link href={`/admin/services/${service.id}`} title="عرض">
+                                                            <Eye className="w-4 h-4" />
+                                                        </Link>
+                                                    </Button>
+                                                    <Button
+                                                        variant="ghost"
+                                                        size="sm"
+                                                        asChild
+                                                        className="h-8 w-8 p-0"
+                                                    >
+                                                        <Link href={`/admin/services/${service.id}/edit`} title="تعديل">
+                                                            <Edit className="w-4 h-4" />
+                                                        </Link>
+                                                    </Button>
+                                                    <Button
+                                                        variant="ghost"
+                                                        size="sm"
+                                                        onClick={() => handleDelete(service.id)}
+                                                        className="text-red-600 hover:text-red-700 dark:text-red-400 h-8 w-8 p-0"
+                                                        title="حذف"
+                                                    >
+                                                        <Trash2 className="w-4 h-4" />
+                                                    </Button>
+                                                </div>
+                                            </TableCell>
+                                        </TableRow>
+                                    ))
+                                ) : (
+                                    <TableRow>
+                                        <TableCell colSpan={7} className="h-24 text-center text-muted-foreground">
+                                            لا توجد خدمات.
                                         </TableCell>
                                     </TableRow>
-                                ))
-                            ) : (
-                                <TableRow>
-                                    <TableCell colSpan={7} className="h-24 text-center">
-                                        لا توجد خدمات.
-                                    </TableCell>
-                                </TableRow>
-                            )}
-                        </TableBody>
-                    </Table>
+                                )}
+                            </TableBody>
+                        </Table>
+                    </div>
+
+                    {/* Mobile Card View */}
+                    <div className="md:hidden space-y-4">
+                        {services?.data?.length > 0 ? (
+                            services.data.map((service) => (
+                                <div key={service.id} className="bg-card border border-border rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow">
+                                    <div className="space-y-3">
+                                        <div>
+                                            <h3 className="font-semibold text-lg text-foreground mb-1">{service.title}</h3>
+                                            <div className="flex items-center gap-2 flex-wrap">
+                                                <span className="px-2 py-1 text-xs bg-muted rounded-md">
+                                                    {categoryLabels[service.category] || service.category}
+                                                </span>
+                                                <span className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                                                    service.is_active 
+                                                        ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' 
+                                                        : 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300'
+                                                }`}>
+                                                    {service.is_active ? 'نشط' : 'غير نشط'}
+                                                </span>
+                                                {service.popular && (
+                                                    <span className="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300">
+                                                        شائع
+                                                    </span>
+                                                )}
+                                            </div>
+                                        </div>
+                                        <div className="flex items-center justify-between text-sm text-muted-foreground">
+                                            <span>الأيقونة: <span className="font-mono">{service.icon}</span></span>
+                                            <span>الترتيب: {service.display_order}</span>
+                                        </div>
+                                        <div className="flex items-center gap-2 pt-2 border-t border-border">
+                                            <Button variant="ghost" size="sm" asChild className="flex-1">
+                                                <Link href={`/admin/services/${service.id}`}>
+                                                    <Eye className="w-4 h-4 ml-2" />
+                                                    عرض
+                                                </Link>
+                                            </Button>
+                                            <Button variant="ghost" size="sm" asChild className="flex-1">
+                                                <Link href={`/admin/services/${service.id}/edit`}>
+                                                    <Edit className="w-4 h-4 ml-2" />
+                                                    تعديل
+                                                </Link>
+                                            </Button>
+                                            <Button
+                                                variant="ghost"
+                                                size="sm"
+                                                onClick={() => handleDelete(service.id)}
+                                                className="text-red-600 hover:text-red-700 dark:text-red-400 flex-1"
+                                            >
+                                                <Trash2 className="w-4 h-4 ml-2" />
+                                                حذف
+                                            </Button>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))
+                        ) : (
+                            <div className="text-center py-12 text-muted-foreground">
+                                <p className="text-lg">لا توجد خدمات.</p>
+                            </div>
+                        )}
+                    </div>
                 </div>
 
                 {/* Pagination */}
