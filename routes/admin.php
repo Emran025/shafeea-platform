@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\InquiryController;
 use App\Http\Controllers\Admin\PolicyController;
+use App\Http\Controllers\Admin\ServiceController;
 use Illuminate\Support\Facades\Route;
 
 // Public admin login routes (accessible to guests only)
@@ -46,6 +47,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::get('/edit/{type}/{id}', [PolicyController::class, 'edit'])->name('edit');
         Route::post('/update/{type}/{id}', [PolicyController::class, 'update'])->name('update');
     });
+
+    // Services management
+    Route::resource('services', ServiceController::class)->names('services');
 
     // Admin account management
     Route::prefix('account')->name('account.')->group(function () {
