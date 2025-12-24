@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateServiceRequest;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class ServiceController extends Controller
@@ -61,7 +62,13 @@ class ServiceController extends Controller
     public function store(StoreServiceRequest $request)
     {
         $data = $request->validated();
-        
+
+        // Handle uploaded image file (preferred over image URL)
+        if ($request->hasFile('image_file')) {
+            $path = $request->file('image_file')->store('services', 'public');
+            $data['image'] = Storage::url($path);
+        }
+
         // Ensure boolean values are properly cast
         $data['popular'] = $request->has('popular') ? (bool) $request->input('popular') : false;
         $data['is_active'] = $request->has('is_active') ? (bool) $request->input('is_active') : true;
@@ -99,7 +106,19 @@ class ServiceController extends Controller
     public function update(UpdateServiceRequest $request, Service $service)
     {
         $data = $request->validated();
-        
+
+        // Handle uploaded image file (replace existing if present)
+        if ($request->hasFile('image_file')) {
+            // Delete old file if it was stored via Storage::url
+            if ($service->image && str_starts_with($service->image, '/storage/')) {
+                $oldPath = ltrim(str_replace('/storage/', '', parse_url($service->image, PHP_URL_PATH)), '/');
+                Storage::disk('public')->delete($oldPath);
+            }
+
+            $path = $request->file('image_file')->store('services', 'public');
+            $data['image'] = Storage::url($path);
+        }
+
         // Ensure boolean values are properly cast
         if ($request->has('popular')) {
             $data['popular'] = (bool) $request->input('popular');

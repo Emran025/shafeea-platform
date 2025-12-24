@@ -27,6 +27,7 @@ class StoreServiceRequest extends FormRequest
             'description' => 'required|string',
             'icon' => 'required|string|max:50',
             'image' => 'nullable|string|max:500',
+            'image_file' => 'nullable|file|image|max:5120',
             'features' => 'nullable|array',
             'features.*' => 'string|max:500',
             'benefits' => 'nullable|array',
