@@ -57,11 +57,11 @@ const categoryLabels: Record<string, string> = {
 export default function ServicesIndex() {
     const { services, filters = {} } = usePage<ServicesIndexProps>().props;
     const [search, setSearch] = useState(filters.search || '');
-    const [category, setCategory] = useState(filters.category || '');
-    const [isActive, setIsActive] = useState(filters.is_active || '');
+    const [category, setCategory] = useState(filters.category || 'all');
+    const [isActive, setIsActive] = useState(filters.is_active || 'all');
 
     const handleSearch = () => {
-        router.get('/admin/services', { search, category, is_active: isActive }, { preserveState: true });
+        router.get('/admin/services', { search, category: category === 'all' ? '' : category, is_active: isActive === 'all' ? '' : isActive }, { preserveState: true });
     };
 
     const handleDelete = (serviceId: number) => {
@@ -101,7 +101,7 @@ export default function ServicesIndex() {
                                 <SelectValue placeholder="جميع الفئات" />
                             </SelectTrigger>
                             <SelectContent>
-                                <SelectItem value="">جميع الفئات</SelectItem>
+                                <SelectItem value="all">جميع الفئات</SelectItem>
                                 <SelectItem value="management">إدارة الحلقات</SelectItem>
                                 <SelectItem value="education">التعليم والمنهجية</SelectItem>
                                 <SelectItem value="analytics">التقارير والإحصائيات</SelectItem>
@@ -114,7 +114,7 @@ export default function ServicesIndex() {
                                 <SelectValue placeholder="جميع الحالات" />
                             </SelectTrigger>
                             <SelectContent>
-                                <SelectItem value="">جميع الحالات</SelectItem>
+                                <SelectItem value="all">جميع الحالات</SelectItem>
                                 <SelectItem value="1">نشط</SelectItem>
                                 <SelectItem value="0">غير نشط</SelectItem>
                             </SelectContent>
