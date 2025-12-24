@@ -32,12 +32,28 @@ interface EditServiceProps extends PageProps {
 export default function EditService() {
     const { service } = usePage<EditServiceProps>().props;
     
-    const { data, setData, put, processing, errors } = useForm({
+    interface ServiceForm {
+        category: string;
+        title: string;
+        description: string;
+        icon: string;
+        image: string;
+        image_file: File | null;
+        features: string[];
+        benefits: string[];
+        popular: boolean;
+        theme: string;
+        display_order: number;
+        is_active: boolean;
+    }
+
+    const { data, setData, put, processing, errors } = useForm<ServiceForm>({
         category: service.category || '',
         title: service.title || '',
         description: service.description || '',
         icon: service.icon || 'Users',
         image: service.image || '',
+        image_file: null,
         features: service.features && service.features.length > 0 ? service.features : [''],
         benefits: service.benefits && service.benefits.length > 0 ? service.benefits : [''],
         popular: service.popular || false,
@@ -168,15 +184,29 @@ export default function EditService() {
                                     </div>
 
                                     <div>
-                                        <Label htmlFor="image">رابط الصورة</Label>
+                                        <Label htmlFor="image">رابط الصورة أو رفع ملف</Label>
                                         <Input
                                             id="image"
                                             value={data.image}
                                             onChange={(e) => setData('image', e.target.value)}
                                             placeholder="/images/services/example.jpg"
                                         />
+                                        {service.image && !data.image_file && (
+                                            <img src={service.image} alt="service" className="mt-2 h-24 object-cover rounded" />
+                                        )}
+                                        <div className="mt-2">
+                                            <input
+                                                id="image_file"
+                                                type="file"
+                                                accept="image/*"
+                                                onChange={(e) => setData('image_file', (e.target.files && e.target.files[0]) ? e.target.files[0] : null)}
+                                            />
+                                        </div>
                                         {errors.image && (
                                             <p className="text-sm text-red-500 mt-1">{errors.image}</p>
+                                        )}
+                                        {errors.image_file && (
+                                            <p className="text-sm text-red-500 mt-1">{errors.image_file}</p>
                                         )}
                                     </div>
                                 </CardContent>

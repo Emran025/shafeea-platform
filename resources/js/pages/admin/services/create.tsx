@@ -11,12 +11,28 @@ import { PlusCircle, Trash2, ArrowRight } from 'lucide-react';
 
 
 export default function CreateService() {
-    const { data, setData, post, processing, errors } = useForm({
+    interface ServiceForm {
+        category: string;
+        title: string;
+        description: string;
+        icon: string;
+        image: string;
+        image_file: File | null;
+        features: string[];
+        benefits: string[];
+        popular: boolean;
+        theme: string;
+        display_order: number;
+        is_active: boolean;
+    }
+
+    const { data, setData, post, processing, errors } = useForm<ServiceForm>({
         category: '',
         title: '',
         description: '',
         icon: 'Users',
         image: '',
+        image_file: null,
         features: [''],
         benefits: [''],
         popular: false,
@@ -147,15 +163,26 @@ export default function CreateService() {
                                     </div>
 
                                     <div>
-                                        <Label htmlFor="image">رابط الصورة</Label>
+                                        <Label htmlFor="image">رابط الصورة أو رفع ملف</Label>
                                         <Input
                                             id="image"
                                             value={data.image}
                                             onChange={(e) => setData('image', e.target.value)}
                                             placeholder="/images/services/example.jpg"
                                         />
+                                        <div className="mt-2">
+                                            <input
+                                                id="image_file"
+                                                type="file"
+                                                accept="image/*"
+                                                onChange={(e) => setData('image_file', (e.target.files && e.target.files[0]) ? e.target.files[0] : null)}
+                                            />
+                                        </div>
                                         {errors.image && (
                                             <p className="text-sm text-red-500 mt-1">{errors.image}</p>
+                                        )}
+                                        {errors.image_file && (
+                                            <p className="text-sm text-red-500 mt-1">{errors.image_file}</p>
                                         )}
                                     </div>
                                 </CardContent>
