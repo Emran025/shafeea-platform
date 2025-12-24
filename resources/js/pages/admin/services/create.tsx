@@ -9,12 +9,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Switch } from '@/components/ui/switch';
 import { PlusCircle, Trash2, ArrowRight } from 'lucide-react';
 
-interface CreateServiceProps {
-    flash?: {
-        success?: string;
-        error?: string;
-    };
-}
 
 export default function CreateService() {
     const { data, setData, post, processing, errors } = useForm({

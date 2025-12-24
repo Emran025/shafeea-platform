@@ -7,7 +7,6 @@ import {
     HelpCircle,
     FileText,
     Grid3x3,
-    UserCheck,
 } from 'lucide-react';
 
 import { NavMain } from '@/components/nav-main';
@@ -38,11 +37,6 @@ const adminNavItems: NavItem[] = [
         title: 'المدارس',
         href: '/admin/schools',
         icon: Users,
-    },
-    {
-        title: 'المدارس المتقدمة',
-        href: '/admin/schools/pending',
-        icon: UserCheck,
     },
     {
         title: 'الدعم والمساعدة',

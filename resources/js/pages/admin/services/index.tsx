@@ -36,8 +36,8 @@ interface Service {
 interface ServicesIndexProps extends PageProps {
     services: {
         data: Service[];
-        links: any[];
-        meta: any;
+        links: { url: string | null; label: string; active: boolean }[];
+        meta: Record<string, unknown>;
     };
     filters: {
         search?: string;
@@ -291,7 +291,7 @@ export default function ServicesIndex() {
                 {/* Pagination */}
                 {services?.links && services.links.length > 3 && (
                     <div className="mt-6 flex items-center justify-center gap-2">
-                        {services.links.map((link: any, index: number) => (
+                        {services.links.map((link: { url: string | null; label: string; active: boolean }, index: number) => (
                             <Button
                                 key={index}
                                 variant={link.active ? "default" : "outline"}

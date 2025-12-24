@@ -26,8 +26,12 @@ Route::middleware(['auth', 'admin'])->group(function () {
     // Schools management
     Route::prefix('schools')->name('schools.')->group(function () {
         Route::get('/', [AdminSchoolController::class, 'index'])->name('index');
-        Route::get('/pending', [AdminSchoolController::class, 'pending'])->name('pending');
+        Route::get('/create', [AdminSchoolController::class, 'create'])->name('create');
+        Route::post('/', [AdminSchoolController::class, 'store'])->name('store');
         Route::get('/{school}', [AdminSchoolController::class, 'show'])->name('show');
+        Route::get('/{school}/edit', [AdminSchoolController::class, 'edit'])->name('edit');
+        Route::put('/{school}', [AdminSchoolController::class, 'update'])->name('update');
+        Route::delete('/{school}', [AdminSchoolController::class, 'destroy'])->name('destroy');
         Route::post('/{school}/approve', [AdminSchoolController::class, 'approve'])->name('approve');
         Route::post('/{school}/reject', [AdminSchoolController::class, 'reject'])->name('reject');
         Route::post('/{school}/suspend', [AdminSchoolController::class, 'suspend'])->name('suspend');

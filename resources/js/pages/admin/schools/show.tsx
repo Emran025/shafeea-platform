@@ -41,14 +41,26 @@ export default function SchoolShow() {
     const { school } = usePage<SchoolShowProps>().props;
     const admin = school.admin.user;
 
+    const handleApprove = () => {
+        if (confirm('هل أنت متأكد من قبول هذه المدرسة؟')) {
+            router.post(`/admin/schools/${school.id}/approve`, {}, { preserveScroll: true });
+        }
+    };
+
+    const handleReject = () => {
+        if (confirm('هل أنت متأكد من رفض هذه المدرسة؟ هذا القرار غير قابل للتراجع.')) {
+            router.post(`/admin/schools/${school.id}/reject`, {}, { preserveScroll: true });
+        }
+    };
+
     const handleSuspend = () => {
-        if (confirm('Are you sure you want to suspend this school? This will restrict their access.')) {
+        if (confirm('هل أنت متأكد من تعليق هذه المدرسة؟ سيتم تقييد وصولهم.')) {
             router.post(`/admin/schools/${school.id}/suspend`, {}, { preserveScroll: true });
         }
     };
 
     const handleReactivate = () => {
-        if (confirm('Are you sure you want to reactivate this school?')) {
+        if (confirm('هل أنت متأكد من إعادة تفعيل هذه المدرسة؟')) {
             router.post(`/admin/schools/${school.id}/approve`, {}, { preserveScroll: true });
         }
     };
@@ -93,14 +105,24 @@ export default function SchoolShow() {
                     <StatusBadge status={school.admin.status} />
                 </div>
                 <div className="flex gap-4">
-                    {school.admin.status !== 'suspended' && (
+                    {school.admin.status === 'pending' && (
+                        <>
+                            <Button onClick={handleApprove} variant="default">
+                                قبول
+                            </Button>
+                            <Button onClick={handleReject} variant="destructive">
+                                رفض
+                            </Button>
+                        </>
+                    )}
+                    {school.admin.status === 'accepted' && (
                         <Button onClick={handleSuspend} variant="destructive">
-                            Suspend School
+                            تعليق
                         </Button>
                     )}
-                        {school.admin.status === 'suspended' && (
+                    {school.admin.status === 'suspended' && (
                         <Button onClick={handleReactivate} variant="default">
-                            Reactivate School
+                            إعادة التفعيل
                         </Button>
                     )}
                 </div>
