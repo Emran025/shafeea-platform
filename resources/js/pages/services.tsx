@@ -5,24 +5,42 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import {
     BookOpen, Users, BarChart3, Shield, Calendar, Smartphone,
     Globe, MessageCircle, Star, Target, Zap, Headphones,
-    TrendingUp, RefreshCw, Cloud, CheckCircle
+    TrendingUp, RefreshCw, Cloud, CheckCircle, LucideIcon
 } from 'lucide-react';
 import { useState } from 'react';
 import SiteLayout from '@/layouts/site-layout';
 import ServiceCard, { ServiceData } from '@/components/shared/service-card';
 
-
-const SERVICE_IMAGES = {
-    studentsManagement: "/images/services/students-management.jpg",
-    musHafInteractive: "/images/services/mus-haf-interactive.jpg",
-    reportsAnalytics: "/images/services/reports-analytics.jpg",
-    communicationPlatform: "/images/services/communication-platform.jpg",
-    securityTech: "/images/services/security-tech.jpg",
-    schedulingSystem: "/images/services/scheduling-system.jpg",
-    followUp: "/images/services/follow-up.jpg",
+// Icon mapping function to convert string to icon component
+const getIconComponent = (iconName: string): LucideIcon => {
+    const iconMap: Record<string, LucideIcon> = {
+        'Users': Users,
+        'BookOpen': BookOpen,
+        'BarChart3': BarChart3,
+        'Shield': Shield,
+        'Calendar': Calendar,
+        'MessageCircle': MessageCircle,
+        'Globe': Globe,
+    };
+    return iconMap[iconName] || Users; // Default to Users if icon not found
 };
 
-export default function Services() {
+interface ServicesPageProps {
+    services: Array<{
+        id: number;
+        category: string;
+        title: string;
+        description: string;
+        icon: string;
+        image: string;
+        features: string[];
+        benefits: string[];
+        popular: boolean;
+        theme: string;
+    }>;
+}
+
+export default function Services({ services }: ServicesPageProps) {
     const [activeCategory, setActiveCategory] = useState('all');
 
     const serviceCategories = [
@@ -34,144 +52,18 @@ export default function Services() {
         { id: 'technology', name: 'التقنية والأمان', icon: Shield }
     ];
 
-    // البيانات
-    const mainServices: ServiceData[] = [
-        {
-            category: 'management',
-            title: "إدارة شاملة للمتقدمين الطلاب والمعلمين",
-            description: "نظام متكامل لإدارة بيانات الطلاب والمعلمين مع إمكانيات متقدمة للتتبع والمراقبة",
-            icon: Users,
-            features: [
-                "ملفات شخصية تفصيلية للطلاب والمعلمين",
-                "نظام تسجيل وقبول إلكتروني",
-                "توزيع آلي للمتقدمين",
-                "أرشفة ذكية للسجلات",
-                "توزيع المتقدمين على الحلقات",
-            ],
-            benefits: ["توفير 70% من الوقت الإداري", "دقة 99% في البيانات", "سهولة في المتابعة"],
-            image: SERVICE_IMAGES.studentsManagement,
-            popular: true,
-            theme: "blue"
-        },
-        {
-            category: 'management',
-            title: "إدارة شاملة للطلاب والمعلمين",
-            description: "نظام متكامل لإدارة بيانات الطلاب والمعلمين مع إمكانيات متقدمة للتتبع والمراقبة",
-            icon: Users,
-            features: [
-                "ملفات شخصية تفصيلية للطلاب والمعلمين",
-                "نظام تسجيل وقبول إلكتروني",
-                "إدارة المجموعات والصفوف",
-                "تتبع الحضور والغياب",
-                "إدارة الصلاحيات والأدوار"
-            ],
-            benefits: ["توفير 70% من الوقت الإداري", "دقة 99% في البيانات", "سهولة في المتابعة"],
-            image: SERVICE_IMAGES.studentsManagement,
-            popular: true,
-            theme: "indigo"
-        },
-        {
-            category: 'education',
-            title: "مصحف تفاعلي ومتطور",
-            description: "مصحف تفاعلي يوفر أدوات تفاعلية لتقييد أخطاء الطلاب وملاحظاتهم والرجوع اليها",
-            icon: BookOpen,
-            features: [
-                "مصحف إلكتروني بالرسم العثماني",
-                "تسجيلات صوتية لأشهر القراء",
-                "تقييد أخطاء بطريقة ذكية",
-                "تظليل الكلمة بلون لكل خطأ",
-                "تقييمات ذكية ومراجعة",
-            ],
-            benefits: ["تحسن متابعات الحفظ بنسبة 85%", "تفاعل أكبر مع المحتوى", "تعلم أسرع"],
-            image: SERVICE_IMAGES.musHafInteractive,
-            popular: false,
-            theme: "emerald"
-        },
-        {
-            category: 'education',
-            title: "متابعة مستمرة",
-            description: "توفير متابعة مستمرة من خلال المطالبة اليومية من جميع الأطراف لإنجاز الخطط",
-            icon: BookOpen,
-            features: [
-                "وضع وتعديل خطط مرنة",
-                "لوحة تحكم للمتابعة",
-                "متابعة التقدم في المواعيد",
-                "توفير مرونة عبر Offline/online",
-                "سير العمل بدون انترنت"
-            ],
-            benefits: ["تحسن المتابعة 85%", "مرونة مع ضعف الإنترنت", "سهولة المتابعة"],
-            image: SERVICE_IMAGES.followUp,
-            popular: false,
-            theme: "rose"
-        },
-        {
-            category: 'analytics',
-            title: "تقارير ذكية وإحصائيات متقدمة",
-            description: "نظام تقارير شامل يوفر رؤى عميقة حول أداء الطلاب وتقدمهم في الحفظ وأخطائهم",
-            icon: BarChart3,
-            features: [
-                "لوحة تحكم تفاعلية",
-                "تقارير تفصيلية قابلة للتخصيص",
-                "إحصائيات في الوقت الفعلي",
-                "مقارنات وتحليلات متقدمة",
-                "تنبيهات ذكية للمتابعة"
-            ],
-            benefits: ["رؤية واضحة للأداء", "اتخاذ قرارات مدروسة", "تحسين النتائج"],
-            image: SERVICE_IMAGES.reportsAnalytics,
-            popular: true,
-            theme: "amber"
-        },
-        {
-            category: 'communication',
-            title: "تواصل فعال ومتعدد القنوات",
-            description: "منصة تواصل متكاملة تربط المعلمين بالطلاب وأولياء الأمور بطرق حديثة وآمنة",
-            icon: MessageCircle,
-            features: [
-                "رسائل فورية آمنة",
-                "إشعارات ذكية ومخصصة",
-                "مشاركة الملفات والمستندات",
-                "تقويم فعاليات مشترك"
-            ],
-            benefits: ["تواصل أسرع", "مشاركة أفضل للأهالي", "بيئة متصلة"],
-            image: SERVICE_IMAGES.communicationPlatform,
-            popular: false,
-            theme: "violet"
-        },
-        {
-            category: 'technology',
-            title: "تقنية متقدمة وأمان عالي",
-            description: "بنية تقنية حديثة مع أعلى معايير الأمان لضمان حماية البيانات والخصوصية",
-            icon: Shield,
-            features: [
-                "تشفير متقدم للبيانات",
-                "نسخ احتياطية تلقائية",
-                "حماية من الاختراق",
-                "امتثال للمعايير الدولية",
-                "استرداد البيانات السريع"
-            ],
-            benefits: ["أمان 100%", "توفر مستمر للخدمة", "راحة بال كاملة"],
-            image: SERVICE_IMAGES.securityTech,
-            popular: false,
-            theme: "cyan"
-        },
-        {
-            category: 'management',
-            title: "جدولة ذكية ومرنة",
-            description: "نظام جدولة متطور لتنظيم الحصص والأنشطة مع إمكانيات التخصيص والتنبيهات",
-            icon: Calendar,
-            features: [
-                "جدولة تلقائية للمتابعة",
-                "إدارة الحلقات والموارد",
-                "تقويم شخصي لكل مستخدم",
-                "مزامنة مع تقويمات خارجية",
-                "إدارة الإجازات والعطل"
-            ],
-            benefits: ["تنظيم أفضل للوقت", "تقليل التضارب", "كفاءة عالية"],
-            image: SERVICE_IMAGES.schedulingSystem,
-            popular: true,
-            theme: "orange"
-        }
-    ];
+    // Transform services from backend to ServiceData format
+    const mainServices: ServiceData[] = services.map(service => ({
+        category: service.category,
+        title: service.title,
+        description: service.description,
+        icon: getIconComponent(service.icon),
+        features: service.features || [],
+        benefits: service.benefits || [],
+        image: service.image,
+        popular: service.popular,
+        theme: service.theme as ServiceData['theme']
+    }));
 
     const additionalFeatures = [
         { icon: Smartphone, title: "تطبيق جوال متطور", description: "تطبيق سهل الاستخدام للأجهزة الذكية مع جميع الميزات", bg: "bg-purple-100 dark:bg-purple-900/20", text: "text-purple-600 dark:text-purple-400" },

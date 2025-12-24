@@ -6,6 +6,7 @@ import {
     Settings,
     HelpCircle,
     FileText,
+    Grid3x3,
 } from 'lucide-react';
 
 import { NavMain } from '@/components/nav-main';
@@ -46,6 +47,11 @@ const adminNavItems: NavItem[] = [
         title: 'الدعم والمساعدة',
         href: '/admin/inquiries',
         icon: HelpCircle,
+    },
+    {
+        title: 'الخدمات',
+        href: '/admin/services',
+        icon: Grid3x3,
     },
     {
         title: 'السياسات والشروط',

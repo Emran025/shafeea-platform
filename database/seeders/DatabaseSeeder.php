@@ -51,6 +51,7 @@ class DatabaseSeeder extends Seeder
             PrivacyPolicySeeder::class,
             TermsOfUsSeeder::class,
             FrequencyTypeSeeder::class,
+            ServiceSeeder::class,
 
             // Demo data
             // School infrastructure
