@@ -7,6 +7,7 @@ import {
     HelpCircle,
     FileText,
     Grid3x3,
+    UserCheck,
 } from 'lucide-react';
 
 import { NavMain } from '@/components/nav-main';
@@ -25,11 +26,11 @@ import { type NavItem } from '@/types';
 
 /**
  * Main navigation items for the Admin Panel.
- * Mapped from the previous sidebar structure.
+ * All items are in Arabic for consistency with the platform.
  */
 const adminNavItems: NavItem[] = [
     {
-        title: 'الرئيسية',
+        title: 'لوحة التحكم',
         href: '/admin',
         icon: LayoutDashboard,
     },
@@ -41,7 +42,7 @@ const adminNavItems: NavItem[] = [
     {
         title: 'المدارس المتقدمة',
         href: '/admin/schools/pending',
-        icon: Users, // You might want to use 'UserPlus' or similar here to differentiate
+        icon: UserCheck,
     },
     {
         title: 'الدعم والمساعدة',
@@ -59,15 +60,13 @@ const adminNavItems: NavItem[] = [
         icon: FileText,
     },
     {
-        title: 'الحساب',
+        title: 'الإعدادات',
         href: '/admin/account',
         icon: Settings,
     },
 ];
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-    // Mock user data for the NavUser component (Replace with actual auth data)
-
     return (
         <Sidebar 
             collapsible="icon" 
@@ -77,26 +76,29 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         >
             {/* 
                 1. Header Section
-                Contains the Logo and Title. Wraps in SidebarMenuButton to handle 
-                collapsing gracefully (icon mode shows logo only).
+                Enhanced with gradient background and modern styling matching public site
             */}
-            <SidebarHeader>
-                <SidebarMenu >
+            <SidebarHeader className="bg-gradient-to-br from-primary via-primary to-primary/90 p-4 border-b border-primary-foreground/10">
+                <SidebarMenu>
                     <SidebarMenuItem>
-                        <SidebarMenuButton size="lg" asChild className="group-data-[collapsible=icon]:!p-0">
-                            <Link href="/admin" prefetch className="flex items-center gap-2">
-                                {/* Logo Container */}
-                                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-white shadow-sm border border-gray-100 text-sidebar-primary-foreground">
+                        <SidebarMenuButton 
+                            size="lg" 
+                            asChild 
+                            className="group-data-[collapsible=icon]:!p-0 hover:bg-primary-foreground/10 transition-all duration-300"
+                        >
+                            <Link href="/admin" prefetch className="flex items-center gap-3 group">
+                                {/* Enhanced Logo Container with shadow and hover effects */}
+                                <div className="flex aspect-square size-10 items-center justify-center rounded-xl bg-white/95 dark:bg-white/10 shadow-lg border border-white/20 group-hover:shadow-xl group-hover:scale-105 transition-all duration-300">
                                     <img 
                                         src="/logo.png" 
-                                        alt="Shafeea Logo" 
-                                        className="size-6 object-contain" 
+                                        alt="شعار شفيع" 
+                                        className="size-7 object-contain" 
                                     />
                                 </div>
-                                {/* Text Info */}
-                                <div className="grid flex-1 text-right text-sm leading-tight">
-                                    <span className="truncate font-semibold">Shafeea</span>
-                                    <span className="truncate text-xs text-muted-foreground">Admin Panel</span>
+                                {/* Text Info with Arabic styling */}
+                                <div className="grid flex-1 text-right text-sm leading-tight group-data-[collapsible=icon]:hidden">
+                                    <span className="truncate font-bold text-lg text-primary-foreground">شفيع</span>
+                                    <span className="truncate text-xs text-primary-foreground/80 font-medium">لوحة التحكم</span>
                                 </div>
                             </Link>
                         </SidebarMenuButton>
@@ -106,22 +108,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
             {/* 
                 2. Main Content Section
-                Renders the primary navigation links.
+                Renders the primary navigation links with enhanced styling
             */}
-            <SidebarContent>
+            <SidebarContent className="p-2">
                 <NavMain items={adminNavItems} />
             </SidebarContent>
-
-            {/* 
-                3. Footer Section
-                Renders secondary links and the User Profile dropdown.
-            */}
-            {/* <SidebarFooter> */}
-                {/* Optional: Footer Links */}
-                {/* <NavFooter items={footerNavItems} className="mt-auto" /> */}
-                
-                {/* <NavUser/> */}
-            {/* </SidebarFooter> */}
             
             {/* Adds the resize handle for the sidebar */}
             <SidebarRail />
