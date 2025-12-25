@@ -143,3 +143,5 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
         Route::post('change-password', [AccountController::class, 'changePassword'])->name('password.change');
     });
 });
+
+Route::post('webhooks/payment', [\App\Http\Controllers\WebhookController::class, 'handlePayment']);

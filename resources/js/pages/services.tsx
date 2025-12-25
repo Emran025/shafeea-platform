@@ -1,15 +1,16 @@
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, router } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { Card } from '@/components/ui/card';
 import {
     BookOpen, Users, BarChart3, Shield, Calendar, Smartphone,
     Globe, MessageCircle, Star, Target, Zap, Headphones,
-    TrendingUp, RefreshCw, Cloud, CheckCircle, LucideIcon
+    TrendingUp, RefreshCw, Cloud, LucideIcon
 } from 'lucide-react';
 import { useState } from 'react';
 import SiteLayout from '@/layouts/site-layout';
 import ServiceCard, { ServiceData } from '@/components/shared/service-card';
+import SubscriptionPlanSelection from '@/components/Pricing/subscription-plan-selection';
 
 // Icon mapping function to convert string to icon component
 const getIconComponent = (iconName: string): LucideIcon => {
@@ -38,9 +39,19 @@ interface ServicesPageProps {
         popular: boolean;
         theme: string;
     }>;
+    subscriptionPlans: Array<{
+        id: number;
+        name: string;
+        slug: string;
+        price: string;
+        currency: string;
+        billing_period: string;
+        features: string[];
+        is_recommended: boolean;
+    }>;
 }
 
-export default function Services({ services }: ServicesPageProps) {
+export default function Services({ services, subscriptionPlans }: ServicesPageProps) {
     const [activeCategory, setActiveCategory] = useState('all');
 
     const serviceCategories = [
@@ -72,29 +83,6 @@ export default function Services({ services }: ServicesPageProps) {
         { icon: Headphones, title: "دعم فني متخصص", description: "فريق دعم متاح 24/7 لمساعدتك في أي وقت", bg: "bg-pink-100 dark:bg-pink-900/20", text: "text-pink-600 dark:text-pink-400" },
         { icon: RefreshCw, title: "تحديثات منتظمة", description: "تحديثات دورية مجانية لإضافة ميزات جديدة وتحسينات", bg: "bg-emerald-100 dark:bg-emerald-900/20", text: "text-emerald-600 dark:text-emerald-400" },
         { icon: Target, title: "تخصيص شامل", description: "إمكانية تخصيص المنصة لتناسب احتياجات مؤسستك", bg: "bg-amber-100 dark:bg-amber-900/20", text: "text-amber-600 dark:text-amber-400" }
-    ];
-
-    const pricingPlans = [
-        {
-            name: "الخطة الأساسية", price: "0", period: "سنويًا", description: "مثالية للمؤسسات الصغيرة",
-            features: ["حتى 100 طالب", "10 معلمين", "التقارير الأساسية", "دعم فني بالإيميل", "التخزين: 5 جيجا"],
-            recommended: false,
-        },
-        {
-            name: "الخطة المتوسطة", price: "249", period: "سنويًا", description: "مثالية للمؤسسات الصغيرة",
-            features: ["حتى 250 طالب", "25 معلمين", "التقارير الأساسية", "دعم فني بالإيميل", "التخزين: 5 جيجا"],
-            recommended: false,
-        },
-        {
-            name: "الخطة المتقدمة", price: "490", period: "سنويًا", description: "الأنسب للمؤسسات المتوسطة",
-            features: ["حتى 1000 طالب", "75 معلم", "جميع التقارير", "دعم فني مباشر", "التخزين: 50 جيجا", "تطبيق الجوال"],
-            recommended: true,
-        },
-        {
-            name: "الخطة الاحترافية", price: "990", period: "سنويًا", description: "للمؤسسات الكبيرة والمتقدمة",
-            features: ["طلاب غير محدود", "معلمين غير محدود", "تقارير مخصصة", "دعم فني أولوية", "تخزين غير محدود", "تخصيص كامل", "تدريب مخصص"],
-            recommended: false,
-        }
     ];
 
     const filteredServices = activeCategory === 'all' 
@@ -197,7 +185,7 @@ export default function Services({ services }: ServicesPageProps) {
                 </div>
             </section>
 
-            {/* Pricing Plans */}
+            {/* Pricing SubscriptionPlans */}
             <section className="py-24 relative overflow-hidden">
                 <div className="absolute inset-0 bg-muted/30 dark:bg-black/20 -skew-y-3 transform origin-top-left z-0"></div>
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 dark:bg-primary/10 rounded-full blur-3xl -z-10 pointer-events-none"></div>
@@ -216,87 +204,12 @@ export default function Services({ services }: ServicesPageProps) {
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-center">
-                        {pricingPlans.map((plan, index) => (
-                            <div 
-                                key={index} 
-                                className={`relative group transition-all duration-300 ${
-                                    plan.recommended ? 'z-10 -mt-4 mb-4 md:-mt-6 md:mb-0' : 'hover:-translate-y-2'
-                                }`}
-                            >
-                                {plan.recommended && (
-                                    <div className="absolute -inset-[2px] bg-gradient-to-r from-primary via-blue-500 to-primary rounded-2xl opacity-75 dark:opacity-50 blur-sm group-hover:opacity-100 transition duration-500"></div>
-                                )}
-
-                                <Card className={`h-full relative overflow-hidden ${
-                                    plan.recommended 
-                                        ? 'bg-card dark:bg-[#0d1b2a] shadow-2xl rounded-xl border-0 dark:border dark:border-primary/50' 
-                                        : 'bg-white/50 dark:bg-gray-900/40 backdrop-blur-md border border-border/60 dark:border-white/10 shadow-lg hover:shadow-xl rounded-xl'
-                                }`}>
-                                    {plan.recommended && (
-                                        <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-primary to-blue-600"></div>
-                                    )}
-
-                                    {plan.recommended && (
-                                        <div className="absolute top-3 left-3">
-                                            <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-primary/10 text-primary border border-primary/20 dark:bg-primary/20 dark:text-white">
-                                                <Star className="w-3 h-3 ml-1 fill-primary dark:fill-white" />
-                                                الأكثر طلباً
-                                            </span>
-                                        </div>
-                                    )}
-
-                                    <CardHeader className={`text-center pb-4 pt-8 ${plan.recommended ? 'bg-muted/30 dark:bg-white/5' : ''}`}>
-                                        <h3 className={`text-lg font-bold mb-2 ${plan.recommended ? 'text-primary dark:text-blue-400' : 'text-foreground'}`}>
-                                            {plan.name}
-                                        </h3>
-                                        <div className="flex items-baseline justify-center gap-1 mb-2">
-                                            <span className="text-4xl font-extrabold text-foreground tracking-tight">{plan.price}</span>
-                                            <div className="flex flex-col items-start text-[10px] text-muted-foreground font-medium">
-                                                <span>ريال</span>
-                                                <span>{plan.period}</span>
-                                            </div>
-                                        </div>
-                                        <p className="text-xs text-muted-foreground px-2">
-                                            {plan.description}
-                                        </p>
-                                    </CardHeader>
-                                    
-                                    <div className="px-4 py-0">
-                                        <div className="w-full h-px bg-border/50 dark:bg-white/10"></div>
-                                    </div>
-
-                                    <CardContent className="pt-4 pb-6 px-5">
-                                        <ul className="space-y-3 mb-6">
-                                            {plan.features.map((feature, featureIndex) => (
-                                                <li key={featureIndex} className="flex items-start gap-2 text-xs">
-                                                    <div className={`mt-0.5 w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0 ${
-                                                        plan.recommended ? 'bg-primary text-white' : 'bg-secondary text-primary dark:bg-white/10 dark:text-blue-400'
-                                                    }`}>
-                                                        <CheckCircle className="w-3 h-3" />
-                                                    </div>
-                                                    <span className="text-foreground/80 dark:text-gray-300 leading-snug">{feature}</span>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                        
-                                        <Button 
-                                            className={`w-full h-10 text-sm font-semibold transition-all duration-300 ${
-                                                plan.recommended 
-                                                    ? 'bg-primary text-white hover:bg-primary/90 shadow-lg shadow-primary/25 hover:shadow-primary/40' 
-                                                    : 'bg-white dark:bg-white/5 border-2 border-muted dark:border-white/10 hover:border-primary dark:hover:border-primary hover:text-primary dark:hover:text-white text-muted-foreground dark:text-gray-400'
-                                            }`}
-                                            asChild
-                                        >
-                                            <Link href="/register">
-                                                {plan.price === "0" ? "ابدأ مجاناً" : "اشترك الآن"}
-                                            </Link>
-                                        </Button>
-                                    </CardContent>
-                                </Card>
-                            </div>
-                        ))}
-                    </div>
+                    <SubscriptionPlanSelection 
+                        subscriptionPlans={subscriptionPlans} 
+                        onSelectSubscriptionPlan={(subscriptionPlanId) => {
+                            router.visit('/register', { data: { subscriptionPlan_id: subscriptionPlanId } });
+                        }} 
+                    />
 
                     <div className="mt-16 text-center">
                         <div className="inline-block p-1 rounded-2xl bg-white dark:bg-gray-900 border border-border dark:border-white/10 shadow-sm">

@@ -52,6 +52,7 @@ class DatabaseSeeder extends Seeder
             TermsOfUsSeeder::class,
             FrequencyTypeSeeder::class,
             ServiceSeeder::class,
+            SubscriptionPlanSeeder::class,
 
             // Demo data
             // School infrastructure

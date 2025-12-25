@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\InquiryController;
 use App\Http\Controllers\Admin\PolicyController;
 use App\Http\Controllers\Admin\ServiceController;
+use App\Http\Controllers\Admin\SubscriptionPlanController;
 use Illuminate\Support\Facades\Route;
 
 // Public admin login routes (accessible to guests only)
@@ -54,6 +55,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     // Services management
     Route::resource('services', ServiceController::class)->names('services');
+
+    // Plans management
+    Route::resource('subscription-plans', SubscriptionPlanController::class)->names('subscriptionPlans');
 
     // Admin account management
     Route::prefix('account')->name('account.')->group(function () {
