@@ -19,6 +19,9 @@ class AdminSchoolController extends Controller
     public function index(Request $request)
     {
         $query = School::with('admin.user')
+            ->whereHas('admin', function ($q) {
+                $q->where('admins.super_admin', false);
+            })
             ->select('schools.*')
             ->selectRaw("COALESCE((SELECT CASE WHEN admins.status = 'pending' THEN 0 ELSE 1 END FROM admins JOIN users ON admins.user_id = users.id WHERE users.school_id = schools.id LIMIT 1), 1) as admin_status_order")
             ->orderBy('admin_status_order')
@@ -43,10 +46,10 @@ class AdminSchoolController extends Controller
 
         $stats = [
             'total' => $query->clone()->count(),
-            'accepted' => $query->clone()->whereHas('admin', fn($q) => $q->where('status', 'accepted'))->count(),
-            'pending' => $query->clone()->whereHas('admin', fn($q) => $q->where('status', 'pending'))->count(),
-            'rejected' => $query->clone()->whereHas('admin', fn($q) => $q->where('status', 'rejected'))->count(),
-            'suspended' => $query->clone()->whereHas('admin', fn($q) => $q->where('status', 'suspended'))->count(),
+            'accepted' => $query->clone()->whereHas('admin', fn($q) => $q->where('admins.status', 'accepted'))->count(),
+            'pending' => $query->clone()->whereHas('admin', fn($q) => $q->where('admins.status', 'pending'))->count(),
+            'rejected' => $query->clone()->whereHas('admin', fn($q) => $q->where('admins.status', 'rejected'))->count(),
+            'suspended' => $query->clone()->whereHas('admin', fn($q) => $q->where('admins.status', 'suspended'))->count(),
         ];
 
         $schools = $query->paginate(15);
