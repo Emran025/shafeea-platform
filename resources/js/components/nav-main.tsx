@@ -43,10 +43,10 @@ export function NavMain({ items }: NavMainProps) {
                                     {item.icon && (
                                         <div className={cn(
                                             "flex items-center justify-center w-8 h-8 rounded-lg transition-all duration-300",
-                                            // Removed bg-primary-foreground/20 from active state - icon stays crisp
+                                            // Disabled group hover/focus effects when the sidebar is collapsed (icon-only rail)
                                             isActive 
                                                 ? "text-primary-foreground scale-110" 
-                                                : "text-primary-foreground/70 group-hover:text-primary-foreground group-hover:bg-primary-foreground/10"
+                                                : "text-primary-foreground/70 group-hover:text-primary-foreground group-hover:bg-primary-foreground/10 group-data-[collapsible=icon]:group-hover:bg-transparent group-data-[collapsible=icon]:group-hover:shadow-none group-data-[collapsible=icon]:group-hover:scale-100 group-data-[collapsible=icon]:hover:bg-transparent group-data-[collapsible=icon]:focus:bg-transparent"
                                         )}>
                                             <item.icon className="w-4 h-4" />
                                         </div>

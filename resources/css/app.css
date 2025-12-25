@@ -491,7 +491,32 @@
     .shadow-glow {
         box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
     }
-    
+
+    /* =========================================================================
+       Collapsed Sidebar (icon-only): remove icon-specific shadow/background/filter/transform
+       when hovering/focusing the sidebar rail or wrapper — keep overall item hover intact.
+       ========================================================================= */
+    [data-collapsible="icon"] .w-8.h-8,
+    [data-collapsible="icon"] .sidebar-logo,
+    [data-collapsible="icon"] svg {
+        background: transparent !important;
+        box-shadow: none !important;
+        transform: none !important;
+        filter: none !important;
+    }
+
+    [data-collapsible="icon"] .w-8.h-8:hover,
+    [data-collapsible="icon"] .w-8.h-8:focus,
+    [data-collapsible="icon"] .sidebar-logo:hover,
+    [data-collapsible="icon"] .sidebar-logo:focus,
+    [data-collapsible="icon"] svg:hover,
+    [data-collapsible="icon"] svg:focus {
+        background: transparent !important;
+        box-shadow: none !important;
+        transform: none !important;
+        filter: none !important;
+    }
+
     /* Border Utilities */
     .border-gradient {
         border: 2px solid transparent;

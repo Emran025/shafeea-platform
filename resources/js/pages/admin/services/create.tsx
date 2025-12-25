@@ -349,9 +349,9 @@ export default function CreateService() {
                         </div>
 
                         {/* Sidebar */}
-                        <div className="space-y-6">
+                        <div className="space-y-6 sticky top-6 h-fit">
                             {/* Display Settings */}
-                            <Card className="border-2 border-border/50 shadow-lg sticky top-6">
+                            <Card className="border-2 border-border/50 shadow-lg">
                                 <CardHeader className="pb-4">
                                     <div className="flex items-center gap-3">
                                         <div className="w-10 h-10 bg-purple-100 dark:bg-purple-900/30 rounded-xl flex items-center justify-center">
@@ -465,7 +465,7 @@ export default function CreateService() {
                             </Card>
 
                             {/* Actions */}
-                            <Card className="border-2 border-border/50 shadow-lg sticky bottom-6 z-20">
+                            <Card className="border-2 border-border/50 shadow-lg">
                                 <CardContent className="pt-6">
                                     <div className="space-y-3">
                                         <Button 
