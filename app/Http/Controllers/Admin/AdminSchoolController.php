@@ -41,10 +41,19 @@ class AdminSchoolController extends Controller
             });
         }
 
+        $stats = [
+            'total' => $query->clone()->count(),
+            'accepted' => $query->clone()->whereHas('admin', fn($q) => $q->where('status', 'accepted'))->count(),
+            'pending' => $query->clone()->whereHas('admin', fn($q) => $q->where('status', 'pending'))->count(),
+            'rejected' => $query->clone()->whereHas('admin', fn($q) => $q->where('status', 'rejected'))->count(),
+            'suspended' => $query->clone()->whereHas('admin', fn($q) => $q->where('status', 'suspended'))->count(),
+        ];
+
         $schools = $query->paginate(15);
 
         return Inertia::render('admin/schools/index', [
             'schools' => $schools,
+            'stats' => $stats,
             'filters' => $request->only(['search', 'status']),
         ]);
     }
