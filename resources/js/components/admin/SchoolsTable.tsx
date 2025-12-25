@@ -84,7 +84,7 @@ export default function SchoolsTable({
                                     <div className="flex items-center gap-3">
                                         {school.logo && (
                                             <img 
-                                                src={`/storage/${school.logo}`} 
+                                                src={school.logo}
                                                 alt={school.name}
                                                 className="w-10 h-10 rounded-lg object-cover border border-border"
                                             />
@@ -177,7 +177,7 @@ export default function SchoolsTable({
                                 <div className="flex items-start gap-3">
                                     {school.logo && (
                                         <img 
-                                            src={`/storage/${school.logo}`} 
+                                            src={school.logo} 
                                             alt={school.name}
                                             className="w-12 h-12 rounded-lg object-cover border border-border"
                                         />

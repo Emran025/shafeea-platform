@@ -15,6 +15,12 @@ import {
     MessageCircle,
     Calendar
 } from 'lucide-react';
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
+} from "@/components/ui/accordion";
 import SiteLayout from '@/layouts/site-layout';
 
 export default function Welcome() {
@@ -101,18 +107,7 @@ export default function Welcome() {
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            <Card className="p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-t-4 border-t-blue-500 group">
-                                <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 dark:from-blue-600 dark:to-blue-700 rounded-xl flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                                    <Users className="w-7 h-7 text-white" />
-                                </div>
-                                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
-                                    إدارة الطلاب والمعلمين
-                                </h3>
-                                <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                                    نظام شامل لإدارة بيانات الطلاب والمعلمين مع إمكانية التتبع والمراقبة المستمرة للتقدم الأكاديمي
-                                </p>
-                            </Card>
-
+                            
                             <Card className="p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-t-4 border-t-emerald-500 group">
                                 <div className="w-14 h-14 bg-gradient-to-br from-emerald-500 to-emerald-600 dark:from-emerald-600 dark:to-emerald-700 rounded-xl flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
                                     <BookOpen className="w-7 h-7 text-white" />
@@ -170,6 +165,18 @@ export default function Welcome() {
                                 </h3>
                                 <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
                                     تصميم متجاوب يعمل بسلاسة على جميع الأجهزة مع تطبيق جوال مخصص
+                                </p>
+                            </Card>
+
+                            <Card className="p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-t-4 border-t-blue-500 group">
+                                <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 dark:from-blue-600 dark:to-blue-700 rounded-xl flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                                    <Users className="w-7 h-7 text-white" />
+                                </div>
+                                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
+                                    إدارة الطلاب والمعلمين
+                                </h3>
+                                <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                                    نظام شامل لإدارة بيانات الطلاب والمعلمين مع إمكانية التتبع والمراقبة المستمرة للتقدم الأكاديمي
                                 </p>
                             </Card>
                         </div>
@@ -265,7 +272,7 @@ export default function Welcome() {
                 <section className="py-24 bg-white dark:bg-gray-900">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="text-center mb-16">
-                            <Badge className="mb-4 bg-purple-50 text-purple-700 hover:bg-purple-100 dark:bg-purple-900/20 dark:text-purple-300">
+                            <Badge className="mb-4 bg-teal-50 text-teal-700 hover:bg-teal-100 dark:bg-teal-900/20 dark:text-teal-300">
                                 <Star className="w-4 h-4 ml-1" />
                                 آراء وتقييمات المستخدمين
                             </Badge>
@@ -278,7 +285,8 @@ export default function Welcome() {
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            <Card className="p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-t-4 border-t-blue-500 group">
+                            {/* Card 1: Blue Theme */}
+                            <Card className="p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-t-4 border-t-blue-500 group">
                                 <div className="flex items-center gap-1 mb-6">
                                     {[...Array(5)].map((_, i) => (
                                         <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400 drop-shadow-sm" />
@@ -288,7 +296,8 @@ export default function Welcome() {
                                     "منصة رائعة جداً! ساعدتنا في تنظيم الحلقات القرآنية بشكل مثالي. التقارير مفصلة والواجهة سهلة الاستخدام."
                                 </p>
                                 <div className="flex items-center gap-4 pt-4 border-t border-gray-200 dark:border-gray-700">
-                                    <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-emerald-500 rounded-xl flex items-center justify-center text-white font-bold shadow-lg">
+                                    {/* Updated Gradient to match Features Section Blue */}
+                                    <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 dark:from-blue-600 dark:to-blue-700 rounded-xl flex items-center justify-center text-white font-bold shadow-lg group-hover:scale-110 transition-transform duration-300">
                                         أ.م
                                     </div>
                                     <div>
@@ -298,7 +307,8 @@ export default function Welcome() {
                                 </div>
                             </Card>
 
-                            <Card className="p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-t-4 border-t-emerald-500 group">
+                            {/* Card 2: Emerald Theme */}
+                            <Card className="p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-t-4 border-t-red-500 group">
                                 <div className="flex items-center gap-1 mb-6">
                                     {[...Array(5)].map((_, i) => (
                                         <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400 drop-shadow-sm" />
@@ -308,7 +318,8 @@ export default function Welcome() {
                                     "أفضل استثمار قمنا به للمؤسسة. وفر علينا ساعات طويلة من العمل الإداري وحسّن من جودة التعليم."
                                 </p>
                                 <div className="flex items-center gap-4 pt-4 border-t border-gray-200 dark:border-gray-700">
-                                    <div className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-blue-500 rounded-xl flex items-center justify-center text-white font-bold shadow-lg">
+                                    {/* Updated Gradient to match Features Section Emerald */}
+                                    <div className="w-12 h-12 bg-gradient-to-br from-red-500 to-red-600 dark:from-red-600 dark:to-red-700 rounded-xl flex items-center justify-center text-white font-bold shadow-lg group-hover:scale-110 transition-transform duration-300">
                                         ف.ع
                                     </div>
                                     <div>
@@ -318,7 +329,8 @@ export default function Welcome() {
                                 </div>
                             </Card>
 
-                            <Card className="p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-t-4 border-t-purple-500 group">
+                            {/* Card 3: Purple Theme */}
+                            <Card className="p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-t-4 border-t-teal-500 group">
                                 <div className="flex items-center gap-1 mb-6">
                                     {[...Array(5)].map((_, i) => (
                                         <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400 drop-shadow-sm" />
@@ -328,7 +340,8 @@ export default function Welcome() {
                                     "الدعم الفني ممتاز والمنصة مستقرة جداً. طلابنا أحبوا النظام الجديد وأصبح التتبع أسهل بكثير."
                                 </p>
                                 <div className="flex items-center gap-4 pt-4 border-t border-gray-200 dark:border-gray-700">
-                                    <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center text-white font-bold shadow-lg">
+                                    {/* Updated Gradient to match Features Section Purple */}
+                                    <div className="w-12 h-12 bg-gradient-to-br from-teal-500 to-teal-600 dark:from-teal-600 dark:to-teal-700 rounded-xl flex items-center justify-center text-white font-bold shadow-lg group-hover:scale-110 transition-transform duration-300">
                                         م.ح
                                     </div>
                                     <div>
@@ -340,67 +353,60 @@ export default function Welcome() {
                         </div>
                     </div>
                 </section>
-
                 {/* FAQ Section */}
-                <section className="py-24 bg-gray-50 dark:bg-gray-800">
-                    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <section className="py-24 bg-gray-50 dark:bg-gray-800/50">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="text-center mb-16">
-                            <Badge className="mb-4 bg-amber-50 text-amber-700 hover:bg-amber-100 dark:bg-amber-900/20 dark:text-amber-300">
-                                <MessageCircle className="w-4 h-4 ml-1" />
+                            <Badge className="mb-4 bg-amber-100/80 text-amber-900 border-amber-200 dark:bg-amber-900/40 dark:text-amber-100 dark:border-amber-800 shadow-sm px-4 py-1.5 text-sm">
+                                <MessageCircle className="w-4 h-4 ml-2" />
                                 الأسئلة الشائعة
                             </Badge>
                             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
                                 الأسئلة المتكررة
                             </h2>
-                            <p className="text-xl text-gray-600 dark:text-gray-300">
-                                اجابات شافية على أهم الاستفسارات حول منصة شفيع
+                            <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
+                                اجابات شافية وكافية على أكثر الاستفسارات شيوعاً حول منصة شفيع ومميزاتها
                             </p>
                         </div>
 
-                        <div className="space-y-6">
-                            <Card className="overflow-hidden">
-                                <div className="p-6">
-                                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                        <div className="bg-white dark:bg-gray-900/50 rounded-3xl p-2 sm:p-6 shadow-xl border border-gray-200 dark:border-gray-800 backdrop-blur-sm">
+                            <Accordion type="single" collapsible className="w-full">
+                                <AccordionItem value="item-1" className="border-b border-gray-100 dark:border-gray-800 last:border-0 px-4">
+                                    <AccordionTrigger className="text-right text-lg font-bold text-gray-900 dark:text-gray-100 hover:text-amber-600 dark:hover:text-amber-400 py-6 transition-all duration-300 no-underline hover:no-underline">
                                         ما هي متطلبات النظام لاستخدام المنصة؟
-                                    </h3>
-                                    <p className="text-gray-600 dark:text-gray-300">
-                                        يمكن استخدام المنصة عبر أي متصفح ويب حديث باتصال إنترنت. لا حاجة لتحميل برامج إضافية أو متطلبات خاصة.
-                                    </p>
-                                </div>
-                            </Card>
+                                    </AccordionTrigger>
+                                    <AccordionContent className="text-gray-600 dark:text-gray-400 text-base leading-relaxed pb-6">
+                                        يمكن استخدام المنصة عبر أي متصفح ويب حديث (Chrome, Safari, Firefox, Edge) باتصال إنترنت مستقر. لا حاجة لتحميل أي برامج إضافية أو القلق بشأن توافق نظام التشغيل، حيث تعمل المنصة بكفاءة على كافة الأجهزة.
+                                    </AccordionContent>
+                                </AccordionItem>
 
-                            <Card className="overflow-hidden">
-                                <div className="p-6">
-                                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                                <AccordionItem value="item-2" className="border-b border-gray-100 dark:border-gray-800 last:border-0 px-4">
+                                    <AccordionTrigger className="text-right text-lg font-bold text-gray-900 dark:text-gray-100 hover:text-amber-600 dark:hover:text-amber-400 py-6 transition-all duration-300 no-underline hover:no-underline">
                                         هل يوجد حد أقصى لعدد الطلاب أو المعلمين؟
-                                    </h3>
-                                    <p className="text-gray-600 dark:text-gray-300">
-                                        لا، المنصة مصممة لتنمو مع مؤسستك. يمكنها استيعاب آلاف الطلاب والمعلمين بكفاءة عالية.
-                                    </p>
-                                </div>
-                            </Card>
+                                    </AccordionTrigger>
+                                    <AccordionContent className="text-gray-600 dark:text-gray-400 text-base leading-relaxed pb-6">
+                                        لا، المنصة مصممة بتقنيات سحابية مرنة تسمح لها بالنمو مع مؤسستك مهما كان حجمها. يمكنها استيعاب عشرات الآلاف من الطلاب والمعلمين بكفاءة عالية جداً دون أي تأثر في الأداء.
+                                    </AccordionContent>
+                                </AccordionItem>
 
-                            <Card className="overflow-hidden">
-                                <div className="p-6">
-                                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                                <AccordionItem value="item-3" className="border-b border-gray-100 dark:border-gray-800 last:border-0 px-4">
+                                    <AccordionTrigger className="text-right text-lg font-bold text-gray-900 dark:text-gray-100 hover:text-amber-600 dark:hover:text-amber-400 py-6 transition-all duration-300 no-underline hover:no-underline">
                                         كيف يتم حفظ البيانات وضمان أمانها؟
-                                    </h3>
-                                    <p className="text-gray-600 dark:text-gray-300">
-                                        نعتمد على أحدث تقنيات التشفير والحماية مع نسخ احتياطي تلقائي وخوادم آمنة عالية المواصفات.
-                                    </p>
-                                </div>
-                            </Card>
+                                    </AccordionTrigger>
+                                    <AccordionContent className="text-gray-600 dark:text-gray-400 text-base leading-relaxed pb-6">
+                                        نولي أمن البيانات أقصى أولوياتنا. نستخدم بروتوكولات تشفير متطورة (SSL/TLS)، ونقوم بإجراء نسخ احتياطي تلقائي دوري للبيانات. كما يتم استضافة المنصة على خوادم آمنة وعالية المواصفات تضمن حماية خصوصيتك واستمرارية الخدمة.
+                                    </AccordionContent>
+                                </AccordionItem>
 
-                            <Card className="overflow-hidden">
-                                <div className="p-6">
-                                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                                <AccordionItem value="item-4" className="border-b border-gray-100 dark:border-gray-800 last:border-0 px-4">
+                                    <AccordionTrigger className="text-right text-lg font-bold text-gray-900 dark:text-gray-100 hover:text-amber-600 dark:hover:text-amber-400 py-6 transition-all duration-300 no-underline hover:no-underline">
                                         هل تتوفر خدمة الدعم الفني؟
-                                    </h3>
-                                    <p className="text-gray-600 dark:text-gray-300">
-                                        نعم، نوفر دعم فني متواصل 24/7 عبر عدة قنوات باللغة العربية مع فريق متخصص في التعليم القرآني.
-                                    </p>
-                                </div>
-                            </Card>
+                                    </AccordionTrigger>
+                                    <AccordionContent className="text-gray-600 dark:text-gray-400 text-base leading-relaxed pb-6">
+                                        نعم، نفخر بتقديم دعم فني متكامل باللغة العربية على مدار الساعة 24/7. فريقنا متخصص في حلول التعليم التقني والقرآني، وجاهز للرد على استفساراتكم عبر الواتساب، البريد الإلكتروني، أو من خلال نظام التذاكر داخل المنصة.
+                                    </AccordionContent>
+                                </AccordionItem>
+                            </Accordion>
                         </div>
                     </div>
                 </section>
@@ -415,32 +421,25 @@ export default function Welcome() {
                             <p className="text-xl text-gray-600 dark:text-gray-300 mb-10 leading-relaxed">
                                 انضم إلى آلاف المعلمين والمؤسسات التعليمية التي تثق بمنصتنا لإدارة وتطوير الحلقات القرآنية بأحدث التقنيات وأفضل الممارسات
                             </p>
-
-                            <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-500 dark:text-gray-400">
-                                <div className="flex items-center gap-2">
-                                    <CheckCircle className="w-4 h-4 text-emerald-600" />
-                                    <span>بدون التزام مالي</span>
+                            {/* Features Preview: */}
+                            <div className="flex flex-wrap justify-center gap-4 mb-8">
+                                <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full shadow-sm border border-white/10  hover:bg-white/20 transition-colors">
+                                    <CheckCircle className="w-4 h-4 text-emerald-400" />
+                                    <span className="text-sm font-medium">بدون التزام مالي</span>
                                 </div>
-                                <div className="flex items-center gap-2">
-                                    <CheckCircle className="w-4 h-4 text-emerald-600" />
-                                    <span>إعداد فوري في دقائق</span>
+                                <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full shadow-sm border border-white/10  hover:bg-white/20 transition-colors">
+                                    <CheckCircle className="w-4 h-4 text-emerald-400" />
+                                    <span className="text-sm font-medium">إعداد فوري في دقائق</span>
                                 </div>
-                                <div className="flex items-center gap-2">
-                                    <CheckCircle className="w-4 h-4 text-emerald-600" />
-                                    <span>دعم فني 24/7</span>
-                                </div>
-                                <div className="flex items-center gap-2">
-                                    <CheckCircle className="w-4 h-4 text-emerald-600" />
-                                    <span>تدريب مجاني</span>
+                                <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full shadow-sm border border-white/10  hover:bg-white/20 transition-colors">
+                                    <CheckCircle className="w-4 h-4 text-emerald-400" />
+                                    <span className="text-sm font-medium">تدريب مجاني</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </section>
-
-
             </SiteLayout >
-
         </>
     );
 }
