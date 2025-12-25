@@ -82,7 +82,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                         >
                             <Link href="/admin" prefetch className="flex items-center gap-3 group">
                                 {/* Enhanced Logo Container with shadow and hover effects */}
-                                <div className="flex aspect-square size-10 items-center justify-center rounded-xl bg-white/95 dark:bg-white/10 shadow-lg group-data-[collapsible=icon]:shadow-none group-data-[collapsible=icon]:group-hover:shadow-xl border border-white/20 group-hover:shadow-xl group-hover:scale-105 transition-all duration-300">
+                                <div className="flex aspect-square size-10 items-center justify-center rounded-lg bg-white overflow-hidden">
                                     <img 
                                         src="/logo.png" 
                                         alt="شعار شفيع" 
