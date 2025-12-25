@@ -17,8 +17,13 @@ class HelpTicket extends Model
      */
     protected $fillable = [
         'user_id',
+        'name',
+        'email',
+        'phone',
+        'organization',
         'subject',
         'body',
+        'message_type',
         'status',
     ];
 

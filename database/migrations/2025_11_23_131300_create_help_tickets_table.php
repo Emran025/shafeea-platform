@@ -13,8 +13,13 @@ return new class extends Migration
     {
         Schema::create('help_tickets', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
+            $table->string('name')->nullable();
+            $table->string('email')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('organization')->nullable();
             $table->string('subject');
+            $table->string('message_type')->default('other');
             $table->text('body');
             $table->string('status')->default('pending');
             $table->timestamps();

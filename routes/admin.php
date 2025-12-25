@@ -44,6 +44,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::get('/{inquiry}', [InquiryController::class, 'show'])->name('show');
         Route::put('/{inquiry}', [InquiryController::class, 'update'])->name('update');
         Route::post('/reorder', [InquiryController::class, 'reorder'])->name('reorder');
+        Route::post('/{ticket}/convert', [InquiryController::class, 'convertToFaq'])->name('convert');
     });
 
     // Policies management

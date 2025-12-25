@@ -194,7 +194,7 @@ export default function Contact() {
                         {/* Contact Form */}
                         <div>
                             <div className="mb-8">
-                                <Badge className="mb-4 bg-blue-50 text-blue-700 hover:bg-blue-100 dark:bg-blue-900/20 dark:text-blue-300">
+                                <Badge className="mb-4 bg-primary/10 text-primary hover:bg-primary/20">
                                     <Send className="w-4 h-4 ml-1" />
                                     نموذج التواصل
                                 </Badge>
@@ -311,11 +311,12 @@ export default function Contact() {
                                     <Button 
                                         type="submit" 
                                         disabled={processing}
-                                        className="w-full bg-gradient-to-r from-blue-600 to-emerald-600 hover:from-blue-700 hover:to-emerald-700"
+                                        className="w-full"
+                                        size="lg"
                                     >
                                         {processing ? (
                                             <>
-                                                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin ml-2"></div>
+                                                <div className="w-4 h-4 border-2 border-primary-foreground border-t-transparent rounded-full animate-spin ml-2"></div>
                                                 جاري الإرسال...
                                             </>
                                         ) : (
