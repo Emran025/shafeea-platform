@@ -22,7 +22,26 @@ class School extends Model
         'city',
         'location',
         'address',
+        'current_plan_id',
+        'subscription_status',
+        'subscription_ends_at',
     ];
+
+    /**
+     * Get the current subscription plan for the school.
+     */
+    public function currentPlan()
+    {
+        return $this->belongsTo(SubscriptionPlan::class, 'current_plan_id');
+    }
+
+    /**
+     * Get the subscriptions for the school.
+     */
+    public function subscriptions()
+    {
+        return $this->hasMany(Subscription::class);
+    }
 
     /**
      * Get the halaqahs for the school.

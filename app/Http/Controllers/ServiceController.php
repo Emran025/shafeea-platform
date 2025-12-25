@@ -21,6 +21,7 @@ class ServiceController extends Controller
 
         return Inertia::render('services', [
             'services' => $services,
+            'subscriptionPlans' => \App\Models\SubscriptionPlan::where('is_active', true)->orderBy('sort_order')->get(),
         ]);
     }
 }

@@ -28,7 +28,7 @@ import { PasswordGroup } from '@/components/password-group';
 
 export default function Apply() {
     const { flash } = usePage<SharedData>().props;
-    const { data, setData, post, errors, processing, reset } = useForm({
+    const { data, setData, post, errors, processing } = useForm({
         error: '',
         name: '',
         logo: null as File | null,
@@ -59,10 +59,10 @@ export default function Apply() {
 
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
-        post(route('schools.store.apply'), {
+        post(route('register.validate'), {
             forceFormData: true,
             onSuccess: () => {
-                reset();
+                // Success will automatically redirect to register.select-plan due to backend redirect
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             },
             preserveScroll: false,
