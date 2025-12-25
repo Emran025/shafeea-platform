@@ -86,5 +86,8 @@ class SubscriptionPlanSeeder extends Seeder
                 $subscriptionPlanData
             );
         }
+        
+        $this->command->info('✅ Created ' . count($subscriptionPlans) . ' subscription Plans');
+
     }
 }

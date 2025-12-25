@@ -30,10 +30,13 @@ return Application::configure(basePath: dirname(__DIR__))
 
             Route::middleware('web')
                 ->prefix('admin')
+                ->name('admin.')
                 ->group(base_path('routes/admin.php'));
         },
     )
     ->withMiddleware(function (Middleware $middleware) {
+        $middleware->redirectGuestsTo(fn (Request $request) => $request->is('admin/*') || $request->is('admin') ? route('admin.login') : '/');
+
         // Trust proxies for Render/Load Balancers to fix HTTPS/Mixed Content issues
         $middleware->trustProxies(at: '*');
         $middleware->trustProxies(headers: Request::HEADER_X_FORWARDED_FOR |

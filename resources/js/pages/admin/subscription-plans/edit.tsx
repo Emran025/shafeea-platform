@@ -22,24 +22,24 @@ interface SubscriptionPlan {
 }
 
 interface PlanEditProps extends PageProps {
-    plan: SubscriptionPlan;
+    subscriptionPlans: SubscriptionPlan;
 }
 
 export default function PlanEdit() {
-    const { plan } = usePage<PlanEditProps>().props;
+    const { subscriptionPlans } = usePage<PlanEditProps>().props;
     
     const { data, setData, put, processing, errors } = useForm({
-        name: plan.name,
-        price: plan.price,
-        is_active: plan.is_active,
-        features: plan.features,
-        is_recommended: plan.is_recommended,
-        sort_order: plan.sort_order,
+        name: subscriptionPlans.name,
+        price: subscriptionPlans.price,
+        is_active: subscriptionPlans.is_active,
+        features: subscriptionPlans.features,
+        is_recommended: subscriptionPlans.is_recommended,
+        sort_order: subscriptionPlans.sort_order,
     });
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        put(route('admin.subscriptionPlans.update', plan.id));
+        put(route('admin.subscriptionPlans.update', subscriptionPlans.id));
     };
 
     const handleAddFeature = () => {
@@ -59,7 +59,7 @@ export default function PlanEdit() {
 
     return (
         <AdminLayout>
-            <Head title={`تعديل باقة: ${plan.name}`} />
+            <Head title={`تعديل باقة: ${subscriptionPlans.name}`} />
             
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
                 <div className="flex items-center gap-4">
@@ -72,7 +72,7 @@ export default function PlanEdit() {
                 </div>
 
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                    <h1 className="text-3xl font-bold text-foreground tracking-tight">تعديل باقة: {plan.name}</h1>
+                    <h1 className="text-3xl font-bold text-foreground tracking-tight">تعديل باقة: {subscriptionPlans.name}</h1>
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
