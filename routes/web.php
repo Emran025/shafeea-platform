@@ -58,9 +58,5 @@ Route::post('/contact', function (\Illuminate\Http\Request $request) {
     return redirect()->back()->with('success', 'تم إرسال رسالتك بنجاح!');
 })->name('contact.store');
 
-// Include admin routes
-Route::prefix('admin')->name('admin.')->group(function () {
-    require __DIR__.'/admin.php';
-});
 
 // require __DIR__ . '/auth.php';

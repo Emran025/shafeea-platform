@@ -54,6 +54,11 @@ const adminNavItems: NavItem[] = [
         icon: FileText,
     },
     {
+        title: 'الخطط والإشتراكات',
+        href: '/admin/subscription-plans',
+        icon: FileText,
+    },
+    {
         title: 'الإعدادات',
         href: '/admin/account',
         icon: Settings,

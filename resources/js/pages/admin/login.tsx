@@ -11,7 +11,7 @@ import { EmailInput } from '@/components/email-input';
 import { PasswordInput } from '@/components/password-input'; 
 
 export default function AdminLoginPage() {
-    const { data, setData, post, processing, errors } = useForm({
+    const { data, setData, post, processing, errors, transform } = useForm({
         email: '',
         password: '',
         remember: false,
@@ -22,18 +22,21 @@ export default function AdminLoginPage() {
         e.preventDefault();
         const parser = new UAParser();
         const result = parser.getResult();
-        const deviceInfo = {
-            device_id: `web-${crypto.randomUUID()}`,
-            model: `${result.browser.name || ''} ${result.browser.major || ''}`.trim(),
-            manufacturer: result.device.vendor || 'WebApp',
-            os_version: `${result.os.name || ''} ${result.os.version || ''}`.trim(),
-            app_version: result.browser.version,
-            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-            locale: navigator.language,
-            fcm_token: null,
-        };
+        
+        transform((data) => ({
+            ...data,
+            device_info: {
+                device_id: `web-${crypto.randomUUID()}`,
+                model: `${result.browser.name || ''} ${result.browser.major || ''}`.trim(),
+                manufacturer: result.device.vendor || 'WebApp',
+                os_version: `${result.os.name || ''} ${result.os.version || ''}`.trim(),
+                app_version: result.browser.version,
+                timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+                locale: navigator.language,
+                fcm_token: null,
+            }
+        }));
 
-        setData('device_info', deviceInfo);
         post('/admin/login');
     }
 
