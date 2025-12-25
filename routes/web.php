@@ -17,9 +17,11 @@ Route::get('/about', function () {
 
 Route::get('/services', [\App\Http\Controllers\ServiceController::class, 'index'])->name('services');
 
-Route::get('/contact', function () {
-    return Inertia::render('contact');
-})->name('contact');
+Route::get('/contact', [\App\Http\Controllers\ContactController::class, 'index'])->name('contact');
+Route::post('/contact', [\App\Http\Controllers\ContactController::class, 'store'])->name('contact.store');
+
+Route::get('/help', [\App\Http\Controllers\HelpCenterController::class, 'index'])->name('help');
+Route::get('/support', [\App\Http\Controllers\SupportController::class, 'index'])->name('support');
 
 Route::get('/terms', function () {
     $terms = TermsOfUse::where('is_active', true)->latest('last_updated')->first();
@@ -42,21 +44,6 @@ Route::get('/faq', function () {
 
     return Inertia::render('faq', ['faqs' => $faqs]);
 })->name('faq');
-
-// Contact form submission
-Route::post('/contact', function (\Illuminate\Http\Request $request) {
-    $request->validate([
-        'name' => 'required|string|max:255',
-        'email' => 'required|email|max:255',
-        'phone' => 'nullable|string|max:20',
-        'subject' => 'required|string|max:255',
-        'message_type' => 'required|string|in:support,sales,partnership,feedback,other',
-        'message' => 'required|string|max:2000',
-        'organization' => 'nullable|string|max:255',
-    ]);
-
-    return redirect()->back()->with('success', 'تم إرسال رسالتك بنجاح!');
-})->name('contact.store');
 
 
 // require __DIR__ . '/auth.php';

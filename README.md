@@ -82,21 +82,21 @@ Ensure the following are installed in the local development environment:
 
 ### Installation
 
-1.  **Clone the Repository**
+1. **Clone the Repository**
 
     ```bash
     git clone https://github.com/Emran025/shafeea-platform.git
     cd shafeea-platform
     ```
 
-2.  **Install Dependencies**
+2. **Install Dependencies**
 
     ```bash
     composer install
     npm install
     ```
 
-3.  **Environment Configuration**
+3. **Environment Configuration**
 
     ```bash
     cp .env.example .env
@@ -105,7 +105,7 @@ Ensure the following are installed in the local development environment:
 
     **Note:** Update the `.env` file with the appropriate local database credentials.
 
-4.  **Database Migration & Seeding**
+4. **Database Migration & Seeding**
     To set up the schema and populate initial data:
 
     ```bash
@@ -118,31 +118,37 @@ Ensure the following are installed in the local development environment:
     php artisan migrate:fresh --seed
     ```
 
-5.  **Application Launch**
+5. **Application Launch**
+
     ```bash
     npm build run
     php artisan serve
     ```
+
     _Or_
+
     ```bash
     npm run deploy
     ```
+
     _Or_
+
     ```bash
     npm run ds
     ```
+
     The application will be accessible at `http://localhost:8000`.
 
 ## Contributing
 
 Contributions are essential to the open-source community. To contribute to the Shafeea Platform:
 
-1.  Review the **Contributing Guidelines** in `CONTRIBUTING.md`.
-2.  Fork the repository.
-3.  Create a feature branch (`git checkout -b feature/NewFeature`).
-4.  Commit changes (`git commit -m 'Add NewFeature'`).
-5.  Push to the branch (`git push origin feature/NewFeature`).
-6.  Open a **Pull Request**.
+1. Review the **Contributing Guidelines** in `CONTRIBUTING.md`.
+2. Fork the repository.
+3. Create a feature branch (`git checkout -b feature/NewFeature`).
+4. Commit changes (`git commit -m 'Add NewFeature'`).
+5. Push to the branch (`git push origin feature/NewFeature`).
+6. Open a **Pull Request**.
 
 ## License
 

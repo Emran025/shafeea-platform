@@ -2,6 +2,8 @@ export interface Inquiry {
     id: number;
     question: string;
     answer: string | null;
+    display_order: number;
+    is_active: boolean;
     created_at: string;
     [key: string]: unknown;
 }
