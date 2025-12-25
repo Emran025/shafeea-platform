@@ -5,6 +5,16 @@ import { router } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { 
+    Dialog, 
+    DialogContent, 
+    DialogDescription, 
+    DialogFooter, 
+    DialogHeader, 
+    DialogTitle, 
+    DialogTrigger,
+    DialogClose 
+} from '@/components/ui/dialog';
 import { PageProps, School, User, Document } from '@/types';
 import { 
     Building2, UserCog, FileText, BarChart2, Phone, Mail, MapPin, 
@@ -63,30 +73,7 @@ export default function SchoolShow() {
     const { school } = usePage<SchoolShowProps>().props;
     const admin = school.admin.user;
 
-    const handleApprove = () => {
-        if (confirm('هل أنت متأكد من قبول هذه المدرسة؟')) {
-            router.post(`/admin/schools/${school.id}/approve`, {}, { preserveScroll: true });
-        }
-    };
-
-    const handleReject = () => {
-        if (confirm('هل أنت متأكد من رفض هذه المدرسة؟ هذا القرار غير قابل للتراجع.')) {
-            router.post(`/admin/schools/${school.id}/reject`, {}, { preserveScroll: true });
-        }
-    };
-
-    const handleSuspend = () => {
-        if (confirm('هل أنت متأكد من تعليق هذه المدرسة؟ سيتم تقييد وصولهم.')) {
-            router.post(`/admin/schools/${school.id}/suspend`, {}, { preserveScroll: true });
-        }
-    };
-
-    const handleReactivate = () => {
-        if (confirm('هل أنت متأكد من إعادة تفعيل هذه المدرسة؟')) {
-            router.post(`/admin/schools/${school.id}/approve`, {}, { preserveScroll: true });
-        }
-    };
-
+    // Status Badge Component
     const StatusBadge = ({ status }: { status: string }) => {
         const statusConfig: Record<string, { bg: string; label: string; icon: React.ReactNode }> = {
             'accepted': {
@@ -134,7 +121,7 @@ export default function SchoolShow() {
                         {school.logo && (
                             <div className="w-16 h-16 rounded-xl overflow-hidden border-2 border-border shadow-lg">
                                 <img 
-                                    src={`/storage/${school.logo}`} 
+                                    src={school.logo} 
                                     alt={`${school.name} Logo`} 
                                     className="w-full h-full object-cover" 
                                 />
@@ -150,28 +137,128 @@ export default function SchoolShow() {
                     <div className="flex flex-wrap items-center gap-2">
                         {school.admin.status === 'pending' && (
                             <>
-                                <Button onClick={handleApprove} className="gap-2 bg-emerald-600 hover:bg-emerald-700">
-                                    <CheckCircle className="w-4 h-4" />
-                                    قبول
-                                </Button>
-                                <Button onClick={handleReject} variant="destructive" className="gap-2">
-                                    <XCircle className="w-4 h-4" />
-                                    رفض
-                                </Button>
+                                {/* Approve Action */}
+                                <Dialog>
+                                    <DialogTrigger asChild>
+                                        <Button className="gap-2 bg-emerald-600 hover:bg-emerald-700">
+                                            <CheckCircle className="w-4 h-4" />
+                                            قبول
+                                        </Button>
+                                    </DialogTrigger>
+                                    <DialogContent>
+                                        <DialogHeader>
+                                            <DialogTitle>تأكيد قبول المدرسة</DialogTitle>
+                                            <DialogDescription>
+                                                هل أنت متأكد من رغبتك في قبول هذه المدرسة؟ سيتم منحهم الصلاحيات الكاملة للنظام.
+                                            </DialogDescription>
+                                        </DialogHeader>
+                                        <DialogFooter className="gap-2 sm:gap-0">
+                                            <DialogClose asChild>
+                                                <Button variant="outline">إلغاء</Button>
+                                            </DialogClose>
+                                            <Button 
+                                                className="bg-emerald-600 hover:bg-emerald-700"
+                                                onClick={() => router.post(`/admin/schools/${school.id}/approve`, {}, { preserveScroll: true })}
+                                            >
+                                                تأكيد القبول
+                                            </Button>
+                                        </DialogFooter>
+                                    </DialogContent>
+                                </Dialog>
+
+                                {/* Reject Action */}
+                                <Dialog>
+                                    <DialogTrigger asChild>
+                                        <Button variant="destructive" className="gap-2">
+                                            <XCircle className="w-4 h-4" />
+                                            رفض
+                                        </Button>
+                                    </DialogTrigger>
+                                    <DialogContent>
+                                        <DialogHeader>
+                                            <DialogTitle>تأكيد رفض المدرسة</DialogTitle>
+                                            <DialogDescription>
+                                                هل أنت متأكد من رفض هذه المدرسة؟ هذا الإجراء قد لا يمكن التراجع عنه بسهولة.
+                                            </DialogDescription>
+                                        </DialogHeader>
+                                        <DialogFooter className="gap-2 sm:gap-0">
+                                            <DialogClose asChild>
+                                                <Button variant="outline">إلغاء</Button>
+                                            </DialogClose>
+                                            <Button 
+                                                variant="destructive"
+                                                onClick={() => router.post(`/admin/schools/${school.id}/reject`, {}, { preserveScroll: true })}
+                                            >
+                                                تأكيد الرفض
+                                            </Button>
+                                        </DialogFooter>
+                                    </DialogContent>
+                                </Dialog>
                             </>
                         )}
+
                         {school.admin.status === 'accepted' && (
-                            <Button onClick={handleSuspend} variant="destructive" className="gap-2">
-                                <Pause className="w-4 h-4" />
-                                تعليق
-                            </Button>
+                            /* Suspend Action */
+                            <Dialog>
+                                <DialogTrigger asChild>
+                                    <Button variant="destructive" className="gap-2">
+                                        <Pause className="w-4 h-4" />
+                                        تعليق
+                                    </Button>
+                                </DialogTrigger>
+                                <DialogContent>
+                                    <DialogHeader>
+                                        <DialogTitle>تأكيد تعليق المدرسة</DialogTitle>
+                                        <DialogDescription>
+                                            هل أنت متأكد من تعليق هذه المدرسة؟ سيتم تقييد وصول المشرفين ولن تظهر المدرسة في القوائم العامة.
+                                        </DialogDescription>
+                                    </DialogHeader>
+                                    <DialogFooter className="gap-2 sm:gap-0">
+                                        <DialogClose asChild>
+                                            <Button variant="outline">إلغاء</Button>
+                                        </DialogClose>
+                                        <Button 
+                                            variant="destructive"
+                                            onClick={() => router.post(`/admin/schools/${school.id}/suspend`, {}, { preserveScroll: true })}
+                                        >
+                                            تأكيد التعليق
+                                        </Button>
+                                    </DialogFooter>
+                                </DialogContent>
+                            </Dialog>
                         )}
+
                         {school.admin.status === 'suspended' && (
-                            <Button onClick={handleReactivate} className="gap-2 bg-emerald-600 hover:bg-emerald-700">
-                                <Play className="w-4 h-4" />
-                                إعادة التفعيل
-                            </Button>
+                            /* Reactivate Action */
+                            <Dialog>
+                                <DialogTrigger asChild>
+                                    <Button className="gap-2 bg-emerald-600 hover:bg-emerald-700">
+                                        <Play className="w-4 h-4" />
+                                        إعادة التفعيل
+                                    </Button>
+                                </DialogTrigger>
+                                <DialogContent>
+                                    <DialogHeader>
+                                        <DialogTitle>تأكيد إعادة التفعيل</DialogTitle>
+                                        <DialogDescription>
+                                            هل أنت متأكد من إعادة تفعيل هذه المدرسة؟ سيستعيد المشرفون صلاحياتهم في النظام.
+                                        </DialogDescription>
+                                    </DialogHeader>
+                                    <DialogFooter className="gap-2 sm:gap-0">
+                                        <DialogClose asChild>
+                                            <Button variant="outline">إلغاء</Button>
+                                        </DialogClose>
+                                        <Button 
+                                            className="bg-emerald-600 hover:bg-emerald-700"
+                                            onClick={() => router.post(`/admin/schools/${school.id}/approve`, {}, { preserveScroll: true })}
+                                        >
+                                            تأكيد التفعيل
+                                        </Button>
+                                    </DialogFooter>
+                                </DialogContent>
+                            </Dialog>
                         )}
+
                         <Button variant="outline" asChild className="gap-2">
                             <a href="/admin/schools">
                                 <ArrowRight className="w-4 h-4" />

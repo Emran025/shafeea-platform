@@ -26,7 +26,7 @@ class DemoSchoolSeeder extends Seeder
             // Create school
             $school = School::create([
                 'name' => "مدرسة $name لتحفيظ القرآن",
-                'logo' => 'https://example.com/school.png',
+                'logo' => '/images/schools/school.svg',
                 'phone' => '+9677' . rand(10000000, 99999999),
                 'country' => 'اليمن',
                 'city' => 'صنعاء',
