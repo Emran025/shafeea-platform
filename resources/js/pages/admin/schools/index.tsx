@@ -16,6 +16,13 @@ interface SchoolsIndexProps extends PageProps {
         links?: { url: string | null; label: string; active: boolean }[];
         meta?: Record<string, unknown>;
     };
+    stats: {
+        total: number;
+        accepted: number;
+        pending: number;
+        rejected: number;
+        suspended: number;
+    };
     filters: {
         search?: string;
         status?: string;
@@ -23,7 +30,7 @@ interface SchoolsIndexProps extends PageProps {
 }
 
 export default function SchoolsIndex() {
-    const { schools, filters = {} } = usePage<SchoolsIndexProps>().props;
+    const { schools, stats, filters = {} } = usePage<SchoolsIndexProps>().props;
     const [search, setSearch] = useState(filters.search || '');
     const [status, setStatus] = useState(filters.status || 'all');
 
@@ -42,12 +49,12 @@ export default function SchoolsIndex() {
         }
     };
 
-    const statusCounts = {
-        all: schools?.data?.length || 0,
-        accepted: schools?.data?.filter(s => s.admin?.status === 'accepted').length || 0,
-        pending: schools?.data?.filter(s => s.admin?.status === 'pending').length || 0,
-        rejected: schools?.data?.filter(s => s.admin?.status === 'rejected').length || 0,
-        suspended: schools?.data?.filter(s => s.admin?.status === 'suspended').length || 0,
+    const statusCounts = stats || {
+        total: 0,
+        accepted: 0,
+        pending: 0,
+        rejected: 0,
+        suspended: 0,
     };
 
     return (
@@ -76,7 +83,7 @@ export default function SchoolsIndex() {
                             <div className="flex items-center justify-between">
                                 <div>
                                     <p className="text-sm font-medium text-muted-foreground">إجمالي المدارس</p>
-                                    <p className="text-2xl font-bold text-foreground mt-1">{statusCounts.all}</p>
+                                    <p className="text-2xl font-bold text-foreground mt-1">{statusCounts.total}</p>
                                 </div>
                                 <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-xl flex items-center justify-center">
                                     <Building2 className="w-6 h-6 text-blue-600 dark:text-blue-400" />
