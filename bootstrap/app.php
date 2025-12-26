@@ -38,8 +38,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->redirectGuestsTo(fn (Request $request) => $request->is('admin/*') || $request->is('admin') ? route('admin.login') : '/');
 
         // Trust proxies for Render/Load Balancers to fix HTTPS/Mixed Content issues
-        $middleware->trustProxies(at: '*');
-        $middleware->trustProxies(headers: Request::HEADER_X_FORWARDED_FOR |
+        $middleware->trustProxies(at: '*', headers: Request::HEADER_X_FORWARDED_FOR |
             Request::HEADER_X_FORWARDED_HOST |
             Request::HEADER_X_FORWARDED_PORT |
             Request::HEADER_X_FORWARDED_PROTO |
