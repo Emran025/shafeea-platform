@@ -1,5 +1,5 @@
 # ---- Base PHP Stage ----
-FROM php:8.2-fpm-bookworm as base
+FROM php:8.2-fpm-bookworm AS base
 
 WORKDIR /var/www/html
 ENV DEBIAN_FRONTEND=noninteractive
@@ -27,7 +27,7 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # ---- Composer Dependencies Stage ----
-FROM base as composer_deps
+FROM base AS composer_deps
 
 COPY database/ database/
 COPY composer.json composer.lock ./
@@ -37,7 +37,7 @@ RUN composer install --no-interaction --no-plugins --no-scripts --no-dev --prefe
 
 # ---- Frontend Build Stage (Node.js) ----
 # Build assets in a separate Node image to keep the final image small
-FROM node:18 as node_build
+FROM node:18 AS node_build
 
 WORKDIR /app
 COPY package.json package-lock.json ./
@@ -48,7 +48,7 @@ COPY . .
 RUN npm run build
 
 # ---- Production Stage ----
-FROM base as production
+FROM base AS production
 
 WORKDIR /var/www/html
 
