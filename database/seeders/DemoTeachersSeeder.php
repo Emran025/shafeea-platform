@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\teacher;
+use App\Models\Teacher;
 use App\Models\User;
 use App\Models\School;
 use Illuminate\Database\Seeder;
