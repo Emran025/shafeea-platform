@@ -95,7 +95,7 @@
                     <td align="center" valign="top" style="padding: 40px 0 20px 0;">
                         <!-- Replace with your actual Logo URL -->
                         <a href="{{ url('/') }}" target="_blank" style="text-decoration: none;">
-                            <img src="/public/logo.png" width="150" alt="Logo" style="display: block; color: #000000; font-family: sans-serif; font-weight: bold; border: 0;">
+                            <img src="/public/logo.svg" width="150" alt="Logo" style="display: block; color: #000000; font-family: sans-serif; font-weight: bold; border: 0;">
                         </a>
                     </td>
                 </tr>

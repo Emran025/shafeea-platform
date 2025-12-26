@@ -12,7 +12,7 @@ export default function GuestLayout({ children }: GuestLayoutProps) {
                     <div className="flex items-center gap-3 group">
                         <div className="bg-white p-1.5 rounded-xl shadow-sm border border-gray-100 group-hover:shadow-md transition-all duration-300">
                             <img
-                                src="/logo.png"
+                                src="/logo.svg"
                                 alt="Shafeea Logo"
                                 className="w-12 h-12 object-contain"
                             />

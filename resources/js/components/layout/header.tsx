@@ -34,7 +34,7 @@ export function Header({
                     {/* Brand Logo */}
                     <Link href="/" className="flex items-center gap-3 group">
                         <div className="bg-white p-2 rounded-xl shadow-md border border-gray-200 group-hover:shadow-lg group-hover:scale-105 transition-all duration-300">
-                            <img src="/logo.png" alt="Logo" className="w-10 h-10 object-contain" />
+                            <img src="/logo.svg" alt="Logo" className="w-10 h-10 object-contain" />
                         </div>
                         <div>
                             <h1 className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors">شفيع</h1>
@@ -98,7 +98,7 @@ export function Header({
                                 <div className="flex flex-col h-full">
                                     <div className="p-6 border-b border-border bg-gradient-to-l from-primary/10 to-transparent">
                                         <div className="flex items-center gap-3 mb-2">
-                                            <img src="/logo.png" alt="Logo" className="w-10 h-10 bg-white p-1 rounded-lg shadow-sm" />
+                                            <img src="/logo.svg" alt="Logo" className="w-10 h-10 bg-white p-1 rounded-lg shadow-sm" />
                                             <span className="text-xl font-bold text-primary">منصة شفيع</span>
                                         </div>
                                         <p className="text-xs text-muted-foreground">مستقبل التعليم القرآني بين يديك</p>
