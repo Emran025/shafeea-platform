@@ -28,6 +28,7 @@ class Admin extends Model
      */
     protected $casts = [
         'status' => AdminStatus::class,
+        'super_admin' => 'boolean',
     ];
 
     /**
