@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="docs/logo.png" alt="Shafeea Platform Logo" width="240" height="auto" />
+  <img src="docs/logo.svg" alt="Shafeea Platform Logo" width="240" height="auto" />
   
   <h1>Shafeea Platform</h1>
   
