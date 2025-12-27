@@ -16,9 +16,9 @@ class StudentHistoryResource extends JsonResource
     {
         // $this->resource is an Enrollment model instance
         return [
-            'id' => $this->student->id,
+            'id' => $this->student->user_id,
             'name' => $this->student->user->name, // Assumes User relationship exists and has name
-            'Avater' => $this->student->user->avatar, // Assumes User relationship exists and has avatar
+            'avatar' => $this->student->user->avatar, // Assumes User relationship exists and has avatar
             'enrolledAt' => optional($this->enrolled_at)->toIso8601String(),
             'leftAt' => optional($this->left_at)->toIso8601String(),
             'status' => $this->left_at ? 'dropped' : 'active',

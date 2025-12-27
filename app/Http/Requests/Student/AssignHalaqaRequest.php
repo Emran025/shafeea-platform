@@ -19,7 +19,7 @@ class AssignHalaqaRequest extends FormRequest
     {
         return [
             'halaqaId' => 'required|integer|exists:halaqahs,id',
-            'studentId' => 'required|integer|exists:students,id',
+            'studentId' => 'required|integer|exists:students,user_id',
         ];
     }
 }

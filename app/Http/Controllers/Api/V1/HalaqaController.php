@@ -39,7 +39,7 @@ class HalaqaController extends ApiController
             'residence' => 'required|string|max:255',
             'max_students' => 'required|integer|min:1',
             'is_active' => 'sometimes|boolean',
-            'teacher_id' => 'nullable|exists:teachers,id',
+            'teacher_id' => 'nullable|exists:teachers,user_id',
             'school_id' => 'required|exists:schools,id',
         ]);
 
@@ -75,7 +75,7 @@ class HalaqaController extends ApiController
             'residence' => 'sometimes|required|string|max:255',
             'max_students' => 'sometimes|required|integer|min:1',
             'is_active' => 'sometimes|boolean',
-            'teacher_id' => 'sometimes|nullable|exists:teachers,id',
+            'teacher_id' => 'sometimes|nullable|exists:teachers,user_id',
             'school_id' => 'sometimes|required|exists:schools,id',
         ]);
 
@@ -91,8 +91,8 @@ class HalaqaController extends ApiController
     public function assignStudents(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'student_ids' => 'required|array',
-            'student_ids.*' => 'required|integer|exists:students,id',
+            'studentUserIds' => 'required|array',
+            'studentUserIds.*' => 'required|integer|exists:students,user_id',
         ]);
 
         if ($validator->fails()) {
@@ -100,7 +100,7 @@ class HalaqaController extends ApiController
         }
 
         try {
-            $this->halaqahRepository->assignStudents($id, $request->input('student_ids'));
+            $this->halaqahRepository->assignStudents($id, $request->input('studentUserIds'));
 
             // Use success helper for a simple message response
             return $this->success(null, 'Students assigned to Halaqa successfully.');
@@ -115,7 +115,7 @@ class HalaqaController extends ApiController
     public function assignTeacher(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'teacher_id' => 'required|integer|exists:teachers,id',
+            'teacher_id' => 'required|integer|exists:teachers,user_id',
         ]);
 
         if ($validator->fails()) {
@@ -133,12 +133,12 @@ class HalaqaController extends ApiController
 
         $data = $teachers->map(function ($teacher) {
             return [
-                'id' => $teacher->id,
+                'id' => $teacher->user_id,
                 'name' => $teacher->user->name,
                 'avatar' => $teacher->user->avatar,
-                'assigned_at' => $teacher->pivot->assigned_at,
+                'assignedAt' => $teacher->pivot->assigned_at,
                 'note' => $teacher->pivot->note,
-                'is_current' => $teacher->pivot->is_current,
+                'isCurrent' => $teacher->pivot->is_current,
             ];
         });
 

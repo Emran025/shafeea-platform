@@ -17,7 +17,7 @@ class StudentPlanResource extends JsonResource
         $frequency = $plan?->frequencyType;
 
         return [
-            'PlanId' => $plan->id,
+            'planId' => $plan->id,
             'frequency' => $frequency->name ?? null,
             'details' => [
                 [

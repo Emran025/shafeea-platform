@@ -236,7 +236,7 @@ class AuthController extends ApiController
                 'exists' => true,
                 'role' => 'student',
                 'status' => 'approved',
-                'moved_to_students_table' => true,
+                'movedToStudentsTable' => true,
                 'rejection' => null,
             ], 'User is an active student.');
         }
@@ -249,7 +249,7 @@ class AuthController extends ApiController
                 'exists' => false,
                 'role' => 'Undifind',
                 'status' => 'Undifind',
-                'moved_to_students_table' => true,
+                'movedToStudentsTable' => true,
                 'rejection' => null,
             ], 'No application or student record found for this user.');
         }
@@ -277,7 +277,7 @@ class AuthController extends ApiController
             'exists' => true,
             'role' => 'applicant',
             'status' => $applicant->status,
-            'moved_to_students_table' => (bool) $movedToStudent,
+            'movedToStudentsTable' => (bool) $movedToStudent,
             'rejection' => $rejection,
         ], 'Application status retrieved.');
     }

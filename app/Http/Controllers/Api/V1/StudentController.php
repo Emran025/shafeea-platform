@@ -21,6 +21,9 @@ use App\Repositories\StudentApplicantRepository;
 use App\Repositories\StudentRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use App\Models\Plan;
+use App\Models\Student;
+use App\Models\Enrollment;
 
 class StudentController extends ApiController
 {
@@ -42,29 +45,35 @@ class StudentController extends ApiController
         return $this->success(StudentResource::collection($students));
     }
 
-    public function show($id)
+    public function show($userId)
     {
-        $student = $this->students->find($id);
+        $student = $this->students->find($userId);
 
         return $this->success(new StudentSyncResource($student));
     }
 
-    public function update(UpdateStudentRequest $request, $id)
+    public function update(UpdateStudentRequest $request, $userId)
     {
 
-        $student = $this->students->update($id, $request->validated());
+        $student = $this->students->update($userId, $request->validated());
 
         return $this->success(new StudentResource($student), 'Student updated successfully.');
     }
 
-    public function assign(AssignHalaqaRequest $request, $id)
+    public function destroy($userId)
+    {
+        $this->students->delete($userId);
+
+        return $this->success(null, 'Student deleted successfully.');
+    }
+
+    public function assign(AssignHalaqaRequest $request, $userId)
     {
         try {
-            $student = \App\Models\Student::findOrFail($id);
+            $student = Student::where('user_id', $userId)->firstOrFail();
             $halaqaId = $request->halaqaId;
-            $studentId = $request->studentId;
-            \App\Models\Enrollment::firstOrCreate([
-                'student_id' => $studentId,
+            Enrollment::firstOrCreate([
+                'student_id' => $student->id,
                 'halaqah_id' => $halaqaId,
             ]);
 
@@ -76,11 +85,11 @@ class StudentController extends ApiController
         }
     }
 
-    public function action(ActionRequest $request, $id)
+    public function action(ActionRequest $request, $userId)
     {
         try {
-            $student = \App\Models\Student::findOrFail($id);
-            $action = $request->action;
+            
+            $student = Student::where('user_id', $userId)->firstOrFail();            $action = $request->action;
             if ($action === 'suspend') {
                 $student->status = 'suspended';
             } elseif ($action === 'expel') {
@@ -97,23 +106,52 @@ class StudentController extends ApiController
         }
     }
 
-    public function followUp($id, Request $request)
+    public function followUp($userId, Request $request)
     {
         try {
-            // Minimal logic: return a fake plan for the student
-            $student = \App\Models\Student::findOrFail($id);
+            $student = Student::where('user_id', $userId)->firstOrFail();
+            $enrollment = $student->enrollments->first();
 
-            return $this->success(new FollowUpResource((object) [
-                'id' => 15,
-                'frequency' => 'daily',
-                'details' => [
-                    ['type' => 'memorization', 'unit' => 'page', 'amount' => 2],
-                    ['type' => 'review', 'unit' => 'juz', 'amount' => 1],
-                    ['type' => 'recitation', 'unit' => 'page', 'amount' => 2],
-                ],
-                'updated_at' => now(),
-                'created_at' => now(),
-            ]));
+            if (! $enrollment) {
+                return $this->error('No active enrollment found for this student', 404);
+            }
+
+            $plan = $enrollment->currentPlan->first();
+
+            if (! $plan) {
+                return $this->error('No active plan found for this student', 404);
+            }
+
+            $details = [];
+
+            if ($plan->has_memorization && $plan->memorizationUnit) {
+                $details[] = [
+                    'type' => 'memorization',
+                    'unit' => $plan->memorizationUnit->code,
+                    'amount' => $plan->memorization_amount,
+                ];
+            }
+
+            if ($plan->has_review && $plan->reviewUnit) {
+                $details[] = [
+                    'type' => 'review',
+                    'unit' => $plan->reviewUnit->code,
+                    'amount' => $plan->review_amount,
+                ];
+            }
+
+            if ($plan->has_sard && $plan->sardUnit) {
+                $details[] = [
+                    'type' => 'recitation',
+                    'unit' => $plan->sardUnit->code,
+                    'amount' => $plan->sard_amount,
+                ];
+            }
+
+            $plan->frequency = $plan->frequencyType ? $plan->frequencyType->name : null;
+            $plan->details = $details;
+
+            return $this->success(new FollowUpResource($plan));
         } catch (\Throwable $e) {
             Log::error($e);
 
@@ -121,7 +159,7 @@ class StudentController extends ApiController
         }
     }
 
-    public function updateFollowUp(FollowUpRequest $request, $id)
+    public function updateFollowUp(FollowUpRequest $request, $userId)
     {
         // Implement update follow-up logic in repository/service
         return $this->success(new FollowUpResource((object) [
@@ -157,23 +195,22 @@ class StudentController extends ApiController
     }
 
     // PLAN MANAGEMENT
-    public function getPlans($studentId)
+    public function getPlans($userId)
     {
-        $plans = $this->students->getPlans($studentId);
+        $plans = $this->students->getPlans($userId);
 
         return $this->success(StudentPlanResource::collection($plans));
     }
 
-    public function getActivePlan($studentId)
+    public function getActivePlan($userId)
     {
-        $plan = $this->students->getActivePlan($studentId);
-
+        $plan = $this->students->getActivePlan($userId);
         return $this->success($plan ? new StudentPlanResource($plan) : null);
     }
 
-    public function createPlan(PlanRequest $request, $studentId)
+    public function createPlan(PlanRequest $request, $userId)
     {
-        $plan = $this->students->createPlan($studentId, $request->validated());
+        $plan = $this->students->createPlan($userId, $request->validated());
 
         return $this->success(new PlanResource($plan), 'Plan created and student enrolled.');
     }
@@ -193,16 +230,23 @@ class StudentController extends ApiController
     }
 
     // TRACKING MANAGEMENT
-    public function getTrackingsForStudent($studentId)
+    public function getTrackingsForStudent($userId)
     {
-        $trackings = $this->students->getTrackingsForStudent($studentId);
-
+        $trackings = $this->students->getTrackingsForStudent($userId);
         return $this->success(TrackingResource::collection($trackings));
     }
 
     public function createTracking(TrackingRequest $request, $enrollmentId)
     {
         $tracking = $this->students->createTracking($enrollmentId, $request->validated());
+
+        return $this->success(new TrackingResource($tracking), 'Tracking created.');
+    }
+
+    public function createTrackingByStudent(TrackingRequest $request, $userId, $halaqaId)
+    {
+        $enrollment = $this->students->getEnrollment($userId, $halaqaId);
+        $tracking = $this->students->createTracking($enrollment->id, $request->validated());
 
         return $this->success(new TrackingResource($tracking), 'Tracking created.');
     }

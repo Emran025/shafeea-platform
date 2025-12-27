@@ -16,9 +16,9 @@ class StudentKhatmResource extends JsonResource
     {
         // $this->resource is a Student model instance
         return [
-            'id' => $this->id,
+            'id' => $this->user_id,
             'name' => $this->user->name,
-            'Avater' => $this->user->avatar,
+            'avatar' => $this->user->avatar,
             // Schema has no 'completionDate', using 'updated_at' as a placeholder
             'completionDate' => $this->updated_at->toIso8601String(),
         ];

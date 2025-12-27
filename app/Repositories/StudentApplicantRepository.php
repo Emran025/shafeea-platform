@@ -38,10 +38,31 @@ class StudentApplicantRepository
 
     public function create($data)
     {
-        $userData = $data['user'];
-        $userData['password'] = Hash::make($userData['password']);
+        $userData = [
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+            'avatar' => $data['avatar'] ?? null,
+            'gender' => $data['gender'],
+            'birth_date' => $data['birthDate'],
+            'phone_zone' => $data['phoneZone'],
+            'phone' => $data['phone'],
+            'whatsapp_zone' => $data['whatsappZone'] ?? null,
+            'whatsapp' => $data['whatsappPhone'] ?? null,
+            'country' => $data['country'],
+            'residence' => $data['residence'],
+            'city' => $data['city'],
+        ];
+
         $user = User::create($userData);
-        $student = $user->student()->create($data);
+
+        $studentData = [
+            'qualification' => $data['qualification'],
+            'memorization_level' => $data['memorizationLevel'],
+            'status' => $data['status'] ?? 'active',
+        ];
+
+        $student = $user->student()->create($studentData);
 
         return $student->fresh(['user']);
     }
