@@ -11,7 +11,7 @@ class TeacherResource extends JsonResource
         $user = $this->user;
 
         return [
-            'id' => $this->id,
+            'id' => $user->id,
             'bio' => $this->bio,
             'experienceYears' => $this->experience_years,
             'name' => $user->name ?? null,

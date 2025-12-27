@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\Teacher;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class TeacherRepository
 {
@@ -25,16 +26,16 @@ class TeacherRepository
 
         return $query->get();
     }
-
-    public function find($id)
+    public function find($userId)
     {
-        return Teacher::with(['user', 'halaqahs'])->findOrFail($id);
+        return Teacher::with(['user', 'halaqahs'])
+            ->where('user_id', $userId)
+            ->firstOrFail();
     }
 
-    public function update($id, $data)
+    public function update($userId, $data)
     {
-        $teacher = Teacher::findOrFail($id);
-        // Map camelCase to snake_case if needed
+        $teacher = Teacher::where('user_id', $userId)->firstOrFail();
         if (isset($data['bio'])) {
             $teacher->bio = $data['bio'];
         }
@@ -42,7 +43,7 @@ class TeacherRepository
             $teacher->experience_years = $data['experience_years'];
         }
         $teacher->save();
-        if (isset($data['user'])) {
+        if (isset($data['user']) && $teacher->user) {
             $teacher->user->update($data['user']);
         }
 
@@ -61,7 +62,7 @@ class TeacherRepository
 
             return true;
         } catch (\Throwable $e) {
-            \Log::error($e);
+            Log::error($e);
             throw $e;
         }
     }

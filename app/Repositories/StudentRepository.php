@@ -29,7 +29,7 @@ class StudentRepository
         return $query->get();
     }
 
-    public function find($id)
+    public function find($userId)
     {
         return Student::with([
             'user',
@@ -41,12 +41,14 @@ class StudentRepository
             'enrollments.currentPlan.memorizationUnit',
             'enrollments.currentPlan.sardUnit',
             'enrollments.halaqah',
-        ])->findOrFail($id);
+        ])
+        ->where('user_id', $userId)
+        ->firstOrFail();
     }
 
-    public function update($id, $data)
+    public function update($userId, $data)
     {
-        $student = Student::findOrFail($id);
+        $student = Student::where('user_id', $userId)->firstOrFail();
         // Map camelCase to snake_case
         if (isset($data['memorizationLevel'])) {
             $data['memorization_level'] = $data['memorizationLevel'];

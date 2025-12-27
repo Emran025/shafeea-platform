@@ -18,7 +18,7 @@ class TeacherSyncResource extends JsonResource
         $user = $teacher->user;
 
         return [
-            'id' => $teacher->id,
+            'id' => $user->id,
             'name' => $user->name ?? null,
             'avatar' => base64_encode($user->avatar ?? ''),
             'gender' => $user->gender ?? null,

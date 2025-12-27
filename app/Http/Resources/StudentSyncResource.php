@@ -21,7 +21,7 @@ class StudentSyncResource extends JsonResource
         $user = $student->user;
 
         return [
-            'id' => $student->id,
+            'id' => $user->id,
             'name' => $user->name ?? null,
             'avatar' => base64_encode($user->avatar ?? ''),
             'gender' => $user->gender ?? null,

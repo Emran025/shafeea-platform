@@ -3,76 +3,103 @@
 namespace App\Http\Controllers\Api\V1;
 
 use Illuminate\Http\Request;
-
+use App\Models\Student ;
+use App\Models\Tracking ;
 class FollowUpController extends ApiController
 {
     /**
      * GET /follow-ups/students
      * Retrieve follow-up reports for a student with optional summary.
      */
+
     public function studentReports(Request $request)
     {
-        $studentId = $request->query('studentId');
+        $studentUserId = $request->query('studentId');
         $trackDate = $request->query('trackDate');
         $page = (int) $request->query('page', 1);
         $limit = (int) $request->query('limit', 10);
-        $sortBy = $request->query('sortBy', 'trackDate');
+        $sortBy = $request->query('sortBy', 'trackDate'); // mapped to 'date' column
         $sortOrder = strtolower($request->query('sortOrder', 'asc'));
 
-        // Sample data
-        $reports = [
-            [
-                'id' => 1,
-                'trackDate' => $trackDate ?? '2023-09-21',
-                'attendance' => 'present',
-                'details' => [
-                    [
-                        'type' => 'memorization',
-                        'planned' => ['unit' => 'page', 'amount' => 1],
-                        'actual' => ['unit' => 'page', 'amount' => 1, 'amountAccumulated' => 16],
-                        'gap' => 0,
-                        'note' => 'Good progress.',
-                        'performanceScore' => 4.5,
-                    ],
-                    [
-                        'type' => 'revision',
-                        'planned' => ['unit' => 'juz', 'amount' => 0.5],
-                        'actual' => ['unit' => 'juz', 'amount' => 0.25, 'amountAccumulated' => 16],
-                        'gap' => -0.25,
-                        'note' => 'Needs improvement.',
-                        'performanceScore' => 3.0,
-                    ],
-                    [
-                        'type' => 'recitation',
-                        'planned' => ['unit' => 'hizb', 'amount' => 1],
-                        'actual' => ['unit' => 'hizb', 'amount' => 1, 'amountAccumulated' => 16],
-                        'gap' => 0,
-                        'note' => 'Steady performance.',
-                        'performanceScore' => 4.0,
-                    ],
-                ],
+        $student = Student::where('user_id', $studentUserId)->first();
+        if (! $student) {
+            // Fallback: try finding by student id directly
+            $student = Student::find($studentUserId);
+        }
+
+        if (! $student) {
+            return $this->error('Student not found', 404);
+        }
+
+        // Build Query for Trackings
+        $query = Tracking::whereHas('enrollment', function ($q) use ($student) {
+            $q->where('student_id', $student->id);
+        });
+
+        if ($trackDate) {
+            $query->whereDate('date', $trackDate);
+        }
+
+        $sortColumn = ($sortBy === 'trackDate') ? 'date' : 'created_at';
+        $query->orderBy($sortColumn, $sortOrder);
+
+        $paginator = $query->with(['details.trackingType', 'details.toTrackingUnit.unit'])
+            ->paginate($limit, ['*'], 'page', $page);
+
+        // Transform Data
+        $reports = collect($paginator->items())->map(function ($tracking) {
+            return [
+                'id' => $tracking->id,
+                'trackDate' => $tracking->date,
+                'attendance' => 'present', // Placeholder as attendance is not currently in Tracking
+                'details' => $tracking->details->map(function ($detail) {
+                    $unit = $detail->toTrackingUnit && $detail->toTrackingUnit->unit
+                        ? $detail->toTrackingUnit->unit->code
+                        : null;
+
+                    // Planned = Actual - Gap
+                    $planned = $detail->actual_amount - $detail->gap;
+
+                    return [
+                        'type' => $detail->trackingType ? $detail->trackingType->name : 'unknown',
+                        'planned' => ['unit' => $unit, 'amount' => (float) $planned],
+                        'actual' => ['unit' => $unit, 'amount' => (float) $detail->actual_amount, 'amountAccumulated' => 0],
+                        'gap' => (float) $detail->gap,
+                        'note' => $detail->comment,
+                        'performanceScore' => (float) $detail->score,
+                    ];
+                }),
+            ];
+        });
+
+        // Summary Statistics (Aggregate over all time for this student)
+        $allTrackingIds = \App\Models\Tracking::whereHas('enrollment', function ($q) use ($student) {
+            $q->where('student_id', $student->id);
+        })->pluck('id');
+
+        $totalDeviation = \App\Models\TrackingDetail::whereIn('tracking_id', $allTrackingIds)->sum('gap');
+        $avgScore = \App\Models\TrackingDetail::whereIn('tracking_id', $allTrackingIds)->avg('score');
+        $reportCount = $allTrackingIds->count();
+
+        $summary = [
+            'totalPendingReports' => 0,
+            'totalDeviation' => (float) $totalDeviation,
+            'status' => $totalDeviation < 0 ? 'behind' : 'on-track',
+            'studentPerformance' => [
+                'averageBehaviourScore' => 0, // Behavior score not present in Tracking table
+                'averageAchievementRate' => $avgScore ? ($avgScore / 5 * 100) : 0,
+                'averageExecutionQuality' => (float) $avgScore,
+                'reportCount' => $reportCount,
             ],
         ];
 
-        $summary = $studentId ? [
-            'totalPendingReports' => 2,
-            'totalDeviation' => -0.25,
-            'status' => 'behind',
-            'studentPerformance' => [
-                'averageBehaviourScore' => 4.3,
-                'averageAchievementRate' => 89.7,
-                'averageExecutionQuality' => 4.1,
-                'reportCount' => 132,
-            ],
-        ] : null;
-
         return $this->success([
-            'reports' => $reports[0],
+            'reports' => $reports,
             'summary' => $summary,
             'pagination' => [
-                'page' => $page,
-                'limit' => $limit,
-                'total' => 50,
+                'page' => $paginator->currentPage(),
+                'limit' => $paginator->perPage(),
+                'total' => $paginator->total(),
             ],
         ]);
     }

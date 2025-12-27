@@ -17,7 +17,7 @@ class StudentResource extends JsonResource
         $frequency = $plan?->frequencyType;
 
         return [
-            'id' => $this->id,
+            'id' => $user->id,
             'name' => $user->name ?? null,
             'avatar' => $user->avatar ?? null,
             'gender' => $user->gender ?? null,
@@ -65,8 +65,8 @@ class StudentResource extends JsonResource
                 'createdAt' => $plan->created_at?->toIso8601String() ?? null,
             ] : null,
             'isDeleted' => (bool) $student->is_deleted,
-            'createdAt' => $this->created_at,
-            'updatedAt' => $this->updated_at,
+            'updatedAt' => $student->updated_at?->toIso8601String(),
+            'createdAt' => $student->created_at?->toIso8601String(),
         ];
     }
 }

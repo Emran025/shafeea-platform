@@ -21,6 +21,9 @@ use App\Repositories\StudentApplicantRepository;
 use App\Repositories\StudentRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use App\Models\Plan;
+use App\Models\Student;
+use App\Models\Enrollment;
 
 class StudentController extends ApiController
 {
@@ -42,17 +45,17 @@ class StudentController extends ApiController
         return $this->success(StudentResource::collection($students));
     }
 
-    public function show($id)
+    public function show($userId)
     {
-        $student = $this->students->find($id);
+        $student = $this->students->find($userId);
 
         return $this->success(new StudentSyncResource($student));
     }
 
-    public function update(UpdateStudentRequest $request, $id)
+    public function update(UpdateStudentRequest $request, $userId)
     {
 
-        $student = $this->students->update($id, $request->validated());
+        $student = $this->students->update($userId, $request->validated());
 
         return $this->success(new StudentResource($student), 'Student updated successfully.');
     }
@@ -60,10 +63,10 @@ class StudentController extends ApiController
     public function assign(AssignHalaqaRequest $request, $id)
     {
         try {
-            $student = \App\Models\Student::findOrFail($id);
+            $student = Student::where('user_id', $id)->firstOrFail();
             $halaqaId = $request->halaqaId;
             $studentId = $request->studentId;
-            \App\Models\Enrollment::firstOrCreate([
+            Enrollment::firstOrCreate([
                 'student_id' => $studentId,
                 'halaqah_id' => $halaqaId,
             ]);
@@ -79,8 +82,8 @@ class StudentController extends ApiController
     public function action(ActionRequest $request, $id)
     {
         try {
-            $student = \App\Models\Student::findOrFail($id);
-            $action = $request->action;
+            
+            $student = Student::where('user_id', $id)->firstOrFail();            $action = $request->action;
             if ($action === 'suspend') {
                 $student->status = 'suspended';
             } elseif ($action === 'expel') {
@@ -100,20 +103,49 @@ class StudentController extends ApiController
     public function followUp($id, Request $request)
     {
         try {
-            // Minimal logic: return a fake plan for the student
-            $student = \App\Models\Student::findOrFail($id);
+            $student = Student::where('user_id', $id)->firstOrFail();
+            $enrollment = $student->enrollments->first();
 
-            return $this->success(new FollowUpResource((object) [
-                'id' => 15,
-                'frequency' => 'daily',
-                'details' => [
-                    ['type' => 'memorization', 'unit' => 'page', 'amount' => 2],
-                    ['type' => 'review', 'unit' => 'juz', 'amount' => 1],
-                    ['type' => 'recitation', 'unit' => 'page', 'amount' => 2],
-                ],
-                'updated_at' => now(),
-                'created_at' => now(),
-            ]));
+            if (! $enrollment) {
+                return $this->error('No active enrollment found for this student', 404);
+            }
+
+            $plan = $enrollment->currentPlan->first();
+
+            if (! $plan) {
+                return $this->error('No active plan found for this student', 404);
+            }
+
+            $details = [];
+
+            if ($plan->has_memorization && $plan->memorizationUnit) {
+                $details[] = [
+                    'type' => 'memorization',
+                    'unit' => $plan->memorizationUnit->code,
+                    'amount' => $plan->memorization_amount,
+                ];
+            }
+
+            if ($plan->has_review && $plan->reviewUnit) {
+                $details[] = [
+                    'type' => 'review',
+                    'unit' => $plan->reviewUnit->code,
+                    'amount' => $plan->review_amount,
+                ];
+            }
+
+            if ($plan->has_sard && $plan->sardUnit) {
+                $details[] = [
+                    'type' => 'recitation',
+                    'unit' => $plan->sardUnit->code,
+                    'amount' => $plan->sard_amount,
+                ];
+            }
+
+            $plan->frequency = $plan->frequencyType ? $plan->frequencyType->name : null;
+            $plan->details = $details;
+
+            return $this->success(new FollowUpResource($plan));
         } catch (\Throwable $e) {
             Log::error($e);
 
