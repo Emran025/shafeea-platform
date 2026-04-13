@@ -49,6 +49,7 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
         Route::get('/', [StudentController::class, 'index'])->name('index');
         Route::get('{id}', [StudentController::class, 'show'])->name('show');
         Route::put('{id}', [StudentController::class, 'update'])->name('update');
+        Route::delete('{id}', [StudentController::class, 'destroy'])->name('destroy');
 
         Route::get('{id}/follow-up', [StudentController::class, 'followUp'])->name('followup.get');
         Route::put('{id}/follow-up', [StudentController::class, 'updateFollowUp'])->name('followup.update');
@@ -67,6 +68,7 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
         // Tracking management
         Route::get('{id}/trackings', [StudentController::class, 'getTrackingsForStudent'])->name('trackings.list');
         Route::post('enrollments/{enrollmentId}/trackings', [StudentController::class, 'createTracking'])->name('trackings.create');
+        Route::post('{id}/halaqas/{halaqaId}/trackings', [StudentController::class, 'createTrackingByStudent'])->name('trackings.createByStudent');
         Route::put('trackings/{trackingId}', [StudentController::class, 'updateTracking'])->name('trackings.update');
         Route::delete('trackings/{trackingId}', [StudentController::class, 'deleteTracking'])->name('trackings.delete');
         Route::get('trackings/{trackingId}/details', [StudentController::class, 'getTrackingDetails'])->name('trackings.details.list');

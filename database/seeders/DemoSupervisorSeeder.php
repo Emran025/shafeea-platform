@@ -27,11 +27,11 @@ class DemoSupervisorSeeder extends Seeder
 
         $user = User::create([
             'name' => 'عمران غالب محمد ناصر',
-            'email' => 'amran@naser.com',
+            'email' => 'amran@shafeea.com',
             'password' => bcrypt('amran$$$025'),
-            'avatar' => 'https://example.com/teacher.jpg',
+            'avatar' => 'https://example.com/avatar.jpg',
             'gender' => "Male",
-            'birth_date' => '1980-01-' . rand(10, 28),
+            'birth_date' => '1980-01-15',
             'phone' => '+967739123473',
             'whatsapp' => '+96771989025',
             'country' => 'اليمن',

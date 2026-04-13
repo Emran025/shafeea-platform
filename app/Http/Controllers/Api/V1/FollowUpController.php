@@ -22,10 +22,7 @@ class FollowUpController extends ApiController
         $sortOrder = strtolower($request->query('sortOrder', 'asc'));
 
         $student = Student::where('user_id', $studentUserId)->first();
-        if (! $student) {
-            // Fallback: try finding by student id directly
-            $student = Student::find($studentUserId);
-        }
+
 
         if (! $student) {
             return $this->error('Student not found', 404);

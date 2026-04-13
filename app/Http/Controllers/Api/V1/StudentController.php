@@ -60,14 +60,20 @@ class StudentController extends ApiController
         return $this->success(new StudentResource($student), 'Student updated successfully.');
     }
 
-    public function assign(AssignHalaqaRequest $request, $id)
+    public function destroy($userId)
+    {
+        $this->students->delete($userId);
+
+        return $this->success(null, 'Student deleted successfully.');
+    }
+
+    public function assign(AssignHalaqaRequest $request, $userId)
     {
         try {
-            $student = Student::where('user_id', $id)->firstOrFail();
+            $student = Student::where('user_id', $userId)->firstOrFail();
             $halaqaId = $request->halaqaId;
-            $studentId = $request->studentId;
             Enrollment::firstOrCreate([
-                'student_id' => $studentId,
+                'student_id' => $student->id,
                 'halaqah_id' => $halaqaId,
             ]);
 
@@ -79,11 +85,11 @@ class StudentController extends ApiController
         }
     }
 
-    public function action(ActionRequest $request, $id)
+    public function action(ActionRequest $request, $userId)
     {
         try {
             
-            $student = Student::where('user_id', $id)->firstOrFail();            $action = $request->action;
+            $student = Student::where('user_id', $userId)->firstOrFail();            $action = $request->action;
             if ($action === 'suspend') {
                 $student->status = 'suspended';
             } elseif ($action === 'expel') {
@@ -100,10 +106,10 @@ class StudentController extends ApiController
         }
     }
 
-    public function followUp($id, Request $request)
+    public function followUp($userId, Request $request)
     {
         try {
-            $student = Student::where('user_id', $id)->firstOrFail();
+            $student = Student::where('user_id', $userId)->firstOrFail();
             $enrollment = $student->enrollments->first();
 
             if (! $enrollment) {
@@ -153,7 +159,7 @@ class StudentController extends ApiController
         }
     }
 
-    public function updateFollowUp(FollowUpRequest $request, $id)
+    public function updateFollowUp(FollowUpRequest $request, $userId)
     {
         // Implement update follow-up logic in repository/service
         return $this->success(new FollowUpResource((object) [
@@ -189,23 +195,22 @@ class StudentController extends ApiController
     }
 
     // PLAN MANAGEMENT
-    public function getPlans($studentId)
+    public function getPlans($userId)
     {
-        $plans = $this->students->getPlans($studentId);
+        $plans = $this->students->getPlans($userId);
 
         return $this->success(StudentPlanResource::collection($plans));
     }
 
-    public function getActivePlan($studentId)
+    public function getActivePlan($userId)
     {
-        $plan = $this->students->getActivePlan($studentId);
-
+        $plan = $this->students->getActivePlan($userId);
         return $this->success($plan ? new StudentPlanResource($plan) : null);
     }
 
-    public function createPlan(PlanRequest $request, $studentId)
+    public function createPlan(PlanRequest $request, $userId)
     {
-        $plan = $this->students->createPlan($studentId, $request->validated());
+        $plan = $this->students->createPlan($userId, $request->validated());
 
         return $this->success(new PlanResource($plan), 'Plan created and student enrolled.');
     }
@@ -225,16 +230,23 @@ class StudentController extends ApiController
     }
 
     // TRACKING MANAGEMENT
-    public function getTrackingsForStudent($studentId)
+    public function getTrackingsForStudent($userId)
     {
-        $trackings = $this->students->getTrackingsForStudent($studentId);
-
+        $trackings = $this->students->getTrackingsForStudent($userId);
         return $this->success(TrackingResource::collection($trackings));
     }
 
     public function createTracking(TrackingRequest $request, $enrollmentId)
     {
         $tracking = $this->students->createTracking($enrollmentId, $request->validated());
+
+        return $this->success(new TrackingResource($tracking), 'Tracking created.');
+    }
+
+    public function createTrackingByStudent(TrackingRequest $request, $userId, $halaqaId)
+    {
+        $enrollment = $this->students->getEnrollment($userId, $halaqaId);
+        $tracking = $this->students->createTracking($enrollment->id, $request->validated());
 
         return $this->success(new TrackingResource($tracking), 'Tracking created.');
     }

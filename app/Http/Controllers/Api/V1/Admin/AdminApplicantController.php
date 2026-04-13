@@ -67,7 +67,7 @@ class AdminApplicantController extends ApiController
             return $this->error('You are not authorized to view this applicant.', 403);
         }
 
-        return $this->success($applicant, 'Applicant retrieved successfully.');
+        return $this->success(new AdminApplicantResource($applicant), 'Applicant retrieved successfully.');
     }
 
     public function approve(Request $request, $id)

@@ -10,6 +10,8 @@ class TrackingResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'studentUserId' => $this->enrollment->student->user_id,
+            'halaqaId' => $this->enrollment->halaqah_id,
             'enrollmentId' => $this->enrollment_id,
             'date' => $this->date,
             'note' => $this->note,

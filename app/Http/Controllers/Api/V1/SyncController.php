@@ -79,7 +79,7 @@ class SyncController extends ApiController
     public function syncReports(Request $request)
     {
         $updatedSince = $request->query('updatedSince');
-        $studentId = $request->query('studentId');
+        $studentUserId = $request->query('studentId');
         $page = (int) $request->query('page', 1);
         $limit = (int) $request->query('limit', 10);
         $sortBy = $request->query('sortBy', 'trackDate');
@@ -130,8 +130,8 @@ class SyncController extends ApiController
         $offset = ($page - 1) * $limit;
         $pagedReports = array_slice($reports, $offset, $limit);
 
-        // Optional summary if studentId is present
-        $summary = $studentId ? [
+        // Optional summary if studentUserId is present
+        $summary = $studentUserId ? [
             'totalPendingReports' => 2,
             'totalDeviation' => -0.25,
             'status' => 'behind',

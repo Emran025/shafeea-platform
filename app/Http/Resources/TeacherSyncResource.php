@@ -24,7 +24,7 @@ class TeacherSyncResource extends JsonResource
             'gender' => $user->gender ?? null,
             'birthDate' => $user->birth_date?->toDateString() ?? null,
             'email' => $user->email ?? null,
-            'phoneZone' => '+967',
+            'phoneZone' => $user->phone_zone ?? null,
             'phone' => $user->phone ?? null,
             'whatsappZone' => $user->whatsapp_zone ?? null,
             'whatsappPhone' => $user->whatsapp ?? null,

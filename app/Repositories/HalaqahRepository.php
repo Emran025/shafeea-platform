@@ -62,13 +62,14 @@ class HalaqahRepository
     public function create(array $data)
     {
         return DB::transaction(function () use ($data) {
-            $teacherId = $data['teacher_id'] ?? null;
+            $teacherUserId = $data['teacher_id'] ?? null;
             unset($data['teacher_id']);
 
             $halaqah = Halaqah::create($data);
 
-            if ($teacherId) {
-                $halaqah->teachers()->attach($teacherId, [
+            if ($teacherUserId) {
+                $teacher = \App\Models\Teacher::where('user_id', $teacherUserId)->firstOrFail();
+                $halaqah->teachers()->attach($teacher->id, [
                     'assigned_at' => now(),
                     'is_current' => true,
                     'note' => 'تم الإسناد عند إنشاء الحلقة ',
@@ -105,22 +106,23 @@ class HalaqahRepository
      * Assign a teacher to a halaqah.
      *
      * @param  int  $id
-     * @param  int  $teacherId
+     * @param  int  $teacherUserId
      * @return Halaqah
      */
-    public function assignTeacher($id, $teacherId)
+    public function assignTeacher($id, $teacherUserId)
     {
-        return DB::transaction(function () use ($id, $teacherId) {
+        return DB::transaction(function () use ($id, $teacherUserId) {
             $halaqah = $this->find($id);
+            $teacher = \App\Models\Teacher::where('user_id', $teacherUserId)->firstOrFail();
 
             // Set all other teachers for this halaqah to not be current
             $halaqah->teachers()->updateExistingPivot(null, ['is_current' => false]);
 
             // Detach the teacher if they are already attached to prevent duplicates
-            $halaqah->teachers()->detach($teacherId);
+            $halaqah->teachers()->detach($teacher->id);
 
             // Attach the new teacher as the current one
-            $halaqah->teachers()->attach($teacherId, [
+            $halaqah->teachers()->attach($teacher->id, [
                 'assigned_at' => now(),
                 'is_current' => true,
                 'note' => 'تم الإسناد يدوياً',
@@ -134,14 +136,18 @@ class HalaqahRepository
      * Assign a list of students to a halaqah.
      *
      * @param  int  $id
+     * @param  array $studentUserIds
      * @return Halaqah
      *
      * @throws Exception
      */
-    public function assignStudents($id, array $studentIds)
+    public function assignStudents($id, array $studentUserIds)
     {
-        return DB::transaction(function () use ($id, $studentIds) {
+        return DB::transaction(function () use ($id, $studentUserIds) {
             $halaqah = Halaqah::lockForUpdate()->findOrFail($id);
+            
+            // Resolve user_ids to internal student_ids
+            $studentIds = \App\Models\Student::whereIn('user_id', $studentUserIds)->pluck('id')->all();
 
             // Filter out students who are already enrolled to prevent duplicates
             $existingStudentIds = Enrollment::where('halaqah_id', $id)

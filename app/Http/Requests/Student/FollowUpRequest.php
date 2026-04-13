@@ -18,7 +18,7 @@ class FollowUpRequest extends FormRequest
     public function rules()
     {
         return [
-            'studentId' => 'required|integer|exists:students,id',
+            'studentId' => 'required|integer|exists:students,user_id',
             'frequency' => 'required|string',
             'details' => 'required|array',
             'details.*.type' => 'required|string',

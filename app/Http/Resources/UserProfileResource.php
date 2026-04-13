@@ -17,12 +17,15 @@ class UserProfileResource extends JsonResource
         $role = $this->roles->first();
 
         return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'email' => $this->email,
-            'phone' => $this->phone,
-            'avatar' => $this->avatar,
-            'role' => $role ? ['id' => $role->id, 'name' => $role->name] : null,
+            'user' => [
+                'id' => $this->id,
+                'name' => $this->name,
+                'email' => $this->email,
+                'phone' => $this->phone,
+                'avatar' => $this->avatar,
+                'role' => $role ? ['id' => $role->id, 'name' => $role->name] : null,
+            ],
+            'activeSessions' => [],
         ];
     }
 }

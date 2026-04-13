@@ -37,12 +37,13 @@ class StudentResource extends JsonResource
             'status' => $this->status,
             'halaqa' => $halaqah ? [
                 'id' => $halaqah->id,
+                'enrollmentId' => $enrollment->id,
                 'name' => $halaqah->name,
                 'avatar' => $halaqah->avatar,
                 'assignedAt' => $enrollment->enrolled_at,
             ] : null,
             'followUpPlan' => $plan ? [
-                'PlanId' => $plan->id,
+                'planId' => $plan->id,
                 'frequency' => $frequency?->name ?? null,
                 'details' => [
                     [

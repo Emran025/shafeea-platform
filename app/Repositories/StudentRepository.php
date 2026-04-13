@@ -117,9 +117,9 @@ class StudentRepository
     /**
      * Delete a student by ID.
      */
-    public function delete(int $id): ?bool
+    public function delete(int $userId): ?bool
     {
-        $student = Student::findOrFail($id);
+        $student = Student::where('user_id', $userId)->firstOrFail();
 
         return $student->delete();
     }
@@ -127,11 +127,12 @@ class StudentRepository
     /**
      * Register a student to a halaqah.
      */
-    public function joinHalaqah(int $studentId, int $halaqahId): bool
+    public function joinHalaqah(int $userId, int $halaqahId): bool
     {
+        $student = Student::where('user_id', $userId)->firstOrFail();
         $halaqah = Halaqah::findOrFail($halaqahId);
         $halaqah->enrollments()->create([
-            'student_id' => $studentId,
+            'student_id' => $student->id,
             'halaqah_id' => $halaqahId,
             'enrolled_at' => now(),
         ]);
@@ -142,9 +143,10 @@ class StudentRepository
     /**
      * Remove a student from a halaqah.
      */
-    public function leaveHalaqah(int $studentId, int $halaqahId): bool
+    public function leaveHalaqah(int $userId, int $halaqahId): bool
     {
-        Enrollment::where('student_id', $studentId)
+        $student = Student::where('user_id', $userId)->firstOrFail();
+        Enrollment::where('student_id', $student->id)
             ->where('halaqah_id', $halaqahId)
             ->delete();
 
@@ -156,9 +158,10 @@ class StudentRepository
      *
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function getReports(int $studentId)
+    public function getReports(int $userId)
     {
-        return StudentReport::where('student_id', $studentId)->get();
+        $student = Student::where('user_id', $userId)->firstOrFail();
+        return StudentReport::where('student_id', $student->id)->get();
     }
 
     /**
@@ -166,17 +169,18 @@ class StudentRepository
      *
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function getHalaqahs(int $studentId)
+    public function getHalaqahs(int $userId)
     {
-        return Student::findOrFail($studentId)->enrollments()->with('halaqah')->get()->pluck('halaqah');
+        return Student::where('user_id', $userId)->firstOrFail()->enrollments()->with('halaqah')->get()->pluck('halaqah');
     }
 
     /**
      * Check if student is enrolled in a specific halaqah.
      */
-    public function isInHalaqah(int $studentId, int $halaqahId): bool
+    public function isInHalaqah(int $userId, int $halaqahId): bool
     {
-        return Enrollment::where('student_id', $studentId)
+        $student = Student::where('user_id', $userId)->firstOrFail();
+        return Enrollment::where('student_id', $student->id)
             ->where('halaqah_id', $halaqahId)
             ->exists();
     }
@@ -186,9 +190,10 @@ class StudentRepository
      *
      * @return array{total_reports: int, last_report: ?Report}
      */
-    public function getProgress(int $studentId): array
+    public function getProgress(int $userId): array
     {
-        $reports = StudentReport::where('student_id', $studentId)->orderBy('report_date', 'desc')->get();
+        $student = Student::where('user_id', $userId)->firstOrFail();
+        $reports = StudentReport::where('student_id', $student->id)->orderBy('report_date', 'desc')->get();
 
         return [
             'total_reports' => $reports->count(),
@@ -201,9 +206,10 @@ class StudentRepository
      *
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function getPlans(int $studentId)
+    public function getPlans(int $userId)
     {
-        return Enrollment::where('student_id', $studentId)
+        $student = Student::where('user_id', $userId)->firstOrFail();
+        return Enrollment::where('student_id', $student->id)
             ->with('plans')
             ->get()
             ->pluck('plans')
@@ -215,9 +221,10 @@ class StudentRepository
      *
      * @return Plan|null
      */
-    public function getActivePlan(int $studentId)
+    public function getActivePlan(int $userId)
     {
-        $enrollment = Enrollment::where('student_id', $studentId)
+        $student = Student::where('user_id', $userId)->firstOrFail();
+        $enrollment = Enrollment::where('student_id', $student->id)
             ->orderByDesc('enrolled_at')
             ->with('currentPlan')
             ->first();
@@ -231,10 +238,11 @@ class StudentRepository
      *
      * @return Plan
      */
-    public function createPlan(int $studentId, array $data)
+    public function createPlan(int $userId, array $data)
     {
+        $student = Student::where('user_id', $userId)->firstOrFail();
         $plan = \App\Models\Plan::create($data);
-        $enrollment = Enrollment::where('student_id', $studentId)
+        $enrollment = Enrollment::where('student_id', $student->id)
             ->where('halaqah_id', $data['halaqah_id'])
             ->firstOrFail();
 
@@ -261,15 +269,35 @@ class StudentRepository
     }
 
     /**
-     * Create a tracking for a plan.
+     * Get or create enrollment for a student in a halaqah.
+     */
+    public function getEnrollment(int $userId, int $halaqahId): Enrollment
+    {
+        $student = Student::where('user_id', $userId)->firstOrFail();
+        return Enrollment::firstOrCreate([
+            'student_id' => $student->id,
+            'halaqah_id' => $halaqahId,
+        ]);
+    }
+
+    /**
+     * Create a tracking for an enrollment.
      *
-     * @param  int  $planId
+     * @param  int  $enrollmentId
      * @return Tracking
      */
     public function createTracking(int $enrollmentId, array $data)
     {
         return DB::transaction(function () use ($enrollmentId, $data) {
             $data['enrollment_id'] = $enrollmentId;
+            if (isset($data['behaviorNote'])) {
+                $data['behavior_note'] = $data['behaviorNote'];
+                unset($data['behaviorNote']);
+            }
+            if (isset($data['attendanceTypeId'])) {
+                $data['attendance_type_id'] = $data['attendanceTypeId'];
+                unset($data['attendanceTypeId']);
+            }
 
             $detailsData = [];
             if (isset($data['details'])) {
@@ -299,6 +327,15 @@ class StudentRepository
         return DB::transaction(function () use ($trackingId, $data) {
             $tracking = \App\Models\Tracking::findOrFail($trackingId);
 
+            if (isset($data['behaviorNote'])) {
+                $data['behavior_note'] = $data['behaviorNote'];
+                unset($data['behaviorNote']);
+            }
+            if (isset($data['attendanceTypeId'])) {
+                $data['attendance_type_id'] = $data['attendanceTypeId'];
+                unset($data['attendanceTypeId']);
+            }
+
             $detailsData = $data['details'] ?? [];
             unset($data['details']);
 
@@ -310,6 +347,23 @@ class StudentRepository
             foreach ($detailsData as $detailData) {
                 $mistakesData = $detailData['mistakes'] ?? [];
                 unset($detailData['mistakes']);
+
+                if (isset($detailData['actualAmount'])) {
+                    $detailData['actual_amount'] = $detailData['actualAmount'];
+                    unset($detailData['actualAmount']);
+                }
+                if (isset($detailData['trackingTypeId'])) {
+                    $detailData['tracking_type_id'] = $detailData['trackingTypeId'];
+                    unset($detailData['trackingTypeId']);
+                }
+                if (isset($detailData['fromTrackingUnitId'])) {
+                    $detailData['from_tracking_unit_id'] = $detailData['fromTrackingUnitId'];
+                    unset($detailData['fromTrackingUnitId']);
+                }
+                if (isset($detailData['toTrackingUnitId'])) {
+                    $detailData['to_tracking_unit_id'] = $detailData['toTrackingUnitId'];
+                    unset($detailData['toTrackingUnitId']);
+                }
 
                 $detail = $tracking->details()->updateOrCreate(
                     ['id' => $detailData['id'] ?? null],
@@ -339,6 +393,23 @@ class StudentRepository
         return DB::transaction(function () use ($trackingId, $data) {
             $data['tracking_id'] = $trackingId;
 
+            if (isset($data['actualAmount'])) {
+                $data['actual_amount'] = $data['actualAmount'];
+                unset($data['actualAmount']);
+            }
+            if (isset($data['trackingTypeId'])) {
+                $data['tracking_type_id'] = $data['trackingTypeId'];
+                unset($data['trackingTypeId']);
+            }
+            if (isset($data['fromTrackingUnitId'])) {
+                $data['from_tracking_unit_id'] = $data['fromTrackingUnitId'];
+                unset($data['fromTrackingUnitId']);
+            }
+            if (isset($data['toTrackingUnitId'])) {
+                $data['to_tracking_unit_id'] = $data['toTrackingUnitId'];
+                unset($data['toTrackingUnitId']);
+            }
+
             $mistakesData = [];
             if (isset($data['mistakes'])) {
                 $mistakesData = $data['mistakes'];
@@ -360,9 +431,10 @@ class StudentRepository
      *
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function getTrackingsForStudent(int $studentId)
+    public function getTrackingsForStudent(int $userId)
     {
-        $enrollmentIds = Enrollment::where('student_id', $studentId)->pluck('id');
+        $student = Student::where('user_id', $userId)->firstOrFail();
+        $enrollmentIds = Enrollment::where('student_id', $student->id)->pluck('id');
 
         return \App\Models\Tracking::whereIn('enrollment_id', $enrollmentIds)->with(['details'])->get();
     }
