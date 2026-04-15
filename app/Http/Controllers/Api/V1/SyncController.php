@@ -64,7 +64,9 @@ class SyncController extends ApiController
 
         $teachersPaginator = $query->paginate(15);
 
-        return $this->success(TeacherSyncResource::collection($teachersPaginator), 'teachers');
+        return $this->success(TeacherSyncResource::collection($teachersPaginator), 'teachers', 200, [
+            'syncTimestamp' => now()->timestamp * 1000,
+        ]);
     }
 
     // GET /api/v1/sync/halaqas
@@ -82,7 +84,9 @@ class SyncController extends ApiController
 
         $halaqas = $repository->getUpdatedSince($updatedSince, $limit, $page);
 
-        return $this->success(HalaqahResource::collection($halaqas), 'halaqas');
+        return $this->success(HalaqahResource::collection($halaqas), 'halaqas', 200, [
+            'syncTimestamp' => now()->timestamp * 1000,
+        ]);
     }
 
     // GET api/v1/sync/reports
