@@ -47,6 +47,7 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
     // Students routes with prefix 'students' and name prefix 'students.'
     Route::prefix('students')->name('students.')->group(function () {
         Route::get('/', [StudentController::class, 'index'])->name('index');
+        Route::post('/', [StudentController::class, 'store'])->name('store');
         Route::get('{id}', [StudentController::class, 'show'])->name('show');
         Route::put('{id}', [StudentController::class, 'update'])->name('update');
         Route::delete('{id}', [StudentController::class, 'destroy'])->name('destroy');

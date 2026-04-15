@@ -134,6 +134,38 @@ class StudentRepository
         return $student->delete();
     }
 
+    public function create($data)
+    {
+        $userData = [
+            'name' => $data['name'] ?? null,
+            'email' => $data['email'] ?? null,
+            'password' => isset($data['password']) ? \Illuminate\Support\Facades\Hash::make($data['password']) : \Illuminate\Support\Facades\Hash::make('password'),
+            'avatar' => $data['avatar'] ?? null,
+            'gender' => $data['gender'] ?? null,
+            'birth_date' => $data['birthDate'] ?? null,
+            'phone_zone' => $data['phoneZone'] ?? null,
+            'phone' => $data['phone'] ?? null,
+            'whatsapp_zone' => $data['whatsappZone'] ?? null,
+            'whatsapp' => $data['whatsappPhone'] ?? null,
+            'country' => $data['country'] ?? null,
+            'residence' => $data['residence'] ?? null,
+            'city' => $data['city'] ?? null,
+        ];
+
+        $user = \App\Models\User::create($userData);
+        
+        $studentData = [
+            'memorization_level' => $data['memorizationLevel'] ?? null,
+            'qualification' => $data['qualification'] ?? null,
+            'experience_years' => $data['experienceYears'] ?? 0,
+            'status' => 'active',
+        ];
+
+        $student = $user->student()->create($studentData);
+
+        return $student->fresh(['user', 'enrollments.halaqah']);
+    }
+
     /**
      * Register a student to a halaqah.
      */
