@@ -23,7 +23,7 @@ class TeacherController extends ApiController
         // Fixed missing pagination logic
         $teachers = $this->teachers->all($request->all());
 
-        return $this->success(TeacherResource::collection($teachers));
+        return $this->success(TeacherResource::collection($teachers), 'teachers');
     }
 
     public function store(StoreTeacherRequest $request)

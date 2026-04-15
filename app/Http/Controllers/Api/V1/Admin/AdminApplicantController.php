@@ -17,8 +17,12 @@ class AdminApplicantController extends ApiController
 {
     public function index(Request $request)
     {
-        $admin = $request->user();
-        $adminSchoolId = $admin->school_id;
+        $adminUser = $request->user();
+        $adminSchoolId = $adminUser->school_id;
+        
+        // Load admin record to check super_admin status
+        $adminRecord = $adminUser->admin;
+        $isSuperAdmin = $adminRecord ? $adminRecord->super_admin : false;
 
         // Get user IDs of all existing students and teachers to exclude them.
         $studentUserIds = Student::pluck('user_id');
@@ -27,16 +31,22 @@ class AdminApplicantController extends ApiController
 
         $query = Applicant::query()->with('user')
             // 1. Exclude applicants who are already students or teachers.
-            ->whereNotIn('user_id', $acceptedUserIds)
-            // 2. Exclude applicants rejected by the current admin's school.
-            ->whereDoesntHave('rejections', function ($q) use ($adminSchoolId) {
-                $q->where('school_id', $adminSchoolId);
-            })
-            // 3. Include applicants assigned to the admin's school or available to all.
-            ->where(function ($q) use ($adminSchoolId) {
-                $q->where('school_id', $adminSchoolId)
-                    ->orWhereNull('school_id');
+            ->whereNotIn('user_id', $acceptedUserIds);
+
+        // 2. If not super admin, filter by school
+        if (!$isSuperAdmin) {
+            $query->where(function ($q) use ($adminSchoolId) {
+                // Exclude applicants rejected by the current admin's school.
+                $q->whereDoesntHave('rejections', function ($sub) use ($adminSchoolId) {
+                    $sub->where('school_id', $adminSchoolId);
+                })
+                // Include applicants assigned to the admin's school or available to all.
+                ->where(function ($sub) use ($adminSchoolId) {
+                    $sub->where('school_id', $adminSchoolId)
+                        ->orWhereNull('school_id');
+                });
             });
+        }
 
         if ($request->has('application_type')) {
             $query->where('application_type', $request->application_type);
@@ -48,7 +58,7 @@ class AdminApplicantController extends ApiController
 
         $applicants = $query->paginate(15);
 
-        return $this->success(AdminApplicantResource::collection($applicants));
+        return $this->success(AdminApplicantResource::collection($applicants), 'applicants');
     }
 
     public function show(Request $request, $id)

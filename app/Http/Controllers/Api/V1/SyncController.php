@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Resources\HalaqahResource;
 use App\Http\Resources\StudentSyncResource;
 use App\Http\Resources\TeacherSyncResource;
+use App\Http\Resources\StudentReportResource;
 use App\Models\Teacher;
+use App\Models\Student;
+use App\Models\StudentReport;
 use App\Repositories\HalaqahRepository;
 use App\Repositories\StudentRepository;
 use Illuminate\Http\Request;
@@ -45,10 +48,14 @@ class SyncController extends ApiController
         // --------------------------------------------------------------------------------
         // Note: The recommended date format for 'updatedSince' is ISO 8601 (e.g., '2023-01-01T00:00:00Z').
         // --------------------------------------------------------------------------------
-        $query = Teacher::with('halaqahs');
-
+        $query = Teacher::with(['user', 'halaqahs']);
+ 
         $updatedSince = $request->input('updatedSince');
         if ($updatedSince && $updatedSince != '0') {
+            // Handle numeric timestamp
+            if (is_numeric($updatedSince)) {
+                $updatedSince = \Illuminate\Support\Carbon::createFromTimestampMs($updatedSince);
+            }
             $query->where(function ($query) use ($updatedSince) {
                 $query->where('updated_at', '>=', $updatedSince)
                     ->orWhere('created_at', '>=', $updatedSince);
@@ -57,7 +64,7 @@ class SyncController extends ApiController
 
         $teachersPaginator = $query->paginate(15);
 
-        return $this->success(TeacherSyncResource::collection($teachersPaginator));
+        return $this->success(TeacherSyncResource::collection($teachersPaginator), 'teachers');
     }
 
     // GET /api/v1/sync/halaqas
@@ -75,7 +82,7 @@ class SyncController extends ApiController
 
         $halaqas = $repository->getUpdatedSince($updatedSince, $limit, $page);
 
-        return $this->success(HalaqahResource::collection($halaqas));
+        return $this->success(HalaqahResource::collection($halaqas), 'halaqas');
     }
 
     // GET api/v1/sync/reports
@@ -86,75 +93,57 @@ class SyncController extends ApiController
         $page = (int) $request->query('page', 1);
         $limit = (int) $request->query('limit', 10);
         $sortBy = $request->query('sortBy', 'trackDate');
-        $sortOrder = strtolower($request->query('sortOrder', 'asc'));
+        $sortOrder = strtolower($request->query('sortOrder', 'desc'));
 
-        // Sample report data
-        $reports = [
-            [
-                'id' => 1,
-                'trackDate' => '2023-09-21',
-                'attendance' => 'present',
-                'behaviourAssessment' => 4.5,
-                'details' => [
-                    [
-                        'type' => 'memorization',
-                        'planned' => ['unit' => 'page', 'amount' => 1],
-                        'actual' => ['unit' => 'page', 'amount' => 1, 'amountAccumulated' => 16],
-                        'gap' => 0,
-                        'note' => 'Good progress.',
-                    ],
-                    [
-                        'type' => 'revision',
-                        'planned' => ['unit' => 'juz', 'amount' => 0.5],
-                        'actual' => ['unit' => 'juz', 'amount' => 0.25, 'amountAccumulated' => 16],
-                        'gap' => -0.25,
-                        'performanceScore' => 4.5,
-                        'note' => 'Needs improvement.',
-                    ],
-                    [
-                        'type' => 'recitation',
-                        'planned' => ['unit' => 'hizb', 'amount' => 1],
-                        'actual' => ['unit' => 'hizb', 'amount' => 1, 'amountAccumulated' => 16],
-                        'gap' => 0,
-                        'performanceScore' => 4.5,
-                        'note' => 'Stable performance.',
-                    ],
-                ],
-            ],
-        ];
+        $query = StudentReport::query();
 
-        // Sort (not applied here, since it's static data)
-        if ($sortOrder === 'desc') {
-            $reports = array_reverse($reports);
+        if ($studentUserId) {
+            // StudentId here refers to the user_id of the student
+            $student = Student::where('user_id', $studentUserId)->first();
+            if ($student) {
+                $query->where('student_id', $student->id);
+            } else {
+                $query->whereRaw('1 = 0'); // No results if student doesn't exist
+            }
         }
 
-        // Pagination simulation
-        $total = 500;
-        $offset = ($page - 1) * $limit;
-        $pagedReports = array_slice($reports, $offset, $limit);
+        if ($updatedSince && $updatedSince != '0') {
+            if (is_numeric($updatedSince)) {
+                $updatedSince = \Illuminate\Support\Carbon::createFromTimestampMs($updatedSince);
+            }
+            $query->where(function ($q) use ($updatedSince) {
+                $q->where('updated_at', '>=', $updatedSince)
+                    ->orWhere('created_at', '>=', $updatedSince);
+            });
+        }
 
-        // Optional summary if studentUserId is present
+        // Map frontend sort names to backend columns
+        $sortMap = [
+            'trackDate' => 'report_date',
+            'updatedAt' => 'updated_at',
+            'behavior' => 'behavior',
+        ];
+        $dbSortBy = $sortMap[$sortBy] ?? 'report_date';
+
+        $reports = $query->orderBy($dbSortBy, $sortOrder)->paginate($limit);
+
+        // Summary logic for specific student (using mock data for structure, but checking if student exists)
         $summary = $studentUserId ? [
-            'totalPendingReports' => 2,
-            'totalDeviation' => -0.25,
-            'status' => 'behind',
+            'totalPendingReports' => 0,
+            'totalDeviation' => 0,
+            'status' => 'stable',
             'studentPerformance' => [
-                'averageBehaviourScore' => 4.3,
-                'averageAchievementRate' => 89.7,
-                'averageExecutionQuality' => 4.1,
-                'reportCount' => 132,
+                'averageBehaviourScore' => 4.0,
+                'averageAchievementRate' => 90,
+                'averageExecutionQuality' => 4.0,
+                'reportCount' => $reports->total(),
             ],
         ] : null;
 
         return $this->success([
-            'reports' => $pagedReports[0], // returning the first report as per example
+            'reports' => StudentReportResource::collection($reports),
             'summary' => $summary,
-            'pagination' => [
-                'page' => $page,
-                'limit' => $limit,
-                'total' => $total,
-            ],
             'syncTimestamp' => now()->toIso8601String(),
-        ]);
+        ], 'reports');
     }
 }

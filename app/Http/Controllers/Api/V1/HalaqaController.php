@@ -26,8 +26,7 @@ class HalaqaController extends ApiController
     {
         $halaqahs = $this->halaqahRepository->all($request->all());
 
-        // Use paginatedSuccess to handle paginated resource collections
-        return $this->paginatedSuccess($halaqahs, HalaqahResource::class, 'Halaqahs retrieved successfully.');
+        return $this->paginatedSuccess($halaqahs, HalaqahResource::class, 'halaqas');
     }
 
     public function store(Request $request)
