@@ -8,6 +8,9 @@ use App\Models\Student;
 use App\Models\StudentReport;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
+use App\Models\Tracking;
+use App\Models\Plan;
+use App\Models\TrackingDetail;
 
 class StudentRepository
 {
@@ -109,6 +112,9 @@ class StudentRepository
         ]);
 
         if ($updatedSince && $updatedSince != '0') {
+            if (is_numeric($updatedSince)) {
+                $updatedSince = \Illuminate\Support\Carbon::createFromTimestampMs($updatedSince);
+            }
             $query->where(function ($query) use ($updatedSince) {
                 $query->where('updated_at', '>=', $updatedSince)
                     ->orWhere('created_at', '>=', $updatedSince);
@@ -192,7 +198,7 @@ class StudentRepository
     /**
      * Get student progress summary from reports.
      *
-     * @return array{total_reports: int, last_report: ?Report}
+     * @return array{total_reports: int, last_report: ?StudentReport}
      */
     public function getProgress(int $userId): array
     {

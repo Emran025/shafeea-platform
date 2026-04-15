@@ -268,6 +268,9 @@ class HalaqahRepository
     {
         return Halaqah::with('students') // eager load to avoid resource error
             ->when($updatedSince, function ($query) use ($updatedSince) {
+                if (is_numeric($updatedSince)) {
+                    $updatedSince = \Illuminate\Support\Carbon::createFromTimestampMs($updatedSince);
+                }
                 $query->where('updated_at', '>=', $updatedSince);
             })
             ->paginate($limit, ['*'], 'page', $page);
