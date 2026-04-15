@@ -17,12 +17,19 @@ class TeacherSyncResource extends JsonResource
         $teacher = $this->resource;
         $user = $teacher->user;
 
+        if (!$user) {
+            return [
+                'id' => $teacher->id,
+                'error' => 'Missing user data',
+            ];
+        }
+
         return [
             'id' => $user->id,
             'name' => $user->name ?? null,
-            'avatar' => base64_encode($user->avatar ?? ''),
+            'avatar' => $user->avatar ?? null,
             'gender' => $user->gender ?? null,
-            'birthDate' => $user->birth_date?->toDateString() ?? null,
+            'birthDate' => $user->birth_date instanceof \Illuminate\Support\Carbon ? $user->birth_date->toDateString() : $user->birth_date,
             'email' => $user->email ?? null,
             'phoneZone' => $user->phone_zone ?? null,
             'phone' => $user->phone ?? null,
@@ -45,8 +52,8 @@ class TeacherSyncResource extends JsonResource
                 });
             }),
             'isDeleted' => (bool) $this->deleted_at,
-            'updatedAt' => $teacher->updated_at?->toIso8601String(),
-            'createdAt' => $teacher->created_at?->toIso8601String(),
+            'updatedAt' => $teacher->updated_at instanceof \Illuminate\Support\Carbon ? $teacher->updated_at->toIso8601String() : $teacher->updated_at,
+            'createdAt' => $teacher->created_at instanceof \Illuminate\Support\Carbon ? $teacher->created_at->toIso8601String() : $teacher->created_at,
         ];
     }
 }

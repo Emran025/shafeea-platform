@@ -25,8 +25,8 @@ class HalaqahResource extends JsonResource
             'teacherId' => $this->teacher ? $this->teacher->user_id : null,
             'isActive' => $this->is_active,
             'isDeleted' => $this->is_deleted,
-            'createdAt' => $this->created_at->toIso8601String(),
-            'updatedAt' => $this->updated_at->toIso8601String(),
+            'createdAt' => $this->created_at instanceof \Illuminate\Support\Carbon ? $this->created_at->toIso8601String() : $this->created_at,
+            'updatedAt' => $this->updated_at instanceof \Illuminate\Support\Carbon ? $this->updated_at->toIso8601String() : $this->updated_at,
         ];
     }
 }
