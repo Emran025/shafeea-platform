@@ -47,15 +47,15 @@ class SyncController extends ApiController
         // --------------------------------------------------------------------------------
         $query = Teacher::with('halaqahs');
 
-        if ($request->has('updatedSince')) {
-            $updatedSince = $request->input('updatedSince');
+        $updatedSince = $request->input('updatedSince');
+        if ($updatedSince && $updatedSince != '0') {
             $query->where(function ($query) use ($updatedSince) {
                 $query->where('updated_at', '>=', $updatedSince)
                     ->orWhere('created_at', '>=', $updatedSince);
             });
         }
 
-        $teachersPaginator = $query->paginate(15); // أو العدد الذي يناسبك
+        $teachersPaginator = $query->paginate(15);
 
         return $this->success(TeacherSyncResource::collection($teachersPaginator));
     }
@@ -69,6 +69,9 @@ class SyncController extends ApiController
         $updatedSince = $request->input('updatedSince');
         $page = (int) $request->query('page', 1);
         $limit = (int) $request->query('limit', 100);
+
+        // Standardize updatedSince '0' as null
+        if ($updatedSince == '0') $updatedSince = null;
 
         $halaqas = $repository->getUpdatedSince($updatedSince, $limit, $page);
 

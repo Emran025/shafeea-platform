@@ -96,22 +96,26 @@ class StudentRepository
 
     public function sync($updatedSince, $limit, $page): LengthAwarePaginator
     {
-        return Student::with([
+        $query = Student::with([
             'user',
             'enrollments' => function ($query) {
-                $query->latest('enrolled_at')->limit(1);
+                $query->latest('enrolled_at');
             },
             'enrollments.currentPlan.frequencyType',
             'enrollments.currentPlan.reviewUnit',
             'enrollments.currentPlan.memorizationUnit',
             'enrollments.currentPlan.sardUnit',
             'enrollments.halaqah',
-        ])
-            ->where(function ($query) use ($updatedSince) {
+        ]);
+
+        if ($updatedSince && $updatedSince != '0') {
+            $query->where(function ($query) use ($updatedSince) {
                 $query->where('updated_at', '>=', $updatedSince)
                     ->orWhere('created_at', '>=', $updatedSince);
-            })
-            ->paginate($limit, ['*'], 'page', $page);
+            });
+        }
+
+        return $query->paginate($limit, ['*'], 'page', $page);
     }
 
     /**
