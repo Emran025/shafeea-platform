@@ -45,6 +45,13 @@ class StudentController extends ApiController
         return $this->success(StudentResource::collection($students));
     }
 
+    public function store(Request $request)
+    {
+        $student = $this->students->create($request->all());
+
+        return $this->success(new StudentSyncResource($student), 'Student created successfully.', 201);
+    }
+
     public function show($userId)
     {
         $student = $this->students->find($userId);
