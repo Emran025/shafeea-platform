@@ -3,11 +3,18 @@
 use App\Models\Faq;
 use App\Models\PrivacyPolicy;
 use App\Models\TermsOfUse;
+use App\Models\LandingPageSetting;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    return Inertia::render('welcome');
+    $settings = LandingPageSetting::where('group', 'welcome_page')
+        ->get()
+        ->pluck('value', 'key');
+
+    return Inertia::render('welcome', [
+        'settings' => $settings
+    ]);
 })->name('welcome');
 
 // Public pages

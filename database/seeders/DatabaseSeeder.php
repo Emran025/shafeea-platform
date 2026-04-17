@@ -69,7 +69,8 @@ class DatabaseSeeder extends Seeder
             DemoHalaqahsSeeder::class,
             DemoEnrollmentSeeder::class,
             DemoStudentTrackingsSeeder::class,
-
+            
+            LandingPageSettingSeeder::class,
         ]);
 
         $this->command->info('✅ Database seeding completed successfully!');
