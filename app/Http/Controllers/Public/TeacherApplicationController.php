@@ -21,8 +21,12 @@ class TeacherApplicationController extends Controller
 
     public function create()
     {
+        $schools = cache()->remember('schools_list', 3600, function () {
+            return School::select('id', 'name')->get();
+        });
+
         return Inertia::render('teachers/apply', [
-            'schools' => School::select('id', 'name')->get(), // فقط الحقول المطلوبة
+            'schools' => $schools,
         ]);
     }
 
