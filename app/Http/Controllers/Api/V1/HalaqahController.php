@@ -6,6 +6,7 @@ use App\Http\Resources\HalaqahResource;
 use App\Http\Resources\StudentHistoryResource;
 use App\Http\Resources\StudentKhatmResource;
 use App\Repositories\HalaqahRepository;
+use App\Services\HalaqahService;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -13,13 +14,16 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
 // Make sure you're extending your new ApiController
-class HalaqaController extends ApiController
+class HalaqahController extends ApiController
 {
     protected $halaqahRepository;
 
-    public function __construct(HalaqahRepository $halaqahRepository)
+    protected $halaqahService;
+
+    public function __construct(HalaqahRepository $halaqahRepository, HalaqahService $halaqahService)
     {
         $this->halaqahRepository = $halaqahRepository;
+        $this->halaqahService = $halaqahService;
     }
 
     public function index(Request $request)
@@ -51,7 +55,7 @@ class HalaqaController extends ApiController
         $data['sum_of_students'] = 0;
         $data['is_deleted'] = false;
 
-        $halaqah = $this->halaqahRepository->create($data);
+        $halaqah = $this->halaqahService->createHalaqah($data);
 
         // Use the success helper for a single resource creation (201)
         return $this->success(new HalaqahResource($halaqah), 'Halaqah created successfully.', 201);
@@ -82,7 +86,7 @@ class HalaqaController extends ApiController
             return $this->error('The given data was invalid.', 422, $validator->errors());
         }
 
-        $halaqah = $this->halaqahRepository->update($id, $validator->validated());
+        $halaqah = $this->halaqahService->updateHalaqah($id, $validator->validated());
 
         return $this->success(new HalaqahResource($halaqah), 'Halaqah updated successfully.');
     }
@@ -99,7 +103,7 @@ class HalaqaController extends ApiController
         }
 
         try {
-            $this->halaqahRepository->assignStudents($id, $request->input('studentUserIds'));
+            $this->halaqahService->assignStudents($id, $request->input('studentUserIds'));
 
             // Use success helper for a simple message response
             return $this->success(null, 'Students assigned to Halaqa successfully.');
@@ -121,7 +125,7 @@ class HalaqaController extends ApiController
             return $this->error('The given data was invalid.', 422, $validator->errors());
         }
 
-        $this->halaqahRepository->assignTeacher($id, $request->input('teacher_id'));
+        $this->halaqahService->assignTeacher($id, $request->input('teacher_id'));
 
         return $this->success(null, 'Teacher assigned to Halaqa successfully.');
     }

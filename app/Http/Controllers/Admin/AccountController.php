@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\UpdatePasswordRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules\Password;
 use Inertia\Inertia;
 
 class AccountController extends Controller
@@ -36,17 +36,14 @@ class AccountController extends Controller
         return back()->with('success', 'Profile updated successfully.');
     }
 
-    public function updatePassword(Request $request)
+    public function updatePassword(UpdatePasswordRequest $request)
     {
         $user = $request->user();
 
-        $request->validate([
-            'current_password' => ['required', 'current_password'],
-            'password' => ['required', Password::defaults(), 'confirmed'],
-        ]);
+        $validated = $request->validated();
 
         $user->update([
-            'password' => Hash::make($request->input('password')),
+            'password' => Hash::make($validated['password']),
         ]);
 
         return back()->with('success', 'Password updated successfully.');

@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\TeacherApplicationController;
+use App\Http\Controllers\Public\TeacherApplicationController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/teachers/apply', [TeacherApplicationController::class, 'create'])->name('teachers.apply');

@@ -4,11 +4,15 @@ namespace App\Repositories;
 
 use App\Models\Enrollment;
 use App\Models\Halaqah;
-use Exception;
-use Illuminate\Support\Facades\DB;
 
 class HalaqahRepository
 {
+    /**
+     * --------------------------------------------------------------------------
+     * PURE DATA ACCESS METHODS
+     * --------------------------------------------------------------------------
+     */
+
     /**
      * Get all halaqahs with filtering and pagination.
      *
@@ -55,163 +59,6 @@ class HalaqahRepository
     }
 
     /**
-     * Create a new halaqah.
-     *
-     * @return Halaqah
-     */
-    public function create(array $data)
-    {
-        return DB::transaction(function () use ($data) {
-            $teacherUserId = $data['teacher_id'] ?? null;
-            unset($data['teacher_id']);
-
-            $halaqah = Halaqah::create($data);
-
-            if ($teacherUserId) {
-                $teacher = \App\Models\Teacher::where('user_id', $teacherUserId)->firstOrFail();
-                $halaqah->teachers()->attach($teacher->id, [
-                    'assigned_at' => now(),
-                    'is_current' => true,
-                    'note' => 'تم الإسناد عند إنشاء الحلقة ',
-                ]);
-            }
-
-            return $halaqah;
-        });
-    }
-
-    /**
-     * Update an existing halaqah.
-     *
-     * @param  int  $id
-     * @return Halaqah
-     */
-    public function update($id, array $data)
-    {
-        return DB::transaction(function () use ($id, $data) {
-            $halaqah = $this->find($id);
-
-            if (isset($data['teacher_id'])) {
-                $this->assignTeacher($id, $data['teacher_id']);
-                unset($data['teacher_id']);
-            }
-
-            $halaqah->update($data);
-
-            return $halaqah->fresh(['currentTeacher.user', 'school']); // Reload relations
-        });
-    }
-
-    /**
-     * Assign a teacher to a halaqah.
-     *
-     * @param  int  $id
-     * @param  int  $teacherUserId
-     * @return Halaqah
-     */
-    public function assignTeacher($id, $teacherUserId)
-    {
-        return DB::transaction(function () use ($id, $teacherUserId) {
-            $halaqah = $this->find($id);
-            $teacher = \App\Models\Teacher::where('user_id', $teacherUserId)->firstOrFail();
-
-            // Set all other teachers for this halaqah to not be current
-            $halaqah->teachers()->updateExistingPivot(null, ['is_current' => false]);
-
-            // Detach the teacher if they are already attached to prevent duplicates
-            $halaqah->teachers()->detach($teacher->id);
-
-            // Attach the new teacher as the current one
-            $halaqah->teachers()->attach($teacher->id, [
-                'assigned_at' => now(),
-                'is_current' => true,
-                'note' => 'تم الإسناد يدوياً',
-            ]);
-
-            return $halaqah;
-        });
-    }
-
-    /**
-     * Assign a list of students to a halaqah.
-     *
-     * @param  int  $id
-     * @param  array $studentUserIds
-     * @return Halaqah
-     *
-     * @throws Exception
-     */
-    public function assignStudents($id, array $studentUserIds)
-    {
-        return DB::transaction(function () use ($id, $studentUserIds) {
-            $halaqah = Halaqah::lockForUpdate()->findOrFail($id);
-            
-            // Resolve user_ids to internal student_ids
-            $studentIds = \App\Models\Student::whereIn('user_id', $studentUserIds)->pluck('id')->all();
-
-            // Filter out students who are already enrolled to prevent duplicates
-            $existingStudentIds = Enrollment::where('halaqah_id', $id)
-                ->whereIn('student_id', $studentIds)
-                ->pluck('student_id')
-                ->all();
-
-            $newStudentIds = array_diff($studentIds, $existingStudentIds);
-
-            if (empty($newStudentIds)) {
-                // No new students to add
-                return $halaqah;
-            }
-
-            if (($halaqah->sum_of_students + count($newStudentIds)) > $halaqah->max_students) {
-                throw new Exception("Assigning these students exceeds the halaqah's maximum capacity of {$halaqah->max_students}.");
-            }
-
-            // Check for the existence of the default plan
-            $defaultPlanId = 1;
-            if (! \App\Models\Plan::where('id', $defaultPlanId)->exists()) {
-                throw new Exception('Default plan with ID 1 does not exist.');
-            }
-
-            $enrollments = [];
-            foreach ($newStudentIds as $studentId) {
-                $enrollments[] = [
-                    'student_id' => $studentId,
-                    'halaqah_id' => $id,
-                    'enrolled_at' => now(),
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ];
-            }
-
-            Enrollment::insert($enrollments);
-
-            // Get the IDs of the newly created enrollments
-            $newEnrollmentIds = Enrollment::where('halaqah_id', $id)
-                ->whereIn('student_id', $newStudentIds)
-                ->pluck('id');
-
-            // Prepare the pivot data for bulk insert
-            $pivotData = [];
-            foreach ($newEnrollmentIds as $enrollmentId) {
-                $pivotData[] = [
-                    'enrollment_id' => $enrollmentId,
-                    'plan_id' => $defaultPlanId,
-                    'is_current' => true,
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ];
-            }
-
-            DB::table('enrollment_plan')->insert($pivotData);
-
-            // Update the student count on the halaqah
-            $halaqah->increment('sum_of_students', count($newStudentIds));
-
-            return $halaqah;
-        });
-    }
-
-    /**
      * Get the enrollment history of students for a halaqah.
      *
      * @param  int  $id
@@ -223,7 +70,6 @@ class HalaqahRepository
 
         $limit = $filters['limit'] ?? 10;
 
-        // NOTE: This assumes a nullable `left_at` column exists on your `enrollments` table.
         return Enrollment::where('halaqah_id', $id)
             ->with('student.user') // Eager load student and their user data
             ->orderBy($filters['sortBy'] ?? 'enrolled_at', $filters['sortOrder'] ?? 'desc')
@@ -241,7 +87,6 @@ class HalaqahRepository
         $halaqah = $this->find($id);
         $limit = $filters['limit'] ?? 10;
 
-        // ASSUMPTION: A student has completed if their `status` on the `students` table is 'completed'.
         return $halaqah->students()
             ->where('students.memorization_level', '=', 30)
             ->with('user')
@@ -264,9 +109,12 @@ class HalaqahRepository
             ->get();
     }
 
+    /**
+     * Get halaqahs updated since a specific time.
+     */
     public function getUpdatedSince($updatedSince, $limit = 100, $page = 1)
     {
-        return Halaqah::with('students') // eager load to avoid resource error
+        return Halaqah::with('students')
             ->when($updatedSince, function ($query) use ($updatedSince) {
                 if (is_numeric($updatedSince)) {
                     $updatedSince = \Illuminate\Support\Carbon::createFromTimestampMs($updatedSince);

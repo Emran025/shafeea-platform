@@ -32,4 +32,68 @@ class TrackingRequest extends FormRequest
             'details.*.mistakes.*.mistakeTypeId' => 'required|integer|between:0,124',
         ];
     }
+
+    /**
+     * Get the validated data from the request and map to snake_case.
+     *
+     * @param  string|null  $key
+     * @param  mixed  $default
+     * @return array
+     */
+    public function validated($key = null, $default = null)
+    {
+        $validated = parent::validated();
+
+        $map = [
+            'behaviorNote' => 'behavior_note',
+            'attendanceTypeId' => 'attendance_type_id',
+        ];
+
+        foreach ($map as $camel => $snake) {
+            if (isset($validated[$camel])) {
+                $validated[$snake] = $validated[$camel];
+                unset($validated[$camel]);
+            }
+        }
+
+        if (isset($validated['details'])) {
+            $detailsMap = [
+                'trackingTypeId' => 'tracking_type_id',
+                'fromTrackingUnitId' => 'from_tracking_unit_id',
+                'toTrackingUnitId' => 'to_tracking_unit_id',
+                'actualAmount' => 'actual_amount',
+            ];
+
+            $mistakesMap = [
+                'ayahId_quran' => 'ayah_id_quran',
+                'wordIndex' => 'word_index',
+                'mistakeTypeId' => 'mistake_type_id',
+            ];
+
+            foreach ($validated['details'] as $index => $detail) {
+                foreach ($detailsMap as $camel => $snake) {
+                    if (isset($detail[$camel])) {
+                        $detail[$snake] = $detail[$camel];
+                        unset($detail[$camel]);
+                    }
+                }
+
+                if (isset($detail['mistakes'])) {
+                    foreach ($detail['mistakes'] as $mIndex => $mistake) {
+                        foreach ($mistakesMap as $camel => $snake) {
+                            if (isset($mistake[$camel])) {
+                                $mistake[$snake] = $mistake[$camel];
+                                unset($mistake[$camel]);
+                            }
+                        }
+                        $detail['mistakes'][$mIndex] = $mistake;
+                    }
+                }
+
+                $validated['details'][$index] = $detail;
+            }
+        }
+
+        return $validated;
+    }
 }

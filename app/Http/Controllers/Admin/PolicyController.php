@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\Admin\UpdatePolicyRequest;
 use App\Http\Controllers\Controller;
 use App\Models\PrivacyPolicy;
 use App\Models\TermsOfUse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
@@ -32,12 +32,9 @@ class PolicyController extends Controller
         ]);
     }
 
-    public function update(Request $request, $type, $id)
+    public function update(UpdatePolicyRequest $request, $type, $id)
     {
-        $request->validate([
-            'sections' => 'required|array',
-            'summary' => 'nullable|array',
-        ]);
+        $validated = $request->validated();
 
         $incrementVersion = function ($version) {
             $parts = explode('.', $version);

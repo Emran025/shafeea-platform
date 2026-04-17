@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\Public\ContactController;
+use App\Http\Controllers\Public\HelpCenterController;
+use App\Http\Controllers\Public\ServiceController;
+use App\Http\Controllers\Public\SupportController;
 use App\Models\Faq;
 use App\Models\PrivacyPolicy;
 use App\Models\TermsOfUse;
@@ -22,13 +26,13 @@ Route::get('/about', function () {
     return Inertia::render('about');
 })->name('about');
 
-Route::get('/services', [\App\Http\Controllers\ServiceController::class, 'index'])->name('services');
+Route::get('/services', [ServiceController::class, 'index'])->name('services');
 
-Route::get('/contact', [\App\Http\Controllers\ContactController::class, 'index'])->name('contact');
-Route::post('/contact', [\App\Http\Controllers\ContactController::class, 'store'])->name('contact.store');
+Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
-Route::get('/help', [\App\Http\Controllers\HelpCenterController::class, 'index'])->name('help');
-Route::get('/support', [\App\Http\Controllers\SupportController::class, 'index'])->name('support');
+Route::get('/help', [HelpCenterController::class, 'index'])->name('help');
+Route::get('/support', [SupportController::class, 'index'])->name('support');
 
 Route::get('/terms', function () {
     $terms = TermsOfUse::where('is_active', true)->latest('last_updated')->first();

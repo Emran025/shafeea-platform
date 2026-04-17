@@ -2,9 +2,9 @@
 
 namespace App\Repositories;
 
-use App\Models\Teacher;
+use App\Models\Applicant;
 
-class TeacherRepository
+class ApplicantRepository
 {
     /**
      * --------------------------------------------------------------------------
@@ -14,7 +14,7 @@ class TeacherRepository
 
     public function all($filters = [], $pagination = true)
     {
-        $query = Teacher::with(['user', 'halaqahs']);
+        $query = Applicant::query();
         if (isset($filters['status'])) {
             $query->where('status', $filters['status']);
         }
@@ -30,10 +30,8 @@ class TeacherRepository
         return $query->get();
     }
 
-    public function find($userId)
+    public function find($id)
     {
-        return Teacher::with(['user', 'halaqahs'])
-            ->where('user_id', $userId)
-            ->firstOrFail();
+        return Applicant::findOrFail($id);
     }
 }

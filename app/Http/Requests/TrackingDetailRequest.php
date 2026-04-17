@@ -26,4 +26,36 @@ class TrackingDetailRequest extends FormRequest
             'mistakes.*.mistakeTypeId' => 'required|integer|between:0,124',
         ];
     }
+
+    /**
+     * Get the validated data from the request and map to snake_case.
+     *
+     * @param  string|null  $key
+     * @param  mixed  $default
+     * @return array
+     */
+    public function validated($key = null, $default = null)
+    {
+        $validated = parent::validated();
+
+        if (isset($validated['mistakes'])) {
+            $mistakesMap = [
+                'ayahId_quran' => 'ayah_id_quran',
+                'wordIndex' => 'word_index',
+                'mistakeTypeId' => 'mistake_type_id',
+            ];
+
+            foreach ($validated['mistakes'] as $mIndex => $mistake) {
+                foreach ($mistakesMap as $camel => $snake) {
+                    if (isset($mistake[$camel])) {
+                        $mistake[$snake] = $mistake[$camel];
+                        unset($mistake[$camel]);
+                    }
+                }
+                $validated['mistakes'][$mIndex] = $mistake;
+            }
+        }
+
+        return $validated;
+    }
 }

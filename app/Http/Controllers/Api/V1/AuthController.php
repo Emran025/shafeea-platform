@@ -4,10 +4,11 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Enums\AdminStatus;
 use App\Events\ApiLogin;
+use App\Models\Applicant;
 use App\Models\ApplicantRejection;
 use App\Models\Student;
-use App\Models\StudentApplicant;
 use App\Models\User;
+use App\Services\ApplicantService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -18,6 +19,13 @@ use Illuminate\Support\Str;
 
 class AuthController extends ApiController
 {
+    protected $applicantService;
+
+    public function __construct(ApplicantService $applicantService)
+    {
+        $this->applicantService = $applicantService;
+    }
+
     /**
      * POST /api/v1/auth/login
      * Authenticate user, save device info, and return token/profile.
@@ -135,32 +143,9 @@ class AuthController extends ApiController
         if ($validator->fails()) {
             return $this->error('Validation Error.', 422, $validator->errors()->toArray());
         }
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'avatar' => $request->avatar,
-            'phone' => $request->phone,
-            'phone_zone' => $request->phone_zone,
-            'whatsapp' => $request->whatsapp,
-            'whatsapp_zone' => $request->whatsapp_zone,
-            'gender' => $request->gender,
-            'birth_date' => $request->birth_date,
-            'country' => $request->country,
-            'city' => $request->city,
-            'residence' => $request->residence,
-        ]);
 
-        StudentApplicant::create([
-            'user_id' => $user->id,
-            'school_id' => $request->school_id,
-            'application_type' => 'student',
-            'status' => 'pending',
-            'bio' => $request->bio,
-            'qualifications' => $request->qualifications,
-            'memorization_level' => $request->input('memorization_level', 0),
-            'submitted_at' => now(),
-        ]);
+        $applicant = $this->applicantService->createStudentApplication($request->all());
+        $user = $applicant->user;
 
         $deviceInfo = $request->input('device_info');
 
@@ -242,7 +227,7 @@ class AuthController extends ApiController
         }
 
         // Then check if there's an applicant record
-        $applicant = StudentApplicant::where('user_id', $user->id)->first();
+        $applicant = Applicant::where('user_id', $user->id)->first();
 
         if (! $applicant) {
             return $this->success([
