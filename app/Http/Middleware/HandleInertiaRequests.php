@@ -37,12 +37,15 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
-        [$message, $author] = str(Inspiring::quotes()->random())->explode('-');
+        $quoteStr = str(Inspiring::quotes()->random());
+        $parts = explode('-', $quoteStr);
+        $message = trim($parts[0] ?? '');
+        $author = trim($parts[1] ?? 'Unknown');
 
         return [
             ...parent::share($request),
             'name' => config('app.name'),
-            'quote' => ['message' => trim($message), 'author' => trim($author)],
+            'quote' => ['message' => $message, 'author' => $author],
             'auth' => [
                 'user' => $request->user(),
             ],
