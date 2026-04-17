@@ -31,4 +31,33 @@ class StoreTeacherRequest extends FormRequest
             'experienceYears' => 'nullable|integer|min:0',
         ];
     }
+
+    /**
+     * Get the validated data from the request and map to snake_case.
+     *
+     * @param  string|null  $key
+     * @param  mixed  $default
+     * @return array
+     */
+    public function validated($key = null, $default = null)
+    {
+        $validated = parent::validated();
+
+        $map = [
+            'birthDate' => 'birth_date',
+            'phoneZone' => 'phone_zone',
+            'whatsappZone' => 'whatsapp_zone',
+            'whatsappPhone' => 'whatsapp',
+            'experienceYears' => 'experience_years',
+        ];
+
+        foreach ($map as $camel => $snake) {
+            if (isset($validated[$camel])) {
+                $validated[$snake] = $validated[$camel];
+                unset($validated[$camel]);
+            }
+        }
+
+        return $validated;
+    }
 }

@@ -9,16 +9,17 @@ use App\Http\Requests\Student\FollowUpRequest;
 use App\Http\Requests\Student\UpdateStudentRequest;
 use App\Http\Requests\TrackingDetailRequest;
 use App\Http\Requests\TrackingRequest;
+use App\Http\Resources\ApplicantResource;
 use App\Http\Resources\FollowUpResource;
 use App\Http\Resources\PlanResource;
-use App\Http\Resources\StudentApplicantResource;
 use App\Http\Resources\StudentPlanResource;
 use App\Http\Resources\StudentResource;
 use App\Http\Resources\StudentSyncResource;
 use App\Http\Resources\TrackingDetailResource;
 use App\Http\Resources\TrackingResource;
-use App\Repositories\StudentApplicantRepository;
+use App\Repositories\ApplicantRepository;
 use App\Repositories\StudentRepository;
+use App\Services\StudentService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Models\Plan;
@@ -31,10 +32,13 @@ class StudentController extends ApiController
 
     protected $applicants;
 
-    public function __construct(StudentRepository $students, StudentApplicantRepository $applicants)
+    protected $studentService;
+
+    public function __construct(StudentRepository $students, ApplicantRepository $applicants, StudentService $studentService)
     {
         $this->students = $students;
         $this->applicants = $applicants;
+        $this->studentService = $studentService;
     }
 
     public function index(Request $request)
@@ -47,7 +51,7 @@ class StudentController extends ApiController
 
     public function store(Request $request)
     {
-        $student = $this->students->create($request->all());
+        $student = $this->studentService->createStudent($request->all());
 
         return $this->success(new StudentSyncResource($student), 'Student created successfully.', 201);
     }
@@ -62,7 +66,7 @@ class StudentController extends ApiController
     public function update(UpdateStudentRequest $request, $userId)
     {
 
-        $student = $this->students->update($userId, $request->validated());
+        $student = $this->studentService->updateStudent($userId, $request->validated());
 
         return $this->success(new StudentResource($student), 'Student updated successfully.');
     }
@@ -182,17 +186,17 @@ class StudentController extends ApiController
     {
         $applicants = $this->applicants->all($request->all());
         if (method_exists($applicants, 'total')) {
-            return $this->paginated(StudentApplicantResource::collection($applicants));
+            return $this->paginated(ApplicantResource::collection($applicants));
         }
 
-        return $this->success(StudentApplicantResource::collection($applicants));
+        return $this->success(ApplicantResource::collection($applicants));
     }
 
     public function showApplicant($id)
     {
         $applicant = $this->applicants->find($id);
 
-        return $this->success(new StudentApplicantResource($applicant));
+        return $this->success(new ApplicantResource($applicant));
     }
 
     public function applicantAction(Request $request, $id)
@@ -217,14 +221,14 @@ class StudentController extends ApiController
 
     public function createPlan(PlanRequest $request, $userId)
     {
-        $plan = $this->students->createPlan($userId, $request->validated());
+        $plan = $this->studentService->createPlan($userId, $request->validated());
 
         return $this->success(new PlanResource($plan), 'Plan created and student enrolled.');
     }
 
     public function updatePlan(PlanRequest $request, $planId)
     {
-        $plan = $this->students->updatePlan($planId, $request->validated());
+        $plan = $this->studentService->updatePlan($planId, $request->validated());
 
         return $this->success(new PlanResource($plan), 'Plan updated.');
     }
@@ -245,7 +249,7 @@ class StudentController extends ApiController
 
     public function createTracking(TrackingRequest $request, $enrollmentId)
     {
-        $tracking = $this->students->createTracking($enrollmentId, $request->validated());
+        $tracking = $this->studentService->createTracking($enrollmentId, $request->validated());
 
         return $this->success(new TrackingResource($tracking), 'Tracking created.');
     }
@@ -253,14 +257,14 @@ class StudentController extends ApiController
     public function createTrackingByStudent(TrackingRequest $request, $userId, $halaqaId)
     {
         $enrollment = $this->students->getEnrollment($userId, $halaqaId);
-        $tracking = $this->students->createTracking($enrollment->id, $request->validated());
+        $tracking = $this->studentService->createTracking($enrollment->id, $request->validated());
 
         return $this->success(new TrackingResource($tracking), 'Tracking created.');
     }
 
     public function updateTracking(TrackingRequest $request, $trackingId)
     {
-        $tracking = $this->students->updateTracking($trackingId, $request->validated());
+        $tracking = $this->studentService->updateTracking($trackingId, $request->validated());
 
         return $this->success(new TrackingResource($tracking), 'Tracking updated.');
     }
@@ -281,7 +285,7 @@ class StudentController extends ApiController
 
     public function addTrackingDetail(TrackingDetailRequest $request, $trackingId)
     {
-        $detail = $this->students->addTrackingDetail($trackingId, $request->validated());
+        $detail = $this->studentService->addTrackingDetail($trackingId, $request->validated());
 
         return $this->success(new TrackingDetailResource($detail), 'Tracking detail added.');
     }

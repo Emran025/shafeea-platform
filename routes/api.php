@@ -6,12 +6,13 @@ use App\Http\Controllers\Api\V1\ApplicantController;
 use App\Http\Controllers\Api\V1\ApplicantSubmissionController;
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\FollowUpController;
-use App\Http\Controllers\Api\V1\HalaqaController;
+use App\Http\Controllers\Api\V1\HalaqahController;
 use App\Http\Controllers\Api\V1\SessionController;
 use App\Http\Controllers\Api\V1\StudentController;
 use App\Http\Controllers\Api\V1\SyncController;
 use App\Http\Controllers\Api\V1\TeacherApplicantController;
 use App\Http\Controllers\Api\V1\TeacherController;
+use App\Http\Controllers\Public\WebhookController;
 use Illuminate\Support\Facades\Route;
 
 // Public routes
@@ -86,18 +87,18 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
     });
     // halqa routes with name prefix 'halaqas.'
     Route::prefix('halaqas')->name('halaqas.')->group(function () {
-        Route::get('/', [HalaqaController::class, 'index'])->name('index');
-        Route::post('/', [HalaqaController::class, 'store'])->name('store');
-        Route::get('{id}', [HalaqaController::class, 'show'])->name('show');
-        Route::put('{id}', [HalaqaController::class, 'update'])->name('update');
+        Route::get('/', [HalaqahController::class, 'index'])->name('index');
+        Route::post('/', [HalaqahController::class, 'store'])->name('store');
+        Route::get('{id}', [HalaqahController::class, 'show'])->name('show');
+        Route::put('{id}', [HalaqahController::class, 'update'])->name('update');
 
-        Route::post('{id}/assign-students', [HalaqaController::class, 'assignStudents'])->name('assign-students');
-        Route::post('{id}/assign-teacher', [HalaqaController::class, 'assignTeacher'])->name('assign-teacher');
+        Route::post('{id}/assign-students', [HalaqahController::class, 'assignStudents'])->name('assign-students');
+        Route::post('{id}/assign-teacher', [HalaqahController::class, 'assignTeacher'])->name('assign-teacher');
 
-        Route::get('{id}/teachers/history', [HalaqaController::class, 'teachersHistory'])->name('teachers.history');
+        Route::get('{id}/teachers/history', [HalaqahController::class, 'teachersHistory'])->name('teachers.history');
 
-        Route::get('{id}/students/khatm', [HalaqaController::class, 'studentsKhatm'])->name('students.khatm');
-        Route::get('{id}/students', [HalaqaController::class, 'studentsHistory'])->name('students.history');
+        Route::get('{id}/students/khatm', [HalaqahController::class, 'studentsKhatm'])->name('students.khatm');
+        Route::get('{id}/students', [HalaqahController::class, 'studentsHistory'])->name('students.history');
     });
 
     Route::prefix('teachers')->name('teachers.')->group(function () {
@@ -147,4 +148,4 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
     });
 });
 
-Route::post('webhooks/payment', [\App\Http\Controllers\WebhookController::class, 'handlePayment']);
+Route::post('webhooks/payment', [WebhookController::class, 'handlePayment']);

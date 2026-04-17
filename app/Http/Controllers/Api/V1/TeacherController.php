@@ -7,15 +7,19 @@ use App\Http\Requests\Teacher\UpdateTeacherRequest;
 use App\Http\Resources\TeacherResource;
 use App\Http\Resources\TeacherSyncResource;
 use App\Repositories\TeacherRepository;
+use App\Services\TeacherService;
 use Illuminate\Http\Request;
 
 class TeacherController extends ApiController
 {
     protected $teachers;
 
-    public function __construct(TeacherRepository $teachers)
+    protected $teacherService;
+
+    public function __construct(TeacherRepository $teachers, TeacherService $teacherService)
     {
         $this->teachers = $teachers;
+        $this->teacherService = $teacherService;
     }
 
     public function index(Request $request)
@@ -28,7 +32,7 @@ class TeacherController extends ApiController
 
     public function store(StoreTeacherRequest $request)
     {
-        $teacher = $this->teachers->create($request->validated());
+        $teacher = $this->teacherService->createTeacher($request->validated());
 
         return $this->success(new TeacherResource($teacher), 'Teacher created successfully', 201);
     }
@@ -42,7 +46,7 @@ class TeacherController extends ApiController
 
     public function update(UpdateTeacherRequest $request, $id)
     {
-        $teacher = $this->teachers->update($id, $request->validated());
+        $teacher = $this->teacherService->updateTeacher($id, $request->validated());
 
         return $this->success(new TeacherResource($teacher), 'Teacher updated successfully');
     }
@@ -71,7 +75,7 @@ class TeacherController extends ApiController
     {
         try {
             $halaqaIds = $request->input('halaqaIds', []);
-            $this->teachers->assignHalaqas($id, $halaqaIds);
+            $this->teacherService->assignHalaqas($id, $halaqaIds);
 
             return $this->success([
                 'teacherId' => $id,

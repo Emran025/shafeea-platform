@@ -7,6 +7,7 @@ use App\Http\Requests\Teacher\StoreTeacherRequest;
 use App\Http\Requests\Teacher\UpdateTeacherRequest;
 use App\Http\Resources\TeacherResource;
 use App\Repositories\TeacherRepository;
+use App\Services\TeacherService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -14,9 +15,12 @@ class TeacherController extends Controller
 {
     protected $teachers;
 
-    public function __construct(TeacherRepository $teachers)
+    protected $teacherService;
+
+    public function __construct(TeacherRepository $teachers, TeacherService $teacherService)
     {
         $this->teachers = $teachers;
+        $this->teacherService = $teacherService;
     }
 
     /**
@@ -45,15 +49,7 @@ class TeacherController extends Controller
      */
     public function store(StoreTeacherRequest $request)
     {
-        $data = $request->validated();
-        $user = new \App\Models\User($data['user']);
-        $user->save();
-        $teacher = new \App\Models\Teacher([
-            'user_id' => $user->id,
-            'bio' => $data['bio'] ?? null,
-            'experience_years' => $data['experience_years'] ?? null,
-        ]);
-        $teacher->save();
+        $this->teacherService->createTeacher($request->validated());
 
         return redirect()->route('schools.teachers.index')->with('success', 'Teacher created successfully.');
     }
@@ -100,8 +96,7 @@ class TeacherController extends Controller
      */
     public function update(UpdateTeacherRequest $request, $id)
     {
-        $data = $request->validated();
-        $teacher = $this->teachers->update($id, $data);
+        $this->teacherService->updateTeacher($id, $request->validated());
 
         return redirect()->route('schools.teachers.index')->with('success', 'Teacher updated successfully.');
     }

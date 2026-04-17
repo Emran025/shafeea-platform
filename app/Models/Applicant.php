@@ -10,6 +10,13 @@ class Applicant extends Model
 {
     use HasFactory;
 
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'applicants';
+
     protected $fillable = [
         'user_id',
         'school_id',
@@ -18,10 +25,17 @@ class Applicant extends Model
         'bio',
         'qualifications',
         'memorization_level',
-
         'rejection_reason',
-
         'submitted_at',
+    ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'submitted_at' => 'datetime',
     ];
 
     public function user()

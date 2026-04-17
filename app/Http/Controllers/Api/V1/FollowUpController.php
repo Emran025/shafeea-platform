@@ -29,12 +29,12 @@ class FollowUpController extends ApiController
         }
 
         // Build Query for Trackings
-        $query = Tracking::whereHas('enrollment', function ($q) use ($student) {
+        $query = Tracking::query()->whereHas('enrollment', function ($q) use ($student) {
             $q->where('student_id', $student->id);
         });
 
         if ($trackDate) {
-            $query->whereDate('date', $trackDate);
+            $query->where('date', $trackDate);
         }
 
         $sortColumn = ($sortBy === 'trackDate') ? 'date' : 'created_at';
@@ -70,7 +70,7 @@ class FollowUpController extends ApiController
         });
 
         // Summary Statistics (Aggregate over all time for this student)
-        $allTrackingIds = \App\Models\Tracking::whereHas('enrollment', function ($q) use ($student) {
+        $allTrackingIds = Tracking::whereHas('enrollment', function ($q) use ($student) {
             $q->where('student_id', $student->id);
         })->pluck('id');
 

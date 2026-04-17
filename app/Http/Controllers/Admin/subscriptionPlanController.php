@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\UpdateSubscriptionPlanRequest;
 use App\Models\SubscriptionPlan;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class SubscriptionPlanController extends Controller
@@ -34,16 +34,9 @@ class SubscriptionPlanController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, SubscriptionPlan $subscriptionPlan)
+    public function update(UpdateSubscriptionPlanRequest $request, SubscriptionPlan $subscriptionPlan)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'price' => 'required|numeric|min:0',
-            'is_active' => 'required|boolean',
-            'features' => 'required|array',
-            'is_recommended' => 'required|boolean',
-            'sort_order' => 'required|integer',
-        ]);
+        $validated = $request->validated();
 
         $subscriptionPlan->update($validated);
 

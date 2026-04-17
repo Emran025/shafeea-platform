@@ -4,14 +4,14 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Requests\Student\StoreStudentRequest;
 use App\Http\Resources\StudentResource;
-use App\Repositories\StudentApplicantRepository;
+use App\Repositories\ApplicantRepository;
 use Illuminate\Http\Request;
 
 class ApplicantController extends ApiController
 {
     protected $applicants;
 
-    public function __construct(StudentApplicantRepository $applicants)
+    public function __construct(ApplicantRepository $applicants)
     {
         $this->applicants = $applicants;
     }
