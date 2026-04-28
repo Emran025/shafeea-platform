@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\Enrollment;
 use App\Models\Tracking;
 use App\Models\TrackingDetail;
-use App\Models\TrackingUnit;
 use Illuminate\Database\Seeder;
 
 class DemoStudentTrackingsSeeder extends Seeder

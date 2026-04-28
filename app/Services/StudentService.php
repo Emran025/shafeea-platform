@@ -42,7 +42,7 @@ class StudentService
             ];
 
             $user = User::create($userData);
-            
+
             $studentData = [
                 'memorization_level' => $data['memorizationLevel'] ?? null,
                 'qualification' => $data['qualification'] ?? null,
@@ -52,7 +52,17 @@ class StudentService
 
             $student = $user->student()->create($studentData);
 
-            return $student->fresh(['user', 'enrollments.halaqah']);
+            return $student->load([
+                'user',
+                'enrollments' => function ($query) {
+                    $query->latest('enrolled_at');
+                },
+                'enrollments.currentPlan.frequencyType',
+                'enrollments.currentPlan.reviewUnit',
+                'enrollments.currentPlan.memorizationUnit',
+                'enrollments.currentPlan.sardUnit',
+                'enrollments.halaqah',
+            ]);
         });
     }
 
@@ -60,26 +70,36 @@ class StudentService
     {
         return DB::transaction(function () use ($userId, $data) {
             $student = Student::where('user_id', $userId)->firstOrFail();
-            
+
             if (isset($data['qualification'])) {
                 $student->qualification = $data['qualification'];
             }
-            
+
             if (isset($data['memorization_level'])) {
                 $student->memorization_level = $data['memorization_level'];
             }
-            
+
             if (isset($data['status'])) {
                 $student->status = $data['status'];
             }
-            
+
             $student->save();
 
             // All other fields in $data are assumed to be user fields in snake_case
             // excluding those already used for the student record
             $userFields = [
-                'name', 'avatar', 'gender', 'birth_date', 'email', 'phone_zone', 
-                'phone', 'whatsapp_zone', 'whatsapp', 'country', 'residence', 'city'
+                'name',
+                'avatar',
+                'gender',
+                'birth_date',
+                'email',
+                'phone_zone',
+                'phone',
+                'whatsapp_zone',
+                'whatsapp',
+                'country',
+                'residence',
+                'city'
             ];
 
             $userData = array_intersect_key($data, array_flip($userFields));
@@ -88,7 +108,17 @@ class StudentService
                 $student->user->update($userData);
             }
 
-            return $student->fresh(['user', 'enrollments.halaqah']);
+            return $student->load([
+                'user',
+                'enrollments' => function ($query) {
+                    $query->latest('enrolled_at');
+                },
+                'enrollments.currentPlan.frequencyType',
+                'enrollments.currentPlan.reviewUnit',
+                'enrollments.currentPlan.memorizationUnit',
+                'enrollments.currentPlan.sardUnit',
+                'enrollments.halaqah',
+            ]);
         });
     }
 
@@ -96,7 +126,7 @@ class StudentService
     {
         $student = Student::where('user_id', $userId)->firstOrFail();
         $halaqah = Halaqah::findOrFail($halaqahId);
-        
+
         return $halaqah->enrollments()->create([
             'student_id' => $student->id,
             'halaqah_id' => $halaqahId,
@@ -117,7 +147,7 @@ class StudentService
         return DB::transaction(function () use ($userId, $data) {
             $student = Student::where('user_id', $userId)->firstOrFail();
             $plan = Plan::create($data);
-            
+
             $enrollment = Enrollment::where('student_id', $student->id)
                 ->where('halaqah_id', $data['halaqah_id'])
                 ->firstOrFail();
@@ -143,12 +173,12 @@ class StudentService
     {
         return DB::transaction(function () use ($enrollmentId, $data) {
             $data['enrollment_id'] = $enrollmentId;
-            
+
             if (isset($data['behaviorNote'])) {
                 $data['behavior_note'] = $data['behaviorNote'];
                 unset($data['behaviorNote']);
             }
-            
+
             if (isset($data['attendanceTypeId'])) {
                 $data['attendance_type_id'] = $data['attendanceTypeId'];
                 unset($data['attendanceTypeId']);

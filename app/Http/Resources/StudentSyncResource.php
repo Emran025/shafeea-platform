@@ -31,7 +31,7 @@ class StudentSyncResource extends JsonResource
         return [
             'id' => $user->id,
             'name' => $user->name ?? null,
-            'avatar' => $user->avatar ?? null, 
+            'avatar' => $user->avatar ?? null,
             'gender' => $user->gender ?? null,
             'birthDate' => $user->birth_date instanceof \Illuminate\Support\Carbon ? $user->birth_date->toDateString() : $user->birth_date,
             'email' => $user->email ?? null,
@@ -58,27 +58,33 @@ class StudentSyncResource extends JsonResource
             ] : null,
             'followUpPlan' => $plan ? [
                 'planId' => $plan->id,
-                'frequency' => $frequency?->name ?? null,
+                'frequency' => $frequency?->name ?? 'daily',
                 'details' => [
                     [
                         'type' => 'memorization',
-                        'unit' => $plan->memorizationUnit?->name_ar ?? 'unit',
+                        'unit' => $plan->memorizationUnit?->name_ar ?? '1',
                         'amount' => $plan->memorization_amount,
                     ],
                     [
                         'type' => 'review',
-                        'unit' => $plan->reviewUnit?->name_ar ?? 'unit',
+                        'unit' => $plan->reviewUnit?->name_ar ?? '1',
                         'amount' => $plan->review_amount,
                     ],
                     [
                         'type' => 'recitation',
-                        'unit' => $plan->sardUnit?->name_ar ?? 'unit',
+                        'unit' => $plan->sardUnit?->name_ar ?? '1',
                         'amount' => $plan->sard_amount,
                     ],
                 ],
                 'updatedAt' => $plan->updated_at instanceof \Illuminate\Support\Carbon ? $plan->updated_at->toIso8601String() : $plan->updated_at,
                 'createdAt' => $plan->created_at instanceof \Illuminate\Support\Carbon ? $plan->created_at->toIso8601String() : $plan->created_at,
-            ] : null,
+            ] : [
+                'planId' => '1',
+                'frequency' => 'daily',
+                'details' => [],
+                'updatedAt' => now()->toIso8601String(),
+                'createdAt' => now()->toIso8601String(),
+            ],
             'isDeleted' => (bool) $student->is_deleted,
             'updatedAt' => $student->updated_at instanceof \Illuminate\Support\Carbon ? $student->updated_at->toIso8601String() : $student->updated_at,
             'createdAt' => $student->created_at instanceof \Illuminate\Support\Carbon ? $student->created_at->toIso8601String() : $student->created_at,
