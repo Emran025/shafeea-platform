@@ -45,13 +45,16 @@ class Enrollment extends Model
     }
 
     /**
-     * Get the current plan for the enrollment.
+     * Get the current (most recently attached) plan for the enrollment.
+     * We order by the pivot created_at descending so the latest plan is always first,
+     * regardless of whether is_current is set on the pivot row.
      */
     public function currentPlan()
     {
         return $this->belongsToMany(Plan::class, 'enrollment_plan')
-            ->wherePivot('is_current', true)
-            ->withTimestamps();
+            ->withPivot('is_current')
+            ->withTimestamps()
+            ->orderByPivot('created_at', 'desc');
     }
 
     /**
