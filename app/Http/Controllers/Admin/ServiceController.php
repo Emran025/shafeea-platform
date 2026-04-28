@@ -65,8 +65,10 @@ class ServiceController extends Controller
 
         // Handle uploaded image file (preferred over image URL)
         if ($request->hasFile('image_file')) {
+            // store() returns the path relative to the disk root (e.g., 'services/xyz.jpg')
             $path = $request->file('image_file')->store('services', 'public');
-            $data['image'] = Storage::url($path);
+            // We store the path relative to the disk root in the DB
+            $data['image'] = $path;
         }
 
         // Ensure boolean values are properly cast
@@ -85,6 +87,11 @@ class ServiceController extends Controller
      */
     public function show(Service $service)
     {
+        // Ensure the frontend receives a full URL if it's a stored path
+        if ($service->image && !str_starts_with($service->image, 'http')) {
+            $service->image = Storage::disk('public')->url($service->image);
+        }
+
         return Inertia::render('admin/services/show', [
             'service' => $service,
         ]);
@@ -95,6 +102,11 @@ class ServiceController extends Controller
      */
     public function edit(Service $service)
     {
+        // Ensure the frontend receives a full URL for preview
+        if ($service->image && !str_starts_with($service->image, 'http')) {
+            $service->image = Storage::disk('public')->url($service->image);
+        }
+
         return Inertia::render('admin/services/edit', [
             'service' => $service,
         ]);
@@ -109,14 +121,13 @@ class ServiceController extends Controller
 
         // Handle uploaded image file (replace existing if present)
         if ($request->hasFile('image_file')) {
-            // Delete old file if it was stored via Storage::url
-            if ($service->image && str_starts_with($service->image, '/storage/')) {
-                $oldPath = ltrim(str_replace('/storage/', '', parse_url($service->image, PHP_URL_PATH)), '/');
-                Storage::disk('public')->delete($oldPath);
+            // Delete old file if it was stored relative to the disk
+            if ($service->image && !str_starts_with($service->image, 'http')) {
+                Storage::disk('public')->delete($service->image);
             }
 
             $path = $request->file('image_file')->store('services', 'public');
-            $data['image'] = Storage::url($path);
+            $data['image'] = $path;
         }
 
         // Ensure boolean values are properly cast

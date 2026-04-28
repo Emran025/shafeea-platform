@@ -24,7 +24,7 @@ interface Service {
     title: string;
     description: string;
     icon: string;
-    image: string | null;
+    image: string | null; // This will be a full URL from the backend
     features: string[];
     benefits: string[];
     popular: boolean;
