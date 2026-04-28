@@ -46,9 +46,10 @@ export default function EditService() {
         theme: string;
         display_order: number;
         is_active: boolean;
+        _method?: string;
     }
 
-    const { data, setData, put, processing, errors } = useForm<ServiceForm>({
+    const { data, setData, post, processing, errors, transform } = useForm<ServiceForm>({
         category: service.category || '',
         title: service.title || '',
         description: service.description || '',
@@ -63,9 +64,16 @@ export default function EditService() {
         is_active: service.is_active !== undefined ? service.is_active : true,
     });
 
+    // We use post with _method spoofing because browsers and PHP don't support 
+    // multipart/form-data with PUT requests natively.
+    transform((data) => ({
+        ...data,
+        _method: 'put',
+    }));
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        put(`/admin/services/${service.id}`);
+        post(`/admin/services/${service.id}`);
     };
 
     const addFeature = () => {
@@ -98,7 +106,7 @@ export default function EditService() {
 
     const iconOptions = [
         'Users', 'BookOpen', 'BarChart3', 'Shield', 'Calendar', 
-        'MessageCircle', 'Globe', 'Star', 'Target', 'Zap'
+        'MessageCircle', 'Globe', 'Star', 'Target', 'Zap', 'Sparkles'
     ];
 
     const themeOptions = [
