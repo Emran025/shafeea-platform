@@ -25,7 +25,7 @@ class SchoolService
     public function processRegistrationData(array $data, $logoFile = null, array $documentsFiles = [])
     {
         if ($logoFile) {
-            $data['logo_path'] = $logoFile->store('temp/logos', 'public');
+            $data['school_logo_path'] = $logoFile->store('temp/logos', 'public');
         }
 
         if (isset($data['documents'])) {
@@ -43,7 +43,7 @@ class SchoolService
     {
         return DB::transaction(function () use ($regData, $subscriptionPlanId, $paymentMethod) {
             // 1. Move Logo from temp to final
-            $logoPath = $regData['logo_path'] ?? null;
+            $logoPath = $regData['school_logo_path'] ?? null;
             if ($logoPath) {
                 $newLogoPath = str_replace('temp/logos', 'schools/logos', $logoPath);
                 if (Storage::disk('public')->exists($logoPath)) {
@@ -54,12 +54,12 @@ class SchoolService
 
             // 2. Create School
             $school = School::create([
-                'name' => $regData['name'],
-                'phone' => $regData['phone'],
-                'country' => $regData['country'],
-                'city' => $regData['city'],
-                'location' => $regData['location'],
-                'address' => $regData['address'],
+                'name' => $regData['school_name'],
+                'phone' => $regData['school_phone'],
+                'country' => $regData['school_country'],
+                'city' => $regData['school_city'],
+                'location' => $regData['school_location'],
+                'address' => $regData['school_address'],
                 'logo' => $logoPath,
                 'current_plan_id' => $subscriptionPlanId,
                 'subscription_status' => 'pending_payment',
@@ -67,10 +67,12 @@ class SchoolService
 
             // 3. Create User
             $user = User::create([
-                'name' => $regData['admin_name'],
-                'email' => $regData['admin_email'],
-                'phone' => $regData['admin_phone'],
-                'password' => Hash::make($regData['admin_password']),
+                'name' => $regData['user_name'],
+                'email' => $regData['user_email'],
+                'phone' => $regData['user_phone'],
+                'country' => $regData['school_country'], // School and Admin usually share location
+                'city' => $regData['school_city'],
+                'password' => Hash::make($regData['user_password']),
                 'school_id' => $school->id,
             ]);
 

@@ -30,8 +30,8 @@ class SchoolApplicationController extends Controller
     {
         $data = $this->schoolService->processRegistrationData(
             $request->validated(),
-            $request->file('logo'),
-            $request->input('documents', []) // This might need adjustment based on how files are sent
+            $request->file('school_logo'),
+            $request->file('documents', [])
         );
 
         session(['school_registration_data' => $data]);

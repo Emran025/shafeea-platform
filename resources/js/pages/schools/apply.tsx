@@ -30,18 +30,18 @@ export default function Apply() {
     const { flash } = usePage<SharedData>().props;
     const { data, setData, post, errors, processing } = useForm({
         error: '',
-        name: '',
-        logo: null as File | null,
-        phone: '',
-        country: '',
-        city: '',
-        location: '',
-        address: '',
-        admin_name: '',
-        admin_email: '',
-        admin_phone: '',
-        admin_password: '',
-        admin_password_confirmation: '',
+        school_name: '',
+        school_logo: null as File | null,
+        school_phone: '',
+        school_country: '',
+        school_city: '',
+        school_location: '',
+        school_address: '',
+        user_name: '',
+        user_email: '',
+        user_phone: '',
+        user_password: '',
+        user_password_confirmation: '',
         documents: [
             {
                 name: '',
@@ -55,14 +55,11 @@ export default function Apply() {
         ]
     });
 
-    // تم إزالة useState الخاص بكلمات المرور والـ autofillFix لأن المكونات الجديدة تعالجها
-
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
         post(route('register.validate'), {
             forceFormData: true,
             onSuccess: () => {
-                // Success will automatically redirect to register.select-plan due to backend redirect
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             },
             preserveScroll: false,
@@ -127,12 +124,9 @@ export default function Apply() {
             <section className="py-16 bg-background relative -mt-10">
                 <div className="container mx-auto px-4">
                     <Card className="max-w-4xl mx-auto border-0 shadow-2xl bg-card overflow-hidden rounded-3xl relative z-20 ring-1 ring-border/50">
-                        {/* Decorative Top Border */}
                         <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-primary via-blue-500 to-primary"></div>
 
                         <form onSubmit={handleSubmit} autoComplete="off">
-                            
-                            {/* 1. School Information Section (Blue Theme) */}
                             <div className="p-8 md:p-12">
                                 <div className="flex items-center gap-4 mb-8 pb-4 border-b border-border">
                                     <div className="w-12 h-12 bg-blue-50 dark:bg-blue-900/20 rounded-2xl flex items-center justify-center text-blue-600 dark:text-blue-400">
@@ -162,30 +156,30 @@ export default function Apply() {
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     {/* School Name */}
                                     <div className="space-y-1 md:col-span-2">
-                                        <Label htmlFor="name" className="text-foreground font-semibold text-sm mb-2.5 block">اسم المدرسة / المنشأة</Label>
+                                        <Label htmlFor="school_name" className="text-foreground font-semibold text-sm mb-2.5 block">اسم المدرسة / المنشأة</Label>
                                         <div className="relative group">
                                             <School2 className="absolute right-3.5 top-3.5 w-5 h-5 text-muted-foreground group-hover:text-blue-500 transition-colors duration-200" />
                                             <Input
-                                                id="name"
+                                                id="school_name"
                                                 placeholder="مثال: مجمع النور القرآني"
-                                                value={data.name}
-                                                onChange={(e) => setData('name', e.target.value)}
+                                                value={data.school_name}
+                                                onChange={(e) => setData('school_name', e.target.value)}
                                                 className="pr-11"
                                                 autoComplete="off"
                                             />
                                         </div>
-                                        {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
+                                        {errors.school_name && <p className="text-red-500 text-xs mt-1">{errors.school_name}</p>}
                                     </div>
 
-                                    {/* Logo Upload - Visual Area */}
+                                    {/* Logo Upload */}
                                     <div className="space-y-1 md:col-span-2">
-                                        <Label htmlFor="logo" className="text-foreground font-semibold text-sm mb-2.5 block">شعار المدرسة</Label>
+                                        <Label htmlFor="school_logo" className="text-foreground font-semibold text-sm mb-2.5 block">شعار المدرسة</Label>
                                         <div className="border-2 border-dashed border-border rounded-xl p-6 text-center hover:bg-muted/50 hover:border-blue-500/40 transition-all duration-300 relative cursor-pointer group bg-card">
                                             <input
-                                                id="logo"
+                                                id="school_logo"
                                                 type="file"
                                                 className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
-                                                onChange={(e) => setData('logo', e.target.files ? e.target.files[0] : null)}
+                                                onChange={(e) => setData('school_logo', e.target.files ? e.target.files[0] : null)}
                                             />
                                             <div className="flex flex-col items-center gap-3 group-hover:scale-105 transition-transform duration-300">
                                                 <div className="w-14 h-14 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center text-blue-600 mb-1 shadow-sm">
@@ -193,97 +187,96 @@ export default function Apply() {
                                                 </div>
                                                 <div className="space-y-1">
                                                     <p className="text-sm font-semibold text-foreground">
-                                                        {data.logo ? data.logo.name : "اضغط لرفع الشعار أو اسحبه هنا"}
+                                                        {data.school_logo ? data.school_logo.name : "اضغط لرفع الشعار أو اسحبه هنا"}
                                                     </p>
                                                     <p className="text-xs text-muted-foreground">PNG, JPG حتى 5 ميجابايت</p>
                                                 </div>
                                             </div>
                                         </div>
-                                        {errors.logo && <p className="text-red-500 text-xs mt-1">{errors.logo}</p>}
+                                        {errors.school_logo && <p className="text-red-500 text-xs mt-1">{errors.school_logo}</p>}
                                     </div>
 
-                                    {/* Phone (LTR) */}
+                                    {/* Phone */}
                                     <div className="space-y-1">
-                                        <Label htmlFor="phone" className="text-foreground font-semibold text-sm mb-2.5 block">رقم الهاتف الرسمي</Label>
+                                        <Label htmlFor="school_phone" className="text-foreground font-semibold text-sm mb-2.5 block">رقم الهاتف الرسمي</Label>
                                         <div className="relative group">
                                             <Phone className="absolute right-3.5 top-3.5 w-5 h-5 text-muted-foreground group-hover:text-blue-500 transition-colors duration-200 z-10" />
                                             <Input
-                                                id="phone"
+                                                id="school_phone"
                                                 placeholder="05xxxxxxxx"
-                                                value={data.phone}
-                                                onChange={(e) => setData('phone', e.target.value)}
+                                                value={data.school_phone}
+                                                onChange={(e) => setData('school_phone', e.target.value)}
                                                 className="pr-11 text-left"
                                                 dir="ltr"
                                                 autoComplete="tel"
                                             />
                                         </div>
-                                        {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone}</p>}
+                                        {errors.school_phone && <p className="text-red-500 text-xs mt-1">{errors.school_phone}</p>}
                                     </div>
 
                                     {/* Country */}
                                     <div className="space-y-1">
-                                        <Label htmlFor="country" className="text-foreground font-semibold text-sm mb-2.5 block">الدولة</Label>
+                                        <Label htmlFor="school_country" className="text-foreground font-semibold text-sm mb-2.5 block">الدولة</Label>
                                         <div className="relative group">
                                             <Globe className="absolute right-3.5 top-3.5 w-5 h-5 text-muted-foreground group-hover:text-blue-500 transition-colors duration-200" />
                                             <Input
-                                                id="country"
+                                                id="school_country"
                                                 placeholder="المملكة العربية السعودية"
-                                                value={data.country}
-                                                onChange={(e) => setData('country', e.target.value)}
+                                                value={data.school_country}
+                                                onChange={(e) => setData('school_country', e.target.value)}
                                                 className="pr-11"
                                             />
                                         </div>
-                                        {errors.country && <p className="text-red-500 text-xs mt-1">{errors.country}</p>}
+                                        {errors.school_country && <p className="text-red-500 text-xs mt-1">{errors.school_country}</p>}
                                     </div>
 
                                     {/* City */}
                                     <div className="space-y-1">
-                                        <Label htmlFor="city" className="text-foreground font-semibold text-sm mb-2.5 block">المدينة</Label>
+                                        <Label htmlFor="school_city" className="text-foreground font-semibold text-sm mb-2.5 block">المدينة</Label>
                                         <div className="relative group">
                                             <MapPin className="absolute right-3.5 top-3.5 w-5 h-5 text-muted-foreground group-hover:text-blue-500 transition-colors duration-200" />
                                             <Input
-                                                id="city"
+                                                id="school_city"
                                                 placeholder="الرياض"
-                                                value={data.city}
-                                                onChange={(e) => setData('city', e.target.value)}
+                                                value={data.school_city}
+                                                onChange={(e) => setData('school_city', e.target.value)}
                                                 className="pr-11"
                                             />
                                         </div>
-                                        {errors.city && <p className="text-red-500 text-xs mt-1">{errors.city}</p>}
+                                        {errors.school_city && <p className="text-red-500 text-xs mt-1">{errors.school_city}</p>}
                                     </div>
 
-                                    {/* Location URL (LTR) */}
+                                    {/* Location URL */}
                                     <div className="space-y-1">
-                                        <Label htmlFor="location" className="text-foreground font-semibold text-sm mb-2.5 block">رابط الموقع (Google Maps)</Label>
+                                        <Label htmlFor="school_location" className="text-foreground font-semibold text-sm mb-2.5 block">رابط الموقع (Google Maps)</Label>
                                         <div className="relative group">
                                             <MapPin className="absolute right-3.5 top-3.5 w-5 h-5 text-muted-foreground z-10 group-hover:text-blue-500 transition-colors duration-200" />
                                             <Input
-                                                id="location"
+                                                id="school_location"
                                                 placeholder="https://maps.google.com/..."
-                                                value={data.location}
-                                                onChange={(e) => setData('location', e.target.value)}
+                                                value={data.school_location}
+                                                onChange={(e) => setData('school_location', e.target.value)}
                                                 className="pr-11 text-left"
                                                 dir="ltr"
                                             />
                                         </div>
-                                        {errors.location && <p className="text-red-500 text-xs mt-1">{errors.location}</p>}
+                                        {errors.school_location && <p className="text-red-500 text-xs mt-1">{errors.school_location}</p>}
                                     </div>
 
                                     {/* Address */}
                                     <div className="space-y-1 md:col-span-2">
-                                        <Label htmlFor="address" className="text-foreground font-semibold text-sm mb-2.5 block">العنوان الوطني / التفصيلي</Label>
+                                        <Label htmlFor="school_address" className="text-foreground font-semibold text-sm mb-2.5 block">العنوان الوطني / التفصيلي</Label>
                                         <Input
-                                            id="address"
+                                            id="school_address"
                                             placeholder="الحي، الشارع، رقم المبنى..."
-                                            value={data.address}
-                                            onChange={(e) => setData('address', e.target.value)}
+                                            value={data.school_address}
+                                            onChange={(e) => setData('school_address', e.target.value)}
                                         />
-                                        {errors.address && <p className="text-red-500 text-xs mt-1">{errors.address}</p>}
+                                        {errors.school_address && <p className="text-red-500 text-xs mt-1">{errors.school_address}</p>}
                                     </div>
                                 </div>
                             </div>
 
-                            {/* 2. Admin Information Section (Emerald Theme) */}
                             <div className="bg-muted/30 dark:bg-gray-800/20 p-8 md:p-12 border-t border-border">
                                 <div className="flex items-center gap-4 mb-10 pb-4 border-b border-border">
                                     <div className="w-12 h-12 bg-emerald-50 dark:bg-emerald-900/20 rounded-2xl flex items-center justify-center text-emerald-600 dark:text-emerald-400">
@@ -298,58 +291,58 @@ export default function Apply() {
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                     {/* Admin Name */}
                                     <div className="space-y-1">
-                                        <Label htmlFor="admin_name" className="text-foreground font-semibold text-sm mb-2.5 block">الاسم الثلاثي</Label>
+                                        <Label htmlFor="user_name" className="text-foreground font-semibold text-sm mb-2.5 block">الاسم الثلاثي</Label>
                                         <div className="relative group">
                                             <UserCog className="absolute right-3.5 top-3.5 w-5 h-5 text-muted-foreground group-hover:text-emerald-500 transition-colors duration-200" />
                                             <Input
-                                                id="admin_name"
+                                                id="user_name"
                                                 placeholder="اسم المدير المسؤول"
-                                                value={data.admin_name}
-                                                onChange={(e) => setData('admin_name', e.target.value)}
+                                                value={data.user_name}
+                                                onChange={(e) => setData('user_name', e.target.value)}
                                                 className="pr-11"
                                                 autoComplete="off"
                                             />
                                         </div>
-                                        {errors.admin_name && <p className="text-red-500 text-xs mt-1">{errors.admin_name}</p>}
+                                        {errors.user_name && <p className="text-red-500 text-xs mt-1">{errors.user_name}</p>}
                                     </div>
 
-                                    {/* Admin Phone (LTR) */}
+                                    {/* Admin Phone */}
                                     <div className="space-y-1">
-                                        <Label htmlFor="admin_phone" className="text-foreground font-semibold text-sm mb-2.5 block">رقم الجوال (للدخول)</Label>
+                                        <Label htmlFor="user_phone" className="text-foreground font-semibold text-sm mb-2.5 block">رقم الجوال (للدخول)</Label>
                                         <div className="relative group">
                                             <Phone className="absolute right-3.5 top-3.5 w-5 h-5 text-muted-foreground z-10 group-hover:text-emerald-500 transition-colors duration-200" />
                                             <Input
-                                                id="admin_phone"
+                                                id="user_phone"
                                                 placeholder="05xxxxxxxx"
-                                                value={data.admin_phone}
-                                                onChange={(e) => setData('admin_phone', e.target.value)}
+                                                value={data.user_phone}
+                                                onChange={(e) => setData('user_phone', e.target.value)}
                                                 className="pr-11 text-left"
                                                 dir="ltr"
                                                 autoComplete="tel"
                                             />
                                         </div>
-                                        {errors.admin_phone && <p className="text-red-500 text-xs mt-1">{errors.admin_phone}</p>}
+                                        {errors.user_phone && <p className="text-red-500 text-xs mt-1">{errors.user_phone}</p>}
                                     </div>
 
-                                    {/* Admin Email (New Component) */}
+                                    {/* Admin Email */}
                                     <div className="space-y-1 md:col-span-2">
                                         <EmailInput
-                                            value={data.admin_email}
-                                            onChange={(e) => setData('admin_email', e.target.value)}
-                                            error={errors.admin_email}
+                                            value={data.user_email}
+                                            onChange={(e) => setData('user_email', e.target.value)}
+                                            error={errors.user_email}
                                         />
                                     </div>
 
-                                    {/* Password Group (New Component) */}
+                                    {/* Password Group */}
                                     <div className="space-y-1 md:col-span-2">
                                         <PasswordGroup
-                                            passwordValue={data.admin_password}
-                                            onPasswordChange={(e) => setData('admin_password', e.target.value)}
-                                            passwordError={errors.admin_password}
+                                            passwordValue={data.user_password}
+                                            onPasswordChange={(e) => setData('user_password', e.target.value)}
+                                            passwordError={errors.user_password}
                                             
-                                            confirmValue={data.admin_password_confirmation}
-                                            onConfirmChange={(e) => setData('admin_password_confirmation', e.target.value)}
-                                            confirmError={errors.admin_password_confirmation}
+                                            confirmValue={data.user_password_confirmation}
+                                            onConfirmChange={(e) => setData('user_password_confirmation', e.target.value)}
+                                            confirmError={errors.user_password_confirmation}
                                             
                                             layout="row"
                                         />
@@ -357,8 +350,6 @@ export default function Apply() {
                                 </div>
                             </div>
                             
-
-                            {/* 3. Documents Section (Purple Theme) */}
                             <div className="p-8 md:p-12 border-t border-border bg-background">
                                 <div className="flex items-center gap-4 mb-10 pb-4 border-b border-border">
                                     <div className="w-12 h-12 bg-purple-50 dark:bg-purple-900/20 rounded-2xl flex items-center justify-center text-purple-600 dark:text-purple-400">
@@ -373,7 +364,6 @@ export default function Apply() {
                                 <div className="space-y-8">
                                     {data.documents.map((doc, index) => (
                                         <div key={index} className="p-6 rounded-2xl border border-border bg-muted/20 relative group hover:border-purple-500/30 hover:shadow-sm transition-all duration-300">
-                                            {/* Remove Button */}
                                             {data.documents.length > 1 && (
                                                 <button
                                                     type="button"
@@ -386,8 +376,6 @@ export default function Apply() {
                                             )}
 
                                             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                                    
-                                                {/* Document Name */}
                                                 <div className="md:col-span-2">
                                                     <Label htmlFor={`doc_name_${index}`} className="text-foreground font-semibold text-sm mb-2.5 block">اسم الشهادة/الوثيقة</Label>
                                                     <Input
@@ -397,25 +385,16 @@ export default function Apply() {
                                                     />
                                                 </div>
 
-                                                {/* Certificate Type */}
                                                 <div>
                                                     <Label htmlFor={`certificate_type_${index}`} className="text-foreground font-semibold text-sm mb-2.5 block">نوع الوثيقة</Label>
                                                     <Select
                                                         onValueChange={(value) => handleDocumentChange(index, 'certificate_type', value)}
                                                         value={doc.certificate_type}
                                                     >
-                                                        <SelectTrigger 
-                                                            className="text-right" 
-                                                            dir="rtl"
-                                                            style={{ fontFamily: 'Cairo, sans-serif' }}
-                                                        >
+                                                        <SelectTrigger className="text-right" dir="rtl" style={{ fontFamily: 'Cairo, sans-serif' }}>
                                                             <SelectValue placeholder="اختر النوع" />
                                                         </SelectTrigger>
-                                                        
-                                                        <SelectContent 
-                                                            dir="rtl" 
-                                                            style={{ fontFamily: 'Cairo, sans-serif' }} 
-                                                        >
+                                                        <SelectContent dir="rtl" style={{ fontFamily: 'Cairo, sans-serif' }}>
                                                             <SelectItem value="شهادة إجازة في القران">شهادة إجازة في القران</SelectItem>
                                                             <SelectItem value="رخصة">رخصة رسمية</SelectItem>
                                                             <SelectItem value="سجل مهني">سجل مهني</SelectItem>
@@ -425,7 +404,6 @@ export default function Apply() {
                                                     </Select>
                                                 </div>
 
-                                                {/* Other Certificate Type */}
                                                 {doc.certificate_type === 'Other' && (
                                                     <div>
                                                         <Label htmlFor={`certificate_type_other_${index}`} className="text-foreground font-semibold text-sm mb-2.5 block">النوع (آخر)</Label>
@@ -437,7 +415,6 @@ export default function Apply() {
                                                     </div>
                                                 )}
 
-                                                {/* Riwayah */}
                                                 {(doc.certificate_type === 'شهادة حفظ قران' || doc.certificate_type === 'شهادة إجازة في القران') && (
                                                     <div>
                                                         <Label htmlFor={`riwayah_${index}`} className="text-foreground font-semibold text-sm mb-2.5 block">الرواية</Label>
@@ -445,17 +422,10 @@ export default function Apply() {
                                                             onValueChange={(value) => handleDocumentChange(index, 'riwayah', value)}
                                                             value={doc.riwayah}
                                                         >
-                                                            <SelectTrigger 
-                                                                className="text-right" 
-                                                                dir="rtl"
-                                                                style={{ fontFamily: 'Cairo, sans-serif' }}
-                                                            >
+                                                            <SelectTrigger className="text-right" dir="rtl" style={{ fontFamily: 'Cairo, sans-serif' }}>
                                                             <SelectValue placeholder="اختر الرواية" />
                                                             </SelectTrigger>
-                                                            <SelectContent 
-                                                                dir="rtl"
-                                                                style={{ fontFamily: 'Cairo, sans-serif' }} 
-                                                            >
+                                                            <SelectContent dir="rtl" style={{ fontFamily: 'Cairo, sans-serif' }}>
                                                                 <SelectItem value="قراءة الإمام نافع المدني">قراءة الإمام نافع المدني</SelectItem>
                                                                 <SelectItem value="قراءة الإمام عبد الله بن كثير المكي">قراءة الإمام عبد الله بن كثير المكي</SelectItem>
                                                                 <SelectItem value="قراءة الإمام أبو عمرو البصري">قراءة الإمام أبو عمرو البصري</SelectItem>
@@ -471,7 +441,6 @@ export default function Apply() {
                                                     </div>
                                                 )}
 
-                                                {/* Issuing Place and Date */}
                                                 {doc.certificate_type !== 'سيرة ذاتية' && (
                                                     <>
                                                         <div>
@@ -495,7 +464,6 @@ export default function Apply() {
                                                     </>
                                                 )}
 
-                                                {/* File Upload - FIXED COLORS to PRIMARY */}
                                                 <div className="md:col-span-2">
                                                     <Label htmlFor={`file_${index}`} className="text-foreground font-semibold text-sm mb-2.5 block">رفع الملف</Label>
                                                     <div className="border-2 border-dashed border-border rounded-xl p-6 text-center hover:bg-muted/50 hover:border-primary/40 transition-all duration-300 relative cursor-pointer group bg-background/50">
@@ -531,7 +499,6 @@ export default function Apply() {
                                 </div>
                             </div>
 
-                            {/* Footer Actions */}
                             <div className="p-8 bg-gray-50 dark:bg-black/20 border-t border-border flex items-center justify-between">
                                 <p className="text-sm text-muted-foreground hidden md:block">
                                     جميع البيانات تخضع <a href="/privacy" className="text-primary hover:underline font-medium">لسياسة الخصوصية</a>
