@@ -22,7 +22,18 @@ class StudentRepository
 
     public function all($filters = [], $pagination = true)
     {
-        $query = Student::with(['user', 'enrollments.halaqah']);
+        $query = Student::with([
+            'user',
+            'enrollments' => function ($query) {
+                $query->latest('enrolled_at');
+            },
+            'enrollments.currentPlan.frequencyType',
+            'enrollments.currentPlan.reviewUnit',
+            'enrollments.currentPlan.memorizationUnit',
+            'enrollments.currentPlan.sardUnit',
+            'enrollments.halaqah',
+        ]);
+
         if (isset($filters['status'])) {
             $query->where('status', $filters['status']);
         }
@@ -43,7 +54,7 @@ class StudentRepository
         return Student::with([
             'user',
             'enrollments' => function ($query) {
-                $query->latest('enrolled_at')->limit(1);
+                $query->latest('enrolled_at');
             },
             'enrollments.currentPlan.frequencyType',
             'enrollments.currentPlan.reviewUnit',
