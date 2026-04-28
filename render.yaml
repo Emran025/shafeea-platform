@@ -53,6 +53,8 @@ services:
           property: password
       - key: APP_KEY
         generateValue: true # Render will generate a secure key
+      - key: FILESYSTEM_DISK
+        value: public
       - key: CACHE_DRIVER
         value: database
       - key: SESSION_DRIVER

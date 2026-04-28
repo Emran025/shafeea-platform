@@ -9,6 +9,10 @@ php artisan config:cache
 php artisan route:cache
 php artisan view:cache
 
+# Create storage symlink
+echo "Creating storage symlink..."
+php artisan storage:link --force
+
 # Run database migrations
 echo "Running database migrations..."
 php artisan migrate --force
