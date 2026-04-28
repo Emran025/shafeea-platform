@@ -11,23 +11,27 @@ use Illuminate\Http\UploadedFile;
 
 class ApplicantService
 {
+    /**
+     * Create a teacher application.
+     * Supports both direct keys (API) and prefixed keys (Unified Web Contract).
+     */
     public function createTeacherApplication(array $data)
     {
         return DB::transaction(function () use ($data) {
             // 1. Create User
             $user = User::create([
-                'name' => $data['name'],
-                'email' => $data['email'],
-                'phone' => $data['phone'] ?? null,
-                'country' => $data['country'] ?? null,
-                'city' => $data['city'] ?? null,
-                'password' => Hash::make($data['password']),
+                'name' => $data['user_name'] ?? $data['name'],
+                'email' => $data['user_email'] ?? $data['email'],
+                'phone' => $data['user_phone'] ?? $data['phone'] ?? null,
+                'country' => $data['user_country'] ?? $data['country'] ?? null,
+                'city' => $data['user_city'] ?? $data['city'] ?? null,
+                'password' => Hash::make($data['user_password'] ?? $data['password']),
             ]);
 
             // 2. Create Applicant
             $applicant = Applicant::create([
                 'user_id' => $user->id,
-                'school_id' => $data['school_id'],
+                'school_id' => $data['school_id'] ?? null,
                 'application_type' => 'teacher',
                 'bio' => $data['bio'],
                 'qualifications' => $data['qualifications'],
@@ -64,22 +68,26 @@ class ApplicantService
         });
     }
 
+    /**
+     * Create a student application.
+     * Supports both direct keys (API) and prefixed keys (Unified Web Contract).
+     */
     public function createStudentApplication(array $data)
     {
         return DB::transaction(function () use ($data) {
             $user = User::create([
-                'name' => $data['name'],
-                'email' => $data['email'],
-                'password' => Hash::make($data['password']),
+                'name' => $data['user_name'] ?? $data['name'],
+                'email' => $data['user_email'] ?? $data['email'],
+                'password' => Hash::make($data['user_password'] ?? $data['password']),
                 'avatar' => $data['avatar'] ?? null,
-                'phone' => $data['phone'] ?? null,
+                'phone' => $data['user_phone'] ?? $data['phone'] ?? null,
                 'phone_zone' => $data['phone_zone'] ?? null,
                 'whatsapp' => $data['whatsapp'] ?? null,
                 'whatsapp_zone' => $data['whatsapp_zone'] ?? null,
                 'gender' => $data['gender'] ?? null,
                 'birth_date' => $data['birth_date'] ?? null,
-                'country' => $data['country'] ?? null,
-                'city' => $data['city'] ?? null,
+                'country' => $data['user_country'] ?? $data['country'] ?? null,
+                'city' => $data['user_city'] ?? $data['city'] ?? null,
                 'residence' => $data['residence'] ?? null,
             ]);
 

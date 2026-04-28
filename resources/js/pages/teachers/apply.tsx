@@ -17,7 +17,10 @@ import {
     CheckCircle,
     Building2,
     AlertCircle,
-    Lock 
+    Lock,
+    Phone,
+    Globe,
+    MapPin
 } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { School, SharedData } from '@/types';
@@ -29,11 +32,14 @@ import { PasswordGroup } from '@/components/password-group';
 export default function Apply({ schools }: { schools: School[] }) {
     const { flash } = usePage<SharedData>().props;
     const { data, setData, post, errors, processing, reset } = useForm({
-        name: '',
         error: '',
-        email: '',
-        password: '',
-        password_confirmation: '',
+        user_name: '',
+        user_email: '',
+        user_phone: '',
+        user_country: '',
+        user_city: '',
+        user_password: '',
+        user_password_confirmation: '',
         bio: '',
         qualifications: '',
         memorization_level: 0,
@@ -50,8 +56,6 @@ export default function Apply({ schools }: { schools: School[] }) {
             },
         ],
     });
-
-    // تمت إزالة useState الخاص بتبديل كلمة المرور لأنه أصبح مدمجاً داخل المكونات
 
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
@@ -123,12 +127,9 @@ export default function Apply({ schools }: { schools: School[] }) {
             <section className="py-16 bg-background relative -mt-10">
                 <div className="container mx-auto px-4">
                     <Card className="max-w-4xl mx-auto border-0 shadow-2xl bg-card overflow-hidden rounded-3xl relative z-20 ring-1 ring-border/50">
-                        {/* Decorative Top Border */}
                         <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-emerald-500 via-primary to-emerald-500"></div>
 
                         <form onSubmit={handleSubmit} autoComplete="off">
-                            
-                            {/* 1. Personal Information Section */}
                             <div className="p-8 md:p-12">
                                 <div className="flex items-center gap-4 mb-8 pb-4 border-b border-border">
                                     <div className="w-12 h-12 bg-blue-50 dark:bg-blue-900/20 rounded-2xl flex items-center justify-center text-blue-600 dark:text-blue-400">
@@ -158,28 +159,78 @@ export default function Apply({ schools }: { schools: School[] }) {
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     {/* Name */}
                                     <div className="md:col-span-2">
-                                        <Label htmlFor="name" className="text-foreground font-semibold text-sm mb-2.5 block">الاسم الرباعي</Label>
+                                        <Label htmlFor="user_name" className="text-foreground font-semibold text-sm mb-2.5 block">الاسم الرباعي</Label>
                                         <div className="relative group">
                                             <User className="absolute right-3.5 top-3.5 w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors duration-200" />
                                             <Input
-                                                id="name"
+                                                id="user_name"
                                                 placeholder="الاسم كما يظهر في الهوية"
-                                                value={data.name}
-                                                onChange={(e) => setData('name', e.target.value)}
+                                                value={data.user_name}
+                                                onChange={(e) => setData('user_name', e.target.value)}
                                                 className={`pr-11`}
                                                 autoComplete="off"
                                             />
                                         </div>
-                                        {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
+                                        {errors.user_name && <p className="text-red-500 text-xs mt-1">{errors.user_name}</p>}
                                     </div>
 
-                                    {/* Email - NEW COMPONENT */}
+                                    {/* Email */}
                                     <div className="md:col-span-2">
                                         <EmailInput
-                                            value={data.email}
-                                            onChange={(e) => setData('email', e.target.value)}
-                                            error={errors.email}
+                                            value={data.user_email}
+                                            onChange={(e) => setData('user_email', e.target.value)}
+                                            error={errors.user_email}
                                         />
+                                    </div>
+
+                                    {/* Phone */}
+                                    <div className="space-y-1">
+                                        <Label htmlFor="user_phone" className="text-foreground font-semibold text-sm mb-2.5 block">رقم الهاتف</Label>
+                                        <div className="relative group">
+                                            <Phone className="absolute right-3.5 top-3.5 w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors duration-200 z-10" />
+                                            <Input
+                                                id="user_phone"
+                                                placeholder="05xxxxxxxx"
+                                                value={data.user_phone}
+                                                onChange={(e) => setData('user_phone', e.target.value)}
+                                                className="pr-11 text-left"
+                                                dir="ltr"
+                                                autoComplete="tel"
+                                            />
+                                        </div>
+                                        {errors.user_phone && <p className="text-red-500 text-xs mt-1">{errors.user_phone}</p>}
+                                    </div>
+
+                                    {/* Country */}
+                                    <div className="space-y-1">
+                                        <Label htmlFor="user_country" className="text-foreground font-semibold text-sm mb-2.5 block">الدولة</Label>
+                                        <div className="relative group">
+                                            <Globe className="absolute right-3.5 top-3.5 w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors duration-200" />
+                                            <Input
+                                                id="user_country"
+                                                placeholder="المملكة العربية السعودية"
+                                                value={data.user_country}
+                                                onChange={(e) => setData('user_country', e.target.value)}
+                                                className="pr-11"
+                                            />
+                                        </div>
+                                        {errors.user_country && <p className="text-red-500 text-xs mt-1">{errors.user_country}</p>}
+                                    </div>
+
+                                    {/* City */}
+                                    <div className="space-y-1 md:col-span-2">
+                                        <Label htmlFor="user_city" className="text-foreground font-semibold text-sm mb-2.5 block">المدينة</Label>
+                                        <div className="relative group">
+                                            <MapPin className="absolute right-3.5 top-3.5 w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors duration-200" />
+                                            <Input
+                                                id="user_city"
+                                                placeholder="الرياض"
+                                                value={data.user_city}
+                                                onChange={(e) => setData('user_city', e.target.value)}
+                                                className="pr-11"
+                                            />
+                                        </div>
+                                        {errors.user_city && <p className="text-red-500 text-xs mt-1">{errors.user_city}</p>}
                                     </div>
 
                                     {/* School Selection */}
@@ -193,17 +244,10 @@ export default function Apply({ schools }: { schools: School[] }) {
                                                 onValueChange={(value) => setData('school_id', value === "none" ? "" : value)} 
                                                 value={data.school_id ? String(data.school_id) : "none"}
                                             >
-                                                <SelectTrigger 
-                                                        className={`pr-11`} 
-                                                        dir="rtl"
-                                                        style={{ fontFamily: 'Cairo, sans-serif' }}
-                                                    >
+                                                <SelectTrigger className={`pr-11`} dir="rtl" style={{ fontFamily: 'Cairo, sans-serif' }}>
                                                     <SelectValue placeholder="اختر مدرسة للانضمام إليها" />
                                                 </SelectTrigger>
-                                                <SelectContent 
-                                                        dir="rtl" 
-                                                        style={{ fontFamily: 'Cairo, sans-serif' }} 
-                                                    >
+                                                <SelectContent dir="rtl" style={{ fontFamily: 'Cairo, sans-serif' }}>
                                                     <SelectItem value="none">لا أنتمي لمدرسة حالياً</SelectItem>
                                                     {schools.map((school) => (
                                                         <SelectItem key={school.id} value={String(school.id)}>
@@ -281,7 +325,6 @@ export default function Apply({ schools }: { schools: School[] }) {
                                 </div>
                             </div>
 
-                            {/* 2. Professional Details Section */}
                             <div className="bg-muted/30 dark:bg-gray-800/20 p-8 md:p-12 border-t border-border">
                                 <div className="flex items-center gap-4 mb-8 pb-4 border-b border-border">
                                     <div className="w-12 h-12 bg-emerald-50 dark:bg-emerald-900/20 rounded-2xl flex items-center justify-center text-emerald-600 dark:text-emerald-400">
@@ -296,7 +339,6 @@ export default function Apply({ schools }: { schools: School[] }) {
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     {data.documents.map((doc, index) => (
                                         <div key={index} className="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6 border-b border-border/50 pb-8 mb-2 last:border-0 last:pb-0 last:mb-0 relative group/doc">
-                                            {/* Remove Button */}
                                             {data.documents.length > 1 && (
                                                 <button
                                                     type="button"
@@ -308,7 +350,6 @@ export default function Apply({ schools }: { schools: School[] }) {
                                                 </button>
                                             )}
 
-                                            {/* Document Name */}
                                             <div className="md:col-span-2">
                                                 <Label htmlFor={`doc_name_${index}`} className="text-foreground font-semibold text-sm mb-2.5 block">اسم الشهادة/الوثيقة</Label>
                                                 <Input
@@ -318,25 +359,16 @@ export default function Apply({ schools }: { schools: School[] }) {
                                                 />
                                             </div>
 
-                                            {/* Certificate Type */}
                                             <div>
                                                 <Label htmlFor={`certificate_type_${index}`} className="text-foreground font-semibold text-sm mb-2.5 block">نوع الشهادة</Label>
                                                 <Select
                                                     onValueChange={(value) => handleDocumentChange(index, 'certificate_type', value)}
                                                     value={doc.certificate_type}
                                                 >
-                                                    <SelectTrigger 
-                                                        className={`text-right`} 
-                                                        dir="rtl"
-                                                        style={{ fontFamily: 'Cairo, sans-serif' }}
-                                                    >
+                                                    <SelectTrigger className={`text-right`} dir="rtl" style={{ fontFamily: 'Cairo, sans-serif' }}>
                                                         <SelectValue placeholder="اختر النوع" />
                                                     </SelectTrigger>
-                                                    
-                                                    <SelectContent 
-                                                        dir="rtl" 
-                                                        style={{ fontFamily: 'Cairo, sans-serif' }} 
-                                                    >
+                                                    <SelectContent dir="rtl" style={{ fontFamily: 'Cairo, sans-serif' }}>
                                                         <SelectItem value="شهادة حفظ قران">شهادة حفظ قران</SelectItem>
                                                         <SelectItem value="شهادة إجازة في القران">شهادة إجازة في القران</SelectItem>
                                                         <SelectItem value="سيرة ذاتية">سيرة ذاتية</SelectItem>
@@ -345,7 +377,6 @@ export default function Apply({ schools }: { schools: School[] }) {
                                                 </Select>
                                             </div>
 
-                                            {/* Other Certificate Type */}
                                             {doc.certificate_type === 'Other' && (
                                                 <div>
                                                     <Label htmlFor={`certificate_type_other_${index}`} className="text-foreground font-semibold text-sm mb-2.5 block">النوع (آخر)</Label>
@@ -353,12 +384,10 @@ export default function Apply({ schools }: { schools: School[] }) {
                                                         placeholder="يرجى التحديد"
                                                         value={doc.certificate_type_other}
                                                         onChange={(e) => handleDocumentChange(index, 'certificate_type_other', e.target.value)}
-                                                        
                                                     />
                                                 </div>
                                             )}
 
-                                            {/* Riwayah */}
                                             {(doc.certificate_type === 'شهادة حفظ قران' || doc.certificate_type === 'شهادة إجازة في القران') && (
                                                 <div>
                                                     <Label htmlFor={`riwayah_${index}`} className="text-foreground font-semibold text-sm mb-2.5 block">الرواية</Label>
@@ -366,17 +395,10 @@ export default function Apply({ schools }: { schools: School[] }) {
                                                         onValueChange={(value) => handleDocumentChange(index, 'riwayah', value)}
                                                         value={doc.riwayah}
                                                     >
-                                                        <SelectTrigger 
-                                                            className={`text-right`} 
-                                                            dir="rtl"
-                                                            style={{ fontFamily: 'Cairo, sans-serif' }}
-                                                        >
+                                                        <SelectTrigger className={`text-right`} dir="rtl" style={{ fontFamily: 'Cairo, sans-serif' }}>
                                                             <SelectValue placeholder="اختر الرواية" />
                                                         </SelectTrigger>
-                                                        <SelectContent 
-                                                            dir="rtl"
-                                                            style={{ fontFamily: 'Cairo, sans-serif' }} 
-                                                        >
+                                                        <SelectContent dir="rtl" style={{ fontFamily: 'Cairo, sans-serif' }}>
                                                             <SelectItem value="قراءة الإمام نافع المدني">قراءة الإمام نافع المدني</SelectItem>
                                                             <SelectItem value="قراءة الإمام عبد الله بن كثير المكي">قراءة الإمام عبد الله بن كثير المكي</SelectItem>
                                                             <SelectItem value="قراءة الإمام أبو عمرو البصري">قراءة الإمام أبو عمرو البصري</SelectItem>
@@ -392,7 +414,6 @@ export default function Apply({ schools }: { schools: School[] }) {
                                                 </div>
                                             )}
 
-                                            {/* Issuing Place and Date */}
                                             {doc.certificate_type !== 'سيرة ذاتية' && (
                                                 <>
                                                     <div>
@@ -402,7 +423,6 @@ export default function Apply({ schools }: { schools: School[] }) {
                                                             placeholder="مثال: الجمعية الخيرية لتحفيظ القرآن"
                                                             value={doc.issuing_place}
                                                             onChange={(e) => handleDocumentChange(index, 'issuing_place', e.target.value)}
-                                                            
                                                         />
                                                     </div>
                                                     <div>
@@ -418,7 +438,6 @@ export default function Apply({ schools }: { schools: School[] }) {
                                                 </>
                                             )}
 
-                                            {/* File Upload */}
                                             <div className="md:col-span-2">
                                                 <Label htmlFor={`file_${index}`} className="text-foreground font-semibold text-sm mb-2.5 block">رفع الملف</Label>
                                                 <div className="border-2 border-dashed border-border rounded-xl p-6 text-center hover:bg-muted/50 hover:border-primary/40 transition-all duration-300 relative cursor-pointer group bg-background/50">
@@ -455,7 +474,6 @@ export default function Apply({ schools }: { schools: School[] }) {
                                 </div>
                             </div>
 
-                            {/* 3. Account Security (NEW COMPONENT GROUP) */}
                             <div className="p-8 md:p-12 border-t border-border">
                                 <div className="flex items-center gap-4 mb-8 pb-4 border-b border-border">
                                     <div className="w-12 h-12 bg-purple-50 dark:bg-purple-900/20 rounded-2xl flex items-center justify-center text-purple-600 dark:text-purple-400">
@@ -468,22 +486,16 @@ export default function Apply({ schools }: { schools: School[] }) {
                                 </div>
 
                                 <PasswordGroup
-                                    // 1. Password Data
-                                    passwordValue={data.password}
-                                    onPasswordChange={(e) => setData('password', e.target.value)}
-                                    passwordError={errors.password}
-                                    
-                                    // 2. Confirmation Data
-                                    confirmValue={data.password_confirmation}
-                                    onConfirmChange={(e) => setData('password_confirmation', e.target.value)}
-                                    confirmError={errors.password_confirmation}
-                                    
-                                    // 3. Settings
+                                    passwordValue={data.user_password}
+                                    onPasswordChange={(e) => setData('user_password', e.target.value)}
+                                    passwordError={errors.user_password}
+                                    confirmValue={data.user_password_confirmation}
+                                    onConfirmChange={(e) => setData('user_password_confirmation', e.target.value)}
+                                    confirmError={errors.user_password_confirmation}
                                     layout="row"
                                 />
                             </div>
 
-                            {/* Footer Actions */}
                             <div className="p-8 bg-gray-50 dark:bg-black/20 border-t border-border flex items-center justify-between">
                                 <p className="text-sm text-muted-foreground hidden md:block">
                                     جميع البيانات تخضع <a href="/privacy" className="text-primary hover:underline">لسياسة الخصوصية</a>
