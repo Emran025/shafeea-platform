@@ -57,7 +57,7 @@ class StudentSyncResource extends JsonResource
                 'assignedAt' => $enrollment->enrolled_at,
             ] : null,
             'followUpPlan' => $plan ? [
-                'planId' => $plan->id,
+                'planId' => (string) $plan->id,
                 'frequency' => $frequency?->name ?? 'daily',
                 'details' => [
                     [
@@ -79,11 +79,11 @@ class StudentSyncResource extends JsonResource
                 'updatedAt' => $plan->updated_at instanceof \Illuminate\Support\Carbon ? $plan->updated_at->toIso8601String() : $plan->updated_at,
                 'createdAt' => $plan->created_at instanceof \Illuminate\Support\Carbon ? $plan->created_at->toIso8601String() : $plan->created_at,
             ] : [
-                'planId' => '1',
+                'planId' => '0',
                 'frequency' => 'daily',
                 'details' => [],
-                'updatedAt' => now()->toIso8601String(),
-                'createdAt' => now()->toIso8601String(),
+                'updatedAt' => null,
+                'createdAt' => null,
             ],
             'isDeleted' => (bool) $student->is_deleted,
             'updatedAt' => $student->updated_at instanceof \Illuminate\Support\Carbon ? $student->updated_at->toIso8601String() : $student->updated_at,
