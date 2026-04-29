@@ -376,16 +376,22 @@ export default function SchoolShow() {
                                                             )}
                                                         </div>
                                                     </div>
-                                                    <Button asChild variant="outline" size="sm" className="gap-2">
-                                                        <a 
-                                                            href={`/storage/${doc.file_path}`} 
-                                                            target="_blank" 
-                                                            rel="noopener noreferrer"
-                                                        >
-                                                            <Download className="w-4 h-4" />
-                                                            عرض/تحميل
-                                                        </a>
-                                                    </Button>
+                                                    {doc.file_url ? (
+                                                        <Button asChild variant="outline" size="sm" className="gap-2 shrink-0">
+                                                            <a 
+                                                                href={doc.file_url} 
+                                                                target="_blank" 
+                                                                rel="noopener noreferrer"
+                                                            >
+                                                                <Download className="w-4 h-4" />
+                                                                عرض/تحميل
+                                                            </a>
+                                                        </Button>
+                                                    ) : (
+                                                        <Badge variant="outline" className="text-xs text-amber-600 border-amber-300 bg-amber-50 dark:bg-amber-900/20 shrink-0">
+                                                            بدون ملف
+                                                        </Badge>
+                                                    )}
                                                 </div>
                                             </div>
                                         ))}

@@ -97,12 +97,13 @@ export interface Document {
     id: number | null,
     name: string,
     certificate_type: string,
-    certificate_type_other: string,
-    riwayah: string,
-    issuing_place: string,
-    issuing_date: string,
+    certificate_type_other: string | null,
+    riwayah: string | null,
+    issuing_place: string | null,
+    issuing_date: string | null,
     file: File | null,
-    file_path : string | null
+    file_path: string | null,
+    file_url: string | null,   // Computed by Document::getFileUrlAttribute() — always a full URL or null
 }
 type NullableString = string | null;
 

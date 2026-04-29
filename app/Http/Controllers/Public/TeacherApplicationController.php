@@ -33,7 +33,10 @@ class TeacherApplicationController extends Controller
     public function store(StoreTeacherApplicationRequest $request)
     {
         try {
-            $this->applicantService->createTeacherApplication($request->validated());
+            $this->applicantService->createTeacherApplication(
+                $request->validated(),
+                $request->file('documents', [])   // ← files must come separately from validated()
+            );
 
             return redirect()->route('teachers.apply')
                 ->with('success', 'تم تقديم طلبك بنجاح! سيتم مراجعة الطلب وإشعارك بالنتيجة عبر البريد الإلكتروني.');

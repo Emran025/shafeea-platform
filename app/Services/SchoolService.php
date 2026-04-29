@@ -24,21 +24,31 @@ class SchoolService
 
     public function processRegistrationData(array $data, $logoFile = null, array $documentsFiles = [])
     {
-        if ($logoFile) {
+        // --- Handle Logo ---
+        if ($logoFile instanceof \Illuminate\Http\UploadedFile && $logoFile->isValid()) {
             $data['school_logo_path'] = $logoFile->store('temp/logos', 'public');
         }
-        
-        // Prevent Serialization of 'Illuminate\Http\UploadedFile' exception
+        // Always remove the raw file object — it cannot be serialized into the session
         unset($data['school_logo']);
 
+        // --- Handle Documents ---
+        // IMPORTANT: $request->validated() NEVER populates nested file fields (documents.*.file)
+        // with UploadedFile instances. Files must come from $request->file('documents').
+        // $documentsFiles structure: [ 0 => ['file' => UploadedFile], 1 => ['file' => UploadedFile], ... ]
         if (isset($data['documents']) && is_array($data['documents'])) {
             foreach ($data['documents'] as $key => $doc) {
-                if (isset($documentsFiles[$key]['file'])) {
-                    $data['documents'][$key]['file_path'] = $documentsFiles[$key]['file']->store('temp/documents', 'public');
-                }
-                
-                // Prevent Serialization of 'Illuminate\Http\UploadedFile' exception
+                // Always clear the file key — it won't be a real UploadedFile from validated()
                 unset($data['documents'][$key]['file']);
+
+                // Grab the actual file from the dedicated $documentsFiles array
+                $uploadedFile = $documentsFiles[$key]['file'] ?? null;
+
+                if ($uploadedFile instanceof \Illuminate\Http\UploadedFile && $uploadedFile->isValid()) {
+                    $data['documents'][$key]['file_path'] = $uploadedFile->store('temp/documents', 'public');
+                } else {
+                    // No file for this document — mark explicitly so registerSchool can handle it
+                    $data['documents'][$key]['file_path'] = null;
+                }
             }
         }
 
@@ -85,20 +95,32 @@ class SchoolService
             // 4. Handle Documents
             if (isset($regData['documents']) && is_array($regData['documents'])) {
                 foreach ($regData['documents'] as $doc) {
+                    // Resolve the final file path (move from temp if it exists)
+                    $finalPath = null;
                     $tempPath = $doc['file_path'] ?? null;
-                    if ($tempPath && Storage::disk('public')->exists($tempPath)) {
-                        $finalPath = str_replace('temp/documents', 'documents/schools/'.$school->id, $tempPath);
-                        Storage::disk('public')->move($tempPath, $finalPath);
-                        
+
+                    if ($tempPath) {
+                        if (Storage::disk('public')->exists($tempPath)) {
+                            $finalPath = str_replace('temp/documents', 'documents/schools/' . $school->id, $tempPath);
+                            Storage::disk('public')->move($tempPath, $finalPath);
+                        } else {
+                            // Temp file is gone (e.g. between deployments) — keep path as-is so admin knows a file was submitted
+                            $finalPath = $tempPath;
+                        }
+                    }
+
+                    // Always save the document record, even if no file was uploaded
+                    // Text metadata (name, type, date) must never be lost
+                    if (!empty($doc['name']) || !empty($doc['certificate_type'])) {
                         Document::create([
-                            'user_id' => $user->id,
-                            'name' => $doc['name'],
-                            'certificate_type' => $doc['certificate_type'],
+                            'user_id'                => $user->id,
+                            'name'                   => $doc['name'] ?? '',
+                            'certificate_type'       => $doc['certificate_type'] ?? '',
                             'certificate_type_other' => $doc['certificate_type_other'] ?? null,
-                            'riwayah' => $doc['riwayah'] ?? null,
-                            'issuing_place' => $doc['issuing_place'] ?? null,
-                            'issuing_date' => $doc['issuing_date'] ?? null,
-                            'file_path' => $finalPath,
+                            'riwayah'                => $doc['riwayah'] ?? null,
+                            'issuing_place'          => $doc['issuing_place'] ?? null,
+                            'issuing_date'           => $doc['issuing_date'] ?? null,
+                            'file_path'              => $finalPath,
                         ]);
                     }
                 }
