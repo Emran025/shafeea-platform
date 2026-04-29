@@ -67,3 +67,8 @@ services:
     autoDeploy: true
     # Branch to deploy from
     branch: main
+    # Persistent disk to preserve uploaded files across deployments (Important to prevent 404s after redeploy)
+    disk:
+      name: public-uploads
+      mountPath: /var/www/html/storage/app/public
+      sizeGB: 1
