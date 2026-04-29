@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, usePage, router } from '@inertiajs/react';
 import AdminLayout from '@/layouts/admin-layout';
 import { Button } from '@/components/ui/button';
@@ -69,7 +69,17 @@ export default function ServicesIndex() {
     const [search, setSearch] = useState(filters.search || '');
     const [category, setCategory] = useState(filters.category || 'all');
     const [isActive, setIsActive] = useState(filters.is_active || 'all');
-    const [viewMode, setViewMode] = useState<'table' | 'grid'>('table');
+    const [viewMode, setViewMode] = useState<'table' | 'grid'>(
+        () => (typeof window !== 'undefined' && window.innerWidth < 768) ? 'grid' : 'table'
+    );
+
+    useEffect(() => {
+        const handleResize = () => {
+            setViewMode(window.innerWidth < 768 ? 'grid' : 'table');
+        };
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     const handleSearch = () => {
         router.get('/admin/services', { 
@@ -101,12 +111,33 @@ export default function ServicesIndex() {
                             إدارة وعرض جميع الخدمات المتاحة في المنصة
                         </p>
                     </div>
-                    <Button asChild className="gap-2 shadow-lg hover:shadow-xl transition-all">
-                        <Link href="/admin/services/create">
-                            <Plus className="w-4 h-4" />
-                            إضافة خدمة جديدة
-                        </Link>
-                    </Button>
+                    <div className="flex items-center gap-3">
+                        {/* View Toggle — hidden on small screens (auto-switched) */}
+                        <div className="hidden md:flex border border-border rounded-lg overflow-hidden">
+                            <Button
+                                variant={viewMode === 'table' ? 'default' : 'ghost'}
+                                size="sm"
+                                onClick={() => setViewMode('table')}
+                                className="rounded-none border-0"
+                            >
+                                <List className="w-4 h-4" />
+                            </Button>
+                            <Button
+                                variant={viewMode === 'grid' ? 'default' : 'ghost'}
+                                size="sm"
+                                onClick={() => setViewMode('grid')}
+                                className="rounded-none border-0 border-r border-border"
+                            >
+                                <Grid3x3 className="w-4 h-4" />
+                            </Button>
+                        </div>
+                        <Button asChild className="gap-2 shadow-lg hover:shadow-xl transition-all">
+                            <Link href="/admin/services/create">
+                                <Plus className="w-4 h-4" />
+                                إضافة خدمة جديدة
+                            </Link>
+                        </Button>
+                    </div>
                 </div>
 
                 {/* Stats Cards */}
@@ -193,33 +224,13 @@ export default function ServicesIndex() {
                                     <SelectItem value="0">غير نشط</SelectItem>
                                 </SelectContent>
                             </Select>
-                            <div className="flex gap-2">
-                                <Button 
-                                    onClick={handleSearch} 
-                                    className="flex-1 lg:flex-none gap-2 h-11"
-                                >
-                                    <Search className="w-4 h-4" />
-                                    بحث
-                                </Button>
-                                <div className="flex border border-border rounded-lg overflow-hidden">
-                                    <Button
-                                        variant={viewMode === 'table' ? 'default' : 'ghost'}
-                                        size="sm"
-                                        onClick={() => setViewMode('table')}
-                                        className="rounded-none border-0"
-                                    >
-                                        <List className="w-4 h-4" />
-                                    </Button>
-                                    <Button
-                                        variant={viewMode === 'grid' ? 'default' : 'ghost'}
-                                        size="sm"
-                                        onClick={() => setViewMode('grid')}
-                                        className="rounded-none border-0 border-r border-border"
-                                    >
-                                        <Grid3x3 className="w-4 h-4" />
-                                    </Button>
-                                </div>
-                            </div>
+                            <Button 
+                                onClick={handleSearch} 
+                                className="flex-1 lg:flex-none gap-2 h-11"
+                            >
+                                <Search className="w-4 h-4" />
+                                بحث
+                            </Button>
                         </div>
                     </CardContent>
                 </Card>
@@ -227,17 +238,16 @@ export default function ServicesIndex() {
                 {/* Content Section */}
                 {viewMode === 'table' ? (
                     <Card className="overflow-hidden border-2 border-border/50 shadow-lg">
-                        <div className="overflow-x-auto">
-                            <Table>
+                        <Table>
                                 <TableHeader>
-                                    <TableRow className="bg-muted/50">
-                                        <TableHead className="font-semibold">العنوان</TableHead>
-                                        <TableHead className="font-semibold">الفئة</TableHead>
-                                        <TableHead className="font-semibold">الأيقونة</TableHead>
-                                        <TableHead className="font-semibold">ترتيب العرض</TableHead>
-                                        <TableHead className="font-semibold">الحالة</TableHead>
-                                        <TableHead className="font-semibold">شائع</TableHead>
-                                        <TableHead className="text-right font-semibold">إجراءات</TableHead>
+                                    <TableRow className="bg-primary/5 dark:bg-primary/10 border-b-2 border-primary/20 hover:bg-primary/5">
+                                        <TableHead className="px-5 py-3 text-xs font-bold text-foreground tracking-wider">العنوان</TableHead>
+                                        <TableHead className="px-5 py-3 text-xs font-bold text-foreground tracking-wider">الفئة</TableHead>
+                                        <TableHead className="px-5 py-3 text-xs font-bold text-foreground tracking-wider">الأيقونة</TableHead>
+                                        <TableHead className="px-5 py-3 text-xs font-bold text-foreground tracking-wider">ترتيب العرض</TableHead>
+                                        <TableHead className="px-5 py-3 text-xs font-bold text-foreground tracking-wider">الحالة</TableHead>
+                                        <TableHead className="px-5 py-3 text-xs font-bold text-foreground tracking-wider">شائع</TableHead>
+                                        <TableHead className="px-5 py-3 text-xs font-bold text-foreground tracking-wider text-right">إجراءات</TableHead>
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
@@ -245,9 +255,9 @@ export default function ServicesIndex() {
                                         services.data.map((service) => (
                                             <TableRow 
                                                 key={service.id} 
-                                                className="hover:bg-muted/30 transition-colors group"
+                                                className="hover:bg-muted/30 transition-colors group border-b border-border/50"
                                             >
-                                                <TableCell className="font-medium">
+                                                <TableCell className="px-5 py-3 font-medium">
                                                     <div className="flex items-center gap-3">
                                                         {service.image && (
                                                             <img 
@@ -266,7 +276,7 @@ export default function ServicesIndex() {
                                                         </div>
                                                     </div>
                                                 </TableCell>
-                                                <TableCell>
+                                                <TableCell className="px-5 py-3">
                                                     <Badge 
                                                         variant="outline" 
                                                         className={`${categoryColors[service.category] || 'bg-gray-100 text-gray-800'} border`}
@@ -274,15 +284,15 @@ export default function ServicesIndex() {
                                                         {categoryLabels[service.category] || service.category}
                                                     </Badge>
                                                 </TableCell>
-                                                <TableCell>
+                                                <TableCell className="px-5 py-3">
                                                     <code className="text-xs bg-muted px-2 py-1 rounded font-mono">
                                                         {service.icon}
                                                     </code>
                                                 </TableCell>
-                                                <TableCell>
+                                                <TableCell className="px-5 py-3">
                                                     <span className="font-medium">{service.display_order}</span>
                                                 </TableCell>
-                                                <TableCell>
+                                                <TableCell className="px-5 py-3">
                                                     <Badge 
                                                         variant={service.is_active ? "default" : "secondary"}
                                                         className={service.is_active 
@@ -293,7 +303,7 @@ export default function ServicesIndex() {
                                                         {service.is_active ? 'نشط' : 'غير نشط'}
                                                     </Badge>
                                                 </TableCell>
-                                                <TableCell>
+                                                <TableCell className="px-5 py-3">
                                                     {service.popular ? (
                                                         <Badge className="bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300 border-amber-200 dark:border-amber-800">
                                                             <Sparkles className="w-3 h-3 ml-1" />
@@ -303,7 +313,7 @@ export default function ServicesIndex() {
                                                         <span className="text-muted-foreground">-</span>
                                                     )}
                                                 </TableCell>
-                                                <TableCell>
+                                                <TableCell className="px-5 py-3">
                                                     <div className="flex items-center gap-2 justify-end">
                                                         <Button
                                                             variant="ghost"
@@ -351,7 +361,6 @@ export default function ServicesIndex() {
                                     )}
                                 </TableBody>
                             </Table>
-                        </div>
                     </Card>
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -477,7 +486,13 @@ export default function ServicesIndex() {
                                 disabled={!link.url}
                                 onClick={() => link.url && router.get(link.url)}
                                 className={link.active ? "shadow-md" : ""}
-                                dangerouslySetInnerHTML={{ __html: link.label }}
+                                dangerouslySetInnerHTML={{ 
+                                    __html: link.label
+                                        .replace('&laquo; Previous', 'السابق')
+                                        .replace('Next &raquo;', 'التالي')
+                                        .replace('Previous', 'السابق')
+                                        .replace('Next', 'التالي')
+                                }}
                             />
                         ))}
                     </div>

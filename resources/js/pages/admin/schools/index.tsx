@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, usePage, router } from '@inertiajs/react';
 import AdminLayout from '@/layouts/admin-layout';
 import { Button } from '@/components/ui/button';
@@ -7,7 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Card, CardContent } from '@/components/ui/card';
 import SchoolsTable, { SchoolWithAdmin } from '@/components/admin/SchoolsTable';
 import { PageProps } from '@/types';
-import { Plus, Search, Filter, Building2, Users, CheckCircle, Clock, XCircle } from 'lucide-react';
+import { Plus, Search, Filter, Building2, Users, CheckCircle, Clock, XCircle, List, Grid3x3 } from 'lucide-react';
 import { router as inertiaRouter } from '@inertiajs/react';
 
 interface SchoolsIndexProps extends PageProps {
@@ -33,10 +33,21 @@ export default function SchoolsIndex() {
     const { schools, stats, filters = {} } = usePage<SchoolsIndexProps>().props;
     const [search, setSearch] = useState(filters.search || '');
     const [status, setStatus] = useState(filters.status || 'all');
+    const [viewMode, setViewMode] = useState<'table' | 'grid'>(
+        () => (typeof window !== 'undefined' && window.innerWidth < 768) ? 'grid' : 'table'
+    );
+
+    useEffect(() => {
+        const handleResize = () => {
+            setViewMode(window.innerWidth < 768 ? 'grid' : 'table');
+        };
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     const handleSearch = () => {
-        router.get('/admin/schools', { 
-            search, 
+        router.get('/admin/schools', {
+            search,
             status: status === 'all' ? '' : status
         }, { preserveState: true });
     };
@@ -60,7 +71,8 @@ export default function SchoolsIndex() {
     return (
         <AdminLayout>
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
-                {/* Header Section */}
+
+                {/* Header */}
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                     <div className="space-y-1">
                         <h1 className="text-3xl font-bold text-foreground tracking-tight">إدارة المدارس</h1>
@@ -68,12 +80,33 @@ export default function SchoolsIndex() {
                             إدارة وعرض جميع المدارس المسجلة في المنصة
                         </p>
                     </div>
-                    <Button asChild className="gap-2 shadow-lg hover:shadow-xl transition-all">
-                        <Link href="/admin/schools/create">
-                            <Plus className="w-4 h-4" />
-                            إضافة مدرسة جديدة
-                        </Link>
-                    </Button>
+                    <div className="flex items-center gap-3">
+                        {/* View Toggle — hidden on small screens (auto-switched) */}
+                        <div className="hidden md:flex border border-border rounded-lg overflow-hidden">
+                            <Button
+                                variant={viewMode === 'table' ? 'default' : 'ghost'}
+                                size="sm"
+                                onClick={() => setViewMode('table')}
+                                className="rounded-none border-0"
+                            >
+                                <List className="w-4 h-4" />
+                            </Button>
+                            <Button
+                                variant={viewMode === 'grid' ? 'default' : 'ghost'}
+                                size="sm"
+                                onClick={() => setViewMode('grid')}
+                                className="rounded-none border-0 border-r border-border"
+                            >
+                                <Grid3x3 className="w-4 h-4" />
+                            </Button>
+                        </div>
+                        <Button asChild className="gap-2 shadow-lg hover:shadow-xl transition-all">
+                            <Link href="/admin/schools/create">
+                                <Plus className="w-4 h-4" />
+                                إضافة مدرسة جديدة
+                            </Link>
+                        </Button>
+                    </div>
                 </div>
 
                 {/* Stats Cards */}
@@ -144,8 +177,8 @@ export default function SchoolsIndex() {
                         </CardContent>
                     </Card>
                 </div>
-                
-                {/* Filters Section */}
+
+                {/* Filters */}
                 <Card className="border-2 border-border/50 shadow-sm">
                     <CardContent className="p-6">
                         <div className="flex flex-col lg:flex-row items-stretch lg:items-center gap-4">
@@ -173,8 +206,8 @@ export default function SchoolsIndex() {
                                     <SelectItem value="suspended">معلقة</SelectItem>
                                 </SelectContent>
                             </Select>
-                            <Button 
-                                onClick={handleSearch} 
+                            <Button
+                                onClick={handleSearch}
                                 className="flex-1 lg:flex-none gap-2 h-11"
                             >
                                 <Search className="w-4 h-4" />
@@ -184,11 +217,12 @@ export default function SchoolsIndex() {
                     </CardContent>
                 </Card>
 
-                {/* Table Section */}
+                {/* Table / Card Section */}
                 <Card className="border-2 border-border/50 shadow-lg overflow-hidden">
                     <SchoolsTable
                         schools={schools?.data || []}
                         onDelete={handleDelete}
+                        viewMode={viewMode}
                     />
                 </Card>
 
@@ -198,16 +232,23 @@ export default function SchoolsIndex() {
                         {schools.links.map((link: { url: string | null; label: string; active: boolean }, index: number) => (
                             <Button
                                 key={index}
-                                variant={link.active ? "default" : "outline"}
+                                variant={link.active ? 'default' : 'outline'}
                                 size="sm"
                                 disabled={!link.url}
                                 onClick={() => link.url && router.get(link.url)}
-                                className={link.active ? "shadow-md" : ""}
-                                dangerouslySetInnerHTML={{ __html: link.label }}
+                                className={link.active ? 'shadow-md' : ''}
+                                dangerouslySetInnerHTML={{ 
+                                    __html: link.label
+                                        .replace('&laquo; Previous', 'السابق')
+                                        .replace('Next &raquo;', 'التالي')
+                                        .replace('Previous', 'السابق')
+                                        .replace('Next', 'التالي')
+                                }}
                             />
                         ))}
                     </div>
                 )}
+
             </div>
         </AdminLayout>
     );
