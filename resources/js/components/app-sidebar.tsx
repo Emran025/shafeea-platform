@@ -89,7 +89,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                                 {/* Enhanced Logo Container with shadow and hover effects */}
                                 <div className="flex aspect-square size-10 items-center justify-center rounded-lg bg-white overflow-hidden">
                                     <img 
-                                        src="/logo.svg" 
+                                        src="/logo-optimized.webp" 
                                         alt="شعار شفيع" 
                                         className="size-7 object-contain" 
                                     />
