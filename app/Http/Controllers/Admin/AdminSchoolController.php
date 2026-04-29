@@ -110,7 +110,7 @@ class AdminSchoolController extends Controller
                     foreach ($request->documents as $doc) {
                         if (isset($doc['file']) && $doc['file'] instanceof \Illuminate\Http\UploadedFile) {
                             $filePath = $doc['file']->store(
-                                'public/documents/schools/'.$school->id,
+                                'documents/schools/'.$school->id,
                                 'public'
                             );
 

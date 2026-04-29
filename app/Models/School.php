@@ -28,6 +28,37 @@ class School extends Model
     ];
 
     /**
+     * The default logo to use when a school has no uploaded logo.
+     * Stored in public/images/schools/school.svg — always accessible regardless of storage links.
+     */
+    const DEFAULT_LOGO = '/images/schools/school.svg';
+
+    /**
+     * Get the full URL for the school logo.
+     * Handles three path types:
+     *   1. Full URL (http/https)     → return as-is  (e.g. CDN or external image)
+     *   2. Absolute public path (/)  → return as-is  (e.g. /images/schools/school.svg)
+     *   3. Relative storage path     → prepend /storage/ prefix (e.g. schools/logos/xxx.png)
+     *   4. null / empty              → return the default placeholder logo
+     */
+    public function getLogoAttribute($value): string
+    {
+        if (!$value) {
+            return self::DEFAULT_LOGO;
+        }
+        // Full external URL
+        if (str_starts_with($value, 'http')) {
+            return $value;
+        }
+        // Already an absolute path to the public directory (e.g. /images/...)
+        if (str_starts_with($value, '/')) {
+            return $value;
+        }
+        // Relative path stored via Storage::disk('public') — needs /storage/ prefix
+        return \Illuminate\Support\Facades\Storage::disk('public')->url($value);
+    }
+
+    /**
      * Get the current subscription plan for the school.
      */
     public function currentPlan()
