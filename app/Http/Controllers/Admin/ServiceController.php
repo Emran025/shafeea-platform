@@ -87,11 +87,6 @@ class ServiceController extends Controller
      */
     public function show(Service $service)
     {
-        // Ensure the frontend receives a full URL if it's a stored path
-        if ($service->image && !str_starts_with($service->image, 'http')) {
-            $service->image = Storage::disk('public')->url($service->image);
-        }
-
         return Inertia::render('admin/services/show', [
             'service' => $service,
         ]);
@@ -102,11 +97,6 @@ class ServiceController extends Controller
      */
     public function edit(Service $service)
     {
-        // Ensure the frontend receives a full URL for preview
-        if ($service->image && !str_starts_with($service->image, 'http')) {
-            $service->image = Storage::disk('public')->url($service->image);
-        }
-
         return Inertia::render('admin/services/edit', [
             'service' => $service,
         ]);
@@ -121,9 +111,11 @@ class ServiceController extends Controller
 
         // Handle uploaded image file (replace existing if present)
         if ($request->hasFile('image_file')) {
-            // Delete old file if it was stored relative to the disk
-            if ($service->image && !str_starts_with($service->image, 'http')) {
-                Storage::disk('public')->delete($service->image);
+            // Delete old file if it was a stored path
+            // Note: We use getRawOriginal to get the path without the accessor's URL conversion
+            $oldPath = $service->getRawOriginal('image');
+            if ($oldPath && !str_starts_with($oldPath, 'http')) {
+                Storage::disk('public')->delete($oldPath);
             }
 
             $path = $request->file('image_file')->store('services', 'public');

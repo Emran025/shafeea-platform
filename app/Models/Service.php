@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Support\Facades\Storage;
+
 class Service extends Model
 {
     use HasFactory, SoftDeletes;
@@ -28,6 +31,28 @@ class Service extends Model
         'display_order',
         'is_active',
     ];
+
+    /**
+     * Get the service's image URL.
+     */
+    protected function image(): Attribute
+    {
+        return Attribute::make(
+            get: function ($value) {
+                if (!$value) {
+                    return null;
+                }
+
+                // If it's a full URL or an absolute public path, return as is
+                if (str_starts_with($value, 'http') || str_starts_with($value, '/')) {
+                    return $value;
+                }
+
+                // Otherwise, assume it's a relative path in the public storage
+                return Storage::disk('public')->url($value);
+            },
+        );
+    }
 
     /**
      * The attributes that should be cast.
