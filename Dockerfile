@@ -67,6 +67,7 @@ RUN chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
 # Setup Nginx and Entrypoint
 COPY docker/nginx.conf /etc/nginx/nginx.conf
+COPY docker/php-uploads.ini /usr/local/etc/php/conf.d/uploads.ini
 COPY docker/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
