@@ -195,7 +195,7 @@ function Sidebar({
         <div
           data-sidebar="sidebar"
           // UPDATED: Used bg-primary and text-primary-foreground for the Word-like look
-          className="flex h-full w-full flex-col bg-primary dark:bg-gray-700 text-primary-foreground group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:border-primary-foreground/20 group-data-[variant=floating]:shadow-sm"
+          className="flex h-full w-full flex-col bg-primary dark:bg-gray-700 text-primary-foreground group-data-[variant=floating]:rounded-xs group-data-[variant=floating]:border group-data-[variant=floating]:border-primary-foreground/20 group-data-[variant=floating]:shadow-sm"
         >
           {children}
         </div>
@@ -254,7 +254,7 @@ function SidebarInset({ className, ...props }: React.ComponentProps<"main">) {
       data-slot="sidebar-inset"
       className={cn(
         "relative flex min-h-svh flex-1 flex-col bg-background max-w-full",
-        "peer-data-[variant=inset]:min-h-[calc(100svh-(--spacing(4)))] md:peer-data-[variant=inset]:m-2 md:peer-data-[variant=inset]:ml-0 md:peer-data-[variant=inset]:rounded-xl md:peer-data-[variant=inset]:shadow-sm md:peer-data-[variant=inset]:peer-data-[state=collapsed]:ml-0",
+        "peer-data-[variant=inset]:min-h-[calc(100svh-(--spacing(4)))] md:peer-data-[variant=inset]:m-2 md:peer-data-[variant=inset]:ml-0 md:peer-data-[variant=inset]:rounded-xs md:peer-data-[variant=inset]:shadow-sm md:peer-data-[variant=inset]:peer-data-[state=collapsed]:ml-0",
         className
       )}
       {...props}
@@ -320,7 +320,7 @@ function SidebarGroupLabel({ className, asChild = false, ...props }: React.Compo
     <Comp
       data-sidebar="group-label"
       className={cn(
-        "flex h-8 shrink-0 items-center rounded-md px-2 text-xs font-medium text-primary-foreground/70 outline-hidden ring-sidebar-ring transition-[margin,opacity] duration-200 ease-linear focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0",
+        "flex h-8 shrink-0 items-center rounded-xs px-2 text-xs font-medium text-primary-foreground/70 outline-hidden ring-sidebar-ring transition-[margin,opacity] duration-200 ease-linear focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0",
         "group-data-[collapsible=icon]:-mt-8 group-data-[collapsible=icon]:opacity-0 group-data-[collapsible=icon]:select-none group-data-[collapsible=icon]:pointer-events-none",
         className
       )}
@@ -335,7 +335,7 @@ function SidebarGroupAction({ className, asChild = false, ...props }: React.Comp
     <Comp
       data-sidebar="group-action"
       className={cn(
-        "absolute top-3.5 right-3 flex aspect-square w-5 items-center justify-center rounded-md p-0 text-primary-foreground outline-hidden ring-sidebar-ring transition-transform hover:bg-primary-foreground/10 hover:text-primary-foreground focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0",
+        "absolute top-3.5 right-3 flex aspect-square w-5 items-center justify-center rounded-xs p-0 text-primary-foreground outline-hidden ring-sidebar-ring transition-transform hover:bg-primary-foreground/10 hover:text-primary-foreground focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0",
         "after:absolute after:-inset-2 md:after:hidden",
         "group-data-[collapsible=icon]:hidden",
         className
@@ -365,7 +365,7 @@ function SidebarMenuItem({ className, ...props }: React.ComponentProps<"li">) {
 
 // UPDATED: Variants to support the Primary background (white text, white/10 hover)
 const sidebarMenuButtonVariants = cva(
-  "peer/menu-button flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left text-sm outline-hidden ring-sidebar-ring transition-[width,height,padding] focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50 group-has-data-[sidebar=menu-action]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2! [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0",
+  "peer/menu-button flex w-full items-center gap-2 overflow-hidden rounded-xs p-2 text-left text-sm outline-hidden ring-sidebar-ring transition-[width,height,padding] focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50 group-has-data-[sidebar=menu-action]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2! [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0",
   {
     variants: {
       variant: {
@@ -414,7 +414,7 @@ function SidebarMenuAction({ className, asChild = false, showOnHover = false, ..
     <Comp
       data-sidebar="menu-action"
       className={cn(
-        "absolute top-1.5 right-1 flex aspect-square w-5 items-center justify-center rounded-md p-0 text-primary-foreground outline-hidden ring-sidebar-ring transition-transform hover:bg-primary-foreground/10 hover:text-primary-foreground focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0",
+        "absolute top-1.5 right-1 flex aspect-square w-5 items-center justify-center rounded-xs p-0 text-primary-foreground outline-hidden ring-sidebar-ring transition-transform hover:bg-primary-foreground/10 hover:text-primary-foreground focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0",
         "after:absolute after:-inset-2 md:after:hidden",
         "peer-data-[size=sm]/menu-button:top-1",
         "peer-data-[size=default]/menu-button:top-1.5",
@@ -433,7 +433,7 @@ function SidebarMenuBadge({ className, ...props }: React.ComponentProps<"div">) 
     <div
       data-sidebar="menu-badge"
       className={cn(
-        "pointer-events-none absolute right-1 flex h-5 min-w-5 items-center justify-center rounded-md px-1 text-xs font-medium tabular-nums select-none text-primary-foreground/70",
+        "pointer-events-none absolute right-1 flex h-5 min-w-5 items-center justify-center rounded-xs px-1 text-xs font-medium tabular-nums select-none text-primary-foreground/70",
         "peer-hover/menu-button:text-primary-foreground peer-data-[active=true]/menu-button:text-primary-foreground",
         "peer-data-[size=sm]/menu-button:top-1",
         "peer-data-[size=default]/menu-button:top-1.5",
@@ -449,8 +449,8 @@ function SidebarMenuBadge({ className, ...props }: React.ComponentProps<"div">) 
 function SidebarMenuSkeleton({ className, showIcon = false, ...props }: React.ComponentProps<"div"> & { showIcon?: boolean }) {
   const width = React.useMemo(() => `${Math.floor(Math.random() * 40) + 50}%`, [])
   return (
-    <div data-sidebar="menu-skeleton" className={cn("flex h-8 items-center gap-2 rounded-md px-2", className)} {...props}>
-      {showIcon && <Skeleton className="size-4 rounded-md" data-sidebar="menu-skeleton-icon" />}
+    <div data-sidebar="menu-skeleton" className={cn("flex h-8 items-center gap-2 rounded-xs px-2", className)} {...props}>
+      {showIcon && <Skeleton className="size-4 rounded-xs" data-sidebar="menu-skeleton-icon" />}
       <Skeleton className="h-4 max-w-(--skeleton-width) flex-1" data-sidebar="menu-skeleton-text" style={{ "--skeleton-width": width } as React.CSSProperties} />
     </div>
   )
@@ -484,7 +484,7 @@ function SidebarMenuSubButton({ asChild = false, size = "md", isActive = false, 
       data-size={size}
       data-active={isActive}
       className={cn(
-        "flex h-7 min-w-0 -translate-x-px items-center gap-2 overflow-hidden rounded-md px-2 text-primary-foreground/70 outline-hidden ring-sidebar-ring hover:bg-primary-foreground/10 hover:text-primary-foreground active:bg-primary-foreground/20 active:text-primary-foreground [&>svg]:text-primary-foreground/70 focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0",
+        "flex h-7 min-w-0 -translate-x-px items-center gap-2 overflow-hidden rounded-xs px-2 text-primary-foreground/70 outline-hidden ring-sidebar-ring hover:bg-primary-foreground/10 hover:text-primary-foreground active:bg-primary-foreground/20 active:text-primary-foreground [&>svg]:text-primary-foreground/70 focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0",
         "data-[active=true]:bg-primary-foreground/10 data-[active=true]:text-primary-foreground",
         size === "sm" && "text-xs",
         size === "md" && "text-sm",
