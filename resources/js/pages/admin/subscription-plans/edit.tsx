@@ -39,7 +39,7 @@ export default function PlanEdit() {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        put(route('admin.subscriptionPlans.update', subscriptionPlans.id));
+        put(route('admin.subscription-plans.update', subscriptionPlans.id));
     };
 
     const handleAddFeature = () => {
@@ -64,7 +64,7 @@ export default function PlanEdit() {
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
                 <div className="flex items-center gap-4">
                     <Button variant="ghost" size="sm" asChild>
-                        <Link href={route('admin.subscriptionPlans.index')}>
+                        <Link href={route('admin.subscription-plans.index')}>
                             <ArrowRight className="w-4 h-4 ml-2" />
                             العودة للباقات
                         </Link>

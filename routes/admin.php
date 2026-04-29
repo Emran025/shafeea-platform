@@ -58,7 +58,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('services', ServiceController::class)->names('services');
 
     // Plans management
-    Route::resource('subscription-plans', SubscriptionPlanController::class)->names('subscriptionPlans');
+    Route::resource('subscription-plans', SubscriptionPlanController::class);
 
     // Admin account management
     Route::prefix('account')->name('account.')->group(function () {

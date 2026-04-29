@@ -108,7 +108,7 @@ export default function PlansIndex() {
                                                 asChild
                                                 className="h-9 w-9 p-0 hover:bg-emerald-100 dark:hover:bg-emerald-900/30"
                                             >
-                                                <Link href={route('admin.subscriptionPlans.edit', subscriptionPlan.id)}>
+                                                <Link href={route('admin.subscription-plans.edit', subscriptionPlan.id)}>
                                                     <Edit className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                                                 </Link>
                                             </Button>

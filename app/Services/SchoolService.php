@@ -27,12 +27,18 @@ class SchoolService
         if ($logoFile) {
             $data['school_logo_path'] = $logoFile->store('temp/logos', 'public');
         }
+        
+        // Prevent Serialization of 'Illuminate\Http\UploadedFile' exception
+        unset($data['school_logo']);
 
-        if (isset($data['documents'])) {
+        if (isset($data['documents']) && is_array($data['documents'])) {
             foreach ($data['documents'] as $key => $doc) {
                 if (isset($documentsFiles[$key]['file'])) {
                     $data['documents'][$key]['file_path'] = $documentsFiles[$key]['file']->store('temp/documents', 'public');
                 }
+                
+                // Prevent Serialization of 'Illuminate\Http\UploadedFile' exception
+                unset($data['documents'][$key]['file']);
             }
         }
 
