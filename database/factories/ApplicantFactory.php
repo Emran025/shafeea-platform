@@ -20,13 +20,7 @@ class ApplicantFactory extends Factory
             ? 'إجازة في علوم القرآن، شهادة في أساليب التدريس الحديثة، خبرة في التعامل مع مختلف الفئات العمرية.'
             : 'خاتم لـ '.$this->faker->numberBetween(5, 20).' أجزاء من القرآن الكريم، ومشارك فعال في الأنشطة الدينية بالمسجد المحلي.';
 
-        $intentStatement = $applicationType === 'teacher'
-            ? 'أتطلع إلى المساهمة في تنشئة جيل جديد من حفظة القرآن، وتطبيق خبرتي في بيئة تعليمية محفزة وملهمة.'
-            : 'أهدف إلى إتمام حفظ القرآن الكريم وتلقي العلم على يد معلمين أكفاء للانضمام إلى نخبة حفظة كتاب الله.';
-
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
             'user_id' => User::factory(),
             'school_id' => null,
             'application_type' => $applicationType,
