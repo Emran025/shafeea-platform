@@ -36,7 +36,7 @@ class SchoolApplicationController extends Controller
 
         session(['school_registration_data' => $data]);
 
-        return redirect()->route('register.select-plan');
+        return redirect()->route('register.select-subscription-plan');
     }
 
     public function selectPlan()

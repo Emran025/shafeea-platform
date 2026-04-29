@@ -40,6 +40,6 @@ class SubscriptionPlanController extends Controller
 
         $subscriptionPlan->update($validated);
 
-        return redirect()->route('admin.subscriptionPlans.index')->with('success', 'تم تحديث الباقة بنجاح.');
+        return redirect()->route('admin.subscription-plans.index')->with('success', 'تم تحديث الباقة بنجاح.');
     }
 }
