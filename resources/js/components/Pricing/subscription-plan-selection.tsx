@@ -31,10 +31,10 @@ export default function SubscriptionPlanSelection({ subscriptionPlans, onSelectS
                 >
                     {subscriptionPlan.is_recommended && (
                         <>
-                            <div className="absolute -inset-[3px] bg-gradient-to-r from-primary via-blue-400 to-purple-500 rounded-[2rem] opacity-70 group-hover:opacity-100 blur-md transition duration-500 animate-pulse"></div>
+                            {/* Removed neon glow for a more formal look */}
                             <div className="absolute top-0 right-1/2 translate-x-1/2 -translate-y-1/2 z-30">
-                                <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-black bg-gradient-to-r from-orange-500 to-amber-500 text-white shadow-xl border border-white/20 whitespace-nowrap uppercase tracking-wider">
-                                    <Star className="w-3.5 h-3.5 ml-1.5 fill-white animate-spin-slow" />
+                                <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-black bg-primary text-white shadow-xl border border-white/10 whitespace-nowrap uppercase tracking-wider">
+                                    <Star className="w-3.5 h-3.5 ml-1.5 fill-white" />
                                     الأكثر طلباً
                                 </span>
                             </div>
@@ -47,18 +47,18 @@ export default function SubscriptionPlanSelection({ subscriptionPlans, onSelectS
                             : ''
                     } ${
                         subscriptionPlan.is_recommended 
-                            ? 'bg-gradient-to-b from-[#0d1b2a] to-black text-white' 
+                            ? 'bg-primary/5 dark:bg-primary/10 backdrop-blur-xl border-2 border-primary shadow-primary/10' 
                             : 'bg-white/80 dark:bg-gray-900/60 backdrop-blur-xl border border-white/20 dark:border-white/5'
                     }`}>
                         {/* Shimmer Effect */}
                         <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
 
-                        <CardHeader className={`text-center pb-6 pt-10 relative ${subscriptionPlan.is_recommended ? 'border-b border-white/10' : 'border-b border-border/10'}`}>
-                            <h3 className={`text-xl font-black mb-4 tracking-tight ${subscriptionPlan.is_recommended ? 'text-blue-400' : 'text-foreground'}`}>
+                        <CardHeader className={`text-center pb-6 pt-10 relative ${subscriptionPlan.is_recommended ? 'border-b border-primary/10' : 'border-b border-border/10'}`}>
+                            <h3 className={`text-xl font-black mb-4 tracking-tight ${subscriptionPlan.is_recommended ? 'text-primary' : 'text-foreground'}`}>
                                 {subscriptionPlan.name}
                             </h3>
                             <div className="flex items-baseline justify-center gap-1.5 mb-2">
-                                <span className={`text-5xl font-black tracking-tighter ${subscriptionPlan.is_recommended ? 'text-white' : 'text-foreground'}`}>
+                                <span className={`text-5xl font-black tracking-tighter ${subscriptionPlan.is_recommended ? 'text-primary' : 'text-foreground'}`}>
                                     {subscriptionPlan.price}
                                 </span>
                                 <div className="flex flex-col items-start translate-y-[-4px]">
@@ -66,7 +66,7 @@ export default function SubscriptionPlanSelection({ subscriptionPlans, onSelectS
                                     <span className="text-[10px] font-medium opacity-50">{subscriptionPlan.period || 'سنويًا'}</span>
                                 </div>
                             </div>
-                            <p className={`text-xs px-6 leading-relaxed ${subscriptionPlan.is_recommended ? 'text-blue-100/70' : 'text-muted-foreground'}`}>
+                            <p className={`text-xs px-6 leading-relaxed ${subscriptionPlan.is_recommended ? 'text-foreground/70' : 'text-muted-foreground'}`}>
                                 {subscriptionPlan.description || (Number(subscriptionPlan.price) === 0 ? "ابدأ رحلة التميز مع الأساسيات" : "حلول متقدمة لنمو مؤسستكم التعليمية")}
                             </p>
                         </CardHeader>
@@ -83,7 +83,7 @@ export default function SubscriptionPlanSelection({ subscriptionPlans, onSelectS
                                             <CheckCircle className="w-3.5 h-3.5" />
                                         </div>
                                         <span className={`leading-snug transition-colors ${
-                                            subscriptionPlan.is_recommended ? 'text-gray-300 group-hover/item:text-white' : 'text-foreground/80 group-hover/item:text-foreground'
+                                            subscriptionPlan.is_recommended ? 'text-foreground/90 group-hover/item:text-primary' : 'text-foreground/80 group-hover/item:text-foreground'
                                         }`}>{feature}</span>
                                     </li>
                                 ))}
