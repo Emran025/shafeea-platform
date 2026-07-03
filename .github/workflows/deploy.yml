@@ -161,13 +161,13 @@ jobs:
           # ── 4. Run migrations ────────────────────────────────────────────
           php artisan migrate --force
 
-          # ── 5. Seed only on first-time deployment (no users yet) ─────────
-          USER_COUNT=$(php artisan tinker --execute="echo \App\Models\User::count();" | tr -d '\r\n[:alpha:][:space:]')
-          if [ "$USER_COUNT" = "0" ]; then
+          # ── 5. Seed only on first-time deployment (no schools yet) ──────
+          SCHOOL_COUNT=$(php artisan tinker --execute="echo \App\Models\School::count();" | tr -d '\r\n[:alpha:][:space:]')
+          if [ "$SCHOOL_COUNT" = "0" ]; then
             echo "First-time deployment: seeding database..."
             php artisan db:seed --force
           else
-            echo "Database already seeded (users: $USER_COUNT). Skipping."
+            echo "Database already seeded (schools: $SCHOOL_COUNT). Skipping."
           fi
 
           # ── 6. Re-cache for production ───────────────────────────────────

@@ -57,7 +57,7 @@ export function Footer() {
                                 <ul className="space-y-4">
                                     <li className="flex items-start gap-3">
                                         <Mail className="w-4 h-4 text-blue-400 mt-1" />
-                                        <span className="text-sm text-gray-400 hover:text-white transition-colors cursor-pointer">info@shafeea.com</span>
+                                        <span className="text-sm text-gray-400 hover:text-white transition-colors cursor-pointer">info@shafeea.accsystemerp.com</span>
                                     </li>
                                     <li className="flex items-start gap-3">
                                         <Phone className="w-4 h-4 text-emerald-400 mt-1" />

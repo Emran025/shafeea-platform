@@ -64,7 +64,7 @@ export default function Privacy() {
         {
             icon: Mail,
             title: "البريد الإلكتروني",
-            value: "privacy@shafeea.com",
+            value: "privacy@shafeea.accsystemerp.com",
             description: "للاستفسارات حول الخصوصية"
         },
         {

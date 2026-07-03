@@ -37,7 +37,6 @@ class DemoSupervisorSeeder extends Seeder
             'country' => 'اليمن',
             'city' => 'صنعاء',
             'residence' => 'التحرير',
-            'status' => 'active', // Explicitly activating the user
             'school_id' => $schoolId,
         ]);
 

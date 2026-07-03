@@ -59,7 +59,7 @@ export default function Contact() {
             icon: Mail,
             title: "البريد الإلكتروني",
             description: "راسلنا في أي وقت",
-            details: ["info@shafeea.com", "support@shafeea.com"],
+            details: ["info@shafeea.accsystemerp.com", "support@shafeea.accsystemerp.com"],
             available: "نرد خلال 24 ساعة",
             color: "emerald"
         },
@@ -86,20 +86,20 @@ export default function Contact() {
             name: "الدعم الفني",
             description: "مساعدة في استخدام المنصة",
             icon: Headphones,
-            email: "support@shafeea.com"
+            email: "support@shafeea.accsystemerp.com"
         },
 
         {
             name: "الشراكات",
             description: "فرص التعاون والشراكة",
             icon: Users,
-            email: "partnerships@shafeea.com"
+            email: "partnerships@shafeea.accsystemerp.com"
         },
         {
             name: "المحتوى التعليمي",
             description: "استفساراتإمكانيات إضافة المناهج والمحتوى",
             icon: BookOpen,
-            email: "content@shafeea.com"
+            email: "content@shafeea.accsystemerp.com"
         }
     ];
 

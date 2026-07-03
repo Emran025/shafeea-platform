@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\School;
 use App\Models\User;
 
 /**
@@ -28,8 +29,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Check if database has already been seeded
-        if (User::exists()) {
+        // Check if database has already been seeded (schools are the root dependency)
+        if (School::exists()) {
             $this->command->info('⚠️  Database is already seeded. Skipping seeder to prevent duplicates.');
             return;
         }
