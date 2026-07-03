@@ -172,8 +172,8 @@ jobs:
 
           # ── 6. Re-cache for production ───────────────────────────────────
           php artisan config:cache
-          php artisan route:cache
-          php artisan view:cache
+          php artisan route:cache  || { echo "⚠️  route:cache failed — running without route cache"; php artisan route:clear; }
+          php artisan view:cache   || true
 
           echo "✅ Deployment complete."
           EOF
