@@ -55,7 +55,10 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: app-build
-          # Upload only what rsync will send (no git, no node_modules)
+          # include-hidden-files MUST be true — public/.htaccess is a dotfile
+          # and v4 defaults to false, which causes rsync --delete to wipe it
+          # from the server, breaking all Laravel routes except /
+          include-hidden-files: true
           path: |
             .
             !.git
@@ -109,6 +112,12 @@ jobs:
             --exclude='.env' \
             ./ \
             ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_HOST }}:/home/${{ secrets.SERVER_USERNAME }}/web/${{ secrets.PROJECT_DOMAIN }}/public_html
+
+          # ── Verify .htaccess was deployed (safety check) ─────────────────
+          ssh -i ~/.ssh/id_ed25519 ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_HOST }} \
+            "[ -f /home/${{ secrets.SERVER_USERNAME }}/web/${{ secrets.PROJECT_DOMAIN }}/public_html/public/.htaccess ] \
+             && echo '✅ public/.htaccess present' \
+             || { echo '❌ public/.htaccess MISSING — deploy artifact may have excluded dotfiles'; exit 1; }"
 
       # 5️⃣ Activate release on the server
       - name: Activate release

@@ -18,12 +18,12 @@ class DemoSupervisorSeeder extends Seeder
     public function run(): void
     {
         // Get a random school to assign teachers to
-        $schoolId = School::inRandomOrder()->first()?->id;
+        // $schoolId = School::inRandomOrder()->first()?->id;
 
-        if (! $schoolId) {
-            $this->command->error('❌ No schools found! Please run SchoolSeeder first.');
-            return;
-        }
+        // if (! $schoolId) {
+        //     $this->command->error('❌ No schools found! Please run SchoolSeeder first.');
+        //     return;
+        // }
 
         $user = User::create([
             'name' => 'المشرف العام',
@@ -37,7 +37,8 @@ class DemoSupervisorSeeder extends Seeder
             'country' => 'اليمن',
             'city' => 'صنعاء',
             'residence' => 'التحرير',
-            'school_id' => $schoolId,
+            'status' => 'active', // Explicitly activating the user
+            'school_id' => null, // $schoolId,
         ]);
 
         Admin::create([

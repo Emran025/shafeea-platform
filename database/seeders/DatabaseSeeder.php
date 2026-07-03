@@ -55,22 +55,24 @@ class DatabaseSeeder extends Seeder
             ServiceSeeder::class,
             SubscriptionPlanSeeder::class,
 
-            // Demo data
-            // School infrastructure
-            DemoSchoolSeeder::class,                // 23 schools + admin users
-            DemoStudentsSeeder::class,              // 45+ demo students with historical data
-            DemoTeachersSeeder::class,              // 45+ demo Teachers with historical data
-            DemoApplicantSeeder::class,             // 25+ demo Applicants with historical data
-            DemoTrackingsPlansSeeder::class,
-            DemoSupervisorSeeder::class,
-            DocumentSeeder::class,
-
-            FaqSeeder::class,
-
-            DemoHalaqahsSeeder::class,
-            DemoEnrollmentSeeder::class,
-            DemoStudentTrackingsSeeder::class,
+            // start Demo data - 1 ====================================================
+            // DemoSchoolSeeder::class,                // 23 schools + admin users
+            // DemoStudentsSeeder::class,              // 45+ demo students with historical data
+            // DemoTeachersSeeder::class,              // 45+ demo Teachers with historical data
+            // DemoApplicantSeeder::class,             // 25+ demo Applicants with historical data
+            // DemoTrackingsPlansSeeder::class,
+            // DocumentSeeder::class,
+            // end Demo data - 1 ====================================================
             
+            FaqSeeder::class,
+            
+            // start Demo data - 2 ====================================================
+            // DemoHalaqahsSeeder::class,
+            // DemoEnrollmentSeeder::class,
+            // DemoStudentTrackingsSeeder::class,
+            // end Demo data - 2 ====================================================
+            
+            DemoSupervisorSeeder::class,
             LandingPageSettingSeeder::class,
         ]);
 
