@@ -12,23 +12,20 @@ class ContentTypeSeeder extends Seeder
      */
     public function run(): void
     {
-        ContentType::create([
-            'name' => 'الأسئلة الشائعة',
-            'slug' => 'faq',
-        ]);
-        ContentType::create([
-            'name' => 'سياسة الخصوصية',
-            'slug' => 'privacy-policy',
-        ]);
-        ContentType::create([
-            'name' => 'شروط الاستخدام',
-            'slug' => 'terms-of-use',
-        ]);
-        ContentType::create([
-            'name' => 'محتوى عام',
-            'slug' => 'general-content',
-        ]);
+        $types = [
+            ['slug' => 'faq',             'name' => 'الأسئلة الشائعة'],
+            ['slug' => 'privacy-policy',  'name' => 'سياسة الخصوصية'],
+            ['slug' => 'terms-of-use',    'name' => 'شروط الاستخدام'],
+            ['slug' => 'general-content', 'name' => 'محتوى عام'],
+        ];
 
-        $this->command->info('✅ Created ' . ContentType::count() . ' content types.');
+        foreach ($types as $type) {
+            ContentType::firstOrCreate(
+                ['slug' => $type['slug']],
+                ['name' => $type['name']]
+            );
+        }
+
+        $this->command->info('✅ Seeded ' . ContentType::count() . ' content types.');
     }
 }

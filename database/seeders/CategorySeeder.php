@@ -12,12 +12,21 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        Category::create(['name' => 'أسئلة عامة', 'display_order' => 1]);
-        Category::create(['name' => 'إدارة الحساب', 'display_order' => 2]);
-        Category::create(['name' => 'الميزات', 'display_order' => 3]);
-        Category::create(['name' => 'الدعم الفني', 'display_order' => 4]);
-        Category::create(['name' => 'الأسعار والخطط', 'display_order' => 5]);
+        $categories = [
+            ['name' => 'أسئلة عامة',      'display_order' => 1],
+            ['name' => 'إدارة الحساب',    'display_order' => 2],
+            ['name' => 'الميزات',          'display_order' => 3],
+            ['name' => 'الدعم الفني',      'display_order' => 4],
+            ['name' => 'الأسعار والخطط',  'display_order' => 5],
+        ];
 
-        $this->command->info('✅ Created ' . Category::count() . ' categories.');
+        foreach ($categories as $category) {
+            Category::firstOrCreate(
+                ['display_order' => $category['display_order']],
+                ['name'          => $category['name']]
+            );
+        }
+
+        $this->command->info('✅ Seeded ' . Category::count() . ' categories.');
     }
 }

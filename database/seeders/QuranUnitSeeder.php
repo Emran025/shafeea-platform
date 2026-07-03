@@ -21,7 +21,10 @@ class QuranUnitSeeder extends Seeder
         ];
 
         foreach ($units as $unit) {
-            Unit::create($unit);
+            Unit::firstOrCreate(
+                ['code' => $unit['code']],
+                ['name_ar' => $unit['name_ar']]
+            );
         }
 
         $this->command->info('✅ Created ' . Unit::count() . ' Quran units.');

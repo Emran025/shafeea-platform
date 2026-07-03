@@ -19,7 +19,10 @@ class TrackingTypesSeeder extends Seeder
         ];
 
         foreach ($trackingTypes as $trackingType) {
-            TrackingType::create($trackingType);
+            TrackingType::firstOrCreate(
+                ['name_en' => $trackingType['name_en']],
+                ['name_ar' => $trackingType['name_ar']]
+            );
         }
 
         $this->command->info('✅ Created ' . TrackingType::count() . ' tracking types.');

@@ -14,7 +14,7 @@ class PrivacyPolicySeeder extends Seeder
     public function run(): void
     {
         // Path to Privacy Policy JSON file
-        $jsonPath = database_path('data/privacy_Policy.json');
+        $jsonPath = database_path('data/privacy_policy.json');
 
         if (! file_exists($jsonPath)) {
             $this->command->warn('⚠️  Demo privacy_Policy JSON file not found. Skipping seeder.');
