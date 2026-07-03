@@ -24,7 +24,10 @@ class TagSeeder extends Seeder
         ];
 
         foreach ($tags as $tag) {
-            Tag::create($tag);
+            Tag::firstOrCreate(
+                ['tag_slug' => $tag['tag_slug']],
+                ['tag_name' => $tag['tag_name']]
+            );
         }
 
         $this->command->info('✅ Created ' . Tag::count() . ' tags.');

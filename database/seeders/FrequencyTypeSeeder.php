@@ -20,7 +20,10 @@ class FrequencyTypeSeeder extends Seeder
         ];
 
         foreach ($frequencytypes as $frequencyType) {
-            FrequencyType::create($frequencyType);
+            FrequencyType::firstOrCreate(
+                ['days_between' => $frequencyType['days_between']],
+                ['name' => $frequencyType['name'], 'description' => $frequencyType['description']]
+            );
         }
 
         $this->command->info('✅ Created ' . FrequencyType::count() . ' frequency types.');
