@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Events\SchoolRegistrationSubmittedEvent;
 use App\Models\Admin;
 use App\Models\Document;
 use App\Models\School;
@@ -57,7 +58,7 @@ class SchoolService
 
     public function registerSchool(array $regData, int $subscriptionPlanId, string $paymentMethod)
     {
-        return DB::transaction(function () use ($regData, $subscriptionPlanId, $paymentMethod) {
+        $result = DB::transaction(function () use ($regData, $subscriptionPlanId, $paymentMethod) {
             // 1. Move Logo from temp to final
             $logoPath = $regData['school_logo_path'] ?? null;
             if ($logoPath) {
@@ -170,5 +171,11 @@ class SchoolService
                 ];
             }
         });
+
+        // Dispatch AFTER the transaction commits — queued listeners must not race
+        // against an open transaction or they may read uncommitted data.
+        SchoolRegistrationSubmittedEvent::dispatch($result['school']);
+
+        return $result;
     }
 }

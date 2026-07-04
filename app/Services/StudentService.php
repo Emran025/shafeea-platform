@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Events\StudentEnrolledInHalaqahEvent;
 use App\Models\Enrollment;
 use App\Models\Halaqah;
 use App\Models\Student;
@@ -127,11 +128,15 @@ class StudentService
         $student = Student::where('user_id', $userId)->firstOrFail();
         $halaqah = Halaqah::findOrFail($halaqahId);
 
-        return $halaqah->enrollments()->create([
+        $enrollment = $halaqah->enrollments()->create([
             'student_id' => $student->id,
             'halaqah_id' => $halaqahId,
             'enrolled_at' => now(),
         ]);
+
+        StudentEnrolledInHalaqahEvent::dispatch($enrollment);
+
+        return $enrollment;
     }
 
     public function leaveHalaqah(int $userId, int $halaqahId)

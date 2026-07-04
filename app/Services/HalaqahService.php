@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Events\StudentEnrolledInHalaqahEvent;
 use App\Models\Enrollment;
 use App\Models\Halaqah;
 use App\Models\Teacher;
@@ -69,7 +70,9 @@ class HalaqahService
 
     public function assignStudents(int $id, array $studentUserIds)
     {
-        return DB::transaction(function () use ($id, $studentUserIds) {
+        $newStudentIds = [];
+
+        $halaqah = DB::transaction(function () use ($id, $studentUserIds, &$newStudentIds) {
             $halaqah = Halaqah::lockForUpdate()->findOrFail($id);
             $studentIds = Student::whereIn('user_id', $studentUserIds)->pluck('id')->all();
 
@@ -126,5 +129,18 @@ class HalaqahService
 
             return $halaqah;
         });
+
+        // Dispatch one enrollment notification per newly enrolled student (post-commit)
+        if (!empty($newStudentIds)) {
+            $newEnrollments = Enrollment::where('halaqah_id', $id)
+                ->whereIn('student_id', array_values($newStudentIds))
+                ->get();
+
+            foreach ($newEnrollments as $enrollment) {
+                StudentEnrolledInHalaqahEvent::dispatch($enrollment);
+            }
+        }
+
+        return $halaqah;
     }
 }

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Public;
 
+use App\Events\ContactInquirySubmittedEvent;
 use App\Http\Controllers\Controller;
-
 use App\Http\Requests\Public\StoreContactRequest;
 use App\Models\HelpTicket;
 use Inertia\Inertia;
@@ -28,7 +28,9 @@ class ContactController extends Controller
             $ticketData['user_id'] = Auth::id();
         }
 
-        HelpTicket::create($ticketData);
+        $ticket = HelpTicket::create($ticketData);
+
+        ContactInquirySubmittedEvent::dispatch($ticket);
 
         return redirect()->back()->with('success', 'تم إرسال رسالتك بنجاح! سنتواصل معك قريباً.');
     }

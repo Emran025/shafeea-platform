@@ -98,7 +98,7 @@ export default function Terms() {
                                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                                     {/* Email Tile */}
                                     <a
-                                        href="mailto:legal@shafeea.accsystemerp.com"
+                                        href="mailto:legal@shafeea.systems360.cloud"
                                         className="group/item relative flex items-center rounded-xl border border-border bg-card p-4 transition-all duration-300 hover:border-blue-500/50 hover:shadow-lg hover:shadow-blue-500/5"
                                     >
                                         <div className="mr-0 ml-4 flex h-10 w-10 items-center justify-center rounded-lg bg-blue-50 text-blue-600 transition-colors group-hover/item:bg-blue-600 group-hover/item:text-white dark:bg-blue-900/20 dark:text-blue-400">
@@ -107,7 +107,7 @@ export default function Terms() {
                                         <div>
                                             <span className="mb-0.5 block text-xs font-medium text-muted-foreground">البريد الإلكتروني</span>
                                             <span className="dir-ltr block text-sm font-bold text-foreground transition-colors group-hover/item:text-blue-600 dark:group-hover/item:text-blue-400">
-                                                legal@shafeea.accsystemerp.com
+                                                legal@shafeea.systems360.cloud
                                             </span>
                                         </div>
                                         <ArrowLeft className="absolute left-4 h-4 w-4 -translate-x-2 text-muted-foreground opacity-0 transition-all duration-300 group-hover/item:translate-x-0 group-hover/item:opacity-100" />

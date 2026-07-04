@@ -108,13 +108,6 @@ class PaymentService
                 'subscription_ends_at' => $subscription->ends_at,
             ]);
 
-            // Send Welcome Email
-            try {
-                \Illuminate\Support\Facades\Mail::to($school->users()->first()->email)
-                    ->send(new \App\Mail\WelcomeSchoolMail($school));
-            } catch (\Exception $e) {
-                \Illuminate\Support\Facades\Log::error("Failed to send welcome email: " . $e->getMessage());
-            }
         }
 
         return true;

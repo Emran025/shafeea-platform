@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers\Api\V1\Admin;
 
+use App\Events\StudentApplicationApprovedEvent;
+use App\Events\StudentApplicationRejectedEvent;
+use App\Events\TeacherApplicationApprovedEvent;
+use App\Events\TeacherApplicationRejectedEvent;
 use App\Http\Controllers\Api\V1\ApiController;
 use App\Http\Resources\AdminApplicantResource;
 use App\Models\Applicant;
@@ -127,7 +131,15 @@ class AdminApplicantController extends ApiController
             return $this->error('An error occurred during the approval process.'.$e->getMessage(), 500);
         }
 
-        return $this->success($applicant->fresh(), 'Applicant approved and assigned to your school.');
+        $freshApplicant = $applicant->fresh();
+
+        if ($freshApplicant->application_type === 'teacher') {
+            TeacherApplicationApprovedEvent::dispatch($freshApplicant);
+        } else {
+            StudentApplicationApprovedEvent::dispatch($freshApplicant);
+        }
+
+        return $this->success($freshApplicant, 'Applicant approved and assigned to your school.');
     }
 
     public function reject(Request $request, $id)
@@ -183,6 +195,15 @@ class AdminApplicantController extends ApiController
             Log::error('Rejection Error: '.$e->getMessage());
 
             return $this->error('An error occurred during the rejection process.', 500);
+        }
+
+        $freshApplicant = $applicant->fresh();
+        $rejectionReason = $request->reason;
+
+        if ($freshApplicant->application_type === 'teacher') {
+            TeacherApplicationRejectedEvent::dispatch($freshApplicant, $rejectionReason);
+        } else {
+            StudentApplicationRejectedEvent::dispatch($freshApplicant, $rejectionReason);
         }
 
         return $this->success(null, 'Applicant rejected and returned to the general pool.');

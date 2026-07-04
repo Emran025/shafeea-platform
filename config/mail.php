@@ -113,4 +113,19 @@ return [
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Dedicated Email Addresses
+    |--------------------------------------------------------------------------
+    |
+    | contact_email  — receives all contact form inquiries and web requests.
+    | noreply_email  — used as the sender when emailing teachers and schools.
+    | platform_admin_email — receives school registration alerts.
+    |
+    */
+
+    'contact_email' => env('MAIL_CONTACT_ADDRESS'),
+
+    'noreply_email' => env('MAIL_NOREPLY_ADDRESS'),
+
 ];

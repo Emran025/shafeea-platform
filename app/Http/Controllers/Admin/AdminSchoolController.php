@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Events\SchoolApprovedEvent;
+use App\Events\SchoolRejectedEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreSchoolApplicationRequest;
 use App\Models\Admin;
@@ -172,12 +174,16 @@ class AdminSchoolController extends Controller
     {
         $school->admin->update(['status' => 'accepted']);
 
+        SchoolApprovedEvent::dispatch($school);
+
         return redirect()->back()->with('success', 'School approved successfully.');
     }
 
-    public function reject(School $school)
+    public function reject(Request $request, School $school)
     {
         $school->admin->update(['status' => 'rejected']);
+
+        SchoolRejectedEvent::dispatch($school, $request->input('reason'));
 
         return redirect()->back()->with('success', 'School rejected successfully.');
     }

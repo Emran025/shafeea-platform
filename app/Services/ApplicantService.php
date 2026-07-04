@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Events\StudentApplicationSubmittedEvent;
+use App\Events\TeacherApplicationSubmittedEvent;
 use App\Models\Applicant;
 use App\Models\Document;
 use App\Models\User;
@@ -21,7 +23,7 @@ class ApplicantService
      */
     public function createTeacherApplication(array $data, array $documentFiles = [])
     {
-        return DB::transaction(function () use ($data, $documentFiles) {
+        $applicant = DB::transaction(function () use ($data, $documentFiles) {
             // 1. Create User
             $user = User::create([
                 'name'     => $data['user_name'] ?? $data['name'],
@@ -82,6 +84,10 @@ class ApplicantService
 
             return $applicant;
         });
+
+        TeacherApplicationSubmittedEvent::dispatch($applicant);
+
+        return $applicant;
     }
 
     /**
@@ -90,7 +96,7 @@ class ApplicantService
      */
     public function createStudentApplication(array $data)
     {
-        return DB::transaction(function () use ($data) {
+        $applicant = DB::transaction(function () use ($data) {
             $user = User::create([
                 'name' => $data['user_name'] ?? $data['name'],
                 'email' => $data['user_email'] ?? $data['email'],
@@ -120,5 +126,9 @@ class ApplicantService
 
             return $applicant;
         });
+
+        StudentApplicationSubmittedEvent::dispatch($applicant);
+
+        return $applicant;
     }
 }
