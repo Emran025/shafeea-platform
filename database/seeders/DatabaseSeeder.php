@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\School;
-use App\Models\User;
 
 /**
  * Class DatabaseSeeder
@@ -64,7 +63,7 @@ class DatabaseSeeder extends Seeder
             // DocumentSeeder::class,
             // end Demo data - 1 ====================================================
             
-            FaqSeeder::class,
+            DemoSupervisorSeeder::class,
             
             // start Demo data - 2 ====================================================
             // DemoHalaqahsSeeder::class,
@@ -72,7 +71,7 @@ class DatabaseSeeder extends Seeder
             // DemoStudentTrackingsSeeder::class,
             // end Demo data - 2 ====================================================
             
-            DemoSupervisorSeeder::class,
+            FaqSeeder::class,
             LandingPageSettingSeeder::class,
         ]);
 

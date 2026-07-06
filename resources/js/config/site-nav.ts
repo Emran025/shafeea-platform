@@ -1,4 +1,4 @@
-import { Home, Users, Award, Phone, BookOpen, Shield, LucideIcon } from 'lucide-react';
+import { Home, Users, Award, Phone, BookOpen, Shield, Download, LucideIcon } from 'lucide-react';
 
 // Define types for navigation items
 export interface NavigationItem {
@@ -18,6 +18,7 @@ export const navigationItems: NavigationItem[] = [
   { name: 'من نحن', href: '/about', icon: Users },
   { name: 'خدماتنا', href: '/services', icon: Award },
   { name: 'تواصل معنا', href: '/contact', icon: Phone },
+  { name: 'تحميل التطبيق', href: '/download', icon: Download },
 ];
 
 export const bePartOfUs: NavigationItem[] = [

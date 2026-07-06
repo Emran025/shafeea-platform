@@ -77,4 +77,32 @@ class PageController extends Controller
             'faqs' => $faqs,
         ]);
     }
+
+    /**
+     * Mobile apps download page.
+     *
+     * APK URLs point to the canonical GitHub Release assets.
+     * The filenames (shafeea-student.apk / shafeea-teach.apk) are stable
+     * across all releases — /releases/latest/download/ always serves the
+     * most recent release with that exact filename.
+     *
+     * Override via STUDENT_APK_URL / TEACH_APK_URL in .env when needed
+     * (e.g. pointing to a staging build or a specific release version).
+     *
+     * Note: config() is used — NOT env() — so this works correctly when
+     * Laravel's config cache is active (php artisan config:cache).
+     */
+    public function download(): Response
+    {
+        return Inertia::render('download', [
+            'studentApkUrl' => config(
+                'app.student_apk_url',
+                'https://github.com/Emran025/shafeea_student/releases/latest/download/shafeea-student.apk'
+            ),
+            'teachApkUrl' => config(
+                'app.teach_apk_url',
+                'https://github.com/Emran025/shafeea_teach/releases/latest/download/shafeea-teach.apk'
+            ),
+        ]);
+    }
 }

@@ -25,5 +25,7 @@ Route::post('/contact', [ContactController::class, 'store'])->name('contact.stor
 Route::get('/help',    [HelpCenterController::class, 'index'])->name('help');
 Route::get('/support', [SupportController::class, 'index'])->name('support');
 
+Route::get('/download', [PageController::class, 'download'])->name('download');
+
 // require __DIR__ . '/auth.php';
 

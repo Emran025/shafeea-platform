@@ -123,4 +123,30 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Mobile Application Download URLs
+    |--------------------------------------------------------------------------
+    |
+    | These URLs point to the canonical APK release assets published to
+    | GitHub Releases.  The filenames are stable across versions so that
+    | /releases/latest/download/ always serves the most recent build.
+    |
+    | Override in .env:
+    |   STUDENT_APK_URL=https://...
+    |   TEACH_APK_URL=https://...
+    |
+    */
+
+    'student_apk_url' => env(
+        'STUDENT_APK_URL',
+        'https://github.com/Emran025/shafeea_student/releases/latest/download/shafeea-student.apk'
+    ),
+
+    'teach_apk_url' => env(
+        'TEACH_APK_URL',
+        'https://github.com/Emran025/shafeea_teach/releases/latest/download/shafeea-teach.apk'
+    ),
+
 ];
+
