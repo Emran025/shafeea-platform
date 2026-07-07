@@ -25,11 +25,13 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 import { EmailInput } from '@/components/email-input'; 
 import { PasswordGroup } from '@/components/password-group'; 
+import React from 'react';
 
 export default function Apply() {
     const { flash } = usePage<SharedData>().props;
     const { data, setData, post, errors, processing } = useForm({
         error: '',
+        subscription_plan_id: '' as string | number,
         school_name: '',
         school_logo: null as File | null,
         school_phone: '',
@@ -54,6 +56,17 @@ export default function Apply() {
             }
         ]
     });
+
+    // Read plan_id from the URL query string (?plan_id=X) so that clicking
+    // "Choose this Plan" on the pricing page pre-selects the plan through
+    // the multi-step registration session.
+    React.useEffect(() => {
+        const params = new URLSearchParams(window.location.search);
+        const planId = params.get('plan_id');
+        if (planId) {
+            setData('subscription_plan_id', planId);
+        }
+    }, []);
 
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();

@@ -34,6 +34,12 @@ class SchoolApplicationController extends Controller
             $request->file('documents', [])
         );
 
+        // Carry the pre-selected subscription plan through the session so it
+        // survives the multi-step registration and auto-selects on the next step.
+        if ($request->filled('subscription_plan_id')) {
+            $data['subscription_plan_id'] = (int) $request->input('subscription_plan_id');
+        }
+
         session(['school_registration_data' => $data]);
 
         return redirect()->route('register.select-subscription-plan');
@@ -45,8 +51,12 @@ class SchoolApplicationController extends Controller
             return redirect()->route('register.index');
         }
 
+        $regData            = session('school_registration_data');
+        $preselectedPlanId  = $regData['subscription_plan_id'] ?? null;
+
         return Inertia::render('schools/select-subscription-plan', [
-            'subscriptionPlans' => SubscriptionPlan::where('is_active', true)->orderBy('sort_order')->get(),
+            'subscriptionPlans'  => SubscriptionPlan::where('is_active', true)->orderBy('sort_order')->get(),
+            'preselectedPlanId'  => $preselectedPlanId,
         ]);
     }
 

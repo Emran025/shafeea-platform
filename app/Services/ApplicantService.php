@@ -34,6 +34,9 @@ class ApplicantService
                 'password' => Hash::make($data['user_password'] ?? $data['password']),
             ]);
 
+            // Trigger email verification — user must confirm before accessing data
+            $user->sendEmailVerificationNotification();
+
             // 2. Create Applicant
             $applicant = Applicant::create([
                 'user_id'           => $user->id,
@@ -112,6 +115,9 @@ class ApplicantService
                 'city' => $data['user_city'] ?? $data['city'] ?? null,
                 'residence' => $data['residence'] ?? null,
             ]);
+
+            // Trigger email verification — user must confirm before accessing recruitment pool
+            $user->sendEmailVerificationNotification();
 
             $applicant = Applicant::create([
                 'user_id' => $user->id,

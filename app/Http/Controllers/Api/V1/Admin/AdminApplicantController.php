@@ -11,7 +11,6 @@ use App\Http\Resources\AdminApplicantResource;
 use App\Models\Applicant;
 use App\Models\Student;
 use App\Models\Teacher;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -23,7 +22,7 @@ class AdminApplicantController extends ApiController
     {
         $adminUser = $request->user();
         $adminSchoolId = $adminUser->school_id;
-        
+
         // Load admin record to check super_admin status
         $adminRecord = $adminUser->admin;
         $isSuperAdmin = $adminRecord ? $adminRecord->super_admin : false;
@@ -35,7 +34,10 @@ class AdminApplicantController extends ApiController
 
         $query = Applicant::query()->with('user')
             // 1. Exclude applicants who are already students or teachers.
-            ->whereNotIn('user_id', $acceptedUserIds);
+            ->whereNotIn('user_id', $acceptedUserIds)
+            // 2. Exclude applicants whose email address has not been verified.
+            //    Unverified users must not appear in any recruitment pool.
+            ->whereHas('user', fn($q) => $q->whereNotNull('email_verified_at'));
 
         // 2. If not super admin, filter by school
         if (!$isSuperAdmin) {
@@ -44,11 +46,11 @@ class AdminApplicantController extends ApiController
                 $q->whereDoesntHave('rejections', function ($sub) use ($adminSchoolId) {
                     $sub->where('school_id', $adminSchoolId);
                 })
-                // Include applicants assigned to the admin's school or available to all.
-                ->where(function ($sub) use ($adminSchoolId) {
-                    $sub->where('school_id', $adminSchoolId)
-                        ->orWhereNull('school_id');
-                });
+                    // Include applicants assigned to the admin's school or available to all.
+                    ->where(function ($sub) use ($adminSchoolId) {
+                        $sub->where('school_id', $adminSchoolId)
+                            ->orWhereNull('school_id');
+                    });
             });
         }
 
@@ -126,9 +128,9 @@ class AdminApplicantController extends ApiController
                 $applicant->user()->update(['school_id' => $adminSchoolId, 'status' => 'inactive']);
             });
         } catch (\Exception $e) {
-            Log::error('Approval Error: '.$e->getMessage());
+            Log::error('Approval Error: ' . $e->getMessage());
 
-            return $this->error('An error occurred during the approval process.'.$e->getMessage(), 500);
+            return $this->error('An error occurred during the approval process.' . $e->getMessage(), 500);
         }
 
         $freshApplicant = $applicant->fresh();
@@ -192,7 +194,7 @@ class AdminApplicantController extends ApiController
                 ]);
             });
         } catch (\Exception $e) {
-            Log::error('Rejection Error: '.$e->getMessage());
+            Log::error('Rejection Error: ' . $e->getMessage());
 
             return $this->error('An error occurred during the rejection process.', 500);
         }

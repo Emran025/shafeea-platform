@@ -18,12 +18,13 @@ class UserProfileResource extends JsonResource
 
         return [
             'user' => [
-                'id' => $this->id,
-                'name' => $this->name,
-                'email' => $this->email,
-                'phone' => $this->phone,
-                'avatar' => $this->avatar,
-                'role' => $role ? ['id' => $role->id, 'name' => $role->name] : null,
+                'id'               => $this->id,
+                'name'             => $this->name,
+                'email'            => $this->email,
+                'phone'            => $this->phone,
+                'avatar'           => $this->avatar,
+                'role'             => $role ? ['id' => $role->id, 'name' => $role->name] : null,
+                'is_email_verified'=> (bool) $this->email_verified_at,
             ],
             'activeSessions' => [],
         ];

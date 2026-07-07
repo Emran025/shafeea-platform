@@ -94,12 +94,13 @@ class AuthController extends ApiController
 
         return $this->success([
             'token' => $token,
-            'user' => [
-                'id' => $user->id,
-                'name' => $user->name,
-                'email' => $user->email,
-                'phone' => $user->phone,
-                'avatar' => $user->avatar,
+            'user'  => [
+                'id'               => $user->id,
+                'name'             => $user->name,
+                'email'            => $user->email,
+                'phone'            => $user->phone,
+                'avatar'           => $user->avatar,
+                'is_email_verified'=> (bool) $user->email_verified_at,
             ],
             'role' => $role,
         ], 'Login successful.');
@@ -155,14 +156,15 @@ class AuthController extends ApiController
 
         return $this->success([
             'token' => $token,
-            'user' => [
-                'id' => $user->id,
-                'name' => $user->name,
-                'email' => $user->email,
-                'phone' => $user->phone,
-                'avatar' => $user->avatar,
+            'user'  => [
+                'id'               => $user->id,
+                'name'             => $user->name,
+                'email'            => $user->email,
+                'phone'            => $user->phone,
+                'avatar'           => $user->avatar,
+                'is_email_verified'=> (bool) $user->email_verified_at,
             ],
-            'role' => 'user', // Default role for new users
+            'role' => 'user',
         ], 'Application submitted successfully');
     }
 
@@ -184,11 +186,17 @@ class AuthController extends ApiController
      */
     public function me(Request $request)
     {
-        // This should return the ACTUAL authenticated user, not a mock one
         $user = $request->user();
 
         return $this->success([
-            'user' => $user, // Or format it with a UserResource
+            'user'  => [
+                'id'               => $user->id,
+                'name'             => $user->name,
+                'email'            => $user->email,
+                'phone'            => $user->phone,
+                'avatar'           => $user->avatar,
+                'is_email_verified'=> (bool) $user->email_verified_at,
+            ],
         ], 'Authenticated profile retrieved successfully.');
     }
 
@@ -295,6 +303,44 @@ class AuthController extends ApiController
         }
 
         return $this->success(null, 'If the email exists, a reset link has been sent.');
+    }
+
+    /**
+     * GET /api/v1/auth/email/verify/{id}/{hash}
+     * Verify the user's email address via signed URL.
+     */
+    public function verify(Request $request)
+    {
+        $user = User::findOrFail($request->route('id'));
+
+        if (! hash_equals((string) $request->route('hash'), sha1($user->getEmailForVerification()))) {
+            return $this->error('Invalid verification link.', 403);
+        }
+
+        if ($user->hasVerifiedEmail()) {
+            return $this->success(null, 'Email already verified.');
+        }
+
+        $user->markEmailAsVerified();
+
+        return $this->success(null, 'Email verified successfully.');
+    }
+
+    /**
+     * POST /api/v1/auth/email/resend
+     * Resend the verification email for the authenticated user.
+     */
+    public function resendVerification(Request $request)
+    {
+        $user = $request->user();
+
+        if ($user->hasVerifiedEmail()) {
+            return $this->error('Email already verified.', 400);
+        }
+
+        $user->sendEmailVerificationNotification();
+
+        return $this->success(null, 'Verification link sent.');
     }
 
     /**

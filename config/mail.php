@@ -95,6 +95,42 @@ return [
             ],
         ],
 
+        'verify' => [
+            'transport' => 'smtp',
+            'host' => env('MAIL_HOST', '127.0.0.1'),
+            'port' => env('MAIL_PORT', 2525),
+            'username' => env('MAIL_VERIFY_ADDRESS'),
+            'password' => env('MAIL_VERIFY_PASSWORD'),
+            'timeout' => null,
+        ],
+
+        'contact' => [
+            'transport' => 'smtp',
+            'host' => env('MAIL_HOST', '127.0.0.1'),
+            'port' => env('MAIL_PORT', 2525),
+            'username' => env('MAIL_CONTACT_ADDRESS'),
+            'password' => env('MAIL_CONTACT_PASSWORD'),
+            'timeout' => null,
+        ],
+
+        'noreply' => [
+            'transport' => 'smtp',
+            'host' => env('MAIL_HOST', '127.0.0.1'),
+            'port' => env('MAIL_PORT', 2525),
+            'username' => env('MAIL_NOREPLY_ADDRESS'),
+            'password' => env('MAIL_NOREPLY_PASSWORD'),
+            'timeout' => null,
+        ],
+
+        'info' => [
+            'transport' => 'smtp',
+            'host' => env('MAIL_HOST', '127.0.0.1'),
+            'port' => env('MAIL_PORT', 2525),
+            'username' => env('MAIL_INFO_ADDRESS'),
+            'password' => env('MAIL_INFO_PASSWORD'),
+            'timeout' => null,
+        ],
+
     ],
 
     /*
@@ -124,8 +160,12 @@ return [
     |
     */
 
+    'verify_email'  => env('MAIL_VERIFY_ADDRESS'),
+
     'contact_email' => env('MAIL_CONTACT_ADDRESS'),
 
     'noreply_email' => env('MAIL_NOREPLY_ADDRESS'),
+
+    'info_email'    => env('MAIL_INFO_ADDRESS'),
 
 ];

@@ -2,19 +2,21 @@
 
 namespace App\Mail\Students;
 
+use App\Mail\CategorizedMailable;
 use App\Models\Enrollment;
 use App\Models\Halaqah;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 
-class StudentEnrolledMail extends Mailable implements ShouldQueue
+class StudentEnrolledMail extends CategorizedMailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
+
+    protected string $emailCategory = 'noreply';
 
     public int $tries = 3;
     public int $backoff = 60;
@@ -28,7 +30,9 @@ class StudentEnrolledMail extends Mailable implements ShouldQueue
 
     public function envelope(): Envelope
     {
+        $base = parent::envelope();
         return new Envelope(
+            from: $base->from,
             subject: 'تم تسجيلك في حلقة "' . $this->halaqah->name . '"',
         );
     }

@@ -4,21 +4,28 @@ import {
     Sun,
     Moon,
     LogOut,
+    AlertTriangle,
+    X,
 } from 'lucide-react';
+import { router, usePage } from '@inertiajs/react';
 import { AppSidebar } from '@/components/app-sidebar';
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { SharedData } from '@/types';
 
 interface AdminLayoutProps {
     children: React.ReactNode;
 }
 
 export default function AdminLayout({ children }: AdminLayoutProps) {
+    const { auth } = usePage<SharedData>().props;
+    const isUnverified = !auth?.user?.email_verified_at;
+    const [bannerDismissed, setBannerDismissed] = useState(false);
     const [isDarkMode, setIsDarkMode] = useState(false);
+    const [resending, setResending] = useState(false);
 
     useEffect(() => {
-        // Check initial dark mode state
         setIsDarkMode(document.documentElement.classList.contains('dark'));
     }, []);
 
@@ -27,12 +34,51 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
         document.documentElement.classList.toggle('dark');
     };
 
+    const handleResendVerification = () => {
+        setResending(true);
+        router.post(route('verification.send'), {}, {
+            onFinish: () => setResending(false),
+        });
+    };
+
     return (
         <div className="flex h-screen min-h-screen bg-background text-foreground transition-colors duration-300" dir="rtl" style={{ fontFamily: 'Cairo, sans-serif' }}>
             <SidebarProvider>
                 <AppSidebar/>
                 <SidebarInset className="overflow-hidden [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-                    {/* Enhanced Header with gradient and modern styling */}
+
+                    {/* ── Email Verification Warning Banner ── */}
+                    {isUnverified && !bannerDismissed && (
+                        <div
+                            className="flex items-center justify-between gap-3 px-4 py-2.5 text-sm"
+                            style={{
+                                background: 'linear-gradient(90deg, #78350f, #92400e)',
+                                borderBottom: '1px solid rgba(251,191,36,0.3)',
+                            }}
+                        >
+                            <div className="flex items-center gap-2 text-amber-200">
+                                <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0" />
+                                <span>
+                                    بريدك الإلكتروني غير مُفعَّل. تحقق من صندوق الوارد أو{' '}
+                                    <button
+                                        onClick={handleResendVerification}
+                                        disabled={resending}
+                                        className="underline font-semibold text-amber-300 hover:text-amber-100 disabled:opacity-60 transition-colors"
+                                    >
+                                        {resending ? 'جارٍ الإرسال…' : 'أعد إرسال رابط التفعيل'}
+                                    </button>
+                                </span>
+                            </div>
+                            <button
+                                onClick={() => setBannerDismissed(true)}
+                                className="text-amber-400 hover:text-amber-200 transition-colors shrink-0"
+                                title="إغلاق"
+                            >
+                                <X className="w-4 h-4" />
+                            </button>
+                        </div>
+                    )}
+
                     <header className="sticky top-0 z-50 flex items-center justify-between p-4 bg-card/95 backdrop-blur-xl border-b border-border/50 shadow-md">
                         <div className="flex items-center gap-3">
                             <SidebarTrigger className="hover:bg-accent transition-colors" />

@@ -84,14 +84,17 @@ class SchoolService
 
             // 3. Create User
             $user = User::create([
-                'name' => $regData['user_name'],
-                'email' => $regData['user_email'],
-                'phone' => $regData['user_phone'],
-                'country' => $regData['school_country'], // School and Admin usually share location
-                'city' => $regData['school_city'],
-                'password' => Hash::make($regData['user_password']),
+                'name'      => $regData['user_name'],
+                'email'     => $regData['user_email'],
+                'phone'     => $regData['user_phone'],
+                'country'   => $regData['school_country'],
+                'city'      => $regData['school_city'],
+                'password'  => Hash::make($regData['user_password']),
                 'school_id' => $school->id,
             ]);
+
+            // Trigger email verification — school admin must confirm before accessing dashboard
+            $user->sendEmailVerificationNotification();
 
             // 4. Handle Documents
             if (isset($regData['documents']) && is_array($regData['documents'])) {

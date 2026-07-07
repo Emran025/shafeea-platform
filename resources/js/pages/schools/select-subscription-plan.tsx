@@ -4,7 +4,7 @@ import SubscriptionPlanSelection from '@/components/Pricing/subscription-plan-se
 import { Badge } from '@/components/ui/badge';
 import { TrendingUp, ArrowRight, CreditCard, Landmark, AlertCircle, Check, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card } from '@/components/ui/card';
 
 interface SubscriptionPlan {
@@ -20,12 +20,24 @@ interface SubscriptionPlan {
 
 interface SelectSubscriptionPlanProps {
     subscriptionPlans: SubscriptionPlan[];
+    preselectedPlanId?: number | null;
 }
 
-export default function SelectSubscriptionPlan({ subscriptionPlans }: SelectSubscriptionPlanProps) {
-    const [selectedSubscriptionPlanId, setSelectedSubscriptionPlanId] = useState<number | null>(null);
+export default function SelectSubscriptionPlan({ subscriptionPlans, preselectedPlanId }: SelectSubscriptionPlanProps) {
+    const [selectedSubscriptionPlanId, setSelectedSubscriptionPlanId] = useState<number | null>(preselectedPlanId ?? null);
     const [paymentMethod, setPaymentMethod] = useState<'online' | 'reference_number'>('online');
     const [processing, setProcessing] = useState(false);
+
+    // Auto-scroll to the pre-selected plan card so the user immediately sees
+    // the plan they chose from the pricing page highlighted and ready to go.
+    useEffect(() => {
+        if (preselectedPlanId) {
+            const el = document.getElementById(`plan-card-${preselectedPlanId}`);
+            if (el) {
+                setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'center' }), 400);
+            }
+        }
+    }, [preselectedPlanId]);
 
     const handleSelectSubscriptionPlan = (subscriptionPlanId: number) => {
         setSelectedSubscriptionPlanId(subscriptionPlanId);
