@@ -1,5 +1,5 @@
 {{--
-    CTA Button Partial
+    Structure: call-to-action button
     Usage:
       @include('emails.partials.cta-button', ['url' => $url, 'label' => 'النص', 'style' => 'primary'])
     Styles: primary | secondary | ghost

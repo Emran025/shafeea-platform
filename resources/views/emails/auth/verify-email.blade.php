@@ -1,39 +1,60 @@
 @extends('emails.layout.master')
 
+{{-- ═══════════════════════════════════════════════════════════════
+     METADATA
+     Section values are passed directly to the master layout.
+     All dynamic bindings below are preserved exactly as received.
+════════════════════════════════════════════════════════════════ --}}
 @section('email-title', 'تأكيد حسابك — منصة شفيع')
 @section('preheader', 'أهلاً بك في منصة شفيع، يرجى تأكيد بريدك الإلكتروني لتفعيل حسابك.')
 
+@section('header-title', 'تأكيد البريد الإلكتروني')
+@section('header-subtitle', 'إجراء مطلوب لإتمام تفعيل حسابك')
+
+@section('status-type', 'info')
+@section('status-bar', 'في انتظار تأكيد البريد الإلكتروني')
+
+{{-- ═══════════════════════════════════════════════════════════════
+     CONTENT
+════════════════════════════════════════════════════════════════ --}}
 @section('content')
 
-<div class="greeting">مرحباً {{ $userName ?? 'بك' }} 👋</div>
+{{-- Greeting --}}
+<p class="greeting">مرحباً {{ $userName ?? 'بك' }}،</p>
 
+{{-- Opening body --}}
 <p class="body-text">
-    سعداء جداً بانضمامك إلى <strong>منصة شفيع</strong>. نحن هنا لنرافقك في رحلتك التعليمية ونوفر لك أفضل الأدوات والخبرات.
+    نرحّب بانضمامك إلى <strong>منصة شفيع</strong>. لإتمام تفعيل حسابك،
+    يرجى تأكيد عنوان بريدك الإلكتروني عبر الزر أدناه.
     <br><br>
-    للبدء، يرجى تأكيد هويتك من خلال النقر على الزر أدناه. هذه الخطوة ضرورية لضمان أمان حسابك وحماية بياناتك.
+    هذه الخطوة ضرورية لضمان أمان حسابك وحماية بياناتك الشخصية.
 </p>
 
-<div class="cta-wrapper">
-    <a href="{{ $verificationUrl }}" class="cta-button">
-        تأكيد البريد الإلكتروني
-    </a>
-</div>
+{{-- Primary action --}}
+@include('emails.partials.cta-button', [
+    'url'   => $verificationUrl,
+    'label' => 'تأكيد البريد الإلكتروني',
+    'style' => 'primary',
+])
 
+{{-- Validity notice --}}
 <div class="info-card">
-    <p style="margin: 0; font-size: 14px; color: #64748b; text-align: center;">
-        هذا الرابط صالح لمدة <strong>60 دقيقة</strong> فقط. إذا انتهت الصلاحية، يمكنك طلب رابط جديد من خلال التطبيق.
+    <p class="info-card-text">
+        هذا الرابط صالح لمدة <strong>60 دقيقة</strong> فقط.
+        في حال انتهاء الصلاحية، يمكنك طلب رابط جديد من داخل التطبيق.
     </p>
 </div>
 
-<p style="font-size: 12px; color: #94a3b8; line-height: 1.6; text-align: center; margin: 0 0 10px 0;">
-    إذا واجهت مشكلة في النقر على الزر، يمكنك نسخ الرابط أدناه ولصقه في متصفحك:
+{{-- Fallback URL for clients that block buttons --}}
+<p class="fallback-url-hint">
+    إذا واجهت مشكلة في النقر على الزر، انسخ الرابط أدناه والصقه في متصفحك:
 </p>
-<p style="font-family: monospace; font-size: 11px; color: #64748b; word-break: break-all; background: #f8fafc; padding: 12px; border-radius: 8px; text-align: left; border: 1px solid #f1f5f9; margin-bottom: 20px;">
-    {{ $verificationUrl }}
-</p>
+<p class="fallback-url">{{ $verificationUrl }}</p>
 
+{{-- Security disclaimer --}}
 <p class="footer-note">
-    إذا لم تقم بإنشاء حساب في منصة شفيع، يرجى تجاهل هذا البريد الإلكتروني.
+    إذا لم تقم بإنشاء حساب في منصة شفيع، يُرجى تجاهل هذه الرسالة.
+    لن يُفعَّل أي حساب دون النقر على رابط التأكيد.
 </p>
 
 @endsection
