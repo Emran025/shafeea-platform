@@ -314,16 +314,28 @@ class AuthController extends ApiController
         $user = User::findOrFail($request->route('id'));
 
         if (! hash_equals((string) $request->route('hash'), sha1($user->getEmailForVerification()))) {
-            return $this->error('Invalid verification link.', 403);
+            return response()->view('auth.verify-result', [
+                'success' => false,
+                'title'   => 'رابط غير صالح',
+                'message' => 'عذراً، هذا الرابط غير صالح أو قد انتهت صلاحيته. يرجى طلب رابط جديد.',
+            ], 403);
         }
 
         if ($user->hasVerifiedEmail()) {
-            return $this->success(null, 'Email already verified.');
+            return response()->view('auth.verify-result', [
+                'success' => true,
+                'title'   => 'الحساب مفعل بالفعل',
+                'message' => 'لقد تم تأكيد بريدك الإلكتروني مسبقاً. يمكنك المتابعة واستخدام التطبيق بشكل طبيعي.',
+            ]);
         }
 
         $user->markEmailAsVerified();
 
-        return $this->success(null, 'Email verified successfully.');
+        return response()->view('auth.verify-result', [
+            'success' => true,
+            'title'   => 'تم التحقق بنجاح!',
+            'message' => 'تهانينا، تم تأكيد بريدك الإلكتروني بنجاح. يمكنك الآن الاستمتاع بكافة مميزات منصة شفيع.',
+        ]);
     }
 
     /**
