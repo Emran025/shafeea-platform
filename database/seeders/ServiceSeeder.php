@@ -31,23 +31,22 @@ class ServiceSeeder extends Seeder
             return;
         }
 
-        // Clear existing services to avoid duplicates
-        Service::query()->delete();
-
         foreach ($services as $serviceData) {
-            Service::create([
-                'category' => $serviceData['category'],
-                'title' => $serviceData['title'],
-                'description' => $serviceData['description'],
-                'icon' => $serviceData['icon'],
-                'image' => $serviceData['image'],
-                'features' => $serviceData['features'],
-                'benefits' => $serviceData['benefits'],
-                'popular' => $serviceData['popular'] ?? false,
-                'theme' => $serviceData['theme'],
-                'display_order' => $serviceData['display_order'] ?? 0,
-                'is_active' => true,
-            ]);
+            Service::updateOrCreate(
+                ['title' => $serviceData['title']],
+                [
+                    'category' => $serviceData['category'],
+                    'description' => $serviceData['description'],
+                    'icon' => $serviceData['icon'],
+                    'image' => $serviceData['image'],
+                    'features' => $serviceData['features'],
+                    'benefits' => $serviceData['benefits'],
+                    'popular' => $serviceData['popular'] ?? false,
+                    'theme' => $serviceData['theme'],
+                    'display_order' => $serviceData['display_order'] ?? 0,
+                    'is_active' => true,
+                ]
+            );
         }
 
         $this->command->info('✅ Created ' . Service::count() . ' services from JSON file.');

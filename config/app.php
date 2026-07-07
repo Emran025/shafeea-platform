@@ -147,6 +147,11 @@ return [
         'TEACH_APK_URL',
         'https://github.com/Emran025/shafeea_teach/releases/latest/download/shafeea-teach.apk'
     ),
-
+    
+    'admin_name' => env('ADMIN_NAME', 'Super Admin'),
+    'admin_email' => env('ADMIN_EMAIL', 'admin@example.com'),
+    'admin_password' => env('ADMIN_PASSWORD', 'secret'),
+    'admin_phone' => env('ADMIN_PHONE', '967734567890'),
+    'admin_whatsapp' => env('ADMIN_WHATSAPP', '967777777777'),
 ];
 

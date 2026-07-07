@@ -39,25 +39,24 @@ class FaqSeeder extends Seeder
             return;
         }
 
-        // Clear existing FAQs to avoid duplicates
-        Faq::query()->delete();
-
         foreach ($faqs as $faqData) {
             $category = $categories->firstWhere('name', $faqData['category']);
             if ($category) {
-                $faq = Faq::create([
-                    'category_id' => $category->id,
-                    'question' => $faqData['question'],
-                    'answer' => $faqData['answer'],
-                    'created_by' => $user->id,
-                    'is_active' => true,
-                    'view_count' => rand(0, 150),
-                    'display_order' => rand(0, 1), // You can adjust this as needed
-                ]);
+                $faq = Faq::updateOrCreate(
+                    ['question' => $faqData['question']],
+                    [
+                        'category_id' => $category->id,
+                        'answer' => $faqData['answer'],
+                        'created_by' => $user->id,
+                        'is_active' => true,
+                        'view_count' => rand(0, 150),
+                        'display_order' => rand(0, 1),
+                    ]
+                );
 
-                // Attach tags
+                // Re-attach tags (safely)
                 $tagIds = $tags->whereIn('tag_slug', $faqData['tags'])->pluck('id');
-                $faq->tags()->attach($tagIds);
+                $faq->tags()->sync($tagIds);
             }
         }
 

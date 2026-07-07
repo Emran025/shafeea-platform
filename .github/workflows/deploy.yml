@@ -159,7 +159,11 @@ jobs:
           mkdir -p storage/framework/cache/data
           mkdir -p storage/logs
           mkdir -p storage/app/public
-          chmod -R 775 storage bootstrap/cache || true
+          
+          # Set permissions only on specific directories to avoid "Operation not permitted" 
+          # on restricted system folders like storage/app/private
+          echo "Setting directory permissions..."
+          chmod -R 775 storage/framework storage/logs storage/app/public bootstrap/cache || true
 
           # ── 3. Clear stale caches before running anything ────────────────
           php artisan config:clear  || true
@@ -170,13 +174,13 @@ jobs:
           # ── 4. Run migrations ────────────────────────────────────────────
           php artisan migrate --force
 
-          # ── 5. Seed only on first-time deployment (no schools yet) ──────
-          SCHOOL_COUNT=$(php artisan tinker --execute="echo \App\Models\School::count();" | tr -d '\r\n[:alpha:][:space:]')
-          if [ "$SCHOOL_COUNT" = "0" ]; then
+          # ── 5. Seed only if no admin user exists ─────────────────────────
+          ADMIN_COUNT=$(php artisan tinker --execute="echo \App\Models\Admin::where('super_admin', true)->count();" | tr -d '\r\n[:alpha:][:space:]')
+          if [ "$ADMIN_COUNT" = "0" ]; then
             echo "First-time deployment: seeding database..."
             php artisan db:seed --force
           else
-            echo "Database already seeded (schools: $SCHOOL_COUNT). Skipping."
+            echo "Database already seeded (Admins: $ADMIN_COUNT). Skipping."
           fi
 
           # ── 6. Re-cache for production ───────────────────────────────────

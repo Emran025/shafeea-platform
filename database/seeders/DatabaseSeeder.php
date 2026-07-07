@@ -28,9 +28,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Check if database has already been seeded (schools are the root dependency)
-        if (School::exists()) {
-            $this->command->info('⚠️  Database is already seeded. Skipping seeder to prevent duplicates.');
+        // Check if database has already been seeded (schools or admins are the indicators)
+        if (School::exists() || \App\Models\Admin::where('super_admin', true)->exists()) {
+            $this->command->info('⚠️  Database is already seeded or Initial Admin exists. Skipping seeder to prevent duplicates.');
             return;
         }
 
@@ -63,7 +63,7 @@ class DatabaseSeeder extends Seeder
             // DocumentSeeder::class,
             // end Demo data - 1 ====================================================
             
-            DemoSupervisorSeeder::class,
+            InitialAdminSeeder::class,
             
             // start Demo data - 2 ====================================================
             // DemoHalaqahsSeeder::class,
