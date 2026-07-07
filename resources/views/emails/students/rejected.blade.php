@@ -3,8 +3,8 @@
 {{-- ═══════════════════════════════════════════════════════════════
      METADATA
 ════════════════════════════════════════════════════════════════ --}}
-@section('email-title', 'تحديث بخصوص طلب الانضمام في ' . ($applicant->school->name ?? 'المؤسسة'))
-@section('preheader', 'لديك تحديث بخصوص طلب الانضمام في ' . ($applicant->school->name ?? 'المؤسسة') . '.')
+@section('email-title', 'تحديث بخصوص طلب الانضمام في ' . ($applicant->school?->name ?? 'المؤسسة'))
+@section('preheader', 'يمكنك التواصل مع المؤسسة أو تحديث بياناتك وإعادة التقديم — الباب مفتوح.')
 
 @section('header-badge', 'تحديث الطلب')
 @section('header-title', 'تحديث حول طلبك')
@@ -22,53 +22,49 @@
 @include('emails.partials.components.basmala')
 
 {{-- Greeting --}}
-<p class="greeting">{{ $applicant->user->name }}،</p>
+<p class="greeting" style="font-size:16px; font-weight:600; color:#0d1b2a; margin:0 0 8px; line-height:1.5; font-family:'Cairo', sans-serif;">{{ $applicant->user?->name ?? 'طالبنا الكريم' }}،</p>
 
-{{-- Opening body --}}
-<p class="body-text">
+{{-- Opening body — inverted pyramid: concise decision + reason, then options --}}
+<p class="body-text" style="font-size:14px; font-weight:400; color:#2d3748; line-height:1.85; margin:0 0 20px; font-family:'Cairo', sans-serif;">
     شكراً لتسجيلك في منصة شفيع واهتمامك بالانضمام إلى
-    <strong>«{{ $applicant->school->name }}»</strong>.
-    نُقدّر ثقتك بنا ونعتز بكل خطوة تخطوها نحو حفظ القرآن الكريم.
-</p>
-
-<p class="body-text">
-    بعد مراجعة طلبك بعناية، لم يتسنَّ لنا في المرحلة الحالية استكمال قبولك.
-    نؤكد لك أن ذلك لا يعني رفضاً نهائياً، وأن بإمكانك دائماً التواصل معنا
-    أو إعادة التقديم في وقت لاحق.
+    <strong>«{{ $applicant->school?->name ?? 'المؤسسة' }}»</strong>.
+    بعد مراجعة طلبك بعناية، لم يتسنَّ لنا في المرحلة الحالية استكمال قبولك —
+    وهذا لا يعني رفضاً نهائياً؛ يمكنك دائماً التواصل معنا أو إعادة التقديم في وقت لاحق.
 </p>
 
 {{-- Rejection reason (conditional) --}}
 @if(!empty($rejectionReason))
-<div class="info-box info-box--notice">
-    <p class="info-box-title">ملاحظة المؤسسة</p>
-    <p class="info-box-body info-box-body--quote">«{{ $rejectionReason }}»</p>
+<div class="info-box info-box--notice" style="background-color:#fef8ee; border:1px solid #f0d08a; border-right:3px solid #d4880a; padding:18px 20px 16px; margin:0 0 20px;">
+    <p class="info-box-title" style="font-size:10px; font-weight:700; color:#7a4d0a; margin:0 0 12px; letter-spacing:0.10em; text-transform:uppercase; font-family:'Cairo', sans-serif;">ملاحظة المؤسسة</p>
+    <p class="info-box-body info-box-body--quote" style="font-size:14px; color:#415a77; line-height:1.8; margin:0; font-style:italic; border-right:2px solid #c0ccd8; padding-right:12px; font-family:'Cairo', sans-serif;">«{{ $rejectionReason }}»</p>
 </div>
 @endif
 
 {{-- Options available --}}
-<p class="section-heading">يمكنك:</p>
-<table class="action-list" width="100%" cellpadding="0" cellspacing="0" role="presentation">
-    <tr>
-        <td class="action-item"><span class="action-marker">—</span> التواصل مع المؤسسة مباشرة للاستفسار</td>
-    </tr>
-    <tr>
-        <td class="action-item"><span class="action-marker">—</span> تحديث بياناتك وإعادة التقديم لاحقاً</td>
-    </tr>
+<p class="section-heading" style="font-size:10px; font-weight:700; color:#007aaa; margin:28px 0 12px; padding-bottom:8px; padding-right:10px; border-bottom:1px solid #e0e1dd; border-right:3px solid #00a0da; letter-spacing:0.08em; text-transform:uppercase; font-family:'Cairo', sans-serif;">يمكنك:</p>
+<table class="action-list" width="100%" cellpadding="0" cellspacing="0" role="presentation" style="width:100%; border:1px solid #e0e1dd; background-color:#f8f9fb; border-right:3px solid #00a0da; margin:0 0 24px;">
+    <tr><td class="action-item" style="padding:11px 16px; font-size:13px; color:#2d3748; line-height:1.7; border-bottom:1px solid #eaecef; font-family:'Cairo', sans-serif;"><span class="action-marker" style="display:inline-block; min-width:12px; color:#007aaa; font-weight:600; margin-left:6px;">—</span> التواصل مع المؤسسة مباشرة للاستفسار</td></tr>
+    <tr><td class="action-item" style="padding:11px 16px; font-size:13px; color:#2d3748; line-height:1.7; font-family:'Cairo', sans-serif;"><span class="action-marker" style="display:inline-block; min-width:12px; color:#007aaa; font-weight:600; margin-left:6px;">—</span> تحديث بياناتك وإعادة التقديم لاحقاً</td></tr>
 </table>
 
-{{-- Action --}}
+{{-- Action — secondary style for support (consistent with school/teacher rejections) --}}
 @include('emails.partials.cta-button', [
     'url'   => config('app.url') . '/contact',
     'label' => 'تواصل مع فريق الدعم',
-    'style' => 'ghost',
+    'style' => 'secondary',
 ])
 
 @include('emails.partials.components.divider')
 
 {{-- Closing --}}
-<p class="closing-signature">
+<p class="closing-signature" style="margin:0; font-size:13px; color:#778da9; text-align:center; line-height:1.9; font-family:'Cairo', sans-serif;">
     لا تيأس، فكل خطوة في طريق العلم مباركة.<br>
-    فريق منصة <strong>شفيع</strong>
+    فريق منصة <strong style="color:#007aaa; font-weight:700;">شفيع</strong>
+</p>
+
+{{-- Reference number --}}
+<p class="reference-line" style="font-size:11px; color:#778da9; text-align:center; margin:16px 0 0; letter-spacing:0.03em; font-family:'Cairo', sans-serif;">
+    رقم المرجع: <span class="reference-code" style="font-family:Consolas,'Courier New',monospace; font-size:11px; color:#415a77; direction:ltr; unicode-bidi:embed;">STU-{{ str_pad($applicant->id, 6, '0', STR_PAD_LEFT) }}</span>
 </p>
 
 @endsection

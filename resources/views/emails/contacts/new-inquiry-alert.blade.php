@@ -19,68 +19,58 @@
 @section('content')
 
 {{-- Greeting --}}
-<p class="greeting">تنبيه من النظام،</p>
+<p class="greeting" style="font-size:16px; font-weight:600; color:#0d1b2a; margin:0 0 8px; line-height:1.5; font-family:'Cairo', sans-serif;">تنبيه إداري،</p>
 
 {{-- Opening context --}}
-<p class="body-text">
+<p class="body-text" style="font-size:14px; font-weight:400; color:#2d3748; line-height:1.85; margin:0 0 20px; font-family:'Cairo', sans-serif;">
     وردنا استفسار جديد عبر صفحة التواصل في المنصة.
     يُرجى مراجعة التفاصيل أدناه والرد على صاحب الاستفسار من خلال لوحة التحكم.
 </p>
 
 {{-- Sender details --}}
-<div class="info-box info-box--info">
-    <p class="info-box-title">تفاصيل الاستفسار</p>
-    <table class="data-table" width="100%" cellpadding="0" cellspacing="0" role="presentation">
-        <tr>
-            <td class="data-table__label">الاسم</td>
-            <td class="data-table__value">{{ $ticket->name }}</td>
-        </tr>
-        <tr>
-            <td class="data-table__label">البريد الإلكتروني</td>
-            <td class="data-table__value">{{ $ticket->email }}</td>
-        </tr>
-        @if($ticket->phone)
-        <tr>
-            <td class="data-table__label">رقم الهاتف</td>
-            <td class="data-table__value">{{ $ticket->phone }}</td>
-        </tr>
-        @endif
-        @if($ticket->organization)
-        <tr>
-            <td class="data-table__label">الجهة / المؤسسة</td>
-            <td class="data-table__value">{{ $ticket->organization }}</td>
-        </tr>
-        @endif
-        <tr>
-            <td class="data-table__label">الموضوع</td>
-            <td class="data-table__value">{{ $ticket->subject }}</td>
-        </tr>
-        <tr>
-            <td class="data-table__label">تاريخ الإرسال</td>
-            <td class="data-table__value">{{ $ticket->created_at->format('Y/m/d H:i') }}</td>
-        </tr>
-    </table>
+<div class="info-box info-box--info" style="background-color:#f5fbff; border:1px solid #bde3f4; border-right:3px solid #00a0da; padding:18px 20px 16px; margin:0 0 14px;">
+    <p class="info-box-title" style="font-size:10px; font-weight:700; color:#005f87; margin:0 0 12px; letter-spacing:0.10em; text-transform:uppercase; font-family:'Cairo', sans-serif;">تفاصيل الاستفسار</p>
+    @include('emails.partials.components.data-table', [
+        'rows' => array_filter([
+            ['label' => 'الاسم',              'value' => $ticket->name],
+            ['label' => 'البريد الإلكتروني',  'value' => $ticket->email, 'dir' => 'ltr'],
+            !empty($ticket->phone)        ? ['label' => 'رقم الهاتف',      'value' => $ticket->phone, 'dir' => 'ltr']        : null,
+            !empty($ticket->organization) ? ['label' => 'الجهة / المؤسسة', 'value' => $ticket->organization] : null,
+            ['label' => 'الموضوع',            'value' => $ticket->subject],
+            ['label' => 'تاريخ الإرسال',      'value' => $ticket->created_at->format('Y/m/d H:i')],
+        ])
+    ])
 </div>
 
 {{-- Message body --}}
-<div class="info-box info-box--message">
-    <p class="info-box-title">نص الرسالة</p>
-    <p class="info-box-body">{{ $ticket->body }}</p>
+<div class="info-box info-box--message" style="background-color:#f2fbf6; border:1px solid #8dd4ac; border-right:3px solid #1a8c5a; padding:18px 20px 16px; margin:0 0 20px;">
+    <p class="info-box-title" style="font-size:10px; font-weight:700; color:#0a5c35; margin:0 0 12px; letter-spacing:0.10em; text-transform:uppercase; font-family:'Cairo', sans-serif;">نص الرسالة</p>
+    <p class="info-box-body" style="font-size:14px; color:#2d3748; line-height:1.8; margin:0; font-family:'Cairo', sans-serif;">{{ $ticket->body }}</p>
 </div>
 
 {{-- Primary action --}}
+@php $reviewUrl = config('app.admin_dashboard_url', config('app.url') . '/admin') . '/inquiries/' . $ticket->id; @endphp
 @include('emails.partials.cta-button', [
-    'url'   => config('app.url') . '/admin/inquiries',
+    'url'   => $reviewUrl,
     'label' => 'مراجعة الاستفسار في لوحة التحكم',
     'style' => 'primary',
 ])
 
+{{-- Fallback URL --}}
+<p class="fallback-url-hint" style="font-size:12px; color:#778da9; line-height:1.65; text-align:center; margin:-10px 0 8px; font-family:'Cairo', sans-serif;">أو انسخ الرابط أدناه في متصفحك:</p>
+<p class="fallback-url" lang="en" xml:lang="en" style="font-family:Consolas,'Courier New',monospace; font-size:11px; color:#415a77; word-break:break-all; background-color:#f8f9fb; padding:10px 14px; border:1px solid #e0e1dd; text-align:left; margin:0 0 20px; direction:ltr; unicode-bidi:embed; display:block; line-height:1.7;">{{ $reviewUrl }}</p>
+
 @include('emails.partials.components.divider')
 
 {{-- Closing --}}
-<p class="closing-signature">
+<p class="closing-signature" style="margin:0; font-size:13px; color:#778da9; text-align:center; line-height:1.9; font-family:'Cairo', sans-serif;">
     هذا التنبيه أُرسل تلقائياً عند استلام استفسار جديد عبر صفحة التواصل.<br>
-    منصة <strong>شفيع</strong> — النظام الإداري
+    منصة <strong style="color:#007aaa; font-weight:700;">شفيع</strong> — النظام الإداري
+</p>
+
+{{-- Reference number --}}
+<p class="reference-line" style="font-size:11px; color:#778da9; text-align:center; margin:16px 0 0; letter-spacing:0.03em; font-family:'Cairo', sans-serif;">
+    رقم التذكرة: <span class="reference-code" style="font-family:Consolas,'Courier New',monospace; font-size:11px; color:#415a77; direction:ltr; unicode-bidi:embed;">TKT-{{ str_pad($ticket->id, 5, '0', STR_PAD_LEFT) }}</span>
 </p>
 
 @endsection

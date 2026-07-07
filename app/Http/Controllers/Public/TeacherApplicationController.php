@@ -41,9 +41,11 @@ class TeacherApplicationController extends Controller
             return redirect()->route('teachers.apply')
                 ->with('success', 'تم تقديم طلبك بنجاح! سيتم مراجعة الطلب وإشعارك بالنتيجة عبر البريد الإلكتروني.');
         } catch (\Exception $e) {
-            Log::error('Teacher application error: '.$e->getMessage(), [
-                'trace' => $e->getTraceAsString(),
-                'request_data' => $request->except(['password', 'password_confirmation']),
+            Log::error('Teacher application error: ' . $e->getMessage(), [
+                'exception' => get_class($e),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+                'request_data' => $request->except(['user_password', 'user_password_confirmation']),
             ]);
 
             return back()->withErrors([

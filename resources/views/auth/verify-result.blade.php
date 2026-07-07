@@ -6,35 +6,34 @@
     <title>{{ $success ? 'تم التأكيد بنجاح' : 'عذراً، حدث خطأ' }} — منصة شفيع</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    {{-- Presentation --}}
     <style>
         :root {
-            --color-primary: #1a2332;
-            --color-success: #1f5c33;
-            --color-success-bg: #edf5ef;
-            --color-error: #8b2e2e;
-            --color-error-bg: #faf0f0;
-            --color-bg: #eef0f2;
-            --color-surface: #ffffff;
-            --color-border: #d8dde3;
-            --color-text: #2b3035;
-            --color-text-muted: #5c6670;
-            --color-text-subtle: #8a9299;
+            --navy:        #1b263b;
+            --teal:        #00a0da;
+            --teal-dark:   #007aaa;
+            --success:     #0a5c35;
+            --success-bg:  #e6f7ee;
+            --success-bd:  #7dcca0;
+            --error:       #7a2020;
+            --error-bg:    #fdf0f0;
+            --error-bd:    #e8a8a8;
+            --bg:          #eaecf0;
+            --surface:     #ffffff;
+            --border:      #e0e1dd;
+            --text:        #0d1b2a;
+            --text-muted:  #415a77;
+            --text-subtle: #778da9;
         }
 
-        *,
-        *::before,
-        *::after {
-            box-sizing: border-box;
-        }
+        *, *::before, *::after { box-sizing: border-box; }
 
         body {
             margin: 0;
             min-height: 100vh;
             padding: 24px 16px;
             font-family: 'Cairo', 'Segoe UI', Tahoma, Arial, sans-serif;
-            background-color: var(--color-bg);
-            color: var(--color-text);
+            background-color: var(--bg);
+            color: var(--text);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -44,27 +43,51 @@
         .page-card {
             width: 100%;
             max-width: 480px;
-            background-color: var(--color-surface);
-            border: 1px solid var(--color-border);
-            padding: 48px 40px 40px;
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            border-top: none;
+            overflow: hidden;
+        }
+
+        /* Brand accent bars — mirrors email design */
+        .page-card::before {
+            content: '';
+            display: block;
+            height: 6px;
+            background-color: var(--navy);
+        }
+
+        .page-card::after {
+            content: '';
+            display: block;
+            height: 3px;
+            background-color: var(--teal);
+            margin-top: 0;
+            order: -1;
+        }
+
+        .page-card-inner {
+            padding: 44px 40px 40px;
             text-align: center;
         }
 
+        /* Logo / monogram mark */
         .brand-mark {
             display: inline-block;
-            width: 40px;
-            height: 40px;
-            line-height: 40px;
+            width: 54px;
+            height: 54px;
+            line-height: 54px;
             margin-bottom: 28px;
-            background-color: var(--color-primary);
+            background: linear-gradient(135deg, var(--navy) 0%, var(--teal) 100%);
             color: #ffffff;
-            font-size: 18px;
-            font-weight: 700;
+            font-size: 22px;
+            font-weight: 800;
+            border-radius: 8px;
         }
 
         .status-indicator {
-            width: 56px;
-            height: 56px;
+            width: 60px;
+            height: 60px;
             margin: 0 auto 24px;
             display: flex;
             align-items: center;
@@ -73,68 +96,68 @@
         }
 
         .status-indicator--success {
-            background-color: var(--color-success-bg);
-            color: var(--color-success);
-            border-color: #c8dfd0;
+            background-color: var(--success-bg);
+            color: var(--success);
+            border-color: var(--success-bd);
         }
 
         .status-indicator--error {
-            background-color: var(--color-error-bg);
-            color: var(--color-error);
-            border-color: #e8c8c8;
+            background-color: var(--error-bg);
+            color: var(--error);
+            border-color: var(--error-bd);
         }
 
         .status-indicator svg {
-            width: 28px;
-            height: 28px;
+            width: 30px;
+            height: 30px;
         }
 
         .page-title {
             margin: 0 0 12px;
             font-size: 22px;
-            font-weight: 600;
-            color: var(--color-primary);
+            font-weight: 700;
+            color: var(--navy);
             line-height: 1.35;
         }
 
         .page-message {
             margin: 0 0 32px;
             font-size: 15px;
-            color: var(--color-text-muted);
+            color: var(--text-muted);
             line-height: 1.75;
         }
 
         .page-action {
             display: block;
             width: 100%;
-            padding: 13px 24px;
-            background-color: var(--color-primary);
+            padding: 14px 24px;
+            background-color: var(--teal);
             color: #ffffff;
             text-decoration: none;
             font-size: 15px;
-            font-weight: 600;
-            border: 1px solid var(--color-primary);
+            font-weight: 700;
+            border: 1px solid var(--teal);
             line-height: 1.4;
+            transition: background-color 0.15s ease;
         }
 
         .page-action:hover {
-            background-color: #141b26;
-            border-color: #141b26;
+            background-color: var(--teal-dark);
+            border-color: var(--teal-dark);
         }
 
         .page-footer {
             margin-top: 28px;
             padding-top: 20px;
-            border-top: 1px solid var(--color-border);
-            font-size: 13px;
-            color: var(--color-text-subtle);
+            border-top: 1px solid var(--border);
+            font-size: 12px;
+            color: var(--text-subtle);
         }
 
         @media (max-width: 480px) {
-            .page-card {
-                padding: 36px 24px 32px;
+            .page-card-inner {
+                padding: 32px 24px 28px;
             }
-
             .page-title {
                 font-size: 19px;
             }
@@ -142,34 +165,37 @@
     </style>
 </head>
 <body>
-
-    {{-- Structure --}}
     <main class="page-card">
-        <span class="brand-mark" aria-hidden="true">ش</span>
+        {{-- Teal accent bar rendered via CSS ::after on .page-card --}}
+        <div class="page-card-inner">
+            {{-- Brand monogram --}}
+            <span class="brand-mark" aria-hidden="true">ش</span>
 
-        <div class="status-indicator {{ $success ? 'status-indicator--success' : 'status-indicator--error' }}" aria-hidden="true">
-            @if($success)
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-            @else
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                </svg>
-            @endif
+            {{-- Status icon --}}
+            <div class="status-indicator {{ $success ? 'status-indicator--success' : 'status-indicator--error' }}" aria-hidden="true">
+                @if($success)
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                @else
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                @endif
+            </div>
+
+            {{-- Content --}}
+            <h1 class="page-title">{{ $title }}</h1>
+            <p class="page-message">{{ $message }}</p>
+
+            {{-- Primary action — falls back to app.url if frontend_url is unset --}}
+            <a href="{{ config('app.frontend_url', config('app.url')) }}" class="page-action">
+                {{ $success ? 'العودة إلى التطبيق' : 'العودة إلى الصفحة الرئيسية' }}
+            </a>
+
+            <p class="page-footer">منصة شفيع — رفيقك في رحلة القرآن</p>
         </div>
-
-        {{-- Content --}}
-        <h1 class="page-title">{{ $title }}</h1>
-        <p class="page-message">{{ $message }}</p>
-
-        <a href="{{ config('app.frontend_url', '#') }}" class="page-action">
-            {{ $success ? 'العودة إلى التطبيق' : 'حاول مرة أخرى' }}
-        </a>
-
-        <p class="page-footer">منصة شفيع — رفيقك في رحلة القرآن</p>
     </main>
-
 </body>
 </html>
