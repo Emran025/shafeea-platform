@@ -72,6 +72,7 @@ class DatabaseSeeder extends Seeder
             // end Demo data - 2 ====================================================
             
             FaqSeeder::class,
+            CountrySeeder::class,
             LandingPageSettingSeeder::class,
         ]);
 

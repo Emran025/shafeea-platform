@@ -28,7 +28,8 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 import { EmailInput } from '@/components/email-input'; 
 import { PasswordGroup } from '@/components/password-group'; 
-
+import { CountrySelect } from '@/components/country-select';
+import { PhoneInput } from '@/components/phone-input';
 export default function Apply({ schools }: { schools: School[] }) {
     const { flash } = usePage<SharedData>().props;
     const { data, setData, post, errors, processing, reset } = useForm({
@@ -36,7 +37,12 @@ export default function Apply({ schools }: { schools: School[] }) {
         user_name: '',
         user_email: '',
         user_phone: '',
+        user_phone_zone: '',
+        user_whatsapp: '',
+        user_whatsapp_zone: '',
+        is_whatsapp_different: false,
         user_country: '',
+        user_residence: '',
         user_city: '',
         user_password: '',
         user_password_confirmation: '',
@@ -183,38 +189,67 @@ export default function Apply({ schools }: { schools: School[] }) {
                                         />
                                     </div>
 
-                                    {/* Phone */}
-                                    <div className="space-y-1">
-                                        <Label htmlFor="user_phone" className="text-foreground font-semibold text-sm mb-2.5 block">رقم الهاتف</Label>
-                                        <div className="relative group">
-                                            <Phone className="absolute right-3.5 top-3.5 w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors duration-200 z-10" />
-                                            <Input
-                                                id="user_phone"
-                                                placeholder="05xxxxxxxx"
-                                                value={data.user_phone}
-                                                onChange={(e) => setData('user_phone', e.target.value)}
-                                                className="pr-11 text-left"
-                                                dir="ltr"
-                                                autoComplete="tel"
-                                            />
+                                    <div className="space-y-1 md:col-span-2">
+                                        <div className="flex flex-col md:flex-row gap-6">
+                                            <div className="flex-1 space-y-1">
+                                                <Label htmlFor="user_phone" className="text-foreground font-semibold text-sm mb-2.5 block">رقم الهاتف</Label>
+                                                <PhoneInput
+                                                    phoneValue={data.user_phone}
+                                                    onPhoneChange={(val) => setData('user_phone', val)}
+                                                    zoneValue={data.user_phone_zone}
+                                                    onZoneChange={(val) => setData('user_phone_zone', val)}
+                                                    error={errors.user_phone || errors.user_phone_zone}
+                                                />
+                                            </div>
+
+                                            <div className="flex items-end pb-2.5">
+                                                <label className="flex items-center gap-2 cursor-pointer group">
+                                                    <div className="relative">
+                                                        <input 
+                                                            type="checkbox" 
+                                                            className="sr-only peer"
+                                                            checked={data.is_whatsapp_different}
+                                                            onChange={(e) => setData('is_whatsapp_different', e.target.checked)}
+                                                        />
+                                                        <div className="w-10 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-primary/20 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
+                                                    </div>
+                                                    <span className="text-xs text-muted-foreground group-hover:text-primary transition-colors">رقم الواتساب مختلف؟</span>
+                                                </label>
+                                            </div>
                                         </div>
-                                        {errors.user_phone && <p className="text-red-500 text-xs mt-1">{errors.user_phone}</p>}
+
+                                        {data.is_whatsapp_different && (
+                                            <div className="mt-4 space-y-1 animate-in fade-in slide-in-from-top-2 duration-300">
+                                                <Label htmlFor="user_whatsapp" className="text-foreground font-semibold text-sm mb-2.5 block">رقم الواتساب</Label>
+                                                <PhoneInput
+                                                    phoneValue={data.user_whatsapp}
+                                                    onPhoneChange={(val) => setData('user_whatsapp', val)}
+                                                    zoneValue={data.user_whatsapp_zone}
+                                                    onZoneChange={(val) => setData('user_whatsapp_zone', val)}
+                                                    error={errors.user_whatsapp || errors.user_whatsapp_zone}
+                                                />
+                                            </div>
+                                        )}
                                     </div>
 
-                                    {/* Country */}
                                     <div className="space-y-1">
-                                        <Label htmlFor="user_country" className="text-foreground font-semibold text-sm mb-2.5 block">الدولة</Label>
-                                        <div className="relative group">
-                                            <Globe className="absolute right-3.5 top-3.5 w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors duration-200" />
-                                            <Input
-                                                id="user_country"
-                                                placeholder="المملكة العربية السعودية"
-                                                value={data.user_country}
-                                                onChange={(e) => setData('user_country', e.target.value)}
-                                                className="pr-11"
-                                            />
-                                        </div>
+                                        <Label htmlFor="user_country" className="text-foreground font-semibold text-sm mb-2.5 block">الجنسية</Label>
+                                        <CountrySelect
+                                            value={data.user_country}
+                                            onChange={(val) => setData('user_country', val)}
+                                            error={errors.user_country}
+                                        />
                                         {errors.user_country && <p className="text-red-500 text-xs mt-1">{errors.user_country}</p>}
+                                    </div>
+
+                                    <div className="space-y-1">
+                                        <Label htmlFor="user_residence" className="text-foreground font-semibold text-sm mb-2.5 block">دولة الإقامة</Label>
+                                        <CountrySelect
+                                            value={data.user_residence}
+                                            onChange={(val) => setData('user_residence', val)}
+                                            error={errors.user_residence}
+                                        />
+                                        {errors.user_residence && <p className="text-red-500 text-xs mt-1">{errors.user_residence}</p>}
                                     </div>
 
                                     {/* City */}

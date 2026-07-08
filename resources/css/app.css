@@ -231,6 +231,8 @@
 @layer base {
     * {
         @apply border-border;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
     }
 
     body {
@@ -262,25 +264,49 @@
         color: var(--foreground);
     }
     
-    /* Custom scrollbar - Professional styling */
+    /* Custom scrollbar - Completely Hidden */
     ::-webkit-scrollbar {
-        width: 10px;
-        height: 10px;
+        display: none;
+        width: 0;
+        height: 0;
     }
     
     ::-webkit-scrollbar-track {
-        background: var(--muted);
-        border-radius: var(--radius);
+        background: transparent;
     }
     
     ::-webkit-scrollbar-thumb {
+        width: 4px;
+        height: 4px;
         background: var(--muted-foreground);
-        border-radius: var(--radius);
-        border: 2px solid var(--muted);
+        border-radius: 20px;
+        opacity: 0.5;
     }
     
     ::-webkit-scrollbar-thumb:hover {
-        background: var(--border);
+        background: var(--primary);
+    }
+
+    ::-webkit-scrollbar-button {
+        display: none !important;
+        width: 0 !important;
+        height: 0 !important;
+    }
+
+    ::-webkit-scrollbar-corner {
+        background: transparent;
+    }
+
+    /* Fix cmdk v1.0+ pointer-events-none and opacity-50 bug in Tailwind v4 */
+    [cmdk-item] {
+        pointer-events: auto !important;
+        opacity: 1 !important;
+        cursor: pointer !important;
+    }
+    [cmdk-item][data-disabled="true"] {
+        pointer-events: none !important;
+        opacity: 0.5 !important;
+        cursor: not-allowed !important;
     }
     
     /* Professional typography improvements */

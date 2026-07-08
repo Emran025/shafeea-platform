@@ -72,6 +72,7 @@ class SchoolService
             // 2. Create School
             $school = School::create([
                 'name' => $regData['school_name'],
+                'phone_zone' => $regData['school_phone_zone'],
                 'phone' => $regData['school_phone'],
                 'country' => $regData['school_country'],
                 'city' => $regData['school_city'],
@@ -86,9 +87,13 @@ class SchoolService
             $user = User::create([
                 'name'      => $regData['user_name'],
                 'email'     => $regData['user_email'],
+                'phone_zone'=> $regData['user_phone_zone'],
                 'phone'     => $regData['user_phone'],
-                'country'   => $regData['school_country'],
-                'city'      => $regData['school_city'],
+                'whatsapp'  => $regData['is_whatsapp_different'] ? ($regData['user_whatsapp'] ?? null) : ($regData['user_phone'] ?? null),
+                'whatsapp_zone' => $regData['is_whatsapp_different'] ? ($regData['user_whatsapp_zone'] ?? null) : ($regData['user_phone_zone'] ?? null),
+                'country'   => $regData['user_country'],
+                'residence' => $regData['user_residence'],
+                'city'      => $regData['user_city'],
                 'password'  => Hash::make($regData['user_password']),
                 'school_id' => $school->id,
             ]);

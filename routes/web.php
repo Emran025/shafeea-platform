@@ -27,6 +27,8 @@ Route::get('/support', [SupportController::class, 'index'])->name('support');
 
 Route::get('/download', [PageController::class, 'download'])->name('download');
 
+Route::get('/countries', [\App\Http\Controllers\Public\CountryController::class, 'index'])->name('countries.index');
+
 Route::middleware('auth')->group(function () {
     Route::get('verify-email', [\App\Http\Controllers\Auth\EmailVerificationPromptController::class, '__invoke'])
         ->name('verification.notice');

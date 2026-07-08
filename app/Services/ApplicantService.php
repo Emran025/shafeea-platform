@@ -28,8 +28,12 @@ class ApplicantService
             $user = User::create([
                 'name'     => $data['user_name'] ?? $data['name'],
                 'email'    => $data['user_email'] ?? $data['email'],
-                'phone'    => $data['user_phone'] ?? $data['phone'] ?? null,
+                'phone'     => $data['user_phone'] ?? $data['phone'] ?? null,
+                'phone_zone'=> $data['user_phone_zone'] ?? $data['phone_zone'] ?? null,
+                'whatsapp'  => $data['is_whatsapp_different'] ? ($data['user_whatsapp'] ?? null) : ($data['user_phone'] ?? null),
+                'whatsapp_zone' => $data['is_whatsapp_different'] ? ($data['user_whatsapp_zone'] ?? null) : ($data['user_phone_zone'] ?? null),
                 'country'  => $data['user_country'] ?? $data['country'] ?? null,
+                'residence'=> $data['user_residence'] ?? $data['residence'] ?? null,
                 'city'     => $data['user_city'] ?? $data['city'] ?? null,
                 'password' => Hash::make($data['user_password'] ?? $data['password']),
             ]);

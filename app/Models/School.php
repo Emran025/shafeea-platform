@@ -18,6 +18,7 @@ class School extends Model
         'name',
         'logo',
         'phone',
+        'phone_zone',
         'country',
         'city',
         'location',

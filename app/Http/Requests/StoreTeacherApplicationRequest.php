@@ -17,9 +17,14 @@ class StoreTeacherApplicationRequest extends FormRequest
             // User Data
             'user_name' => ['required', 'string', 'max:255'],
             'user_email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
-            'user_phone' => ['nullable', 'string', 'max:255'],
-            'user_country' => ['nullable', 'string', 'max:255'],
-            'user_city' => ['nullable', 'string', 'max:255'],
+            'user_phone_zone' => ['required', 'string', 'max:10'],
+            'user_phone' => ['required', 'string', 'max:255'],
+            'user_whatsapp_zone' => ['nullable', 'string', 'max:10'],
+            'user_whatsapp' => ['nullable', 'string', 'max:255'],
+            'is_whatsapp_different' => ['boolean'],
+            'user_country' => ['required', 'string', 'max:255'],
+            'user_residence' => ['required', 'string', 'max:255'],
+            'user_city' => ['required', 'string', 'max:255'],
             'user_password' => ['required', 'string', 'min:8', 'confirmed'],
 
             // Applicant Data

@@ -14,9 +14,9 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 // --- Configuration ---
 const SIDEBAR_COOKIE_NAME = "sidebar_state"
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7
-const SIDEBAR_WIDTH = "16rem"
+const SIDEBAR_WIDTH = "14rem"
 const SIDEBAR_WIDTH_MOBILE = "18rem"
-const SIDEBAR_WIDTH_ICON = "4.2rem" // Increased to give icons perfect breathing room when collapsed
+const SIDEBAR_WIDTH_ICON = "3.5rem" // Slimmed down to match desired aesthetic
 const SIDEBAR_KEYBOARD_SHORTCUT = "b"
 
 // --- Context & Provider ---

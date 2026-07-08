@@ -80,11 +80,23 @@ export interface Faq {
     updated_at?: string;
 }
 
+export interface Country {
+    id: number;
+    name_en: string;
+    name_ar: string;
+    phone_code: string;
+    iso2: string;
+    iso3: string;
+    flag_url: string | null;
+    flag_svg: string | null;
+}
+
 export interface School {
     id: number;
     name: string;
     logo: string;
     phone: string;
+    phone_zone: string | null;
     country: string;
     city: string;
     location: string;

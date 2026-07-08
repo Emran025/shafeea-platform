@@ -52,7 +52,7 @@ export function NavMain({ items }: NavMainProps) {
                                         </div>
                                     )}
                                     <span className={cn(
-                                        "font-semibold text-sm transition-colors duration-300",
+                                        "font-semibold text-sm transition-colors duration-300 group-data-[collapsible=icon]:hidden",
                                         isActive ? "text-primary-foreground" : "text-primary-foreground/90"
                                     )}>
                                         {item.title}

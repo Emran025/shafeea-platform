@@ -17,6 +17,7 @@ class StoreSchoolApplicationRequest extends FormRequest
             // School Data
             'school_name' => ['required', 'string', 'max:255'],
             'school_logo' => ['required', 'file', 'image', 'max:5120'],
+            'school_phone_zone' => ['required', 'string', 'max:10'],
             'school_phone' => ['required', 'string', 'max:255'],
             'school_country' => ['required', 'string', 'max:255'],
             'school_city' => ['required', 'string', 'max:255'],
@@ -26,7 +27,14 @@ class StoreSchoolApplicationRequest extends FormRequest
             // Admin (User) Data
             'user_name' => ['required', 'string', 'max:255'],
             'user_email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
+            'user_phone_zone' => ['required', 'string', 'max:10'],
             'user_phone' => ['required', 'string', 'max:255'],
+            'user_whatsapp_zone' => ['nullable', 'string', 'max:10'],
+            'user_whatsapp' => ['nullable', 'string', 'max:255'],
+            'is_whatsapp_different' => ['boolean'],
+            'user_country' => ['required', 'string', 'max:255'],
+            'user_residence' => ['required', 'string', 'max:255'],
+            'user_city' => ['required', 'string', 'max:255'],
             'user_password' => ['required', 'string', 'min:8', 'confirmed'],
 
             // Documents
