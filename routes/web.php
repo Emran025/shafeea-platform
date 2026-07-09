@@ -35,7 +35,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('verify-email/{id}/{hash}', [\App\Http\Controllers\Auth\VerifyEmailController::class, '__invoke'])
         ->middleware(['signed', 'throttle:6,1'])
-        ->name('verification.verify');
+        ->name('web.verification.verify');
 
     Route::post('email/verification-notification', [\App\Http\Controllers\Auth\EmailVerificationNotificationController::class, 'store'])
         ->middleware('throttle:6,1')
