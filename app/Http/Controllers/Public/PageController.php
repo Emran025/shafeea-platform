@@ -105,4 +105,17 @@ class PageController extends Controller
             ),
         ]);
     }
+
+    /**
+     * Redirect to the appropriate dashboard based on user role.
+     */
+    public function dashboard(): \Illuminate\Http\RedirectResponse
+    {
+        $user = auth()->user();
+        if ($user && $user->admin) {
+            return redirect()->route('admin.dashboard');
+        }
+
+        return redirect()->route('welcome');
+    }
 }
