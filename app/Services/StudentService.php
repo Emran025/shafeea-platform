@@ -49,6 +49,7 @@ class StudentService
                 'qualification' => $data['qualification'] ?? null,
                 'experience_years' => $data['experienceYears'] ?? 0,
                 'status' => 'active',
+                'username' => $data['username'] ?? null,
             ];
 
             $student = $user->student()->create($studentData);
@@ -67,10 +68,10 @@ class StudentService
         });
     }
 
-    public function updateStudent(int $userId, array $data)
+    public function updateStudent($userId, array $data)
     {
         return DB::transaction(function () use ($userId, $data) {
-            $student = Student::where('user_id', $userId)->firstOrFail();
+            $student = Student::findByIdentifierOrFail($userId);
 
             if (isset($data['qualification'])) {
                 $student->qualification = $data['qualification'];
@@ -123,9 +124,9 @@ class StudentService
         });
     }
 
-    public function enrollInHalaqah(int $userId, int $halaqahId)
+    public function enrollInHalaqah($userId, int $halaqahId)
     {
-        $student = Student::where('user_id', $userId)->firstOrFail();
+        $student = Student::findByIdentifierOrFail($userId);
         $halaqah = Halaqah::findOrFail($halaqahId);
 
         $enrollment = $halaqah->enrollments()->create([
@@ -139,18 +140,18 @@ class StudentService
         return $enrollment;
     }
 
-    public function leaveHalaqah(int $userId, int $halaqahId)
+    public function leaveHalaqah($userId, int $halaqahId)
     {
-        $student = Student::where('user_id', $userId)->firstOrFail();
+        $student = Student::findByIdentifierOrFail($userId);
         return Enrollment::where('student_id', $student->id)
             ->where('halaqah_id', $halaqahId)
             ->delete();
     }
 
-    public function createPlan(int $userId, array $data)
+    public function createPlan($userId, array $data)
     {
         return DB::transaction(function () use ($userId, $data) {
-            $student = Student::where('user_id', $userId)->firstOrFail();
+            $student = Student::findByIdentifierOrFail($userId);
             $plan = Plan::create($data);
 
             $enrollment = Enrollment::where('student_id', $student->id)

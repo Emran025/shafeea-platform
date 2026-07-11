@@ -17,6 +17,16 @@ class InitialAdminSeeder extends Seeder
      */
     public function run(): void
     {
+        $school = School::create([
+            'name' => "مدرسة شفيع الإفتراضية",
+            'logo' => null,
+            'phone' => '+96605' . rand(1000000, 9999999),
+            'country' => 'المملكة العربية السعودية',
+            'city' => 'مكة المكرمة',
+            'location' => '21.4225,39.82617',
+            'address' => "shafeea.systems360.cloud",
+        ]);
+
         $user = User::updateOrCreate(
             ['email' =>  config('app.admin_email')],
             [
@@ -29,9 +39,9 @@ class InitialAdminSeeder extends Seeder
                 'whatsapp' => config('app.admin_whatsapp'),
                 'country' => 'اليمن',
                 'city' => 'صنعاء',
-                'residence' => 'التحرير',
+                'residence' => 'اليمن',
                 'status' => 'active',
-                'school_id' => null,
+                'school_id' => $school->id,
             ]
         );
 

@@ -22,7 +22,7 @@ class HalaqahService
             $halaqah = Halaqah::create($data);
 
             if ($teacherUserId) {
-                $teacher = Teacher::where('user_id', $teacherUserId)->firstOrFail();
+                $teacher = Teacher::findByIdentifierOrFail($teacherUserId);
                 $halaqah->teachers()->attach($teacher->id, [
                     'assigned_at' => now(),
                     'is_current' => true,
@@ -50,11 +50,11 @@ class HalaqahService
         });
     }
 
-    public function assignTeacher(int $id, int $teacherUserId)
+    public function assignTeacher(int $id, $teacherUserId)
     {
         return DB::transaction(function () use ($id, $teacherUserId) {
             $halaqah = Halaqah::findOrFail($id);
-            $teacher = Teacher::where('user_id', $teacherUserId)->firstOrFail();
+            $teacher = Teacher::findByIdentifierOrFail($teacherUserId);
 
             $halaqah->teachers()->updateExistingPivot(null, ['is_current' => false]);
             $halaqah->teachers()->detach($teacher->id);
@@ -74,7 +74,10 @@ class HalaqahService
 
         $halaqah = DB::transaction(function () use ($id, $studentUserIds, &$newStudentIds) {
             $halaqah = Halaqah::lockForUpdate()->findOrFail($id);
-            $studentIds = Student::whereIn('user_id', $studentUserIds)->pluck('id')->all();
+            $studentIds = Student::whereIn('user_id', $studentUserIds)
+                ->orWhereIn('username', $studentUserIds)
+                ->pluck('id')
+                ->all();
 
             $existingStudentIds = Enrollment::where('halaqah_id', $id)
                 ->whereIn('student_id', $studentIds)

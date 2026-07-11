@@ -1,4 +1,6 @@
 import { Head, useForm, usePage } from '@inertiajs/react';
+import { useEffect, useRef } from 'react';
+import { useUsernameSuggestion } from '@/hooks/use-username-suggestion';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -36,6 +38,7 @@ export default function Apply({ schools }: { schools: School[] }) {
         error: '',
         user_name: '',
         user_email: '',
+        username: '',
         user_phone: '',
         user_phone_zone: '',
         user_whatsapp: '',
@@ -94,6 +97,26 @@ export default function Apply({ schools }: { schools: School[] }) {
             setData('documents', documents);
         }
     };
+
+    // ── Username suggestion ────────────────────────────────────────────────
+    // Tracks whether the user has manually edited the username so we never
+    // overwrite their intentional input.
+    const userEditedUsername = useRef(false);
+    const lastSuggestion = useRef<string | null>(null);
+    const { suggestion: usernameSuggestion, loading: usernameLoading } =
+        useUsernameSuggestion(data.user_name);
+
+    useEffect(() => {
+        if (usernameSuggestion === null) return;
+        // Only auto-fill when the field is still empty or still showing the
+        // previous suggestion (i.e., the user has not typed something custom).
+        if (!userEditedUsername.current || data.username === lastSuggestion.current) {
+            lastSuggestion.current = usernameSuggestion;
+            userEditedUsername.current = false;
+            setData('username', usernameSuggestion);
+        }
+    }, [usernameSuggestion]);
+    // ─────────────────────────────────────────────────────────────────────────
 
     const handleDocumentChange = (index: number, field: string, value: string | File | null) => {
         const documents = [...data.documents];
@@ -165,7 +188,7 @@ export default function Apply({ schools }: { schools: School[] }) {
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     {/* Name */}
                                     <div className="md:col-span-2">
-                                        <Label htmlFor="user_name" className="text-foreground font-semibold text-sm mb-2.5 block">الاسم الرباعي</Label>
+                                        <Label htmlFor="user_name" className="text-foreground font-semibold text-sm mb-2.5 block">الاسم الكامل</Label>
                                         <div className="relative group">
                                             <User className="absolute right-3.5 top-3.5 w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors duration-200" />
                                             <Input
@@ -178,6 +201,40 @@ export default function Apply({ schools }: { schools: School[] }) {
                                             />
                                         </div>
                                         {errors.user_name && <p className="text-red-500 text-xs mt-1">{errors.user_name}</p>}
+                                    </div>
+
+                                    {/* Username */}
+                                    <div className="space-y-1 md:col-span-2">
+                                        <Label htmlFor="username" className="text-foreground font-semibold text-sm mb-2.5 block">
+                                            اسم المستخدم
+                                        </Label>
+                                        <div className="relative group">
+                                            <span className="absolute right-3.5 top-3.5 text-muted-foreground group-hover:text-primary transition-colors duration-200 z-10">@</span>
+                                            <Input
+                                                id="username"
+                                                placeholder="اسم المستخدم الفريد"
+                                                value={data.username}
+                                                onChange={(e) => {
+                                                    userEditedUsername.current = true;
+                                                    setData('username', e.target.value);
+                                                }}
+                                                className={`pr-11 text-left transition-colors duration-200 ${
+                                                    usernameLoading ? 'opacity-60' : ''
+                                                }`}
+                                                dir="ltr"
+                                                autoComplete="off"
+                                            />
+                                            {usernameLoading && (
+                                                <span className="absolute left-3.5 top-3.5 w-4 h-4 border-2 border-primary/30 border-t-primary rounded-full animate-spin" />
+                                            )}
+                                        </div>
+                                        {!userEditedUsername.current && data.username && !usernameLoading && (
+                                            <p className="text-[11px] text-emerald-600 dark:text-emerald-400 mt-1 flex items-center gap-1 animate-in fade-in duration-300">
+                                                <span>✦</span>
+                                                <span>مقترح من اسمك — يمكنك تعديله</span>
+                                            </p>
+                                        )}
+                                        {errors.username && <p className="text-red-500 text-xs mt-1">{errors.username}</p>}
                                     </div>
 
                                     {/* Email */}

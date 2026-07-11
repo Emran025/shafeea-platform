@@ -72,7 +72,10 @@ class AdminApplicantController extends ApiController
         $admin = $request->user();
         $adminSchoolId = $admin->school_id;
 
-        $applicant = Applicant::with('user')->find($id);
+        $applicant = Applicant::findByIdentifier($id);
+        if ($applicant) {
+            $applicant->load('user');
+        }
 
         if (! $applicant) {
             return $this->error('Applicant not found.', 404);
@@ -91,7 +94,7 @@ class AdminApplicantController extends ApiController
         $admin = $request->user();
         $adminSchoolId = $admin->school_id;
 
-        $applicant = Applicant::find($id);
+        $applicant = Applicant::findByIdentifier($id);
 
         if (! $applicant) {
             return $this->error('Applicant not found.', 404);
@@ -113,11 +116,13 @@ class AdminApplicantController extends ApiController
                 if ($applicant->application_type === 'teacher') {
                     Teacher::create([
                         'user_id' => $applicant->user_id,
+                        'username' => $applicant->username,
                         'bio' => $applicant->bio ?? '',
                     ]);
                 } else {
                     Student::create([
                         'user_id' => $applicant->user_id,
+                        'username' => $applicant->username,
                         'qualification' => $applicant->qualifications ?? '',
                         'memorization_level' => $applicant->memorization_level ?? '0',
                         'status' => 'active',
@@ -157,7 +162,7 @@ class AdminApplicantController extends ApiController
             return $this->error('Validation failed.', 422, $validator->errors());
         }
 
-        $applicant = Applicant::find($id);
+        $applicant = Applicant::findByIdentifier($id);
 
         if (! $applicant) {
             return $this->error('Applicant not found.', 404);

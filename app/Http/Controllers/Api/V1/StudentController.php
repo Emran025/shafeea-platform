@@ -81,7 +81,7 @@ class StudentController extends ApiController
     public function assign(AssignHalaqaRequest $request, $userId)
     {
         try {
-            $student = Student::where('user_id', $userId)->firstOrFail();
+            $student = Student::findByIdentifierOrFail($userId);
             $halaqaId = $request->halaqaId;
             Enrollment::firstOrCreate([
                 'student_id' => $student->id,
@@ -100,7 +100,7 @@ class StudentController extends ApiController
     {
         try {
             
-            $student = Student::where('user_id', $userId)->firstOrFail();            $action = $request->action;
+            $student = Student::findByIdentifierOrFail($userId);            $action = $request->action;
             if ($action === 'suspend') {
                 $student->status = 'suspended';
             } elseif ($action === 'expel') {
@@ -120,7 +120,7 @@ class StudentController extends ApiController
     public function followUp($userId, Request $request)
     {
         try {
-            $student = Student::where('user_id', $userId)->firstOrFail();
+            $student = Student::findByIdentifierOrFail($userId);
             $enrollment = $student->enrollments->first();
 
             if (! $enrollment) {

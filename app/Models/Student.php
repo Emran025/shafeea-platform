@@ -19,7 +19,46 @@ class Student extends Model
         'qualification',
         'memorization_level',
         'status',
+        'username',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($student) {
+            if (empty($student->username)) {
+                $name = 'student';
+                if ($student->user) {
+                    $name = $student->user->name;
+                } elseif ($student->user_id) {
+                    $user = \App\Models\User::find($student->user_id);
+                    if ($user) {
+                        $name = $user->name;
+                    }
+                }
+                $student->username = \App\Services\UsernameGenerator::generate($name);
+            }
+        });
+    }
+
+    public static function findByIdentifier($identifier)
+    {
+        $student = self::where('username', $identifier)->first();
+        if (!$student && is_numeric($identifier)) {
+            $student = self::where('user_id', $identifier)->first();
+        }
+        return $student;
+    }
+
+    public static function findByIdentifierOrFail($identifier)
+    {
+        $student = self::findByIdentifier($identifier);
+        if (!$student) {
+            throw (new \Illuminate\Database\Eloquent\ModelNotFoundException)->setModel(self::class);
+        }
+        return $student;
+    }
 
     /**
      * Get the user for the student.

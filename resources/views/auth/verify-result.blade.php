@@ -168,9 +168,30 @@
     <main class="page-card">
         {{-- Teal accent bar rendered via CSS ::after on .page-card --}}
         <div class="page-card-inner">
-            {{-- Brand monogram --}}
-            <span class="brand-mark" aria-hidden="true">ش</span>
+        {{-- Wordmark lockup: logo + organisation name --}}
+            <table class="header-lockup" width="100%" cellpadding="0" cellspacing="0" role="presentation" style="width:100%; margin-bottom:22px;">
+                <tr>
+                    {{-- Logo column (RTL: appears on the right / visual start) --}}
+                    <td class="header-lockup__mark" style="width:60px; vertical-align:middle; padding-left:16px;">
+                        <a href="{{ config('app.url') }}" style="text-decoration:none;" aria-label="منصة شفيع — الصفحة الرئيسية">
+                            <!--[if mso]>
+                            <img src="{{ rtrim(config('app.url'), '/') }}/logo.png" width="56" height="56" alt="منصة شفيع" style="display:block; border:0;">
+                            <![endif]-->
+                            <!--[if !mso]><!-->
+                            <img src="{{ rtrim(config('app.url'), '/') }}/logo.png" width="56" height="56" alt="منصة شفيع" style="display:block; border:0; width:56px; height:56px;"
+                                onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+                            <span class="header-lockup__mark-inner" style="display:none; width:54px; height:54px; line-height:54px; background:linear-gradient(135deg,#1b263b 0%,#00a0da 100%); color:#ffffff; font-size:22px; font-weight:800; text-align:center; border-radius:8px; font-family:'Cairo',sans-serif;">ش</span>
+                            <!--<![endif]-->
+                        </a>
+                    </td>
 
+                    {{-- Wordmark column --}}
+                    <td class="header-lockup__text" style="vertical-align:middle; text-align:right; font-family:'Cairo', 'Segoe UI', Tahoma, Arial, sans-serif;">
+                        <span class="header-lockup__name" style="display:block; font-size:17px; font-weight:700; color:#1b263b; line-height:1.3; font-family:'Cairo', sans-serif;">منصة شفيع</span>
+                        <span class="header-lockup__tagline" style="display:block; font-size:11px; font-weight:500; color:#007aaa; line-height:1.4; margin-top:3px; font-family:'Cairo', sans-serif;">منصة تعليم القرآن الكريم</span>
+                    </td>
+                </tr>
+            </table>
             {{-- Status icon --}}
             <div class="status-indicator {{ $success ? 'status-indicator--success' : 'status-indicator--error' }}" aria-hidden="true">
                 @if($success)
@@ -190,7 +211,7 @@
             <p class="page-message">{{ $message }}</p>
 
             {{-- Primary action — falls back to app.url if frontend_url is unset --}}
-            <a href="{{ config('app.frontend_url', config('app.url')) }}" class="page-action">
+            <a href="{{ config('app.url') }}" class="page-action">
                 {{ $success ? 'العودة إلى التطبيق' : 'العودة إلى الصفحة الرئيسية' }}
             </a>
 

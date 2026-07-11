@@ -27,7 +27,49 @@ class Applicant extends Model
         'memorization_level',
         'rejection_reason',
         'submitted_at',
+        'username',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($applicant) {
+            if (empty($applicant->username)) {
+                $name = 'applicant';
+                if ($applicant->user) {
+                    $name = $applicant->user->name;
+                } elseif ($applicant->user_id) {
+                    $user = \App\Models\User::find($applicant->user_id);
+                    if ($user) {
+                        $name = $user->name;
+                    }
+                }
+                $applicant->username = \App\Services\UsernameGenerator::generate($name);
+            }
+        });
+    }
+
+    public static function findByIdentifier($identifier)
+    {
+        $applicant = self::where('username', $identifier)->first();
+        if (!$applicant && is_numeric($identifier)) {
+            $applicant = self::find($identifier);
+            if (!$applicant) {
+                $applicant = self::where('user_id', $identifier)->first();
+            }
+        }
+        return $applicant;
+    }
+
+    public static function findByIdentifierOrFail($identifier)
+    {
+        $applicant = self::findByIdentifier($identifier);
+        if (!$applicant) {
+            throw (new \Illuminate\Database\Eloquent\ModelNotFoundException)->setModel(self::class);
+        }
+        return $applicant;
+    }
 
     /**
      * The attributes that should be cast.

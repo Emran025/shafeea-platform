@@ -18,7 +18,46 @@ class Teacher extends Model
         'user_id',
         'bio',
         'experience_years',
+        'username',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($teacher) {
+            if (empty($teacher->username)) {
+                $name = 'teacher';
+                if ($teacher->user) {
+                    $name = $teacher->user->name;
+                } elseif ($teacher->user_id) {
+                    $user = \App\Models\User::find($teacher->user_id);
+                    if ($user) {
+                        $name = $user->name;
+                    }
+                }
+                $teacher->username = \App\Services\UsernameGenerator::generate($name);
+            }
+        });
+    }
+
+    public static function findByIdentifier($identifier)
+    {
+        $teacher = self::where('username', $identifier)->first();
+        if (!$teacher && is_numeric($identifier)) {
+            $teacher = self::where('user_id', $identifier)->first();
+        }
+        return $teacher;
+    }
+
+    public static function findByIdentifierOrFail($identifier)
+    {
+        $teacher = self::findByIdentifier($identifier);
+        if (!$teacher) {
+            throw (new \Illuminate\Database\Eloquent\ModelNotFoundException)->setModel(self::class);
+        }
+        return $teacher;
+    }
 
     /**
      * Get the user for the teacher.

@@ -7,10 +7,11 @@ use App\Events\ApiLogin;
 use App\Models\Applicant;
 use App\Models\ApplicantRejection;
 use App\Models\Student;
+use App\Models\Teacher;
+use App\Services\UsernameGenerator;
 use App\Models\User;
 use App\Services\ApplicantService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Password;
@@ -52,24 +53,43 @@ class AuthController extends ApiController
 
         $loginValue = $request->login;
 
-        if (filter_var($loginValue, FILTER_VALIDATE_EMAIL)) {
-            $loginField = 'email';
-        } elseif (preg_match('/^\+?\d{7,15}$/', $loginValue)) {
-            $loginField = 'phone';
-        } else {
-            return $this->error('The login field must be a valid email or phone number.', 422, []);
+        // Determine user identity by searching for the username across the role tables
+        $student = \Illuminate\Support\Facades\DB::table('students')->where('username', $loginValue)->first();
+        $teacher = \Illuminate\Support\Facades\DB::table('teachers')->where('username', $loginValue)->first();
+        $applicant = \Illuminate\Support\Facades\DB::table('applicants')->where('username', $loginValue)->first();
+
+        $userId = null;
+        $role = 'user';
+
+        if ($student) {
+            $userId = $student->user_id;
+            $role = 'student';
+        } elseif ($teacher) {
+            $userId = $teacher->user_id;
+            $role = 'teacher';
+        } elseif ($applicant) {
+            $userId = $applicant->user_id;
+            $role = 'applicant';
         }
 
-        $credentials = [
-            $loginField => $loginValue,
-            'password' => $request->password,
-        ];
+        // If not found by username, fallback to checking email for admin/legacy login
+        if (!$userId && filter_var($loginValue, FILTER_VALIDATE_EMAIL)) {
+            $fallbackUser = User::where('email', $loginValue)->first();
+            if ($fallbackUser) {
+                $userId = $fallbackUser->id;
+                $role = $fallbackUser->admin ? 'admin' : 'user';
+            }
+        }
 
-        if (! Auth::attempt($credentials)) {
+        if (!$userId) {
             return $this->error('Unauthorized. Invalid credentials.', 401, []);
         }
 
-        $user = Auth::user(); // More reliable to get the authenticated user this way
+        $user = User::find($userId);
+
+        if (!$user || !Hash::check($request->password, $user->password)) {
+            return $this->error('Unauthorized. Invalid credentials.', 401, []);
+        }
 
         if ($user->admin && $user->admin->status !== AdminStatus::ACCEPTED) {
             return $this->error('Your account is not active.', 403);
@@ -81,27 +101,9 @@ class AuthController extends ApiController
 
         event(new ApiLogin($user, $request));
 
-        // Determine user role
-        if ($user->admin) {
-            $role = 'admin';
-        } elseif ($user->teacher) {
-            $role = 'teacher';
-        } elseif ($user->student) {
-            $role = 'student';
-        } else {
-            $role = 'user';
-        }
-
         return $this->success([
             'token' => $token,
-            'user'  => [
-                'id'               => $user->id,
-                'name'             => $user->name,
-                'email'            => $user->email,
-                'phone'            => $user->phone,
-                'avatar'           => $user->avatar,
-                'is_email_verified'=> (bool) $user->email_verified_at,
-            ],
+            'user'  => $this->buildUserPayload($user, $role),
             'role' => $role,
         ], 'Login successful.');
     }
@@ -116,6 +118,7 @@ class AuthController extends ApiController
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email',
             'password' => 'required|string|min:8|confirmed',
+            'username' => ['required', 'string', 'max:255', new \App\Rules\UniqueUsername],
             'bio' => 'required|string',
             'qualifications' => 'required|string',
             'school_id' => 'nullable|exists:schools,id',
@@ -156,15 +159,8 @@ class AuthController extends ApiController
 
         return $this->success([
             'token' => $token,
-            'user'  => [
-                'id'               => $user->id,
-                'name'             => $user->name,
-                'email'            => $user->email,
-                'phone'            => $user->phone,
-                'avatar'           => $user->avatar,
-                'is_email_verified'=> (bool) $user->email_verified_at,
-            ],
-            'role' => 'user',
+            'user'  => $this->buildUserPayload($user, 'applicant'),
+            'role' => 'applicant',
         ], 'Application submitted successfully');
     }
 
@@ -188,15 +184,11 @@ class AuthController extends ApiController
     {
         $user = $request->user();
 
+        $role = $this->resolveUserRole($user);
+
         return $this->success([
-            'user'  => [
-                'id'               => $user->id,
-                'name'             => $user->name,
-                'email'            => $user->email,
-                'phone'            => $user->phone,
-                'avatar'           => $user->avatar,
-                'is_email_verified'=> (bool) $user->email_verified_at,
-            ],
+            'user'  => $this->buildUserPayload($user, $role),
+            'role'  => $role,
         ], 'Authenticated profile retrieved successfully.');
     }
 
@@ -284,25 +276,77 @@ class AuthController extends ApiController
     public function forgotPassword(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'email' => ['required', 'email'],
+            'login' => ['required', 'string'],
         ]);
 
         if ($validator->fails()) {
             return $this->error('The given data was invalid.', 422, $validator->errors()->toArray());
         }
 
-        $user = User::where('email', $request->email)->first();
+        $loginValue = $request->login;
+        $user = null;
 
-        if ($user) {
-            // TODO: UNCOMMENT WHEN EMAIL SERVICE IS READY
-            // Actual email sending logic will be here
-            // Password::sendResetLink($request->only('email'));
-
-            // CURRENT: Simulate email sending (for development)
-            Log::info('Password reset requested for: '.$request->email);
+        // Try lookup by email first
+        if (filter_var($loginValue, FILTER_VALIDATE_EMAIL)) {
+            $user = User::where('email', $loginValue)->first();
         }
 
-        return $this->success(null, 'If the email exists, a reset link has been sent.');
+        // If not found by email, try lookup by username across the three tables
+        if (!$user) {
+            $student = \Illuminate\Support\Facades\DB::table('students')->where('username', $loginValue)->first();
+            $teacher = \Illuminate\Support\Facades\DB::table('teachers')->where('username', $loginValue)->first();
+            $applicant = \Illuminate\Support\Facades\DB::table('applicants')->where('username', $loginValue)->first();
+
+            $userId = null;
+            if ($student) {
+                $userId = $student->user_id;
+            } elseif ($teacher) {
+                $userId = $teacher->user_id;
+            } elseif ($applicant) {
+                $userId = $applicant->user_id;
+            }
+
+            if ($userId) {
+                $user = User::find($userId);
+            }
+        }
+
+        if ($user) {
+            // Send password reset link to user's email
+            // We use the standard Laravel broker to send the reset link
+            $status = Password::broker()->sendResetLink(['email' => $user->email]);
+
+            if ($status === Password::RESET_LINK_SENT) {
+                Log::info('Password reset link sent to: ' . $user->email);
+                return $this->success(null, 'If the email or username exists, a reset link has been sent.');
+            }
+
+            return $this->error('Unable to send password reset link.', 500);
+        }
+
+        return $this->success(null, 'If the email or username exists, a reset link has been sent.');
+    }
+
+    /**
+     * Return a username suggestion derived from the given name.
+     *
+     * This endpoint is intentionally public and read-only. The returned value
+     * is a sanitized base candidate (stages 1-3 of the generator pipeline only)
+     * and is NOT guaranteed to be unique — uniqueness is still enforced
+     * server-side when the form is actually submitted.
+     *
+     * GET /username/suggest?name=محمد+علي
+     *
+     * @return JsonResponse { "username": "mohamed.ali" }
+     */
+    public function suggest(Request $request)
+    {
+        $name = (string) $request->query('name', '');
+
+        $suggestion = UsernameGenerator::suggest($name);
+        return $this->success([
+            'username' => $suggestion,
+        ], 'suggestion successful.');
     }
 
     /**
@@ -356,6 +400,95 @@ class AuthController extends ApiController
     }
 
     /**
+     * GET /api/v1/auth/check-username
+     * Check whether a username is available across students, teachers, and applicants.
+     */
+    public function checkUsername(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'username' => ['required', 'string', 'max:255', 'regex:/^[a-z0-9._-]+$/i'],
+        ]);
+
+        if ($validator->fails()) {
+            return $this->error('Validation Error.', 422, $validator->errors()->toArray());
+        }
+
+        $username = strtolower($request->username);
+        $rule = new \App\Rules\UniqueUsername;
+        $errors = [];
+        $rule->validate('username', $username, function ($message) use (&$errors) {
+            $errors[] = $message;
+        });
+
+        if (! empty($errors)) {
+            return $this->success([
+                'available' => false,
+                'username' => $username,
+            ], 'Username is already taken.');
+        }
+
+        return $this->success([
+            'available' => true,
+            'username' => $username,
+        ], 'Username is available.');
+    }
+
+    /**
+     * Build the authenticated user payload including username when available.
+     */
+    protected function buildUserPayload(User $user, ?string $role = null): array
+    {
+        return [
+            'id'               => $user->id,
+            'name'             => $user->name,
+            'email'            => $user->email,
+            'phone'            => $user->phone,
+            'avatar'           => $user->avatar,
+            'username'         => $this->resolveUsername($user, $role),
+            'is_email_verified' => (bool) $user->email_verified_at,
+        ];
+    }
+
+    /**
+     * Resolve the username for a user based on their role record.
+     */
+    protected function resolveUsername(User $user, ?string $role = null): ?string
+    {
+        $role = $role ?? $this->resolveUserRole($user);
+
+        return match ($role) {
+            'student' => Student::where('user_id', $user->id)->value('username'),
+            'teacher' => Teacher::where('user_id', $user->id)->value('username'),
+            'applicant' => Applicant::where('user_id', $user->id)->value('username'),
+            default => null,
+        };
+    }
+
+    /**
+     * Determine the primary role for an authenticated user.
+     */
+    protected function resolveUserRole(User $user): string
+    {
+        if ($user->admin) {
+            return 'admin';
+        }
+
+        if (Student::where('user_id', $user->id)->exists()) {
+            return 'student';
+        }
+
+        if (Teacher::where('user_id', $user->id)->exists()) {
+            return 'teacher';
+        }
+
+        if (Applicant::where('user_id', $user->id)->exists()) {
+            return 'applicant';
+        }
+
+        return 'user';
+    }
+
+    /**
      * Generate a random supervisor profile.
      */
     protected function mockProfile(): array
@@ -367,12 +500,12 @@ class AuthController extends ApiController
             'Avater' => base64_encode(Str::random(30)),
             'gender' => fake()->randomElement(['Male', 'Female']),
             'email' => fake()->unique()->safeEmail(),
-            'phone' => '+1'.rand(1000000000, 9999999999),
+            'phone' => '+1' . rand(1000000000, 9999999999),
             'birthDate' => fake()->date('Y-m-d', '2000-01-01'),
             'profilePictureUrl' => fake()->imageUrl(),
             'phoneZone' => '+1',
             'whatsappZone' => '+1',
-            'whatsappPhone' => '+1'.rand(1000000000, 9999999999),
+            'whatsappPhone' => '+1' . rand(1000000000, 9999999999),
             'qualification' => fake()->randomElement([
                 'PhD in Islamic Studies',
                 'MA in Arabic Linguistics',

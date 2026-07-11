@@ -42,6 +42,9 @@ class StoreTeacherApplicationRequest extends FormRequest
             'documents.*.issuing_place' => ['nullable', 'string', 'max:255'],
             'documents.*.issuing_date' => ['nullable', 'date'],
             'documents.*.file' => ['required', 'file', 'mimes:pdf,jpg,jpeg,png', 'max:5120'],
+
+            // Username
+            'username' => ['required', 'string', 'max:255', new \App\Rules\UniqueUsername],
         ];
     }
 }

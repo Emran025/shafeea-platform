@@ -42,7 +42,18 @@ class HalaqahController extends ApiController
             'residence' => 'required|string|max:255',
             'max_students' => 'required|integer|min:1',
             'is_active' => 'sometimes|boolean',
-            'teacher_id' => 'nullable|exists:teachers,user_id',
+            'teacher_id' => [
+                'nullable',
+                function ($attribute, $value, $fail) {
+                    $exists = \Illuminate\Support\Facades\DB::table('teachers')
+                        ->where('user_id', $value)
+                        ->orWhere('username', $value)
+                        ->exists();
+                    if (!$exists) {
+                        $fail('The selected teacher is invalid.');
+                    }
+                }
+            ],
             'school_id' => 'required|exists:schools,id',
         ]);
 
@@ -78,7 +89,19 @@ class HalaqahController extends ApiController
             'residence' => 'sometimes|required|string|max:255',
             'max_students' => 'sometimes|required|integer|min:1',
             'is_active' => 'sometimes|boolean',
-            'teacher_id' => 'sometimes|nullable|exists:teachers,user_id',
+            'teacher_id' => [
+                'sometimes',
+                'nullable',
+                function ($attribute, $value, $fail) {
+                    $exists = \Illuminate\Support\Facades\DB::table('teachers')
+                        ->where('user_id', $value)
+                        ->orWhere('username', $value)
+                        ->exists();
+                    if (!$exists) {
+                        $fail('The selected teacher is invalid.');
+                    }
+                }
+            ],
             'school_id' => 'sometimes|required|exists:schools,id',
         ]);
 
@@ -95,7 +118,18 @@ class HalaqahController extends ApiController
     {
         $validator = Validator::make($request->all(), [
             'studentUserIds' => 'required|array',
-            'studentUserIds.*' => 'required|integer|exists:students,user_id',
+            'studentUserIds.*' => [
+                'required',
+                function ($attribute, $value, $fail) {
+                    $exists = \Illuminate\Support\Facades\DB::table('students')
+                        ->where('user_id', $value)
+                        ->orWhere('username', $value)
+                        ->exists();
+                    if (!$exists) {
+                        $fail('The selected student is invalid.');
+                    }
+                }
+            ],
         ]);
 
         if ($validator->fails()) {
@@ -118,7 +152,18 @@ class HalaqahController extends ApiController
     public function assignTeacher(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'teacher_id' => 'required|integer|exists:teachers,user_id',
+            'teacher_id' => [
+                'required',
+                function ($attribute, $value, $fail) {
+                    $exists = \Illuminate\Support\Facades\DB::table('teachers')
+                        ->where('user_id', $value)
+                        ->orWhere('username', $value)
+                        ->exists();
+                    if (!$exists) {
+                        $fail('The selected teacher is invalid.');
+                    }
+                }
+            ],
         ]);
 
         if ($validator->fails()) {

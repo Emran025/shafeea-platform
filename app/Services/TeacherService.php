@@ -37,6 +37,7 @@ class TeacherService
                 'bio' => $data['bio'] ?? null,
                 'experience_years' => $data['experience_years'] ?? 0,
                 'status' => 'active',
+                'username' => $data['username'] ?? null,
             ];
 
             $teacher = $user->teacher()->create($teacherData);
@@ -45,10 +46,10 @@ class TeacherService
         });
     }
 
-    public function updateTeacher(int $userId, array $data)
+    public function updateTeacher($userId, array $data)
     {
         return DB::transaction(function () use ($userId, $data) {
-            $teacher = Teacher::where('user_id', $userId)->firstOrFail();
+            $teacher = Teacher::findByIdentifierOrFail($userId);
             
             if (isset($data['bio'])) {
                 $teacher->bio = $data['bio'];
@@ -74,10 +75,10 @@ class TeacherService
         });
     }
 
-    public function assignHalaqas(int $userId, array $halaqaIds)
+    public function assignHalaqas($userId, array $halaqaIds)
     {
         return DB::transaction(function () use ($userId, $halaqaIds) {
-            $teacher = Teacher::where('user_id', $userId)->firstOrFail();
+            $teacher = Teacher::findByIdentifierOrFail($userId);
             if (empty($halaqaIds)) {
                 return true;
             }

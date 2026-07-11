@@ -1,4 +1,5 @@
 import { Head, useForm, usePage } from '@inertiajs/react';
+import { useUsernameSuggestion } from '@/hooks/use-username-suggestion';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -108,6 +109,14 @@ export default function Apply() {
             setData('documents', documents);
         }
     };
+
+    // ── Username suggestion for school admin ───────────────────────────────
+    // Read-only preview — school admins do not have a username column;
+    // this is purely informational so the admin knows what their login
+    // username will be (generated automatically from their full name).
+    const { suggestion: usernameSuggestion, loading: usernameLoading } =
+        useUsernameSuggestion(data.user_name);
+    // ─────────────────────────────────────────────────────────────────────────────
 
     const handleDocumentChange = (index: number, field: string, value: string | File | null) => {
         const documents = [...data.documents];
@@ -314,6 +323,25 @@ export default function Apply() {
                                             />
                                         </div>
                                         {errors.user_name && <p className="text-red-500 text-xs mt-1">{errors.user_name}</p>}
+                                        {/* Username preview */}
+                                        {(usernameSuggestion || usernameLoading) && (
+                                            <p className="text-[11px] mt-1.5 flex items-center gap-1.5">
+                                                {usernameLoading ? (
+                                                    <>
+                                                        <span className="inline-block w-3 h-3 border-2 border-emerald-400/40 border-t-emerald-500 rounded-full animate-spin" />
+                                                        <span className="text-muted-foreground">جاري توليد اسم المستخدم...</span>
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        <span className="text-emerald-500">✦</span>
+                                                        <span className="text-muted-foreground">سيكون اسم الدخول:</span>
+                                                        <code className="font-mono text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/20 px-1.5 py-0.5 rounded text-xs">
+                                                            {usernameSuggestion}
+                                                        </code>
+                                                    </>
+                                                )}
+                                            </p>
+                                        )}
                                     </div>
 
                                     <div className="space-y-1 md:col-span-2">

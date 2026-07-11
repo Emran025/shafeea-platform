@@ -5,6 +5,7 @@ use App\Http\Controllers\Public\HelpCenterController;
 use App\Http\Controllers\Public\PageController;
 use App\Http\Controllers\Public\ServiceController;
 use App\Http\Controllers\Public\SupportController;
+use App\Http\Controllers\Public\UsernameController;
 use Illuminate\Support\Facades\Route;
 
 // ── Public pages ──────────────────────────────────────────────────────────────
@@ -28,6 +29,11 @@ Route::get('/support', [SupportController::class, 'index'])->name('support');
 Route::get('/download', [PageController::class, 'download'])->name('download');
 
 Route::get('/countries', [\App\Http\Controllers\Public\CountryController::class, 'index'])->name('countries.index');
+
+Route::get('/username/suggest', [UsernameController::class, 'suggest'])
+    ->name('username.suggest')
+    ->middleware('throttle:60,1');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('dashboard', [PageController::class, 'dashboard'])

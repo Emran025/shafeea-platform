@@ -68,4 +68,56 @@ class AccountController extends ApiController
 
         return $this->success(null, 'Password changed successfully.');
     }
+
+    /**
+     * PUT /api/v1/account/profile
+     *
+     * Update the authenticated user's profile info (name, email, and role-based username).
+     */
+    public function updateProfile(Request $request)
+    {
+        $user = $request->user();
+
+        $validator = Validator::make($request->all(), [
+            'name' => ['sometimes', 'string', 'max:255'],
+            'email' => ['sometimes', 'string', 'email', 'max:255', 'unique:users,email,' . $user->id],
+            'username' => ['sometimes', 'string', 'max:255', new \App\Rules\UniqueUsername($user->id)],
+            'role' => ['sometimes', 'string', 'in:student,teacher,applicant'],
+        ]);
+
+        if ($validator->fails()) {
+            return $this->error('Validation failed.', 422, $validator->errors());
+        }
+
+        if ($request->has('name')) {
+            $user->name = $request->name;
+        }
+        if ($request->has('email')) {
+            $user->email = $request->email;
+        }
+        $user->save();
+
+        if ($request->has('username')) {
+            $role = $request->input('role');
+            if (!$role) {
+                if ($user->student) {
+                    $role = 'student';
+                } elseif ($user->teacher) {
+                    $role = 'teacher';
+                } elseif ($user->applicant) {
+                    $role = 'applicant';
+                }
+            }
+
+            if ($role === 'student' && $user->student) {
+                $user->student->update(['username' => $request->username]);
+            } elseif ($role === 'teacher' && $user->teacher) {
+                $user->teacher->update(['username' => $request->username]);
+            } elseif ($role === 'applicant' && $user->applicant) {
+                $user->applicant->update(['username' => $request->username]);
+            }
+        }
+
+        return $this->success(null, 'Profile updated successfully.');
+    }
 }

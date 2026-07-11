@@ -37,6 +37,18 @@ class StudentRepository
         if (isset($filters['status'])) {
             $query->where('status', $filters['status']);
         }
+
+        if (isset($filters['search']) && !empty($filters['search'])) {
+            $search = $filters['search'];
+            $query->where(function ($q) use ($search) {
+                $q->where('username', 'like', "%{$search}%")
+                  ->orWhereHas('user', function ($uq) use ($search) {
+                      $uq->where('name', 'like', "%{$search}%")
+                        ->orWhere('email', 'like', "%{$search}%");
+                  });
+            });
+        }
+
         $sortBy = $filters['sortBy'] ?? 'created_at';
         $sortOrder = $filters['sortOrder'] ?? 'desc';
         $query->orderBy($sortBy, $sortOrder);
@@ -51,7 +63,11 @@ class StudentRepository
 
     public function find($userId)
     {
-        return Student::with([
+        $student = Student::findByIdentifier($userId);
+        if (!$student) {
+            throw (new \Illuminate\Database\Eloquent\ModelNotFoundException)->setModel(Student::class);
+        }
+        return $student->load([
             'user',
             'enrollments' => function ($query) {
                 $query->latest('enrolled_at');
@@ -61,9 +77,7 @@ class StudentRepository
             'enrollments.currentPlan.memorizationUnit',
             'enrollments.currentPlan.sardUnit',
             'enrollments.halaqah',
-        ])
-        ->where('user_id', $userId)
-        ->firstOrFail();
+        ]);
     }
 
     public function sync($updatedSince, $limit, $page): LengthAwarePaginator
@@ -93,35 +107,35 @@ class StudentRepository
         return $query->paginate($limit, ['*'], 'page', $page);
     }
 
-    public function delete(int $userId): ?bool
+    public function delete($userId): ?bool
     {
-        $student = Student::where('user_id', $userId)->firstOrFail();
+        $student = Student::findByIdentifierOrFail($userId);
 
         return $student->delete();
     }
 
-    public function getReports(int $userId)
+    public function getReports($userId)
     {
-        $student = Student::where('user_id', $userId)->firstOrFail();
+        $student = Student::findByIdentifierOrFail($userId);
         return StudentReport::where('student_id', $student->id)->get();
     }
 
-    public function getHalaqahs(int $userId)
+    public function getHalaqahs($userId)
     {
-        return Student::where('user_id', $userId)->firstOrFail()->enrollments()->with('halaqah')->get()->pluck('halaqah');
+        return Student::findByIdentifierOrFail($userId)->enrollments()->with('halaqah')->get()->pluck('halaqah');
     }
 
-    public function isInHalaqah(int $userId, int $halaqahId): bool
+    public function isInHalaqah($userId, int $halaqahId): bool
     {
-        $student = Student::where('user_id', $userId)->firstOrFail();
+        $student = Student::findByIdentifierOrFail($userId);
         return Enrollment::where('student_id', $student->id)
             ->where('halaqah_id', $halaqahId)
             ->exists();
     }
 
-    public function getProgress(int $userId): array
+    public function getProgress($userId): array
     {
-        $student = Student::where('user_id', $userId)->firstOrFail();
+        $student = Student::findByIdentifierOrFail($userId);
         $reports = StudentReport::where('student_id', $student->id)->orderBy('report_date', 'desc')->get();
 
         return [
@@ -130,9 +144,9 @@ class StudentRepository
         ];
     }
 
-    public function getPlans(int $userId)
+    public function getPlans($userId)
     {
-        $student = Student::where('user_id', $userId)->firstOrFail();
+        $student = Student::findByIdentifierOrFail($userId);
         return Enrollment::where('student_id', $student->id)
             ->with('plans')
             ->get()
@@ -140,9 +154,9 @@ class StudentRepository
             ->flatten();
     }
 
-    public function getActivePlan(int $userId)
+    public function getActivePlan($userId)
     {
-        $student = Student::where('user_id', $userId)->firstOrFail();
+        $student = Student::findByIdentifierOrFail($userId);
         $enrollment = Enrollment::where('student_id', $student->id)
             ->orderByDesc('enrolled_at')
             ->with('currentPlan')
@@ -151,18 +165,18 @@ class StudentRepository
         return $enrollment && $enrollment->currentPlan->isNotEmpty() ? $enrollment->currentPlan->first() : null;
     }
 
-    public function getEnrollment(int $userId, int $halaqahId): Enrollment
+    public function getEnrollment($userId, int $halaqahId): Enrollment
     {
-        $student = Student::where('user_id', $userId)->firstOrFail();
+        $student = Student::findByIdentifierOrFail($userId);
         return Enrollment::firstOrCreate([
             'student_id' => $student->id,
             'halaqah_id' => $halaqahId,
         ]);
     }
 
-    public function getTrackingsForStudent(int $userId)
+    public function getTrackingsForStudent($userId)
     {
-        $student = Student::where('user_id', $userId)->firstOrFail();
+        $student = Student::findByIdentifierOrFail($userId);
         $enrollmentIds = Enrollment::where('student_id', $student->id)->pluck('id');
 
         return \App\Models\Tracking::whereIn('enrollment_id', $enrollmentIds)->with(['details'])->get();

@@ -44,12 +44,6 @@
     </p>
 </div>
 
-{{-- Fallback URL for clients that block buttons --}}
-<p class="fallback-url-hint" style="font-size:12px; color:#778da9; line-height:1.65; text-align:center; margin:0 0 8px; font-family:'Cairo', sans-serif;">
-    إذا واجهت مشكلة في النقر على الزر، انسخ الرابط أدناه والصقه في متصفحك:
-</p>
-<p class="fallback-url" lang="en" xml:lang="en" style="font-family:Consolas,'Courier New',monospace; font-size:11px; color:#415a77; word-break:break-all; background-color:#f8f9fb; padding:10px 14px; border:1px solid #e0e1dd; text-align:left; margin:0 0 20px; direction:ltr; unicode-bidi:embed; display:block; line-height:1.7;">{{ $verificationUrl }}</p>
-
 {{-- Security disclaimer --}}
 <p class="footer-note" style="font-size:12px; color:#778da9; line-height:1.75; text-align:center; margin:28px 0 0; border-top:1px solid #eaecef; padding-top:20px; font-family:'Cairo', sans-serif;">
     إذا لم تقم بإنشاء حساب في منصة شفيع، يُرجى تجاهل هذه الرسالة.

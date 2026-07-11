@@ -1,4 +1,5 @@
 import { Head, useForm, usePage } from '@inertiajs/react';
+import { useUsernameSuggestion } from '@/hooks/use-username-suggestion';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -53,6 +54,14 @@ export default function Create() {
             }
         ]
     });
+
+    // ── Username suggestion for school admin ───────────────────────────────
+    // Read-only preview — admins don't have a username column; this badge
+    // lets the super-admin see what the new school admin's login identifier
+    // will look like before saving.
+    const { suggestion: adminUsernameSuggestion, loading: adminUsernameLoading } =
+        useUsernameSuggestion(data.admin_name);
+    // ─────────────────────────────────────────────────────────────────────────────
 
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
@@ -291,6 +300,25 @@ export default function Create() {
                                         />
                                     </div>
                                     {errors.admin_name && <p className="text-red-500 text-xs mt-1">{errors.admin_name}</p>}
+                                    {/* Username preview */}
+                                    {(adminUsernameSuggestion || adminUsernameLoading) && (
+                                        <p className="text-[11px] mt-1.5 flex items-center gap-1.5">
+                                            {adminUsernameLoading ? (
+                                                <>
+                                                    <span className="inline-block w-3 h-3 border-2 border-emerald-400/40 border-t-emerald-500 rounded-full animate-spin" />
+                                                    <span className="text-muted-foreground">جاري توليد اسم المستخدم...</span>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <span className="text-emerald-500">✦</span>
+                                                    <span className="text-muted-foreground">سيكون اسم الدخول:</span>
+                                                    <code className="font-mono text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/20 px-1.5 py-0.5 rounded text-xs">
+                                                        {adminUsernameSuggestion}
+                                                    </code>
+                                                </>
+                                            )}
+                                        </p>
+                                    )}
                                 </div>
 
                                 {/* Admin Phone */}

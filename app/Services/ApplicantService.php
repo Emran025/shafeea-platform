@@ -51,6 +51,7 @@ class ApplicantService
                 'memorization_level'=> $data['memorization_level'],
                 'status'            => 'pending',
                 'submitted_at'      => now(),
+                'username'          => $data['username'],
             ]);
 
             // 3. Handle Documents
@@ -132,6 +133,7 @@ class ApplicantService
                 'qualifications' => $data['qualifications'],
                 'memorization_level' => $data['memorization_level'] ?? 0,
                 'submitted_at' => now(),
+                'username' => $data['username'],
             ]);
 
             return $applicant;

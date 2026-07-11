@@ -11,6 +11,7 @@ class ApplicantResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'username' => $this->username,
             'avatar' => $this->avatar ?? null,
             'gender' => $this->gender,
             'birthDate' => $this->birth_date,

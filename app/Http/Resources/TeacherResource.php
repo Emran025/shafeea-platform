@@ -14,6 +14,7 @@ class TeacherResource extends JsonResource
             'id' => $user->id,
             'bio' => $this->bio,
             'experienceYears' => $this->experience_years,
+            'username' => $this->username,
             'name' => $user->name ?? null,
             'email' => $user->email ?? null,
             'avatar' => $user->avatar ?? null,

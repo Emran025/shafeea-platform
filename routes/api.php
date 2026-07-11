@@ -21,6 +21,11 @@ Route::prefix('v1')->group(function () {
         Route::post('register', [AuthController::class, 'register'])->name('register');
         Route::post('login', [AuthController::class, 'login'])->name('login');
         Route::post('forgot-password', [AuthController::class, 'forgotPassword'])->name('password.email');
+        Route::get('check-username', [AuthController::class, 'checkUsername'])->name('check-username');
+        
+        Route::get('/username/suggest', [AuthController::class, 'suggest'])
+            ->name('username.suggest')
+            ->middleware('throttle:60,1');
     });
 
     Route::get('email/verify/{id}/{hash}', [AuthController::class, 'verify'])->middleware('signed')->name('verification.verify');
@@ -140,6 +145,8 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
     Route::prefix('account')->name('account.')->middleware('auth:sanctum')->group(function () {
         // Get the authenticated user's profile
         Route::get('profile', [AccountController::class, 'getProfile'])->name('profile');
+        // Update profile (including username)
+        Route::put('profile', [AccountController::class, 'updateProfile'])->name('profile.update');
         // List all active login sessions for the current user
         Route::get('sessions', [SessionController::class, 'listSessions'])->name('sessions.list');
         // Refresh the current session token

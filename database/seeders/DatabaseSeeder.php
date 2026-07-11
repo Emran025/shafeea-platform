@@ -62,15 +62,15 @@ class DatabaseSeeder extends Seeder
             // DemoTrackingsPlansSeeder::class,
             // DocumentSeeder::class,
             // end Demo data - 1 ====================================================
-            
+
             InitialAdminSeeder::class,
-            
+
             // start Demo data - 2 ====================================================
             // DemoHalaqahsSeeder::class,
             // DemoEnrollmentSeeder::class,
             // DemoStudentTrackingsSeeder::class,
             // end Demo data - 2 ====================================================
-            
+
             FaqSeeder::class,
             CountrySeeder::class,
             LandingPageSettingSeeder::class,

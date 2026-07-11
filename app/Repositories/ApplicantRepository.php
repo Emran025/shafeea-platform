@@ -36,6 +36,6 @@ class ApplicantRepository
 
     public function find($id)
     {
-        return Applicant::findOrFail($id);
+        return Applicant::findByIdentifierOrFail($id);
     }
 }

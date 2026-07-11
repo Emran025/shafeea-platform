@@ -19,6 +19,7 @@ class StudentResource extends JsonResource
         return [
             'id' => $user->id,
             'name' => $user->name ?? null,
+            'username' => $this->username,
             'avatar' => $user->avatar ?? null,
             'gender' => $user->gender ?? null,
             'birthDate' => $user->birth_date ?? null,
