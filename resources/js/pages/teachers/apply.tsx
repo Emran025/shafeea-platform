@@ -68,7 +68,7 @@ export default function Apply({ schools }: { schools: School[] }) {
 
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
-        
+
         // Filter out completely empty documents
         const filteredDocs = data.documents.filter(doc => 
             doc.name.trim() !== '' || 
@@ -84,7 +84,7 @@ export default function Apply({ schools }: { schools: School[] }) {
         post(route('teachers.store.apply'), {
             forceFormData: true,
             onSuccess: () => {
-                reset(); 
+                reset();
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             },
             preserveScroll: false,
