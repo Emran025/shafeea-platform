@@ -64,6 +64,18 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
+        // Laravel silently ignores ValidationException and TokenMismatchException
+        // in its internal "don't report" list (they're expected, user-facing
+        // exceptions, not bugs) — which means the report() callbacks below for
+        // these two types would NEVER actually run without this call. That is
+        // exactly why the "Form validation failed" / CSRF diagnostic logging
+        // never produced any log entries for the teacher application and other
+        // forms: the exception itself was never getting to the report stage.
+        $exceptions->stopIgnoring([
+            ValidationException::class,
+            TokenMismatchException::class,
+        ]);
+
         // Custom exception rendering for API
         $exceptions->render(function (AuthenticationException $e, Request $request) {
             if ($request->is('api/*')) {
@@ -81,13 +93,32 @@ return Application::configure(basePath: dirname(__DIR__))
         // POST route (admin login, school registration, teacher applications,
         // etc.) are traceable in storage/logs/laravel.log instead of only
         // showing up as an unexplained 302.
+        // NOTE: report() callbacks run with no surrounding try/catch in
+        // Laravel's exception handler (see Handler::reportThrowable) — if the
+        // callback itself throws (e.g. Log::warning() fails because
+        // storage/logs isn't writable, disk is full, or the log channel is
+        // misconfigured), that new exception replaces the original one and
+        // turns what used to be a normal 302/419 into an unhandled 500. Every
+        // diagnostic logging call here MUST be wrapped so a logging failure
+        // can never break the request it's trying to observe.
         $exceptions->report(function (ValidationException $e) {
-            Log::warning('Form validation failed', [
-                'url' => request()->fullUrl(),
-                'method' => request()->method(),
-                'errors' => $e->errors(),
-                'ip' => request()->ip(),
-            ]);
+            try {
+                Log::warning('Form validation failed', [
+                    'url' => request()->fullUrl(),
+                    'method' => request()->method(),
+                    'errors' => $e->errors(),
+                    'ip' => request()->ip(),
+                ]);
+            } catch (\Throwable $loggingError) {
+                // Never let a logging failure mask/replace the real exception.
+            }
+
+            // Returning false stops Laravel from ALSO logging this via its
+            // default reportThrowable() path (which — now that stopIgnoring()
+            // makes this exception reportable at all — would otherwise write
+            // a full ERROR-level stack trace for every single validation
+            // failure, an extremely common, expected user event, not a bug).
+            return false;
         });
 
         // A 419 here almost always means the session/CSRF cookie did not
@@ -95,11 +126,20 @@ return Application::configure(basePath: dirname(__DIR__))
         // forwarding cookies, session storage not persisting, etc). Log it
         // with enough context to diagnose without server access.
         $exceptions->report(function (TokenMismatchException $e) {
-            Log::warning('CSRF token mismatch (session likely not persisting)', [
-                'url' => request()->fullUrl(),
-                'method' => request()->method(),
-                'has_session_cookie' => request()->hasCookie(config('session.cookie')),
-                'ip' => request()->ip(),
-            ]);
+            try {
+                Log::warning('CSRF token mismatch (session likely not persisting)', [
+                    'url' => request()->fullUrl(),
+                    'method' => request()->method(),
+                    'has_session_cookie' => request()->hasCookie(config('session.cookie')),
+                    'ip' => request()->ip(),
+                ]);
+            } catch (\Throwable $loggingError) {
+                // Never let a logging failure mask/replace the real exception.
+            }
+
+            // Same reasoning as the ValidationException handler above: avoid
+            // an additional noisy default ERROR-level stack trace for every
+            // expected 419.
+            return false;
         });
     })->create();

@@ -34,10 +34,16 @@ class AuthController extends Controller
             return redirect()->intended('/admin');
         }
 
-        Log::warning('Admin login failed', [
-            'email' => $data['email'],
-            'ip' => $request->ip(),
-        ]);
+        // Logging must never be able to break the login flow itself.
+        try {
+            Log::warning('Admin login failed', [
+                'email' => $data['email'],
+                'ip' => $request->ip(),
+            ]);
+        } catch (\Throwable $loggingError) {
+            // Swallow — a failure to write the diagnostic log must not
+            // turn a normal "wrong credentials" response into a 500.
+        }
 
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
