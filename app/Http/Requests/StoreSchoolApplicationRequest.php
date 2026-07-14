@@ -60,4 +60,46 @@ class StoreSchoolApplicationRequest extends FormRequest
             'documents.*.file' => ['required_with:documents', 'file', 'mimes:pdf,jpg,jpeg,png', 'max:5120'],
         ];
     }
+
+    /**
+     * Human-readable field names so validation messages (and anything the
+     * frontend surfaces verbatim) read naturally instead of showing raw
+     * dot-notation keys like "documents.0.file".
+     */
+    public function attributes(): array
+    {
+        $attributes = [
+            'school_name' => 'اسم المدرسة',
+            'school_logo' => 'شعار المدرسة',
+            'school_phone' => 'هاتف المدرسة',
+            'school_phone_zone' => 'مفتاح الدولة لهاتف المدرسة',
+            'school_country' => 'دولة المدرسة',
+            'school_city' => 'مدينة المدرسة',
+            'school_location' => 'رابط الموقع',
+            'school_address' => 'العنوان',
+            'user_name' => 'اسم المدير',
+            'user_email' => 'البريد الإلكتروني',
+            'user_phone' => 'رقم الهاتف',
+            'user_phone_zone' => 'مفتاح الدولة للهاتف',
+            'user_whatsapp' => 'رقم الواتساب',
+            'user_whatsapp_zone' => 'مفتاح الدولة للواتساب',
+            'user_country' => 'الجنسية',
+            'user_residence' => 'دولة الإقامة',
+            'user_city' => 'المدينة',
+            'user_password' => 'كلمة المرور',
+            'documents' => 'الوثائق',
+        ];
+
+        foreach ($this->input('documents', []) as $index => $document) {
+            $attributes["documents.{$index}.name"] = "اسم الوثيقة رقم " . ($index + 1);
+            $attributes["documents.{$index}.certificate_type"] = "نوع الوثيقة رقم " . ($index + 1);
+            $attributes["documents.{$index}.certificate_type_other"] = "نوع الوثيقة (أخرى) رقم " . ($index + 1);
+            $attributes["documents.{$index}.riwayah"] = "الرواية للوثيقة رقم " . ($index + 1);
+            $attributes["documents.{$index}.issuing_place"] = "مكان إصدار الوثيقة رقم " . ($index + 1);
+            $attributes["documents.{$index}.issuing_date"] = "تاريخ إصدار الوثيقة رقم " . ($index + 1);
+            $attributes["documents.{$index}.file"] = "ملف الوثيقة رقم " . ($index + 1);
+        }
+
+        return $attributes;
+    }
 }

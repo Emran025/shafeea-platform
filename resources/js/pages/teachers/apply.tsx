@@ -87,6 +87,12 @@ export default function Apply({ schools }: { schools: School[] }) {
                 reset();
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             },
+            onError: () => {
+                // Validation failed — make sure the summary banner (which
+                // lists every rejected field) is actually visible instead of
+                // leaving the user wherever they were on a long form.
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            },
             preserveScroll: false,
         });
     }
@@ -195,6 +201,22 @@ export default function Apply({ schools }: { schools: School[] }) {
                                         <AlertCircle className="h-4 w-4" />
                                         <AlertTitle>خطأ!</AlertTitle>
                                         <AlertDescription>{errors.error}</AlertDescription>
+                                    </Alert>
+                                )}
+
+                                {Object.keys(errors).filter((key) => key !== 'error').length > 0 && (
+                                    <Alert variant="destructive" className="mb-6 animate-fade-in">
+                                        <AlertCircle className="h-4 w-4" />
+                                        <AlertTitle>يوجد {Object.keys(errors).filter((key) => key !== 'error').length} حقل يحتاج للتصحيح</AlertTitle>
+                                        <AlertDescription>
+                                            <ul className="list-disc list-inside mt-2 space-y-1">
+                                                {Object.entries(errors)
+                                                    .filter(([key]) => key !== 'error')
+                                                    .map(([key, message]) => (
+                                                        <li key={key}>{message}</li>
+                                                    ))}
+                                            </ul>
+                                        </AlertDescription>
                                     </Alert>
                                 )}
 

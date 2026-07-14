@@ -60,4 +60,43 @@ class StoreTeacherApplicationRequest extends FormRequest
             'username' => ['required', 'string', 'max:255', new \App\Rules\UniqueUsername],
         ];
     }
+
+    /**
+     * Human-readable field names so validation messages (and anything the
+     * frontend surfaces verbatim) read naturally instead of showing raw
+     * dot-notation keys like "documents.0.file".
+     */
+    public function attributes(): array
+    {
+        $attributes = [
+            'user_name' => 'الاسم الكامل',
+            'user_email' => 'البريد الإلكتروني',
+            'username' => 'اسم المستخدم',
+            'user_phone' => 'رقم الهاتف',
+            'user_phone_zone' => 'مفتاح الدولة للهاتف',
+            'user_whatsapp' => 'رقم الواتساب',
+            'user_whatsapp_zone' => 'مفتاح الدولة للواتساب',
+            'user_country' => 'الجنسية',
+            'user_residence' => 'دولة الإقامة',
+            'user_city' => 'المدينة',
+            'user_password' => 'كلمة المرور',
+            'school_id' => 'المدرسة',
+            'bio' => 'النبذة التعريفية',
+            'qualifications' => 'المؤهل الأكاديمي',
+            'memorization_level' => 'مستوى الحفظ',
+            'documents' => 'الوثائق',
+        ];
+
+        foreach ($this->input('documents', []) as $index => $document) {
+            $attributes["documents.{$index}.name"] = "اسم الشهادة رقم " . ($index + 1);
+            $attributes["documents.{$index}.certificate_type"] = "نوع الشهادة رقم " . ($index + 1);
+            $attributes["documents.{$index}.certificate_type_other"] = "نوع الشهادة (أخرى) رقم " . ($index + 1);
+            $attributes["documents.{$index}.riwayah"] = "الرواية للشهادة رقم " . ($index + 1);
+            $attributes["documents.{$index}.issuing_place"] = "مكان إصدار الشهادة رقم " . ($index + 1);
+            $attributes["documents.{$index}.issuing_date"] = "تاريخ إصدار الشهادة رقم " . ($index + 1);
+            $attributes["documents.{$index}.file"] = "ملف الشهادة رقم " . ($index + 1);
+        }
+
+        return $attributes;
+    }
 }
