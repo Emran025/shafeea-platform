@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\LoginRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 
 class AuthController extends Controller
@@ -32,6 +33,11 @@ class AuthController extends Controller
 
             return redirect()->intended('/admin');
         }
+
+        Log::warning('Admin login failed', [
+            'email' => $data['email'],
+            'ip' => $request->ip(),
+        ]);
 
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',

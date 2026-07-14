@@ -10,6 +10,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route; // Required for proxy headers
 use Illuminate\Auth\AuthenticationException ;
 use App\Http\Middleware\IsSuperVisor ;
+use Illuminate\Session\TokenMismatchException;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Log;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -69,5 +72,34 @@ return Application::configure(basePath: dirname(__DIR__))
                     'message' => 'Token is invalid or already revoked',
                 ], 401);
             }
+        });
+
+        // Diagnostic logging: every form validation failure ends up as a 302
+        // redirect back to the form with flashed errors (normal Laravel/Inertia
+        // behaviour), which looks identical to a "silent" failure from the
+        // access log alone. Log the actual field errors so failures on any
+        // POST route (admin login, school registration, teacher applications,
+        // etc.) are traceable in storage/logs/laravel.log instead of only
+        // showing up as an unexplained 302.
+        $exceptions->report(function (ValidationException $e) {
+            Log::warning('Form validation failed', [
+                'url' => request()->fullUrl(),
+                'method' => request()->method(),
+                'errors' => $e->errors(),
+                'ip' => request()->ip(),
+            ]);
+        });
+
+        // A 419 here almost always means the session/CSRF cookie did not
+        // round-trip correctly (session cookie domain mismatch, proxy not
+        // forwarding cookies, session storage not persisting, etc). Log it
+        // with enough context to diagnose without server access.
+        $exceptions->report(function (TokenMismatchException $e) {
+            Log::warning('CSRF token mismatch (session likely not persisting)', [
+                'url' => request()->fullUrl(),
+                'method' => request()->method(),
+                'has_session_cookie' => request()->hasCookie(config('session.cookie')),
+                'ip' => request()->ip(),
+            ]);
         });
     })->create();
