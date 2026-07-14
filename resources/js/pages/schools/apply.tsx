@@ -32,7 +32,7 @@ import React from 'react';
 
 export default function Apply() {
     const { flash } = usePage<SharedData>().props;
-    const { data, setData, post, errors, processing } = useForm({
+    const { data, setData, post, transform, errors, processing } = useForm({
         error: '',
         subscription_plan_id: '' as string | number,
         school_name: '',
@@ -81,6 +81,19 @@ export default function Apply() {
 
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
+
+        // Filter out completely empty documents
+        const filteredDocs = data.documents.filter(doc => 
+            doc.name.trim() !== '' || 
+            doc.certificate_type !== '' || 
+            doc.file !== null
+        );
+
+        transform((data) => ({
+            ...data,
+            documents: filteredDocs.length > 0 ? filteredDocs : [],
+        }));
+
         post(route('register.validate'), {
             forceFormData: true,
             onSuccess: () => {
@@ -459,6 +472,14 @@ export default function Apply() {
                                     </div>
                                 </div>
 
+                                {errors.documents && (
+                                    <Alert variant="destructive" className="mb-6 animate-fade-in">
+                                        <AlertCircle className="h-4 w-4" />
+                                        <AlertTitle>خطأ في الوثائق!</AlertTitle>
+                                        <AlertDescription>{errors.documents}</AlertDescription>
+                                    </Alert>
+                                )}
+
                                 <div className="space-y-8">
                                     {data.documents.map((doc, index) => (
                                         <div key={index} className="p-6 rounded-2xl border border-border bg-muted/20 relative group hover:border-purple-500/30 hover:shadow-sm transition-all duration-300">
@@ -480,7 +501,11 @@ export default function Apply() {
                                                         placeholder="مثال: رخصة التحفيظ، سجل مزاولة مهنية، شهادة إجازة المشرف"
                                                         value={doc.name}
                                                         onChange={(e) => handleDocumentChange(index, 'name', e.target.value)}
+                                                        className={errors[`documents.${index}.name`] ? 'border-destructive' : ''}
                                                     />
+                                                    {errors[`documents.${index}.name`] && (
+                                                        <p className="text-destructive text-xs mt-1 font-medium">{errors[`documents.${index}.name`]}</p>
+                                                    )}
                                                 </div>
 
                                                 <div>
@@ -489,7 +514,7 @@ export default function Apply() {
                                                         onValueChange={(value) => handleDocumentChange(index, 'certificate_type', value)}
                                                         value={doc.certificate_type}
                                                     >
-                                                        <SelectTrigger className="text-right" dir="rtl" style={{ fontFamily: 'Cairo, sans-serif' }}>
+                                                        <SelectTrigger className={`text-right ${errors[`documents.${index}.certificate_type`] ? 'border-destructive' : ''}`} dir="rtl" style={{ fontFamily: 'Cairo, sans-serif' }}>
                                                             <SelectValue placeholder="اختر النوع" />
                                                         </SelectTrigger>
                                                         <SelectContent dir="rtl" style={{ fontFamily: 'Cairo, sans-serif' }}>
@@ -500,6 +525,9 @@ export default function Apply() {
                                                             <SelectItem value="Other">أخرى</SelectItem>
                                                         </SelectContent>
                                                     </Select>
+                                                    {errors[`documents.${index}.certificate_type`] && (
+                                                        <p className="text-destructive text-xs mt-1 font-medium">{errors[`documents.${index}.certificate_type`]}</p>
+                                                    )}
                                                 </div>
 
                                                 {doc.certificate_type === 'Other' && (
@@ -509,7 +537,11 @@ export default function Apply() {
                                                             placeholder="يرجى التحديد"
                                                             value={doc.certificate_type_other}
                                                             onChange={(e) => handleDocumentChange(index, 'certificate_type_other', e.target.value)}
+                                                            className={errors[`documents.${index}.certificate_type_other`] ? 'border-destructive' : ''}
                                                         />
+                                                        {errors[`documents.${index}.certificate_type_other`] && (
+                                                            <p className="text-destructive text-xs mt-1 font-medium">{errors[`documents.${index}.certificate_type_other`]}</p>
+                                                        )}
                                                     </div>
                                                 )}
 
@@ -520,7 +552,7 @@ export default function Apply() {
                                                             onValueChange={(value) => handleDocumentChange(index, 'riwayah', value)}
                                                             value={doc.riwayah}
                                                         >
-                                                            <SelectTrigger className="text-right" dir="rtl" style={{ fontFamily: 'Cairo, sans-serif' }}>
+                                                            <SelectTrigger className={`text-right ${errors[`documents.${index}.riwayah`] ? 'border-destructive' : ''}`} dir="rtl" style={{ fontFamily: 'Cairo, sans-serif' }}>
                                                             <SelectValue placeholder="اختر الرواية" />
                                                             </SelectTrigger>
                                                             <SelectContent dir="rtl" style={{ fontFamily: 'Cairo, sans-serif' }}>
@@ -536,6 +568,9 @@ export default function Apply() {
                                                                 <SelectItem value="قراءة الإمام خلف العاشر">قراءة الإمام خلف العاشر</SelectItem>
                                                             </SelectContent>
                                                         </Select>
+                                                        {errors[`documents.${index}.riwayah`] && (
+                                                            <p className="text-destructive text-xs mt-1 font-medium">{errors[`documents.${index}.riwayah`]}</p>
+                                                        )}
                                                     </div>
                                                 )}
 
@@ -547,7 +582,11 @@ export default function Apply() {
                                                                 placeholder="مثال: الجمعية الخيرية لتحفيظ القرآن"
                                                                 value={doc.issuing_place}
                                                                 onChange={(e) => handleDocumentChange(index, 'issuing_place', e.target.value)}
+                                                                className={errors[`documents.${index}.issuing_place`] ? 'border-destructive' : ''}
                                                             />
+                                                            {errors[`documents.${index}.issuing_place`] && (
+                                                                <p className="text-destructive text-xs mt-1 font-medium">{errors[`documents.${index}.issuing_place`]}</p>
+                                                            )}
                                                         </div>
                                                         <div>
                                                             <Label htmlFor={`issuing_date_${index}`} className="text-foreground font-semibold text-sm mb-2.5 block">تاريخ الإصدار</Label>
@@ -556,15 +595,18 @@ export default function Apply() {
                                                                 value={doc.issuing_date}
                                                                 onChange={(e) => handleDocumentChange(index, 'issuing_date', e.target.value)}
                                                                 dir="ltr"
-                                                                className="text-left"
+                                                                className={`text-left ${errors[`documents.${index}.issuing_date`] ? 'border-destructive' : ''}`}
                                                             />
+                                                            {errors[`documents.${index}.issuing_date`] && (
+                                                                <p className="text-destructive text-xs mt-1 font-medium">{errors[`documents.${index}.issuing_date`]}</p>
+                                                            )}
                                                         </div>
                                                     </>
                                                 )}
 
                                                 <div className="md:col-span-2">
                                                     <Label htmlFor={`file_${index}`} className="text-foreground font-semibold text-sm mb-2.5 block">رفع الملف</Label>
-                                                    <div className="border-2 border-dashed border-border rounded-xl p-6 text-center hover:bg-muted/50 hover:border-primary/40 transition-all duration-300 relative cursor-pointer group bg-background/50">
+                                                    <div className={`border-2 border-dashed rounded-xl p-6 text-center hover:bg-muted/50 hover:border-primary/40 transition-all duration-300 relative cursor-pointer group bg-background/50 ${errors[`documents.${index}.file`] ? 'border-destructive' : 'border-border'}`}>
                                                         <input
                                                             type="file"
                                                             className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
@@ -580,6 +622,9 @@ export default function Apply() {
                                                             <span className="text-[10px] text-muted-foreground">الحد الأقصى 5 ميجابايت</span>
                                                         </div>
                                                     </div>
+                                                    {errors[`documents.${index}.file`] && (
+                                                        <p className="text-destructive text-xs mt-1 font-medium">{errors[`documents.${index}.file`]}</p>
+                                                    )}
                                                 </div>
                                             </div>
                                         </div>
