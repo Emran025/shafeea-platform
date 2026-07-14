@@ -60,6 +60,18 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * Normalize email to lowercase on every write, regardless of entry
+     * point (registration, applications, profile updates, admin-created
+     * accounts, etc.). This guarantees "John@x.com" and "john@x.com" are
+     * always the same stored value — case-insensitive matching must never
+     * depend on database collation.
+     */
+    protected function setEmailAttribute(?string $value): void
+    {
+        $this->attributes['email'] = $value === null ? null : mb_strtolower(trim($value));
+    }
+
+    /**
      * Relationships
      */
     public function student()

@@ -28,6 +28,12 @@ class PasswordResetLinkController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        // Normalize before validation/lookup so the reset link is sent
+        // regardless of how the user typed their email's letter casing.
+        $request->merge([
+            'email' => mb_strtolower(trim((string) $request->input('email'))),
+        ]);
+
         $request->validate([
             'email' => 'required|email',
         ]);

@@ -35,6 +35,12 @@ class NewPasswordController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        // Normalize before validation/lookup — the account's email is
+        // always stored lowercase, so the reset lookup must match that.
+        $request->merge([
+            'email' => mb_strtolower(trim((string) $request->input('email'))),
+        ]);
+
         $request->validate([
             'token' => 'required',
             'email' => 'required|email',

@@ -56,7 +56,10 @@ class UsernameGenerator
 
         $available = self::resolveUniqueness($candidates);
 
-        return $available ?? self::resolveUniquenessWithNumericFallback($baseUsername);
+        // Final safety net: every earlier stage already produces lowercase
+        // output, but this guarantees the public contract regardless of how
+        // the internal pipeline evolves.
+        return mb_strtolower($available ?? self::resolveUniquenessWithNumericFallback($baseUsername));
     }
 
     /**
@@ -84,7 +87,7 @@ class UsernameGenerator
 
         $romanized = self::transliterate($normalized);
 
-        return self::sanitizeUsername($romanized);
+        return mb_strtolower(self::sanitizeUsername($romanized));
     }
 
     // =========================================================================

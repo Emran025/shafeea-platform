@@ -51,7 +51,10 @@ class AuthController extends ApiController
             return $this->error('Validation Error.', 422, $validator->errors()->toArray());
         }
 
-        $loginValue = $request->login;
+        // Normalize before lookup — usernames and emails are always stored
+        // lowercase, so the match must never depend on letter casing typed
+        // by the client.
+        $loginValue = mb_strtolower(trim((string) $request->login));
 
         // Determine user identity by searching for the username across the role tables
         $student = \Illuminate\Support\Facades\DB::table('students')->where('username', $loginValue)->first();
@@ -114,6 +117,13 @@ class AuthController extends ApiController
      */
     public function register(Request $request)
     {
+        // Normalize before validation so the uniqueness checks (email and
+        // username) run against the same lowercase form that gets stored.
+        $request->merge(array_filter([
+            'email' => $request->has('email') ? mb_strtolower(trim((string) $request->input('email'))) : null,
+            'username' => $request->has('username') ? mb_strtolower(trim((string) $request->input('username'))) : null,
+        ], fn ($value) => $value !== null));
+
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email',
@@ -283,7 +293,8 @@ class AuthController extends ApiController
             return $this->error('The given data was invalid.', 422, $validator->errors()->toArray());
         }
 
-        $loginValue = $request->login;
+        // Normalize before lookup — same reasoning as login() above.
+        $loginValue = mb_strtolower(trim((string) $request->login));
         $user = null;
 
         // Try lookup by email first

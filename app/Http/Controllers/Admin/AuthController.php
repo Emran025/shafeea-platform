@@ -21,8 +21,12 @@ class AuthController extends Controller
     {
         $data = $request->validated();
 
+        // Belt-and-suspenders: LoginRequest::prepareForValidation() already
+        // lowercases this, but never authenticate against raw user input.
+        $email = mb_strtolower(trim($data['email']));
+
         $credentials = [
-            'email' => $data['email'],
+            'email' => $email,
             'password' => $data['password'],
         ];
 
@@ -37,7 +41,7 @@ class AuthController extends Controller
         // Logging must never be able to break the login flow itself.
         try {
             Log::warning('Admin login failed', [
-                'email' => $data['email'],
+                'email' => $email,
                 'ip' => $request->ip(),
             ]);
         } catch (\Throwable $loggingError) {

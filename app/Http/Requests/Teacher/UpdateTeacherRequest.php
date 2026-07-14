@@ -11,6 +11,18 @@ class UpdateTeacherRequest extends FormRequest
         return true;
     }
 
+    /**
+     * Normalize email to lowercase before validation runs.
+     */
+    protected function prepareForValidation(): void
+    {
+        if ($this->has('email')) {
+            $this->merge([
+                'email' => mb_strtolower(trim((string) $this->input('email'))),
+            ]);
+        }
+    }
+
     public function rules()
     {
         $id = request()->route('id');

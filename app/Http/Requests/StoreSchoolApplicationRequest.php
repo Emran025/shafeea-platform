@@ -11,6 +11,18 @@ class StoreSchoolApplicationRequest extends FormRequest
         return true;
     }
 
+    /**
+     * Normalize the admin email to lowercase before validation runs.
+     */
+    protected function prepareForValidation(): void
+    {
+        if ($this->has('user_email')) {
+            $this->merge([
+                'user_email' => mb_strtolower(trim((string) $this->input('user_email'))),
+            ]);
+        }
+    }
+
     public function rules(): array
     {
         return [

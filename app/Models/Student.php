@@ -42,6 +42,15 @@ class Student extends Model
         });
     }
 
+    /**
+     * Normalize username to lowercase on every write. Case-insensitive
+     * matching must never depend on database collation.
+     */
+    protected function setUsernameAttribute(?string $value): void
+    {
+        $this->attributes['username'] = $value === null ? null : mb_strtolower(trim($value));
+    }
+
     public static function findByIdentifier($identifier)
     {
         $student = self::where('username', $identifier)->first();

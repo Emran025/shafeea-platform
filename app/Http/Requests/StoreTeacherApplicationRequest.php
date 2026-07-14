@@ -11,6 +11,19 @@ class StoreTeacherApplicationRequest extends FormRequest
         return true;
     }
 
+    /**
+     * Normalize email/username to lowercase before validation runs, so
+     * uniqueness checks and stored values are consistent regardless of
+     * how the user typed them.
+     */
+    protected function prepareForValidation(): void
+    {
+        $this->merge(array_filter([
+            'user_email' => $this->has('user_email') ? mb_strtolower(trim((string) $this->input('user_email'))) : null,
+            'username' => $this->has('username') ? mb_strtolower(trim((string) $this->input('username'))) : null,
+        ], fn ($value) => $value !== null));
+    }
+
     public function rules(): array
     {
         return [

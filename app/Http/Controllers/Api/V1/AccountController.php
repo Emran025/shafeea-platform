@@ -78,6 +78,15 @@ class AccountController extends ApiController
     {
         $user = $request->user();
 
+        // Normalize before validation so uniqueness checks and stored
+        // values are consistent regardless of letter casing typed by the
+        // client — case must never be the reason two accounts collide or
+        // fail to match.
+        $request->merge(array_filter([
+            'email' => $request->has('email') ? mb_strtolower(trim((string) $request->input('email'))) : null,
+            'username' => $request->has('username') ? mb_strtolower(trim((string) $request->input('username'))) : null,
+        ], fn ($value) => $value !== null));
+
         $validator = Validator::make($request->all(), [
             'name' => ['sometimes', 'string', 'max:255'],
             'email' => ['sometimes', 'string', 'email', 'max:255', 'unique:users,email,' . $user->id],

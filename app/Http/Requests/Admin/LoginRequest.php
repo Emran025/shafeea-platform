@@ -15,6 +15,19 @@ class LoginRequest extends FormRequest
     }
 
     /**
+     * Normalize email to lowercase before validation/authentication, so
+     * login never fails purely due to letter casing.
+     */
+    protected function prepareForValidation(): void
+    {
+        if ($this->has('email')) {
+            $this->merge([
+                'email' => mb_strtolower(trim((string) $this->input('email'))),
+            ]);
+        }
+    }
+
+    /**
      * Get the validation rules that apply to the request.
      *
      * device_info fields are only required for API (mobile) clients.

@@ -25,6 +25,11 @@ class UniqueUsername implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
+        // Never rely on database collation for case-insensitive matching —
+        // always compare against the normalized (lowercase) form, since
+        // that is what every write path now stores.
+        $value = mb_strtolower(trim($value));
+
         $existsInStudents = DB::table('students')
             ->where('username', $value)
             ->when($this->ignoreUserId, function ($query) {
