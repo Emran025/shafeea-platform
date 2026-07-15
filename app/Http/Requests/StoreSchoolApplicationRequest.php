@@ -90,7 +90,12 @@ class StoreSchoolApplicationRequest extends FormRequest
             'documents' => 'الوثائق',
         ];
 
-        foreach ($this->input('documents', []) as $index => $document) {
+        $documents = array_merge(
+            is_array($this->input('documents')) ? $this->input('documents') : [],
+            is_array($this->file('documents')) ? $this->file('documents') : []
+        );
+
+        foreach (array_keys($documents) as $index) {
             $attributes["documents.{$index}.name"] = "اسم الوثيقة رقم " . ($index + 1);
             $attributes["documents.{$index}.certificate_type"] = "نوع الوثيقة رقم " . ($index + 1);
             $attributes["documents.{$index}.certificate_type_other"] = "نوع الوثيقة (أخرى) رقم " . ($index + 1);
@@ -101,5 +106,45 @@ class StoreSchoolApplicationRequest extends FormRequest
         }
 
         return $attributes;
+    }
+
+    /**
+     * Localized validation messages.
+     */
+    public function messages(): array
+    {
+        return [
+            'school_name.required' => 'اسم المدرسة مطلوب.',
+            'school_logo.required' => 'شعار المدرسة مطلوب.',
+            'school_logo.file' => 'شعار المدرسة المرفوع غير صالح.',
+            'school_logo.image' => 'يجب أن يكون الشعار صورة.',
+            'school_logo.max' => 'حجم الشعار يجب ألا يتجاوز 5 ميجابايت.',
+            'school_phone.required' => 'هاتف المدرسة مطلوب.',
+            'school_phone_zone.required' => 'مفتاح الدولة لهاتف المدرسة مطلوب.',
+            'school_country.required' => 'دولة المدرسة مطلوبة.',
+            'school_city.required' => 'مدينة المدرسة مطلوبة.',
+            'school_location.required' => 'رابط الموقع مطلوب.',
+            'school_address.required' => 'العنوان مطلوب.',
+            'user_name.required' => 'اسم المدير مطلوب.',
+            'user_email.required' => 'البريد الإلكتروني للمدير مطلوب.',
+            'user_email.email' => 'يجب إدخال بريد إلكتروني صحيح.',
+            'user_email.unique' => 'البريد الإلكتروني مستخدم بالفعل.',
+            'user_phone.required' => 'رقم هاتف المدير مطلوب.',
+            'user_phone_zone.required' => 'مفتاح الدولة لهاتف المدير مطلوب.',
+            'user_country.required' => 'جنسية المدير مطلوبة.',
+            'user_residence.required' => 'دولة إقامة المدير مطلوبة.',
+            'user_city.required' => 'مدينة المدير مطلوبة.',
+            'user_password.required' => 'كلمة المرور مطلوبة.',
+            'user_password.min' => 'كلمة المرور يجب ألا تقل عن 8 أحرف.',
+            'user_password.confirmed' => 'تأكيد كلمة المرور غير متطابق.',
+            'documents.*.name.required_with' => 'اسم الوثيقة مطلوب.',
+            'documents.*.certificate_type.required_with' => 'نوع الوثيقة مطلوب.',
+            'documents.*.certificate_type.in' => 'نوع الوثيقة المحدد غير صالح.',
+            'documents.*.riwayah.required_if' => 'الرواية مطلوبة لهذا النوع من الوثائق.',
+            'documents.*.file.required_with' => 'يجب رفع ملف الوثيقة.',
+            'documents.*.file.file' => 'الملف المرفوع غير صالح.',
+            'documents.*.file.mimes' => 'يجب أن يكون الملف من نوع: pdf, jpg, jpeg, png.',
+            'documents.*.file.max' => 'حجم الملف يجب ألا يتجاوز 5 ميجابايت.',
+        ];
     }
 }

@@ -34,7 +34,7 @@ import { CountrySelect } from '@/components/country-select';
 import { PhoneInput } from '@/components/phone-input';
 export default function Apply({ schools }: { schools: School[] }) {
     const { flash } = usePage<SharedData>().props;
-    const { data, setData, post, transform, errors, processing, reset } = useForm({
+    const { data, setData, post, transform, errors, setError, clearErrors, processing, reset } = useForm({
         error: '',
         user_name: '',
         user_email: '',
@@ -68,6 +68,20 @@ export default function Apply({ schools }: { schools: School[] }) {
 
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
+
+        // Check for client-side file errors
+const formErrors = errors as Record<string, string | undefined>;
+
+        const hasFileErrors = Object.keys(formErrors).some(
+            key =>
+                (key === 'school_logo' ||
+                    (key.startsWith('documents.') && key.endsWith('.file'))) &&
+                !!formErrors[key]
+        );
+        if (hasFileErrors) {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            return;
+        }
 
         // Filter out completely empty documents
         const filteredDocs = data.documents.filter(doc => 
@@ -141,6 +155,25 @@ export default function Apply({ schools }: { schools: School[] }) {
         const documents = [...data.documents];
         documents[index] = { ...documents[index], [field]: value };
         setData('documents', documents);
+
+        if (field === 'file') {
+            if (value instanceof File) {
+                const allowedTypes = ['application/pdf', 'image/jpeg', 'image/jpg', 'image/png'];
+                const allowedExtensions = ['.pdf', '.jpg', '.jpeg', '.png'];
+                const fileExtension = value.name.substring(value.name.lastIndexOf('.')).toLowerCase();
+                const maxSizeBytes = 5 * 1024 * 1024; // 5MB
+
+                if (!allowedTypes.includes(value.type) && !allowedExtensions.includes(fileExtension)) {
+                    setError(`documents.${index}.file`, 'نوع الملف غير مدعوم. الأنواع المسموح بها هي: PDF, JPG, JPEG, PNG.');
+                } else if (value.size > maxSizeBytes) {
+                    setError(`documents.${index}.file`, 'حجم الملف كبير جداً. الحد الأقصى المسموح به هو 5 ميجابايت.');
+                } else {
+                    clearErrors(`documents.${index}.file`);
+                }
+            } else if (value === null) {
+                clearErrors(`documents.${index}.file`);
+            }
+        }
     };
 
     return (

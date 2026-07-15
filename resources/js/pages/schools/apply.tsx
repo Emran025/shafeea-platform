@@ -32,7 +32,7 @@ import React from 'react';
 
 export default function Apply() {
     const { flash } = usePage<SharedData>().props;
-    const { data, setData, post, transform, errors, processing } = useForm({
+    const { data, setData, post, transform, errors, setError, clearErrors, processing } = useForm({
         error: '',
         subscription_plan_id: '' as string | number,
         school_name: '',
@@ -81,6 +81,20 @@ export default function Apply() {
 
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
+
+        // Check for client-side file/logo errors
+        const formErrors = errors as Record<string, string | undefined>;
+
+        const hasFileErrors = Object.keys(formErrors).some(
+            key =>
+                (key === 'school_logo' ||
+                    (key.startsWith('documents.') && key.endsWith('.file'))) &&
+                !!formErrors[key]
+        );
+        if (hasFileErrors) {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            return;
+        }
 
         // Filter out completely empty documents
         const filteredDocs = data.documents.filter(doc => 
@@ -137,10 +151,49 @@ export default function Apply() {
         useUsernameSuggestion(data.user_name);
     // ─────────────────────────────────────────────────────────────────────────────
 
+    const handleLogoChange = (file: File | null) => {
+        setData('school_logo', file);
+        if (file) {
+            const allowedTypes = ['image/png', 'image/jpg', 'image/jpeg'];
+            const allowedExtensions = ['.png', '.jpg', '.jpeg'];
+            const fileExtension = file.name.substring(file.name.lastIndexOf('.')).toLowerCase();
+            const maxSizeBytes = 5 * 1024 * 1024; // 5MB
+
+            if (!allowedTypes.includes(file.type) && !allowedExtensions.includes(fileExtension)) {
+                setError('school_logo', 'شعار المدرسة غير صالح. الأنواع المسموح بها هي: PNG, JPG, JPEG.');
+            } else if (file.size > maxSizeBytes) {
+                setError('school_logo', 'حجم شعار المدرسة كبير جداً. الحد الأقصى المسموح به هو 5 ميجابايت.');
+            } else {
+                clearErrors('school_logo');
+            }
+        } else {
+            clearErrors('school_logo');
+        }
+    };
+
     const handleDocumentChange = (index: number, field: string, value: string | File | null) => {
         const documents = [...data.documents];
-        documents[index] = { ...documents[index], [field]: value };
+        documents[index] = { ...documents[index], [field]: value } as any;
         setData('documents', documents);
+
+        if (field === 'file') {
+            if (value instanceof File) {
+                const allowedTypes = ['application/pdf', 'image/jpeg', 'image/jpg', 'image/png'];
+                const allowedExtensions = ['.pdf', '.jpg', '.jpeg', '.png'];
+                const fileExtension = value.name.substring(value.name.lastIndexOf('.')).toLowerCase();
+                const maxSizeBytes = 5 * 1024 * 1024; // 5MB
+
+                if (!allowedTypes.includes(value.type) && !allowedExtensions.includes(fileExtension)) {
+                    setError(`documents.${index}.file`, 'نوع الملف غير مدعوم. الأنواع المسموح بها هي: PDF, JPG, JPEG, PNG.');
+                } else if (value.size > maxSizeBytes) {
+                    setError(`documents.${index}.file`, 'حجم الملف كبير جداً. الحد الأقصى المسموح به هو 5 ميجابايت.');
+                } else {
+                    clearErrors(`documents.${index}.file`);
+                }
+            } else if (value === null) {
+                clearErrors(`documents.${index}.file`);
+            }
+        }
     };
 
     return (
@@ -246,7 +299,7 @@ export default function Apply() {
                                                 id="school_logo"
                                                 type="file"
                                                 className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
-                                                onChange={(e) => setData('school_logo', e.target.files ? e.target.files[0] : null)}
+                                                onChange={(e) => handleLogoChange(e.target.files ? e.target.files[0] : null)}
                                             />
                                             <div className="flex flex-col items-center gap-3 group-hover:scale-105 transition-transform duration-300">
                                                 <div className="w-14 h-14 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center text-blue-600 mb-1 shadow-sm">

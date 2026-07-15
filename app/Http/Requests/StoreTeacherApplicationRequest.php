@@ -87,7 +87,12 @@ class StoreTeacherApplicationRequest extends FormRequest
             'documents' => 'الوثائق',
         ];
 
-        foreach ($this->input('documents', []) as $index => $document) {
+        $documents = array_merge(
+            is_array($this->input('documents')) ? $this->input('documents') : [],
+            is_array($this->file('documents')) ? $this->file('documents') : []
+        );
+
+        foreach (array_keys($documents) as $index) {
             $attributes["documents.{$index}.name"] = "اسم الشهادة رقم " . ($index + 1);
             $attributes["documents.{$index}.certificate_type"] = "نوع الشهادة رقم " . ($index + 1);
             $attributes["documents.{$index}.certificate_type_other"] = "نوع الشهادة (أخرى) رقم " . ($index + 1);
@@ -98,5 +103,43 @@ class StoreTeacherApplicationRequest extends FormRequest
         }
 
         return $attributes;
+    }
+
+    /**
+     * Localized validation messages.
+     */
+    public function messages(): array
+    {
+        return [
+            'user_name.required' => 'الاسم الكامل مطلوب.',
+            'user_email.required' => 'البريد الإلكتروني مطلوب.',
+            'user_email.email' => 'يجب إدخال بريد إلكتروني صحيح.',
+            'user_email.unique' => 'البريد الإلكتروني مستخدم بالفعل.',
+            'username.required' => 'اسم المستخدم مطلوب.',
+            'username.unique' => 'اسم المستخدم هذا محجوز بالفعل.',
+            'user_phone.required' => 'رقم الهاتف مطلوب.',
+            'user_phone_zone.required' => 'مفتاح الدولة للهاتف مطلوب.',
+            'user_country.required' => 'الجنسية مطلوبة.',
+            'user_residence.required' => 'دولة الإقامة مطلوبة.',
+            'user_city.required' => 'المدينة مطلوبة.',
+            'user_password.required' => 'كلمة المرور مطلوبة.',
+            'user_password.min' => 'كلمة المرور يجب ألا تقل عن 8 أحرف.',
+            'user_password.confirmed' => 'تأكيد كلمة المرور غير متطابق.',
+            'bio.required' => 'النبذة التعريفية مطلوبة.',
+            'qualifications.required' => 'المؤهل الأكاديمي مطلوب.',
+            'memorization_level.required' => 'مستوى الحفظ مطلوب.',
+            'memorization_level.integer' => 'مستوى الحفظ يجب أن يكون رقماً.',
+            'memorization_level.min' => 'مستوى الحفظ لا يمكن أن يكون أقل من 0.',
+            'memorization_level.max' => 'مستوى الحفظ لا يمكن أن يزيد عن 30 جزءاً.',
+            'documents.required' => 'يجب إرفاق وثيقة واحدة على الأقل.',
+            'documents.*.name.required' => 'اسم الشهادة/الوثيقة مطلوب.',
+            'documents.*.certificate_type.required' => 'نوع الشهادة مطلوب.',
+            'documents.*.certificate_type.in' => 'نوع الشهادة المحدد غير صالح.',
+            'documents.*.riwayah.required_if' => 'الرواية مطلوبة لهذا النوع من الشهادات.',
+            'documents.*.file.required' => 'يجب رفع ملف الشهادة.',
+            'documents.*.file.file' => 'الملف المرفوع غير صالح.',
+            'documents.*.file.mimes' => 'يجب أن يكون الملف من نوع: pdf, jpg, jpeg, png.',
+            'documents.*.file.max' => 'حجم الملف يجب ألا يتجاوز 5 ميجابايت.',
+        ];
     }
 }
