@@ -61,11 +61,10 @@ export function PhoneInput({
             >
               <div className="flex items-center gap-2">
                 {selectedCountry ? (
-                   <div className="w-6 h-4 rounded-[2px] overflow-hidden flex-shrink-0 shadow-sm ring-1 ring-border/50 flex items-center justify-center [&_svg]:w-full [&_svg]:h-full">
+                   <div className="w-8 h-6 overflow-hidden flex-shrink-0 shadow-sm ring-1 ring-border/30 flex items-center justify-center [&_svg]:w-full [&_svg]:h-full">
                      {selectedCountry.flag_svg ? (
-                       <div 
-                         className="w-full h-full [&_svg]:w-full [&_svg]:h-full"
-                         dangerouslySetInnerHTML={{ __html: selectedCountry.flag_svg }}
+                       <div
+                         dangerouslySetInnerHTML={{ __html: decodeSvg(selectedCountry.flag_svg, "size-8") }}
                        />
                      ) : selectedCountry.flag_url ? (
                        <img 
@@ -77,7 +76,7 @@ export function PhoneInput({
                      ) : null}
                    </div>
                 ) : (
-                  <Phone className="w-3.5 h-3.5 text-muted-foreground" />
+                  <Phone className="w-8 h-6 text-muted-foreground" />
                 )}
                 <span className="text-sm font-bold text-foreground">{zoneValue || '+'}</span>
               </div>
@@ -107,10 +106,9 @@ export function PhoneInput({
                         className="flex items-center justify-between py-3 px-4 cursor-pointer hover:bg-primary/5 data-[selected=true]:bg-primary/10 transition-colors"
                       >
                         <div className="flex items-center gap-3">
-                            <div className="w-8 h-5 rounded-[3px] overflow-hidden flex-shrink-0 shadow-sm ring-1 ring-border/30 flex items-center justify-center [&_svg]:w-full [&_svg]:h-full">
+                            <div className="w-8 h-6 overflow-hidden flex-shrink-0 shadow-sm ring-1 ring-border/30 flex items-center justify-center [&_svg]:w-full [&_svg]:h-full">
                               {country.flag_svg ? (
                                 <div 
-                                  className="w-full h-full [&_svg]:w-full [&_svg]:h-full"
                                   dangerouslySetInnerHTML={{
                                     __html: decodeSvg(country.flag_svg),
                                   }}                                />
@@ -150,8 +148,7 @@ export function PhoneInput({
             placeholder={placeholder}
             value={phoneValue}
             onChange={(e) => onPhoneChange(e.target.value.replace(/\D/g, ''))}
-            className="h-11 border-0 rounded-none focus-visible:ring-0 px-4 text-left font-mono text-base tracking-widest placeholder:tracking-normal"
-            dir="ltr"
+            className="h-11 border-0 rounded-none bg-transparent shadow-none focus-visible:ring-0 focus-visible:outline-none px-4 text-left font-mono text-base tracking-widest placeholder:tracking-normal"            dir="ltr"
           />
           <div className="absolute right-3.5 top-3.5 pointer-events-none">
             <Phone className="w-4 h-4 text-muted-foreground group-focus-within:text-primary transition-colors" />

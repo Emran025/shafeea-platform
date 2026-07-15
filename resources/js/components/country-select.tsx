@@ -48,11 +48,10 @@ export function CountrySelect({ value, onChange, placeholder = "اختر الد�
         >
           <div className="flex items-center gap-3 overflow-hidden">
             {selectedCountry ? (
-              <div className="w-6 h-4 rounded-[2px] overflow-hidden flex-shrink-0 shadow-sm ring-1 ring-border/50 flex items-center justify-center [&_svg]:w-full [&_svg]:h-full">
+              <div className="w-8 h-6 overflow-hidden flex-shrink-0 shadow-sm ring-1 ring-border/30 flex items-center justify-center [&_svg]:w-full [&_svg]:h-full">
                 {selectedCountry.flag_svg ? (
-                  <div 
-                    className="w-full h-full [&_svg]:w-full [&_svg]:h-full"
-                    dangerouslySetInnerHTML={{ __html: selectedCountry.flag_svg }}
+                  <div
+                    dangerouslySetInnerHTML={{ __html: decodeSvg(selectedCountry.flag_svg, "size-8") }}
                   />
                 ) : selectedCountry.flag_url ? (
                   <img 
@@ -96,10 +95,9 @@ export function CountrySelect({ value, onChange, placeholder = "اختر الد�
                     className="flex items-center justify-between py-3 px-4 cursor-pointer hover:bg-primary/5 data-[selected=true]:bg-primary/10 transition-colors"
                   >
                     <div className="flex items-center gap-3">
-                        <div className="w-8 h-5 rounded-[3px] overflow-hidden flex-shrink-0 shadow-sm ring-1 ring-border/30 flex items-center justify-center [&_svg]:w-full [&_svg]:h-full">
+                        <div className="w-8 h-6 overflow-hidden flex-shrink-0 shadow-sm ring-1 ring-border/30 flex items-center justify-center [&_svg]:w-full [&_svg]:h-full">
                           {country.flag_svg ? (
                             <div 
-                              className="w-full h-full [&_svg]:w-full [&_svg]:h-full"
                               dangerouslySetInnerHTML={{
                                 __html: decodeSvg(country.flag_svg),
                               }}
