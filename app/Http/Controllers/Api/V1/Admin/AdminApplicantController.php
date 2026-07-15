@@ -74,7 +74,7 @@ class AdminApplicantController extends ApiController
 
         $applicant = Applicant::findByIdentifier($id);
         if ($applicant) {
-            $applicant->load('user');
+            $applicant->load('user', 'user.documents');
         }
 
         if (! $applicant) {

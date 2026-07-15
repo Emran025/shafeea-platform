@@ -48,6 +48,6 @@ class TeacherRepository
         if (!$teacher) {
             throw (new \Illuminate\Database\Eloquent\ModelNotFoundException)->setModel(Teacher::class);
         }
-        return $teacher->load(['user', 'halaqahs']);
+        return $teacher->load(['user', 'user.documents', 'halaqahs']);
     }
 }
