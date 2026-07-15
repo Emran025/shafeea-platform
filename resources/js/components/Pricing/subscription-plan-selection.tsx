@@ -96,7 +96,7 @@ export default function SubscriptionPlanSelection({ subscriptionPlans, onSelectS
                                     subscriptionPlan.is_recommended
                                         ? selectedSubscriptionPlanId === subscriptionPlan.id
                                             ? 'bg-white text-black hover:bg-gray-100 scale-105'
-                                            : 'bg-blue-600 text-white hover:bg-blue-500 hover:scale-[1.02] shadow-blue-900/50'
+                                            : 'bg-[#172334] text-white hover:bg-[#1e3048] hover:scale-[1.02] shadow-[#172334]/50'
                                         : selectedSubscriptionPlanId === subscriptionPlan.id
                                             ? 'bg-primary text-white scale-105 shadow-primary/30'
                                             : 'border-primary/20 hover:border-primary hover:bg-primary/5 hover:scale-[1.02]'

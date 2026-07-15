@@ -431,19 +431,19 @@ const formErrors = errors as Record<string, string | undefined>;
                                                 min="0"
                                                 max="30"
                                                 placeholder="مثال: 30"
-                                                value={data.memorization_level}
+                                                value={data.memorization_level === 0 ? '' : data.memorization_level}
                                                 onChange={(e) => {
                                                     const val = e.target.value;
                                                     if (val === '') {
                                                         setData('memorization_level', 0);
                                                         return;
                                                     }
-                                                    const num = parseInt(val);
+                                                    const num = Number(val);
                                                     if (!isNaN(num) && num >= 0 && num <= 30) {
                                                         setData('memorization_level', num);
                                                     }
                                                 }}
-                                                className={`pr-11 text-left`}
+                                                className="pr-11 text-left"
                                                 dir="ltr"
                                             />
                                         </div>

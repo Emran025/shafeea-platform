@@ -56,7 +56,7 @@ export function PhoneInput({
               variant="ghost"
               role="combobox"
               aria-expanded={open}
-              className="h-11 px-3 border-r rounded-none hover:bg-muted/50 transition-colors flex items-center gap-1 min-w-[100px]"
+              className="h-11 px-3 border-r rounded-none hover:bg-transparent active:bg-transparent transition-colors flex items-center gap-1 min-w-[100px] !shadow-none !ring-0 !ring-offset-0 focus-visible:!ring-0 focus-visible:!ring-offset-0 focus-visible:!shadow-none focus-visible:outline-none"
               dir="ltr"
             >
               <div className="flex items-center gap-2">
@@ -148,7 +148,7 @@ export function PhoneInput({
             placeholder={placeholder}
             value={phoneValue}
             onChange={(e) => onPhoneChange(e.target.value.replace(/\D/g, ''))}
-            className="h-11 border-0 rounded-none bg-transparent shadow-none focus-visible:ring-0 focus-visible:outline-none px-4 text-left font-mono text-base tracking-widest placeholder:tracking-normal"            dir="ltr"
+            className="h-11 border-0 rounded-none !bg-transparent !shadow-none hover:!bg-transparent focus:!bg-transparent !ring-0 !ring-offset-0 focus-visible:!border-0 focus-visible:!ring-0 focus-visible:!ring-offset-0 focus-visible:!shadow-none focus-visible:outline-none px-4 text-left font-mono text-base tracking-widest placeholder:tracking-normal"            dir="ltr"
           />
           <div className="absolute right-3.5 top-3.5 pointer-events-none">
             <Phone className="w-4 h-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
