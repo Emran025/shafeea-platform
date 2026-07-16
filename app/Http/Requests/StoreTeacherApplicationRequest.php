@@ -21,7 +21,7 @@ class StoreTeacherApplicationRequest extends FormRequest
         $this->merge(array_filter([
             'user_email' => $this->has('user_email') ? mb_strtolower(trim((string) $this->input('user_email'))) : null,
             'username' => $this->has('username') ? mb_strtolower(trim((string) $this->input('username'))) : null,
-        ], fn ($value) => $value !== null));
+        ], fn($value) => $value !== null));
     }
 
     public function rules(): array
@@ -44,7 +44,7 @@ class StoreTeacherApplicationRequest extends FormRequest
             'school_id' => ['nullable', 'exists:schools,id'],
             'bio' => ['required', 'string'],
             'qualifications' => ['required', 'string'],
-            'memorization_level' => ['required', 'integer', 'min:0', 'max:30'],
+            'memorization_level' => ['required', 'integer', 'min:-604', 'max:604'],
 
             // Documents
             'documents' => ['required', 'array'],
@@ -130,7 +130,7 @@ class StoreTeacherApplicationRequest extends FormRequest
             'memorization_level.required' => 'مستوى الحفظ مطلوب.',
             'memorization_level.integer' => 'مستوى الحفظ يجب أن يكون رقماً.',
             'memorization_level.min' => 'مستوى الحفظ لا يمكن أن يكون أقل من 0.',
-            'memorization_level.max' => 'مستوى الحفظ لا يمكن أن يزيد عن 30 جزءاً.',
+            'memorization_level.max' => 'مستوى الحفظ لا يمكن أن يزيد عن 604 صفحات.',
             'documents.required' => 'يجب إرفاق وثيقة واحدة على الأقل.',
             'documents.*.name.required' => 'اسم الشهادة/الوثيقة مطلوب.',
             'documents.*.certificate_type.required' => 'نوع الشهادة مطلوب.',

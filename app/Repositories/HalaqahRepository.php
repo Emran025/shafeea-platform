@@ -88,7 +88,7 @@ class HalaqahRepository
         $limit = $filters['limit'] ?? 10;
 
         return $halaqah->students()
-            ->where('students.memorization_level', '=', 30)
+            ->whereIn('students.memorization_level', [604, -604])
             ->with('user')
             ->paginate($limit);
     }

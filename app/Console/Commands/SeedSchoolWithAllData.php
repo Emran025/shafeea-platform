@@ -162,7 +162,7 @@ class SeedSchoolWithAllData extends Command
             $students->push(Student::create([
                 'user_id' => $user->id,
                 'qualification' => 'ثانوي',
-                'memorization_level' => rand(1, 10).' أجزاء',
+                'memorization_level' => rand(1, 10),
                 'status' => 'active',
             ]));
         }

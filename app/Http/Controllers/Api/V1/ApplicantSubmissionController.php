@@ -28,7 +28,7 @@ class ApplicantSubmissionController extends ApiController
             'bio' => 'required|string',
             'qualifications' => 'required|string',
             'school_id' => 'nullable|exists:schools,id',
-            'memorization_level' => 'sometimes|integer|between:0,30',
+            'memorization_level' => 'sometimes|integer|between:-604,604',
         ]);
 
         if ($validator->fails()) {

@@ -40,7 +40,7 @@ class StoreStudentRequest extends FormRequest
             'residence' => 'required|string',
             'city' => 'required|string',
             'qualification' => 'required|string',
-            'memorizationLevel' => 'required|integer|between:0,30',
+            'memorizationLevel' => 'required|integer|between:-604,604',
             'status' => 'in:active,stopped,dropout',
         ];
     }

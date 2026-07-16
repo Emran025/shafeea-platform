@@ -422,7 +422,7 @@ const formErrors = errors as Record<string, string | undefined>;
 
                                     {/* Memorization Level */}
                                     <div className="md:col-span-2">
-                                        <Label htmlFor="memorization_level" className="text-foreground font-semibold text-sm mb-2.5 block">مستوى الحفظ (عدد الأجزاء)</Label>
+                                        <Label htmlFor="memorization_level" className="text-foreground font-semibold text-sm mb-2.5 block">مستوى الحفظ (عدد الصفحات)</Label>
                                         <div className="relative group">
                                             <BookOpen className="absolute right-3.5 top-3.5 w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors duration-200" />
                                             <Input

@@ -122,17 +122,17 @@ class AuthController extends ApiController
         $request->merge(array_filter([
             'email' => $request->has('email') ? mb_strtolower(trim((string) $request->input('email'))) : null,
             'username' => $request->has('username') ? mb_strtolower(trim((string) $request->input('username'))) : null,
-        ], fn ($value) => $value !== null));
+        ], fn($value) => $value !== null));
 
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email',
-            'password' => 'required|string|min:8|confirmed',
+            'password' => 'required|string|min:8',
             'username' => ['required', 'string', 'max:255', new \App\Rules\UniqueUsername],
             'bio' => 'required|string',
             'qualifications' => 'required|string',
             'school_id' => 'nullable|exists:schools,id',
-            'memorization_level' => 'sometimes|integer|between:0,30',
+            'memorization_level' => 'sometimes|integer|between:-604,604',
             'avatar' => 'nullable|string',
             'phone' => 'nullable|string',
             'phone_zone' => 'nullable|string',
@@ -528,7 +528,7 @@ class AuthController extends ApiController
             'city' => fake()->city(),
             'availableTime' => fake()->time('H:i:s'),
             'stopReasons' => null,
-            'memorizationLevel' => fake()->randomElement([null, 'Full Quran', 'Half Quran', 'Selected Surahs']),
+            'memorizationLevel' => fake()->randomElement([null, 30, 20, 10, 5]),
         ];
     }
 }
