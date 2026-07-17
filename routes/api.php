@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\V1\ApplicantSubmissionController;
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\FollowUpController;
 use App\Http\Controllers\Api\V1\HalaqahController;
+use App\Http\Controllers\Api\V1\PublicSchoolController;
 use App\Http\Controllers\Api\V1\SessionController;
 use App\Http\Controllers\Api\V1\StudentController;
 use App\Http\Controllers\Api\V1\SyncController;
@@ -22,11 +23,14 @@ Route::prefix('v1')->group(function () {
         Route::post('login', [AuthController::class, 'login'])->name('login');
         Route::post('forgot-password', [AuthController::class, 'forgotPassword'])->name('password.email');
         Route::get('check-username', [AuthController::class, 'checkUsername'])->name('check-username');
-        
+
         Route::get('/username/suggest', [AuthController::class, 'suggest'])
             ->name('username.suggest')
             ->middleware('throttle:60,1');
     });
+
+    // Public schools list — used by the student app registration dropdown.
+    Route::get('schools', [PublicSchoolController::class, 'index'])->name('schools.public');
 
     Route::get('email/verify/{id}/{hash}', [AuthController::class, 'verify'])->middleware('signed')->name('verification.verify');
 });
