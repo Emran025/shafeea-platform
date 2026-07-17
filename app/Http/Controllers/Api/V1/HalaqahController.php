@@ -5,13 +5,15 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Resources\HalaqahResource;
 use App\Http\Resources\StudentHistoryResource;
 use App\Http\Resources\StudentKhatmResource;
+use App\Http\Requests\AssignStudentsRequest;
+use App\Http\Requests\AssignTeacherRequest;
+use App\Http\Requests\StoreHalaqahRequest;
+use App\Http\Requests\UpdateHalaqahRequest;
 use App\Repositories\HalaqahRepository;
 use App\Services\HalaqahService;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
 
 // Make sure you're extending your new ApiController
 class HalaqahController extends ApiController
@@ -33,36 +35,10 @@ class HalaqahController extends ApiController
         return $this->paginatedSuccess($halaqahs, HalaqahResource::class, 'halaqas');
     }
 
-    public function store(Request $request)
+    public function store(StoreHalaqahRequest $request)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'avatar' => 'nullable|string',
-            'gender' => ['required', Rule::in(['Male', 'Female', 'Both'])],
-            'residence' => 'required|string|max:255',
-            'max_students' => 'required|integer|min:1',
-            'is_active' => 'sometimes|boolean',
-            'teacher_id' => [
-                'nullable',
-                function ($attribute, $value, $fail) {
-                    $exists = \Illuminate\Support\Facades\DB::table('teachers')
-                        ->where('user_id', $value)
-                        ->orWhere('username', $value)
-                        ->exists();
-                    if (!$exists) {
-                        $fail('The selected teacher is invalid.');
-                    }
-                }
-            ],
-            'school_id' => 'required|exists:schools,id',
-        ]);
-
-        if ($validator->fails()) {
-            // Use the error helper for validation failures
-            return $this->error('The given data was invalid.', 422, $validator->errors());
-        }
-
-        $data = $validator->validated();
+        $validated = $request->validated();
+        $data = $validated;
         $data['sum_of_students'] = 0;
         $data['is_deleted'] = false;
 
@@ -80,64 +56,22 @@ class HalaqahController extends ApiController
         return $this->success(new HalaqahResource($halaqah), 'Halaqah retrieved successfully.');
     }
 
-    public function update(Request $request, $id)
+
+    public function update(UpdateHalaqahRequest $request, $id)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'sometimes|required|string|max:255',
-            'avatar' => 'sometimes|nullable|string',
-            'gender' => ['sometimes', 'required', Rule::in(['Male', 'Female', 'Both'])],
-            'residence' => 'sometimes|required|string|max:255',
-            'max_students' => 'sometimes|required|integer|min:1',
-            'is_active' => 'sometimes|boolean',
-            'teacher_id' => [
-                'sometimes',
-                'nullable',
-                function ($attribute, $value, $fail) {
-                    $exists = \Illuminate\Support\Facades\DB::table('teachers')
-                        ->where('user_id', $value)
-                        ->orWhere('username', $value)
-                        ->exists();
-                    if (!$exists) {
-                        $fail('The selected teacher is invalid.');
-                    }
-                }
-            ],
-            'school_id' => 'sometimes|required|exists:schools,id',
-        ]);
+        $validated = $request->validated();
 
-        if ($validator->fails()) {
-            return $this->error('The given data was invalid.', 422, $validator->errors());
-        }
-
-        $halaqah = $this->halaqahService->updateHalaqah($id, $validator->validated());
+        $halaqah = $this->halaqahService->updateHalaqah($id, $validated);
 
         return $this->success(new HalaqahResource($halaqah), 'Halaqah updated successfully.');
     }
 
-    public function assignStudents(Request $request, $id)
+    public function assignStudents(AssignStudentsRequest $request, $id)
     {
-        $validator = Validator::make($request->all(), [
-            'studentUserIds' => 'required|array',
-            'studentUserIds.*' => [
-                'required',
-                function ($attribute, $value, $fail) {
-                    $exists = \Illuminate\Support\Facades\DB::table('students')
-                        ->where('user_id', $value)
-                        ->orWhere('username', $value)
-                        ->exists();
-                    if (!$exists) {
-                        $fail('The selected student is invalid.');
-                    }
-                }
-            ],
-        ]);
-
-        if ($validator->fails()) {
-            return $this->error('The given data was invalid.', 422, $validator->errors());
-        }
+        $validated = $request->validated();
 
         try {
-            $this->halaqahService->assignStudents($id, $request->input('studentUserIds'));
+            $this->halaqahService->assignStudents($id, $validated['studentUserIds']);
 
             // Use success helper for a simple message response
             return $this->success(null, 'Students assigned to Halaqa successfully.');
@@ -149,28 +83,11 @@ class HalaqahController extends ApiController
         }
     }
 
-    public function assignTeacher(Request $request, $id)
+    public function assignTeacher(AssignTeacherRequest $request, $id)
     {
-        $validator = Validator::make($request->all(), [
-            'teacher_id' => [
-                'required',
-                function ($attribute, $value, $fail) {
-                    $exists = \Illuminate\Support\Facades\DB::table('teachers')
-                        ->where('user_id', $value)
-                        ->orWhere('username', $value)
-                        ->exists();
-                    if (!$exists) {
-                        $fail('The selected teacher is invalid.');
-                    }
-                }
-            ],
-        ]);
+        $validated = $request->validated();
 
-        if ($validator->fails()) {
-            return $this->error('The given data was invalid.', 422, $validator->errors());
-        }
-
-        $this->halaqahService->assignTeacher($id, $request->input('teacher_id'));
+        $this->halaqahService->assignTeacher($id, $validated['teacher_id']);
 
         return $this->success(null, 'Teacher assigned to Halaqa successfully.');
     }
