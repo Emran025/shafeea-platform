@@ -26,10 +26,14 @@ class TeacherApplicationController extends Controller
         $selectedSchool = null;
 
         if ($schoolParam) {
-            $selectedSchool = School::where('school_code', $schoolParam)
-                ->orWhere('name', $schoolParam)
-                ->orWhere('id', $schoolParam)
-                ->first();
+            $selectedSchool = School::where(function ($query) use ($schoolParam) {
+                $query->where('school_code', $schoolParam)
+                      ->orWhere('name', $schoolParam);
+
+                if (is_numeric($schoolParam)) {
+                    $query->orWhere('id', (int) $schoolParam);
+                }
+            })->first();
         }
 
         $schools = cache()->remember('schools_list_with_logo', 3600, function () {
