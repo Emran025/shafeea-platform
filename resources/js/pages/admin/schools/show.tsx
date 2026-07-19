@@ -19,7 +19,7 @@ import { PageProps, School, User, Document } from '@/types';
 import { 
     Building2, UserCog, FileText, BarChart2, Phone, Mail, MapPin, 
     Download, Users, UserCheck, BookOpen, ArrowRight, CheckCircle, 
-    XCircle, Pause, Play, Globe, Calendar, Clock
+    XCircle, Pause, Play, Globe, Calendar, Clock, Hammer, Loader2, RefreshCw, ShieldCheck, Code2
 } from 'lucide-react';
 
 // Enhanced type definitions to match the controller's output
@@ -329,6 +329,17 @@ export default function SchoolShow() {
                                         </a>
                                     </DetailItem>
                                 )}
+                                <DetailItem label="رمز المدرسة" icon={Code2}>
+                                    {school.school_code
+                                        ? <span className="font-mono text-sm bg-muted px-2 py-1 rounded">{school.school_code}</span>
+                                        : <span className="text-muted-foreground text-sm italic">غير محدد</span>
+                                    }
+                                </DetailItem>
+                                {school.school_code && (
+                                    <DetailItem label="عنوان النطاق الفرعي" icon={Globe}>
+                                        <span className="font-mono text-xs text-muted-foreground">{school.school_code}.shafeea.systems360.cloud</span>
+                                    </DetailItem>
+                                )}
                             </CardContent>
                         </Card>
 
@@ -514,6 +525,100 @@ export default function SchoolShow() {
                                             </div>
                                         </div>
                                     </div>
+                                </CardContent>
+                            </Card>
+                        )}
+                        {/* Build Configuration Card */}
+                        {school.is_active && (
+                            <Card className="border-2 border-border/50 shadow-lg">
+                                <CardHeader className="pb-4">
+                                    <div className="flex items-center justify-between">
+                                        <div className="flex items-center gap-3">
+                                            <div className="w-10 h-10 bg-indigo-100 dark:bg-indigo-900/30 rounded-xl flex items-center justify-center">
+                                                <Hammer className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+                                            </div>
+                                            <div>
+                                                <CardTitle className="text-xl">إعدادات البناء</CardTitle>
+                                                <CardDescription>APK حالة بناء التطبيق وإدارته</CardDescription>
+                                            </div>
+                                        </div>
+                                        {/* Rebuild button */}
+                                        <Button
+                                            size="sm"
+                                            className="gap-2 bg-indigo-600 hover:bg-indigo-700"
+                                            disabled={school.build_status === 'building'}
+                                            onClick={() => router.post(`/admin/schools/${school.id}/rebuild`, {}, { preserveScroll: true })}
+                                        >
+                                            {school.build_status === 'building'
+                                                ? <Loader2 className="w-4 h-4 animate-spin" />
+                                                : <RefreshCw className="w-4 h-4" />
+                                            }
+                                            {school.build_status === 'building' ? 'جاري البناء...' : 'إعادة بناء'}
+                                        </Button>
+                                    </div>
+                                </CardHeader>
+                                <CardContent className="space-y-3">
+                                    {/* Build Status */}
+                                    <div className="flex items-center justify-between p-3 bg-muted/30 rounded-lg">
+                                        <span className="text-sm font-semibold text-muted-foreground">حالة البناء</span>
+                                        <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold border ${
+                                            school.build_status === 'built'     ? 'bg-emerald-100 text-emerald-800 border-emerald-200 dark:bg-emerald-900/30 dark:text-emerald-300' :
+                                            school.build_status === 'building'  ? 'bg-blue-100 text-blue-800 border-blue-200 dark:bg-blue-900/30 dark:text-blue-300' :
+                                            school.build_status === 'failed'    ? 'bg-red-100 text-red-800 border-red-200 dark:bg-red-900/30 dark:text-red-300' :
+                                                                                   'bg-gray-100 text-gray-600 border-gray-200 dark:bg-gray-800 dark:text-gray-400'
+                                        }`}>
+                                            {school.build_status === 'building' && <Loader2 className="w-3 h-3 animate-spin" />}
+                                            {school.build_status === 'built'    ? '✅ تم البناء' :
+                                             school.build_status === 'building' ? 'جاري البناء' :
+                                             school.build_status === 'failed'   ? '❌ فشل البناء' : 'لم يُبنى بعد'}
+                                        </span>
+                                    </div>
+                                    {/* Last build info */}
+                                    {school.last_built_release && (
+                                        <div className="flex items-center justify-between p-3 bg-muted/30 rounded-lg">
+                                            <span className="text-sm font-semibold text-muted-foreground">آخر إصدار تم بناؤه</span>
+                                            <span className="font-mono text-sm text-foreground">{school.last_built_release}</span>
+                                        </div>
+                                    )}
+                                    {school.last_built_at && (
+                                        <div className="flex items-center justify-between p-3 bg-muted/30 rounded-lg">
+                                            <span className="text-sm font-semibold text-muted-foreground">تاريخ آخر بناء</span>
+                                            <span className="text-sm text-foreground">{new Date(school.last_built_at).toLocaleDateString('ar-SA')}</span>
+                                        </div>
+                                    )}
+                                    {/* App Key */}
+                                    <div className="flex items-center justify-between p-3 bg-muted/30 rounded-lg">
+                                        <span className="text-sm font-semibold text-muted-foreground flex items-center gap-1.5"><ShieldCheck className="w-4 h-4" /> App Key</span>
+                                        {school.app_key
+                                            ? <span className="font-mono text-xs bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 px-2 py-1 rounded border border-green-200 dark:border-green-800">✓ متوفر</span>
+                                            : <span className="text-xs text-muted-foreground italic">غير مولّد بعد</span>
+                                        }
+                                    </div>
+                                    {/* Keystore */}
+                                    <div className="flex items-center justify-between p-3 bg-muted/30 rounded-lg">
+                                        <span className="text-sm font-semibold text-muted-foreground">ملف Keystore</span>
+                                        {school.keystore_key_alias
+                                            ? <span className="font-mono text-xs bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 px-2 py-1 rounded border border-blue-200 dark:border-blue-800">{school.keystore_key_alias}</span>
+                                            : <span className="text-xs text-red-500">✗ غير مضبوط &mdash; <a href={`/admin/schools/${school.id}/edit`} className="underline">إضافة إعدادات التوقيع</a></span>
+                                        }
+                                    </div>
+                                    {/* Operating mode */}
+                                    <div className="flex items-center justify-between p-3 bg-muted/30 rounded-lg">
+                                        <span className="text-sm font-semibold text-muted-foreground">وضع التطبيق</span>
+                                        <span className={`text-xs font-semibold px-2 py-1 rounded-full border ${
+                                            school.school_locked_mode
+                                                ? 'bg-amber-100 text-amber-800 border-amber-200 dark:bg-amber-900/30 dark:text-amber-300'
+                                                : 'bg-sky-100 text-sky-800 border-sky-200 dark:bg-sky-900/30 dark:text-sky-300'
+                                        }`}>
+                                            {school.school_locked_mode ? '🔒 School-Locked' : '🌐 General Mode'}
+                                        </span>
+                                    </div>
+                                    {school.build_notes && (
+                                        <div className="p-3 bg-amber-50 dark:bg-amber-900/10 rounded-lg border border-amber-200 dark:border-amber-800">
+                                            <p className="text-xs font-semibold text-amber-800 dark:text-amber-400 mb-1">ملاحظات البناء</p>
+                                            <p className="text-sm text-muted-foreground">{school.build_notes}</p>
+                                        </div>
+                                    )}
                                 </CardContent>
                             </Card>
                         )}

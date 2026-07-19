@@ -32,7 +32,7 @@ import { EmailInput } from '@/components/email-input';
 import { PasswordGroup } from '@/components/password-group'; 
 import { CountrySelect } from '@/components/country-select';
 import { PhoneInput } from '@/components/phone-input';
-export default function Apply({ schools }: { schools: School[] }) {
+export default function Apply({ schools, selected_school }: { schools: School[]; selected_school?: { id: number; name: string; logo: string; } | null }) {
     const { flash } = usePage<SharedData>().props;
     const { data, setData, post, transform, errors, setError, clearErrors, processing, reset } = useForm({
         error: '',
@@ -52,7 +52,7 @@ export default function Apply({ schools }: { schools: School[] }) {
         bio: '',
         qualifications: '',
         memorization_level: 0,
-        school_id: '',
+        school_id: selected_school ? String(selected_school.id) : '',
         documents: [
             {
                 name: '',
@@ -178,7 +178,7 @@ const formErrors = errors as Record<string, string | undefined>;
 
     return (
         <SiteLayout>
-            <Head title="الانضمام كمعلم - شفيع" />
+            <Head title={selected_school ? `الانضمام كمعلم - ${selected_school.name}` : "الانضمام كمعلم - شفيع"} />
 
             {/* --- Hero Section --- */}
             <section className="relative py-24 gradient-hero overflow-hidden animate-fade-in-up">
@@ -192,15 +192,37 @@ const formErrors = errors as Record<string, string | undefined>;
                 </div>
 
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-                    <div className="inline-flex items-center justify-center w-20 h-20 bg-white/10 backdrop-blur-lg border border-white/20 rounded-3xl mb-6 shadow-2xl hover:scale-105 transition-transform duration-300">
-                        <GraduationCap className="w-10 h-10 text-white" />
-                    </div>
-                    <h1 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
-                        انضم لنخبة المعلمين
-                    </h1>
-                    <p className="text-xl text-blue-50/90 max-w-2xl mx-auto leading-relaxed font-light">
-                        شارك في رسالة تعليم كتاب الله، وكن جزءاً من منظومة تعليمية تقنية متكاملة تخدم القرآن وأهله.
-                    </p>
+                    {selected_school && selected_school.logo ? (
+                        <div className="inline-flex items-center justify-center w-20 h-20 bg-white border border-white/20 rounded-3xl mb-6 shadow-2xl hover:scale-105 transition-transform duration-300 overflow-hidden p-2">
+                            <img src={selected_school.logo} alt={selected_school.name} className="w-full h-full object-contain" />
+                        </div>
+                    ) : (
+                        <div className="inline-flex items-center justify-center w-20 h-20 bg-white/10 backdrop-blur-lg border border-white/20 rounded-3xl mb-6 shadow-2xl hover:scale-105 transition-transform duration-300">
+                            <GraduationCap className="w-10 h-10 text-white" />
+                        </div>
+                    )}
+                    {selected_school ? (
+                        <>
+                            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 leading-tight">
+                                بوابة تسجيل المعلمين
+                            </h1>
+                            <p className="text-2xl text-blue-100 font-semibold mb-6">
+                                {selected_school.name}
+                            </p>
+                            <p className="text-lg text-blue-50/90 max-w-2xl mx-auto leading-relaxed font-light">
+                                مرحباً بك! يمكنك التقديم للانضمام كمعلم في {selected_school.name} عبر تعبئة النموذج أدناه.
+                            </p>
+                        </>
+                    ) : (
+                        <>
+                            <h1 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
+                                انضم لنخبة المعلمين
+                            </h1>
+                            <p className="text-xl text-blue-50/90 max-w-2xl mx-auto leading-relaxed font-light">
+                                شريك في رسالة تعليم كتاب الله، وكن جزءاً من منظومة تعليمية تقنية متكاملة تخدم القرآن وأهله.
+                            </p>
+                        </>
+                    )}
                 </div>
             </section>
 
@@ -394,31 +416,33 @@ const formErrors = errors as Record<string, string | undefined>;
                                     </div>
 
                                     {/* School Selection */}
-                                    <div className="md:col-span-2">
-                                        <Label htmlFor="school_id" className="text-foreground font-semibold text-sm mb-2.5 block">
-                                            الانضمام لمدرسة (اختياري)
-                                        </Label>
-                                        <div className="relative group">
-                                            <Building2 className="absolute right-3.5 top-3.5 w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors duration-200" />
-                                            <Select 
-                                                onValueChange={(value) => setData('school_id', value === "none" ? "" : value)} 
-                                                value={data.school_id ? String(data.school_id) : "none"}
-                                            >
-                                                <SelectTrigger className={`pr-11`} dir="rtl" style={{ fontFamily: 'Cairo, sans-serif' }}>
-                                                    <SelectValue placeholder="اختر مدرسة للانضمام إليها" />
-                                                </SelectTrigger>
-                                                <SelectContent dir="rtl" style={{ fontFamily: 'Cairo, sans-serif' }}>
-                                                    <SelectItem value="none">لا أنتمي لمدرسة حالياً</SelectItem>
-                                                    {schools.map((school) => (
-                                                        <SelectItem key={school.id} value={String(school.id)}>
-                                                            {school.name}
-                                                        </SelectItem>
-                                                    ))}
-                                                </SelectContent>
-                                            </Select>
+                                    {!selected_school && (
+                                        <div className="md:col-span-2">
+                                            <Label htmlFor="school_id" className="text-foreground font-semibold text-sm mb-2.5 block">
+                                                الانضمام لمدرسة (اختياري)
+                                            </Label>
+                                            <div className="relative group">
+                                                <Building2 className="absolute right-3.5 top-3.5 w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors duration-200" />
+                                                <Select 
+                                                    onValueChange={(value) => setData('school_id', value === "none" ? "" : value)} 
+                                                    value={data.school_id ? String(data.school_id) : "none"}
+                                                >
+                                                    <SelectTrigger className={`pr-11`} dir="rtl" style={{ fontFamily: 'Cairo, sans-serif' }}>
+                                                        <SelectValue placeholder="اختر مدرسة للانضمام إليها" />
+                                                    </SelectTrigger>
+                                                    <SelectContent dir="rtl" style={{ fontFamily: 'Cairo, sans-serif' }}>
+                                                        <SelectItem value="none">لا أنتمي لمدرسة حالياً</SelectItem>
+                                                        {schools.map((school) => (
+                                                            <SelectItem key={school.id} value={String(school.id)}>
+                                                                {school.name}
+                                                            </SelectItem>
+                                                        ))}
+                                                    </SelectContent>
+                                                </Select>
+                                            </div>
+                                            {errors.school_id && <p className="text-red-500 text-xs mt-1">{errors.school_id}</p>}
                                         </div>
-                                        {errors.school_id && <p className="text-red-500 text-xs mt-1">{errors.school_id}</p>}
-                                    </div>
+                                    )}
 
                                     {/* Memorization Level */}
                                     <div className="md:col-span-2">

@@ -21,14 +21,29 @@ class StoreSchoolApplicationRequest extends FormRequest
                 'user_email' => mb_strtolower(trim((string) $this->input('user_email'))),
             ]);
         }
+
+        // Normalize school_code: lowercase, trim whitespace, replace spaces with hyphens
+        if ($this->has('school_code')) {
+            $this->merge([
+                'school_code' => strtolower(trim((string) $this->input('school_code'))),
+            ]);
+        }
     }
 
     public function rules(): array
     {
         return [
             // School Data
-            'school_name' => ['required', 'string', 'max:255'],
-            'school_logo' => ['required', 'file', 'image', 'max:5120'],
+            'school_name'     => ['required', 'string', 'max:255'],
+            'school_code'     => [
+                'required',
+                'string',
+                'min:3',
+                'max:40',
+                'regex:/^[a-z0-9][a-z0-9\-]*[a-z0-9]$/',
+                'unique:schools,school_code',
+            ],
+            'school_logo'     => ['required', 'file', 'image', 'max:5120'],
             'school_phone_zone' => ['required', 'string', 'max:10'],
             'school_phone' => ['required', 'string', 'max:255'],
             'school_country' => ['required', 'string', 'max:255'],
@@ -70,6 +85,7 @@ class StoreSchoolApplicationRequest extends FormRequest
     {
         $attributes = [
             'school_name' => 'اسم المدرسة',
+            'school_code' => 'رمز المدرسة',
             'school_logo' => 'شعار المدرسة',
             'school_phone' => 'هاتف المدرسة',
             'school_phone_zone' => 'مفتاح الدولة لهاتف المدرسة',
@@ -114,8 +130,13 @@ class StoreSchoolApplicationRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'school_name.required' => 'اسم المدرسة مطلوب.',
-            'school_logo.required' => 'شعار المدرسة مطلوب.',
+            'school_name.required'    => 'اسم المدرسة مطلوب.',
+            'school_code.required'    => 'رمز المدرسة مطلوب.',
+            'school_code.min'         => 'رمز المدرسة يجب ألا يقل عن 3 أحرف.',
+            'school_code.max'         => 'رمز المدرسة يجب ألا يتجاوز 40 حرفاً.',
+            'school_code.regex'       => 'رمز المدرسة يجب أن يحتوي فقط على أحرف إنجليزية صغيرة وأرقام وشرطات، ولا يبدأ أو ينتهي بشرطة.',
+            'school_code.unique'      => 'رمز المدرسة هذا مستخدم بالفعل. يرجى اختيار رمز آخر.',
+            'school_logo.required'    => 'شعار المدرسة مطلوب.',
             'school_logo.file' => 'شعار المدرسة المرفوع غير صالح.',
             'school_logo.image' => 'يجب أن يكون الشعار صورة.',
             'school_logo.max' => 'حجم الشعار يجب ألا يتجاوز 5 ميجابايت.',

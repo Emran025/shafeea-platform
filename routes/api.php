@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\Build\BuildApiController;
 use App\Http\Controllers\Api\V1\AccountController;
 use App\Http\Controllers\Api\V1\Admin\AdminApplicantController;
 use App\Http\Controllers\Api\V1\ApplicantController;
@@ -13,6 +14,7 @@ use App\Http\Controllers\Api\V1\StudentController;
 use App\Http\Controllers\Api\V1\SyncController;
 use App\Http\Controllers\Api\V1\TeacherApplicantController;
 use App\Http\Controllers\Api\V1\TeacherController;
+use App\Http\Controllers\Public\BuildWebhookController;
 use App\Http\Controllers\Public\WebhookController;
 use Illuminate\Support\Facades\Route;
 
@@ -165,3 +167,23 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
 });
 
 Route::post('webhooks/payment', [WebhookController::class, 'handlePayment']);
+
+// ── Secure Build API ─────────────────────────────────────────────────────────
+// Protected by RSA-SHA256 signature verification (VerifyBuildApiSignature middleware).
+// Only accessible by GitHub Actions that possess the matching private key.
+// NEVER expose these routes publicly or add them to API documentation.
+Route::prefix('build')
+    ->middleware('verify.build.signature')
+    ->name('build.')
+    ->group(function () {
+        // List schools to build (supports ?mode=new_release|latest_release&release=v2.0.0)
+        Route::get('schools', [BuildApiController::class, 'index'])->name('schools.index');
+        // Single school full build config
+        Route::get('schools/{school}', [BuildApiController::class, 'show'])->name('schools.show');
+        // Lifecycle state updates (called by CI jobs)
+        Route::post('schools/{school}/mark-building', [BuildApiController::class, 'markBuilding'])->name('schools.mark-building');
+        Route::post('schools/{school}/mark-built',    [BuildApiController::class, 'markBuilt'])->name('schools.mark-built');
+        Route::post('schools/{school}/mark-failed',   [BuildApiController::class, 'markFailed'])->name('schools.mark-failed');
+        // Build-complete callback: marks school as built and sends admin notification email
+        Route::post('webhooks/build-complete', [BuildWebhookController::class, 'handleBuildComplete'])->name('webhooks.build-complete');
+    });

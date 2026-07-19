@@ -20,13 +20,21 @@ class StoreSchoolRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255|unique:schools,name',
-            'phone' => 'required|string|max:20',
-            'country' => 'required|string|max:100',
-            'city' => 'required|string|max:100',
+            'name'        => 'required|string|max:255|unique:schools,name',
+            'school_code' => [
+                'required',
+                'string',
+                'min:3',
+                'max:40',
+                'regex:/^[a-z0-9][a-z0-9\-]*[a-z0-9]$/',
+                'unique:schools,school_code',
+            ],
+            'phone'    => 'required|string|max:20',
+            'country'  => 'required|string|max:100',
+            'city'     => 'required|string|max:100',
             'location' => 'required|string|max:255',
-            'address' => 'required|string|max:500',
-            'logo' => 'nullable|string|max:255',
+            'address'  => 'required|string|max:500',
+            'logo'     => 'nullable|string|max:255',
             'documents' => ['nullable', 'array'],
             'documents.*.name' => ['required_with:documents', 'string', 'max:255'],
             'documents.*.certificate_type' => ['required_with:documents', 'string', 'in:شهادة حفظ قران,شهادة إجازة في القران,سيرة ذاتية,Other'],

@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Storage;
 
 class School extends Model
 {
@@ -15,6 +17,7 @@ class School extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        // ── Core identity ──────────────────────────────────────────────────────
         'name',
         'logo',
         'phone',
@@ -23,9 +26,30 @@ class School extends Model
         'city',
         'location',
         'address',
+
+        // ── Build identity ─────────────────────────────────────────────────────
+        'school_code',          // globally unique slug; immutable after approval
+        'is_active',            // true once approved
+        'school_locked_mode',   // true → embed app_key in APK
+        'approved_at',
+        'app_key',              // cryptographically random; embedded in school-locked APKs
+
+        // ── Build lifecycle ────────────────────────────────────────────────────
+        'build_status',         // not_built | building | built | failed
+        'last_built_at',
+        'last_built_release',
+
+        // ── Subscription ──────────────────────────────────────────────────────
         'current_plan_id',
         'subscription_status',
         'subscription_ends_at',
+
+        // ── Per-school build configuration (sensitive) ─────────────────────────
+        'keystore_file',            // base64-encoded JKS/PKCS12
+        'keystore_store_password',  // stored encrypted; decrypted by accessor
+        'keystore_key_alias',
+        'keystore_key_password',    // stored encrypted; decrypted by accessor
+        'build_notes',
     ];
 
     /**
@@ -33,6 +57,23 @@ class School extends Model
      * Stored in public/images/schools/school.svg — always accessible regardless of storage links.
      */
     const DEFAULT_LOGO = '/images/schools/school.svg';
+
+    /**
+     * Attribute casting.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'is_active'            => 'boolean',
+        'school_locked_mode'   => 'boolean',
+        'approved_at'          => 'datetime',
+        'last_built_at'        => 'datetime',
+        'subscription_ends_at' => 'datetime',
+    ];
+
+    // ──────────────────────────────────────────────────────────────────────────
+    // Accessors & Mutators
+    // ──────────────────────────────────────────────────────────────────────────
 
     /**
      * Get the full URL for the school logo.
@@ -56,8 +97,118 @@ class School extends Model
             return $value;
         }
         // Relative path stored via Storage::disk('public') — needs /storage/ prefix
-        return \Illuminate\Support\Facades\Storage::disk('public')->url($value);
+        return Storage::disk('public')->url($value);
     }
+
+    /**
+     * ENCRYPTED MUTATOR — keystore_store_password.
+     * Always encrypts before writing to the database so the raw password
+     * is never stored in plain text.
+     */
+    public function setKeystoreStorePasswordAttribute(?string $value): void
+    {
+        $this->attributes['keystore_store_password'] = $value ? Crypt::encryptString($value) : null;
+    }
+
+    /**
+     * ENCRYPTED ACCESSOR — keystore_store_password.
+     * Transparently decrypts the value when read.
+     */
+    public function getKeystoreStorePasswordAttribute(?string $value): ?string
+    {
+        if (is_null($value)) {
+            return null;
+        }
+        try {
+            return Crypt::decryptString($value);
+        } catch (\Exception) {
+            return null; // Corrupted or unencrypted legacy value
+        }
+    }
+
+    /**
+     * ENCRYPTED MUTATOR — keystore_key_password.
+     */
+    public function setKeystoreKeyPasswordAttribute(?string $value): void
+    {
+        $this->attributes['keystore_key_password'] = $value ? Crypt::encryptString($value) : null;
+    }
+
+    /**
+     * ENCRYPTED ACCESSOR — keystore_key_password.
+     */
+    public function getKeystoreKeyPasswordAttribute(?string $value): ?string
+    {
+        if (is_null($value)) {
+            return null;
+        }
+        try {
+            return Crypt::decryptString($value);
+        } catch (\Exception) {
+            return null;
+        }
+    }
+
+    // ──────────────────────────────────────────────────────────────────────────
+    // Query Scopes
+    // ──────────────────────────────────────────────────────────────────────────
+
+    /**
+     * Scope: only approved & active schools.
+     */
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true);
+    }
+
+    /**
+     * Scope: active schools that have NOT yet been built for a specific release.
+     * Used by the Build API in "latest release rebuild" mode.
+     */
+    public function scopeNotBuiltForRelease($query, string $release)
+    {
+        return $query->active()
+            ->where(function ($q) use ($release) {
+                $q->whereNull('last_built_release')
+                  ->orWhere('last_built_release', '!=', $release);
+            });
+    }
+
+    // ──────────────────────────────────────────────────────────────────────────
+    // Helper Methods
+    // ──────────────────────────────────────────────────────────────────────────
+
+    /**
+     * Whether this school has been approved (approved_at is set and is_active).
+     */
+    public function isApproved(): bool
+    {
+        return $this->is_active && !is_null($this->approved_at);
+    }
+
+    /**
+     * Whether this school has complete build configuration needed by CI.
+     */
+    public function hasBuildConfig(): bool
+    {
+        return !is_null($this->keystore_file)
+            && !is_null($this->keystore_store_password)
+            && !is_null($this->keystore_key_alias)
+            && !is_null($this->keystore_key_password);
+    }
+
+    /**
+     * Return the public URL to the school's logo, suitable for embedding in
+     * the Build API response (GitHub Actions downloads it from this URL).
+     */
+    public function getPublicLogoUrl(): string
+    {
+        return $this->logo; // The getLogoAttribute accessor already returns an absolute URL
+    }
+
+    // ──────────────────────────────────────────────────────────────────────────
+    // Relationships
+    // ──────────────────────────────────────────────────────────────────────────
 
     /**
      * Get the current subscription plan for the school.

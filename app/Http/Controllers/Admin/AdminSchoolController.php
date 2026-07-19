@@ -10,14 +10,19 @@ use App\Models\Admin;
 use App\Models\Document;
 use App\Models\School;
 use App\Models\User;
+use App\Services\GitHubDispatchService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 
 class AdminSchoolController extends Controller
 {
+    public function __construct(private GitHubDispatchService $githubDispatch) {}
+
     public function index(Request $request)
     {
         $query = School::with('admin.user')
@@ -94,7 +99,7 @@ class AdminSchoolController extends Controller
 
                 // 2. Create School
                 $school = School::create(array_merge(
-                    $request->safe()->only(['name', 'phone', 'country', 'city', 'location', 'address']),
+                    $request->safe()->only(['name', 'school_code', 'phone', 'country', 'city', 'location', 'address']),
                     ['logo' => $logoPath]
                 ));
 
@@ -112,7 +117,7 @@ class AdminSchoolController extends Controller
                     foreach ($request->documents as $doc) {
                         if (isset($doc['file']) && $doc['file'] instanceof \Illuminate\Http\UploadedFile) {
                             $filePath = $doc['file']->store(
-                                'documents/schools/'.$school->id,
+                                'documents/schools/' . $school->id,
                                 'public'
                             );
 
@@ -157,26 +162,74 @@ class AdminSchoolController extends Controller
 
     public function update(Request $request, School $school)
     {
-        // TODO: Implement update logic
-        return Redirect::route('admin.schools.index')
-            ->with('success', 'تم تحديث المدرسة بنجاح.');
+        $validated = $request->validate([
+            'name'     => 'required|string|max:255|unique:schools,name,' . $school->id,
+            'phone'    => 'required|string|max:20',
+            'country'  => 'required|string|max:100',
+            'city'     => 'required|string|max:100',
+            'location' => 'required|string|max:255',
+            'address'  => 'required|string|max:500',
+            'logo'     => 'nullable|file|image|max:5120',
+        ]);
+
+        // Handle updating Logo file
+        if ($request->hasFile('logo') && $request->file('logo')->isValid()) {
+            // Delete old logo if it exists and is a relative path
+            if ($school->getRawOriginal('logo') && Storage::disk('public')->exists($school->getRawOriginal('logo'))) {
+                Storage::disk('public')->delete($school->getRawOriginal('logo'));
+            }
+            $logoPath = $request->file('logo')->store('schools/logos', 'public');
+            $validated['logo'] = $logoPath;
+        } else {
+            // Remove logo key from update array to not overwrite with null
+            unset($validated['logo']);
+        }
+
+        $school->update($validated);
+
+        return Redirect::route('admin.schools.show', $school->id)
+            ->with('success', 'تم تحديث بيانات المدرسة بنجاح.');
     }
 
     public function destroy(School $school)
     {
         $school->delete();
-        
+
         return Redirect::route('admin.schools.index')
             ->with('success', 'تم حذف المدرسة بنجاح.');
     }
 
     public function approve(School $school)
     {
-        $school->admin->update(['status' => 'accepted']);
+        // Ensure the school has a school_code before approving
+        if (empty($school->school_code)) {
+            return redirect()->back()->with('error', 'لا يمكن قبول المدرسة قبل تحديد رمز المدرسة (School Code).');
+        }
 
-        SchoolApprovedEvent::dispatch($school);
+        DB::transaction(function () use ($school) {
+            // 1. Approve the admin
+            $school->admin->update(['status' => 'accepted']);
 
-        return redirect()->back()->with('success', 'School approved successfully.');
+            // 2. Activate the school and record approval timestamp
+            $school->update([
+                'is_active'   => true,
+                'approved_at' => now(),
+                // Generate a unique, cryptographically secure App Key (128 hex chars = 512 bits)
+                // Only generated once — subsequent approvals of the same school do not overwrite it.
+                'app_key'     => $school->app_key ?? Str::random(64) . bin2hex(random_bytes(16)),
+            ]);
+        });
+
+        // 3. Fire the approval event (sends welcome email etc.)
+        SchoolApprovedEvent::dispatch($school->fresh());
+
+        // 4. Auto-trigger the GitHub rebuild so the school gets its APK immediately
+        if (!empty(config('services.github.token'))) {
+            $school->update(['build_status' => 'building']);
+            $this->githubDispatch->dispatchSchoolRebuild($school);
+        }
+
+        return redirect()->back()->with('success', 'تم قبول المدرسة بنجاح وسيبدأ بناء التطبيق قريباً.');
     }
 
     public function reject(Request $request, School $school)

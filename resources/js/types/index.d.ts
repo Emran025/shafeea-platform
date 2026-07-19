@@ -101,6 +101,20 @@ export interface School {
     city: string;
     location: string;
     address: string;
+    // ── Build identity ────────────────────────────────────────────────────────
+    school_code: string | null;
+    is_active: boolean;
+    school_locked_mode: boolean;
+    approved_at: string | null;
+    app_key: string | null;
+    // ── Build lifecycle ───────────────────────────────────────────────────────
+    build_status: 'not_built' | 'building' | 'built' | 'failed';
+    last_built_at: string | null;
+    last_built_release: string | null;
+    // ── Build config ──────────────────────────────────────────────────────────
+    keystore_key_alias: string | null;
+    build_notes: string | null;
+    // ─────────────────────────────────────────────────────────────────────────
     created_at: string;
     updated_at: string;
 }

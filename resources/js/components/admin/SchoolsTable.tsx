@@ -10,7 +10,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { School, User } from '@/types';
-import { Eye, Edit, Trash2, Building2, UserCog, MapPin } from 'lucide-react';
+import { Eye, Edit, Trash2, Building2, UserCog, HammerIcon, CheckCircle2, XCircle, Loader2, Clock3, MapPin } from 'lucide-react';
 
 export interface SchoolWithAdmin extends School {
     admin?: {
@@ -62,6 +62,21 @@ export default function SchoolsTable({
         );
     };
 
+    const getBuildStatusBadge = (buildStatus?: string) => {
+        const map: Record<string, { bg: string; icon: React.ReactNode; label: string }> = {
+            'built':     { bg: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300 border-emerald-200', icon: <CheckCircle2 className="w-3 h-3" />, label: 'تم البناء' },
+            'building':  { bg: 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300 border-blue-200',           icon: <Loader2 className="w-3 h-3 animate-spin" />, label: 'جاري البناء' },
+            'failed':    { bg: 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300 border-red-200',                 icon: <XCircle className="w-3 h-3" />, label: 'فشل البناء' },
+            'not_built': { bg: 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400 border-gray-200',              icon: <Clock3 className="w-3 h-3" />, label: 'لم يُبنى بعد' },
+        };
+        const info = map[buildStatus || 'not_built'] || map['not_built'];
+        return (
+            <Badge variant="outline" className={`${info.bg} border font-medium gap-1 text-xs`}>
+                {info.icon} {info.label}
+            </Badge>
+        );
+    };
+
     // ─── Table View ──────────────────────────────────────────────────────────
     if (viewMode === 'table') {
         return (
@@ -69,8 +84,10 @@ export default function SchoolsTable({
                     <TableHeader>
                         <TableRow className="bg-primary/5 dark:bg-primary/10 border-b-2 border-primary/20 hover:bg-primary/5">
                             <TableHead className="px-5 py-3 text-xs font-bold text-foreground tracking-wider">اسم المدرسة</TableHead>
+                            <TableHead className="px-5 py-3 text-xs font-bold text-foreground tracking-wider">رمز المدرسة</TableHead>
                             <TableHead className="px-5 py-3 text-xs font-bold text-foreground tracking-wider">المشرف</TableHead>
-                            <TableHead className="px-5 py-3 text-xs font-bold text-foreground tracking-wider">الحالة</TableHead>
+                            <TableHead className="px-5 py-3 text-xs font-bold text-foreground tracking-wider">حالة التسجيل</TableHead>
+                            <TableHead className="px-5 py-3 text-xs font-bold text-foreground tracking-wider">حالة البناء</TableHead>
                             <TableHead className="px-5 py-3 text-xs font-bold text-foreground tracking-wider text-right">إجراءات</TableHead>
                         </TableRow>
                     </TableHeader>
@@ -101,6 +118,12 @@ export default function SchoolsTable({
                                         </div>
                                     </TableCell>
                                     <TableCell className="px-5 py-3">
+                                        {school.school_code
+                                            ? <span className="font-mono text-xs bg-muted px-2 py-1 rounded text-muted-foreground">{school.school_code}</span>
+                                            : <span className="text-xs text-muted-foreground/50 italic">غير محدد</span>
+                                        }
+                                    </TableCell>
+                                    <TableCell className="px-5 py-3">
                                         <div className="flex items-center gap-2">
                                             <UserCog className="w-4 h-4 text-muted-foreground" />
                                             <span className="text-sm">
@@ -110,6 +133,9 @@ export default function SchoolsTable({
                                     </TableCell>
                                     <TableCell className="px-5 py-3">
                                         {getStatusBadge(school.admin?.status)}
+                                    </TableCell>
+                                    <TableCell className="px-5 py-3">
+                                        {getBuildStatusBadge(school.build_status)}
                                     </TableCell>
                                     <TableCell className="px-5 py-3">
                                         <div className="flex items-center gap-2 justify-end">
@@ -150,7 +176,7 @@ export default function SchoolsTable({
                             ))
                         ) : (
                             <TableRow>
-                                <TableCell colSpan={4} className="h-32 text-center">
+                                <TableCell colSpan={6} className="h-32 text-center">
                                     <div className="flex flex-col items-center justify-center gap-2 text-muted-foreground">
                                         <Building2 className="w-12 h-12 opacity-20" />
                                         <p className="text-lg font-medium">لا توجد مدارس</p>

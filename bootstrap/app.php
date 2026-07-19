@@ -2,6 +2,8 @@
 
 use App\Http\Middleware\HandleAppearance;
 use App\Http\Middleware\HandleInertiaRequests;
+use App\Http\Middleware\ResolveSchoolFromAppKey;
+use App\Http\Middleware\VerifyBuildApiSignature;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -50,7 +52,8 @@ return Application::configure(basePath: dirname(__DIR__))
 
         // Middleware Aliases
         $middleware->alias([
-            'admin' => IsSuperVisor::class,
+            'admin'                  => IsSuperVisor::class,
+            'verify.build.signature' => VerifyBuildApiSignature::class,
         ]);
 
         // Exempt cookies from encryption
@@ -61,6 +64,13 @@ return Application::configure(basePath: dirname(__DIR__))
             HandleAppearance::class,
             HandleInertiaRequests::class,
             AddLinkHeadersForPreloadedAssets::class,
+        ]);
+
+        // Append ResolveSchoolFromAppKey to the API group.
+        // When X-App-Key is present: resolves school and binds it to the request.
+        // When absent: complete no-op — General Mode, fully backward compatible.
+        $middleware->api(append: [
+            ResolveSchoolFromAppKey::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

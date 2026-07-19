@@ -31,6 +31,7 @@ export default function Create() {
     const { data, setData, post, transform, errors, processing, reset } = useForm({
         error: '',
         name: '',
+        school_code: '',
         logo: null as File | null,
         phone: '',
         country: '',
@@ -177,6 +178,32 @@ export default function Create() {
                                         />
                                     </div>
                                     {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
+                                </div>
+
+                                {/* School Code */}
+                                <div className="space-y-1">
+                                    <Label htmlFor="school_code" className="text-foreground font-semibold text-sm mb-2.5 block">
+                                        رمز المدرسة <span className="text-red-500">*</span>
+                                        <span className="text-xs font-normal text-muted-foreground mr-2">(Subdomain & App Identifier)</span>
+                                    </Label>
+                                    <div className="relative group">
+                                        <span className="absolute right-3.5 top-3 text-muted-foreground text-xs font-mono select-none pointer-events-none">#</span>
+                                        <Input
+                                            id="school_code"
+                                            placeholder="al-noor-center"
+                                            value={data.school_code}
+                                            onChange={(e) => setData('school_code', e.target.value.toLowerCase().replace(/\s+/g, '-'))}
+                                            className="pr-8 font-mono text-sm"
+                                            dir="ltr"
+                                            autoComplete="off"
+                                        />
+                                    </div>
+                                    {errors.school_code
+                                        ? <p className="text-red-500 text-xs mt-1">{errors.school_code}</p>
+                                        : <p className="text-xs text-muted-foreground mt-1">
+                                            أحرف إنجليزية صغيرة وأرقام وشرطات فقط &mdash; سيكون عنوان النطاق الفرعي: <span className="font-mono">{data.school_code || 'school-code'}.shafeea.systems360.cloud</span>
+                                          </p>
+                                    }
                                 </div>
 
                                 {/* Logo Upload */}

@@ -72,6 +72,7 @@ class SchoolService
             // 2. Create School
             $school = School::create([
                 'name' => $regData['school_name'],
+                'school_code' => $regData['school_code'] ?? null,
                 'phone_zone' => $regData['school_phone_zone'],
                 'phone' => $regData['school_phone'],
                 'country' => $regData['school_country'],

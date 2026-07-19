@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AccountController;
+use App\Http\Controllers\Admin\AdminSchoolBuildController;
 use App\Http\Controllers\Admin\AdminSchoolController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -36,6 +37,10 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::post('/{school}/approve', [AdminSchoolController::class, 'approve'])->name('approve');
         Route::post('/{school}/reject', [AdminSchoolController::class, 'reject'])->name('reject');
         Route::post('/{school}/suspend', [AdminSchoolController::class, 'suspend'])->name('suspend');
+        // ── Build management ─────────────────────────────────────────────────
+        Route::post('/{school}/rebuild', [AdminSchoolBuildController::class, 'triggerRebuild'])->name('rebuild');
+        Route::put('/{school}/build-config', [AdminSchoolBuildController::class, 'updateBuildConfig'])->name('build-config.update');
+        Route::get('/{school}/build-status', [AdminSchoolBuildController::class, 'getBuildStatus'])->name('build-status');
     });
 
     // Inquiries management

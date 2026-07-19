@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreTeacherApplicationRequest;
 use App\Models\School;
 use App\Services\ApplicantService;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 
@@ -19,14 +20,29 @@ class TeacherApplicationController extends Controller
         $this->applicantService = $applicantService;
     }
 
-    public function create()
+    public function create(Request $request)
     {
-        $schools = cache()->remember('schools_list', 3600, function () {
-            return School::select('id', 'name')->get();
+        $schoolParam = $request->query('school');
+        $selectedSchool = null;
+
+        if ($schoolParam) {
+            $selectedSchool = School::where('school_code', $schoolParam)
+                ->orWhere('name', $schoolParam)
+                ->orWhere('id', $schoolParam)
+                ->first();
+        }
+
+        $schools = cache()->remember('schools_list_with_logo', 3600, function () {
+            return School::select('id', 'name', 'logo')->get();
         });
 
         return Inertia::render('teachers/apply', [
             'schools' => $schools,
+            'selected_school' => $selectedSchool ? [
+                'id' => $selectedSchool->id,
+                'name' => $selectedSchool->name,
+                'logo' => $selectedSchool->logo,
+            ] : null,
         ]);
     }
 
