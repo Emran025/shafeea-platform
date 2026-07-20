@@ -17,20 +17,21 @@ class BuildApiService
     /**
      * Get the list of schools that should be built, based on the requested mode.
      *
-     * Mode: "new_release"
+     * Mode: "new_release" | "all"
      *   Returns ALL active schools. Used when a new version tag is published and
      *   every school needs a fresh APK regardless of prior build history.
+     *   ("all" is accepted as an alias for "new_release" for CI compatibility.)
      *
      * Mode: "latest_release" (default)
      *   Returns only active schools that have NOT yet been built for the given
      *   release version. Avoids rebuilding schools that already have an APK.
      *
-     * @param  string       $mode     "new_release" | "latest_release"
+     * @param  string       $mode     "new_release" | "all" | "latest_release"
      * @param  string|null  $release  Version tag, e.g. "v2.0.0" (required for latest_release)
      */
     public function getSchoolsForBuild(string $mode, ?string $release): Collection
     {
-        if ($mode === 'new_release') {
+        if ($mode === 'new_release' || $mode === 'all') {
             return School::active()->get();
         }
 

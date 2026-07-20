@@ -65,7 +65,7 @@ class BuildApiController extends Controller
             'mode'    => $mode,
             'release' => $release,
             'count'   => $payload->count(),
-            'schools' => $payload->values(),
+            'data'    => $payload->values(),
         ]);
     }
 
