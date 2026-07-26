@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Public;
 
 use App\Http\Controllers\Controller;
 
-use App\Http\Requests\StoreTeacherApplicationRequest;
-use App\Models\School;
-use App\Services\ApplicantService;
+use App\Http\Requests\Teacher\StoreTeacherApplicationRequest;
+use App\Models\School\School;
+use App\Services\Applicant\ApplicantService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
@@ -28,7 +28,7 @@ class TeacherApplicationController extends Controller
         if ($schoolParam) {
             $selectedSchool = School::where(function ($query) use ($schoolParam) {
                 $query->where('school_code', $schoolParam)
-                      ->orWhere('name', $schoolParam);
+                    ->orWhere('name', $schoolParam);
 
                 if (is_numeric($schoolParam)) {
                     $query->orWhere('id', (int) $schoolParam);

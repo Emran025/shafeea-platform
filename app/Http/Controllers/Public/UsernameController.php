@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Public;
 
 use App\Http\Controllers\Controller;
-use App\Services\UsernameGenerator;
+use App\Services\Auth\UsernameGenerator;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 

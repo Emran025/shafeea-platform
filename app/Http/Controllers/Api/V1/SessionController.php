@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Services\SessionService;
+use App\Services\Auth\SessionService;
 use Illuminate\Http\Request;
 
 class SessionController extends ApiController

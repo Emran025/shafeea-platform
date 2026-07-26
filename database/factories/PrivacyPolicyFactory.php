@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Carbon;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\PrivacyPolicy>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Content\PrivacyPolicy>
  */
 class PrivacyPolicyFactory extends Factory
 {

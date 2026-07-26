@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Public;
 use App\Events\ContactInquirySubmittedEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Public\StoreContactRequest;
-use App\Models\HelpTicket;
+use App\Models\Content\HelpTicket;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 

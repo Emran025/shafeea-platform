@@ -2,12 +2,12 @@
 
 namespace Database\Factories;
 
-use App\Models\Category;
-use App\Models\User;
+use App\Models\Content\Category;
+use App\Models\Auth\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Faq>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Content\Faq>
  */
 class FaqFactory extends Factory
 {

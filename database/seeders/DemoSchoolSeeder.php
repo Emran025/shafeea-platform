@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\Admin;
-use App\Models\School;
-use App\Models\User;
+use App\Models\Auth\Admin;
+use App\Models\School\School;
+use App\Models\Auth\User;
 use Illuminate\Database\Seeder;
 
 class DemoSchoolSeeder extends Seeder

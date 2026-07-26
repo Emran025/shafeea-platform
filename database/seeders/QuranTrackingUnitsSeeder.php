@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\TrackingUnit;
+use App\Models\Tracking\TrackingUnit;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 

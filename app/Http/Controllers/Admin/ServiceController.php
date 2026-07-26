@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreServiceRequest;
-use App\Http\Requests\UpdateServiceRequest;
-use App\Models\Service;
+use App\Http\Requests\Content\StoreServiceRequest;
+use App\Http\Requests\Content\UpdateServiceRequest;
+use App\Models\Content\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;

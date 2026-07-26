@@ -5,7 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\TrackingUnit>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Tracking\TrackingUnit>
  */
 class TrackingUnitFactory extends Factory
 {
@@ -17,7 +17,7 @@ class TrackingUnitFactory extends Factory
     public function definition(): array
     {
         return [
-            'unit_id' => \App\Models\Unit::factory(),
+            'unit_id' => \App\Models\Tracking\Unit::factory(),
             'from_surah' => fake()->numberBetween(1, 114),
             'from_page' => fake()->numberBetween(1, 604),
             'from_ayah' => fake()->numberBetween(1, 286),

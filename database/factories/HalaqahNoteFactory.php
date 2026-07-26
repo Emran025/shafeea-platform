@@ -5,7 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\HalaqahNote>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Halaqah\Halaqah\HalaqahNote>
  */
 class HalaqahNoteFactory extends Factory
 {
@@ -17,8 +17,8 @@ class HalaqahNoteFactory extends Factory
     public function definition(): array
     {
         return [
-            'halaqah_id' => \App\Models\Halaqah::factory(),
-            'admin_id' => \App\Models\Admin::factory(),
+            'halaqah_id' => \App\Models\Halaqah\Halaqah::factory(),
+            'admin_id' => \App\Models\Auth\Admin::factory(),
             'note' => fake()->sentence(),
         ];
     }

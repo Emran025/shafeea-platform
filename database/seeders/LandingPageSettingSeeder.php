@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\LandingPageSetting;
+use App\Models\Content\LandingPageSetting;
 
 class LandingPageSettingSeeder extends Seeder
 {

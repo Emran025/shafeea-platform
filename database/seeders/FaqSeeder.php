@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Category;
-use App\Models\Faq;
-use App\Models\Tag;
-use App\Models\User;
+use App\Models\Content\Category;
+use App\Models\Content\Faq;
+use App\Models\Content\Tag;
+use App\Models\Auth\User;
 use Illuminate\Database\Seeder;
 
 class FaqSeeder extends Seeder

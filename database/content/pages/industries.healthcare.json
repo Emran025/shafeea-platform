@@ -1,0 +1,1344 @@
+{
+  "id": "ind00000-0000-0001-0000-000000000000",
+  "slug": "industries/healthcare",
+  "type": "industry.full_page",
+  "identity": {
+    "title": {
+      "en": "Healthcare Operational Systems | ACCSYSTEM"
+    },
+    "purpose": {
+      "en": "Industry vertical hub for healthcare operators across all tiers"
+    },
+    "owner": "accsystem",
+    "canonical_url": "https://accsystemerp.com/industries/healthcare",
+    "classification": "public"
+  },
+  "hierarchy": {
+    "depth": 1,
+    "position": 1,
+    "include_in_nav": false,
+    "nav_label": {
+      "en": "Healthcare"
+    }
+  },
+  "composition": {
+    "section_order": "explicit",
+    "allow_dynamic": false,
+    "max_sections": 20,
+    "fallback_policy": "show_partial"
+  },
+  "meta": {
+    "seo_title": {
+      "en": "Healthcare Operations & Patient Billing Software | ACCSYSTEM"
+    },
+    "seo_description": {
+      "en": "Unified patient billing, pharmacy stock, and clinical payroll for healthcare operators at every scale. From solo practitioners to multi-entity hospital groups."
+    },
+    "og_title": "Healthcare Operational Systems | ACCSYSTEM",
+    "og_description": "Unified patient billing, inventory, and clinical HR for modern healthcare groups.",
+    "og_image": null,
+    "robots": "index,follow"
+  },
+  "sections": [
+    {
+      "id": "i0100s01-0000-0000-0000-000000000001",
+      "type": "hero",
+      "name": "Hero",
+      "anchor_id": "industries-healthcare-hero",
+      "position": 1,
+      "group": "above-fold",
+      "required_block_types": [],
+      "blocks": [
+        {
+          "id": "i0100b01-0001-0000-0000-000000000001",
+          "type": "label",
+          "position": 1,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "Healthcare Industry Hub"
+            },
+            "ar": {
+              "text": "Healthcare Industry Hub"
+            }
+          }
+        },
+        {
+          "id": "i0100b01-0002-0000-0000-000000000001",
+          "type": "headline",
+          "position": 2,
+          "weight": 10,
+          "featured": true,
+          "content": {
+            "en": {
+              "text": "The operational infrastructure modern healthcare runs on."
+            },
+            "ar": {
+              "text": "The operational infrastructure modern healthcare runs on."
+            }
+          }
+        },
+        {
+          "id": "i0100b01-0003-0000-0000-000000000001",
+          "type": "subheadline",
+          "position": 3,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "From solo clinics to hospital conglomerates — ACCSYSTEM unifies patient billing, pharmacy inventory, and clinical payroll on one platform."
+            },
+            "ar": {
+              "text": "From solo clinics to hospital conglomerates — ACCSYSTEM unifies patient billing, pharmacy inventory, and clinical payroll on one platform."
+            }
+          }
+        },
+        {
+          "id": "i0100b01-0004-0000-0000-000000000001",
+          "type": "cta",
+          "position": 4,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Explore healthcare solutions",
+              "destination": {
+                "type": "internal_page",
+                "value": "pricing"
+              },
+              "intent": "primary"
+            },
+            "ar": {
+              "label": "Explore healthcare solutions",
+              "intent": "primary",
+              "destination": {
+                "type": "internal_page",
+                "value": "pricing"
+              }
+            }
+          }
+        },
+        {
+          "id": "i0100b01-0005-0000-0000-000000000001",
+          "type": "cta",
+          "position": 5,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Book an industry demo",
+              "destination": {
+                "type": "internal_page",
+                "value": "contact"
+              },
+              "intent": "secondary"
+            },
+            "ar": {
+              "label": "احجز عرضاً توضيحياً للقطاع",
+              "intent": "secondary",
+              "destination": {
+                "type": "internal_page",
+                "value": "contact"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "i0100s02-0000-0000-0000-000000000001",
+      "type": "in_page_nav",
+      "name": "Section Navigation",
+      "anchor_id": "industries-healthcare-nav",
+      "position": 2,
+      "group": "above-fold",
+      "required_block_types": [],
+      "blocks": [
+        {
+          "id": "i0100b02-0001-0000-0000-000000000001",
+          "type": "nav_link",
+          "position": 1,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "The Challenge",
+              "destination": {
+                "type": "anchor",
+                "value": "industries-healthcare-problem"
+              }
+            },
+            "ar": {
+              "label": "التحدي",
+              "destination": {
+                "type": "anchor",
+                "value": "industries-healthcare-problem"
+              }
+            }
+          }
+        },
+        {
+          "id": "i0100b02-0002-0000-0000-000000000001",
+          "type": "nav_link",
+          "position": 2,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Capabilities",
+              "destination": {
+                "type": "anchor",
+                "value": "industries-healthcare-capabilities"
+              }
+            },
+            "ar": {
+              "label": "القدرات",
+              "destination": {
+                "type": "anchor",
+                "value": "industries-healthcare-capabilities"
+              }
+            }
+          }
+        },
+        {
+          "id": "i0100b02-0003-0000-0000-000000000001",
+          "type": "nav_link",
+          "position": 3,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Use Cases",
+              "destination": {
+                "type": "anchor",
+                "value": "industries-healthcare-use-cases"
+              }
+            },
+            "ar": {
+              "label": "حالات الاستخدام",
+              "destination": {
+                "type": "anchor",
+                "value": "industries-healthcare-use-cases"
+              }
+            }
+          }
+        },
+        {
+          "id": "i0100b02-0004-0000-0000-000000000001",
+          "type": "nav_link",
+          "position": 4,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Pricing",
+              "destination": {
+                "type": "anchor",
+                "value": "industries-healthcare-pricing"
+              }
+            },
+            "ar": {
+              "label": "الأسعار",
+              "destination": {
+                "type": "anchor",
+                "value": "industries-healthcare-pricing"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "i0100s03-0000-0000-0000-000000000001",
+      "type": "statistics",
+      "name": "Operational Impact",
+      "anchor_id": "industries-healthcare-statistics",
+      "position": 3,
+      "group": "below-fold",
+      "required_block_types": [],
+      "blocks": [
+        {
+          "id": "i0100b03-0001-0000-0000-000000000001",
+          "type": "label",
+          "position": 1,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "Measurable results"
+            },
+            "ar": {
+              "text": "نتائج قابلة للقياس"
+            }
+          }
+        },
+        {
+          "id": "i0100b03-0002-0000-0000-000000000001",
+          "type": "headline",
+          "position": 2,
+          "weight": 10,
+          "featured": true,
+          "content": {
+            "en": {
+              "text": "Healthcare operations transformed by data."
+            },
+            "ar": {
+              "text": "عمليات الرعاية الصحية يحوّلها البيانات."
+            }
+          }
+        },
+        {
+          "id": "i0100b03-0003-0000-0000-000000000001",
+          "type": "stat_item",
+          "position": 3,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "value": "30% → 4%",
+              "unit": "Claim rejection rate",
+              "descriptor": "Reduction in insurance claim rejections through automated validation before submission."
+            },
+            "ar": {
+              "unit": "معدل رفض المطالبات",
+              "descriptor": "تخفيض رفض مطالبات التأمين من خلال التحقق التلقائي قبل التقديم.",
+              "value": "30% → 4%"
+            }
+          }
+        },
+        {
+          "id": "i0100b03-0004-0000-0000-000000000001",
+          "type": "stat_item",
+          "position": 4,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "value": "12d → 3d",
+              "unit": "Billing cycle",
+              "descriptor": "Reduction in days-to-payment for clinical services through integrated patient invoicing."
+            },
+            "ar": {
+              "unit": "دورة الفوترة",
+              "descriptor": "تخفيض أيام الدفع للخدمات السريرية من خلال الفوترة المتكاملة للمرضى.",
+              "value": "12d → 3d"
+            }
+          }
+        },
+        {
+          "id": "i0100b03-0005-0000-0000-000000000001",
+          "type": "stat_item",
+          "position": 5,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "value": "15%",
+              "unit": "Pharmacy waste",
+              "descriptor": "Reduction in medical supply expiry waste via real-time inventory tracking."
+            },
+            "ar": {
+              "unit": "هدر الصيدلية",
+              "descriptor": "تخفيض هدر انتهاء صلاحية المستلزمات الطبية عبر تتبّع المخزون الفوري.",
+              "value": "15%"
+            }
+          }
+        },
+        {
+          "id": "i0100b03-0006-0000-0000-000000000001",
+          "type": "stat_item",
+          "position": 6,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "value": "4h → 35m",
+              "unit": "Audit prep time",
+              "descriptor": "Average time spent preparing weekly regulatory compliance reports."
+            },
+            "ar": {
+              "unit": "وقت إعداد التدقيق",
+              "descriptor": "متوسط الوقت المُنفَق في إعداد تقارير الامتثال التنظيمي الأسبوعي.",
+              "value": "4h → 35m"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "i0100s04-0000-0000-0000-000000000001",
+      "type": "problem_statement",
+      "name": "The Challenge",
+      "anchor_id": "industries-healthcare-problem",
+      "position": 4,
+      "group": "below-fold",
+      "required_block_types": [],
+      "blocks": [
+        {
+          "id": "i0100b04-0001-0000-0000-000000000001",
+          "type": "label",
+          "position": 1,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "The growth bottleneck"
+            },
+            "ar": {
+              "text": "عنق زجاجة النمو"
+            }
+          }
+        },
+        {
+          "id": "i0100b04-0002-0000-0000-000000000001",
+          "type": "headline",
+          "position": 2,
+          "weight": 10,
+          "featured": true,
+          "content": {
+            "en": {
+              "text": "Fragmented data stalls clinical growth."
+            },
+            "ar": {
+              "text": "البيانات المجزّأة تُعيق النمو السريري."
+            }
+          }
+        },
+        {
+          "id": "i0100b04-0003-0000-0000-000000000001",
+          "type": "subheadline",
+          "position": 3,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "When your clinic grows beyond 5 staff, manual reconciliation between billing and clinical records becomes a full-time job."
+            },
+            "ar": {
+              "text": "حين يتخطى عيادتك عتبة 5 موظفين، يصبح التسوية اليدوية بين سجلات الفوترة والسجلات السريرية وظيفة بدوام كامل."
+            }
+          }
+        },
+        {
+          "id": "i0100b04-0004-0000-0000-000000000001",
+          "type": "feature_item",
+          "position": 4,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Reconciliation gaps",
+              "text": "Manual invoice-to-payment reconciliation across disconnected patient records."
+            },
+            "ar": {
+              "text": "تسوية يدوية من الفاتورة إلى الدفع عبر سجلات مرضى منفصلة.",
+              "label": "فجوات التسوية"
+            }
+          }
+        },
+        {
+          "id": "i0100b04-0005-0000-0000-000000000001",
+          "type": "feature_item",
+          "position": 5,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Inventory leakage",
+              "text": "Pharmacy overstock and expiry waste due to untracked consumable usage."
+            },
+            "ar": {
+              "text": "مخزون صيدلية زائد وهدر انتهاء صلاحية بسبب استهلاك مستهلكات غير مُتتبَّع.",
+              "label": "تسرّب المخزون"
+            }
+          }
+        },
+        {
+          "id": "i0100b04-0006-0000-0000-000000000001",
+          "type": "feature_item",
+          "position": 6,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Payroll friction",
+              "text": "Inaccurate clinical staff payroll caused by manual shift tracking across multiple facilities."
+            },
+            "ar": {
+              "text": "كشف رواتب موظفين سريريين غير دقيق بسبب التتبّع اليدوي للورديات عبر منشآت متعددة.",
+              "label": "احتكاك كشوف الرواتب"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "i0100s05-0000-0000-0000-000000000001",
+      "type": "capability_grid",
+      "name": "Key Capabilities",
+      "anchor_id": "industries-healthcare-capabilities",
+      "position": 5,
+      "group": "below-fold",
+      "required_block_types": [],
+      "blocks": [
+        {
+          "id": "i0100b05-0001-0000-0000-000000000001",
+          "type": "label",
+          "position": 1,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "Operational tools"
+            },
+            "ar": {
+              "text": "الأدوات التشغيلية"
+            }
+          }
+        },
+        {
+          "id": "i0100b05-0002-0000-0000-000000000001",
+          "type": "headline",
+          "position": 2,
+          "weight": 10,
+          "featured": true,
+          "content": {
+            "en": {
+              "text": "Built for healthcare at local scale."
+            },
+            "ar": {
+              "text": "Built for healthcare at local scale."
+            }
+          }
+        },
+        {
+          "id": "i0100b05-0003-0000-0000-000000000001",
+          "type": "subheadline",
+          "position": 3,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "The complete clinical management platform for growing local businesses."
+            },
+            "ar": {
+              "text": "The complete clinical management platform for growing local businesses."
+            }
+          }
+        },
+        {
+          "id": "i0100b05-0004-0000-0000-000000000001",
+          "type": "capability_card",
+          "position": 4,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Patient Billing & Reconciliation",
+              "description": "Track insurance claims, co-payments, and outstanding balances per patient visit with automatic ledger sync."
+            },
+            "ar": {
+              "label": "فوترة المرضى والتسوية",
+              "description": "تتبّع مطالبات التأمين والمدفوعات المشتركة والأرصدة المستحقة لكل زيارة مريض مع مزامنة تلقائية لدفتر الأستاذ."
+            }
+          }
+        },
+        {
+          "id": "i0100b05-0005-0000-0000-000000000001",
+          "type": "capability_card",
+          "position": 5,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Pharmacy & Supply Inventory",
+              "description": "Monitor medical supplies and pharmacy stock levels in real-time with automated reorder triggers."
+            },
+            "ar": {
+              "label": "مخزون الصيدلية والتوريدات",
+              "description": "راقب مستلزمات المخزون الطبي ومستوى مخزون الصيدلية في الوقت الفعلي مع محفّزات إعادة الطلب التلقائية."
+            }
+          }
+        },
+        {
+          "id": "i0100b05-0006-0000-0000-000000000001",
+          "type": "capability_card",
+          "position": 6,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Clinical Staff Payroll",
+              "description": "Automate payroll for doctors, nurses, and admin staff based on shift data and contract types."
+            },
+            "ar": {
+              "label": "كشف رواتب الموظفين السريريين",
+              "description": "أتمت كشوف الرواتب للأطباء والممرضات وموظفي الإدارة بناءً على بيانات الورديات وأنواع العقود."
+            }
+          }
+        },
+        {
+          "id": "i0100b05-0007-0000-0000-000000000001",
+          "type": "capability_card",
+          "position": 7,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Regulatory Reporting",
+              "description": "Generate audit-ready financial and operational reports required by healthcare regulators."
+            },
+            "ar": {
+              "label": "التقارير التنظيمية",
+              "description": "أنشئ تقارير مالية وتشغيلية جاهزة للتدقيق مطلوبة من المنظمين الصحيين."
+            }
+          }
+        },
+        {
+          "id": "i0100b05-0008-0000-0000-000000000001",
+          "type": "capability_card",
+          "position": 8,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Medical Procurement",
+              "description": "Streamline purchasing for consumables and equipment with approved supplier workflows."
+            },
+            "ar": {
+              "label": "Medical Procurement",
+              "description": "Streamline purchasing for consumables and equipment with approved supplier workflows."
+            }
+          }
+        },
+        {
+          "id": "i0100b05-0009-0000-0000-000000000001",
+          "type": "capability_card",
+          "position": 9,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Patient Relationship (CRM)",
+              "description": "Maintain unified patient profiles including communication history and visit frequency."
+            },
+            "ar": {
+              "label": "Patient Relationship (CRM)",
+              "description": "Maintain unified patient profiles including communication history and visit frequency."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "i0100s06-0000-0000-0000-000000000001",
+      "type": "video_feature",
+      "name": "Platform Demo",
+      "anchor_id": "industries-healthcare-video",
+      "position": 6,
+      "group": "below-fold",
+      "required_block_types": [],
+      "blocks": [
+        {
+          "id": "i0100b06-0001-0000-0000-000000000001",
+          "type": "label",
+          "position": 1,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "See it in action"
+            },
+            "ar": {
+              "text": "شاهده في العمل"
+            }
+          }
+        },
+        {
+          "id": "i0100b06-0002-0000-0000-000000000001",
+          "type": "headline",
+          "position": 2,
+          "weight": 10,
+          "featured": true,
+          "content": {
+            "en": {
+              "text": "See how clinical billing automates end-to-end."
+            },
+            "ar": {
+              "text": "See how clinical billing automates end-to-end."
+            }
+          }
+        },
+        {
+          "id": "i0100b06-0003-0000-0000-000000000001",
+          "type": "rich_text",
+          "position": 3,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "content": {
+                "type": "doc",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Walk through the complete patient encounter workflow — from clinical record to insurance claim to payroll — without a single manual step."
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            "ar": {
+              "content": {
+                "type": "doc",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Walk through the complete patient encounter workflow — from clinical record to insurance claim to payroll — without a single manual step."
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "i0100s07-0000-0000-0000-000000000001",
+      "type": "workflow_steps",
+      "name": "How It Works",
+      "anchor_id": "industries-healthcare-workflow",
+      "position": 7,
+      "group": "below-fold",
+      "required_block_types": [],
+      "blocks": [
+        {
+          "id": "i0100b07-0001-0000-0000-000000000001",
+          "type": "label",
+          "position": 1,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "Implementation path"
+            },
+            "ar": {
+              "text": "مسار التطبيق"
+            }
+          }
+        },
+        {
+          "id": "i0100b07-0002-0000-0000-000000000001",
+          "type": "headline",
+          "position": 2,
+          "weight": 10,
+          "featured": true,
+          "content": {
+            "en": {
+              "text": "From setup to operational value — fast."
+            },
+            "ar": {
+              "text": "من الإعداد إلى القيمة التشغيلية — بسرعة."
+            }
+          }
+        },
+        {
+          "id": "i0100b07-0003-0000-0000-000000000001",
+          "type": "step_item",
+          "position": 3,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "step_number": 1,
+              "label": "Patient encounter recorded",
+              "description": "Services rendered and consumables used are logged in accore at the point of care."
+            },
+            "ar": {
+              "label": "تسجيل مقابلة المريض",
+              "description": "Services rendered and consumables used are logged in accore at the point of care.",
+              "step_number": 1
+            }
+          }
+        },
+        {
+          "id": "i0100b07-0004-0000-0000-000000000001",
+          "type": "step_item",
+          "position": 4,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "step_number": 2,
+              "label": "Automated billing & insurance split",
+              "description": "Invoices generate automatically, splitting costs between patient co-pay and insurance claims."
+            },
+            "ar": {
+              "label": "Automated billing & insurance split",
+              "description": "Invoices generate automatically, splitting costs between patient co-pay and insurance claims.",
+              "step_number": 2
+            }
+          }
+        },
+        {
+          "id": "i0100b07-0005-0000-0000-000000000001",
+          "type": "step_item",
+          "position": 5,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "step_number": 3,
+              "label": "Inventory & payroll sync",
+              "description": "Consumed stock is deducted from pharmacy levels and staff hours are updated for payroll."
+            },
+            "ar": {
+              "label": "Inventory & payroll sync",
+              "description": "Consumed stock is deducted from pharmacy levels and staff hours are updated for payroll.",
+              "step_number": 3
+            }
+          }
+        },
+        {
+          "id": "i0100b07-0006-0000-0000-000000000001",
+          "type": "step_item",
+          "position": 6,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "step_number": 4,
+              "label": "Compliance report generation",
+              "description": "The Finance Director accesses updated P&L and regulatory reports with one click."
+            },
+            "ar": {
+              "label": "Compliance report generation",
+              "description": "The Finance Director accesses updated P&L and regulatory reports with one click.",
+              "step_number": 4
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "i0100s08-0000-0000-0000-000000000001",
+      "type": "use_case_grid",
+      "name": "Use Cases",
+      "anchor_id": "industries-healthcare-use-cases",
+      "position": 8,
+      "group": "below-fold",
+      "required_block_types": [],
+      "blocks": [
+        {
+          "id": "i0100b08-0001-0000-0000-000000000001",
+          "type": "label",
+          "position": 1,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "In practice"
+            },
+            "ar": {
+              "text": "في التطبيق الفعلي"
+            }
+          }
+        },
+        {
+          "id": "i0100b08-0002-0000-0000-000000000001",
+          "type": "headline",
+          "position": 2,
+          "weight": 10,
+          "featured": true,
+          "content": {
+            "en": {
+              "text": "Healthcare operators in action."
+            },
+            "ar": {
+              "text": "مشغّلو الرعاية الصحية في التطبيق الفعلي."
+            }
+          }
+        },
+        {
+          "id": "i0100b08-0003-0000-0000-000000000001",
+          "type": "use_case_card",
+          "position": 3,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "headline": "A multi-specialty clinic scales to 15 staff.",
+              "scenario_narrative": "A growing clinic with 8 specialists and 7 admin staff moved from paper-based scheduling and manual billing to accore. They reduced insurance claim rejections by 26% and automated payroll for the entire team, saving 3 days of admin work every month.",
+              "tags": [
+                "Clinic",
+                "Local Tier"
+              ]
+            },
+            "ar": {
+              "headline": "A multi-specialty clinic scales to 15 staff.",
+              "scenario_narrative": "A growing clinic with 8 specialists and 7 admin staff moved from paper-based scheduling and manual billing to accore. They reduced insurance claim rejections by 26% and automated payroll for the entire team, saving 3 days of admin work every month.",
+              "tags": [
+                "Clinic",
+                "Local Tier"
+              ]
+            }
+          }
+        },
+        {
+          "id": "i0100b08-0004-0000-0000-000000000001",
+          "type": "use_case_card",
+          "position": 4,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "headline": "A group medical practice with 8 specialists.",
+              "scenario_narrative": "By unifying patient billing and medical supply procurement on one platform, this practice eliminated double-entry and gained real-time visibility into their pharmacy stock levels across two locations.",
+              "tags": [
+                "Specialist Practice",
+                "Inventory"
+              ]
+            },
+            "ar": {
+              "headline": "A group medical practice with 8 specialists.",
+              "scenario_narrative": "By unifying patient billing and medical supply procurement on one platform, this practice eliminated double-entry and gained real-time visibility into their pharmacy stock levels across two locations.",
+              "tags": [
+                "Specialist Practice",
+                "Inventory"
+              ]
+            }
+          }
+        },
+        {
+          "id": "i0100b08-0005-0000-0000-000000000001",
+          "type": "use_case_card",
+          "position": 5,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "headline": "A community pharmacy chain automates procurement.",
+              "scenario_narrative": "This 3-location pharmacy group uses accsystem to track inventory depletion and automatically generate purchase orders for critical medical supplies, preventing stock-outs of essential medicines.",
+              "tags": [
+                "Pharmacy",
+                "Procurement"
+              ]
+            },
+            "ar": {
+              "headline": "A community pharmacy chain automates procurement.",
+              "scenario_narrative": "This 3-location pharmacy group uses accsystem to track inventory depletion and automatically generate purchase orders for critical medical supplies, preventing stock-outs of essential medicines.",
+              "tags": [
+                "Pharmacy",
+                "Procurement"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "i0100s09-0000-0000-0000-000000000001",
+      "type": "testimonial",
+      "name": "Testimonial",
+      "anchor_id": "industries-healthcare-testimonial",
+      "position": 9,
+      "group": "below-fold",
+      "required_block_types": [],
+      "blocks": [
+        {
+          "id": "i0100b09-0001-0000-0000-000000000001",
+          "type": "label",
+          "position": 1,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "What operators say"
+            },
+            "ar": {
+              "text": "ما يقوله مشغّلونا"
+            }
+          }
+        },
+        {
+          "id": "i0100b09-0002-0000-0000-000000000001",
+          "type": "headline",
+          "position": 2,
+          "weight": 10,
+          "featured": true,
+          "content": {
+            "en": {
+              "text": "Results from medical leaders."
+            },
+            "ar": {
+              "text": "نتائج من قادة القطاع الطبي."
+            }
+          }
+        },
+        {
+          "id": "i0100b09-0003-0000-0000-000000000001",
+          "type": "quote",
+          "position": 3,
+          "weight": 8,
+          "featured": true,
+          "content": {
+            "en": {
+              "text": "Our insurance claim rejection rate dropped from 28% to under 3% in the first 60 days. The automated validation before submission is something we should have had years ago.",
+              "attribution": "Finance Director, 12-practice medical group, UAE"
+            },
+            "ar": {
+              "text": "انخفضت نسبة رفض مطالباتنا التأمينية من 28% إلى أقل من 3% في أول 60 يوماً. التحقق التلقائي قبل التقديم هو شيء كان ينبغي أن نمتلكه منذ سنوات.",
+              "attribution": "مدير مالي، مجموعة طبية من 12 عيادة، الإمارات العربية المتحدة"
+            }
+          }
+        },
+        {
+          "id": "i0100b09-0004-0000-0000-000000000001",
+          "type": "quote",
+          "position": 4,
+          "weight": 8,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "We closed our first consolidated group balance sheet in 4 days instead of 6 weeks. The multi-entity engine is exactly what a hospital group of our size needs.",
+              "attribution": "Group CFO, regional hospital network, KSA"
+            },
+            "ar": {
+              "text": "أغلقنا أول ميزانية عمومية موحّدة للمجموعة في 4 أيام بدلاً من 6 أسابيع. محرك الكيانات المتعددة هو بالضبط ما تحتاجه مجموعة مستشفيات بحجمنا.",
+              "attribution": "مدير مالي للمجموعة، شبكة مستشفيات إقليمية، المملكة العربية السعودية"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "i0100s10-0000-0000-0000-000000000001",
+      "type": "faq_accordion",
+      "name": "FAQs",
+      "anchor_id": "industries-healthcare-faq",
+      "position": 10,
+      "group": "below-fold",
+      "required_block_types": [],
+      "blocks": [
+        {
+          "id": "i0100b10-0001-0000-0000-000000000001",
+          "type": "label",
+          "position": 1,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "Common questions"
+            },
+            "ar": {
+              "text": "أسئلة شائعة"
+            }
+          }
+        },
+        {
+          "id": "i0100b10-0002-0000-0000-000000000001",
+          "type": "headline",
+          "position": 2,
+          "weight": 10,
+          "featured": true,
+          "content": {
+            "en": {
+              "text": "Frequently asked questions about ACCSYSTEM for healthcare."
+            },
+            "ar": {
+              "text": "الأسئلة المتكررة حول ACCSYSTEM للرعاية الصحية."
+            }
+          }
+        },
+        {
+          "id": "i0100b10-0003-0000-0000-000000000001",
+          "type": "subheadline",
+          "position": 3,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "Questions from healthcare operators at growing local businesses."
+            },
+            "ar": {
+              "text": "Questions from healthcare operators at growing local businesses."
+            }
+          }
+        },
+        {
+          "id": "i0100b10-0004-0000-0000-000000000001",
+          "type": "feature_item",
+          "position": 4,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Does ACCSYSTEM support multiple insurance payer formats?",
+              "text": "Yes. The platform supports configurable payer templates for all major insurance providers, with automatic claim formatting, validation, and electronic submission to payers in their required formats."
+            },
+            "ar": {
+              "text": "نعم. تدعم المنصة قوالب دافعين قابلة للتهيئة لجميع شركات التأمين الكبرى، مع تنسيق تلقائي للمطالبات والتحقق منها وتقديمها إلكترونياً للجهات الدافعة بالصيغة المطلوبة.",
+              "label": "هل يدعم ACCSYSTEM صيغ شركات التأمين المتعددة؟"
+            }
+          }
+        },
+        {
+          "id": "i0100b10-0005-0000-0000-000000000001",
+          "type": "feature_item",
+          "position": 5,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Can it handle mixed billing — private and NHS/insurance?",
+              "text": "Fully supported. You can configure multiple billing streams per patient encounter, splitting charges between private pay, co-payment, and insurance claims in a single invoice workflow."
+            },
+            "ar": {
+              "text": "مدعوم بالكامل. يمكن ضبط دفقات فوترة متعددة لكل زيارة مريض، مع تقسيم الرسوم بين الدفع الخاص والمدفوعات المشتركة ومطالبات التأمين في سير عمل فاتورة واحدة.",
+              "label": "هل يمكنه التعامل مع الفوترة المختلطة — خاصة وتأمين/خدمة صحية وطنية؟"
+            }
+          }
+        },
+        {
+          "id": "i0100b10-0006-0000-0000-000000000001",
+          "type": "feature_item",
+          "position": 6,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "How does the pharmacy inventory module handle controlled substances?",
+              "text": "Controlled substances are tracked with a dedicated audit trail module that logs all receipts, dispensing events, and stock adjustments with timestamps and authorising staff identifiers, satisfying regulatory requirements."
+            },
+            "ar": {
+              "text": "تُتابَع المواد المضبوطة بوحدة مسار تدقيق مخصصة تسجّل جميع الإيصالات وأحداث الصرف وتعديلات المخزون مع طوابع زمنية ومعرّفات الموظفين المرخَّصين، مما يستوفي المتطلبات التنظيمية.",
+              "label": "كيف تتعامل وحدة مخزون الصيدلية مع المواد المضبوطة؟"
+            }
+          }
+        },
+        {
+          "id": "i0100b10-0007-0000-0000-000000000001",
+          "type": "feature_item",
+          "position": 7,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Can we integrate with our existing patient management system?",
+              "text": "ACCSYSTEM provides REST API connectivity and pre-built connectors for major clinical management systems. Data migration services are available for initial historical data transfer."
+            },
+            "ar": {
+              "text": "يوفر ACCSYSTEM اتصال REST API وموصلات جاهزة لأبرز أنظمة الإدارة السريرية. تتوفر خدمات نقل البيانات للنقل الأولي للبيانات التاريخية.",
+              "label": "هل يمكننا التكامل مع نظام إدارة المرضى الحالي لدينا؟"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "i0100s11-0000-0000-0000-000000000001",
+      "type": "pricing_card_row",
+      "name": "Pricing",
+      "anchor_id": "industries-healthcare-pricing",
+      "position": 11,
+      "group": "below-fold",
+      "required_block_types": [],
+      "blocks": [
+        {
+          "id": "i0100b11-0001-0000-0000-000000000001",
+          "type": "label",
+          "position": 1,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "Straightforward pricing"
+            },
+            "ar": {
+              "text": "أسعار شفافة وواضحة"
+            }
+          }
+        },
+        {
+          "id": "i0100b11-0002-0000-0000-000000000001",
+          "type": "headline",
+          "position": 2,
+          "weight": 10,
+          "featured": true,
+          "content": {
+            "en": {
+              "text": "Choose the plan that fits your clinical operation."
+            },
+            "ar": {
+              "text": "اختر الخطة التي تناسب عمليتك السريرية."
+            }
+          }
+        },
+        {
+          "id": "i0100b11-0003-0000-0000-000000000001",
+          "type": "pricing_tier_card",
+          "position": 3,
+          "weight": 7,
+          "featured": true,
+          "content": {
+            "en": {
+              "name": "Essentials",
+              "description": "Patient invoicing, basic stock tracking, and VAT returns for solo practitioners.",
+              "price_display": "From AED 299/mo"
+            },
+            "ar": {
+              "description": "فوترة المرضى وتتبّع المخزون الأساسي وإقرارات ضريبة القيمة المضافة للممارسين المنفردين.",
+              "name": "الأساسيات",
+              "price_display": "From AED 299/mo"
+            }
+          }
+        },
+        {
+          "id": "i0100b11-0004-0000-0000-000000000001",
+          "type": "pricing_tier_card",
+          "position": 4,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "name": "Clinical",
+              "description": "Full billing, pharmacy inventory, payroll, and procurement for clinic groups.",
+              "price_display": "From AED 899/mo"
+            },
+            "ar": {
+              "description": "فوترة كاملة ومخزون صيدلية وكشوف رواتب ومشتريات لمجموعات العيادات.",
+              "name": "السريري",
+              "price_display": "From AED 899/mo"
+            }
+          }
+        },
+        {
+          "id": "i0100b11-0005-0000-0000-000000000001",
+          "type": "cta",
+          "position": 5,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "View full pricing",
+              "destination": {
+                "type": "internal_page",
+                "value": "pricing"
+              },
+              "intent": "primary"
+            },
+            "ar": {
+              "label": "عرض الأسعار الكاملة",
+              "intent": "primary",
+              "destination": {
+                "type": "internal_page",
+                "value": "pricing"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "i0100s12-0000-0000-0000-000000000001",
+      "type": "cta_band",
+      "name": "Get Started",
+      "anchor_id": "industries-healthcare-cta",
+      "position": 12,
+      "group": "below-fold",
+      "required_block_types": [],
+      "blocks": [
+        {
+          "id": "i0100b12-0001-0000-0000-000000000001",
+          "type": "headline",
+          "position": 1,
+          "weight": 10,
+          "featured": true,
+          "content": {
+            "en": {
+              "text": "Ready to unify your clinical operations?"
+            },
+            "ar": {
+              "text": "Ready to unify your clinical operations?"
+            }
+          }
+        },
+        {
+          "id": "i0100b12-0002-0000-0000-000000000001",
+          "type": "subheadline",
+          "position": 2,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "Join hundreds of healthcare groups scaling with accsystem."
+            },
+            "ar": {
+              "text": "Join hundreds of healthcare groups scaling with accsystem."
+            }
+          }
+        },
+        {
+          "id": "i0100b12-0003-0000-0000-000000000001",
+          "type": "cta",
+          "position": 3,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Book a demo",
+              "destination": {
+                "type": "internal_page",
+                "value": "contact"
+              },
+              "intent": "primary"
+            },
+            "ar": {
+              "label": "احجز عرضاً توضيحياً",
+              "intent": "primary",
+              "destination": {
+                "type": "internal_page",
+                "value": "contact"
+              }
+            }
+          }
+        },
+        {
+          "id": "i0100b12-0004-0000-0000-000000000001",
+          "type": "cta",
+          "position": 4,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "View pricing",
+              "destination": {
+                "type": "internal_page",
+                "value": "pricing"
+              },
+              "intent": "secondary"
+            },
+            "ar": {
+              "label": "عرض الأسعار",
+              "intent": "secondary",
+              "destination": {
+                "type": "internal_page",
+                "value": "pricing"
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

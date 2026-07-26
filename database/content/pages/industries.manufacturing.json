@@ -1,0 +1,1482 @@
+{
+  "id": "ind00000-0000-0005-0000-000000000000",
+  "slug": "industries/manufacturing",
+  "type": "industry.full_page",
+  "identity": {
+    "title": {
+      "en": "Manufacturing Financial Systems | ACCSYSTEM"
+    },
+    "purpose": {
+      "en": "Industry vertical hub for manufacturing operators across all tiers"
+    },
+    "owner": "accsystem",
+    "canonical_url": "https://accsystemerp.com/industries/manufacturing",
+    "classification": "public"
+  },
+  "hierarchy": {
+    "depth": 1,
+    "position": 5,
+    "include_in_nav": false,
+    "nav_label": {
+      "en": "Manufacturing"
+    }
+  },
+  "composition": {
+    "section_order": "explicit",
+    "allow_dynamic": false,
+    "max_sections": 20,
+    "fallback_policy": "show_partial"
+  },
+  "meta": {
+    "seo_title": {
+      "en": "Manufacturing Cost Accounting & Production Finance Software | ACCSYSTEM"
+    },
+    "seo_description": {
+      "en": "Job costing, raw material tracking, and production finance for manufacturers at every scale. From workshop owners to multi-plant enterprise manufacturers."
+    },
+    "og_title": "Manufacturing Financial Systems | ACCSYSTEM",
+    "og_description": "Actual production cost visibility for every job, batch, and facility.",
+    "og_image": null,
+    "robots": "index,follow"
+  },
+  "sections": [
+    {
+      "id": "i0500s01-0000-0000-0000-000000000001",
+      "type": "hero",
+      "name": "Hero",
+      "anchor_id": "industries-manufacturing-hero",
+      "position": 1,
+      "group": "above-fold",
+      "required_block_types": [],
+      "blocks": [
+        {
+          "id": "i0500b01-0001-0000-0000-000000000001",
+          "type": "label",
+          "position": 1,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "Manufacturing Industry Hub"
+            },
+            "ar": {
+              "text": "Manufacturing Industry Hub"
+            }
+          }
+        },
+        {
+          "id": "i0500b01-0002-0000-0000-000000000001",
+          "type": "headline",
+          "position": 2,
+          "weight": 10,
+          "featured": true,
+          "content": {
+            "en": {
+              "text": "Actual production cost visibility — for every job, batch, and facility."
+            },
+            "ar": {
+              "text": "Actual production cost visibility — for every job, batch, and facility."
+            }
+          }
+        },
+        {
+          "id": "i0500b01-0003-0000-0000-000000000001",
+          "type": "subheadline",
+          "position": 3,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "ACCSYSTEM connects material tracking, job costing, supplier management, and group financial reporting in one platform for manufacturers at every scale."
+            },
+            "ar": {
+              "text": "ACCSYSTEM connects material tracking, job costing, supplier management, and group financial reporting in one platform for manufacturers at every scale."
+            }
+          }
+        },
+        {
+          "id": "i0500b01-0004-0000-0000-000000000001",
+          "type": "cta",
+          "position": 4,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Explore manufacturing solutions",
+              "destination": {
+                "type": "internal_page",
+                "value": "pricing"
+              },
+              "intent": "primary"
+            },
+            "ar": {
+              "label": "Explore manufacturing solutions",
+              "intent": "primary",
+              "destination": {
+                "type": "internal_page",
+                "value": "pricing"
+              }
+            }
+          }
+        },
+        {
+          "id": "i0500b01-0005-0000-0000-000000000001",
+          "type": "cta",
+          "position": 5,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Book an industry demo",
+              "destination": {
+                "type": "internal_page",
+                "value": "contact"
+              },
+              "intent": "secondary"
+            },
+            "ar": {
+              "label": "احجز عرضاً توضيحياً للقطاع",
+              "intent": "secondary",
+              "destination": {
+                "type": "internal_page",
+                "value": "contact"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "i0500s02-0000-0000-0000-000000000001",
+      "type": "in_page_nav",
+      "name": "Section Navigation",
+      "anchor_id": "industries-manufacturing-nav",
+      "position": 2,
+      "group": "above-fold",
+      "required_block_types": [],
+      "blocks": [
+        {
+          "id": "i0500b02-0001-0000-0000-000000000001",
+          "type": "nav_link",
+          "position": 1,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "The Challenge",
+              "destination": {
+                "type": "anchor",
+                "value": "industries-manufacturing-problem"
+              }
+            },
+            "ar": {
+              "label": "التحدي",
+              "destination": {
+                "type": "anchor",
+                "value": "industries-manufacturing-problem"
+              }
+            }
+          }
+        },
+        {
+          "id": "i0500b02-0002-0000-0000-000000000001",
+          "type": "nav_link",
+          "position": 2,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Capabilities",
+              "destination": {
+                "type": "anchor",
+                "value": "industries-manufacturing-capabilities"
+              }
+            },
+            "ar": {
+              "label": "القدرات",
+              "destination": {
+                "type": "anchor",
+                "value": "industries-manufacturing-capabilities"
+              }
+            }
+          }
+        },
+        {
+          "id": "i0500b02-0003-0000-0000-000000000001",
+          "type": "nav_link",
+          "position": 3,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Use Cases",
+              "destination": {
+                "type": "anchor",
+                "value": "industries-manufacturing-use-cases"
+              }
+            },
+            "ar": {
+              "label": "حالات الاستخدام",
+              "destination": {
+                "type": "anchor",
+                "value": "industries-manufacturing-use-cases"
+              }
+            }
+          }
+        },
+        {
+          "id": "i0500b02-0004-0000-0000-000000000001",
+          "type": "nav_link",
+          "position": 4,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Pricing",
+              "destination": {
+                "type": "anchor",
+                "value": "industries-manufacturing-pricing"
+              }
+            },
+            "ar": {
+              "label": "الأسعار",
+              "destination": {
+                "type": "anchor",
+                "value": "industries-manufacturing-pricing"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "i0500s03-0000-0000-0000-000000000001",
+      "type": "statistics",
+      "name": "Operational Impact",
+      "anchor_id": "industries-manufacturing-statistics",
+      "position": 3,
+      "group": "below-fold",
+      "required_block_types": [],
+      "blocks": [
+        {
+          "id": "i0500b03-0001-0000-0000-000000000001",
+          "type": "label",
+          "position": 1,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "Measurable results"
+            },
+            "ar": {
+              "text": "نتائج قابلة للقياس"
+            }
+          }
+        },
+        {
+          "id": "i0500b03-0002-0000-0000-000000000001",
+          "type": "headline",
+          "position": 2,
+          "weight": 10,
+          "featured": true,
+          "content": {
+            "en": {
+              "text": "Manufacturing operations transformed by data."
+            },
+            "ar": {
+              "text": "عمليات التصنيع يحوّلها البيانات."
+            }
+          }
+        },
+        {
+          "id": "i0500b03-0003-0000-0000-000000000001",
+          "type": "stat_item",
+          "position": 3,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "value": "19%",
+              "unit": "Procurement cost reduction",
+              "descriptor": "Average reduction in raw material and component procurement costs through centralised buying."
+            },
+            "ar": {
+              "unit": "تخفيض تكلفة المشتريات",
+              "descriptor": "متوسط تخفيض تكاليف شراء المواد الخام والمكوّنات من خلال الشراء المركزي.",
+              "value": "19%"
+            }
+          }
+        },
+        {
+          "id": "i0500b03-0004-0000-0000-000000000001",
+          "type": "stat_item",
+          "position": 4,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "value": "72h → 6h",
+              "unit": "Cost accounting cycle",
+              "descriptor": "Reduction in time to complete monthly production cost accounting across all facilities."
+            },
+            "ar": {
+              "unit": "دورة محاسبة التكاليف",
+              "descriptor": "تخفيض الوقت اللازم لإكمال محاسبة تكاليف الإنتاج الشهرية عبر جميع المنشآت.",
+              "value": "72h → 6h"
+            }
+          }
+        },
+        {
+          "id": "i0500b03-0005-0000-0000-000000000001",
+          "type": "stat_item",
+          "position": 5,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "value": "£4.1M",
+              "unit": "Annual savings",
+              "descriptor": "Average annual operational savings for manufacturing companies consolidating onto ACCSYSTEM."
+            },
+            "ar": {
+              "unit": "الوفورات السنوية",
+              "descriptor": "متوسط الوفورات التشغيلية السنوية لشركات التصنيع التي توحّد على ACCSYSTEM.",
+              "value": "£4.1M"
+            }
+          }
+        },
+        {
+          "id": "i0500b03-0006-0000-0000-000000000001",
+          "type": "stat_item",
+          "position": 6,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "value": "99.1%",
+              "unit": "Bill of materials accuracy",
+              "descriptor": "Accuracy rate of bill of materials cost calculations using ACCSYSTEM's production costing module."
+            },
+            "ar": {
+              "unit": "دقة قائمة المواد",
+              "descriptor": "معدل دقة احتسابات تكلفة قائمة المواد باستخدام وحدة تكلفة الإنتاج في ACCSYSTEM.",
+              "value": "99.1%"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "i0500s04-0000-0000-0000-000000000001",
+      "type": "problem_statement",
+      "name": "The Challenge",
+      "anchor_id": "industries-manufacturing-problem",
+      "position": 4,
+      "group": "below-fold",
+      "required_block_types": [],
+      "blocks": [
+        {
+          "id": "i0500b04-0001-0000-0000-000000000001",
+          "type": "label",
+          "position": 1,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "Multi-facility financial opacity"
+            },
+            "ar": {
+              "text": "Multi-facility financial opacity"
+            }
+          }
+        },
+        {
+          "id": "i0500b04-0002-0000-0000-000000000001",
+          "type": "headline",
+          "position": 2,
+          "weight": 10,
+          "featured": true,
+          "content": {
+            "en": {
+              "text": "Disconnected production systems create group-level blind spots."
+            },
+            "ar": {
+              "text": "Disconnected production systems create group-level blind spots."
+            }
+          }
+        },
+        {
+          "id": "i0500b04-0003-0000-0000-000000000001",
+          "type": "subheadline",
+          "position": 3,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "Manufacturing companies with multiple production facilities lose consolidated financial visibility when each plant maintains independent financial records."
+            },
+            "ar": {
+              "text": "Manufacturing companies with multiple production facilities lose consolidated financial visibility when each plant maintains independent financial records."
+            }
+          }
+        },
+        {
+          "id": "i0500b04-0004-0000-0000-000000000001",
+          "type": "feature_item",
+          "position": 4,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Consolidated cost reporting delay",
+              "text": "Group production cost reports are compiled manually from individual plant data, arriving weeks after the period."
+            },
+            "ar": {
+              "text": "Group production cost reports are compiled manually from individual plant data, arriving weeks after the period.",
+              "label": "Consolidated cost reporting delay"
+            }
+          }
+        },
+        {
+          "id": "i0500b04-0005-0000-0000-000000000001",
+          "type": "feature_item",
+          "position": 5,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Procurement fragmentation",
+              "text": "Each facility negotiates supplier terms independently, forfeiting group purchasing power."
+            },
+            "ar": {
+              "text": "Each facility negotiates supplier terms independently, forfeiting group purchasing power.",
+              "label": "تجزئة المشتريات"
+            }
+          }
+        },
+        {
+          "id": "i0500b04-0006-0000-0000-000000000001",
+          "type": "feature_item",
+          "position": 6,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Capital asset opacity",
+              "text": "Equipment utilisation, depreciation, and maintenance costs are tracked separately from production financial data."
+            },
+            "ar": {
+              "text": "Equipment utilisation, depreciation, and maintenance costs are tracked separately from production financial data.",
+              "label": "Capital asset opacity"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "i0500s05-0000-0000-0000-000000000001",
+      "type": "value_proposition",
+      "name": "Why ACCSYSTEM",
+      "anchor_id": "industries-manufacturing-value",
+      "position": 5,
+      "group": "below-fold",
+      "required_block_types": [],
+      "blocks": [
+        {
+          "id": "i0500b05-0001-0000-0000-000000000001",
+          "type": "label",
+          "position": 1,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "The ACCSYSTEM advantage"
+            },
+            "ar": {
+              "text": "ميزة ACCSYSTEM"
+            }
+          }
+        },
+        {
+          "id": "i0500b05-0002-0000-0000-000000000001",
+          "type": "headline",
+          "position": 2,
+          "weight": 10,
+          "featured": true,
+          "content": {
+            "en": {
+              "text": "Precision-built for manufacturing operations."
+            },
+            "ar": {
+              "text": "مُصمَّم بدقة لعمليات التصنيع."
+            }
+          }
+        },
+        {
+          "id": "i0500b05-0003-0000-0000-000000000001",
+          "type": "subheadline",
+          "position": 3,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "Four structural advantages that manufacturing operators gain from day one."
+            },
+            "ar": {
+              "text": "أربع مزايا هيكلية يحصل عليها مشغّلو التصنيع منذ اليوم الأول."
+            }
+          }
+        },
+        {
+          "id": "i0500b05-0004-0000-0000-000000000001",
+          "type": "feature_item",
+          "position": 4,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Actual vs. Standard Cost Visibility",
+              "text": "Track real production cost against standard BOM targets with immediate variance alerts — not monthly surprises."
+            },
+            "ar": {
+              "text": "تتبّع تكلفة الإنتاج الفعلية مقابل أهداف قائمة المواد المعيارية مع تنبيهات تباين فورية — لا مفاجآت شهرية.",
+              "label": "رؤية التكلفة الفعلية مقابل المعيارية"
+            }
+          }
+        },
+        {
+          "id": "i0500b05-0005-0000-0000-000000000001",
+          "type": "feature_item",
+          "position": 5,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "WIP Accuracy",
+              "text": "Value work-in-progress at actual tracked cost at every production stage, not estimated or batch-average values."
+            },
+            "ar": {
+              "text": "قيّم الأعمال قيد التنفيذ بالتكلفة الفعلية المتتبَّعة في كل مرحلة إنتاج، لا بقيم مُقدَّرة أو متوسطات الدُّفعة.",
+              "label": "دقة قيد التنفيذ"
+            }
+          }
+        },
+        {
+          "id": "i0500b05-0006-0000-0000-000000000001",
+          "type": "feature_item",
+          "position": 6,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Centralised Raw Material Procurement",
+              "text": "Manage all supplier relationships and purchase orders in one place, capturing group pricing across all facilities."
+            },
+            "ar": {
+              "text": "أدر جميع علاقات الموردين وأوامر الشراء في مكان واحد، مع الاستفادة من أسعار المجموعة عبر جميع المنشآت.",
+              "label": "الشراء المركزي للمواد الخام"
+            }
+          }
+        },
+        {
+          "id": "i0500b05-0007-0000-0000-000000000001",
+          "type": "feature_item",
+          "position": 7,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Production-to-Invoice Automation",
+              "text": "Convert completed production records directly to customer invoices, eliminating duplicate data entry."
+            },
+            "ar": {
+              "text": "حوّل سجلات الإنتاج المكتملة مباشرة إلى فواتير عملاء، مما يُلغي ازدواجية إدخال البيانات.",
+              "label": "أتمتة الإنتاج إلى الفاتورة"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "i0500s06-0000-0000-0000-000000000001",
+      "type": "capability_grid",
+      "name": "Key Capabilities",
+      "anchor_id": "industries-manufacturing-capabilities",
+      "position": 6,
+      "group": "below-fold",
+      "required_block_types": [],
+      "blocks": [
+        {
+          "id": "i0500b06-0001-0000-0000-000000000001",
+          "type": "label",
+          "position": 1,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "Operational tools"
+            },
+            "ar": {
+              "text": "الأدوات التشغيلية"
+            }
+          }
+        },
+        {
+          "id": "i0500b06-0002-0000-0000-000000000001",
+          "type": "headline",
+          "position": 2,
+          "weight": 10,
+          "featured": true,
+          "content": {
+            "en": {
+              "text": "Built for manufacturing at company scale."
+            },
+            "ar": {
+              "text": "Built for manufacturing at company scale."
+            }
+          }
+        },
+        {
+          "id": "i0500b06-0003-0000-0000-000000000001",
+          "type": "subheadline",
+          "position": 3,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "The complete production management platform for established multi-department companies."
+            },
+            "ar": {
+              "text": "The complete production management platform for established multi-department companies."
+            }
+          }
+        },
+        {
+          "id": "i0500b06-0004-0000-0000-000000000001",
+          "type": "capability_card",
+          "position": 4,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Multi-Facility Cost Consolidation",
+              "description": "Aggregate production cost data from all facilities onto a single group cost accounting framework."
+            },
+            "ar": {
+              "label": "توحيد التكاليف متعدد المنشآت",
+              "description": "اجمع بيانات تكلفة الإنتاج من جميع المنشآت في إطار محاسبة تكاليف مجموعة واحد."
+            }
+          }
+        },
+        {
+          "id": "i0500b06-0005-0000-0000-000000000001",
+          "type": "capability_card",
+          "position": 5,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Centralised Raw Material Procurement",
+              "description": "Manage all raw material and component purchasing centrally with volume-based supplier agreements."
+            },
+            "ar": {
+              "label": "الشراء المركزي للمواد الخام",
+              "description": "أدر جميع مشتريات المواد الخام والمكوّنات مركزياً مع اتفاقيات موردين قائمة على الحجم."
+            }
+          }
+        },
+        {
+          "id": "i0500b06-0006-0000-0000-000000000001",
+          "type": "capability_card",
+          "position": 6,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Capital Asset Management",
+              "description": "Track equipment investment, utilisation, maintenance, and depreciation across all facilities."
+            },
+            "ar": {
+              "label": "إدارة الأصول الرأسمالية",
+              "description": "تتبّع الاستثمار في المعدات والاستخدام والصيانة والاستهلاك عبر جميع المنشآت."
+            }
+          }
+        },
+        {
+          "id": "i0500b06-0007-0000-0000-000000000001",
+          "type": "capability_card",
+          "position": 7,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Group Production P&L",
+              "description": "Access facility-level and group-level production profitability with material, labour, and overhead breakdown."
+            },
+            "ar": {
+              "label": "أرباح وخسائر الإنتاج للمجموعة",
+              "description": "اطلع على ربحية الإنتاج على مستوى المنشأة والمجموعة مع تفاصيل المواد والعمالة والنفقات العامة."
+            }
+          }
+        },
+        {
+          "id": "i0500b06-0008-0000-0000-000000000001",
+          "type": "capability_card",
+          "position": 8,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Multi-Facility Payroll",
+              "description": "Process payroll for production workers across all facilities with correct tax and statutory calculations."
+            },
+            "ar": {
+              "label": "Multi-Facility Payroll",
+              "description": "Process payroll for production workers across all facilities with correct tax and statutory calculations."
+            }
+          }
+        },
+        {
+          "id": "i0500b06-0009-0000-0000-000000000001",
+          "type": "capability_card",
+          "position": 9,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Transfer Cost Management",
+              "description": "Track and cost inter-facility material transfers with appropriate cost allocation and documentation."
+            },
+            "ar": {
+              "label": "Transfer Cost Management",
+              "description": "Track and cost inter-facility material transfers with appropriate cost allocation and documentation."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "i0500s07-0000-0000-0000-000000000001",
+      "type": "media_grid",
+      "name": "Visual Overview",
+      "anchor_id": "industries-manufacturing-media",
+      "position": 7,
+      "group": "below-fold",
+      "required_block_types": [],
+      "blocks": [
+        {
+          "id": "i0500b07-0001-0000-0000-000000000001",
+          "type": "label",
+          "position": 1,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "In the operation"
+            },
+            "ar": {
+              "text": "In the operation"
+            }
+          }
+        },
+        {
+          "id": "i0500b07-0002-0000-0000-000000000001",
+          "type": "headline",
+          "position": 2,
+          "weight": 10,
+          "featured": true,
+          "content": {
+            "en": {
+              "text": "Manufacturing operations at every stage."
+            },
+            "ar": {
+              "text": "Manufacturing operations at every stage."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "i0500s08-0000-0000-0000-000000000001",
+      "type": "workflow_steps",
+      "name": "How It Works",
+      "anchor_id": "industries-manufacturing-workflow",
+      "position": 8,
+      "group": "below-fold",
+      "required_block_types": [],
+      "blocks": [
+        {
+          "id": "i0500b08-0001-0000-0000-000000000001",
+          "type": "label",
+          "position": 1,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "Implementation path"
+            },
+            "ar": {
+              "text": "مسار التطبيق"
+            }
+          }
+        },
+        {
+          "id": "i0500b08-0002-0000-0000-000000000001",
+          "type": "headline",
+          "position": 2,
+          "weight": 10,
+          "featured": true,
+          "content": {
+            "en": {
+              "text": "From setup to operational value — fast."
+            },
+            "ar": {
+              "text": "من الإعداد إلى القيمة التشغيلية — بسرعة."
+            }
+          }
+        },
+        {
+          "id": "i0500b08-0003-0000-0000-000000000001",
+          "type": "step_item",
+          "position": 3,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "step_number": 1,
+              "label": "Centralised PO and material sourcing",
+              "description": "All raw material purchasing for all facilities is raised through the central procurement hub with approval workflow."
+            },
+            "ar": {
+              "label": "Centralised PO and material sourcing",
+              "description": "All raw material purchasing for all facilities is raised through the central procurement hub with approval workflow.",
+              "step_number": 1
+            }
+          }
+        },
+        {
+          "id": "i0500b08-0004-0000-0000-000000000001",
+          "type": "step_item",
+          "position": 4,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "step_number": 2,
+              "label": "Facility production cost capture",
+              "description": "Each facility captures actual production costs against standard BOM with variance reporting at shift level."
+            },
+            "ar": {
+              "label": "Facility production cost capture",
+              "description": "Each facility captures actual production costs against standard BOM with variance reporting at shift level.",
+              "step_number": 2
+            }
+          }
+        },
+        {
+          "id": "i0500b08-0005-0000-0000-000000000001",
+          "type": "step_item",
+          "position": 5,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "step_number": 3,
+              "label": "Inter-facility transfer costing",
+              "description": "Material transfers between facilities are costed and documented automatically with transfer pricing compliance."
+            },
+            "ar": {
+              "label": "Inter-facility transfer costing",
+              "description": "Material transfers between facilities are costed and documented automatically with transfer pricing compliance.",
+              "step_number": 3
+            }
+          }
+        },
+        {
+          "id": "i0500b08-0006-0000-0000-000000000001",
+          "type": "step_item",
+          "position": 6,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "step_number": 4,
+              "label": "Group cost accounting",
+              "description": "Consolidated production P&L is produced across all facilities within 24 hours of period end."
+            },
+            "ar": {
+              "label": "Group cost accounting",
+              "description": "Consolidated production P&L is produced across all facilities within 24 hours of period end.",
+              "step_number": 4
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "i0500s09-0000-0000-0000-000000000001",
+      "type": "product_comparison",
+      "name": "Platform Matrix",
+      "anchor_id": "industries-manufacturing-platforms",
+      "position": 9,
+      "group": "below-fold",
+      "required_block_types": [],
+      "blocks": [
+        {
+          "id": "i0500b09-0001-0000-0000-000000000001",
+          "type": "label",
+          "position": 1,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "Platform selection"
+            },
+            "ar": {
+              "text": "اختيار المنصة"
+            }
+          }
+        },
+        {
+          "id": "i0500b09-0002-0000-0000-000000000001",
+          "type": "headline",
+          "position": 2,
+          "weight": 10,
+          "featured": true,
+          "content": {
+            "en": {
+              "text": "Choose the right ACCSYSTEM platform for your production operation."
+            },
+            "ar": {
+              "text": "Choose the right ACCSYSTEM platform for your production operation."
+            }
+          }
+        },
+        {
+          "id": "i0500b09-0003-0000-0000-000000000001",
+          "type": "platform_card",
+          "position": 3,
+          "weight": 7,
+          "featured": true,
+          "content": {
+            "en": {
+              "display_name": "accore",
+              "product_site_id": "ACCORE",
+              "site_status": "live"
+            },
+            "ar": {
+              "display_name": "ACCore",
+              "product_site_id": "ACCORE",
+              "site_status": "live"
+            }
+          }
+        },
+        {
+          "id": "i0500b09-0004-0000-0000-000000000001",
+          "type": "platform_card",
+          "position": 4,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "display_name": "qayd",
+              "product_site_id": "QAYD",
+              "site_status": "live"
+            },
+            "ar": {
+              "display_name": "QAYD",
+              "product_site_id": "QAYD",
+              "site_status": "live"
+            }
+          }
+        },
+        {
+          "id": "i0500b09-0005-0000-0000-000000000001",
+          "type": "feature_row",
+          "position": 5,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Manufacturing billing & invoicing",
+              "tiers": "ACCORE, QAYD"
+            },
+            "ar": {
+              "label": "Manufacturing billing & invoicing",
+              "tiers": "ACCORE, QAYD"
+            }
+          }
+        },
+        {
+          "id": "i0500b09-0006-0000-0000-000000000001",
+          "type": "feature_row",
+          "position": 6,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Multi-entity consolidation",
+              "tiers": "ACCORE"
+            },
+            "ar": {
+              "label": "توحيد الكيانات المتعددة",
+              "tiers": "ACCORE"
+            }
+          }
+        },
+        {
+          "id": "i0500b09-0007-0000-0000-000000000001",
+          "type": "feature_row",
+          "position": 7,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Mobile bookkeeping",
+              "tiers": "QAYD, ACCORE"
+            },
+            "ar": {
+              "label": "محاسبة متنقلة",
+              "tiers": "QAYD, ACCORE"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "i0500s10-0000-0000-0000-000000000001",
+      "type": "customer_story_grid",
+      "name": "Customer Stories",
+      "anchor_id": "industries-manufacturing-stories",
+      "position": 10,
+      "group": "below-fold",
+      "required_block_types": [],
+      "blocks": [
+        {
+          "id": "i0500b10-0001-0000-0000-000000000001",
+          "type": "label",
+          "position": 1,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "Customer stories"
+            },
+            "ar": {
+              "text": "قصص العملاء"
+            }
+          }
+        },
+        {
+          "id": "i0500b10-0002-0000-0000-000000000001",
+          "type": "headline",
+          "position": 2,
+          "weight": 10,
+          "featured": true,
+          "content": {
+            "en": {
+              "text": "How manufacturing operators transformed with ACCSYSTEM."
+            },
+            "ar": {
+              "text": "How manufacturing operators transformed with ACCSYSTEM."
+            }
+          }
+        },
+        {
+          "id": "i0500b10-0003-0000-0000-000000000001",
+          "type": "customer_story_card",
+          "position": 3,
+          "weight": 7,
+          "featured": true,
+          "content": {
+            "en": {
+              "headline": "A manufacturing group consolidates 3 facilities.",
+              "scenario_narrative": "A multi-product manufacturer with 3 production facilities in 2 countries produced its first real-time consolidated production P&L through ACCSYSTEM, replacing a 5-week manual aggregation process.",
+              "tags": [
+                "Multi-Facility",
+                "Consolidation"
+              ]
+            },
+            "ar": {
+              "headline": "A manufacturing group consolidates 3 facilities.",
+              "scenario_narrative": "A multi-product manufacturer with 3 production facilities in 2 countries produced its first real-time consolidated production P&L through ACCSYSTEM, replacing a 5-week manual aggregation process.",
+              "tags": [
+                "Multi-Facility",
+                "Consolidation"
+              ]
+            }
+          }
+        },
+        {
+          "id": "i0500b10-0004-0000-0000-000000000001",
+          "type": "customer_story_card",
+          "position": 4,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "headline": "A component manufacturer centralises procurement.",
+              "scenario_narrative": "An automotive components manufacturer with 4 facilities consolidated raw material purchasing through ACCSYSTEM. Average material cost reduced 17% through unified supplier agreements and eliminated duplicate purchase orders worth £2.4M annually.",
+              "tags": [
+                "Automotive",
+                "Procurement"
+              ]
+            },
+            "ar": {
+              "headline": "A component manufacturer centralises procurement.",
+              "scenario_narrative": "An automotive components manufacturer with 4 facilities consolidated raw material purchasing through ACCSYSTEM. Average material cost reduced 17% through unified supplier agreements and eliminated duplicate purchase orders worth £2.4M annually.",
+              "tags": [
+                "Automotive",
+                "Procurement"
+              ]
+            }
+          }
+        },
+        {
+          "id": "i0500b10-0005-0000-0000-000000000001",
+          "type": "customer_story_card",
+          "position": 5,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "headline": "A packaging group controls capital assets.",
+              "scenario_narrative": "A packaging manufacturer with 180 production machines across 3 sites deployed ACCSYSTEM's asset management module, achieving full depreciation accuracy and identifying 12 underutilised machines available for redeployment.",
+              "tags": [
+                "Packaging",
+                "Asset Management"
+              ]
+            },
+            "ar": {
+              "headline": "A packaging group controls capital assets.",
+              "scenario_narrative": "A packaging manufacturer with 180 production machines across 3 sites deployed ACCSYSTEM's asset management module, achieving full depreciation accuracy and identifying 12 underutilised machines available for redeployment.",
+              "tags": [
+                "Packaging",
+                "Asset Management"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "i0500s11-0000-0000-0000-000000000001",
+      "type": "faq_accordion",
+      "name": "FAQs",
+      "anchor_id": "industries-manufacturing-faq",
+      "position": 11,
+      "group": "below-fold",
+      "required_block_types": [],
+      "blocks": [
+        {
+          "id": "i0500b11-0001-0000-0000-000000000001",
+          "type": "label",
+          "position": 1,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "Common questions"
+            },
+            "ar": {
+              "text": "أسئلة شائعة"
+            }
+          }
+        },
+        {
+          "id": "i0500b11-0002-0000-0000-000000000001",
+          "type": "headline",
+          "position": 2,
+          "weight": 10,
+          "featured": true,
+          "content": {
+            "en": {
+              "text": "Frequently asked questions about ACCSYSTEM for manufacturing."
+            },
+            "ar": {
+              "text": "الأسئلة المتكررة حول ACCSYSTEM للتصنيع."
+            }
+          }
+        },
+        {
+          "id": "i0500b11-0003-0000-0000-000000000001",
+          "type": "subheadline",
+          "position": 3,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "Questions from manufacturing operators at established multi-department companies."
+            },
+            "ar": {
+              "text": "Questions from manufacturing operators at established multi-department companies."
+            }
+          }
+        },
+        {
+          "id": "i0500b11-0004-0000-0000-000000000001",
+          "type": "feature_item",
+          "position": 4,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Can ACCSYSTEM handle multi-level bill of materials for complex products?",
+              "text": "Yes. The production costing module supports multi-level BOMs with sub-assemblies, routing steps, and overhead absorption rates. Actual versus standard cost variances are calculated at each BOM level."
+            },
+            "ar": {
+              "text": "Yes. The production costing module supports multi-level BOMs with sub-assemblies, routing steps, and overhead absorption rates. Actual versus standard cost variances are calculated at each BOM level.",
+              "label": "Can ACCSYSTEM handle multi-level bill of materials for complex products?"
+            }
+          }
+        },
+        {
+          "id": "i0500b11-0005-0000-0000-000000000001",
+          "type": "feature_item",
+          "position": 5,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "How does the system handle work-in-progress valuation?",
+              "text": "WIP is valued at actual tracked cost at each production stage. You can configure the costing method — standard cost, actual cost, or weighted average — per product category or facility."
+            },
+            "ar": {
+              "text": "WIP is valued at actual tracked cost at each production stage. You can configure the costing method — standard cost, actual cost, or weighted average — per product category or facility.",
+              "label": "How does the system handle work-in-progress valuation?"
+            }
+          }
+        },
+        {
+          "id": "i0500b11-0006-0000-0000-000000000001",
+          "type": "feature_item",
+          "position": 6,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Does it support batch and lot tracking for regulatory traceability?",
+              "text": "Full batch and lot tracking is available, recording raw material inputs, production parameters, and finished goods outputs per batch. This supports recalls, quality investigations, and regulatory traceability requirements."
+            },
+            "ar": {
+              "text": "Full batch and lot tracking is available, recording raw material inputs, production parameters, and finished goods outputs per batch. This supports recalls, quality investigations, and regulatory traceability requirements.",
+              "label": "Does it support batch and lot tracking for regulatory traceability?"
+            }
+          }
+        },
+        {
+          "id": "i0500b11-0007-0000-0000-000000000001",
+          "type": "feature_item",
+          "position": 7,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Can it manage capital asset depreciation across multiple methods?",
+              "text": "Yes. ACCSYSTEM supports straight-line, reducing balance, and units-of-production depreciation methods per asset category, with automatic depreciation posting and disposal gain/loss calculation."
+            },
+            "ar": {
+              "text": "Yes. ACCSYSTEM supports straight-line, reducing balance, and units-of-production depreciation methods per asset category, with automatic depreciation posting and disposal gain/loss calculation.",
+              "label": "Can it manage capital asset depreciation across multiple methods?"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "i0500s12-0000-0000-0000-000000000001",
+      "type": "pricing_card_row",
+      "name": "Pricing",
+      "anchor_id": "industries-manufacturing-pricing",
+      "position": 12,
+      "group": "below-fold",
+      "required_block_types": [],
+      "blocks": [
+        {
+          "id": "i0500b12-0001-0000-0000-000000000001",
+          "type": "label",
+          "position": 1,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "Straightforward pricing"
+            },
+            "ar": {
+              "text": "أسعار شفافة وواضحة"
+            }
+          }
+        },
+        {
+          "id": "i0500b12-0002-0000-0000-000000000001",
+          "type": "headline",
+          "position": 2,
+          "weight": 10,
+          "featured": true,
+          "content": {
+            "en": {
+              "text": "Choose the plan that fits your production operation."
+            },
+            "ar": {
+              "text": "اختر الخطة التي تناسب عمليتك الإنتاجية."
+            }
+          }
+        },
+        {
+          "id": "i0500b12-0003-0000-0000-000000000001",
+          "type": "pricing_tier_card",
+          "position": 3,
+          "weight": 7,
+          "featured": true,
+          "content": {
+            "en": {
+              "name": "Production Core",
+              "description": "Job costing, raw material tracking, and supplier management for small manufacturers.",
+              "price_display": "From AED 549/mo"
+            },
+            "ar": {
+              "description": "تكلفة المشاريع وتتبّع المواد الخام وإدارة الموردين للمصنّعين الصغار.",
+              "name": "أساسيات الإنتاج",
+              "price_display": "From AED 549/mo"
+            }
+          }
+        },
+        {
+          "id": "i0500b12-0004-0000-0000-000000000001",
+          "type": "pricing_tier_card",
+          "position": 4,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "name": "Manufacturing Group",
+              "description": "Multi-facility cost consolidation, centralised procurement, and group P&L for manufacturing companies.",
+              "price_display": "From AED 1,799/mo"
+            },
+            "ar": {
+              "description": "توحيد تكاليف متعددة المنشآت ومشتريات مركزية وأرباح وخسائر المجموعة لشركات التصنيع.",
+              "name": "مجموعة التصنيع",
+              "price_display": "From AED 1,799/mo"
+            }
+          }
+        },
+        {
+          "id": "i0500b12-0005-0000-0000-000000000001",
+          "type": "cta",
+          "position": 5,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "View full pricing",
+              "destination": {
+                "type": "internal_page",
+                "value": "pricing"
+              },
+              "intent": "primary"
+            },
+            "ar": {
+              "label": "عرض الأسعار الكاملة",
+              "intent": "primary",
+              "destination": {
+                "type": "internal_page",
+                "value": "pricing"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "i0500s13-0000-0000-0000-000000000001",
+      "type": "cta_band",
+      "name": "Get Started",
+      "anchor_id": "industries-manufacturing-cta",
+      "position": 13,
+      "group": "below-fold",
+      "required_block_types": [],
+      "blocks": [
+        {
+          "id": "i0500b13-0001-0000-0000-000000000001",
+          "type": "headline",
+          "position": 1,
+          "weight": 10,
+          "featured": true,
+          "content": {
+            "en": {
+              "text": "Consolidate production costing across all your facilities."
+            },
+            "ar": {
+              "text": "Consolidate production costing across all your facilities."
+            }
+          }
+        },
+        {
+          "id": "i0500b13-0002-0000-0000-000000000001",
+          "type": "subheadline",
+          "position": 2,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "Book a manufacturing implementation consultation today."
+            },
+            "ar": {
+              "text": "Book a manufacturing implementation consultation today."
+            }
+          }
+        },
+        {
+          "id": "i0500b13-0003-0000-0000-000000000001",
+          "type": "cta",
+          "position": 3,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Book a demo",
+              "destination": {
+                "type": "internal_page",
+                "value": "contact"
+              },
+              "intent": "primary"
+            },
+            "ar": {
+              "label": "احجز عرضاً توضيحياً",
+              "intent": "primary",
+              "destination": {
+                "type": "internal_page",
+                "value": "contact"
+              }
+            }
+          }
+        },
+        {
+          "id": "i0500b13-0004-0000-0000-000000000001",
+          "type": "cta",
+          "position": 4,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "View pricing",
+              "destination": {
+                "type": "internal_page",
+                "value": "pricing"
+              },
+              "intent": "secondary"
+            },
+            "ar": {
+              "label": "عرض الأسعار",
+              "intent": "secondary",
+              "destination": {
+                "type": "internal_page",
+                "value": "pricing"
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

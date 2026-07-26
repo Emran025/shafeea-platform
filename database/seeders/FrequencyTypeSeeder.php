@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\FrequencyType;
+use App\Models\Tracking\FrequencyType;
 use Illuminate\Database\Seeder;
 
 class FrequencyTypeSeeder extends Seeder

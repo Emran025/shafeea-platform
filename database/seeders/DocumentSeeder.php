@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\Document;
-use App\Models\User;
+use App\Models\Content\Document;
+use App\Models\Auth\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Storage;
 

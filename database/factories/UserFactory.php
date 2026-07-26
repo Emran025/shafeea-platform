@@ -5,7 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use App\Models\School;
+use App\Models\School\School;
 
 class UserFactory extends Factory
 {
@@ -50,14 +50,14 @@ class UserFactory extends Factory
      */
     public function unverified(): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn(array $attributes) => [
             'email_verified_at' => null,
         ]);
     }
 
     public function admin(): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn(array $attributes) => [
             'name' => 'Admin User',
             'email' => 'admin@example.com',
             'birth_date' => $this->faker->dateTimeBetween('-50 years', '-30 years')->format('Y-m-d'),
@@ -66,14 +66,14 @@ class UserFactory extends Factory
 
     public function student(): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn(array $attributes) => [
             'birth_date' => $this->faker->dateTimeBetween('-18 years', '-10 years')->format('Y-m-d'),
         ]);
     }
 
     public function teacher(): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn(array $attributes) => [
             'birth_date' => $this->faker->dateTimeBetween('-50 years', '-25 years')->format('Y-m-d'),
         ]);
     }

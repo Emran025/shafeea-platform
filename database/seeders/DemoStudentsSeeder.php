@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\Student;
-use App\Models\User;
+use App\Models\Student\Student;
+use App\Models\Auth\User;
 use Illuminate\Database\Seeder;
 
 class DemoStudentsSeeder extends Seeder
@@ -35,7 +35,7 @@ class DemoStudentsSeeder extends Seeder
         }
 
         // Get a random school to assign students to
-        $schoolId = \App\Models\School::inRandomOrder()->first()?->id;
+        $schoolId = \App\Models\School\School::inRandomOrder()->first()?->id;
 
         if (! $schoolId) {
             $this->command->error('❌ No schools found! Please run SchoolSeeder first.');

@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Requests\Teacher\StoreTeacherRequest;
 use App\Http\Requests\Teacher\UpdateTeacherRequest;
-use App\Http\Resources\TeacherResource;
-use App\Http\Resources\TeacherSyncResource;
+use App\Http\Resources\Teacher\TeacherResource;
+use App\Http\Resources\Teacher\TeacherSyncResource;
 use App\Repositories\TeacherRepository;
-use App\Services\TeacherService;
+use App\Services\Teacher\TeacherService;
 use Illuminate\Http\Request;
 
 class TeacherController extends ApiController

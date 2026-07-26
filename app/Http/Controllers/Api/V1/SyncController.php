@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Resources\HalaqahResource;
-use App\Http\Resources\StudentSyncResource;
-use App\Http\Resources\TeacherSyncResource;
-use App\Http\Resources\StudentReportResource;
-use App\Models\Teacher;
-use App\Models\Student;
-use App\Models\StudentReport;
+use App\Http\Resources\Halaqah\HalaqahResource;
+use App\Http\Resources\Student\StudentSyncResource;
+use App\Http\Resources\Teacher\TeacherSyncResource;
+use App\Http\Resources\Student\StudentReportResource;
+use App\Models\Teacher\Teacher;
+use App\Models\Student\Student;
+use App\Models\Student\StudentReport;
 use App\Repositories\HalaqahRepository;
 use App\Repositories\StudentRepository;
 use Illuminate\Http\Request;
@@ -49,7 +49,7 @@ class SyncController extends ApiController
         // Note: The recommended date format for 'updatedSince' is ISO 8601 (e.g., '2023-01-01T00:00:00Z').
         // --------------------------------------------------------------------------------
         $query = Teacher::with(['user', 'halaqahs']);
- 
+
         $updatedSince = $request->input('updatedSince');
         if ($updatedSince && $updatedSince != '0') {
             // Handle numeric timestamp
@@ -64,9 +64,7 @@ class SyncController extends ApiController
 
         $teachersPaginator = $query->paginate(15);
 
-        return $this->success(TeacherSyncResource::collection($teachersPaginator), 'teachers', 200, [
-            'syncTimestamp' => now()->timestamp * 1000,
-        ]);
+        return $this->success(TeacherSyncResource::collection($teachersPaginator), 'teachers', 200);
     }
 
     // GET /api/v1/sync/halaqas
@@ -84,9 +82,7 @@ class SyncController extends ApiController
 
         $halaqas = $repository->getUpdatedSince($updatedSince, $limit, $page);
 
-        return $this->success(HalaqahResource::collection($halaqas), 'halaqas', 200, [
-            'syncTimestamp' => now()->timestamp * 1000,
-        ]);
+        return $this->success(HalaqahResource::collection($halaqas), 'halaqas', 200);
     }
 
     // GET api/v1/sync/reports

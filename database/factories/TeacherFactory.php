@@ -5,7 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Teacher>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Teacher\Teacher>
  */
 class TeacherFactory extends Factory
 {
@@ -17,7 +17,7 @@ class TeacherFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => \App\Models\User::factory(),
+            'user_id' => \App\Models\Auth\User::factory(),
             'bio' => fake()->paragraph(),
             'experience_years' => fake()->numberBetween(1, 40),
         ];

@@ -1,0 +1,9 @@
+[
+  {"name": "Fintech", "description": "Financial technology news and analysis.", "color": "#3B82F6", "articles_count": 12},
+  {"name": "Enterprise", "description": "Enterprise software and digital transformation.", "color": "#10B981", "articles_count": 8},
+  {"name": "Cloud", "description": "Cloud infrastructure and platform engineering.", "color": "#F59E0B", "articles_count": 15},
+  {"name": "Mobile", "description": "Mobile-first products and platform updates.", "color": "#EF4444", "articles_count": 6},
+  {"name": "AI & ML", "description": "Artificial intelligence and machine learning.", "color": "#8B5CF6", "articles_count": 20},
+  {"name": "Commerce", "description": "accommerce platform and commerce trends.", "color": "#06B6D4", "articles_count": 9},
+  {"name": "Partnerships", "description": "Strategic partnerships and ecosystem growth.", "color": "#EC4899", "articles_count": 4}
+]

@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\Halaqah;
-use App\Models\Teacher;
+use App\Models\Halaqah\Halaqah;
+use App\Models\Teacher\Teacher;
 use Illuminate\Database\Seeder;
 
 class DemoHalaqahsSeeder extends Seeder

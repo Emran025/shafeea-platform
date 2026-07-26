@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Public;
 
 use App\Http\Controllers\Controller;
 
-use App\Http\Requests\StoreSchoolApplicationRequest;
-use App\Models\School;
-use App\Models\SubscriptionPlan;
-use App\Services\SchoolService;
+use App\Http\Requests\School\StoreSchoolApplicationRequest;
+use App\Models\School\School;
+use App\Models\Subscription\SubscriptionPlan;
+use App\Services\School\SchoolService;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -91,9 +91,8 @@ class SchoolApplicationController extends Controller
             }
 
             return redirect()->route('register.index')->with('success', 'تم تسجيل طلبكم بنجاح. رقم المرجع للدفع: ' . $result['reference_number'] . '. سيتم تفعيل حسابكم فور تأكيد الدفع.');
-            
         } catch (\Exception $e) {
-            Log::error('Registration checkout error: '.$e->getMessage());
+            Log::error('Registration checkout error: ' . $e->getMessage());
             return back()->withErrors(['error' => 'حدث خطأ أثناء إتمام عملية التسجيل: ' . $e->getMessage()]);
         }
     }

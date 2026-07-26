@@ -1,0 +1,20 @@
+{
+  "id": "nav00000-0000-0000-0003-000000000000",
+  "group_id": "pricing",
+  "label": {
+    "en": "Pricing"
+  },
+  "type": "direct_link",
+  "position": 1,
+  "is_active": true,
+  "columns": [
+    {
+      "id": "nav00000-0000-0000-0003-000000000100",
+      "column_id": "pricing-link",
+      "label": null,
+      "entries": [
+        {"label": { "en": "Pricing" }, "slug": "pricing"}
+      ]
+    }
+  ]
+}

@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\Teacher;
-use App\Models\User;
-use App\Models\School;
+use App\Models\Teacher\Teacher;
+use App\Models\Auth\User;
+use App\Models\School\School;
 use Illuminate\Database\Seeder;
 
 class DemoTeachersSeeder extends Seeder
@@ -58,7 +58,7 @@ class DemoTeachersSeeder extends Seeder
             $experience = rand(1, 20);
             $currentYear = date('Y');
             $estimatedBirthYear = $currentYear - (22 + $experience); // Assumes starting teaching at 22
-            
+
             $user = User::create([
                 'name' => $teacherData['name'],
                 'email' => $teacherData['email'],

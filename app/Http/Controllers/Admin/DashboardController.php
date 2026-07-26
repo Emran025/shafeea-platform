@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Admin as AdminModel;
-use App\Models\Enrollment;
-use App\Models\Halaqah;
-use App\Models\HalaqahSchedule;
-use App\Models\Notification;
-use App\Models\Student;
-use App\Models\StudentReport;
-use App\Models\Teacher;
+use App\Models\Auth\Admin as AdminModel;
+use App\Models\Student\Enrollment;
+use App\Models\Halaqah\Halaqah;
+use App\Models\Halaqah\Halaqah\HalaqahSchedule;
+use App\Models\Content\Notification;
+use App\Models\Student\Student;
+use App\Models\Student\StudentReport;
+use App\Models\Teacher\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
@@ -94,7 +94,7 @@ class DashboardController extends Controller
         }
 
         $genderPerHalaqah = Halaqah::with(['enrollments.student'])->get()->map(function ($halaqah) {
-            $genders = $halaqah->enrollments->groupBy(fn ($e) => $e->student->gender ?? 'unknown')->map->count();
+            $genders = $halaqah->enrollments->groupBy(fn($e) => $e->student->gender ?? 'unknown')->map->count();
 
             return [
                 'halaqah' => $halaqah->name,

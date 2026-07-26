@@ -1,0 +1,1126 @@
+{
+  "id": "pp000000-0000-0000-0000-000000000001",
+  "slug": "platforms/accore",
+  "type": "platform.full_page",
+  "page_subtype": "accore",
+  "identity": {
+    "title": {
+      "en": "accore — Enterprise Operations & B2B Network"
+    },
+    "purpose": {
+      "en": "Platform full page for accore"
+    },
+    "owner": "accsystem",
+    "canonical_url": "https://accsystemerp.com/platforms/accore",
+    "classification": "public"
+  },
+  "hierarchy": {
+    "depth": 1,
+    "position": 1,
+    "include_in_nav": true,
+    "nav_label": {
+      "en": "accore"
+    }
+  },
+  "composition": {
+    "section_order": "explicit",
+    "allow_dynamic": false,
+    "max_sections": 20,
+    "fallback_policy": "show_partial"
+  },
+  "meta": {
+    "seo_title": {
+      "en": "accore — Enterprise Operations & B2B Commercial Network"
+    },
+    "seo_description": {
+      "en": "accore is the enterprise operations and B2B commercial network core. Manage inventory, procurement, supply chains, and business relationships with precision."
+    },
+    "og_title": null,
+    "og_description": null,
+    "og_image": null,
+    "robots": "index,follow"
+  },
+  "sections": [
+    {
+      "id": "acs00001-0000-0000-0000-000000000001",
+      "type": "hero",
+      "name": "Hero",
+      "anchor_id": "platforms-accore-hero",
+      "position": 1,
+      "group": "above-fold",
+      "required_block_types": [
+        "headline"
+      ],
+      "blocks": [
+        {
+          "id": "acbh0001-0000-0000-0000-000000000001",
+          "type": "label",
+          "position": 1,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "Enterprise Platform"
+            },
+            "ar": {
+              "text": "Enterprise Platform"
+            }
+          }
+        },
+        {
+          "id": "acbh0002-0000-0000-0000-000000000001",
+          "type": "headline",
+          "position": 2,
+          "weight": 10,
+          "featured": true,
+          "content": {
+            "en": {
+              "text": "The operating and commercial network core."
+            },
+            "ar": {
+              "text": "The operating and commercial network core."
+            }
+          }
+        },
+        {
+          "id": "acbh0003-0000-0000-0000-000000000001",
+          "type": "subheadline",
+          "position": 3,
+          "weight": 8,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "accore gives enterprises full control over operations, supply chains, procurement, and B2B relationships — in one coherent system."
+            },
+            "ar": {
+              "text": "accore gives enterprises full control over operations, supply chains, procurement, and B2B relationships — in one coherent system."
+            }
+          }
+        },
+        {
+          "id": "acbh0004-0000-0000-0000-000000000001",
+          "type": "cta",
+          "position": 4,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Watch Demo",
+              "destination": {
+                "type": "external_url",
+                "value": "https://accore.accsystemerp.com/demo"
+              },
+              "intent": "primary"
+            },
+            "ar": {
+              "label": "Watch Demo",
+              "intent": "primary",
+              "destination": {
+                "type": "external_url",
+                "value": "https://accore.accsystemerp.com/demo"
+              }
+            }
+          }
+        },
+        {
+          "id": "acbh0005-0000-0000-0000-000000000001",
+          "type": "cta",
+          "position": 5,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Explore accore",
+              "destination": {
+                "type": "external_url",
+                "value": "https://accore.accsystemerp.com"
+              },
+              "intent": "secondary"
+            },
+            "ar": {
+              "label": "استكشف ACCore",
+              "intent": "secondary",
+              "destination": {
+                "type": "external_url",
+                "value": "https://accore.accsystemerp.com"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "acs00002-0000-0000-0000-000000000001",
+      "type": "problem_statement",
+      "name": "Problem Statement",
+      "anchor_id": null,
+      "position": 2,
+      "group": "below-fold",
+      "required_block_types": [],
+      "blocks": [
+        {
+          "id": "acbp0001-0000-0000-0000-000000000001",
+          "type": "label",
+          "position": 1,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "The Problem"
+            },
+            "ar": {
+              "text": "المشكلة"
+            }
+          }
+        },
+        {
+          "id": "acbp0002-0000-0000-0000-000000000001",
+          "type": "headline",
+          "position": 2,
+          "weight": 9,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "Enterprise operations are fragmented by design."
+            },
+            "ar": {
+              "text": "Enterprise operations are fragmented by design."
+            }
+          }
+        },
+        {
+          "id": "acbp0003-0000-0000-0000-000000000001",
+          "type": "rich_text",
+          "position": 3,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "content": {
+                "type": "doc",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Inventory lives in one system. Procurement in another. Supplier relationships in a spreadsheet. Financial reporting requires a full day of reconciliation. The data is there — but the system is not."
+                      }
+                    ]
+                  },
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Enterprise businesses lose significant operational capacity not because they lack data — but because their data does not flow coherently between the functions that need it."
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            "ar": {
+              "content": {
+                "type": "doc",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Inventory lives in one system. Procurement in another. Supplier relationships in a spreadsheet. Financial reporting requires a full day of reconciliation. The data is there — but the system is not."
+                      }
+                    ]
+                  },
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Enterprise businesses lose significant operational capacity not because they lack data — but because their data does not flow coherently between the functions that need it."
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "acs00003-0000-0000-0000-000000000001",
+      "type": "solution_overview",
+      "name": "Solution Overview",
+      "anchor_id": "platforms-accore-solution",
+      "position": 3,
+      "group": "below-fold",
+      "required_block_types": [],
+      "blocks": [
+        {
+          "id": "acbs0001-0000-0000-0000-000000000001",
+          "type": "label",
+          "position": 1,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "The accore Approach"
+            },
+            "ar": {
+              "text": "The accore Approach"
+            }
+          }
+        },
+        {
+          "id": "acbs0002-0000-0000-0000-000000000001",
+          "type": "headline",
+          "position": 2,
+          "weight": 9,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "One system. Every operational function."
+            },
+            "ar": {
+              "text": "One system. Every operational function."
+            }
+          }
+        },
+        {
+          "id": "acbs0003-0000-0000-0000-000000000001",
+          "type": "subheadline",
+          "position": 3,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "accore unifies enterprise operations — inventory, procurement, warehousing, manufacturing, finance, CRM, and B2B supply chain — into a single composable platform with real-time data flow across every domain."
+            },
+            "ar": {
+              "text": "accore unifies enterprise operations — inventory, procurement, warehousing, manufacturing, finance, CRM, and B2B supply chain — into a single composable platform with real-time data flow across every domain."
+            }
+          }
+        },
+        {
+          "id": "acbs0004-0000-0000-0000-000000000001",
+          "type": "cta",
+          "position": 4,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "See Full Capabilities",
+              "destination": {
+                "type": "anchor",
+                "value": "platforms-accore-features"
+              },
+              "intent": "primary"
+            },
+            "ar": {
+              "label": "See Full Capabilities",
+              "intent": "primary",
+              "destination": {
+                "type": "anchor",
+                "value": "platforms-accore-features"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "acs00004-0000-0000-0000-000000000001",
+      "type": "capability_grid",
+      "name": "Capability Grid",
+      "anchor_id": "platforms-accore-features",
+      "position": 4,
+      "group": "below-fold",
+      "required_block_types": [],
+      "blocks": [
+        {
+          "id": "acbc0001-0000-0000-0000-000000000001",
+          "type": "label",
+          "position": 1,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "Key Capabilities"
+            },
+            "ar": {
+              "text": "القدرات الرئيسية"
+            }
+          }
+        },
+        {
+          "id": "acbc0002-0000-0000-0000-000000000001",
+          "type": "headline",
+          "position": 2,
+          "weight": 9,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "Built for enterprise depth."
+            },
+            "ar": {
+              "text": "Built for enterprise depth."
+            }
+          }
+        },
+        {
+          "id": "acbc0003-0000-0000-0000-000000000001",
+          "type": "capability_card",
+          "position": 3,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Inventory & Warehousing",
+              "description": "Real-time stock tracking, multi-warehouse management, and automated replenishment across your entire supply chain."
+            },
+            "ar": {
+              "label": "Inventory & Warehousing",
+              "description": "Real-time stock tracking, multi-warehouse management, and automated replenishment across your entire supply chain."
+            }
+          }
+        },
+        {
+          "id": "acbc0004-0000-0000-0000-000000000001",
+          "type": "capability_card",
+          "position": 4,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Procurement & Supplier Network",
+              "description": "Manage RFQs, purchase orders, and supplier relationships through accore's integrated B2B network."
+            },
+            "ar": {
+              "label": "Procurement & Supplier Network",
+              "description": "Manage RFQs, purchase orders, and supplier relationships through accore's integrated B2B network."
+            }
+          }
+        },
+        {
+          "id": "acbc0005-0000-0000-0000-000000000001",
+          "type": "capability_card",
+          "position": 5,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Financial Operations",
+              "description": "Full accounting, cash flow management, multi-currency support, and automated financial reporting."
+            },
+            "ar": {
+              "label": "Financial Operations",
+              "description": "Full accounting, cash flow management, multi-currency support, and automated financial reporting."
+            }
+          }
+        },
+        {
+          "id": "acbc0006-0000-0000-0000-000000000001",
+          "type": "capability_card",
+          "position": 6,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "CRM & B2B Relations",
+              "description": "Track enterprise customers, manage contracts, and coordinate B2B commercial relationships at scale."
+            },
+            "ar": {
+              "label": "CRM & B2B Relations",
+              "description": "Track enterprise customers, manage contracts, and coordinate B2B commercial relationships at scale."
+            }
+          }
+        },
+        {
+          "id": "acbc0007-0000-0000-0000-000000000001",
+          "type": "capability_card",
+          "position": 7,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Manufacturing & Production",
+              "description": "Production orders, bill of materials, shop floor control, and quality management in one system."
+            },
+            "ar": {
+              "label": "Manufacturing & Production",
+              "description": "Production orders, bill of materials, shop floor control, and quality management in one system."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "acs00005-0000-0000-0000-000000000001",
+      "type": "ecosystem_diagram",
+      "name": "Ecosystem Diagram",
+      "anchor_id": "platforms-accore-ecosystem",
+      "position": 5,
+      "group": "below-fold",
+      "required_block_types": [],
+      "blocks": [
+        {
+          "id": "acbe0001-0000-0000-0000-000000000001",
+          "type": "label",
+          "position": 1,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "How It Fits"
+            },
+            "ar": {
+              "text": "How It Fits"
+            }
+          }
+        },
+        {
+          "id": "acbe0002-0000-0000-0000-000000000001",
+          "type": "headline",
+          "position": 2,
+          "weight": 9,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "accore is the operational core of the ACCSYSTEM ecosystem."
+            },
+            "ar": {
+              "text": "accore is the operational core of the ACCSYSTEM ecosystem."
+            }
+          }
+        },
+        {
+          "id": "acbe0003-0000-0000-0000-000000000001",
+          "type": "rich_text",
+          "position": 3,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "content": {
+                "type": "doc",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "accore manages the operational reality of your business. accommerce exposes that operational data to your customers — creating a live, accurate commerce layer. qayd gives individuals and small operators a path into the same ecosystem, scaling up to accore as their business grows."
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            "ar": {
+              "content": {
+                "type": "doc",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "accore manages the operational reality of your business. accommerce exposes that operational data to your customers — creating a live, accurate commerce layer. qayd gives individuals and small operators a path into the same ecosystem, scaling up to accore as their business grows."
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "acs00006-0000-0000-0000-000000000001",
+      "type": "use_case_grid",
+      "name": "Use Cases",
+      "anchor_id": "platforms-accore-use-cases",
+      "position": 6,
+      "group": "below-fold",
+      "required_block_types": [],
+      "blocks": [
+        {
+          "id": "acbu0001-0000-0000-0000-000000000001",
+          "type": "label",
+          "position": 1,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "Use Cases"
+            },
+            "ar": {
+              "text": "حالات الاستخدام"
+            }
+          }
+        },
+        {
+          "id": "acbu0002-0000-0000-0000-000000000001",
+          "type": "headline",
+          "position": 2,
+          "weight": 9,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "Built for how your business actually operates."
+            },
+            "ar": {
+              "text": "Built for how your business actually operates."
+            }
+          }
+        },
+        {
+          "id": "acbu0003-0000-0000-0000-000000000001",
+          "type": "use_case_card",
+          "position": 3,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "headline": "A manufacturing company manages its full production cycle",
+              "scenario_narrative": "From raw material procurement through supplier RFQs to finished goods warehousing and B2B distribution — all in accore, with real-time data across every stage.",
+              "tags": [
+                "Manufacturing",
+                "Operations Manager"
+              ]
+            },
+            "ar": {
+              "headline": "A manufacturing company manages its full production cycle",
+              "scenario_narrative": "From raw material procurement through supplier RFQs to finished goods warehousing and B2B distribution — all in accore, with real-time data across every stage.",
+              "tags": [
+                "Manufacturing",
+                "Operations Manager"
+              ]
+            }
+          }
+        },
+        {
+          "id": "acbu0004-0000-0000-0000-000000000001",
+          "type": "use_case_card",
+          "position": 4,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "headline": "A wholesale distributor builds a live supplier network",
+              "scenario_narrative": "Procurement teams use accore's B2B network to discover suppliers, issue RFQs, and manage purchase orders without leaving the system.",
+              "tags": [
+                "Wholesale",
+                "Procurement Manager"
+              ]
+            },
+            "ar": {
+              "headline": "A wholesale distributor builds a live supplier network",
+              "scenario_narrative": "Procurement teams use accore's B2B network to discover suppliers, issue RFQs, and manage purchase orders without leaving the system.",
+              "tags": [
+                "Wholesale",
+                "Procurement Manager"
+              ]
+            }
+          }
+        },
+        {
+          "id": "acbu0005-0000-0000-0000-000000000001",
+          "type": "use_case_card",
+          "position": 5,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "headline": "A finance team closes the month in hours, not days",
+              "scenario_narrative": "Accounting is live — inventory movements, purchase orders, and sales all feed directly into the general ledger. The monthly close is a report, not a reconciliation project.",
+              "tags": [
+                "Finance",
+                "Finance Manager"
+              ]
+            },
+            "ar": {
+              "headline": "A finance team closes the month in hours, not days",
+              "scenario_narrative": "Accounting is live — inventory movements, purchase orders, and sales all feed directly into the general ledger. The monthly close is a report, not a reconciliation project.",
+              "tags": [
+                "Finance",
+                "Finance Manager"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "acs00007-0000-0000-0000-000000000001",
+      "type": "industry_grid",
+      "name": "Industry Grid",
+      "anchor_id": "platforms-accore-industries",
+      "position": 7,
+      "group": "below-fold",
+      "required_block_types": [],
+      "blocks": [
+        {
+          "id": "acbi0001-0000-0000-0000-000000000001",
+          "type": "label",
+          "position": 1,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "Built For Your Industry"
+            },
+            "ar": {
+              "text": "Built For Your Industry"
+            }
+          }
+        },
+        {
+          "id": "acbi0002-0000-0000-0000-000000000001",
+          "type": "headline",
+          "position": 2,
+          "weight": 9,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "accore adapts to your vertical."
+            },
+            "ar": {
+              "text": "accore adapts to your vertical."
+            }
+          }
+        },
+        {
+          "id": "acbi0003-0000-0000-0000-000000000001",
+          "type": "industry_card",
+          "position": 3,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "industry_name": "Manufacturing",
+              "description": "Production orders, BOM management, and shop floor control.",
+              "platforms": [
+                "accore"
+              ]
+            },
+            "ar": {
+              "description": "Production orders, BOM management, and shop floor control.",
+              "industry_name": "التصنيع",
+              "platforms": [
+                "accore"
+              ]
+            }
+          }
+        },
+        {
+          "id": "acbi0004-0000-0000-0000-000000000001",
+          "type": "industry_card",
+          "position": 4,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "industry_name": "Wholesale & Distribution",
+              "description": "Multi-warehouse inventory, supplier networks, and B2B order management.",
+              "platforms": [
+                "accore",
+                "accommerce"
+              ]
+            },
+            "ar": {
+              "description": "Multi-warehouse inventory, supplier networks, and B2B order management.",
+              "industry_name": "Wholesale & Distribution",
+              "platforms": [
+                "accore",
+                "accommerce"
+              ]
+            }
+          }
+        },
+        {
+          "id": "acbi0005-0000-0000-0000-000000000001",
+          "type": "industry_card",
+          "position": 5,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "industry_name": "Professional Services",
+              "description": "Project accounting, resource management, and client billing.",
+              "platforms": [
+                "accore"
+              ]
+            },
+            "ar": {
+              "description": "Project accounting, resource management, and client billing.",
+              "industry_name": "الخدمات المهنية",
+              "platforms": [
+                "accore"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "acs00008-0000-0000-0000-000000000001",
+      "type": "testimonial",
+      "name": "Customer Proof",
+      "anchor_id": "platforms-accore-customers",
+      "position": 8,
+      "group": "below-fold",
+      "required_block_types": [],
+      "blocks": [
+        {
+          "id": "acbt0001-0000-0000-0000-000000000001",
+          "type": "label",
+          "position": 1,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "Customer Proof"
+            },
+            "ar": {
+              "text": "إثبات العملاء"
+            }
+          }
+        },
+        {
+          "id": "acbt0002-0000-0000-0000-000000000001",
+          "type": "headline",
+          "position": 2,
+          "weight": 9,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "Trusted by operations teams that cannot afford downtime."
+            },
+            "ar": {
+              "text": "Trusted by operations teams that cannot afford downtime."
+            }
+          }
+        },
+        {
+          "id": "acbt0003-0000-0000-0000-000000000001",
+          "type": "quote",
+          "position": 3,
+          "weight": 8,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "accore replaced four separate systems. Our procurement cycle dropped from 12 days to 3. The supplier network alone paid for the implementation in the first quarter.",
+              "attribution": "Operations Director, Manufacturing Enterprise"
+            },
+            "ar": {
+              "text": "accore replaced four separate systems. Our procurement cycle dropped from 12 days to 3. The supplier network alone paid for the implementation in the first quarter.",
+              "attribution": "Operations Director, Manufacturing Enterprise"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "acs00009-0000-0000-0000-000000000001",
+      "type": "pricing_card_row",
+      "name": "Pricing Teaser",
+      "anchor_id": "platforms-accore-pricing",
+      "position": 9,
+      "group": "below-fold",
+      "required_block_types": [],
+      "blocks": [
+        {
+          "id": "acbr0001-0000-0000-0000-000000000001",
+          "type": "label",
+          "position": 1,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "Pricing"
+            },
+            "ar": {
+              "text": "الأسعار"
+            }
+          }
+        },
+        {
+          "id": "acbr0002-0000-0000-0000-000000000001",
+          "type": "headline",
+          "position": 2,
+          "weight": 9,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "Transparent pricing for every stage of your business."
+            },
+            "ar": {
+              "text": "Transparent pricing for every stage of your business."
+            }
+          }
+        },
+        {
+          "id": "acbr0003-0000-0000-0000-000000000001",
+          "type": "pricing_tier_card",
+          "position": 3,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "tier_name": "Starter",
+              "price": "$49",
+              "price_descriptor": "per user / month",
+              "features": [
+                "Core inventory management",
+                "Basic procurement",
+                "Financial reporting",
+                "Up to 5 users"
+              ],
+              "is_featured": false
+            },
+            "ar": {
+              "price_descriptor": "per user / month",
+              "tier_name": "البداية",
+              "price": "$49",
+              "is_featured": false,
+              "features": [
+                "Core inventory management",
+                "Basic procurement",
+                "Financial reporting",
+                "Up to 5 users"
+              ]
+            }
+          }
+        },
+        {
+          "id": "acbr0004-0000-0000-0000-000000000001",
+          "type": "pricing_tier_card",
+          "position": 4,
+          "weight": 10,
+          "featured": false,
+          "content": {
+            "en": {
+              "tier_name": "Growth",
+              "price": "$119",
+              "price_descriptor": "per user / month",
+              "features": [
+                "Full operations suite",
+                "B2B supplier network",
+                "Advanced analytics",
+                "Unlimited users"
+              ],
+              "is_featured": true
+            },
+            "ar": {
+              "price_descriptor": "per user / month",
+              "tier_name": "النمو",
+              "price": "$119",
+              "is_featured": true,
+              "features": [
+                "Full operations suite",
+                "B2B supplier network",
+                "Advanced analytics",
+                "Unlimited users"
+              ]
+            }
+          }
+        },
+        {
+          "id": "acbr0005-0000-0000-0000-000000000001",
+          "type": "cta",
+          "position": 5,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "See Full Pricing",
+              "destination": {
+                "type": "internal_page",
+                "value": "pricing/accore"
+              },
+              "intent": "secondary"
+            },
+            "ar": {
+              "label": "عرض الأسعار الكاملة",
+              "intent": "secondary",
+              "destination": {
+                "type": "internal_page",
+                "value": "pricing/accore"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "acs00010-0000-0000-0000-000000000001",
+      "type": "narrative",
+      "name": "Ecosystem Links",
+      "anchor_id": null,
+      "position": 10,
+      "group": "below-fold",
+      "required_block_types": [],
+      "blocks": [
+        {
+          "id": "acbx0001-0000-0000-0000-000000000001",
+          "type": "label",
+          "position": 1,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "Complete the Picture"
+            },
+            "ar": {
+              "text": "Complete the Picture"
+            }
+          }
+        },
+        {
+          "id": "acbx0002-0000-0000-0000-000000000001",
+          "type": "headline",
+          "position": 2,
+          "weight": 8,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "accore works best as part of the ecosystem."
+            },
+            "ar": {
+              "text": "accore works best as part of the ecosystem."
+            }
+          }
+        },
+        {
+          "id": "acbx0003-0000-0000-0000-000000000001",
+          "type": "platform_recommendation",
+          "position": 3,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "platform_name": "accommerce",
+              "description": "Expose your operational data to customers. accommerce turns your accore inventory into a live commerce layer."
+            },
+            "ar": {
+              "description": "Expose your operational data to customers. accommerce turns your accore inventory into a live commerce layer."
+            }
+          }
+        },
+        {
+          "id": "acbx0004-0000-0000-0000-000000000001",
+          "type": "platform_recommendation",
+          "position": 4,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "platform_name": "qayd",
+              "description": "Already using qayd? accore is your natural next step as your business grows into full enterprise operations."
+            },
+            "ar": {
+              "description": "Already using qayd? accore is your natural next step as your business grows into full enterprise operations."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "acs00011-0000-0000-0000-000000000001",
+      "type": "cta_band",
+      "name": "CTA Footer",
+      "anchor_id": null,
+      "position": 11,
+      "group": "below-fold",
+      "required_block_types": [
+        "headline"
+      ],
+      "blocks": [
+        {
+          "id": "acbz0001-0000-0000-0000-000000000001",
+          "type": "headline",
+          "position": 1,
+          "weight": 9,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "Ready to unify your operations?"
+            },
+            "ar": {
+              "text": "Ready to unify your operations?"
+            }
+          }
+        },
+        {
+          "id": "acbz0002-0000-0000-0000-000000000001",
+          "type": "subheadline",
+          "position": 2,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "Start a free trial or talk to our enterprise team about a custom implementation."
+            },
+            "ar": {
+              "text": "Start a free trial or talk to our enterprise team about a custom implementation."
+            }
+          }
+        },
+        {
+          "id": "acbz0003-0000-0000-0000-000000000001",
+          "type": "cta",
+          "position": 3,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Start Free Trial",
+              "destination": {
+                "type": "external_url",
+                "value": "https://accore.accsystemerp.com/trial"
+              },
+              "intent": "primary"
+            },
+            "ar": {
+              "label": "Start Free Trial",
+              "intent": "primary",
+              "destination": {
+                "type": "external_url",
+                "value": "https://accore.accsystemerp.com/trial"
+              }
+            }
+          }
+        },
+        {
+          "id": "acbz0004-0000-0000-0000-000000000001",
+          "type": "cta",
+          "position": 4,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Talk to Sales",
+              "destination": {
+                "type": "internal_page",
+                "value": "contact"
+              },
+              "intent": "secondary"
+            },
+            "ar": {
+              "label": "Talk to Sales",
+              "intent": "secondary",
+              "destination": {
+                "type": "internal_page",
+                "value": "contact"
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

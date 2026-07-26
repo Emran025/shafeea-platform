@@ -1,0 +1,68 @@
+/* ════════════════════════════════════════════════════════════════
+   TOKENS — Single source of truth for all design values.
+   Referenced by every other CSS partial via custom properties.
+════════════════════════════════════════════════════════════════ */
+
+/* Tailwind v4 theme tokens (generates utility classes) */
+@theme {
+    --font-sans:        'Inter', 'Cairo', ui-sans-serif, system-ui, sans-serif;
+    --color-navy:       #0F2741;
+    --color-navy-light: #1a3a5c;
+    --color-gold:       #C9A227;
+    --color-gold-light: #ddb83e;
+    --color-gold-dark:  #a8861f;
+    --color-surface:    #F8F9FB;
+}
+
+/* CSS custom properties (used throughout component CSS) */
+:root {
+    --brand-navy:        #0F2741;
+    --brand-navy-light:  #1a3a5c;
+    --brand-gold:        #C9A227;
+    --brand-gold-hover:  #ddb83e;
+    --brand-gold-dark:   #a8861f;
+
+    --surface:           #F8F9FB;
+    --white:             #ffffff;
+    --border:            #e2e8f0;
+    --border-subtle:     #f1f5f9;
+
+    --text-primary:      #0F2741;
+    --text-secondary:    #475569;
+    --text-muted:        #94a3b8;
+    --text-body:         #374151;
+
+    --dk-text-primary:   #ffffff;
+    --dk-text-secondary: rgba(255,255,255,0.78);
+    --dk-text-muted:     rgba(255,255,255,0.45);
+
+    --pad-section:       96px;
+    --pad-section-sm:    64px;
+    --pad-section-lg:    128px;
+
+    --container-max:     1200px;
+    --container-px:      24px;
+    --radius-card:       8px;
+    --radius-card-lg:    12px;
+
+    --shadow-card:       0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-card-hover: 0 20px 50px rgba(0,0,0,0.12), 0 8px 24px rgba(0,0,0,0.08);
+
+    --transition-fast:   0.15s ease;
+    --transition-base:   0.25s ease;
+    --transition-slow:   0.4s ease;
+}
+
+/* Dark mode overrides (applied when .dark class is on html/body element) */
+.dark {
+    --surface:           #0B132C;
+    --white:             #050A18;
+    --border:            rgba(255, 255, 255, 0.09);
+    --border-subtle:     rgba(255, 255, 255, 0.05);
+
+    --text-primary:      #ffffff;
+    --text-secondary:    rgba(255, 255, 255, 0.8);
+    --text-muted:        rgba(255, 255, 255, 0.5);
+    --text-body:         rgba(255, 255, 255, 0.85);
+}
+

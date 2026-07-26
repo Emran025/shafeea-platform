@@ -1,0 +1,273 @@
+{
+  "id": "55555555-0000-0000-0000-000000000004",
+  "slug": "newsroom/stories",
+  "type": "newsroom.stories",
+  "identity": {
+    "title": {
+      "en": "Stories — ACCSYSTEM"
+    },
+    "purpose": {
+      "en": "Newsroom customer success stories page"
+    },
+    "owner": "accsystem",
+    "canonical_url": "https://accsystemerp.com/newsroom/stories",
+    "classification": "public"
+  },
+  "hierarchy": {
+    "depth": 0,
+    "position": 12,
+    "include_in_nav": false,
+    "nav_label": {
+      "en": "Stories"
+    }
+  },
+  "composition": {
+    "section_order": "explicit",
+    "allow_dynamic": false,
+    "max_sections": 20,
+    "fallback_policy": "show_partial"
+  },
+  "meta": {
+    "seo_title": {
+      "en": "Customer Stories — ACCSYSTEM"
+    },
+    "seo_description": {
+      "en": "How businesses and individuals are using accore, accommerce, and qayd to organize their operations and grow."
+    },
+    "og_title": null,
+    "og_description": null,
+    "og_image": null,
+    "robots": "index,follow"
+  },
+  "sections": [
+    {
+      "id": "66666666-0000-0000-0003-000000000001",
+      "type": "stories_hero",
+      "name": "Stories Hero",
+      "anchor_id": "stories-hero",
+      "position": 1,
+      "group": "above-fold",
+      "pinned": true,
+      "required_block_types": [
+        "headline"
+      ],
+      "blocks": [
+        {
+          "id": "77777777-0000-0003-0001-000000000001",
+          "type": "headline",
+          "position": 1,
+          "weight": 9,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "Stories"
+            },
+            "ar": {
+              "text": "Stories"
+            }
+          }
+        },
+        {
+          "id": "77777777-0000-0003-0001-000000000002",
+          "type": "subheadline",
+          "position": 2,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "Businesses and individuals around the world are using ACCSYSTEM."
+            },
+            "ar": {
+              "text": "Businesses and individuals around the world are using ACCSYSTEM."
+            }
+          }
+        },
+        {
+          "id": "77777777-0000-0003-0001-000000000003",
+          "type": "customer_story_card",
+          "position": 3,
+          "weight": 10,
+          "featured": true,
+          "content": {
+            "en": {
+              "company": "Al-Mashari Trading",
+              "outcome": "Al-Mashari Trading unified its supplier network and reduced procurement time by 40% using accore.",
+              "quote": "The system gave us visibility we never had before — every supplier relationship, every contract, in one place.",
+              "image_url": "/media/a22587226f6a2c840e045e23364f.jpg",
+              "logo_url": "",
+              "url": "/stories"
+            },
+            "ar": {
+              "outcome": "Al-Mashari Trading unified its supplier network and reduced procurement time by 40% using accore.",
+              "quote": "The system gave us visibility we never had before — every supplier relationship, every contract, in one place.",
+              "image_url": "/media/a22587226f6a2c840e045e23364f.jpg",
+              "logo_url": "",
+              "url": "/stories"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "66666666-0000-0000-0003-000000000002",
+      "type": "stories_grid",
+      "name": "Stories Grid",
+      "anchor_id": "all-stories",
+      "position": 2,
+      "group": "below-fold",
+      "required_block_types": [],
+      "blocks": [
+        {
+          "id": "77777777-0000-0003-0002-000000000001",
+          "type": "customer_story_card",
+          "position": 1,
+          "weight": 9,
+          "featured": true,
+          "content": {
+            "en": {
+              "company": "Horizons Retail Group",
+              "outcome": "Horizons scaled from 3 locations to 12 with accommerce powering their entire online presence.",
+              "quote": "accommerce removed the technical barrier entirely. We focused on the product, not the infrastructure.",
+              "image_url": "/media/cover-page-1-1-1024x576.png",
+              "url": "/stories",
+              "author_name": "Company story",
+              "author_title": "June 10, 2026"
+            },
+            "ar": {
+              "outcome": "Horizons scaled from 3 locations to 12 with accommerce powering their entire online presence.",
+              "quote": "accommerce removed the technical barrier entirely. We focused on the product, not the infrastructure.",
+              "author_title": "June 10, 2026",
+              "image_url": "/media/cover-page-1-1-1024x576.png",
+              "url": "/stories"
+            }
+          }
+        },
+        {
+          "id": "77777777-0000-0003-0002-000000000002",
+          "type": "customer_story_card",
+          "position": 2,
+          "weight": 9,
+          "featured": true,
+          "content": {
+            "en": {
+              "company": "Khalid Al-Sayed Consulting",
+              "outcome": "How a solo consultant runs a structured enterprise practice entirely on qayd.",
+              "quote": "qayd gave me the structure of a finance department without needing to hire one.",
+              "image_url": "/media/image-113-1024x597.png",
+              "url": "/stories",
+              "author_name": "User story",
+              "author_title": "June 2, 2026"
+            },
+            "ar": {
+              "outcome": "How a solo consultant runs a structured enterprise practice entirely on qayd.",
+              "quote": "qayd gave me the structure of a finance department without needing to hire one.",
+              "author_title": "June 2, 2026",
+              "image_url": "/media/image-113-1024x597.png",
+              "url": "/stories"
+            }
+          }
+        },
+        {
+          "id": "77777777-0000-0003-0002-000000000003",
+          "type": "customer_story_card",
+          "position": 3,
+          "weight": 6,
+          "featured": false,
+          "content": {
+            "en": {
+              "company": "Nour Logistics",
+              "outcome": "Nour Logistics manages 200+ active supplier contracts through accore without a single spreadsheet.",
+              "quote": "",
+              "image_url": "/media/invoice_envoicing-hub_01.png",
+              "url": "/stories",
+              "author_name": "Company story",
+              "author_title": "May 25, 2026"
+            },
+            "ar": {
+              "outcome": "Nour Logistics manages 200+ active supplier contracts through accore without a single spreadsheet.",
+              "quote": "",
+              "author_title": "May 25, 2026",
+              "image_url": "/media/invoice_envoicing-hub_01.png",
+              "url": "/stories"
+            }
+          }
+        },
+        {
+          "id": "77777777-0000-0003-0002-000000000004",
+          "type": "customer_story_card",
+          "position": 4,
+          "weight": 6,
+          "featured": false,
+          "content": {
+            "en": {
+              "company": "Riyadh Home Goods",
+              "outcome": "How Riyadh Home Goods doubled their product catalogue reach within 60 days on accommerce.",
+              "quote": "",
+              "image_url": "/media/maxresdefault.jpg",
+              "url": "/stories",
+              "author_name": "Company story",
+              "author_title": "May 18, 2026"
+            },
+            "ar": {
+              "outcome": "How Riyadh Home Goods doubled their product catalogue reach within 60 days on accommerce.",
+              "quote": "",
+              "author_title": "May 18, 2026",
+              "image_url": "/media/maxresdefault.jpg",
+              "url": "/stories"
+            }
+          }
+        },
+        {
+          "id": "77777777-0000-0003-0002-000000000005",
+          "type": "customer_story_card",
+          "position": 5,
+          "weight": 6,
+          "featured": false,
+          "content": {
+            "en": {
+              "company": "Fatimah Al-Hassan",
+              "outcome": "An independent architect tracking projects, invoices, and cash flow entirely within qayd.",
+              "quote": "",
+              "image_url": "/media/01_Map.png",
+              "url": "/stories",
+              "author_name": "User story",
+              "author_title": "May 10, 2026"
+            },
+            "ar": {
+              "outcome": "An independent architect tracking projects, invoices, and cash flow entirely within qayd.",
+              "quote": "",
+              "author_title": "May 10, 2026",
+              "image_url": "/media/01_Map.png",
+              "url": "/stories"
+            }
+          }
+        },
+        {
+          "id": "77777777-0000-0003-0002-000000000006",
+          "type": "customer_story_card",
+          "position": 6,
+          "weight": 6,
+          "featured": false,
+          "content": {
+            "en": {
+              "company": "Eastern Trade Alliance",
+              "outcome": "Eastern Trade Alliance connected three cross-border supply chains using accore in under 90 days.",
+              "quote": "",
+              "image_url": "/media/a22587226f6a2c840e045e23364f.jpg",
+              "url": "/stories",
+              "author_name": "Company story",
+              "author_title": "April 30, 2026"
+            },
+            "ar": {
+              "outcome": "Eastern Trade Alliance connected three cross-border supply chains using accore in under 90 days.",
+              "quote": "",
+              "author_title": "April 30, 2026",
+              "image_url": "/media/a22587226f6a2c840e045e23364f.jpg",
+              "url": "/stories"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

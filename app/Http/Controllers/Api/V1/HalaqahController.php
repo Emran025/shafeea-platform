@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Resources\HalaqahResource;
-use App\Http\Resources\StudentHistoryResource;
-use App\Http\Resources\StudentKhatmResource;
-use App\Http\Requests\AssignStudentsRequest;
-use App\Http\Requests\AssignTeacherRequest;
-use App\Http\Requests\StoreHalaqahRequest;
-use App\Http\Requests\UpdateHalaqahRequest;
+use App\Http\Resources\Halaqah\HalaqahResource;
+use App\Http\Resources\Student\StudentHistoryResource;
+use App\Http\Resources\Student\StudentKhatmResource;
+use App\Http\Requests\Student\AssignStudentsRequest;
+use App\Http\Requests\Teacher\AssignTeacherRequest;
+use App\Http\Requests\Halaqah\StoreHalaqahRequest;
+use App\Http\Requests\Halaqah\UpdateHalaqahRequest;
 use App\Repositories\HalaqahRepository;
-use App\Services\HalaqahService;
+use App\Services\Halaqah\HalaqahService;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;

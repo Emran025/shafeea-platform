@@ -1,0 +1,20 @@
+<svg class="AnimatedIcon__icon" data-js-controller="FastForwardIcon" height="96" preserveaspectratio="xMinYMin" viewbox="0 0 96 96" width="96"
+    xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <path d="M19.15 31.36l21.53 15.15a2 2 0 0 1 0 3.27L19.15 64.93A2 2 0 0 1 16 63.29V33a2 2 0 0 1 3.15-1.64z" id="fastForwardIconArrow"></path>
+        <clippath id="fastForwardIconClipPath">
+            <use data-js-bbox="firstHiddenArrow" data-js-target-list="FastForwardIcon.firstBackArrows" fill="#0F2741" href="#fastForwardIconArrow"></use>
+            <use data-js-bbox="secondHiddenArrow" data-js-target-list="FastForwardIcon.secondBackArrows" fill="#0F2741" href="#fastForwardIconArrow" transform="translate(-42, 0)"></use>
+        </clippath>
+    </defs>
+    <use data-js-target="FastForwardIcon.firstHiddenArrow" fill="#0F2741" href="#fastForwardIconArrow" style="visibility: hidden;"></use>
+    <use data-js-target="FastForwardIcon.secondHiddenArrow" fill="#0F2741" href="#fastForwardIconArrow" style="visibility: hidden;" transform="translate(-42, 0)"></use>
+    <use data-js-target-list="FastForwardIcon.firstBackArrows" fill="#0F2741" href="#fastForwardIconArrow"></use>
+    <use data-js-target-list="FastForwardIcon.secondBackArrows" fill="#0F2741" href="#fastForwardIconArrow" style="opacity: 0;"></use>
+    <use data-js-target-list="FastForwardIcon.firstFrontArrows" fill="#0F2741" href="#fastForwardIconArrow" transform="translate(14, 0)"></use>
+    <use data-js-target-list="FastForwardIcon.secondFrontArrows" fill="#0F2741" href="#fastForwardIconArrow" style="opacity: 0;"></use>
+    <g clip-path="url(#fastForwardIconClipPath)">
+        <use data-js-target-list="FastForwardIcon.firstFrontArrows" fill="#005E7A" href="#fastForwardIconArrow" transform="translate(14, 0)"></use>
+        <use data-js-target-list="FastForwardIcon.secondFrontArrows" fill="#005E7A" href="#fastForwardIconArrow" style="opacity: 0;"></use>
+    </g>
+</svg>

@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Unit;
+use App\Models\Tracking\Unit;
 use Illuminate\Database\Seeder;
 
 class QuranUnitSeeder extends Seeder

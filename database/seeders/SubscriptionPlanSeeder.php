@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\SubscriptionPlan;
+use App\Models\Subscription\SubscriptionPlan;
 use Illuminate\Database\Seeder;
 
 class SubscriptionPlanSeeder extends Seeder
@@ -94,8 +94,7 @@ class SubscriptionPlanSeeder extends Seeder
                 $subscriptionPlanData
             );
         }
-        
-        $this->command->info('✅ Created ' . count($subscriptionPlans) . ' subscription Plans');
 
+        $this->command->info('✅ Created ' . count($subscriptionPlans) . ' subscription Plans');
     }
 }

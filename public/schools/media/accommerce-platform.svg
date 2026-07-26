@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 680" width="1200" height="680">
+  <defs>
+    <linearGradient id="bg2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#fafafa"/><stop offset="100%" style="stop-color:#f0f4f8"/></linearGradient>
+    <linearGradient id="acc" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#C9A227"/><stop offset="100%" style="stop-color:#e8b83a"/></linearGradient>
+    <linearGradient id="hero2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#0F2741"/><stop offset="100%" style="stop-color:#1e3a5f"/></linearGradient>
+  </defs>
+  <rect width="1200" height="680" fill="url(#bg2)"/>
+  <!-- Top nav bar -->
+  <rect x="0" y="0" width="1200" height="64" fill="white" filter="drop-shadow(0 1px 3px rgba(0,0,0,0.08))"/>
+  <text x="40" y="41" font-family="Inter,sans-serif" font-size="17" fill="#0F2741" font-weight="800" letter-spacing="0.06em">accommerce</text>
+  <text x="260" y="41" font-family="Inter,sans-serif" font-size="14" fill="#64748b">Discover</text>
+  <text x="340" y="41" font-family="Inter,sans-serif" font-size="14" fill="#64748b">Categories</text>
+  <text x="440" y="41" font-family="Inter,sans-serif" font-size="14" fill="#64748b">Suppliers</text>
+  <rect x="560" y="18" width="380" height="30" rx="15" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="580" y="38" font-family="Inter,sans-serif" font-size="13" fill="#94a3b8">Search products, suppliers, categories...</text>
+  <rect x="1100" y="16" width="80" height="32" rx="16" fill="url(#hero2)"/>
+  <text x="1120" y="37" font-family="Inter,sans-serif" font-size="12" fill="white" font-weight="600">Sign In</text>
+  <!-- Hero banner -->
+  <rect x="40" y="84" width="760" height="300" rx="16" fill="url(#hero2)"/>
+  <text x="80" y="148" font-family="Inter,sans-serif" font-size="13" fill="rgba(201,162,39,1)" font-weight="600" letter-spacing="0.1em">FEATURED</text>
+  <text x="80" y="196" font-family="Inter,sans-serif" font-size="34" fill="white" font-weight="800">Industrial Grade</text>
+  <text x="80" y="238" font-family="Inter,sans-serif" font-size="34" fill="white" font-weight="800">Supply Chain Tools</text>
+  <text x="80" y="276" font-family="Inter,sans-serif" font-size="15" fill="rgba(255,255,255,0.65)">Connect with verified enterprise suppliers</text>
+  <rect x="80" y="312" width="140" height="40" rx="20" fill="url(#acc)"/>
+  <text x="108" y="337" font-family="Inter,sans-serif" font-size="13" fill="#0F2741" font-weight="700">Explore Now</text>
+  <!-- Side panel -->
+  <rect x="820" y="84" width="340" height="140" rx="16" fill="url(#acc)"/>
+  <text x="856" y="128" font-family="Inter,sans-serif" font-size="18" fill="#0F2741" font-weight="800">New Arrivals</text>
+  <text x="856" y="158" font-family="Inter,sans-serif" font-size="13" fill="rgba(15,39,65,0.65)">3,200+ new listings this week</text>
+  <rect x="820" y="244" width="340" height="140" rx="16" fill="#0F2741"/>
+  <text x="856" y="288" font-family="Inter,sans-serif" font-size="18" fill="white" font-weight="800">Verified Suppliers</text>
+  <text x="856" y="318" font-family="Inter,sans-serif" font-size="13" fill="rgba(255,255,255,0.55)">18,000+ vetted businesses</text>
+  <!-- Product cards row -->
+  <text x="40" y="430" font-family="Inter,sans-serif" font-size="16" fill="#0F2741" font-weight="700">Trending Categories</text>
+  <rect x="40" y="450" width="220" height="196" rx="12" fill="white" stroke="#e2e8f0" stroke-width="1"/>
+  <rect x="40" y="450" width="220" height="110" rx="12" fill="#f1f5f9"/>
+  <text x="80" y="518" font-family="Inter,sans-serif" font-size="26">🏭</text>
+  <text x="60" y="588" font-family="Inter,sans-serif" font-size="14" fill="#0F2741" font-weight="600">Manufacturing</text>
+  <text x="60" y="610" font-family="Inter,sans-serif" font-size="12" fill="#94a3b8">4,820 suppliers</text>
+  <rect x="280" y="450" width="220" height="196" rx="12" fill="white" stroke="#e2e8f0" stroke-width="1"/>
+  <rect x="280" y="450" width="220" height="110" rx="12" fill="#fef9ec"/>
+  <text x="320" y="518" font-family="Inter,sans-serif" font-size="26">📦</text>
+  <text x="300" y="588" font-family="Inter,sans-serif" font-size="14" fill="#0F2741" font-weight="600">Logistics</text>
+  <text x="300" y="610" font-family="Inter,sans-serif" font-size="12" fill="#94a3b8">2,340 suppliers</text>
+  <rect x="520" y="450" width="220" height="196" rx="12" fill="white" stroke="#e2e8f0" stroke-width="1"/>
+  <rect x="520" y="450" width="220" height="110" rx="12" fill="#f0fdf4"/>
+  <text x="560" y="518" font-family="Inter,sans-serif" font-size="26">💻</text>
+  <text x="540" y="588" font-family="Inter,sans-serif" font-size="14" fill="#0F2741" font-weight="600">Technology</text>
+  <text x="540" y="610" font-family="Inter,sans-serif" font-size="12" fill="#94a3b8">6,100 suppliers</text>
+  <rect x="760" y="450" width="220" height="196" rx="12" fill="white" stroke="#e2e8f0" stroke-width="1"/>
+  <rect x="760" y="450" width="220" height="110" rx="12" fill="#fdf2f8"/>
+  <text x="800" y="518" font-family="Inter,sans-serif" font-size="26">⚗️</text>
+  <text x="780" y="588" font-family="Inter,sans-serif" font-size="14" fill="#0F2741" font-weight="600">Chemicals</text>
+  <text x="780" y="610" font-family="Inter,sans-serif" font-size="12" fill="#94a3b8">1,870 suppliers</text>
+  <rect x="1000" y="450" width="160" height="196" rx="12" fill="white" stroke="#e2e8f0" stroke-width="1"/>
+  <rect x="1000" y="450" width="160" height="110" rx="12" fill="#eff6ff"/>
+  <text x="1028" y="518" font-family="Inter,sans-serif" font-size="26">🌾</text>
+  <text x="1016" y="588" font-family="Inter,sans-serif" font-size="14" fill="#0F2741" font-weight="600">Agriculture</text>
+  <text x="1016" y="610" font-family="Inter,sans-serif" font-size="12" fill="#94a3b8">980 suppliers</text>
+</svg>

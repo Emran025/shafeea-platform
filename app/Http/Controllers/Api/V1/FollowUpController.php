@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Api\V1;
 
 use Illuminate\Http\Request;
-use App\Models\Student ;
-use App\Models\Tracking ;
+use App\Models\Student\Student;
+use App\Models\Tracking\Tracking;
+
 class FollowUpController extends ApiController
 {
     /**
@@ -74,8 +75,8 @@ class FollowUpController extends ApiController
             $q->where('student_id', $student->id);
         })->pluck('id');
 
-        $totalDeviation = \App\Models\TrackingDetail::whereIn('tracking_id', $allTrackingIds)->sum('gap');
-        $avgScore = \App\Models\TrackingDetail::whereIn('tracking_id', $allTrackingIds)->avg('score');
+        $totalDeviation = \App\Models\Tracking\TrackingDetail::whereIn('tracking_id', $allTrackingIds)->sum('gap');
+        $avgScore = \App\Models\Tracking\TrackingDetail::whereIn('tracking_id', $allTrackingIds)->avg('score');
         $reportCount = $allTrackingIds->count();
 
         $summary = [

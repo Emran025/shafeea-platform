@@ -16,7 +16,7 @@ class CountrySeeder extends Seeder
         $countries = json_decode($json, true);
 
         foreach ($countries as $country) {
-            \App\Models\Country::updateOrCreate(
+            \App\Models\Content\Country::updateOrCreate(
                 ['iso2' => $country['alpha2']],
                 [
                     'name_en'    => $country['Country_EN'],

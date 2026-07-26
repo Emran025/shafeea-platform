@@ -1,0 +1,215 @@
+[
+  {
+    "platform_id": "accore",
+    "schema_version": "platform@1.0",
+    "identity_ref": "accore",
+    "status": "active",
+    "segment": "enterprise_b2b",
+    "target_users": [
+      {"profile": "Organizations"},
+      {"profile": "Enterprises"},
+      {"profile": "Business operators"},
+      {"profile": "Procurement teams"},
+      {"profile": "Operations managers"}
+    ],
+    "strategic_role": {
+      "en": "The source of truth for products, services, inventory, pricing, operational capacity, commercial relationships, and business data. All public commerce exposure originates from ACCORE.",
+      "ar": ""
+    },
+    "tagline": {
+      "en": "The business operating and commercial network core.",
+      "ar": ""
+    },
+    "positioning": {
+      "conceptual_role": {
+        "en": "The enterprise core platform responsible for managing business operations, commercial activities, and B2B interactions.",
+        "ar": ""
+      },
+      "structural_role": {
+        "en": "Operational nucleus. Activity originates here and extends outward. The point at which structural intent becomes operational coherence.",
+        "ar": ""
+      },
+      "not": {
+        "en": "A standalone ERP suite. ACCORE is the operational backbone of an interconnected commercial ecosystem.",
+        "ar": ""
+      },
+      "differentiator": {
+        "en": "Unlike traditional ERP systems, ACCORE includes a native B2B commercial network — enabling supplier discovery, RFQs, inter-company transactions, and internal business marketplaces without requiring external integration.",
+        "ar": ""
+      }
+    },
+    "capabilities": [
+      {"capability_id": "financial_accounting",       "label": {"en": "Financial Accounting"},           "category": "finance",       "is_featured": true},
+      {"capability_id": "inventory_management",       "label": {"en": "Inventory Management"},           "category": "operations",    "is_featured": true},
+      {"capability_id": "procurement",                "label": {"en": "Procurement"},                    "category": "operations",    "is_featured": true},
+      {"capability_id": "crm",                        "label": {"en": "CRM"},                            "category": "commerce",      "is_featured": true},
+      {"capability_id": "point_of_sale",              "label": {"en": "Point of Sale"},                  "category": "commerce",      "is_featured": false},
+      {"capability_id": "warehousing",                "label": {"en": "Warehousing"},                    "category": "operations",    "is_featured": false},
+      {"capability_id": "hr_administration",          "label": {"en": "HR and Administration"},          "category": "operations",    "is_featured": false},
+      {"capability_id": "service_management",         "label": {"en": "Service Management"},             "category": "operations",    "is_featured": false},
+      {"capability_id": "project_management",         "label": {"en": "Project Management"},             "category": "operations",    "is_featured": false},
+      {"capability_id": "reporting_analytics",        "label": {"en": "Reporting and Analytics"},        "category": "analytics",     "is_featured": true},
+      {"capability_id": "supplier_discovery",         "label": {"en": "Supplier Discovery"},             "category": "collaboration", "is_featured": true},
+      {"capability_id": "rfq_workflows",              "label": {"en": "RFQ Workflows"},                  "category": "collaboration", "is_featured": true},
+      {"capability_id": "inter_company_transactions", "label": {"en": "Inter-Company Transactions"},     "category": "finance",       "is_featured": false},
+      {"capability_id": "commercial_partnerships",    "label": {"en": "Commercial Partnerships"},        "category": "collaboration", "is_featured": false},
+      {"capability_id": "internal_marketplaces",      "label": {"en": "Internal Business Marketplaces"}, "category": "commerce",      "is_featured": true},
+      {"capability_id": "product_service_publishing", "label": {"en": "Product and Service Publishing"}, "category": "commerce",      "is_featured": false},
+      {"capability_id": "vendor_collaboration",       "label": {"en": "Vendor Collaboration"},           "category": "collaboration", "is_featured": false}
+    ],
+    "relationships": [
+      {
+        "related_platform_id": "accommerce",
+        "relationship_type": "feeds_data_to",
+        "description": {
+          "en": "ACCORE selectively synchronizes products, services, stock availability, pricing, media, and business profiles into ACCOMMERCE. Commerce capabilities in ACCOMMERCE originate from ACCORE operational data.",
+          "ar": ""
+        }
+      }
+    ],
+    "website_presence": {
+      "page_type": "corporate.platform",
+      "page_slug": "platforms/accore",
+      "include_in_nav": true,
+      "nav_label": "ACCORE",
+      "showcase_order": 1
+    }
+  },
+  {
+    "platform_id": "accommerce",
+    "schema_version": "platform@1.0",
+    "identity_ref": "accommerce",
+    "status": "active",
+    "segment": "consumer_b2c",
+    "target_users": [
+      {"profile": "Consumers"},
+      {"profile": "Buyers"},
+      {"profile": "Public users"},
+      {"profile": "Customer interactions"}
+    ],
+    "strategic_role": {
+      "en": "The public commerce gateway. Exposes selected business data and commercial capabilities originating from ACCORE to consumer markets. Creates a seamless bridge between enterprise operations and consumer commerce.",
+      "ar": ""
+    },
+    "tagline": {
+      "en": "The customer-facing commerce and discovery platform.",
+      "ar": ""
+    },
+    "positioning": {
+      "conceptual_role": {
+        "en": "The customer-facing commerce layer. Designed for consumers, buyers, and public users. Does not manage enterprise operations directly.",
+        "ar": ""
+      },
+      "structural_role": {
+        "en": "Transition rather than containment. Where ACCORE governs and organizes value, ACCOMMERCE enables its exposure, circulation, and exchange.",
+        "ar": ""
+      },
+      "not": {
+        "en": "An independent e-commerce platform like Shopify or WooCommerce. ACCOMMERCE commerce capabilities originate from enterprise operational data — enabling real-time inventory exposure and native operational integration without duplication.",
+        "ar": ""
+      },
+      "differentiator": {
+        "en": "Unlike traditional e-commerce platforms that operate independently from business operations, ACCOMMERCE commerce capabilities originate directly from enterprise operational data in ACCORE — enabling real-time inventory exposure, unified financial flows, and enterprise-grade synchronization.",
+        "ar": ""
+      }
+    },
+    "capabilities": [
+      {"capability_id": "product_browsing",           "label": {"en": "Product Browsing"},           "category": "commerce",      "is_featured": true},
+      {"capability_id": "service_discovery",          "label": {"en": "Service Discovery"},          "category": "commerce",      "is_featured": true},
+      {"capability_id": "order_placement",            "label": {"en": "Order Placement"},            "category": "commerce",      "is_featured": true},
+      {"capability_id": "customer_engagement",        "label": {"en": "Customer Engagement"},        "category": "communication", "is_featured": true},
+      {"capability_id": "booking_reservations",       "label": {"en": "Booking and Reservations"},   "category": "commerce",      "is_featured": false},
+      {"capability_id": "storefront_experiences",     "label": {"en": "Storefront Experiences"},     "category": "commerce",      "is_featured": true},
+      {"capability_id": "mobile_commerce",            "label": {"en": "Mobile Commerce"},            "category": "commerce",      "is_featured": false},
+      {"capability_id": "customer_communication",     "label": {"en": "Customer Communication"},     "category": "communication", "is_featured": false},
+      {"capability_id": "public_business_visibility", "label": {"en": "Public Business Visibility"}, "category": "commerce",      "is_featured": false}
+    ],
+    "relationships": [
+      {
+        "related_platform_id": "accore",
+        "relationship_type": "receives_data_from",
+        "description": {
+          "en": "Commerce data — products, services, pricing, availability, media, business profiles — flows from ACCORE into ACCOMMERCE.",
+          "ar": ""
+        }
+      }
+    ],
+    "website_presence": {
+      "page_type": "corporate.platform",
+      "page_slug": "platforms/accommerce",
+      "include_in_nav": true,
+      "nav_label": "ACCOMMERCE",
+      "showcase_order": 2
+    }
+  },
+  {
+    "platform_id": "qayd",
+    "schema_version": "platform@1.0",
+    "identity_ref": "qayd",
+    "status": "active",
+    "segment": "personal_smb",
+    "target_users": [
+      {"profile": "Individuals"},
+      {"profile": "Freelancers"},
+      {"profile": "Independent workers"},
+      {"profile": "Small merchants"},
+      {"profile": "Personal business activities"}
+    ],
+    "strategic_role": {
+      "en": "Entry-level operational platform within the ACCSYSTEM ecosystem. Acts as the scalability path toward ACCORE as users and businesses grow.",
+      "ar": ""
+    },
+    "tagline": {
+      "en": "The lightweight financial and operational platform for individuals and independent activities.",
+      "ar": ""
+    },
+    "positioning": {
+      "conceptual_role": {
+        "en": "An independent lightweight financial and operational platform for individuals and small independent activities. Intentionally simplified and focused on personal-scale operations.",
+        "ar": ""
+      },
+      "structural_role": {
+        "en": "The earliest expression of structure within the ecosystem. The point at which information is fixed, responsibility is established, and continuity begins. Records activity before it is organized or distributed.",
+        "ar": ""
+      },
+      "not": {
+        "en": "A simplified version of ACCORE. QAYD is an independent platform with its own design philosophy: simplicity, accessibility, mobility, and ease of use over enterprise-scale complexity.",
+        "ar": ""
+      },
+      "differentiator": {
+        "en": "QAYD's name carries longstanding associations with recording, documenting, registering, and preserving information — embodying the moment at which action becomes traceable and value becomes formally recognized.",
+        "ar": ""
+      }
+    },
+    "capabilities": [
+      {"capability_id": "personal_finance",        "label": {"en": "Personal Finance Management"},         "category": "finance",   "is_featured": true},
+      {"capability_id": "expense_income_tracking", "label": {"en": "Expense and Income Tracking"},         "category": "finance",   "is_featured": true},
+      {"capability_id": "daily_transactions",      "label": {"en": "Daily Transaction Management"},        "category": "finance",   "is_featured": false},
+      {"capability_id": "financial_records",       "label": {"en": "Financial Records"},                   "category": "finance",   "is_featured": false},
+      {"capability_id": "simple_accounting",       "label": {"en": "Simple Accounting Workflows"},         "category": "finance",   "is_featured": true},
+      {"capability_id": "invoice_voucher",         "label": {"en": "Invoice and Voucher Management"},      "category": "finance",   "is_featured": true},
+      {"capability_id": "voucher_exchange",        "label": {"en": "Voucher Exchange"},                    "category": "personal",  "is_featured": false},
+      {"capability_id": "financial_settlements",   "label": {"en": "Financial Settlements"},               "category": "finance",   "is_featured": false},
+      {"capability_id": "p2p_interactions",        "label": {"en": "Peer-to-Peer Financial Interactions"}, "category": "personal",  "is_featured": true},
+      {"capability_id": "lightweight_pos",         "label": {"en": "Lightweight POS"},                     "category": "commerce",  "is_featured": false},
+      {"capability_id": "mobile_sales",            "label": {"en": "Mobile-First Sales Workflows"},        "category": "commerce",  "is_featured": false}
+    ],
+    "relationships": [
+      {
+        "related_platform_id": "accore",
+        "relationship_type": "scalability_path_to",
+        "description": {
+          "en": "As QAYD users and businesses grow and require advanced ERP capabilities, multi-user organizational management, departmental operations, B2B commercial collaboration, or connected commerce infrastructure, they can transition into ACCORE.",
+          "ar": ""
+        }
+      }
+    ],
+    "website_presence": {
+      "page_type": "corporate.platform",
+      "page_slug": "platforms/qayd",
+      "include_in_nav": true,
+      "nav_label": "QAYD",
+      "showcase_order": 3
+    }
+  }
+]

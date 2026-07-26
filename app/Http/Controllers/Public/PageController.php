@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Public;
 
 use App\Http\Controllers\Controller;
-use App\Models\Faq;
-use App\Models\LandingPageSetting;
-use App\Models\PrivacyPolicy;
-use App\Models\TermsOfUse;
+use App\Models\Content\Faq;
+use App\Models\Content\LandingPageSetting;
+use App\Models\Content\PrivacyPolicy;
+use App\Models\Content\TermsOfUse;
 use Inertia\Inertia;
 use Inertia\Response;
 

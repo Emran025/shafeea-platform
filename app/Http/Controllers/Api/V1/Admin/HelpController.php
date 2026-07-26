@@ -8,12 +8,12 @@ use App\Http\Requests\Admin\StoreFaqRequest;
 use App\Http\Requests\Admin\StorePolicyRequest;
 use App\Http\Requests\Admin\UpdateCategoryRequest;
 use App\Http\Requests\Admin\UpdateFaqRequest;
-use App\Http\Resources\CategoryResource;
-use App\Http\Resources\FaqResource;
-use App\Models\Category;
-use App\Models\Faq;
-use App\Models\PrivacyPolicy;
-use App\Models\TermsOfUse;
+use App\Http\Resources\Content\CategoryResource;
+use App\Http\Resources\Content\FaqResource;
+use App\Models\Content\Category;
+use App\Models\Content\Faq;
+use App\Models\Content\PrivacyPolicy;
+use App\Models\Content\TermsOfUse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 

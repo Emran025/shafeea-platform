@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\PrivacyPolicy;
+use App\Models\Content\PrivacyPolicy;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Carbon;
 

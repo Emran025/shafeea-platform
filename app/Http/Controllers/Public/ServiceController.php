@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\Public;
 
 use App\Http\Controllers\Controller;
-
-use App\Models\Service;
-use Illuminate\Http\Request;
+use App\Models\Subscription\SubscriptionPlan;
+use App\Models\Content\Service;
 use Inertia\Inertia;
 
 class ServiceController extends Controller
@@ -23,7 +22,7 @@ class ServiceController extends Controller
 
         return Inertia::render('services', [
             'services' => $services,
-            'subscriptionPlans' => \App\Models\SubscriptionPlan::where('is_active', true)->orderBy('sort_order')->get(),
+            'subscriptionPlans' => SubscriptionPlan::where('is_active', true)->orderBy('sort_order')->get(),
         ]);
     }
 }

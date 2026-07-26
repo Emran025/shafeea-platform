@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\UpdateSubscriptionPlanRequest;
-use App\Models\SubscriptionPlan;
+use App\Models\Subscription\SubscriptionPlan;
 use Inertia\Inertia;
 
 class SubscriptionPlanController extends Controller

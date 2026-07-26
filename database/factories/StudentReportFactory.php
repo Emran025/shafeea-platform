@@ -5,7 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\StudentReport>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Student\StudentReport>
  */
 class StudentReportFactory extends Factory
 {
@@ -17,7 +17,7 @@ class StudentReportFactory extends Factory
     public function definition()
     {
         return [
-            'student_id' => \App\Models\Student::factory(), // creates related student if not provided
+            'student_id' => \App\Models\Student\Student::factory(), // creates related student if not provided
             'report_date' => fake()->date(),
             'summary' => fake()->paragraph(),
             'details' => json_encode([

@@ -1,0 +1,61 @@
+{
+  "_TipTapContent-DOIK39Ek.js": {
+    "file": "assets/TipTapContent-DOIK39Ek.js",
+    "name": "TipTapContent",
+    "imports": [
+      "resources/js/app.tsx"
+    ]
+  },
+  "resources/css/app.css": {
+    "file": "assets/app-BD9zWsW-.css",
+    "src": "resources/css/app.css",
+    "isEntry": true,
+    "name": "app",
+    "names": [
+      "app.css"
+    ]
+  },
+  "resources/js/admin/orchestration/AdminApp.tsx": {
+    "file": "assets/AdminApp-DkWkC2oA.js",
+    "name": "AdminApp",
+    "src": "resources/js/admin/orchestration/AdminApp.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.tsx"
+    ],
+    "css": [
+      "assets/AdminApp-CE834SLr.css"
+    ]
+  },
+  "resources/js/app.tsx": {
+    "file": "assets/app-bhlTLi_9.js",
+    "name": "app",
+    "src": "resources/js/app.tsx",
+    "isEntry": true,
+    "dynamicImports": [
+      "resources/js/admin/orchestration/AdminApp.tsx",
+      "resources/js/renderer/pages/NewsDetailPage.tsx",
+      "resources/js/renderer/pages/StoryDetailPage.tsx"
+    ]
+  },
+  "resources/js/renderer/pages/NewsDetailPage.tsx": {
+    "file": "assets/NewsDetailPage-DMYF0I3z.js",
+    "name": "NewsDetailPage",
+    "src": "resources/js/renderer/pages/NewsDetailPage.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.tsx",
+      "_TipTapContent-DOIK39Ek.js"
+    ]
+  },
+  "resources/js/renderer/pages/StoryDetailPage.tsx": {
+    "file": "assets/StoryDetailPage-B-VD-167.js",
+    "name": "StoryDetailPage",
+    "src": "resources/js/renderer/pages/StoryDetailPage.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.tsx",
+      "_TipTapContent-DOIK39Ek.js"
+    ]
+  }
+}

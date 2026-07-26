@@ -1,0 +1,46 @@
+<?php
+
+namespace App\Http\Resources\Teacher;
+
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class TeacherResource extends JsonResource
+{
+    public function toArray($request)
+    {
+        $user = $this->user;
+
+        return [
+            'id' => $user->id,
+            'bio' => $this->bio,
+            'experienceYears' => $this->experience_years,
+            'username' => $this->username,
+            'name' => $user->name ?? null,
+            'email' => $user->email ?? null,
+            'avatar' => $user->avatar ?? null,
+            'gender' => $user->gender ?? null,
+            'birthDate' => $user->birth_date ?? null,
+            'phoneZone' => $user->phone_zone ?? null,
+            'phone' => $user->phone ?? null,
+            'whatsappZone' => $user->whatsapp_zone ?? null,
+            'whatsappPhone' => $user->whatsapp ?? null,
+            'country' => $user->country ?? null,
+            'city' => $user->city ?? null,
+            'residence' => $user->residence ?? null,
+            'status' => $this->calculated_status,
+            'assignedHalaqas' => $this->whenLoaded('halaqahs', function () {
+                return $this->halaqahs->map(function ($halaqa) {
+                    return [
+                        'id' => $halaqa->id,
+                        'name' => $halaqa->name,
+                        'avatar' => $halaqa->avatar,
+                        'assignedAt' => $halaqa->pivot->assigned_at,
+                    ];
+                });
+            }),
+            'createdAt' => $this->created_at,
+            'updatedAt' => $this->updated_at,
+            // Add halaqahs or other relationships as needed
+        ];
+    }
+}

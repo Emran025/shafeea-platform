@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\Applicant;
-use App\Models\School;
-use App\Models\User;
+use App\Models\Applicant\Applicant;
+use App\Models\School\School;
+use App\Models\Auth\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 

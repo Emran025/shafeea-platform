@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Requests\StoreHelpTicketRequest;
-use App\Models\HelpTicket;
+use App\Http\Requests\Content\StoreHelpTicketRequest;
+use App\Models\Content\HelpTicket;
 
 class HelpTicketController extends ApiController
 {

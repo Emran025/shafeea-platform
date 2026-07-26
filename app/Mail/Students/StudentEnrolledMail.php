@@ -3,8 +3,8 @@
 namespace App\Mail\Students;
 
 use App\Mail\CategorizedMailable;
-use App\Models\Enrollment;
-use App\Models\Halaqah;
+use App\Models\Student\Enrollment;
+use App\Models\Halaqah\Halaqah;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailables\Content;

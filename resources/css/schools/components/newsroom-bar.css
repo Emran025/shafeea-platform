@@ -1,0 +1,248 @@
+/* ════════════════════════════════════════════════════════════════
+   NEWSROOM BAR — Redesigned expandable secondary navigation.
+   Sits between the primary NavigationBar and page <main>.
+   Features: pill-nav, animated active indicator, expandable search, subscribe CTA.
+════════════════════════════════════════════════════════════════ */
+
+.newsroom-bar {
+    position: sticky;
+    top: 64px;               /* offset below the primary nav */
+    z-index: 90;
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 1px 0 var(--border-subtle);
+    transition: box-shadow var(--transition-base);
+}
+
+.dark .newsroom-bar {
+    background: var(--brand-navy);
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+/* ── Inner container ─────────────────────────────────────────── */
+.newsroom-bar__inner {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 var(--container-px);
+    display: flex;
+    align-items: center;
+    height: 52px;
+    gap: 1.25rem;
+}
+
+/* ── Brand ───────────────────────────────────────────────────── */
+.newsroom-bar__brand {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    flex-shrink: 0;
+}
+
+.newsroom-bar__brand-logo {
+    display: flex;
+    align-items: center;
+    height: 22px;
+}
+
+.newsroom-bar__brand-logo img {
+    height: 22px;
+    width: auto;
+    object-fit: contain;
+}
+
+.newsroom-bar__brand-label {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    padding-left: 0.625rem;
+    border-left: 1.5px solid var(--border);
+    line-height: 1;
+}
+
+.dark .newsroom-bar__brand-label {
+    color: rgba(255, 255, 255, 0.55);
+    border-left-color: rgba(255, 255, 255, 0.15);
+}
+
+/* ── Navigation pill strip ───────────────────────────────────── */
+.newsroom-bar__nav {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    flex: 1;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+}
+
+.newsroom-bar__nav::-webkit-scrollbar { display: none; }
+
+/* Pill link */
+.newsroom-bar__pill {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.35rem 0.875rem;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color var(--transition-fast), background var(--transition-fast);
+}
+
+.newsroom-bar__pill:hover {
+    color: var(--text-primary);
+    background: var(--surface);
+}
+
+.newsroom-bar__pill--active {
+    color: var(--brand-navy);
+    font-weight: 700;
+    background: rgba(15, 39, 65, 0.07);
+}
+
+.dark .newsroom-bar__pill { color: rgba(255, 255, 255, 0.6); }
+.dark .newsroom-bar__pill:hover { color: rgba(255, 255, 255, 0.9); background: rgba(255,255,255,0.06); }
+.dark .newsroom-bar__pill--active {
+    color: var(--brand-gold);
+    background: rgba(201, 162, 39, 0.12);
+}
+
+/* Animated active dot */
+.newsroom-bar__pill-dot {
+    display: block;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--brand-gold);
+    flex-shrink: 0;
+}
+
+/* ── Right-side actions ──────────────────────────────────────── */
+.newsroom-bar__actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+}
+
+/* Expandable search container */
+.newsroom-bar__search-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: 9999px;
+    padding: 0.3rem 0.75rem;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.dark .newsroom-bar__search-wrap {
+    background: rgba(255,255,255,0.06);
+    border-color: rgba(255,255,255,0.12);
+}
+
+.newsroom-bar__search-icon {
+    color: var(--text-muted);
+    flex-shrink: 0;
+}
+
+.newsroom-bar__search-input {
+    border: none;
+    background: transparent;
+    font-size: 0.8125rem;
+    color: var(--text-primary);
+    outline: none;
+    width: 100%;
+    font-family: inherit;
+    min-width: 0;
+}
+
+.newsroom-bar__search-input::placeholder { color: var(--text-muted); }
+.dark .newsroom-bar__search-input { color: var(--dk-text-primary); }
+
+.newsroom-bar__search-close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-muted);
+    padding: 0;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    transition: color var(--transition-fast);
+}
+
+.newsroom-bar__search-close:hover { color: var(--text-primary); }
+
+/* Icon button (search toggle) */
+.newsroom-bar__icon-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: none;
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.newsroom-bar__icon-btn:hover {
+    background: var(--surface);
+    color: var(--text-primary);
+}
+
+.dark .newsroom-bar__icon-btn { color: rgba(255, 255, 255, 0.55); }
+.dark .newsroom-bar__icon-btn:hover {
+    background: rgba(255,255,255,0.08);
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Subscribe CTA button */
+.newsroom-bar__subscribe-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.35rem 0.875rem;
+    border-radius: 4px;
+    background: var(--brand-gold);
+    color: #fff;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background var(--transition-fast);
+    white-space: nowrap;
+    letter-spacing: 0.01em;
+}
+
+.newsroom-bar__subscribe-btn:hover { background: #1a3a5c; }
+
+.dark .newsroom-bar__subscribe-btn {
+    background: var(--brand-gold);
+    color: #fff;
+}
+
+.dark .newsroom-bar__subscribe-btn:hover { background: var(--brand-gold-hover); }
+
+/* ── Responsive ──────────────────────────────────────────────── */
+@media (max-width: 768px) {
+    .newsroom-bar__subscribe-btn span { display: none; }
+    .newsroom-bar__subscribe-btn { padding: 0.35rem 0.625rem; }
+    .newsroom-bar__brand-label { display: none; }
+}
+
+@media (max-width: 480px) {
+    .newsroom-bar__inner { gap: 0.75rem; }
+    .newsroom-bar__pill { padding: 0.3rem 0.625rem; font-size: 0.8125rem; }
+}

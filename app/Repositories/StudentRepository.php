@@ -2,15 +2,15 @@
 
 namespace App\Repositories;
 
-use App\Models\Enrollment;
-use App\Models\Halaqah;
-use App\Models\Student;
-use App\Models\StudentReport;
+use App\Models\Student\Enrollment;
+use App\Models\Halaqah\Halaqah;
+use App\Models\Student\Student;
+use App\Models\Student\StudentReport;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
-use App\Models\Tracking;
-use App\Models\Plan;
-use App\Models\TrackingDetail;
+use App\Models\Tracking\Tracking;
+use App\Models\Subscription\Plan;
+use App\Models\Tracking\TrackingDetail;
 
 class StudentRepository
 {
@@ -42,10 +42,10 @@ class StudentRepository
             $search = $filters['search'];
             $query->where(function ($q) use ($search) {
                 $q->where('username', 'like', "%{$search}%")
-                  ->orWhereHas('user', function ($uq) use ($search) {
-                      $uq->where('name', 'like', "%{$search}%")
-                        ->orWhere('email', 'like', "%{$search}%");
-                  });
+                    ->orWhereHas('user', function ($uq) use ($search) {
+                        $uq->where('name', 'like', "%{$search}%")
+                            ->orWhere('email', 'like', "%{$search}%");
+                    });
             });
         }
 
@@ -179,31 +179,31 @@ class StudentRepository
         $student = Student::findByIdentifierOrFail($userId);
         $enrollmentIds = Enrollment::where('student_id', $student->id)->pluck('id');
 
-        return \App\Models\Tracking::whereIn('enrollment_id', $enrollmentIds)->with(['details'])->get();
+        return \App\Models\Tracking\Tracking::whereIn('enrollment_id', $enrollmentIds)->with(['details'])->get();
     }
 
     public function getTrackingDetails(int $trackingId)
     {
-        return \App\Models\TrackingDetail::where('tracking_id', $trackingId)->get();
+        return \App\Models\Tracking\TrackingDetail::where('tracking_id', $trackingId)->get();
     }
 
     public function deletePlan(int $planId): ?bool
     {
-        $plan = \App\Models\Plan::findOrFail($planId);
+        $plan = \App\Models\Subscription\Plan::findOrFail($planId);
 
         return $plan->delete();
     }
 
     public function deleteTracking(int $trackingId): ?bool
     {
-        $tracking = \App\Models\Tracking::findOrFail($trackingId);
+        $tracking = \App\Models\Tracking\Tracking::findOrFail($trackingId);
 
         return $tracking->delete();
     }
 
     public function deleteTrackingDetail(int $trackingDetailId): ?bool
     {
-        $detail = \App\Models\TrackingDetail::findOrFail($trackingDetailId);
+        $detail = \App\Models\Tracking\TrackingDetail::findOrFail($trackingDetailId);
 
         return $detail->delete();
     }

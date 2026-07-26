@@ -2,29 +2,29 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Requests\PlanRequest;
+use App\Http\Requests\Subscription\PlanRequest;
 use App\Http\Requests\Student\ActionRequest;
 use App\Http\Requests\Student\AssignHalaqaRequest;
 use App\Http\Requests\Student\FollowUpRequest;
 use App\Http\Requests\Student\UpdateStudentRequest;
-use App\Http\Requests\TrackingDetailRequest;
-use App\Http\Requests\TrackingRequest;
-use App\Http\Resources\ApplicantResource;
-use App\Http\Resources\FollowUpResource;
-use App\Http\Resources\PlanResource;
-use App\Http\Resources\StudentPlanResource;
-use App\Http\Resources\StudentResource;
-use App\Http\Resources\StudentSyncResource;
-use App\Http\Resources\TrackingDetailResource;
-use App\Http\Resources\TrackingResource;
+use App\Http\Requests\Tracking\TrackingDetailRequest;
+use App\Http\Requests\Tracking\TrackingRequest;
+use App\Http\Resources\Applicant\ApplicantResource;
+use App\Http\Resources\Tracking\FollowUpResource;
+use App\Http\Resources\Subscription\PlanResource;
+use App\Http\Resources\Student\StudentPlanResource;
+use App\Http\Resources\Student\StudentResource;
+use App\Http\Resources\Student\StudentSyncResource;
+use App\Http\Resources\Tracking\TrackingDetailResource;
+use App\Http\Resources\Tracking\TrackingResource;
 use App\Repositories\ApplicantRepository;
 use App\Repositories\StudentRepository;
-use App\Services\StudentService;
+use App\Services\Student\StudentService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use App\Models\Plan;
-use App\Models\Student;
-use App\Models\Enrollment;
+use App\Models\Subscription\Plan;
+use App\Models\Student\Student;
+use App\Models\Student\Enrollment;
 
 class StudentController extends ApiController
 {
@@ -99,8 +99,9 @@ class StudentController extends ApiController
     public function action(ActionRequest $request, $userId)
     {
         try {
-            
-            $student = Student::findByIdentifierOrFail($userId);            $action = $request->action;
+
+            $student = Student::findByIdentifierOrFail($userId);
+            $action = $request->action;
             if ($action === 'suspend') {
                 $student->status = 'suspended';
             } elseif ($action === 'expel') {

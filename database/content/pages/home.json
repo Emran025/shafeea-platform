@@ -1,0 +1,2126 @@
+{
+    "id": "eeeeeeee-0000-0000-0000-000000000001",
+    "slug": "home",
+    "type": "corporate.home",
+    "identity": {
+        "title": {
+            "en": "ACCSYSTEM — The Infrastructure Layer Modern Business Runs On"
+        },
+        "purpose": {
+            "en": "Corporate homepage — high-conversion 15-section platform showcase"
+        },
+        "owner": "accsystem",
+        "canonical_url": "https:\/\/accsystemerp.com\/",
+        "classification": "public"
+    },
+    "hierarchy": {
+        "depth": 0,
+        "position": 1,
+        "include_in_nav": true,
+        "nav_label": {
+            "en": "Home"
+        }
+    },
+    "composition": {
+        "section_order": "explicit",
+        "allow_dynamic": false,
+        "max_sections": 25,
+        "fallback_policy": "show_partial"
+    },
+    "meta": {
+        "seo_title": {
+            "en": "ACCSYSTEM — Enterprise Operations, Commerce & Finance. One System."
+        },
+        "seo_description": {
+            "en": "ACCSYSTEM unifies enterprise operations (accore), commerce infrastructure (accommerce), and individual finance (qayd) into one coherent architecture. Built for organisations that cannot afford fragmentation."
+        },
+        "og_title": {
+            "en": "ACCSYSTEM"
+        },
+        "og_description": {
+            "en": "The system modern business runs on — not around."
+        },
+        "og_image": null,
+        "robots": "index,follow"
+    },
+    "sections": [
+        {
+            "id": "88888888-0000-0000-0000-000000000001",
+            "type": "hero",
+            "name": "Homepage Hero",
+            "anchor_id": null,
+            "position": 1,
+            "group": "above-fold",
+            "required_block_types": [],
+            "blocks": [
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000001",
+                    "type": "label",
+                    "position": 1,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "Enterprise Infrastructure. Redefined."
+                        },
+                        "ar": {
+                            "text": "Enterprise Infrastructure. Redefined."
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000002",
+                    "type": "headline",
+                    "position": 2,
+                    "weight": 10,
+                    "featured": true,
+                    "content": {
+                        "en": {
+                            "text": "The system modern business runs on — not around."
+                        },
+                        "ar": {
+                            "text": "The system modern business runs on — not around."
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000003",
+                    "type": "subheadline",
+                    "position": 3,
+                    "weight": 8,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "ACCSYSTEM unifies enterprise operations, commerce infrastructure, and individual financial management into one coherent architecture. Purpose-built for organisations that cannot afford fragmentation."
+                        },
+                        "ar": {
+                            "text": "ACCSYSTEM unifies enterprise operations, commerce infrastructure, and individual financial management into one coherent architecture. Purpose-built for organisations that cannot afford fragmentation."
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000004",
+                    "type": "cta",
+                    "position": 4,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "label": "Explore the Ecosystem",
+                            "destination": {
+                                "type": "anchor",
+                                "value": "platforms"
+                            },
+                            "intent": "primary"
+                        },
+                        "ar": {
+                            "label": "استكشف النظام البيئي",
+                            "intent": "primary",
+                            "destination": {
+                                "type": "anchor",
+                                "value": "platforms"
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000005",
+                    "type": "cta",
+                    "position": 5,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "label": "See It in Action",
+                            "destination": {
+                                "type": "anchor",
+                                "value": "platform-video"
+                            },
+                            "intent": "secondary"
+                        },
+                        "ar": {
+                            "label": "See It in Action",
+                            "intent": "secondary",
+                            "destination": {
+                                "type": "anchor",
+                                "value": "platform-video"
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": "88888888-0000-0000-0000-000000000002",
+            "type": "statistics",
+            "name": "Key Metrics",
+            "anchor_id": null,
+            "position": 2,
+            "group": "below-fold",
+            "required_block_types": [],
+            "blocks": [
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000006",
+                    "type": "stat_item",
+                    "position": 1,
+                    "weight": 8,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "value": "3",
+                            "unit": "Unified Platforms",
+                            "descriptor": "Enterprise, Commerce & Finance — one operating model"
+                        },
+                        "ar": {
+                            "unit": "المنصات الموحّدة",
+                            "descriptor": "المؤسسة والتجارة والمالية — نموذج تشغيلي واحد",
+                            "value": "3"
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000007",
+                    "type": "stat_item",
+                    "position": 2,
+                    "weight": 8,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "value": "0",
+                            "unit": "Data Silos",
+                            "descriptor": "Cross-platform coherence by architectural design"
+                        },
+                        "ar": {
+                            "unit": "صوامع البيانات",
+                            "descriptor": "تماسك عبر المنصات بالتصميم المعماري",
+                            "value": "0"
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000008",
+                    "type": "stat_item",
+                    "position": 3,
+                    "weight": 8,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "value": "100%",
+                            "unit": "API-Driven",
+                            "descriptor": "Every surface, every contract, every content object"
+                        },
+                        "ar": {
+                            "unit": "قائم على واجهات برمجية",
+                            "descriptor": "كل واجهة، كل عقد، كل كائن محتوى",
+                            "value": "100%"
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000009",
+                    "type": "stat_item",
+                    "position": 4,
+                    "weight": 8,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "value": "2",
+                            "unit": "Languages",
+                            "descriptor": "Arabic & English — MENA-first, globally extensible"
+                        },
+                        "ar": {
+                            "unit": "اللغات",
+                            "descriptor": "العربية والإنجليزية — منطقة MENA أولاً، قابل للتوسع عالمياً",
+                            "value": "2"
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-00000000000a",
+                    "type": "stat_item",
+                    "position": 5,
+                    "weight": 8,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "value": "1",
+                            "unit": "Coherent System",
+                            "descriptor": "That replaces an entire stack of disconnected tools"
+                        },
+                        "ar": {
+                            "unit": "نظام متماسك",
+                            "descriptor": "يستبدل مجموعة كاملة من الأدوات المنفصلة",
+                            "value": "1"
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-00000000000b",
+                    "type": "stat_item",
+                    "position": 6,
+                    "weight": 8,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "value": "∞",
+                            "unit": "Operational Scale",
+                            "descriptor": "From multinational enterprise to independent practice"
+                        },
+                        "ar": {
+                            "unit": "الحجم التشغيلي",
+                            "descriptor": "من المؤسسة متعددة الجنسيات إلى الممارسة المستقلة",
+                            "value": "∞"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": "88888888-0000-0000-0000-000000000003",
+            "type": "problem_statement",
+            "name": "The Problem",
+            "anchor_id": null,
+            "position": 3,
+            "group": "below-fold",
+            "required_block_types": [],
+            "blocks": [
+                {
+                    "id": "dddddddd-0000-0000-0000-00000000000c",
+                    "type": "label",
+                    "position": 1,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "The Problem With Point Solutions"
+                        },
+                        "ar": {
+                            "text": "The Problem With Point Solutions"
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-00000000000d",
+                    "type": "headline",
+                    "position": 2,
+                    "weight": 9,
+                    "featured": true,
+                    "content": {
+                        "en": {
+                            "text": "Your operational stack is six tools that do not speak to each other."
+                        },
+                        "ar": {
+                            "text": "Your operational stack is six tools that do not speak to each other."
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-00000000000e",
+                    "type": "subheadline",
+                    "position": 3,
+                    "weight": 7,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "Most organisations assemble their operational infrastructure from disconnected point solutions — an ERP for operations, a marketplace for commerce, a separate tool for finance. The result is three systems producing data that no one can reconcile, and a team spending its best hours bridging the gaps."
+                        },
+                        "ar": {
+                            "text": "Most organisations assemble their operational infrastructure from disconnected point solutions — an ERP for operations, a marketplace for commerce, a separate tool for finance. The result is three systems producing data that no one can reconcile, and a team spending its best hours bridging the gaps."
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-00000000000f",
+                    "type": "feature_item",
+                    "position": 4,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "label": "Operational Blindspots",
+                            "description": "Contracts closed in operations never surface in the commerce layer. Commerce revenue never reconciles automatically with finance. Every handoff between systems is a gap where accuracy, speed, and accountability are lost."
+                        },
+                        "ar": {
+                            "label": "Operational Blindspots",
+                            "description": "Contracts closed in operations never surface in the commerce layer. Commerce revenue never reconciles automatically with finance. Every handoff between systems is a gap where accuracy, speed, and accountability are lost."
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000010",
+                    "type": "feature_item",
+                    "position": 5,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "label": "The Reconciliation Tax",
+                            "description": "Your team spends a compounding portion of every week manually stitching together reports from systems that were never architected to share data. This is not an inefficiency — it is a structural tax on every hour of productive work."
+                        },
+                        "ar": {
+                            "label": "The Reconciliation Tax",
+                            "description": "Your team spends a compounding portion of every week manually stitching together reports from systems that were never architected to share data. This is not an inefficiency — it is a structural tax on every hour of productive work."
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000011",
+                    "type": "feature_item",
+                    "position": 6,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "label": "Complexity That Scales Against You",
+                            "description": "Every new market, every additional team, every new operational workflow compounds the disconnection. Growth in a fragmented stack does not produce clarity — it produces more fragmentation at a higher cost."
+                        },
+                        "ar": {
+                            "label": "Complexity That Scales Against You",
+                            "description": "Every new market, every additional team, every new operational workflow compounds the disconnection. Growth in a fragmented stack does not produce clarity — it produces more fragmentation at a higher cost."
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": "88888888-0000-0000-0000-000000000004",
+            "type": "platform_showcase",
+            "name": "Platform Showcase",
+            "anchor_id": "platforms",
+            "position": 4,
+            "group": "below-fold",
+            "required_block_types": [],
+            "blocks": [
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000012",
+                    "type": "label",
+                    "position": 1,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "The ACCSYSTEM Ecosystem"
+                        },
+                        "ar": {
+                            "text": "The ACCSYSTEM Ecosystem"
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000013",
+                    "type": "headline",
+                    "position": 2,
+                    "weight": 9,
+                    "featured": true,
+                    "content": {
+                        "en": {
+                            "text": "Three platforms. One operating model."
+                        },
+                        "ar": {
+                            "text": "Three platforms. One operating model."
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000014",
+                    "type": "subheadline",
+                    "position": 3,
+                    "weight": 7,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "Each platform is purpose-engineered for its domain. Deploy them independently or connect them as a unified system — either way, they eliminate the reconciliation overhead that defines every fragmented stack."
+                        },
+                        "ar": {
+                            "text": "Each platform is purpose-engineered for its domain. Deploy them independently or connect them as a unified system — either way, they eliminate the reconciliation overhead that defines every fragmented stack."
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000015",
+                    "type": "platform_card",
+                    "position": 4,
+                    "weight": 10,
+                    "featured": true,
+                    "content": {
+                        "en": {
+                            "product_site_id": "ACCORE"
+                        },
+                        "ar": {
+                            "product_site_id": "ACCORE"
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000016",
+                    "type": "platform_card",
+                    "position": 5,
+                    "weight": 10,
+                    "featured": true,
+                    "content": {
+                        "en": {
+                            "product_site_id": "ACCOMMERCE"
+                        },
+                        "ar": {
+                            "product_site_id": "ACCOMMERCE"
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000017",
+                    "type": "platform_card",
+                    "position": 6,
+                    "weight": 10,
+                    "featured": true,
+                    "content": {
+                        "en": {
+                            "product_site_id": "QAYD"
+                        },
+                        "ar": {
+                            "product_site_id": "QAYD"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": "88888888-0000-0000-0000-000000000005",
+            "type": "video_feature",
+            "name": "Platform Video",
+            "anchor_id": "platform-video",
+            "position": 5,
+            "group": "below-fold",
+            "required_block_types": [],
+            "blocks": [
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000018",
+                    "type": "label",
+                    "position": 1,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "The Platform in Motion"
+                        },
+                        "ar": {
+                            "text": "The Platform in Motion"
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000019",
+                    "type": "headline",
+                    "position": 2,
+                    "weight": 9,
+                    "featured": true,
+                    "content": {
+                        "en": {
+                            "text": "Every layer of the system. Demonstrated."
+                        },
+                        "ar": {
+                            "text": "Every layer of the system. Demonstrated."
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-00000000001a",
+                    "type": "subheadline",
+                    "position": 3,
+                    "weight": 7,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "Watch how ACCSYSTEM connects enterprise contract management, structured commerce operations, and individual financial management — without a single data silo between them."
+                        },
+                        "ar": {
+                            "text": "Watch how ACCSYSTEM connects enterprise contract management, structured commerce operations, and individual financial management — without a single data silo between them."
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-00000000001b",
+                    "type": "media",
+                    "position": 4,
+                    "weight": 5,
+                    "featured": false,
+                    "media_id": "aaaaaaaa-0000-0000-0000-000000000012",
+                    "content": {
+                        "en": [],
+                        "ar": []
+                    }
+                }
+            ]
+        },
+        {
+            "id": "88888888-0000-0000-0000-000000000006",
+            "type": "media_spotlight",
+            "name": "accore Spotlight",
+            "anchor_id": "accore",
+            "position": 6,
+            "group": "below-fold",
+            "required_block_types": [],
+            "blocks": [
+                {
+                    "id": "dddddddd-0000-0000-0000-00000000001c",
+                    "type": "label",
+                    "position": 1,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "Enterprise Operations"
+                        },
+                        "ar": {
+                            "text": "عمليات المؤسسات"
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-00000000001d",
+                    "type": "headline",
+                    "position": 2,
+                    "weight": 9,
+                    "featured": true,
+                    "content": {
+                        "en": {
+                            "text": "accore — built for organisations where complexity is not optional."
+                        },
+                        "ar": {
+                            "text": "accore — built for organisations where complexity is not optional."
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-00000000001e",
+                    "type": "subheadline",
+                    "position": 3,
+                    "weight": 7,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "Contract lifecycle management, partner network orchestration, and supply-chain visibility at enterprise scale. accore gives operational teams a single source of truth for every B2B relationship, every contract clause, and every throughput metric — without the overhead of legacy ERP systems that were never designed for the speed of modern operations."
+                        },
+                        "ar": {
+                            "text": "Contract lifecycle management, partner network orchestration, and supply-chain visibility at enterprise scale. accore gives operational teams a single source of truth for every B2B relationship, every contract clause, and every throughput metric — without the overhead of legacy ERP systems that were never designed for the speed of modern operations."
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-00000000001f",
+                    "type": "cta",
+                    "position": 4,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "label": "Explore accore",
+                            "destination": {
+                                "type": "internal_page",
+                                "value": "accore"
+                            },
+                            "intent": "primary"
+                        },
+                        "ar": {
+                            "label": "استكشف ACCore",
+                            "intent": "primary",
+                            "destination": {
+                                "type": "internal_page",
+                                "value": "accore"
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000020",
+                    "type": "media",
+                    "position": 5,
+                    "weight": 5,
+                    "featured": false,
+                    "media_id": "aaaaaaaa-0000-0000-0000-000000000001",
+                    "content": {
+                        "en": [],
+                        "ar": []
+                    }
+                }
+            ]
+        },
+        {
+            "id": "88888888-0000-0000-0000-000000000007",
+            "type": "media_spotlight",
+            "name": "accommerce Spotlight",
+            "anchor_id": "accommerce",
+            "position": 7,
+            "group": "below-fold",
+            "required_block_types": [],
+            "blocks": [
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000021",
+                    "type": "label",
+                    "position": 1,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "Commerce Infrastructure"
+                        },
+                        "ar": {
+                            "text": "Commerce Infrastructure"
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000022",
+                    "type": "headline",
+                    "position": 2,
+                    "weight": 9,
+                    "featured": true,
+                    "content": {
+                        "en": {
+                            "text": "accommerce — the structured layer between suppliers and the market."
+                        },
+                        "ar": {
+                            "text": "accommerce — the structured layer between suppliers and the market."
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000023",
+                    "type": "subheadline",
+                    "position": 3,
+                    "weight": 7,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "Supplier discovery, catalogue management, and storefront operations built for both sides of the transaction. Buyers find qualified suppliers with precision. Suppliers control how they present, who they reach, and how they close — in a marketplace architected for structured B2B and B2C commerce alike."
+                        },
+                        "ar": {
+                            "text": "Supplier discovery, catalogue management, and storefront operations built for both sides of the transaction. Buyers find qualified suppliers with precision. Suppliers control how they present, who they reach, and how they close — in a marketplace architected for structured B2B and B2C commerce alike."
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000024",
+                    "type": "cta",
+                    "position": 4,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "label": "Explore accommerce",
+                            "destination": {
+                                "type": "internal_page",
+                                "value": "accommerce"
+                            },
+                            "intent": "primary"
+                        },
+                        "ar": {
+                            "label": "استكشف ACCommerce",
+                            "intent": "primary",
+                            "destination": {
+                                "type": "internal_page",
+                                "value": "accommerce"
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000025",
+                    "type": "media",
+                    "position": 5,
+                    "weight": 5,
+                    "featured": false,
+                    "media_id": "aaaaaaaa-0000-0000-0000-000000000002",
+                    "content": {
+                        "en": [],
+                        "ar": []
+                    }
+                }
+            ]
+        },
+        {
+            "id": "88888888-0000-0000-0000-000000000008",
+            "type": "media_spotlight",
+            "name": "qayd Spotlight",
+            "anchor_id": "qayd",
+            "position": 8,
+            "group": "below-fold",
+            "required_block_types": [],
+            "blocks": [
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000026",
+                    "type": "label",
+                    "position": 1,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "Individual Finance"
+                        },
+                        "ar": {
+                            "text": "Individual Finance"
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000027",
+                    "type": "headline",
+                    "position": 2,
+                    "weight": 9,
+                    "featured": true,
+                    "content": {
+                        "en": {
+                            "text": "qayd — enterprise-grade financial clarity, at individual scale."
+                        },
+                        "ar": {
+                            "text": "qayd — enterprise-grade financial clarity, at individual scale."
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000028",
+                    "type": "subheadline",
+                    "position": 3,
+                    "weight": 7,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "Invoice management, project-based billing, and cashflow visibility built for independent professionals who cannot afford a finance department — but cannot afford to operate without one. qayd delivers the structural precision that was previously reserved for enterprise finance teams."
+                        },
+                        "ar": {
+                            "text": "Invoice management, project-based billing, and cashflow visibility built for independent professionals who cannot afford a finance department — but cannot afford to operate without one. qayd delivers the structural precision that was previously reserved for enterprise finance teams."
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000029",
+                    "type": "cta",
+                    "position": 4,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "label": "Explore qayd",
+                            "destination": {
+                                "type": "internal_page",
+                                "value": "qayd"
+                            },
+                            "intent": "primary"
+                        },
+                        "ar": {
+                            "label": "استكشف QAYD",
+                            "intent": "primary",
+                            "destination": {
+                                "type": "internal_page",
+                                "value": "qayd"
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-00000000002a",
+                    "type": "media",
+                    "position": 5,
+                    "weight": 5,
+                    "featured": false,
+                    "media_id": "aaaaaaaa-0000-0000-0000-000000000003",
+                    "content": {
+                        "en": [],
+                        "ar": []
+                    }
+                }
+            ]
+        },
+        {
+            "id": "88888888-0000-0000-0000-000000000009",
+            "type": "ecosystem_diagram",
+            "name": "Ecosystem Diagram",
+            "anchor_id": "ecosystem",
+            "position": 9,
+            "group": "below-fold",
+            "required_block_types": [],
+            "blocks": [
+                {
+                    "id": "dddddddd-0000-0000-0000-00000000002b",
+                    "type": "label",
+                    "position": 1,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "The Connected Architecture"
+                        },
+                        "ar": {
+                            "text": "The Connected Architecture"
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-00000000002c",
+                    "type": "headline",
+                    "position": 2,
+                    "weight": 9,
+                    "featured": true,
+                    "content": {
+                        "en": {
+                            "text": "Every platform talks to every other. By design."
+                        },
+                        "ar": {
+                            "text": "Every platform talks to every other. By design."
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-00000000002d",
+                    "type": "subheadline",
+                    "position": 3,
+                    "weight": 7,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "An accore contract triggers an accommerce procurement order. An accommerce transaction settles through qayd. A qayd invoice references back to an accore project scope. This is not a third-party integration — it is a single coherent architecture where nothing operates in isolation."
+                        },
+                        "ar": {
+                            "text": "An accore contract triggers an accommerce procurement order. An accommerce transaction settles through qayd. A qayd invoice references back to an accore project scope. This is not a third-party integration — it is a single coherent architecture where nothing operates in isolation."
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-00000000002e",
+                    "type": "feature_item",
+                    "position": 4,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "label": "Operations → Commerce",
+                            "description": "accore contract approvals can initiate procurement workflows directly in accommerce. Supplier relationships established at the enterprise layer become discoverable commerce partners — no duplicate onboarding, no manual data transfer."
+                        },
+                        "ar": {
+                            "label": "Operations → Commerce",
+                            "description": "accore contract approvals can initiate procurement workflows directly in accommerce. Supplier relationships established at the enterprise layer become discoverable commerce partners — no duplicate onboarding, no manual data transfer."
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-00000000002f",
+                    "type": "feature_item",
+                    "position": 5,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "label": "Commerce → Finance",
+                            "description": "Every accommerce transaction produces a structured financial record that flows directly into qayd. Revenue, expenses, and payment status are reconciled automatically — eliminating the spreadsheet handoff that creates errors in every disconnected stack."
+                        },
+                        "ar": {
+                            "label": "Commerce → Finance",
+                            "description": "Every accommerce transaction produces a structured financial record that flows directly into qayd. Revenue, expenses, and payment status are reconciled automatically — eliminating the spreadsheet handoff that creates errors in every disconnected stack."
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000030",
+                    "type": "feature_item",
+                    "position": 6,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "label": "Finance → Operations",
+                            "description": "qayd project billing and cashflow data surfaces back into accore operational dashboards. Leadership sees the financial health of every operational relationship in real time — not at month-end when the damage is already done."
+                        },
+                        "ar": {
+                            "label": "Finance → Operations",
+                            "description": "qayd project billing and cashflow data surfaces back into accore operational dashboards. Leadership sees the financial health of every operational relationship in real time — not at month-end when the damage is already done."
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": "88888888-0000-0000-0000-00000000000a",
+            "type": "value_proposition",
+            "name": "Why ACCSYSTEM",
+            "anchor_id": "why-accsystem",
+            "position": 10,
+            "group": "below-fold",
+            "required_block_types": [],
+            "blocks": [
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000031",
+                    "type": "label",
+                    "position": 1,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "The ACCSYSTEM Difference"
+                        },
+                        "ar": {
+                            "text": "The ACCSYSTEM Difference"
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000032",
+                    "type": "headline",
+                    "position": 2,
+                    "weight": 9,
+                    "featured": true,
+                    "content": {
+                        "en": {
+                            "text": "Six principles that separate infrastructure from software."
+                        },
+                        "ar": {
+                            "text": "Six principles that separate infrastructure from software."
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000033",
+                    "type": "subheadline",
+                    "position": 3,
+                    "weight": 7,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "ACCSYSTEM is not assembled from existing tools. Every architectural decision is deliberate — built to eliminate the structural weaknesses that define every standard operational stack."
+                        },
+                        "ar": {
+                            "text": "ACCSYSTEM is not assembled from existing tools. Every architectural decision is deliberate — built to eliminate the structural weaknesses that define every standard operational stack."
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000034",
+                    "type": "feature_item",
+                    "position": 4,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "label": "Deterministic Architecture",
+                            "description": "Every rule is explicit. No hidden state, no ambiguous defaults, no runtime surprises. Every content contract, operational workflow, and data reference is declared and versioned — so the system behaves identically at 10 users and at 10,000."
+                        },
+                        "ar": {
+                            "label": "Deterministic Architecture",
+                            "description": "Every rule is explicit. No hidden state, no ambiguous defaults, no runtime surprises. Every content contract, operational workflow, and data reference is declared and versioned — so the system behaves identically at 10 users and at 10,000."
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000035",
+                    "type": "feature_item",
+                    "position": 5,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "label": "Zero-Silo Data Design",
+                            "description": "Cross-platform data references are a first-class primitive — not a late-stage integration. An accore project is referenceable from accommerce and qayd by architectural design, not by a connector bolted on after the original system was built."
+                        },
+                        "ar": {
+                            "label": "Zero-Silo Data Design",
+                            "description": "Cross-platform data references are a first-class primitive — not a late-stage integration. An accore project is referenceable from accommerce and qayd by architectural design, not by a connector bolted on after the original system was built."
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000036",
+                    "type": "feature_item",
+                    "position": 6,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "label": "Composable Content Layer",
+                            "description": "Pages are assembled from typed sections and structured blocks against a rendering contract — not hardcoded templates. Content teams author independently of engineering. Every change is validated before it reaches production. Editorial governance without engineering dependency."
+                        },
+                        "ar": {
+                            "label": "Composable Content Layer",
+                            "description": "Pages are assembled from typed sections and structured blocks against a rendering contract — not hardcoded templates. Content teams author independently of engineering. Every change is validated before it reaches production. Editorial governance without engineering dependency."
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000037",
+                    "type": "feature_item",
+                    "position": 7,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "label": "Audit-Complete Governance",
+                            "description": "Every content state transition — draft, review, approved, published — is recorded in an append-only audit trail with actor, timestamp, and reason attached. Compliance is not a feature added later. It is the default behaviour of the system."
+                        },
+                        "ar": {
+                            "label": "Audit-Complete Governance",
+                            "description": "Every content state transition — draft, review, approved, published — is recorded in an append-only audit trail with actor, timestamp, and reason attached. Compliance is not a feature added later. It is the default behaviour of the system."
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000038",
+                    "type": "feature_item",
+                    "position": 8,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "label": "MENA-Native Localisation",
+                            "description": "Arabic and English are co-equal first-class citizens in every content model. Locale fallback strategies ensure no surface breaks when a translation is incomplete. Designed for MENA-first deployment with global extensibility as a structural property — not a migration path."
+                        },
+                        "ar": {
+                            "label": "MENA-Native Localisation",
+                            "description": "Arabic and English are co-equal first-class citizens in every content model. Locale fallback strategies ensure no surface breaks when a translation is incomplete. Designed for MENA-first deployment with global extensibility as a structural property — not a migration path."
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000039",
+                    "type": "feature_item",
+                    "position": 9,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "label": "API-First, Frontend-Agnostic",
+                            "description": "Every content object, operational record, and platform surface is delivered via a structured JSON contract. The frontend is a consumer of the API — never the owner of business logic. Every surface is independently deployable, replaceable, and extensible without touching the data layer."
+                        },
+                        "ar": {
+                            "label": "API-First, Frontend-Agnostic",
+                            "description": "Every content object, operational record, and platform surface is delivered via a structured JSON contract. The frontend is a consumer of the API — never the owner of business logic. Every surface is independently deployable, replaceable, and extensible without touching the data layer."
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": "88888888-0000-0000-0000-00000000000b",
+            "type": "feature_grid",
+            "name": "Feature Grid",
+            "anchor_id": "features",
+            "position": 11,
+            "group": "below-fold",
+            "required_block_types": [],
+            "blocks": [
+                {
+                    "id": "dddddddd-0000-0000-0000-00000000003a",
+                    "type": "label",
+                    "position": 1,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "Built to Handle the Full Stack"
+                        },
+                        "ar": {
+                            "text": "Built to Handle the Full Stack"
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-00000000003b",
+                    "type": "headline",
+                    "position": 2,
+                    "weight": 9,
+                    "featured": true,
+                    "content": {
+                        "en": {
+                            "text": "Everything your operations need. Nothing you do not."
+                        },
+                        "ar": {
+                            "text": "Everything your operations need. Nothing you do not."
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-00000000003c",
+                    "type": "feature_tile",
+                    "position": 3,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "icon_name": "globe",
+                            "title": "Multi-Platform Architecture",
+                            "bullets": [
+                                "API-first, headless design",
+                                "Shared domain model across all platforms",
+                                "Cross-platform data references as primitives"
+                            ]
+                        },
+                        "ar": {
+                            "title": "Multi-Platform Architecture",
+                            "bullets": [
+                                "API-first, headless design",
+                                "Shared domain model across all platforms",
+                                "Cross-platform data references as primitives"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-00000000003d",
+                    "type": "feature_tile",
+                    "position": 4,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "icon_name": "chart",
+                            "title": "Enterprise Operations",
+                            "bullets": [
+                                "Contract lifecycle management",
+                                "Partner network orchestration",
+                                "Real-time supply-chain visibility"
+                            ]
+                        },
+                        "ar": {
+                            "title": "عمليات المؤسسات",
+                            "bullets": [
+                                "Contract lifecycle management",
+                                "Partner network orchestration",
+                                "Real-time supply-chain visibility"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-00000000003e",
+                    "type": "feature_tile",
+                    "position": 5,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "icon_name": "cart",
+                            "title": "Commerce Layer",
+                            "bullets": [
+                                "Structured supplier discovery catalogue",
+                                "Storefront and inventory management",
+                                "B2B and B2C transaction tracking"
+                            ]
+                        },
+                        "ar": {
+                            "title": "Commerce Layer",
+                            "bullets": [
+                                "Structured supplier discovery catalogue",
+                                "Storefront and inventory management",
+                                "B2B and B2C transaction tracking"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-00000000003f",
+                    "type": "feature_tile",
+                    "position": 6,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "icon_name": "payment",
+                            "title": "Financial Management",
+                            "bullets": [
+                                "Invoice creation and status tracking",
+                                "Project-based billing and costing",
+                                "Cashflow analysis and reporting"
+                            ]
+                        },
+                        "ar": {
+                            "title": "Financial Management",
+                            "bullets": [
+                                "Invoice creation and status tracking",
+                                "Project-based billing and costing",
+                                "Cashflow analysis and reporting"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000040",
+                    "type": "feature_tile",
+                    "position": 7,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "icon_name": "embed",
+                            "title": "Composable Content Engine",
+                            "bullets": [
+                                "Typed section and block primitives",
+                                "Rendering contract versioning",
+                                "Editorial workflow governance"
+                            ]
+                        },
+                        "ar": {
+                            "title": "Composable Content Engine",
+                            "bullets": [
+                                "Typed section and block primitives",
+                                "Rendering contract versioning",
+                                "Editorial workflow governance"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000041",
+                    "type": "feature_tile",
+                    "position": 8,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "icon_name": "shield",
+                            "title": "Security & Governance",
+                            "bullets": [
+                                "Role-based access control matrix",
+                                "Append-only audit trail on all transitions",
+                                "Permission scoping per actor and role"
+                            ]
+                        },
+                        "ar": {
+                            "title": "Security & Governance",
+                            "bullets": [
+                                "Role-based access control matrix",
+                                "Append-only audit trail on all transitions",
+                                "Permission scoping per actor and role"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000042",
+                    "type": "feature_tile",
+                    "position": 9,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "icon_name": "payout",
+                            "title": "Settlement & Reconciliation",
+                            "bullets": [
+                                "Cross-platform payment reconciliation",
+                                "Automated financial record generation",
+                                "Structured reporting outputs"
+                            ]
+                        },
+                        "ar": {
+                            "title": "Settlement & Reconciliation",
+                            "bullets": [
+                                "Cross-platform payment reconciliation",
+                                "Automated financial record generation",
+                                "Structured reporting outputs"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000043",
+                    "type": "feature_tile",
+                    "position": 10,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "icon_name": "support",
+                            "title": "Editorial Tooling",
+                            "bullets": [
+                                "Rich TipTap authoring with slash commands",
+                                "Media library with crop and metadata",
+                                "Publish queue, scheduling, and bundles"
+                            ]
+                        },
+                        "ar": {
+                            "title": "Editorial Tooling",
+                            "bullets": [
+                                "Rich TipTap authoring with slash commands",
+                                "Media library with crop and metadata",
+                                "Publish queue, scheduling, and bundles"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": "88888888-0000-0000-0000-00000000000c",
+            "type": "use_case_grid",
+            "name": "Use Cases",
+            "anchor_id": "use-cases",
+            "position": 12,
+            "group": "below-fold",
+            "required_block_types": [],
+            "blocks": [
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000044",
+                    "type": "label",
+                    "position": 1,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "Built for Real Operations"
+                        },
+                        "ar": {
+                            "text": "Built for Real Operations"
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000045",
+                    "type": "headline",
+                    "position": 2,
+                    "weight": 9,
+                    "featured": true,
+                    "content": {
+                        "en": {
+                            "text": "Every platform. Every scale. One system."
+                        },
+                        "ar": {
+                            "text": "Every platform. Every scale. One system."
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000046",
+                    "type": "subheadline",
+                    "position": 3,
+                    "weight": 7,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "ACCSYSTEM serves distinct operational contexts — each with a purpose-built platform that fits the exact demands of its users, not a generic solution stretched beyond its design."
+                        },
+                        "ar": {
+                            "text": "ACCSYSTEM serves distinct operational contexts — each with a purpose-built platform that fits the exact demands of its users, not a generic solution stretched beyond its design."
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000047",
+                    "type": "use_case_card",
+                    "position": 4,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "headline": "B2B Enterprise Operations",
+                            "scenario_narrative": "Manage supplier contracts, partner networks, and cross-departmental throughput from a single operational backbone. accore gives enterprise teams the structural clarity that spreadsheets and legacy ERPs were never built to provide.",
+                            "tags": [
+                                "Enterprise",
+                                "accore"
+                            ]
+                        },
+                        "ar": {
+                            "headline": "B2B Enterprise Operations",
+                            "scenario_narrative": "Manage supplier contracts, partner networks, and cross-departmental throughput from a single operational backbone. accore gives enterprise teams the structural clarity that spreadsheets and legacy ERPs were never built to provide.",
+                            "tags": [
+                                "Enterprise",
+                                "accore"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000048",
+                    "type": "use_case_card",
+                    "position": 5,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "headline": "Commerce & Marketplace Operators",
+                            "scenario_narrative": "Launch and scale supplier-facing storefronts with structural precision on both sides of the transaction. accommerce gives operators the tools to manage catalogue, discovery, and buyer relationships without stitching together separate platforms.",
+                            "tags": [
+                                "Commerce",
+                                "accommerce"
+                            ]
+                        },
+                        "ar": {
+                            "headline": "Commerce & Marketplace Operators",
+                            "scenario_narrative": "Launch and scale supplier-facing storefronts with structural precision on both sides of the transaction. accommerce gives operators the tools to manage catalogue, discovery, and buyer relationships without stitching together separate platforms.",
+                            "tags": [
+                                "Commerce",
+                                "accommerce"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000049",
+                    "type": "use_case_card",
+                    "position": 6,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "headline": "Independent Professionals",
+                            "scenario_narrative": "Run your practice with the financial rigour of a full department — without the headcount. qayd handles invoicing, project billing, and cashflow visibility for consultants, architects, and freelancers who operate at enterprise standards.",
+                            "tags": [
+                                "Individual",
+                                "qayd"
+                            ]
+                        },
+                        "ar": {
+                            "headline": "Independent Professionals",
+                            "scenario_narrative": "Run your practice with the financial rigour of a full department — without the headcount. qayd handles invoicing, project billing, and cashflow visibility for consultants, architects, and freelancers who operate at enterprise standards.",
+                            "tags": [
+                                "Individual",
+                                "qayd"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-00000000004a",
+                    "type": "use_case_card",
+                    "position": 7,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "headline": "Vertically Integrated Organisations",
+                            "scenario_narrative": "Deploy all three platforms as one coherent operating system. Connect accore contracts to accommerce procurement and settle through qayd — with zero manual reconciliation and complete audit visibility at every layer.",
+                            "tags": [
+                                "Full Stack",
+                                "All Platforms"
+                            ]
+                        },
+                        "ar": {
+                            "headline": "Vertically Integrated Organisations",
+                            "scenario_narrative": "Deploy all three platforms as one coherent operating system. Connect accore contracts to accommerce procurement and settle through qayd — with zero manual reconciliation and complete audit visibility at every layer.",
+                            "tags": [
+                                "Full Stack",
+                                "All Platforms"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-00000000004b",
+                    "type": "use_case_card",
+                    "position": 8,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "headline": "API-First Engineering Teams",
+                            "scenario_narrative": "Build on top of ACCSYSTEM's fully structured JSON contract layer. Every content object, every platform surface, and every operational record is accessible via versioned API — designed for teams who need to extend without forking.",
+                            "tags": [
+                                "API",
+                                "Developers",
+                                "Integration"
+                            ]
+                        },
+                        "ar": {
+                            "headline": "API-First Engineering Teams",
+                            "scenario_narrative": "Build on top of ACCSYSTEM's fully structured JSON contract layer. Every content object, every platform surface, and every operational record is accessible via versioned API — designed for teams who need to extend without forking.",
+                            "tags": [
+                                "API",
+                                "Developers",
+                                "Integration"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-00000000004c",
+                    "type": "use_case_card",
+                    "position": 9,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "headline": "MENA Market Operators",
+                            "scenario_narrative": "Enter Arabic-speaking markets with an infrastructure that is locale-ready by design. Full Arabic and English co-primary support — with locale fallback strategies built into every content model — means no translation debt and no rework at launch.",
+                            "tags": [
+                                "MENA",
+                                "Arabic",
+                                "Localisation"
+                            ]
+                        },
+                        "ar": {
+                            "headline": "MENA Market Operators",
+                            "scenario_narrative": "Enter Arabic-speaking markets with an infrastructure that is locale-ready by design. Full Arabic and English co-primary support — with locale fallback strategies built into every content model — means no translation debt and no rework at launch.",
+                            "tags": [
+                                "MENA",
+                                "Arabic",
+                                "Localisation"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": "88888888-0000-0000-0000-00000000000d",
+            "type": "testimonial",
+            "name": "Testimonials",
+            "anchor_id": null,
+            "position": 13,
+            "group": "below-fold",
+            "required_block_types": [],
+            "blocks": [
+                {
+                    "id": "dddddddd-0000-0000-0000-00000000004d",
+                    "type": "label",
+                    "position": 1,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "Operators Who Run on ACCSYSTEM"
+                        },
+                        "ar": {
+                            "text": "Operators Who Run on ACCSYSTEM"
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-00000000004e",
+                    "type": "headline",
+                    "position": 2,
+                    "weight": 9,
+                    "featured": true,
+                    "content": {
+                        "en": {
+                            "text": "The structure is real. So are the results."
+                        },
+                        "ar": {
+                            "text": "The structure is real. So are the results."
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-00000000004f",
+                    "type": "quote",
+                    "position": 3,
+                    "weight": 9,
+                    "featured": true,
+                    "content": {
+                        "en": {
+                            "text": "accore ended the spreadsheet era for us. 200 active supplier contracts, full lifecycle visibility, zero manual reconciliation between departments. We stopped managing the system and started running the business.",
+                            "attribution_name": "Head of Supply Chain",
+                            "attribution_org": "Nour Logistics Group"
+                        },
+                        "ar": {
+                            "text": "accore ended the spreadsheet era for us. 200 active supplier contracts, full lifecycle visibility, zero manual reconciliation between departments. We stopped managing the system and started running the business.",
+                            "attribution_name": "Head of Supply Chain",
+                            "attribution_org": "Nour Logistics Group"
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000050",
+                    "type": "quote",
+                    "position": 4,
+                    "weight": 9,
+                    "featured": true,
+                    "content": {
+                        "en": {
+                            "text": "accommerce removed every technical barrier that was slowing our expansion. We went from 3 locations to 11 in eighteen months — same team, same systems, no additional infrastructure overhead.",
+                            "attribution_name": "Founder & CEO",
+                            "attribution_org": "Horizons Retail Group"
+                        },
+                        "ar": {
+                            "text": "accommerce removed every technical barrier that was slowing our expansion. We went from 3 locations to 11 in eighteen months — same team, same systems, no additional infrastructure overhead.",
+                            "attribution_name": "Founder & CEO",
+                            "attribution_org": "Horizons Retail Group"
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000051",
+                    "type": "quote",
+                    "position": 5,
+                    "weight": 9,
+                    "featured": true,
+                    "content": {
+                        "en": {
+                            "text": "qayd gave me a finance function without the hire. Every project has a budget, every invoice has a status, every month closes cleanly. I operate with the same financial precision as the enterprises I consult for.",
+                            "attribution_name": "Independent Strategy Consultant",
+                            "attribution_org": "Khalid Al-Sayed Consulting"
+                        },
+                        "ar": {
+                            "text": "qayd gave me a finance function without the hire. Every project has a budget, every invoice has a status, every month closes cleanly. I operate with the same financial precision as the enterprises I consult for.",
+                            "attribution_name": "Independent Strategy Consultant",
+                            "attribution_org": "Khalid Al-Sayed Consulting"
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000052",
+                    "type": "quote",
+                    "position": 6,
+                    "weight": 9,
+                    "featured": true,
+                    "content": {
+                        "en": {
+                            "text": "The rendering contract model changed how we think about content entirely. Engineering no longer owns the page. Content teams author, approve, and publish without a single ticket — and nothing breaks because the contract validates everything.",
+                            "attribution_name": "Chief Technology Officer",
+                            "attribution_org": "Meridian Digital Partners"
+                        },
+                        "ar": {
+                            "text": "The rendering contract model changed how we think about content entirely. Engineering no longer owns the page. Content teams author, approve, and publish without a single ticket — and nothing breaks because the contract validates everything.",
+                            "attribution_name": "المدير التقني",
+                            "attribution_org": "Meridian Digital Partners"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": "88888888-0000-0000-0000-00000000000e",
+            "type": "faq_accordion",
+            "name": "FAQs",
+            "anchor_id": "faq",
+            "position": 14,
+            "group": "below-fold",
+            "required_block_types": [],
+            "blocks": [
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000053",
+                    "type": "label",
+                    "position": 1,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "Common Questions"
+                        },
+                        "ar": {
+                            "text": "Common Questions"
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000054",
+                    "type": "headline",
+                    "position": 2,
+                    "weight": 9,
+                    "featured": true,
+                    "content": {
+                        "en": {
+                            "text": "Everything you need to know before you decide."
+                        },
+                        "ar": {
+                            "text": "Everything you need to know before you decide."
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000055",
+                    "type": "subheadline",
+                    "position": 3,
+                    "weight": 6,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "If your question is not answered here, contact the ACCSYSTEM team directly — every enquiry receives a substantive response, not a sales script."
+                        },
+                        "ar": {
+                            "text": "If your question is not answered here, contact the ACCSYSTEM team directly — every enquiry receives a substantive response, not a sales script."
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000056",
+                    "type": "feature_item",
+                    "position": 4,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "label": "What exactly is ACCSYSTEM?",
+                            "description": "ACCSYSTEM is the governing architecture and parent entity that organises three purpose-built operational platforms: accore (enterprise B2B operations), accommerce (commerce infrastructure and supplier discovery), and qayd (individual and independent financial management). It provides the structural framework, shared data model, and governance conventions that connect all three into a coherent operating system — not a bundle of loosely related products."
+                        },
+                        "ar": {
+                            "label": "What exactly is ACCSYSTEM?",
+                            "description": "ACCSYSTEM is the governing architecture and parent entity that organises three purpose-built operational platforms: accore (enterprise B2B operations), accommerce (commerce infrastructure and supplier discovery), and qayd (individual and independent financial management). It provides the structural framework, shared data model, and governance conventions that connect all three into a coherent operating system — not a bundle of loosely related products."
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000057",
+                    "type": "feature_item",
+                    "position": 5,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "label": "Can I use one platform without the others?",
+                            "description": "Yes. Each platform is independently deployable and fully operational on its own. accore, accommerce, and qayd each deliver complete value within their respective domains. However, the compounding value of ACCSYSTEM is realised when all three are connected — the cross-platform data flows eliminate the reconciliation overhead that defines every disconnected stack. Most clients start with one platform and expand as they see the integration benefits."
+                        },
+                        "ar": {
+                            "label": "Can I use one platform without the others?",
+                            "description": "Yes. Each platform is independently deployable and fully operational on its own. accore, accommerce, and qayd each deliver complete value within their respective domains. However, the compounding value of ACCSYSTEM is realised when all three are connected — the cross-platform data flows eliminate the reconciliation overhead that defines every disconnected stack. Most clients start with one platform and expand as they see the integration benefits."
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000058",
+                    "type": "feature_item",
+                    "position": 6,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "label": "Is ACCSYSTEM fully API-driven?",
+                            "description": "Yes — by architectural principle. Every content object, every operational record, every platform surface, and every content contract is delivered via structured JSON APIs. The frontend rendering engine is a consumer of these contracts — it never owns business logic. This ensures complete separation between content authoring and engineering, and means every surface is independently replaceable without touching the underlying data architecture."
+                        },
+                        "ar": {
+                            "label": "Is ACCSYSTEM fully API-driven?",
+                            "description": "Yes — by architectural principle. Every content object, every operational record, every platform surface, and every content contract is delivered via structured JSON APIs. The frontend rendering engine is a consumer of these contracts — it never owns business logic. This ensures complete separation between content authoring and engineering, and means every surface is independently replaceable without touching the underlying data architecture."
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000059",
+                    "type": "feature_item",
+                    "position": 7,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "label": "How does ACCSYSTEM handle Arabic content?",
+                            "description": "Arabic and English are co-primary locales across every content model in ACCSYSTEM — not an afterthought or a plugin. Every content object carries structured locale fields for both languages. Explicit locale fallback strategies are built into the rendering contract, so no surface breaks or degrades when a translation is incomplete. The system is designed for MENA-first deployment while remaining globally extensible to any additional locale without architectural changes."
+                        },
+                        "ar": {
+                            "label": "How does ACCSYSTEM handle Arabic content?",
+                            "description": "Arabic and English are co-primary locales across every content model in ACCSYSTEM — not an afterthought or a plugin. Every content object carries structured locale fields for both languages. Explicit locale fallback strategies are built into the rendering contract, so no surface breaks or degrades when a translation is incomplete. The system is designed for MENA-first deployment while remaining globally extensible to any additional locale without architectural changes."
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-00000000005a",
+                    "type": "feature_item",
+                    "position": 8,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "label": "What does the content governance model look like?",
+                            "description": "Every content object in ACCSYSTEM follows an explicit state machine: draft → in review → approved → published (with optional scheduling). Every state transition is recorded in an append-only audit trail with the actor, timestamp, and transition reason attached. Content teams operate with full editorial independence — publishing without engineering involvement — while maintaining complete governance accountability at every stage."
+                        },
+                        "ar": {
+                            "label": "What does the content governance model look like?",
+                            "description": "Every content object in ACCSYSTEM follows an explicit state machine: draft → in review → approved → published (with optional scheduling). Every state transition is recorded in an append-only audit trail with the actor, timestamp, and transition reason attached. Content teams operate with full editorial independence — publishing without engineering involvement — while maintaining complete governance accountability at every stage."
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-00000000005b",
+                    "type": "feature_item",
+                    "position": 9,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "label": "How do I get started?",
+                            "description": "Contact the ACCSYSTEM team via the contact page. The team will identify the right entry point for your operational context — whether you need accore's enterprise backbone, accommerce's commerce infrastructure, or qayd's financial management layer. There is no standard onboarding path; the first conversation is about understanding your specific operational architecture before recommending a platform configuration."
+                        },
+                        "ar": {
+                            "label": "How do I get started?",
+                            "description": "Contact the ACCSYSTEM team via the contact page. The team will identify the right entry point for your operational context — whether you need accore's enterprise backbone, accommerce's commerce infrastructure, or qayd's financial management layer. There is no standard onboarding path; the first conversation is about understanding your specific operational architecture before recommending a platform configuration."
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": "88888888-0000-0000-0000-000000000010",
+            "type": "industry_grid",
+            "name": "Industry Grid",
+            "anchor_id": "industries",
+            "position": 15,
+            "group": "below-fold",
+            "required_block_types": [],
+            "blocks": [
+                {
+                    "id": "dddddddd-0000-0000-0000-00000000005c",
+                    "type": "label",
+                    "position": 1,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "Built for Your Vertical"
+                        },
+                        "ar": {
+                            "text": "Built for Your Vertical"
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-00000000005d",
+                    "type": "headline",
+                    "position": 2,
+                    "weight": 9,
+                    "featured": true,
+                    "content": {
+                        "en": {
+                            "text": "Every sector. One coherent infrastructure."
+                        },
+                        "ar": {
+                            "text": "Every sector. One coherent infrastructure."
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-00000000005e",
+                    "type": "subheadline",
+                    "position": 3,
+                    "weight": 7,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "ACCSYSTEM is not a generic platform configured for your industry — it is built from the ground up for the operational realities of the sectors that need structured infrastructure most."
+                        },
+                        "ar": {
+                            "text": "ACCSYSTEM is not a generic platform configured for your industry — it is built from the ground up for the operational realities of the sectors that need structured infrastructure most."
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-00000000005f",
+                    "type": "industry_card",
+                    "position": 4,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "industry_name": "Logistics & Supply Chain",
+                            "description": "Manage supplier contracts, track throughput, and maintain real-time visibility across every leg of a complex supply network. accore is built for the operational rigour that logistics demands at scale.",
+                            "platforms": [
+                                "accore"
+                            ]
+                        },
+                        "ar": {
+                            "description": "Manage supplier contracts, track throughput, and maintain real-time visibility across every leg of a complex supply network. accore is built for the operational rigour that logistics demands at scale.",
+                            "industry_name": "Logistics & Supply Chain",
+                            "platforms": [
+                                "accore"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000060",
+                    "type": "industry_card",
+                    "position": 5,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "industry_name": "Retail & eCommerce",
+                            "description": "Launch and scale storefronts with structured supplier relationships, inventory clarity, and revenue reconciliation. accommerce gives retail operators the infrastructure to grow without losing operational coherence.",
+                            "platforms": [
+                                "accommerce"
+                            ]
+                        },
+                        "ar": {
+                            "description": "Launch and scale storefronts with structured supplier relationships, inventory clarity, and revenue reconciliation. accommerce gives retail operators the infrastructure to grow without losing operational coherence.",
+                            "industry_name": "Retail & eCommerce",
+                            "platforms": [
+                                "accommerce"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000061",
+                    "type": "industry_card",
+                    "position": 6,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "industry_name": "Professional Services",
+                            "description": "Track project-based billing, manage client invoices, and understand cashflow with the financial precision of an enterprise finance team — without the headcount. qayd is built for consultants, firms, and independent professionals.",
+                            "platforms": [
+                                "qayd"
+                            ]
+                        },
+                        "ar": {
+                            "description": "Track project-based billing, manage client invoices, and understand cashflow with the financial precision of an enterprise finance team — without the headcount. qayd is built for consultants, firms, and independent professionals.",
+                            "industry_name": "الخدمات المهنية",
+                            "platforms": [
+                                "qayd"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000062",
+                    "type": "industry_card",
+                    "position": 7,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "industry_name": "Manufacturing & Procurement",
+                            "description": "Coordinate supplier procurement at the enterprise layer while managing the commerce relationships that feed the production floor. accore and accommerce operate as a connected procurement-to-commerce system.",
+                            "platforms": [
+                                "accore",
+                                "accommerce"
+                            ]
+                        },
+                        "ar": {
+                            "description": "Coordinate supplier procurement at the enterprise layer while managing the commerce relationships that feed the production floor. accore and accommerce operate as a connected procurement-to-commerce system.",
+                            "industry_name": "Manufacturing & Procurement",
+                            "platforms": [
+                                "accore",
+                                "accommerce"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000063",
+                    "type": "industry_card",
+                    "position": 8,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "industry_name": "Financial & Professional Services",
+                            "description": "Manage client engagements, track project finances, and operate with the audit-complete governance that regulated industries require. qayd and accore together provide the structured financial and operational backbone.",
+                            "platforms": [
+                                "qayd",
+                                "accore"
+                            ]
+                        },
+                        "ar": {
+                            "description": "Manage client engagements, track project finances, and operate with the audit-complete governance that regulated industries require. qayd and accore together provide the structured financial and operational backbone.",
+                            "industry_name": "Financial & Professional Services",
+                            "platforms": [
+                                "qayd",
+                                "accore"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000064",
+                    "type": "industry_card",
+                    "position": 9,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "industry_name": "Technology & Digital Ventures",
+                            "description": "API-first architecture, structured content contracts, and cross-platform data models designed for technology companies that need operational infrastructure without the overhead of building it from scratch.",
+                            "platforms": [
+                                "accore",
+                                "accommerce",
+                                "qayd"
+                            ]
+                        },
+                        "ar": {
+                            "description": "API-first architecture, structured content contracts, and cross-platform data models designed for technology companies that need operational infrastructure without the overhead of building it from scratch.",
+                            "industry_name": "Technology & Digital Ventures",
+                            "platforms": [
+                                "accore",
+                                "accommerce",
+                                "qayd"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": "88888888-0000-0000-0000-00000000000f",
+            "type": "cta_band",
+            "name": "Final CTA",
+            "anchor_id": null,
+            "position": 16,
+            "group": "below-fold",
+            "required_block_types": [],
+            "blocks": [
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000065",
+                    "type": "headline",
+                    "position": 1,
+                    "weight": 9,
+                    "featured": true,
+                    "content": {
+                        "en": {
+                            "text": "Stop reconciling. Start operating."
+                        },
+                        "ar": {
+                            "text": "Stop reconciling. Start operating."
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000066",
+                    "type": "subheadline",
+                    "position": 2,
+                    "weight": 7,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "ACCSYSTEM replaces the fragmented stack with a single coherent architecture for enterprise operations, commerce, and individual finance. The organisations that choose structure over assembly see the difference immediately."
+                        },
+                        "ar": {
+                            "text": "ACCSYSTEM replaces the fragmented stack with a single coherent architecture for enterprise operations, commerce, and individual finance. The organisations that choose structure over assembly see the difference immediately."
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000067",
+                    "type": "cta",
+                    "position": 3,
+                    "weight": 8,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "label": "Explore All Platforms",
+                            "destination": {
+                                "type": "anchor",
+                                "value": "platforms"
+                            },
+                            "intent": "primary"
+                        },
+                        "ar": {
+                            "label": "Explore All Platforms",
+                            "intent": "primary",
+                            "destination": {
+                                "type": "anchor",
+                                "value": "platforms"
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0000-0000-000000000068",
+                    "type": "cta",
+                    "position": 4,
+                    "weight": 6,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "label": "Contact ACCSYSTEM",
+                            "destination": {
+                                "type": "internal_page",
+                                "value": "contact"
+                            },
+                            "intent": "secondary"
+                        },
+                        "ar": {
+                            "label": "تواصل مع ACCSYSTEM",
+                            "intent": "secondary",
+                            "destination": {
+                                "type": "internal_page",
+                                "value": "contact"
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

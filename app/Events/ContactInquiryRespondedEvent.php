@@ -2,7 +2,7 @@
 
 namespace App\Events;
 
-use App\Models\HelpTicket;
+use App\Models\Content\HelpTicket;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 

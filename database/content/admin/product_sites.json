@@ -1,0 +1,122 @@
+[
+  {
+    "site_id": "ACCORE",
+    "schema_version": "productsite@1.0",
+    "platform_id": "accore",
+    "status": "live",
+    "url_health": 1,
+    "identity_platform_name": "AccCore",
+    "identity_display_name": "AccCore",
+    "identity_display_case": "uppercase",
+    "identity_site_label": {"en": "AccCore", "ar": "أكوركور"},
+    "identity_short_description": {
+      "en": "The core operations platform — financial management, workflows, and team collaboration in one integrated environment.",
+      "ar": "منصة العمليات الأساسية — إدارة مالية وسير عمل وتعاون الفريق في بيئة متكاملة واحدة."
+    },
+    "identity_ecosystem_role": {
+      "en": "Central hub",
+      "ar": "المحور المركزي"
+    },
+    "urls_canonical": "https://acccore.accsystemerp.com",
+    "urls_localized": {
+      "en": "https://acccore.accsystemerp.com",
+      "ar": "https://acccore.accsystemerp.com/ar"
+    },
+    "urls_contact": "https://acccore.accsystemerp.com/contact",
+    "urls_docs": "https://docs.acccore.accsystemerp.com",
+    "gateway_has_gateway_page": false,
+    "gateway_page_id": null,
+    "gateway_include_in_nav": true,
+    "gateway_nav_label": {"en": "AccCore", "ar": "أكوركور"},
+    "gateway_showcase_order": 1,
+    "gateway_cta_label": {"en": "Explore AccCore", "ar": "استكشف أكوركور"},
+    "gateway_cta_intent": "primary",
+    "gateway_unavailable_label": {"en": "Coming soon", "ar": "قريباً"},
+    "display_show_in_platform_index": true,
+    "display_show_in_nav": true,
+    "display_show_in_homepage_showcase": true,
+    "display_broken_link_policy": "show_unavailable_label",
+    "display_media_ref": null,
+    "version_number": 1
+  },
+  {
+    "site_id": "ACCOMMERCE",
+    "schema_version": "productsite@1.0",
+    "platform_id": "accommerce",
+    "status": "live",
+    "url_health": 1,
+    "identity_platform_name": "AccCommerce",
+    "identity_display_name": "AccCommerce",
+    "identity_display_case": "uppercase",
+    "identity_site_label": {"en": "AccCommerce", "ar": "أكوميرس"},
+    "identity_short_description": {
+      "en": "End-to-end e-commerce — catalogue management, omnichannel selling, and seamless AccCore integration.",
+      "ar": "تجارة إلكترونية شاملة — إدارة الكتالوج والبيع متعدد القنوات والتكامل السلس مع أكوركور."
+    },
+    "identity_ecosystem_role": {
+      "en": "Commerce layer",
+      "ar": "طبقة التجارة"
+    },
+    "urls_canonical": "https://acccommerce.accsystemerp.com",
+    "urls_localized": {
+      "en": "https://acccommerce.accsystemerp.com",
+      "ar": "https://acccommerce.accsystemerp.com/ar"
+    },
+    "urls_contact": "https://acccommerce.accsystemerp.com/contact",
+    "urls_docs": "https://docs.acccommerce.accsystemerp.com",
+    "gateway_has_gateway_page": false,
+    "gateway_page_id": null,
+    "gateway_include_in_nav": true,
+    "gateway_nav_label": {"en": "AccCommerce", "ar": "أكوميرس"},
+    "gateway_showcase_order": 2,
+    "gateway_cta_label": {"en": "Explore AccCommerce", "ar": "استكشف أكوميرس"},
+    "gateway_cta_intent": "primary",
+    "gateway_unavailable_label": {"en": "Coming soon", "ar": "قريباً"},
+    "display_show_in_platform_index": true,
+    "display_show_in_nav": true,
+    "display_show_in_homepage_showcase": true,
+    "display_broken_link_policy": "show_unavailable_label",
+    "display_media_ref": null,
+    "version_number": 1
+  },
+  {
+    "site_id": "QAYD",
+    "schema_version": "productsite@1.0",
+    "platform_id": "qayd",
+    "status": "live",
+    "url_health": 1,
+    "identity_platform_name": "Qayd",
+    "identity_display_name": "Qayd",
+    "identity_display_case": "lowercase_product",
+    "identity_site_label": {"en": "Qayd", "ar": "قيد"},
+    "identity_short_description": {
+      "en": "Modern payments — invoicing, collections, and financial reconciliation, natively integrated with AccCore and AccCommerce.",
+      "ar": "مدفوعات حديثة — فوترة وتحصيلات وتسوية مالية، متكاملة بشكل أصلي مع أكوركور وأكوميرس."
+    },
+    "identity_ecosystem_role": {
+      "en": "Payments layer",
+      "ar": "طبقة المدفوعات"
+    },
+    "urls_canonical": "https://qayd.accsystemerp.com",
+    "urls_localized": {
+      "en": "https://qayd.accsystemerp.com",
+      "ar": "https://qayd.accsystemerp.com/ar"
+    },
+    "urls_contact": "https://qayd.accsystemerp.com/contact",
+    "urls_docs": "https://docs.qayd.accsystemerp.com",
+    "gateway_has_gateway_page": false,
+    "gateway_page_id": null,
+    "gateway_include_in_nav": true,
+    "gateway_nav_label": {"en": "Qayd", "ar": "قيد"},
+    "gateway_showcase_order": 3,
+    "gateway_cta_label": {"en": "Explore Qayd", "ar": "استكشف قيد"},
+    "gateway_cta_intent": "primary",
+    "gateway_unavailable_label": {"en": "Coming soon", "ar": "قريباً"},
+    "display_show_in_platform_index": true,
+    "display_show_in_nav": true,
+    "display_show_in_homepage_showcase": true,
+    "display_broken_link_policy": "show_unavailable_label",
+    "display_media_ref": null,
+    "version_number": 1
+  }
+]

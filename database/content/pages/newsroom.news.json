@@ -1,0 +1,409 @@
+{
+  "id": "55555555-0000-0000-0000-000000000002",
+  "slug": "newsroom/news",
+  "type": "newsroom.news",
+  "identity": {
+    "title": {
+      "en": "News — ACCSYSTEM"
+    },
+    "purpose": {
+      "en": "Newsroom news index page"
+    },
+    "owner": "accsystem",
+    "canonical_url": "https://accsystemerp.com/newsroom/news",
+    "classification": "public"
+  },
+  "hierarchy": {
+    "depth": 0,
+    "position": 11,
+    "include_in_nav": false,
+    "nav_label": {
+      "en": "News"
+    }
+  },
+  "composition": {
+    "section_order": "explicit",
+    "allow_dynamic": false,
+    "max_sections": 20,
+    "fallback_policy": "show_partial"
+  },
+  "meta": {
+    "seo_title": {
+      "en": "News — ACCSYSTEM"
+    },
+    "seo_description": {
+      "en": "All news and announcements from ACCSYSTEM, accore, accommerce, and qayd."
+    },
+    "og_title": null,
+    "og_description": null,
+    "og_image": null,
+    "robots": "index,follow"
+  },
+  "sections": [
+    {
+      "id": "66666666-0000-0000-0002-000000000001",
+      "type": "news_hero",
+      "name": "News Hero",
+      "anchor_id": "news-hero",
+      "position": 1,
+      "group": "above-fold",
+      "pinned": true,
+      "required_block_types": [
+        "headline"
+      ],
+      "blocks": [
+        {
+          "id": "77777777-0000-0002-0001-000000000001",
+          "type": "label",
+          "position": 1,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "ACCSYSTEM News"
+            },
+            "ar": {
+              "text": "ACCSYSTEM News"
+            }
+          }
+        },
+        {
+          "id": "77777777-0000-0002-0001-000000000002",
+          "type": "headline",
+          "position": 2,
+          "weight": 9,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "News from ACCSYSTEM"
+            },
+            "ar": {
+              "text": "News from ACCSYSTEM"
+            }
+          }
+        },
+        {
+          "id": "77777777-0000-0002-0001-000000000003",
+          "type": "subheadline",
+          "position": 3,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "The official source for product announcements, company updates, and customer stories from the ACCSYSTEM ecosystem."
+            },
+            "ar": {
+              "text": "The official source for product announcements, company updates, and customer stories from the ACCSYSTEM ecosystem."
+            }
+          }
+        },
+        {
+          "id": "77777777-0000-0002-0001-00000000000a",
+          "type": "news_category",
+          "position": 4,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Latest"
+            },
+            "ar": {
+              "label": "Latest"
+            }
+          }
+        },
+        {
+          "id": "77777777-0000-0002-0001-00000000000b",
+          "type": "news_category",
+          "position": 5,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Corporate"
+            },
+            "ar": {
+              "label": "مؤسسي"
+            }
+          }
+        },
+        {
+          "id": "77777777-0000-0002-0001-00000000000c",
+          "type": "news_category",
+          "position": 6,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Product"
+            },
+            "ar": {
+              "label": "المنتج"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "66666666-0000-0000-0002-000000000002",
+      "type": "news_article_grid",
+      "name": "News Article List",
+      "anchor_id": "news-list",
+      "position": 2,
+      "group": "below-fold",
+      "required_block_types": [],
+      "blocks": [
+        {
+          "id": "77777777-0000-0002-0002-000000000001",
+          "type": "news_article_card",
+          "position": 1,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "title": "ACCSYSTEM Launches Newsroom Hub",
+              "date": "June 15, 2026",
+              "category": "Company",
+              "url": "/news",
+              "image_url": "",
+              "excerpt": "A structured editorial presence for ACCSYSTEM, built on the same rendering engine as all product pages."
+            },
+            "ar": {
+              "title": "ACCSYSTEM Launches Newsroom Hub",
+              "excerpt": "A structured editorial presence for ACCSYSTEM, built on the same rendering engine as all product pages.",
+              "category": "الشركة",
+              "image_url": "",
+              "url": "/news",
+              "date": "June 15, 2026"
+            }
+          }
+        },
+        {
+          "id": "77777777-0000-0002-0002-000000000002",
+          "type": "news_article_card",
+          "position": 2,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "title": "accore Connects First Cross-Sector Enterprise Network",
+              "date": "June 8, 2026",
+              "category": "Product",
+              "url": "/news",
+              "image_url": "",
+              "excerpt": "The enterprise B2B operations core reaches a significant network connectivity milestone."
+            },
+            "ar": {
+              "title": "accore Connects First Cross-Sector Enterprise Network",
+              "excerpt": "The enterprise B2B operations core reaches a significant network connectivity milestone.",
+              "category": "المنتج",
+              "image_url": "",
+              "url": "/news",
+              "date": "June 8, 2026"
+            }
+          }
+        },
+        {
+          "id": "77777777-0000-0002-0002-000000000003",
+          "type": "news_article_card",
+          "position": 3,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "title": "ACCSYSTEM Announces Multi-Language Expansion",
+              "date": "June 3, 2026",
+              "category": "Corporate",
+              "url": "/news",
+              "image_url": "",
+              "excerpt": "Arabic and English are now fully supported across all three platform surfaces."
+            },
+            "ar": {
+              "title": "ACCSYSTEM Announces Multi-Language Expansion",
+              "excerpt": "Arabic and English are now fully supported across all three platform surfaces.",
+              "category": "مؤسسي",
+              "image_url": "",
+              "url": "/news",
+              "date": "June 3, 2026"
+            }
+          }
+        },
+        {
+          "id": "77777777-0000-0002-0002-000000000004",
+          "type": "news_article_card",
+          "position": 4,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "title": "qayd Releases Invoicing Module for Independent Professionals",
+              "date": "May 28, 2026",
+              "category": "Product",
+              "url": "/news",
+              "image_url": "",
+              "excerpt": "New tools for solopreneurs and independent contractors in the qayd platform."
+            },
+            "ar": {
+              "title": "qayd Releases Invoicing Module for Independent Professionals",
+              "excerpt": "New tools for solopreneurs and independent contractors in the qayd platform.",
+              "category": "المنتج",
+              "image_url": "",
+              "url": "/news",
+              "date": "May 28, 2026"
+            }
+          }
+        },
+        {
+          "id": "77777777-0000-0002-0002-000000000005",
+          "type": "news_article_card",
+          "position": 5,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "title": "accommerce Integrates Supplier Discovery Layer",
+              "date": "May 20, 2026",
+              "category": "Product",
+              "url": "/news",
+              "image_url": "",
+              "excerpt": "Buyers can now discover verified suppliers across multiple sectors directly within accommerce."
+            },
+            "ar": {
+              "title": "accommerce Integrates Supplier Discovery Layer",
+              "excerpt": "Buyers can now discover verified suppliers across multiple sectors directly within accommerce.",
+              "category": "المنتج",
+              "image_url": "",
+              "url": "/news",
+              "date": "May 20, 2026"
+            }
+          }
+        },
+        {
+          "id": "77777777-0000-0002-0002-000000000006",
+          "type": "news_article_card",
+          "position": 6,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "title": "ACCSYSTEM Infrastructure Achieves 99.98% Uptime in Q1 2026",
+              "date": "May 15, 2026",
+              "category": "Corporate",
+              "url": "/news",
+              "image_url": "",
+              "excerpt": "Platform reliability metrics for the first quarter of 2026 reflect continued infrastructure investment."
+            },
+            "ar": {
+              "title": "ACCSYSTEM Infrastructure Achieves 99.98% Uptime in Q1 2026",
+              "excerpt": "Platform reliability metrics for the first quarter of 2026 reflect continued infrastructure investment.",
+              "category": "مؤسسي",
+              "image_url": "",
+              "url": "/news",
+              "date": "May 15, 2026"
+            }
+          }
+        },
+        {
+          "id": "77777777-0000-0002-0002-000000000007",
+          "type": "news_article_card",
+          "position": 7,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "title": "accore Supply-Chain Dashboard Now Available in Public Preview",
+              "date": "April 30, 2026",
+              "category": "Product",
+              "url": "/news",
+              "image_url": "",
+              "excerpt": "Enterprise clients can now access the supply-chain throughput dashboard in early access."
+            },
+            "ar": {
+              "title": "accore Supply-Chain Dashboard Now Available in Public Preview",
+              "excerpt": "Enterprise clients can now access the supply-chain throughput dashboard in early access.",
+              "category": "المنتج",
+              "image_url": "",
+              "url": "/news",
+              "date": "April 30, 2026"
+            }
+          }
+        },
+        {
+          "id": "77777777-0000-0002-0002-000000000008",
+          "type": "news_article_card",
+          "position": 8,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "title": "ACCSYSTEM Launches the Overview Hub",
+              "date": "June 15, 2026",
+              "category": "Company",
+              "url": "/news",
+              "image_url": "",
+              "excerpt": "A new editorial presence within the ACCSYSTEM ecosystem, giving the platform a structured communications and publishing interface."
+            },
+            "ar": {
+              "title": "ACCSYSTEM Launches the Overview Hub",
+              "excerpt": "A new editorial presence within the ACCSYSTEM ecosystem, giving the platform a structured communications and publishing interface.",
+              "category": "الشركة",
+              "image_url": "",
+              "url": "/news",
+              "date": "June 15, 2026"
+            }
+          }
+        },
+        {
+          "id": "77777777-0000-0002-0002-000000000009",
+          "type": "news_article_card",
+          "position": 9,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "title": "accore B2B Network Reaches New Enterprise Milestone",
+              "date": "June 8, 2026",
+              "category": "Product",
+              "url": "/news",
+              "image_url": "",
+              "excerpt": "The enterprise operations core has connected its first cross-sector supply chain network, marking a significant capability milestone."
+            },
+            "ar": {
+              "title": "accore B2B Network Reaches New Enterprise Milestone",
+              "excerpt": "The enterprise operations core has connected its first cross-sector supply chain network, marking a significant capability milestone.",
+              "category": "المنتج",
+              "image_url": "",
+              "url": "/news",
+              "date": "June 8, 2026"
+            }
+          }
+        },
+        {
+          "id": "77777777-0000-0002-0002-00000000000a",
+          "type": "news_article_card",
+          "position": 10,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "title": "qayd Expands Individual Financial Tools",
+              "date": "May 28, 2026",
+              "category": "Product",
+              "url": "/news",
+              "image_url": "",
+              "excerpt": "New invoicing and cash-flow modules available to individual professionals using the qayd platform."
+            },
+            "ar": {
+              "title": "qayd Expands Individual Financial Tools",
+              "excerpt": "New invoicing and cash-flow modules available to individual professionals using the qayd platform.",
+              "category": "المنتج",
+              "image_url": "",
+              "url": "/news",
+              "date": "May 28, 2026"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

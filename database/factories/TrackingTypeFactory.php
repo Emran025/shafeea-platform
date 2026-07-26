@@ -5,7 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\TrackingType>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Tracking\TrackingType>
  */
 class TrackingTypeFactory extends Factory
 {

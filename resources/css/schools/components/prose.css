@@ -1,0 +1,46 @@
+/* ════════════════════════════════════════════════════════════════
+   COMPONENT — Rich text prose (.prose-accsystem)
+════════════════════════════════════════════════════════════════ */
+.prose-accsystem { font-family: var(--font-sans); }
+
+.prose-accsystem p          { line-height: 1.8; margin-bottom: 1.25rem; color: var(--text-body); }
+.prose-accsystem h1         { font-size: 32px; color: var(--brand-navy); font-weight: 700; margin: 2rem 0 1rem; }
+.prose-accsystem h2         { font-size: 26px; color: var(--brand-navy); font-weight: 700; margin: 2rem 0 1rem; }
+.prose-accsystem h3         { font-size: 20px; color: var(--brand-navy); font-weight: 700; margin: 1.75rem 0 0.75rem; }
+.prose-accsystem h4         { font-size: 18px; color: var(--brand-navy); font-weight: 700; margin: 1.5rem 0 0.75rem; }
+.prose-accsystem ul         { list-style: disc;    padding-left: 1.5rem; margin-bottom: 1.25rem; color: var(--text-body); }
+.prose-accsystem ol         { list-style: decimal; padding-left: 1.5rem; margin-bottom: 1.25rem; color: var(--text-body); }
+.prose-accsystem li         { margin-bottom: 0.5rem; line-height: 1.7; }
+.prose-accsystem strong     { font-weight: 700; color: var(--brand-navy); }
+.prose-accsystem em         { font-style: italic; }
+.prose-accsystem code       { background: rgba(0,0,0,0.06); border-radius: 3px; padding: 1px 5px; font-size: 0.9em; }
+.prose-accsystem a          { color: var(--brand-gold); text-decoration: underline; }
+.prose-accsystem a:hover    { color: var(--brand-gold-dark); }
+.prose-accsystem blockquote { border-left: 4px solid var(--brand-gold); padding-left: 1.25rem; margin: 1.5rem 0; color: #4b5563; font-style: italic; }
+
+/*
+ * Global dark mode: headings and strong use var(--brand-navy) which is
+ * a hardcoded colour that never flips. Override here so rich text inside
+ * any section is readable when the .dark class is active.
+ */
+.dark .prose-accsystem h1,
+.dark .prose-accsystem h2,
+.dark .prose-accsystem h3,
+.dark .prose-accsystem h4  { color: var(--text-primary); }
+.dark .prose-accsystem strong { color: var(--text-primary); }
+.dark .prose-accsystem p,
+.dark .prose-accsystem li  { color: var(--text-body); }
+.dark .prose-accsystem code { background: rgba(255, 255, 255, 0.1); }
+.dark .prose-accsystem blockquote { color: var(--text-secondary); }
+
+/* Dark variant */
+.prose-accsystem--dark p,
+.prose-accsystem--dark li         { color: var(--dk-text-secondary); }
+.prose-accsystem--dark h1,
+.prose-accsystem--dark h2,
+.prose-accsystem--dark h3,
+.prose-accsystem--dark h4         { color: var(--dk-text-primary); }
+.prose-accsystem--dark strong      { color: var(--dk-text-primary); }
+.prose-accsystem--dark a           { color: var(--brand-gold); }
+.prose-accsystem--dark blockquote  { color: var(--dk-text-secondary); }
+.prose-accsystem--dark code        { background: rgba(255,255,255,0.1); }

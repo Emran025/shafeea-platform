@@ -2,7 +2,7 @@
 
 namespace App\Mail\Admins;
 
-use App\Models\School;
+use App\Models\School\School;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;

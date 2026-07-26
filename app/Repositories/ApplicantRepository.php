@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Models\Applicant;
+use App\Models\Applicant\Applicant;
 
 class ApplicantRepository
 {
@@ -17,7 +17,7 @@ class ApplicantRepository
         $query = Applicant::query()
             // Only surface applicants who have verified their email address.
             // Unverified applicants are invisible to the school recruitment pool.
-            ->whereHas('user', fn ($q) => $q->whereNotNull('email_verified_at'));
+            ->whereHas('user', fn($q) => $q->whereNotNull('email_verified_at'));
 
         if (isset($filters['status'])) {
             $query->where('status', $filters['status']);

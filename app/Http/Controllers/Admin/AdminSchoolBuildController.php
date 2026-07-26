@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\School;
-use App\Services\GitHubDispatchService;
+use App\Models\School\School;
+use App\Services\Build\GitHubDispatchService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
@@ -18,9 +18,7 @@ use Illuminate\Support\Facades\Redirect;
  */
 class AdminSchoolBuildController extends Controller
 {
-    public function __construct(private GitHubDispatchService $githubDispatch)
-    {
-    }
+    public function __construct(private GitHubDispatchService $githubDispatch) {}
 
     /**
      * PUT /admin/schools/{school}/build-config
@@ -41,7 +39,7 @@ class AdminSchoolBuildController extends Controller
 
         // Only update keystore fields that were actually provided in this request.
         // Prevents accidentally nullifying a field when the admin only edits one field.
-        $updateData = array_filter($validated, fn ($v) => !is_null($v));
+        $updateData = array_filter($validated, fn($v) => !is_null($v));
 
         $school->update($updateData);
 

@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Models\Teacher;
+use App\Models\Teacher\Teacher;
 
 class TeacherRepository
 {
@@ -23,10 +23,10 @@ class TeacherRepository
             $search = $filters['search'];
             $query->where(function ($q) use ($search) {
                 $q->where('username', 'like', "%{$search}%")
-                  ->orWhereHas('user', function ($uq) use ($search) {
-                      $uq->where('name', 'like', "%{$search}%")
-                        ->orWhere('email', 'like', "%{$search}%");
-                  });
+                    ->orWhereHas('user', function ($uq) use ($search) {
+                        $uq->where('name', 'like', "%{$search}%")
+                            ->orWhere('email', 'like', "%{$search}%");
+                    });
             });
         }
 

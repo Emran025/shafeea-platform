@@ -1,0 +1,6 @@
+/* ════════════════════════════════════════════════════════════════
+   SECTION — Navigation anchor strip
+════════════════════════════════════════════════════════════════ */
+.nav-anchor { background: var(--surface); border-bottom: 1px solid var(--border); padding: 16px 24px; }
+.nav-anchor__inner { max-width: var(--container-max); margin-inline: auto; }
+.nav-anchor__label { font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-secondary); margin: 0; font-family: var(--font-sans); }

@@ -1,0 +1,13 @@
+<svg class="Icon" height="28" viewbox="0 0 40 28" width="40"
+    xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <clippath id="eyeIconClipPath--a">
+            <path class="Icon__blendBackground" d="M20 2a12 12 0 1 1 0 24 12 12 0 0 1 0-24zm0 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10z" fill="#0F2741"></path>
+        </clippath>
+    </defs>
+    <path class="Icon__blendBackground" d="M20 2a12 12 0 1 1 0 24 12 12 0 0 1 0-24zm0 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10z" fill="#0F2741"></path>
+    <path class="Icon__blendForeground" d="M20 0C12.37 0 5.4 4.9.3 12.9c-.4.7-.4 1.56 0 2.24C5.4 23.11 12.37 28 20 28c7.63 0 14.6-4.9 19.7-12.9.4-.7.4-1.56 0-2.24C34.6 4.89 27.63 0 20 0zm.53 21.98c-4.8.3-8.81-3.66-8.51-8.5a8.06 8.06 0 0 1 7.45-7.46 7.99 7.99 0 1 1 1.05 15.97z" fill="#0F2741"></path>
+    <g clip-path="url(#eyeIconClipPath--a)">
+        <path class="Icon__blendForeground" d="M20 0C12.37 0 5.4 4.9.3 12.9c-.4.7-.4 1.56 0 2.24C5.4 23.11 12.37 28 20 28c7.63 0 14.6-4.9 19.7-12.9.4-.7.4-1.56 0-2.24C34.6 4.89 27.63 0 20 0zm.53 21.98c-4.8.3-8.81-3.66-8.51-8.5a8.06 8.06 0 0 1 7.45-7.46 7.99 7.99 0 1 1 1.05 15.97z" fill="#005E7A"></path>
+    </g>
+</svg>

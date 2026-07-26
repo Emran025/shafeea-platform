@@ -1,9 +1,9 @@
 <?php
 
-use App\Http\Middleware\HandleAppearance;
-use App\Http\Middleware\HandleInertiaRequests;
-use App\Http\Middleware\ResolveSchoolFromAppKey;
-use App\Http\Middleware\VerifyBuildApiSignature;
+use App\Http\Middleware\Inertia\HandleAppearance;
+use App\Http\Middleware\Inertia\HandleInertiaRequests;
+use App\Http\Middleware\School\ResolveSchoolFromAppKey;
+use App\Http\Middleware\Api\VerifyBuildApiSignature;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -11,32 +11,32 @@ use Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route; // Required for proxy headers
 use Illuminate\Auth\AuthenticationException ;
-use App\Http\Middleware\IsSuperVisor ;
+use App\Http\Middleware\Auth\IsSuperVisor ;
 use Illuminate\Session\TokenMismatchException;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Log;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
-        web: __DIR__.'/../routes/web.php',
-        api: __DIR__.'/../routes/api.php',
+        web: __DIR__.'/../routes/platform/web.php',
+        api: __DIR__.'/../routes/platform/api.php',
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
         then: function () {
             // Custom route files
             Route::middleware('web')
-                ->group(base_path('routes/teachers.php'));
+                ->group(base_path('routes/platform/teachers.php'));
 
             Route::middleware('web')
-                ->group(base_path('routes/schools.php'));
+                ->group(base_path('routes/schools/schools.php'));
 
             Route::middleware('api')
-                ->group(base_path('routes/help.php'));
+                ->group(base_path('routes/platform/help.php'));
 
             Route::middleware('web')
                 ->prefix('admin')
                 ->name('admin.')
-                ->group(base_path('routes/admin.php'));
+                ->group(base_path('routes/platform/admin.php'));
         },
     )
     ->withMiddleware(function (Middleware $middleware) {

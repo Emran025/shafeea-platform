@@ -5,7 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Halaqah>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Halaqah\Halaqah>
  */
 class HalaqahFactory extends Factory
 {
@@ -27,7 +27,7 @@ class HalaqahFactory extends Factory
             'sum_of_students' => fake()->numberBetween(0, $maxStudents),
             'is_active' => true,  // Default to active for realistic test data
             'is_deleted' => false, // Default to not deleted
-            'school_id' => \App\Models\School::factory(),
+            'school_id' => \App\Models\School\School::factory(),
         ];
     }
 }

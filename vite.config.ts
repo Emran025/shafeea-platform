@@ -7,8 +7,13 @@ import { defineConfig } from 'vite';
 export default defineConfig({
     plugins: [
         laravel({
-            input: ['resources/css/app.css', 'resources/js/app.tsx'],
-            ssr: 'resources/js/ssr.tsx',
+            input: [
+                'resources/css/platform/app.css',
+                'resources/js/platform/app.tsx',
+                'resources/css/schools/app.css',
+                'resources/js/schools/app.tsx',
+            ],
+            ssr: 'resources/js/platform/ssr.tsx',
             refresh: true,
         }),
         react(),

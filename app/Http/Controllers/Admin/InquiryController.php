@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Faq;
+use App\Models\Content\Faq;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -30,7 +30,7 @@ class InquiryController extends Controller
         $inquiries = $query->with('category')->orderBy('display_order', 'asc')->latest()->paginate(20);
 
         // Fetch New Tickets (HelpTickets)
-        $ticketsQuery = \App\Models\HelpTicket::where('status', 'pending');
+        $ticketsQuery = \App\Models\Content\HelpTicket::where('status', 'pending');
          if ($request->has('search')) {
             $ticketsQuery->where(function ($q) use ($request) {
                 $q->where('subject', 'like', '%'.$request->input('search').'%')
@@ -42,7 +42,7 @@ class InquiryController extends Controller
         $newTickets = $ticketsQuery->latest()->get();
 
         $faqStatistics = Faq::orderBy('view_count', 'desc')->take(5)->get();
-        $categories = \App\Models\Category::all(); // Assuming Category model exists and is used for FAQs
+        $categories = \App\Models\Content\Category::all(); // Assuming Category model exists and is used for FAQs
 
         return Inertia::render('admin/inquiries/index', [
             'inquiries' => $inquiries,
@@ -53,14 +53,14 @@ class InquiryController extends Controller
         ]);
     }
 
-    public function show(\App\Models\Faq $inquiry)
+    public function show(\App\Models\Content\Faq $inquiry)
     {
         return Inertia::render('admin/inquiries/show', [
             'inquiry' => $inquiry,
         ]);
     }
 
-    public function convertToFaq(Request $request, \App\Models\HelpTicket $ticket)
+    public function convertToFaq(Request $request, \App\Models\Content\HelpTicket $ticket)
     {
         $validated = $request->validate([
             'question' => 'required|string|max:255',

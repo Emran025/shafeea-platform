@@ -1,0 +1,1281 @@
+{
+  "id": "ind00000-0000-0003-0000-000000000000",
+  "slug": "industries/retail",
+  "type": "industry.full_page",
+  "identity": {
+    "title": {
+      "en": "Retail Operational Systems | ACCSYSTEM"
+    },
+    "purpose": {
+      "en": "Industry vertical hub for retail operators across all tiers"
+    },
+    "owner": "accsystem",
+    "canonical_url": "https://accsystemerp.com/industries/retail",
+    "classification": "public"
+  },
+  "hierarchy": {
+    "depth": 1,
+    "position": 3,
+    "include_in_nav": false,
+    "nav_label": {
+      "en": "Retail"
+    }
+  },
+  "composition": {
+    "section_order": "explicit",
+    "allow_dynamic": false,
+    "max_sections": 20,
+    "fallback_policy": "show_partial"
+  },
+  "meta": {
+    "seo_title": {
+      "en": "Retail Operations & Inventory Management Software | ACCSYSTEM"
+    },
+    "seo_description": {
+      "en": "POS integration, inventory management, and supplier payments for retail businesses at every scale. From independent shops to franchise networks."
+    },
+    "og_title": "Retail Operational Systems | ACCSYSTEM",
+    "og_description": "Unified POS, inventory, and supplier management for modern retail operators.",
+    "og_image": null,
+    "robots": "index,follow"
+  },
+  "sections": [
+    {
+      "id": "i0300s01-0000-0000-0000-000000000001",
+      "type": "hero",
+      "name": "Hero",
+      "anchor_id": "industries-retail-hero",
+      "position": 1,
+      "group": "above-fold",
+      "required_block_types": [],
+      "blocks": [
+        {
+          "id": "i0300b01-0001-0000-0000-000000000001",
+          "type": "label",
+          "position": 1,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "Retail Industry Hub"
+            },
+            "ar": {
+              "text": "Retail Industry Hub"
+            }
+          }
+        },
+        {
+          "id": "i0300b01-0002-0000-0000-000000000001",
+          "type": "headline",
+          "position": 2,
+          "weight": 10,
+          "featured": true,
+          "content": {
+            "en": {
+              "text": "From shelf to ledger — retail financial operations, automated."
+            },
+            "ar": {
+              "text": "From shelf to ledger — retail financial operations, automated."
+            }
+          }
+        },
+        {
+          "id": "i0300b01-0003-0000-0000-000000000001",
+          "type": "subheadline",
+          "position": 3,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "ACCSYSTEM connects your POS, inventory, supplier management, and accounts in one platform designed for retail businesses at every scale."
+            },
+            "ar": {
+              "text": "ACCSYSTEM connects your POS, inventory, supplier management, and accounts in one platform designed for retail businesses at every scale."
+            }
+          }
+        },
+        {
+          "id": "i0300b01-0004-0000-0000-000000000001",
+          "type": "cta",
+          "position": 4,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Explore retail solutions",
+              "destination": {
+                "type": "internal_page",
+                "value": "pricing"
+              },
+              "intent": "primary"
+            },
+            "ar": {
+              "label": "Explore retail solutions",
+              "intent": "primary",
+              "destination": {
+                "type": "internal_page",
+                "value": "pricing"
+              }
+            }
+          }
+        },
+        {
+          "id": "i0300b01-0005-0000-0000-000000000001",
+          "type": "cta",
+          "position": 5,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Book an industry demo",
+              "destination": {
+                "type": "internal_page",
+                "value": "contact"
+              },
+              "intent": "secondary"
+            },
+            "ar": {
+              "label": "احجز عرضاً توضيحياً للقطاع",
+              "intent": "secondary",
+              "destination": {
+                "type": "internal_page",
+                "value": "contact"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "i0300s02-0000-0000-0000-000000000001",
+      "type": "statistics",
+      "name": "Operational Impact",
+      "anchor_id": "industries-retail-statistics",
+      "position": 2,
+      "group": "below-fold",
+      "required_block_types": [],
+      "blocks": [
+        {
+          "id": "i0300b02-0001-0000-0000-000000000001",
+          "type": "label",
+          "position": 1,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "Measurable results"
+            },
+            "ar": {
+              "text": "نتائج قابلة للقياس"
+            }
+          }
+        },
+        {
+          "id": "i0300b02-0002-0000-0000-000000000001",
+          "type": "headline",
+          "position": 2,
+          "weight": 10,
+          "featured": true,
+          "content": {
+            "en": {
+              "text": "Retail operations transformed by data."
+            },
+            "ar": {
+              "text": "عمليات التجزئة يحوّلها البيانات."
+            }
+          }
+        },
+        {
+          "id": "i0300b02-0003-0000-0000-000000000001",
+          "type": "stat_item",
+          "position": 3,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "value": "18%",
+              "unit": "Shrinkage reduction",
+              "descriptor": "Reduction in retail shrinkage through real-time inventory tracking and variance flagging."
+            },
+            "ar": {
+              "unit": "تخفيض الهدر",
+              "descriptor": "تخفيض هدر التجزئة من خلال تتبّع المخزون الفوري وإشارات التباين.",
+              "value": "18%"
+            }
+          }
+        },
+        {
+          "id": "i0300b02-0004-0000-0000-000000000001",
+          "type": "stat_item",
+          "position": 4,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "value": "3.2x",
+              "unit": "Faster supplier payments",
+              "descriptor": "Increase in supplier payment processing speed through automated invoice matching and approval."
+            },
+            "ar": {
+              "unit": "مدفوعات موردين أسرع",
+              "descriptor": "زيادة سرعة معالجة مدفوعات الموردين من خلال مطابقة الفواتير الآلية والاعتماد.",
+              "value": "3.2x"
+            }
+          }
+        },
+        {
+          "id": "i0300b02-0005-0000-0000-000000000001",
+          "type": "stat_item",
+          "position": 5,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "value": "£640k",
+              "unit": "Working capital recovered",
+              "descriptor": "Average working capital improvement through reduction of aged supplier credits and overstock positions."
+            },
+            "ar": {
+              "unit": "رأس المال العامل المستردّ",
+              "descriptor": "متوسط تحسّن رأس المال العامل من خلال تخفيض الائتمانات القديمة للموردين ومراكز المخزون الزائد.",
+              "value": "£640k"
+            }
+          }
+        },
+        {
+          "id": "i0300b02-0006-0000-0000-000000000001",
+          "type": "stat_item",
+          "position": 6,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "value": "99%",
+              "unit": "POS reconciliation accuracy",
+              "descriptor": "Daily POS-to-ledger reconciliation accuracy rate for retailers on ACCSYSTEM."
+            },
+            "ar": {
+              "unit": "دقة تسوية نقطة البيع",
+              "descriptor": "معدل دقة التسوية اليومية من نقطة البيع إلى دفتر الأستاذ للتجار على ACCSYSTEM.",
+              "value": "99%"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "i0300s03-0000-0000-0000-000000000001",
+      "type": "problem_statement",
+      "name": "The Challenge",
+      "anchor_id": "industries-retail-problem",
+      "position": 3,
+      "group": "below-fold",
+      "required_block_types": [],
+      "blocks": [
+        {
+          "id": "i0300b03-0001-0000-0000-000000000001",
+          "type": "label",
+          "position": 1,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "The growth ceiling"
+            },
+            "ar": {
+              "text": "سقف النمو"
+            }
+          }
+        },
+        {
+          "id": "i0300b03-0002-0000-0000-000000000001",
+          "type": "headline",
+          "position": 2,
+          "weight": 10,
+          "featured": true,
+          "content": {
+            "en": {
+              "text": "Multi-location retail exposes process failures."
+            },
+            "ar": {
+              "text": "تجزئة متعددة المواقع تكشف إخفاقات العمليات."
+            }
+          }
+        },
+        {
+          "id": "i0300b03-0003-0000-0000-000000000001",
+          "type": "subheadline",
+          "position": 3,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "Retail businesses opening a second or third location find that manual stock and accounts processes collapse without dedicated finance staff."
+            },
+            "ar": {
+              "text": "تجد الشركات التجزئية التي تفتح موقعاً ثانياً أو ثالثاً أن عمليات المخزون والحسابات اليدوية تنهار دون موظفين ماليين متخصصين."
+            }
+          }
+        },
+        {
+          "id": "i0300b03-0004-0000-0000-000000000001",
+          "type": "feature_item",
+          "position": 4,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Stock transfer errors",
+              "text": "Inter-location stock movements are tracked manually, creating discrepancies that take days to resolve."
+            },
+            "ar": {
+              "text": "حركات المخزون بين المواقع تُتابَع يدوياً، مما يُفضي إلى تناقضات تستغرق أياماً لحلّها.",
+              "label": "أخطاء نقل المخزون"
+            }
+          }
+        },
+        {
+          "id": "i0300b03-0005-0000-0000-000000000001",
+          "type": "feature_item",
+          "position": 5,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Margin erosion",
+              "text": "Promotions and markdowns are applied inconsistently across locations, eroding margin without visibility."
+            },
+            "ar": {
+              "text": "العروض والتخفيضات تُطبَّق بشكل غير متسق عبر المواقع، مما يؤكّل الهامش دون رؤية.",
+              "label": "تآكل الهامش"
+            }
+          }
+        },
+        {
+          "id": "i0300b03-0006-0000-0000-000000000001",
+          "type": "feature_item",
+          "position": 6,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Supplier consolidation",
+              "text": "Each location has separate supplier accounts, forfeiting group pricing that would materially improve margins."
+            },
+            "ar": {
+              "text": "كل موقع لديه حسابات موردين منفصلة، متنازلاً عن أسعار المجموعة التي ستُحسّن الهوامش بشكل ملموس.",
+              "label": "توحيد الموردين"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "i0300s04-0000-0000-0000-000000000001",
+      "type": "solution_overview",
+      "name": "The Solution",
+      "anchor_id": "industries-retail-solution",
+      "position": 4,
+      "group": "below-fold",
+      "required_block_types": [],
+      "blocks": [
+        {
+          "id": "i0300b04-0001-0000-0000-000000000001",
+          "type": "label",
+          "position": 1,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "The unified approach"
+            },
+            "ar": {
+              "text": "النهج الموحّد"
+            }
+          }
+        },
+        {
+          "id": "i0300b04-0002-0000-0000-000000000001",
+          "type": "headline",
+          "position": 2,
+          "weight": 10,
+          "featured": true,
+          "content": {
+            "en": {
+              "text": "One platform for your entire retail operation."
+            },
+            "ar": {
+              "text": "منصة واحدة لعمليات التجزئة الخاصة بك بأكملها."
+            }
+          }
+        },
+        {
+          "id": "i0300b04-0003-0000-0000-000000000001",
+          "type": "subheadline",
+          "position": 3,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "ACCSYSTEM brings billing, inventory, HR, and compliance into a single system designed for growing local businesses."
+            },
+            "ar": {
+              "text": "يجمع ACCSYSTEM الفوترة والمخزون والموارد البشرية والامتثال في نظام واحد مُصمَّم للشركات المحلية المتنامية."
+            }
+          }
+        },
+        {
+          "id": "i0300b04-0004-0000-0000-000000000001",
+          "type": "cta",
+          "position": 4,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Explore the platform",
+              "destination": {
+                "type": "internal_page",
+                "value": "products/accore"
+              },
+              "intent": "primary"
+            },
+            "ar": {
+              "label": "استكشف المنصة",
+              "intent": "primary",
+              "destination": {
+                "type": "internal_page",
+                "value": "products/accore"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "i0300s05-0000-0000-0000-000000000001",
+      "type": "feature_grid",
+      "name": "Feature Highlights",
+      "anchor_id": "industries-retail-features",
+      "position": 5,
+      "group": "below-fold",
+      "required_block_types": [],
+      "blocks": [
+        {
+          "id": "i0300b05-0001-0000-0000-000000000001",
+          "type": "label",
+          "position": 1,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "Platform features"
+            },
+            "ar": {
+              "text": "ميزات المنصة"
+            }
+          }
+        },
+        {
+          "id": "i0300b05-0002-0000-0000-000000000001",
+          "type": "headline",
+          "position": 2,
+          "weight": 10,
+          "featured": true,
+          "content": {
+            "en": {
+              "text": "The tools retail operators use every day."
+            },
+            "ar": {
+              "text": "الأدوات التي يستخدمها مشغّلو التجزئة يومياً."
+            }
+          }
+        },
+        {
+          "id": "i0300b05-0003-0000-0000-000000000001",
+          "type": "subheadline",
+          "position": 3,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "Every feature purpose-built for commerce operational requirements."
+            },
+            "ar": {
+              "text": "كل ميزة مُصمَّمة خصيصاً لمتطلبات عمليات التجارة."
+            }
+          }
+        },
+        {
+          "id": "i0300b05-0004-0000-0000-000000000001",
+          "type": "feature_tile",
+          "position": 4,
+          "weight": 7,
+          "featured": true,
+          "content": {
+            "en": {
+              "label": "Multi-Location Stock Management",
+              "description": "Track inventory levels, transfers, and variances across all locations with real-time consolidated view."
+            },
+            "ar": {
+              "label": "إدارة المخزون متعدد المواقع",
+              "description": "تتبّع مستويات المخزون والنقل والتباينات عبر جميع المواقع مع عرض موحّد فوري."
+            }
+          }
+        },
+        {
+          "id": "i0300b05-0005-0000-0000-000000000001",
+          "type": "feature_tile",
+          "position": 5,
+          "weight": 7,
+          "featured": true,
+          "content": {
+            "en": {
+              "label": "Centralised Supplier Management",
+              "description": "Manage all supplier relationships, agreements, and purchase orders from a single procurement hub."
+            },
+            "ar": {
+              "label": "إدارة الموردين المركزية",
+              "description": "أدر جميع علاقات الموردين والاتفاقيات وأوامر الشراء من مركز مشتريات واحد."
+            }
+          }
+        },
+        {
+          "id": "i0300b05-0006-0000-0000-000000000001",
+          "type": "feature_tile",
+          "position": 6,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Retail Staff Payroll",
+              "description": "Process payroll for full-time, part-time, and casual retail staff with shift-based hour calculations."
+            },
+            "ar": {
+              "label": "كشف رواتب موظفي التجزئة",
+              "description": "عالج كشوف رواتب موظفي التجزئة بدوام كامل وجزئي وعارض مع احتسابات ساعات قائمة على الورديات."
+            }
+          }
+        },
+        {
+          "id": "i0300b05-0007-0000-0000-000000000001",
+          "type": "feature_tile",
+          "position": 7,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Location P&L Reporting",
+              "description": "Generate profitability reports per location with revenue, cost of sales, and overheads broken down."
+            },
+            "ar": {
+              "label": "تقارير أرباح وخسائر الموقع",
+              "description": "أنشئ تقارير ربحية لكل موقع مع تفاصيل الإيراد وتكلفة المبيعات والنفقات العامة."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "i0300s06-0000-0000-0000-000000000001",
+      "type": "media_spotlight",
+      "name": "Platform Walkthrough",
+      "anchor_id": "industries-retail-spotlight",
+      "position": 6,
+      "group": "below-fold",
+      "required_block_types": [],
+      "blocks": [
+        {
+          "id": "i0300b06-0001-0000-0000-000000000001",
+          "type": "label",
+          "position": 1,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "See it in context"
+            },
+            "ar": {
+              "text": "شاهده في السياق"
+            }
+          }
+        },
+        {
+          "id": "i0300b06-0002-0000-0000-000000000001",
+          "type": "headline",
+          "position": 2,
+          "weight": 10,
+          "featured": true,
+          "content": {
+            "en": {
+              "text": "A closer look at retail financial management."
+            },
+            "ar": {
+              "text": "نظرة أعمق على إدارة المالية في التجزئة."
+            }
+          }
+        },
+        {
+          "id": "i0300b06-0003-0000-0000-000000000001",
+          "type": "rich_text",
+          "position": 3,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "content": {
+                "type": "doc",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "The ACCSYSTEM retail module handles every financial workflow from point-of-operation data capture through to regulatory reporting — without manual intervention at any step."
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            "ar": {
+              "content": {
+                "type": "doc",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "The ACCSYSTEM retail module handles every financial workflow from point-of-operation data capture through to regulatory reporting — without manual intervention at any step."
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "i0300s07-0000-0000-0000-000000000001",
+      "type": "workflow_steps",
+      "name": "How It Works",
+      "anchor_id": "industries-retail-workflow",
+      "position": 7,
+      "group": "below-fold",
+      "required_block_types": [],
+      "blocks": [
+        {
+          "id": "i0300b07-0001-0000-0000-000000000001",
+          "type": "label",
+          "position": 1,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "Implementation path"
+            },
+            "ar": {
+              "text": "مسار التطبيق"
+            }
+          }
+        },
+        {
+          "id": "i0300b07-0002-0000-0000-000000000001",
+          "type": "headline",
+          "position": 2,
+          "weight": 10,
+          "featured": true,
+          "content": {
+            "en": {
+              "text": "From setup to operational value — fast."
+            },
+            "ar": {
+              "text": "من الإعداد إلى القيمة التشغيلية — بسرعة."
+            }
+          }
+        },
+        {
+          "id": "i0300b07-0003-0000-0000-000000000001",
+          "type": "step_item",
+          "position": 3,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "step_number": 1,
+              "label": "Sales recorded at POS",
+              "description": "Every transaction posts from POS to the ACCSYSTEM ledger automatically with product-level revenue and COGS."
+            },
+            "ar": {
+              "label": "تسجيل المبيعات عند نقطة البيع",
+              "description": "كل معاملة تُقيَّد من نقطة البيع إلى دفتر ACCSYSTEM تلقائياً مع إيراد وتكلفة بضاعة مبيعة على مستوى المنتج.",
+              "step_number": 1
+            }
+          }
+        },
+        {
+          "id": "i0300b07-0004-0000-0000-000000000001",
+          "type": "step_item",
+          "position": 4,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "step_number": 2,
+              "label": "Stock level updated",
+              "description": "Inventory quantities update per sale and per goods receipt, maintaining perpetual accuracy."
+            },
+            "ar": {
+              "label": "تحديث مستوى المخزون",
+              "description": "تتحدث كميات المخزون مع كل بيع وكل استلام بضاعة، مع الحفاظ على دقة دائمة.",
+              "step_number": 2
+            }
+          }
+        },
+        {
+          "id": "i0300b07-0005-0000-0000-000000000001",
+          "type": "step_item",
+          "position": 5,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "step_number": 3,
+              "label": "Supplier invoices matched",
+              "description": "Supplier invoices are matched to purchase orders automatically and queued for approval and payment."
+            },
+            "ar": {
+              "label": "مطابقة فواتير الموردين",
+              "description": "تُطابَق فواتير الموردين مع أوامر الشراء تلقائياً وتُصفَّف في قائمة الاعتماد والسداد.",
+              "step_number": 3
+            }
+          }
+        },
+        {
+          "id": "i0300b07-0006-0000-0000-000000000001",
+          "type": "step_item",
+          "position": 6,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "step_number": 4,
+              "label": "Location P&L available",
+              "description": "Location managers and group finance access real-time profitability without any manual reporting work."
+            },
+            "ar": {
+              "label": "توفّر بيان الأرباح والخسائر للموقع",
+              "description": "يصل مديرو المواقع ومالية المجموعة إلى الربحية الآنية دون أي عمل تقارير يدوي.",
+              "step_number": 4
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "i0300s08-0000-0000-0000-000000000001",
+      "type": "use_case_grid",
+      "name": "Use Cases",
+      "anchor_id": "industries-retail-use-cases",
+      "position": 8,
+      "group": "below-fold",
+      "required_block_types": [],
+      "blocks": [
+        {
+          "id": "i0300b08-0001-0000-0000-000000000001",
+          "type": "label",
+          "position": 1,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "In practice"
+            },
+            "ar": {
+              "text": "في التطبيق الفعلي"
+            }
+          }
+        },
+        {
+          "id": "i0300b08-0002-0000-0000-000000000001",
+          "type": "headline",
+          "position": 2,
+          "weight": 10,
+          "featured": true,
+          "content": {
+            "en": {
+              "text": "Retail operators in action."
+            },
+            "ar": {
+              "text": "مشغّلو التجزئة في التطبيق الفعلي."
+            }
+          }
+        },
+        {
+          "id": "i0300b08-0003-0000-0000-000000000001",
+          "type": "use_case_card",
+          "position": 3,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "headline": "A 3-location fashion chain unifies inventory.",
+              "scenario_narrative": "A fashion retailer with 3 boutiques eliminated manual stock transfer sheets by connecting all locations to ACCSYSTEM. Stock accuracy improved from 84% to 98.7% and inter-location transfers reduced shrinkage by 23%.",
+              "tags": [
+                "Fashion Retail",
+                "Inventory"
+              ]
+            },
+            "ar": {
+              "headline": "سلسلة أزياء بـ 3 مواقع توحّد المخزون.",
+              "scenario_narrative": "تاجر أزياء بـ 3 بوتيكات ألغى أوراق نقل المخزون اليدوية بربط جميع المواقع بـ ACCSYSTEM. تحسّنت دقة المخزون من 84% إلى 98.7% وخفّضت التحويلات بين المواقع الهدر بنسبة 23%.",
+              "tags": [
+                "Fashion Retail",
+                "Inventory"
+              ]
+            }
+          }
+        },
+        {
+          "id": "i0300b08-0004-0000-0000-000000000001",
+          "type": "use_case_card",
+          "position": 4,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "headline": "A food and beverage retailer controls margins.",
+              "scenario_narrative": "A specialty food chain with 5 outlets used ACCSYSTEM to track category margin by location. Identified that two locations were consistently applying unauthorised markdowns, costing £84,000 in annual margin.",
+              "tags": [
+                "Food Retail",
+                "Margin Control"
+              ]
+            },
+            "ar": {
+              "headline": "تاجر أغذية ومشروبات يتحكّم في الهوامش.",
+              "scenario_narrative": "سلسلة أغذية متخصصة بـ 5 منافذ استخدمت ACCSYSTEM لتتبّع هامش الصنف حسب الموقع. حدّدت أن موقعين يطبّقان باستمرار تخفيضات غير مصرّح بها تُكلّف 84,000 جنيه في الهامش السنوي.",
+              "tags": [
+                "Food Retail",
+                "Margin Control"
+              ]
+            }
+          }
+        },
+        {
+          "id": "i0300b08-0005-0000-0000-000000000001",
+          "type": "use_case_card",
+          "position": 5,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "headline": "A gift shop group reduces supplier costs.",
+              "scenario_narrative": "By consolidating purchasing for 3 gift shop locations through ACCSYSTEM's centralised buying module, this group renegotiated supplier terms and reduced product acquisition costs by 14%.",
+              "tags": [
+                "Gift Retail",
+                "Procurement"
+              ]
+            },
+            "ar": {
+              "headline": "مجموعة هدايا تُخفّض تكاليف الموردين.",
+              "scenario_narrative": "بتوحيد المشتريات لـ 3 مواقع هدايا عبر وحدة الشراء المركزي في ACCSYSTEM، أعادت هذه المجموعة التفاوض على شروط الموردين وخفّضت تكاليف اقتناء المنتجات 14%.",
+              "tags": [
+                "Gift Retail",
+                "Procurement"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "i0300s09-0000-0000-0000-000000000001",
+      "type": "testimonial",
+      "name": "Testimonial",
+      "anchor_id": "industries-retail-testimonial",
+      "position": 9,
+      "group": "below-fold",
+      "required_block_types": [],
+      "blocks": [
+        {
+          "id": "i0300b09-0001-0000-0000-000000000001",
+          "type": "label",
+          "position": 1,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "What operators say"
+            },
+            "ar": {
+              "text": "ما يقوله مشغّلونا"
+            }
+          }
+        },
+        {
+          "id": "i0300b09-0002-0000-0000-000000000001",
+          "type": "headline",
+          "position": 2,
+          "weight": 10,
+          "featured": true,
+          "content": {
+            "en": {
+              "text": "Results from commerce leaders."
+            },
+            "ar": {
+              "text": "نتائج من قادة التجارة."
+            }
+          }
+        },
+        {
+          "id": "i0300b09-0003-0000-0000-000000000001",
+          "type": "quote",
+          "position": 3,
+          "weight": 8,
+          "featured": true,
+          "content": {
+            "en": {
+              "text": "We had 15 locations running 15 different supplier agreements. ACCSYSTEM's buying hub put us in a position to negotiate as a group for the first time. Cost of goods dropped 19% in the first year.",
+              "attribution": "Buying Director, 15-location retail group, UAE"
+            },
+            "ar": {
+              "text": "كانت لدينا 15 موقعاً بـ 15 اتفاقية مورّد مختلفة. وضعنا مركز الشراء في ACCSYSTEM في موضع التفاوض كمجموعة للمرة الأولى. انخفضت تكلفة البضاعة 19% في السنة الأولى.",
+              "attribution": "مدير المشتريات، مجموعة تجزئة بـ 15 موقعاً، الإمارات العربية المتحدة"
+            }
+          }
+        },
+        {
+          "id": "i0300b09-0004-0000-0000-000000000001",
+          "type": "quote",
+          "position": 4,
+          "weight": 8,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "Our franchise royalty collection used to be a monthly argument with spreadsheets. Now it is automatic, auditable, and accepted by every franchisee without dispute.",
+              "attribution": "Network Operations Director, 200-location franchise, KSA"
+            },
+            "ar": {
+              "text": "كان تحصيل عوائد الامتياز شهرياً عبارة عن جدال مع جداول البيانات. الآن أصبح تلقائياً وقابلاً للتدقيق ومقبولاً من كل حامل امتياز دون نزاع.",
+              "attribution": "مدير عمليات الشبكة، امتياز بـ 200 موقع، المملكة العربية السعودية"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "i0300s10-0000-0000-0000-000000000001",
+      "type": "comparison_table",
+      "name": "Platform Comparison",
+      "anchor_id": "industries-retail-comparison",
+      "position": 10,
+      "group": "below-fold",
+      "required_block_types": [],
+      "blocks": [
+        {
+          "id": "i0300b10-0001-0000-0000-000000000001",
+          "type": "label",
+          "position": 1,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "See the difference"
+            },
+            "ar": {
+              "text": "اكتشف الفرق"
+            }
+          }
+        },
+        {
+          "id": "i0300b10-0002-0000-0000-000000000001",
+          "type": "headline",
+          "position": 2,
+          "weight": 10,
+          "featured": true,
+          "content": {
+            "en": {
+              "text": "ACCSYSTEM vs. disconnected systems for retail."
+            },
+            "ar": {
+              "text": "ACCSYSTEM مقابل الأنظمة المنفصلة للتجزئة."
+            }
+          }
+        },
+        {
+          "id": "i0300b10-0003-0000-0000-000000000001",
+          "type": "comparison_row",
+          "position": 3,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Real-time financial visibility",
+              "before": "Month-end manual aggregation",
+              "after": "Live dashboard — always current"
+            },
+            "ar": {
+              "label": "الرؤية المالية في الوقت الفعلي",
+              "before": "تجميع يدوي في نهاية الشهر",
+              "after": "لوحة بيانات حية — محدّثة دائماً"
+            }
+          }
+        },
+        {
+          "id": "i0300b10-0004-0000-0000-000000000001",
+          "type": "comparison_row",
+          "position": 4,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Operational cost tracking",
+              "before": "Estimated from supplier invoices",
+              "after": "Actual cost tracked at point of consumption"
+            },
+            "ar": {
+              "label": "تتبّع التكاليف التشغيلية",
+              "before": "تقديري من فواتير الموردين",
+              "after": "التكلفة الفعلية مُتتبَّعة عند نقطة الاستهلاك"
+            }
+          }
+        },
+        {
+          "id": "i0300b10-0005-0000-0000-000000000001",
+          "type": "comparison_row",
+          "position": 5,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Compliance reporting",
+              "before": "Manual assembly — days of work",
+              "after": "Automated from live data — minutes"
+            },
+            "ar": {
+              "label": "تقارير الامتثال",
+              "before": "تجميع يدوي — يستغرق أياماً",
+              "after": "مؤتمت من البيانات الحية — في دقائق"
+            }
+          }
+        },
+        {
+          "id": "i0300b10-0006-0000-0000-000000000001",
+          "type": "comparison_row",
+          "position": 6,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Staff payroll",
+              "before": "Calculated separately from operational data",
+              "after": "Integrated with operational records — auto-calculated"
+            },
+            "ar": {
+              "label": "كشف رواتب الموظفين",
+              "before": "يُحسب بشكل منفصل عن البيانات التشغيلية",
+              "after": "متكامل مع السجلات التشغيلية — يُحسب تلقائياً"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "i0300s11-0000-0000-0000-000000000001",
+      "type": "pricing_card_row",
+      "name": "Pricing",
+      "anchor_id": "industries-retail-pricing",
+      "position": 11,
+      "group": "below-fold",
+      "required_block_types": [],
+      "blocks": [
+        {
+          "id": "i0300b11-0001-0000-0000-000000000001",
+          "type": "label",
+          "position": 1,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "Straightforward pricing"
+            },
+            "ar": {
+              "text": "أسعار شفافة وواضحة"
+            }
+          }
+        },
+        {
+          "id": "i0300b11-0002-0000-0000-000000000001",
+          "type": "headline",
+          "position": 2,
+          "weight": 10,
+          "featured": true,
+          "content": {
+            "en": {
+              "text": "Choose the plan that fits your retail operation."
+            },
+            "ar": {
+              "text": "اختر الخطة التي تناسب عمليتك في التجزئة."
+            }
+          }
+        },
+        {
+          "id": "i0300b11-0003-0000-0000-000000000001",
+          "type": "pricing_tier_card",
+          "position": 3,
+          "weight": 7,
+          "featured": true,
+          "content": {
+            "en": {
+              "name": "Retail Core",
+              "description": "POS integration, stock management, and supplier payments for independent retailers.",
+              "price_display": "From AED 399/mo"
+            },
+            "ar": {
+              "description": "تكامل نقطة البيع وإدارة المخزون ومدفوعات الموردين للتجار المستقلين.",
+              "name": "أساسيات التجزئة",
+              "price_display": "From AED 399/mo"
+            }
+          }
+        },
+        {
+          "id": "i0300b11-0004-0000-0000-000000000001",
+          "type": "pricing_tier_card",
+          "position": 4,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "name": "Retail Group",
+              "description": "Multi-location inventory, centralised buying, and group P&L for retail chains.",
+              "price_display": "From AED 1,299/mo"
+            },
+            "ar": {
+              "description": "مخزون متعدد المواقع وشراء مركزي وأرباح وخسائر المجموعة لسلاسل التجزئة.",
+              "name": "مجموعة التجزئة",
+              "price_display": "From AED 1,299/mo"
+            }
+          }
+        },
+        {
+          "id": "i0300b11-0005-0000-0000-000000000001",
+          "type": "cta",
+          "position": 5,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "View full pricing",
+              "destination": {
+                "type": "internal_page",
+                "value": "pricing"
+              },
+              "intent": "primary"
+            },
+            "ar": {
+              "label": "عرض الأسعار الكاملة",
+              "intent": "primary",
+              "destination": {
+                "type": "internal_page",
+                "value": "pricing"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "i0300s12-0000-0000-0000-000000000001",
+      "type": "cta_band",
+      "name": "Get Started",
+      "anchor_id": "industries-retail-cta",
+      "position": 12,
+      "group": "below-fold",
+      "required_block_types": [],
+      "blocks": [
+        {
+          "id": "i0300b12-0001-0000-0000-000000000001",
+          "type": "headline",
+          "position": 1,
+          "weight": 10,
+          "featured": true,
+          "content": {
+            "en": {
+              "text": "Ready to take control of your retail operations?"
+            },
+            "ar": {
+              "text": "هل أنت مستعد للسيطرة على عمليات التجزئة الخاصة بك؟"
+            }
+          }
+        },
+        {
+          "id": "i0300b12-0002-0000-0000-000000000001",
+          "type": "subheadline",
+          "position": 2,
+          "weight": 7,
+          "featured": false,
+          "content": {
+            "en": {
+              "text": "Join growing retail businesses on ACCSYSTEM."
+            },
+            "ar": {
+              "text": "انضم إلى الشركات التجزئية المتنامية على ACCSYSTEM."
+            }
+          }
+        },
+        {
+          "id": "i0300b12-0003-0000-0000-000000000001",
+          "type": "cta",
+          "position": 3,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "Book a demo",
+              "destination": {
+                "type": "internal_page",
+                "value": "contact"
+              },
+              "intent": "primary"
+            },
+            "ar": {
+              "label": "احجز عرضاً توضيحياً",
+              "intent": "primary",
+              "destination": {
+                "type": "internal_page",
+                "value": "contact"
+              }
+            }
+          }
+        },
+        {
+          "id": "i0300b12-0004-0000-0000-000000000001",
+          "type": "cta",
+          "position": 4,
+          "weight": 5,
+          "featured": false,
+          "content": {
+            "en": {
+              "label": "View pricing",
+              "destination": {
+                "type": "internal_page",
+                "value": "pricing"
+              },
+              "intent": "secondary"
+            },
+            "ar": {
+              "label": "عرض الأسعار",
+              "intent": "secondary",
+              "destination": {
+                "type": "internal_page",
+                "value": "pricing"
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

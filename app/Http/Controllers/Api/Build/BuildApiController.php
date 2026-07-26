@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api\Build;
 
 use App\Http\Controllers\Controller;
-use App\Models\School;
-use App\Services\BuildApiService;
+use App\Models\School\School;
+use App\Services\Build\BuildApiService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -41,9 +41,7 @@ use Illuminate\Http\Request;
  */
 class BuildApiController extends Controller
 {
-    public function __construct(private BuildApiService $buildService)
-    {
-    }
+    public function __construct(private BuildApiService $buildService) {}
 
     /**
      * GET /api/build/schools
@@ -58,7 +56,7 @@ class BuildApiController extends Controller
 
         $schools = $this->buildService->getSchoolsForBuild($mode, $release);
 
-        $payload = $schools->map(fn (School $school) => $this->buildService->generateBuildPayload($school));
+        $payload = $schools->map(fn(School $school) => $this->buildService->generateBuildPayload($school));
 
         return response()->json([
             'success' => true,

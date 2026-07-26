@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Public;
 
-use App\Models\School;
-use App\Services\BuildApiService;
+use App\Models\School\School;
+use App\Services\Build\BuildApiService;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Log;
@@ -31,9 +31,7 @@ use Illuminate\Support\Facades\Mail;
  */
 class BuildWebhookController extends Controller
 {
-    public function __construct(private BuildApiService $buildService)
-    {
-    }
+    public function __construct(private BuildApiService $buildService) {}
 
     /**
      * POST /api/webhooks/build-complete
@@ -87,13 +85,13 @@ class BuildWebhookController extends Controller
 
             Mail::raw(
                 "السلام عليكم،\n\n" .
-                "تم إنشاء {$appLabel} الخاص بـ {$name} بنجاح للإصدار {$release}.\n\n" .
-                "رابط تحميل التطبيق:\n{$apkUrl}\n\n" .
-                "هذا الرابط دائم ويشير مباشرةً إلى الإصدار {$release} من تطبيق {$code}.\n\n" .
-                "فريق شافيعة",
+                    "تم إنشاء {$appLabel} الخاص بـ {$name} بنجاح للإصدار {$release}.\n\n" .
+                    "رابط تحميل التطبيق:\n{$apkUrl}\n\n" .
+                    "هذا الرابط دائم ويشير مباشرةً إلى الإصدار {$release} من تطبيق {$code}.\n\n" .
+                    "فريق شافيعة",
                 function ($message) use ($adminUser, $school, $release, $appLabel) {
                     $message->to($adminUser->email, $adminUser->name)
-                            ->subject("الإصدار {$release} جاهز — {$appLabel} لـ {$school->name}");
+                        ->subject("الإصدار {$release} جاهز — {$appLabel} لـ {$school->name}");
                 }
             );
         } catch (\Throwable $e) {

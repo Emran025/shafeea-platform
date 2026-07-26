@@ -3,7 +3,7 @@
 namespace App\Mail\Students;
 
 use App\Mail\CategorizedMailable;
-use App\Models\Applicant;
+use App\Models\Applicant\Applicant;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailables\Content;

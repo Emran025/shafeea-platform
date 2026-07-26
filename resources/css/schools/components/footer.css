@@ -1,0 +1,22 @@
+/* ════════════════════════════════════════════════════════════════
+   COMPONENT — Site footer (.footer)
+════════════════════════════════════════════════════════════════ */
+.footer { background: var(--brand-navy); font-family: var(--font-sans); margin-top: auto; }
+.footer__inner { max-width: var(--container-max); margin-inline: auto; padding: 48px 24px 32px; }
+
+.footer__top { display: flex; flex-wrap: wrap; gap: 48px; margin-bottom: 40px; }
+.footer__brand       { min-width: 200px; }
+.footer__brand-name  { font-size: 16px; font-weight: 800; letter-spacing: 0.14em; color: var(--brand-gold); text-transform: uppercase; }
+.footer__brand-tagline { color: var(--dk-text-muted); font-size: 13px; line-height: 1.6; margin-top: 12px; max-width: 240px; }
+.footer__end-col     { margin-left: auto; }
+.footer__col-heading { color: rgba(255,255,255,0.35); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; margin-bottom: 16px; }
+.footer__nav         { display: flex; flex-direction: column; gap: 10px; }
+.footer__link        { color: rgba(255,255,255,0.65); font-size: 13px; text-decoration: none; transition: color var(--transition-fast); }
+.footer__link:hover  { color: var(--white); }
+.footer__platform-name { color: var(--dk-text-muted); font-size: 13px; }
+
+.footer__bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+.footer__copy   { color: rgba(255,255,255,0.3); font-size: 12px; margin: 0; }
+.footer__legal  { display: flex; gap: 24px; }
+.footer__legal-link { color: rgba(255,255,255,0.3); font-size: 12px; text-decoration: none; transition: color var(--transition-fast); }
+.footer__legal-link:hover { color: rgba(255,255,255,0.6); }

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Requests\Student\StoreStudentRequest;
-use App\Http\Resources\StudentResource;
+use App\Http\Resources\Student\StudentResource;
 use App\Repositories\ApplicantRepository;
 use Illuminate\Http\Request;
 

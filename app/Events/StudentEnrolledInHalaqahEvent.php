@@ -2,7 +2,7 @@
 
 namespace App\Events;
 
-use App\Models\Enrollment;
+use App\Models\Student\Enrollment;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 

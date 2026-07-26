@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\TrackingType;
+use App\Models\Tracking\TrackingType;
 use Illuminate\Database\Seeder;
 
 class TrackingTypesSeeder extends Seeder

@@ -1,0 +1,36 @@
+{
+  "id": "nav00000-0000-0000-0002-000000000000",
+  "group_id": "company",
+  "label": {
+    "en": "Company"
+  },
+  "type": "dropdown",
+  "position": 3,
+  "is_active": true,
+  "columns": [
+    {
+      "id": "nav00000-0000-0000-0002-000000000100",
+      "column_id": "newsroom",
+      "label": {
+        "en": "News Room"
+      },
+      "entries": [
+        {"label": { "en": "Overview" }, "slug": "newsroom/overview"},
+        {"label": { "en": "News" }, "slug": "newsroom/news"},
+        {"label": { "en": "Stories" }, "slug": "newsroom/stories"},
+        {"label": { "en": "About Us" }, "slug": "newsroom/about"}
+      ]
+    },
+    {
+      "id": "nav00000-0000-0000-0002-000000000200",
+      "column_id": "home",
+      "label": {
+        "en": "Home"
+      },
+      "entries": [
+        {"label": { "en": "Home Page" }, "slug": "home"},
+        {"label": { "en": "Contact Us" }, "slug": "contact"}
+      ]
+    }
+  ]
+}

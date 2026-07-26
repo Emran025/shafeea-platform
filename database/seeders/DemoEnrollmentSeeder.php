@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Enrollment;
-use App\Models\User;
-use App\Models\Student;
-use App\Models\Plan;
-use App\Models\Halaqah;
+use App\Models\Student\Enrollment;
+use App\Models\Auth\User;
+use App\Models\Student\Student;
+use App\Models\Subscription\Plan;
+use App\Models\Halaqah\Halaqah;
 use Illuminate\Database\Seeder;
 
 class DemoEnrollmentSeeder extends Seeder

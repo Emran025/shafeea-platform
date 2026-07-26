@@ -1,0 +1,7 @@
+/* ════════════════════════════════════════════════════════════════
+   SECTION — Narrative
+════════════════════════════════════════════════════════════════ */
+.narrative__grid { display: grid; gap: 64px; align-items: center; }
+.narrative__grid--with-media { grid-template-columns: 1fr 1fr; }
+@media (max-width: 768px) { .narrative__grid--with-media { grid-template-columns: 1fr; } }
+.narrative__body { display: flex; flex-direction: column; gap: 20px; }

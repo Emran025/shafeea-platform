@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Resources\CategoryResource;
-use App\Http\Resources\ContentTypeResource;
-use App\Http\Resources\FaqResource;
-use App\Http\Resources\PolicyResource;
-use App\Http\Resources\TagResource;
-use App\Models\Category;
-use App\Models\ContentType;
-use App\Models\Faq;
-use App\Models\PrivacyPolicy;
-use App\Models\Tag;
-use App\Models\TermsOfUse;
-use App\Models\UserConsent;
+use App\Http\Resources\Content\CategoryResource;
+use App\Http\Resources\Content\ContentTypeResource;
+use App\Http\Resources\Content\FaqResource;
+use App\Http\Resources\Content\PolicyResource;
+use App\Http\Resources\Content\TagResource;
+use App\Models\Content\Category;
+use App\Models\Content\ContentType;
+use App\Models\Content\Faq;
+use App\Models\Content\PrivacyPolicy;
+use App\Models\Content\Tag;
+use App\Models\Content\TermsOfUse;
+use App\Models\Auth\UserConsent;
 use Illuminate\Http\Request;
 
 class HelpController extends ApiController

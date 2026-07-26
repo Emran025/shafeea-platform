@@ -2,7 +2,7 @@
 
 namespace App\Mail\Contacts;
 
-use App\Models\HelpTicket;
+use App\Models\Content\HelpTicket;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;

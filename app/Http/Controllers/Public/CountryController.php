@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Public;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-use App\Models\Country;
+use App\Models\Content\Country;
 use Illuminate\Support\Facades\Cache;
 
 class CountryController extends Controller

@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\ContentType;
+use App\Models\Content\ContentType;
 use Illuminate\Database\Seeder;
 
 class ContentTypeSeeder extends Seeder
