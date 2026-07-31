@@ -25,11 +25,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Load domain-structured migrations
+        // Load domain-structured migrations in exact dependency order
         $this->loadMigrationsFrom([
             database_path('migrations/Core'),
-            database_path('migrations/Auth'),
             database_path('migrations/School'),
+            database_path('migrations/Auth'),
             database_path('migrations/Academic'),
             database_path('migrations/Content'),
             database_path('migrations/Cms'),

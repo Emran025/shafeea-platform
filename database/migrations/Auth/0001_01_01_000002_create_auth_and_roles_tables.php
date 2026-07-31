@@ -51,6 +51,25 @@ return new class extends Migration
             $table->softDeletes();
         });
 
+        // devices
+        Schema::create('devices', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->string('device_id');
+            $table->string('device_name')->nullable();
+            $table->string('platform')->nullable();
+            $table->string('model')->nullable();
+            $table->string('manufacturer')->nullable();
+            $table->string('os_version')->nullable();
+            $table->string('app_version')->nullable();
+            $table->string('timezone')->nullable();
+            $table->string('locale')->nullable();
+            $table->text('fcm_token')->nullable();
+            $table->timestamp('last_login_at')->useCurrent();
+            $table->boolean('is_active')->default(true);
+            $table->timestamps();
+        });
+
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
             $table->string('token');
@@ -102,7 +121,7 @@ return new class extends Migration
         Schema::create('permission_user', function (Blueprint $table) {
             $table->foreignId('permission_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->primary(['permission_id', 'user_id']);
+            $table->primary(['permission_id', 'role_id']);
         });
 
         // user_consents
@@ -126,6 +145,7 @@ return new class extends Migration
         Schema::dropIfExists('roles');
         Schema::dropIfExists('admins');
         Schema::dropIfExists('password_reset_tokens');
+        Schema::dropIfExists('devices');
         Schema::dropIfExists('users');
         Schema::dropIfExists('countries');
     }

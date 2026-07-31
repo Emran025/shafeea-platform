@@ -88,25 +88,6 @@ return new class extends Migration
             $table->timestamp('login_time')->nullable();
         });
 
-        // devices
-        Schema::create('devices', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('device_id');
-            $table->string('device_name')->nullable();
-            $table->string('platform')->nullable();
-            $table->string('model')->nullable();
-            $table->string('manufacturer')->nullable();
-            $table->string('os_version')->nullable();
-            $table->string('app_version')->nullable();
-            $table->string('timezone')->nullable();
-            $table->string('locale')->nullable();
-            $table->text('fcm_token')->nullable();
-            $table->timestamp('last_login_at')->useCurrent();
-            $table->boolean('is_active')->default(true);
-            $table->timestamps();
-        });
-
         // telescope
         Schema::create('telescope_entries', function (Blueprint $table) {
             $table->bigIncrements('sequence');
@@ -130,14 +111,47 @@ return new class extends Migration
         Schema::create('telescope_monitoring', function (Blueprint $table) {
             $table->string('tag')->primary();
         });
+
+        // frequency_types
+        Schema::create('frequency_types', function (Blueprint $table) {
+            $table->id();
+            $table->string('name')->comment('Frequency type name');
+            $table->string('code')->nullable()->unique();
+            $table->integer('days_between')->nullable()->comment('Number of days between occurrences');
+            $table->string('description')->nullable()->comment('Description (optional)');
+            $table->timestamps();
+        });
+
+        // units
+        Schema::create('units', function (Blueprint $table) {
+            $table->id();
+            $table->string('code')->nullable()->comment('Unit code');
+            $table->string('name_ar')->nullable()->comment('Unit name in Arabic');
+            $table->string('name')->nullable()->comment('Unit name');
+            $table->integer('sort_order')->default(0);
+            $table->timestamps();
+        });
+
+        // tracking_types
+        Schema::create('tracking_types', function (Blueprint $table) {
+            $table->id();
+            $table->string('name_en')->nullable()->comment('Tracking type name in English');
+            $table->string('name_ar')->nullable()->comment('Tracking type name in Arabic');
+            $table->string('name')->nullable();
+            $table->string('code')->nullable()->unique();
+            $table->text('description')->nullable();
+            $table->timestamps();
+        });
     }
 
     public function down(): void
     {
+        Schema::dropIfExists('tracking_types');
+        Schema::dropIfExists('units');
+        Schema::dropIfExists('frequency_types');
         Schema::dropIfExists('telescope_monitoring');
         Schema::dropIfExists('telescope_entries_tags');
         Schema::dropIfExists('telescope_entries');
-        Schema::dropIfExists('devices');
         Schema::dropIfExists('sessions');
         Schema::dropIfExists('personal_access_tokens');
         Schema::dropIfExists('failed_jobs');

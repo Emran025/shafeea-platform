@@ -8,37 +8,6 @@ return new class extends Migration
 {
     public function up(): void
     {
-        // frequency_types
-        Schema::create('frequency_types', function (Blueprint $table) {
-            $table->id();
-            $table->string('name')->comment('Frequency type name');
-            $table->string('code')->nullable()->unique();
-            $table->integer('days_between')->nullable()->comment('Number of days between occurrences');
-            $table->string('description')->nullable()->comment('Description (optional)');
-            $table->timestamps();
-        });
-
-        // units
-        Schema::create('units', function (Blueprint $table) {
-            $table->id();
-            $table->string('code')->nullable()->comment('Unit code');
-            $table->string('name_ar')->nullable()->comment('Unit name in Arabic');
-            $table->string('name')->nullable()->comment('Unit name');
-            $table->integer('sort_order')->default(0);
-            $table->timestamps();
-        });
-
-        // tracking_types
-        Schema::create('tracking_types', function (Blueprint $table) {
-            $table->id();
-            $table->string('name_en')->nullable()->comment('Tracking type name in English');
-            $table->string('name_ar')->nullable()->comment('Tracking type name in Arabic');
-            $table->string('name')->nullable();
-            $table->string('code')->nullable()->unique();
-            $table->text('description')->nullable();
-            $table->timestamps();
-        });
-
         // tracking_units
         Schema::create('tracking_units', function (Blueprint $table) {
             $table->id();
@@ -258,8 +227,5 @@ return new class extends Migration
         Schema::dropIfExists('students');
         Schema::dropIfExists('teachers');
         Schema::dropIfExists('tracking_units');
-        Schema::dropIfExists('tracking_types');
-        Schema::dropIfExists('units');
-        Schema::dropIfExists('frequency_types');
     }
 };
