@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Link, usePage, router } from '@inertiajs/react';
-import AdminLayout from '@/layouts/admin-layout';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import AdminLayout from '../../../layouts/admin-layout';
+import { Button } from '../../../components/ui/button';
+import { Input } from '../../../components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../../components/ui/select';
 import { 
     Table, 
     TableBody, 
@@ -11,10 +11,10 @@ import {
     TableHead, 
     TableHeader, 
     TableRow 
-} from '@/components/ui/table';
-import { Badge } from '@/components/ui/badge';
-import { Card, CardContent } from '@/components/ui/card';
-import { PageProps } from '@/types';
+} from '../../../components/ui/table';
+import { Badge } from '../../../components/ui/badge';
+import { Card, CardContent } from '../../../components/ui/card';
+import { PageProps } from '../../../types';
 import { Plus, Edit, Trash2, Eye, Search, Filter, Sparkles, Grid3x3, List } from 'lucide-react';
 import { router as inertiaRouter } from '@inertiajs/react';
 

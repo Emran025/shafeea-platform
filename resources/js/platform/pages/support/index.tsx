@@ -1,11 +1,11 @@
 import { Head, useForm } from '@inertiajs/react';
-import SiteLayout from '@/layouts/site-layout';
-import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
+import SiteLayout from '../../layouts/site-layout';
+import { Card } from '../../components/ui/card';
+import { Badge } from '../../components/ui/badge';
+import { Button } from '../../components/ui/button';
+import { Input } from '../../components/ui/input';
+import { Label } from '../../components/ui/label';
+import { Textarea } from '../../components/ui/textarea';
 import { CheckCircle, AlertCircle, Wrench } from 'lucide-react';
 import { useState } from 'react';
 

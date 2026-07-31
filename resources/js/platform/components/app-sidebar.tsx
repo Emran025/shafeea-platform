@@ -9,7 +9,7 @@ import {
     Grid3x3,
 } from 'lucide-react';
 
-import { NavMain } from '@/components/nav-main';
+import { NavMain } from '../components/nav-main';
 import {
     Sidebar,
     SidebarContent,
@@ -18,8 +18,8 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
     SidebarRail,
-} from '@/components/ui/sidebar';
-import { type NavItem } from '@/types';
+} from '../components/ui/sidebar';
+import { type NavItem } from '../types';
 
 // --- Configuration ---
 

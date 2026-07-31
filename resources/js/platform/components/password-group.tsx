@@ -1,7 +1,7 @@
 import * as React from "react";
 import { CheckCircle, Lock } from "lucide-react";
 import { PasswordInput } from "./password-input";
-import { cn } from "@/lib/utils";
+import { cn } from "../lib/utils";
 
 interface PasswordGroupProps {
   // Password Field Props

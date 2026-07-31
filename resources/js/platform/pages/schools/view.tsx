@@ -14,7 +14,7 @@ import {
   ChartBarIcon,
   ClockIcon
 } from '@heroicons/react/24/outline';
-import AppLayout from '@/layouts/app-layout';
+import AppLayout from '../../layouts/app-layout';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, PieChart, Pie, Cell, BarChart, Bar, ResponsiveContainer } from 'recharts';
 
 interface School {

@@ -11,7 +11,7 @@ import {
   ChevronRightIcon,
   FunnelIcon
 } from '@heroicons/react/24/outline';
-import AppLayout from '@/layouts/app-layout';
+import AppLayout from '../../layouts/app-layout';
 
 interface School {
   id: number;

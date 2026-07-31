@@ -1,10 +1,10 @@
 import React from 'react';
 import { usePage } from '@inertiajs/react';
-import AdminLayout from '@/layouts/admin-layout';
+import AdminLayout from '../../../layouts/admin-layout';
 import { router } from '@inertiajs/react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+import { Button } from '../../../components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../../../components/ui/card';
+import { Badge } from '../../../components/ui/badge';
 import { 
     Dialog, 
     DialogContent, 
@@ -14,8 +14,8 @@ import {
     DialogTitle, 
     DialogTrigger,
     DialogClose 
-} from '@/components/ui/dialog';
-import { PageProps, School, User, Document } from '@/types';
+} from '../../../components/ui/dialog';
+import { PageProps, School, User, Document } from '../../../types';
 import { 
     Building2, UserCog, FileText, BarChart2, Phone, Mail, MapPin, 
     Download, Users, UserCheck, BookOpen, ArrowRight, CheckCircle, 

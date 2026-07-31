@@ -6,10 +6,10 @@ import {
     TableHead,
     TableHeader,
     TableRow
-} from '@/components/ui/table';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { School, User } from '@/types';
+} from '../../components/ui/table';
+import { Button } from '../../components/ui/button';
+import { Badge } from '../../components/ui/badge';
+import { School, User } from '../../types';
 import { Eye, Edit, Trash2, Building2, UserCog, HammerIcon, CheckCircle2, XCircle, Loader2, Clock3, MapPin } from 'lucide-react';
 
 export interface SchoolWithAdmin extends School {

@@ -1,17 +1,17 @@
 import React from 'react';
 import { Link, usePage } from '@inertiajs/react';
-import AdminLayout from '@/layouts/admin-layout';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { PageProps, TermsOfUse, PrivacyPolicy } from '@/types';
+import AdminLayout from '../../../layouts/admin-layout';
+import { Button } from '../../../components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../../../components/ui/card';
+import { Badge } from '../../../components/ui/badge';
+import { PageProps, TermsOfUse, PrivacyPolicy } from '../../../types';
 import {
     Accordion,
     AccordionContent,
     AccordionItem,
     AccordionTrigger,
-} from '@/components/ui/accordion';
-import PolicyDisplay from '@/components/shared/policy-display';
+} from '../../../components/ui/accordion';
+import PolicyDisplay from '../../../components/shared/policy-display';
 import { FileText, Shield, Edit, Calendar, CheckCircle, XCircle, FileCheck, Lock } from 'lucide-react';
 
 interface PoliciesIndexProps extends PageProps {

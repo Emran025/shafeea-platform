@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Head, useForm, usePage } from '@inertiajs/react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { Switch } from '@/components/ui/switch';
-import AdminLayout from '@/layouts/admin-layout';
+import { Button } from '../../../components/ui/button';
+import { Card, CardContent } from '../../../components/ui/card';
+import { Input } from '../../../components/ui/input';
+import { Label } from '../../../components/ui/label';
+import { Textarea } from '../../../components/ui/textarea';
+import { Switch } from '../../../components/ui/switch';
+import AdminLayout from '../../../layouts/admin-layout';
 import {
     Building2,
     MapPin,
@@ -22,8 +22,8 @@ import {
     FileCode,
     Sparkles,
 } from 'lucide-react';
-import { SharedData, School, User } from '@/types';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { SharedData, School, User } from '../../../types';
+import { Alert, AlertDescription, AlertTitle } from '../../../components/ui/alert';
 
 interface SchoolWithAdmin extends School {
     admin?: {

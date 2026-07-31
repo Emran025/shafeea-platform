@@ -1,6 +1,6 @@
 import { Head } from '@inertiajs/react';
-import { Badge } from '@/components/ui/badge';
-import { Card } from '@/components/ui/card';
+import { Badge } from '../components/ui/badge';
+import { Card } from '../components/ui/card';
 import {
     Download as DownloadIcon,
     Smartphone,
@@ -15,7 +15,7 @@ import {
     GraduationCap,
     Settings,
 } from 'lucide-react';
-import SiteLayout from '@/layouts/site-layout';
+import SiteLayout from '../layouts/site-layout';
 
 interface DownloadProps {
     studentApkUrl: string;

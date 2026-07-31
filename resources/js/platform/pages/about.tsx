@@ -1,6 +1,6 @@
 import { Head } from '@inertiajs/react';
-import { Badge } from '@/components/ui/badge';
-import { Card } from '@/components/ui/card';
+import { Badge } from '../components/ui/badge';
+import { Card } from '../components/ui/card';
 import {
     BookOpen,
     Users,
@@ -16,7 +16,7 @@ import {
     Sparkles,
     Coffee
 } from 'lucide-react';
-import SiteLayout from '@/layouts/site-layout';
+import SiteLayout from '../layouts/site-layout';
 
 export default function About() {
   

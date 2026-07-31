@@ -1,8 +1,8 @@
-import PolicyDisplay from '@/components/shared/policy-display';
-import { Badge } from '@/components/ui/badge';
-import { Card } from '@/components/ui/card';
-import SiteLayout from '@/layouts/site-layout';
-import { PageProps, PrivacyPolicy as PrivacyPolicyType } from '@/types';
+import PolicyDisplay from '../components/shared/policy-display';
+import { Badge } from '../components/ui/badge';
+import { Card } from '../components/ui/card';
+import SiteLayout from '../layouts/site-layout';
+import { PageProps, PrivacyPolicy as PrivacyPolicyType } from '../types';
 import { Head, usePage } from '@inertiajs/react';
 import { AlertCircle, CheckCircle, Download, Eye, Globe, Lock, Mail, MapPin, Phone, Settings, Shield, Trash2, Users } from 'lucide-react';
 

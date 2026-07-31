@@ -1,4 +1,4 @@
-import { Card } from '@/components/ui/card';
+import { Card } from '../../components/ui/card';
 import {
     Shield,
     FileText,
@@ -17,7 +17,7 @@ import {
     Mail,
     Info 
 } from 'lucide-react';
-import { PrivacyPolicy as PrivacyPolicyType, TermsOfUse as TermsOfUseType } from '@/types';
+import { PrivacyPolicy as PrivacyPolicyType, TermsOfUse as TermsOfUseType } from '../../types';
 
 interface Section {
     title: string;

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from '@inertiajs/react';
 import { Menu, Sun, Moon, ChevronDown, Settings, BookOpen } from 'lucide-react';
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { navigationItems, bePartOfUs, helpItems, sitNavigationItems } from '@/config/site-nav';
+import { Sheet, SheetContent, SheetTrigger } from "../../components/ui/sheet";
+import { navigationItems, bePartOfUs, helpItems, sitNavigationItems } from '../../config/site-nav';
 
 interface HeaderProps {
     isDarkMode: boolean;

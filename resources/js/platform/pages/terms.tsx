@@ -1,8 +1,8 @@
-import PolicyDisplay from '@/components/shared/policy-display';
-import { Badge } from '@/components/ui/badge';
-import { Card } from '@/components/ui/card';
-import SiteLayout from '@/layouts/site-layout';
-import { PageProps, TermsOfUse as TermsOfUseType } from '@/types';
+import PolicyDisplay from '../components/shared/policy-display';
+import { Badge } from '../components/ui/badge';
+import { Card } from '../components/ui/card';
+import SiteLayout from '../layouts/site-layout';
+import { PageProps, TermsOfUse as TermsOfUseType } from '../types';
 import { Head, usePage } from '@inertiajs/react';
 import { AlertCircle, ArrowLeft, Clock, FileText, Mail, Phone as PhoneIcon, Scale, Users } from 'lucide-react';
 

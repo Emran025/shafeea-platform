@@ -1,16 +1,16 @@
 import { Head, Link, router } from '@inertiajs/react';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Card } from '@/components/ui/card';
+import { Button } from '../components/ui/button';
+import { Badge } from '../components/ui/badge';
+import { Card } from '../components/ui/card';
 import {
     BookOpen, Users, BarChart3, Shield, Calendar, Smartphone,
     Globe, MessageCircle, Star, Target, Zap, Headphones,
     TrendingUp, RefreshCw, Cloud, LucideIcon
 } from 'lucide-react';
 import { useState } from 'react';
-import SiteLayout from '@/layouts/site-layout';
-import ServiceCard, { ServiceData } from '@/components/shared/service-card';
-import SubscriptionPlanSelection from '@/components/Pricing/subscription-plan-selection';
+import SiteLayout from '../layouts/site-layout';
+import ServiceCard, { ServiceData } from '../components/shared/service-card';
+import SubscriptionPlanSelection from '../components/Pricing/subscription-plan-selection';
 
 // Icon mapping function to convert string to icon component
 const getIconComponent = (iconName: string): LucideIcon => {

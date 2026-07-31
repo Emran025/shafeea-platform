@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Link, usePage, router } from '@inertiajs/react';
-import AdminLayout from '@/layouts/admin-layout';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Card, CardContent } from '@/components/ui/card';
-import SchoolsTable, { SchoolWithAdmin } from '@/components/admin/SchoolsTable';
-import { PageProps } from '@/types';
+import AdminLayout from '../../../layouts/admin-layout';
+import { Button } from '../../../components/ui/button';
+import { Input } from '../../../components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../../components/ui/select';
+import { Card, CardContent } from '../../../components/ui/card';
+import SchoolsTable, { SchoolWithAdmin } from '../../../components/admin/SchoolsTable';
+import { PageProps } from '../../../types';
 import { Plus, Search, Filter, Building2, Users, CheckCircle, Clock, XCircle, List, Grid3x3 } from 'lucide-react';
 import { router as inertiaRouter } from '@inertiajs/react';
 

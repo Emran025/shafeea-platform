@@ -1,19 +1,19 @@
 import React, { useState, useEffect, ReactNode } from 'react';
 import { Link, usePage, router } from '@inertiajs/react';
-import AdminLayout from '@/layouts/admin-layout';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors, DragEndEvent } from '@dnd-kit/core';
+import AdminLayout from '../../../layouts/admin-layout';
+import { Button } from '../../../components/ui/button';
+import { Input } from '../../../components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../../components/ui/select';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../../../components/ui/card';
+import { Badge } from '../../../components/ui/badge';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '../../../components/ui/dialog';
+import { Label } from '../../../components/ui/label';
+import { Textarea } from '../../../components/ui/textarea';
+import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors, DragEndEvent } from '@dnd-kit/core/dist';
 import { arrayMove, SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy, useSortable } from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
+import { CSS } from '@dnd-kit/utilities/dist';
 import axios from 'axios';
-import { PageProps, Inquiry, Faq, Category } from '@/types';
+import { PageProps, Inquiry, Faq, Category } from '../../../types';
 import { Search, Filter, HelpCircle, Eye, GripVertical, BarChart3, TrendingUp, MessageSquare, FileText, ArrowRightLeft, Check, Clock } from 'lucide-react';
 
 interface HelpTicket {
@@ -54,7 +54,10 @@ function SortableItem({ id, children }: SortableItemProps) {
         setNodeRef,
         transform,
         transition,
-    } = useSortable({ id });
+    } = useSortable({ 
+        id,
+        resizeObserverConfig: undefined
+    });
 
     const style = {
         transform: CSS.Transform.toString(transform),

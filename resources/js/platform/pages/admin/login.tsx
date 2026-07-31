@@ -1,14 +1,14 @@
 import React from 'react';
 import { Head, useForm } from '@inertiajs/react';
 import { UAParser } from 'ua-parser-js';
-import GuestLayout from '@/layouts/guest-layout';
-import { Button } from '@/components/ui/button';
-// import { Label } from '@/components/ui/label';
-// import { Checkbox } from '@/components/ui/checkbox';
+import GuestLayout from '../../layouts/guest-layout';
+import { Button } from '../../components/ui/button';
+// import { Label } from '../../components/ui/label';
+// import { Checkbox } from '../../components/ui/checkbox';
 import { ShieldCheck } from 'lucide-react';
-import { Checkbox } from '@/components/ui/checkbox';
-import { EmailInput } from '@/components/email-input'; 
-import { PasswordInput } from '@/components/password-input'; 
+import { Checkbox } from '../../components/ui/checkbox';
+import { EmailInput } from '../../components/email-input'; 
+import { PasswordInput } from '../../components/password-input'; 
 
 export default function AdminLoginPage() {
     const { data, setData, post, processing, errors, transform } = useForm({

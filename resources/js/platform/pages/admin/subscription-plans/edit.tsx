@@ -1,11 +1,11 @@
 import { useForm, usePage, Head, Link } from '@inertiajs/react';
-import AdminLayout from '@/layouts/admin-layout';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Switch } from '@/components/ui/switch';
-import { PageProps } from '@/types';
+import AdminLayout from '../../../layouts/admin-layout';
+import { Button } from '../../../components/ui/button';
+import { Input } from '../../../components/ui/input';
+import { Label } from '../../../components/ui/label';
+import { Card, CardContent, CardHeader, CardTitle } from '../../../components/ui/card';
+import { Switch } from '../../../components/ui/switch';
+import { PageProps } from '../../../types';
 import { ArrowRight, Save, Plus, Trash2 } from 'lucide-react';
 
 interface SubscriptionPlan {

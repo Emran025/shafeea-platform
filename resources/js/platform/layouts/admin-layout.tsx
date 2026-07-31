@@ -8,11 +8,11 @@ import {
     X,
 } from 'lucide-react';
 import { router, usePage } from '@inertiajs/react';
-import { AppSidebar } from '@/components/app-sidebar';
-import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { SharedData } from '@/types';
+import { AppSidebar } from '../components/app-sidebar';
+import { SidebarInset, SidebarProvider, SidebarTrigger } from '../components/ui/sidebar';
+import { Button } from '../components/ui/button';
+import { Badge } from '../components/ui/badge';
+import { SharedData } from '../types';
 
 interface AdminLayoutProps {
     children: React.ReactNode;

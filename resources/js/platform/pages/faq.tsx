@@ -1,8 +1,8 @@
 import { Head, Link } from '@inertiajs/react';
-import { Badge } from '@/components/ui/badge';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { Badge } from '../components/ui/badge';
+import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
+import { Button } from '../components/ui/button';
+import { Input } from '../components/ui/input';
 import {
     Search,
     HelpCircle,
@@ -21,8 +21,8 @@ import {
     Briefcase,
 } from 'lucide-react';
 import { useState, useMemo } from 'react';
-import SiteLayout from '@/layouts/site-layout';
-import { Faq } from '@/types';
+import SiteLayout from '../layouts/site-layout';
+import { Faq } from '../types';
 
 interface FaqProps {
     faqs: Faq[];

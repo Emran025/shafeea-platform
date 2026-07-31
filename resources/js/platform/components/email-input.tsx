@@ -1,8 +1,8 @@
 import * as React from "react";
 import { Mail } from "lucide-react";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { cn } from "@/lib/utils";
+import { Input } from "../components/ui/input";
+import { Label } from "../components/ui/label";
+import { cn } from "../lib/utils";
 
 interface EmailInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   value: string;

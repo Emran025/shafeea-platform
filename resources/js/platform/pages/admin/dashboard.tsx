@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { usePage } from '@inertiajs/react';
-import AdminLayout from '@/layouts/admin-layout';
+import AdminLayout from '../../layouts/admin-layout';
 import { 
     Users, GraduationCap, BookOpen, TrendingUp, 
     AlertTriangle, Bell, Mail
@@ -8,7 +8,7 @@ import {
 import { 
     BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line 
 } from 'recharts';
-import { PageProps } from '@/types';
+import { PageProps } from '../../types';
 import { LucideIcon } from 'lucide-react';
 
 // Define interfaces for the props

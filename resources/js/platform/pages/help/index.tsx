@@ -1,9 +1,9 @@
 import { Head, Link } from '@inertiajs/react';
-import SiteLayout from '@/layouts/site-layout';
-import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import SiteLayout from '../../layouts/site-layout';
+import { Card } from '../../components/ui/card';
+import { Badge } from '../../components/ui/badge';
+import { Button } from '../../components/ui/button';
+import { Input } from '../../components/ui/input';
 import { 
     Search, FileText, MessageCircle, Phone, 
     Sparkles, User, CreditCard, BookOpen, Star, 

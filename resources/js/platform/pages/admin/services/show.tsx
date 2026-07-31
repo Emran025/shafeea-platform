@@ -1,12 +1,12 @@
 import { Link, usePage } from '@inertiajs/react';
-import AdminLayout from '@/layouts/admin-layout';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Label } from '@/components/ui/label';
-import { Separator } from '@/components/ui/separator';
+import AdminLayout from '../../../layouts/admin-layout';
+import { Button } from '../../../components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../../../components/ui/card';
+import { Badge } from '../../../components/ui/badge';
+import { Label } from '../../../components/ui/label';
+import { Separator } from '../../../components/ui/separator';
 import { ArrowRight, Edit, Trash2, Sparkles, Calendar, Clock, Image as ImageIcon } from 'lucide-react';
-import { PageProps } from '@/types';
+import { PageProps } from '../../../types';
 import { router } from '@inertiajs/react';
 
 interface Service {

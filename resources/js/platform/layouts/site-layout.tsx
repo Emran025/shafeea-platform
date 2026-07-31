@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { TopBar } from '@/components/layout/top-bar';
-import { Header } from '@/components/layout/header';
-import { Footer } from '@/components/layout/footer';
-import { ScrollToTop } from '@/components/layout/scroll-to-top';
+import { TopBar } from '../components/layout/top-bar';
+import { Header } from '../components/layout/header';
+import { Footer } from '../components/layout/footer';
+import { ScrollToTop } from '../components/layout/scroll-to-top';
 
 interface SiteLayoutProps {
     children: React.ReactNode;

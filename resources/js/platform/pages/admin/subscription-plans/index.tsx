@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, usePage } from '@inertiajs/react';
-import AdminLayout from '@/layouts/admin-layout';
-import { Button } from '@/components/ui/button';
+import AdminLayout from '../../../layouts/admin-layout';
+import { Button } from '../../../components/ui/button';
 import {
     Table,
     TableBody,
@@ -9,10 +9,10 @@ import {
     TableHead,
     TableHeader,
     TableRow
-} from '@/components/ui/table';
-import { Badge } from '@/components/ui/badge';
-import { Card, CardContent } from '@/components/ui/card';
-import { PageProps } from '@/types';
+} from '../../../components/ui/table';
+import { Badge } from '../../../components/ui/badge';
+import { Card, CardContent } from '../../../components/ui/card';
+import { PageProps } from '../../../types';
 import { Edit, Star, TrendingUp, CheckCircle2, XCircle, List, Grid3x3, Package } from 'lucide-react';
 
 interface SubscriptionPlan {

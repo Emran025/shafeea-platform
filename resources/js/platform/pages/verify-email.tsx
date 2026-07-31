@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Head, useForm, usePage } from '@inertiajs/react';
-import { SharedData } from '@/types';
+import { SharedData } from '../types';
 import { Mail, RefreshCw, LogOut, CheckCircle, Clock } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Button } from '../components/ui/button';
 
 export default function VerifyEmail() {
     const { auth } = usePage<SharedData>().props;

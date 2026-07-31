@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Country } from '@/types';
+import { Country } from '../types';
 
 // Module-level singleton: one in-flight request shared across all hook instances.
 // Prevents duplicate GET /countries requests when multiple components mount

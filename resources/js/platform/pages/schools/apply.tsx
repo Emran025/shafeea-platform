@@ -1,11 +1,11 @@
 import { Head, useForm, usePage } from '@inertiajs/react';
-import { useUsernameSuggestion } from '@/hooks/use-username-suggestion';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import SiteLayout from '@/layouts/site-layout';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useUsernameSuggestion } from '../../hooks/use-username-suggestion';
+import { Button } from '../../components/ui/button';
+import { Card } from '../../components/ui/card';
+import { Input } from '../../components/ui/input';
+import { Label } from '../../components/ui/label';
+import SiteLayout from '../../layouts/site-layout';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../components/ui/select';
 import {
     Building2,
     UserCog,
@@ -21,13 +21,13 @@ import {
     Trash2,
     AlertCircle,
 } from 'lucide-react';
-import { SharedData } from '@/types';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { SharedData } from '../../types';
+import { Alert, AlertDescription, AlertTitle } from '../../components/ui/alert';
 
-import { EmailInput } from '@/components/email-input'; 
-import { PasswordGroup } from '@/components/password-group'; 
-import { CountrySelect } from '@/components/country-select';
-import { PhoneInput } from '@/components/phone-input';
+import { EmailInput } from '../../components/email-input'; 
+import { PasswordGroup } from '../../components/password-group'; 
+import { CountrySelect } from '../../components/country-select';
+import { PhoneInput } from '../../components/phone-input';
 import React from 'react';
 
 export default function Apply() {

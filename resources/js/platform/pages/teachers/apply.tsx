@@ -1,12 +1,12 @@
 import { Head, useForm, usePage } from '@inertiajs/react';
 import { useEffect, useRef } from 'react';
-import { useUsernameSuggestion } from '@/hooks/use-username-suggestion';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import SiteLayout from '@/layouts/site-layout';
+import { useUsernameSuggestion } from '../../hooks/use-username-suggestion';
+import { Button } from '../../components/ui/button';
+import { Card } from '../../components/ui/card';
+import { Input } from '../../components/ui/input';
+import { Label } from '../../components/ui/label';
+import { Textarea } from '../../components/ui/textarea';
+import SiteLayout from '../../layouts/site-layout';
 import {
     User,
     Upload,
@@ -24,14 +24,14 @@ import {
     Globe,
     MapPin
 } from 'lucide-react';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { School, SharedData } from '@/types';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../components/ui/select';
+import { School, SharedData } from '../../types';
+import { Alert, AlertDescription, AlertTitle } from '../../components/ui/alert';
 
-import { EmailInput } from '@/components/email-input'; 
-import { PasswordGroup } from '@/components/password-group'; 
-import { CountrySelect } from '@/components/country-select';
-import { PhoneInput } from '@/components/phone-input';
+import { EmailInput } from '../../components/email-input'; 
+import { PasswordGroup } from '../../components/password-group'; 
+import { CountrySelect } from '../../components/country-select';
+import { PhoneInput } from '../../components/phone-input';
 export default function Apply({ schools, selected_school }: { schools: School[]; selected_school?: { id: number; name: string; logo: string; } | null }) {
     const { flash } = usePage<SharedData>().props;
     const { data, setData, post, transform, errors, setError, clearErrors, processing, reset } = useForm({

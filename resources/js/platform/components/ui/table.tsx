@@ -1,5 +1,5 @@
 import * as React from "react"
-import { cn } from "@/lib/utils"
+import { cn } from "../../lib/utils"
 
 /**
  * Note: 'border-separate' and 'border-spacing-0' are strictly required

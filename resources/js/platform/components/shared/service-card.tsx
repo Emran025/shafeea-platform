@@ -1,7 +1,7 @@
 import React from 'react';
-import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
+import { Card } from '../../components/ui/card';
+import { Badge } from '../../components/ui/badge';
+import { Button } from '../../components/ui/button';
 import { Star, CheckCircle, PlayCircle, LucideIcon } from 'lucide-react';
 
 // تعريف شكل البيانات التي يحتاجها المكون

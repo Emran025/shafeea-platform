@@ -1,13 +1,13 @@
 import { useForm, usePage, Link } from '@inertiajs/react';
-import AdminLayout from '@/layouts/admin-layout';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Label } from '@/components/ui/label';
-import { Separator } from '@/components/ui/separator';
-import { Badge } from '@/components/ui/badge';
-import { PageProps, TermsOfUse, PrivacyPolicy } from '@/types';
+import AdminLayout from '../../../layouts/admin-layout';
+import { Button } from '../../../components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../../../components/ui/card';
+import { Input } from '../../../components/ui/input';
+import { Textarea } from '../../../components/ui/textarea';
+import { Label } from '../../../components/ui/label';
+import { Separator } from '../../../components/ui/separator';
+import { Badge } from '../../../components/ui/badge';
+import { PageProps, TermsOfUse, PrivacyPolicy } from '../../../types';
 import { PlusCircle, Trash2, ArrowRight, Save, FileText, Shield, GripVertical } from 'lucide-react';
 
 interface EditPolicyProps extends PageProps {

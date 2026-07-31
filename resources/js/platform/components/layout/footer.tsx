@@ -1,6 +1,6 @@
 import { Link } from '@inertiajs/react';
 import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Linkedin, Youtube, Shield, Award } from 'lucide-react';
-import { navigationItems } from '@/config/site-nav';
+import { navigationItems } from '../../config/site-nav';
 
 export function Footer() {
     return (

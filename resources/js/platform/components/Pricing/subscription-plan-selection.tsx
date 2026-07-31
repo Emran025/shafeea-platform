@@ -1,5 +1,5 @@
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader } from '../../components/ui/card';
+import { Button } from '../../components/ui/button';
 import { Star, CheckCircle } from 'lucide-react';
 
 interface SubscriptionPlan {

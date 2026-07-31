@@ -14,7 +14,7 @@ import UsersView           from '../views/UsersView';
 import KeywordsView        from '../views/KeywordsView';
 import TopicsView              from '../views/TopicsView';
 import NavigationManagerView   from '../views/NavigationManagerView';
-import '../../../css/admin.css';
+import '../../../../css/schools/admin.css';
 import { useAuth } from '../context/AuthContext';
 import { getToken } from '../api/adminClient';
 

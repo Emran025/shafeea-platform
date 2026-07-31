@@ -1,11 +1,11 @@
 import { Head, router } from '@inertiajs/react';
-import SiteLayout from '@/layouts/site-layout';
-import SubscriptionPlanSelection from '@/components/Pricing/subscription-plan-selection';
-import { Badge } from '@/components/ui/badge';
+import SiteLayout from '../../layouts/site-layout';
+import SubscriptionPlanSelection from '../../components/Pricing/subscription-plan-selection';
+import { Badge } from '../../components/ui/badge';
 import { TrendingUp, ArrowRight, CreditCard, Landmark, AlertCircle, Check, Star } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Button } from '../../components/ui/button';
 import { useState, useEffect } from 'react';
-import { Card } from '@/components/ui/card';
+import { Card } from '../../components/ui/card';
 
 interface SubscriptionPlan {
     id: number;
