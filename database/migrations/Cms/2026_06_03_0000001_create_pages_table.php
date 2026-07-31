@@ -84,7 +84,12 @@ return new class extends Migration
 
             $table->timestamps();
             $table->softDeletes();
+        });
 
+        // Self-referential FK must be added after the table (and its PK index) is fully
+        // committed. Defining it inside Schema::create() fails on PostgreSQL because the
+        // referenced table does not yet have a confirmed unique constraint at that point.
+        Schema::table('pages', function (Blueprint $table) {
             $table->foreign('parent_id')
                 ->references('id')
                 ->on('pages')
@@ -94,6 +99,9 @@ return new class extends Migration
 
     public function down(): void
     {
+        Schema::table('pages', function (Blueprint $table) {
+            $table->dropForeign(['parent_id']);
+        });
         Schema::dropIfExists('pages');
     }
 };
