@@ -143,8 +143,8 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        // privacy_policies
-        Schema::create('privacy_policies', function (Blueprint $table) {
+        // privacy_policy
+        Schema::create('privacy_policy', function (Blueprint $table) {
             $table->id();
             $table->string('version', 50);
             $table->dateTime('last_updated')->nullable();
@@ -158,8 +158,8 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        // terms_of_uses
-        Schema::create('terms_of_uses', function (Blueprint $table) {
+        // terms_of_use
+        Schema::create('terms_of_use', function (Blueprint $table) {
             $table->id();
             $table->string('version', 50);
             $table->dateTime('last_updated')->nullable();
@@ -187,8 +187,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('notifications');
-        Schema::dropIfExists('terms_of_uses');
-        Schema::dropIfExists('privacy_policies');
+        Schema::dropIfExists('terms_of_use');
+        Schema::dropIfExists('privacy_policy');
         Schema::dropIfExists('landing_page_settings');
         Schema::dropIfExists('services');
         Schema::dropIfExists('help_tickets');
