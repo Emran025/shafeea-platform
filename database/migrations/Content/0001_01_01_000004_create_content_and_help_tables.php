@@ -137,7 +137,8 @@ return new class extends Migration
         Schema::create('landing_page_settings', function (Blueprint $table) {
             $table->id();
             $table->string('key')->unique();
-            $table->text('value')->nullable();
+            $table->string('group')->nullable()->index();
+            $table->json('value')->nullable();
             $table->string('type')->default('string');
             $table->timestamps();
         });

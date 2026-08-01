@@ -13,8 +13,12 @@ return new class extends Migration
             $table->id();
             $table->string('name_ar');
             $table->string('name_en');
-            $table->string('code', 5)->unique();
-            $table->string('phone_code', 10);
+            $table->string('code', 5)->nullable()->unique();
+            $table->string('iso2', 5)->nullable()->unique();
+            $table->string('iso3', 5)->nullable();
+            $table->string('phone_code', 20)->nullable();
+            $table->string('flag_url')->nullable();
+            $table->text('flag_svg')->nullable();
             $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
