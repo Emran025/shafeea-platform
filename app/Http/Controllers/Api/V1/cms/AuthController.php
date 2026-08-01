@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Api\V1\cms;
 
 use App\Http\Controllers\Controller;
-use App\Models\Cms\AdminApiToken;
 use App\Models\Auth\Permission;
 use App\Models\Auth\User;
+use App\Models\Auth\AdminApiToken;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;

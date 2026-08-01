@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1\cms;
 
 use App\Http\Controllers\Controller;
+use App\Models\Cms\Block;
 use App\Models\Cms\Section;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;

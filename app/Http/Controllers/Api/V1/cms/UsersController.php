@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1\cms;
 
 use App\Http\Controllers\Controller;
 use App\Models\Auth\User;
+use App\Models\Cms\Topic;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -138,7 +139,7 @@ class UsersController extends Controller
 
     private function syncTopics(User $user, array $topicNames): void
     {
-        $topicIds = \App\Models\Topic::query()
+        $topicIds = Topic::query()
             ->whereIn('name', $topicNames)
             ->pluck('id')
             ->all();
