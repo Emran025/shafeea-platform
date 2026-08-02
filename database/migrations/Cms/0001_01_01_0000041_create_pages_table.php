@@ -22,7 +22,22 @@ return new class extends Migration
                     'corporate.legal',
                     'editorial',
                     'utility',
+                    'platform.full_page',
+                    'pricing.overview',
+                    'pricing.platform',
+                    'pricing.compare',
+                    'newsroom.overview',
+                    'newsroom.news',
+                    'newsroom.stories',
+                    'newsroom.about',
+                    'corporate.platform',
+                    'newsroom.article',
+                    'corporate.home',
+                    'solution.industry_tier',
+                    'solution.tier_overview',
+                    'industry.full_page',
                 ]);
+                $table->string('page_subtype')->nullable();
                 $table->string('site_scope');
                 $table->enum('status', [
                     'draft',
@@ -46,6 +61,7 @@ return new class extends Migration
                 $table->unsignedInteger('hierarchy_position')->default(0);
                 $table->boolean('hierarchy_include_in_nav')->default(false);
                 $table->json('hierarchy_nav_label')->nullable();
+                $table->json('breadcrumb_label')->nullable();
 
                 // PageCompositionPolicy
                 $table->enum('composition_section_order', ['explicit', 'ranked'])->default('explicit');
