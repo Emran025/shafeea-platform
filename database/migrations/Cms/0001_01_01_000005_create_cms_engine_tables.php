@@ -511,12 +511,13 @@ return new class extends Migration
         if (! Schema::hasTable('navigation_groups')) {
             Schema::create('navigation_groups', function (Blueprint $table) {
                 $table->uuid('id')->primary();
-                $table->string('site_scope');
-                $table->string('code');
-                $table->string('name');
+                $table->string('group_id')->unique();
+                $table->json('label');
+                $table->string('type'); // mega_menu | dropdown | direct_link
+                $table->integer('position');
+                $table->boolean('is_active')->default(true);
                 $table->timestamps();
-
-                $table->unique(['site_scope', 'code']);
+                $table->softDeletes();
             });
         }
 
@@ -524,11 +525,16 @@ return new class extends Migration
             Schema::create('navigation_columns', function (Blueprint $table) {
                 $table->uuid('id')->primary();
                 $table->uuid('navigation_group_id');
-                $table->string('title');
-                $table->integer('sort_order')->default(0);
+                $table->string('column_id');
+                $table->json('label')->nullable();
+                $table->integer('position');
+                $table->json('featured_block')->nullable();
                 $table->timestamps();
 
-                $table->foreign('navigation_group_id')->references('id')->on('navigation_groups')->onDelete('cascade');
+                $table->foreign('navigation_group_id')
+                    ->references('id')
+                    ->on('navigation_groups')
+                    ->onDelete('cascade');
             });
         }
 
@@ -536,12 +542,18 @@ return new class extends Migration
             Schema::create('navigation_entries', function (Blueprint $table) {
                 $table->uuid('id')->primary();
                 $table->uuid('navigation_column_id');
-                $table->string('label');
-                $table->string('url');
-                $table->integer('sort_order')->default(0);
+                $table->json('label');
+                $table->string('destination_type'); // internal_page | external_url
+                $table->string('destination_value');
+                $table->integer('position');
+                $table->boolean('is_badge_highlighted')->default(false);
+                $table->json('badge_text')->nullable();
                 $table->timestamps();
 
-                $table->foreign('navigation_column_id')->references('id')->on('navigation_columns')->onDelete('cascade');
+                $table->foreign('navigation_column_id')
+                    ->references('id')
+                    ->on('navigation_columns')
+                    ->onDelete('cascade');
             });
         }
 

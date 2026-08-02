@@ -72,10 +72,7 @@ class NavigationGroupSeeder extends Seeder
                 ]);
 
                 foreach ($col['entries'] as $eIdx => $e) {
-                    $groupPrefix = substr($group['id'], 0, 24);
-                    $entryId = ($group['type'] === 'direct_link')
-                        ? $groupPrefix . '000000000001'
-                        : $groupPrefix . str_pad(($idx + 1) * 100 + ($eIdx + 1), 12, '0', STR_PAD_LEFT);
+                    $entryId = Str::uuid()->toString();
 
                     $entryLabel = is_array($e['label']) ? json_encode($e['label']) : json_encode(['en' => $e['label']]);
                     $badgeText = null;
