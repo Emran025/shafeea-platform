@@ -12,6 +12,39 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('schools', function (Blueprint $table) {
+            // ── Android signing credentials ────────────────────────────────────
+            // The keystore file (base64-encoded JKS or PKCS12) and its
+            // associated credentials are stored per school so that CI can
+            // sign the APK without storing secrets in GitHub.
+            //
+            // SECURITY: keystore_store_password and keystore_key_password are
+            // stored ENCRYPTED using Laravel Crypt::encryptString().
+            // The School model transparently encrypts on set and decrypts on get.
+            $table->longText('keystore_file')
+                ->nullable()
+                ->after('last_built_release')
+                ->comment('Base64-encoded Android keystore (JKS/PKCS12). Decoded by the build script at runtime.');
+
+            $table->string('keystore_store_password', 1024)
+                ->nullable()
+                ->after('keystore_file')
+                ->comment('ENCRYPTED store password for the keystore. Decrypted by School model accessor.');
+
+            $table->string('keystore_key_alias', 255)
+                ->nullable()
+                ->after('keystore_store_password')
+                ->comment('Key alias inside the keystore.');
+
+            $table->string('keystore_key_password', 1024)
+                ->nullable()
+                ->after('keystore_key_alias')
+                ->comment('ENCRYPTED key password. Decrypted by School model accessor.');
+
+            // ── Build notes ────────────────────────────────────────────────────
+            $table->text('build_notes')
+                ->nullable()
+                ->after('keystore_key_password')
+                ->comment('Free-form notes for the platform operator about this school\'s build configuration.');
             // ── Identity ──────────────────────────────────────────────────────
             // school_code is the globally unique slug used as:
             //   • subdomain prefix  ({school_code}.shafeea.systems360.cloud)
@@ -82,6 +115,11 @@ return new class extends Migration
             $table->dropUnique(['school_code']);
             $table->dropUnique(['app_key']);
             $table->dropColumn([
+                'keystore_file',
+                'keystore_store_password',
+                'keystore_key_alias',
+                'keystore_key_password',
+                'build_notes',
                 'school_code',
                 'is_active',
                 'school_locked_mode',

@@ -37,8 +37,6 @@ return new class extends Migration
             $table->string('city')->nullable()->comment('City');
             $table->string('location')->nullable()->comment('Location description');
             $table->string('address')->nullable()->comment('Full address');
-            $table->string('email')->unique()->comment('School primary email');
-            $table->boolean('is_active')->default(true)->comment('School active status');
             $table->string('status')->default('active')->comment('Operational status');
             
             // Subscriptions & Resolution fields
@@ -46,14 +44,6 @@ return new class extends Migration
             $table->enum('subscription_status', ['active', 'past_due', 'canceled', 'pending_payment'])->default('pending_payment');
             $table->timestamp('subscription_ends_at')->nullable();
 
-            // Build identity & resolution fields
-            $table->string('build_app_id')->nullable()->unique();
-            $table->string('build_api_key_hash')->nullable();
-            $table->timestamp('build_api_key_created_at')->nullable();
-            $table->string('site_scope')->nullable()->unique();
-            $table->string('custom_domain')->nullable()->unique();
-            $table->boolean('use_custom_domain')->default(false);
-            $table->string('theme_id')->default('emerald');
 
             $table->timestamps();
             $table->softDeletes()->comment('Soft delete timestamp');
