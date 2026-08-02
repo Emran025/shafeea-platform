@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -44,22 +45,19 @@ class User extends Authenticatable implements MustVerifyEmail
         'is_active',
     ];
 
-
-    public function topics()
-    {
-        return $this->belongsToMany(Topic::class);
-    }
-
     /**
-     * Check whether this user's role carries a given permission code.
-     * Result is cached per-request on the model instance to avoid repeated queries.
+     * Transitive permission check: user → role_user → roles → permission_role → permissions.
+     *
+     * All permissions are aggregated from every role the user belongs to.
+     * Result is cached per-request on the model instance.
      */
     public function hasPermission(string $code): bool
     {
         if (! isset($this->_permissionCache)) {
-            $this->_permissionCache = \Illuminate\Support\Facades\DB::table('role_permissions')
-                ->join('permissions', 'permissions.id', '=', 'role_permissions.permission_id')
-                ->where('role_permissions.role', $this->role)
+            $this->_permissionCache = DB::table('role_user')
+                ->join('permission_role', 'permission_role.role_id', '=', 'role_user.role_id')
+                ->join('permissions', 'permissions.id', '=', 'permission_role.permission_id')
+                ->where('role_user.user_id', $this->id)
                 ->pluck('permissions.code')
                 ->flip()
                 ->all();
@@ -69,42 +67,51 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * The attributes that should be hidden for serialization.
+     * Check whether the user has a given role by its name slug.
      *
-     * @var list<string>
+     * @example $user->hasRole('platform.admin')
      */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
-
-    /**
-     * The attributes that should be cast to native types.
-     */
-    protected function casts(): array
+    public function hasRole(string $name): bool
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-            'birth_date' => 'date',
-        ];
+        // Use loaded collection if available to avoid extra query.
+        if ($this->relationLoaded('roles')) {
+            return $this->roles->contains('name', $name);
+        }
+
+        return $this->roles()->where('name', $name)->exists();
     }
 
     /**
-     * Normalize email to lowercase on every write, regardless of entry
-     * point (registration, applications, profile updates, admin-created
-     * accounts, etc.). This guarantees "John@x.com" and "john@x.com" are
-     * always the same stored value — case-insensitive matching must never
-     * depend on database collation.
+     * Returns the name of the first (primary) role, or null if the user has no roles.
+     * Used for display purposes and backward-compatible API responses.
      */
-    protected function setEmailAttribute(?string $value): void
+    public function primaryRoleName(): ?string
     {
-        $this->attributes['email'] = $value === null ? null : mb_strtolower(trim($value));
+        if ($this->relationLoaded('roles')) {
+            return $this->roles->first()?->name;
+        }
+
+        return $this->roles()->value('roles.name');
+    }
+
+    // ── Relationships ────────────────────────────────────────────────────────
+
+    /**
+     * The roles this user belongs to (n-n via role_user pivot).
+     */
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
     }
 
     /**
-     * Relationships
+     * CMS content topics this user is assigned to (n-n via topic_user pivot).
      */
+    public function topics()
+    {
+        return $this->belongsToMany(Topic::class);
+    }
+
     public function student()
     {
         return $this->hasOne(Student::class);
@@ -130,19 +137,46 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsTo(School::class);
     }
 
-    public function roles()
-    {
-        return $this->belongsToMany(Role::class);
-    }
-
-    public function permissions()
-    {
-        return $this->belongsToMany(Permission::class);
-    }
-
     public function documents(): HasMany
     {
         return $this->hasMany(Document::class);
+    }
+
+    // ── Attribute overrides ──────────────────────────────────────────────────
+
+    /**
+     * Normalize email to lowercase on every write, regardless of entry
+     * point (registration, applications, profile updates, admin-created
+     * accounts, etc.). This guarantees "John@x.com" and "john@x.com" are
+     * always the same stored value — case-insensitive matching must never
+     * depend on database collation.
+     */
+    protected function setEmailAttribute(?string $value): void
+    {
+        $this->attributes['email'] = $value === null ? null : mb_strtolower(trim($value));
+    }
+
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var list<string>
+     */
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    /**
+     * The attributes that should be cast to native types.
+     */
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'password'          => 'hashed',
+            'birth_date'        => 'date',
+            'is_active'         => 'boolean',
+        ];
     }
 
     /**

@@ -7,6 +7,8 @@ use App\Models\Auth\User;
 
 class Topic extends Model
 {
+    protected $table = 'topics';
+
     protected $fillable = [
         'name',
         'description',

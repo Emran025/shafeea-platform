@@ -8,6 +8,8 @@ use App\Models\Auth\User;
 
 class Faq extends Model
 {
+    protected $table = 'faqs';
+
     protected $fillable = [
         'category_id',
         'locale',

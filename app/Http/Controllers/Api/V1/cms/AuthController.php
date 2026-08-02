@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\Api\V1\cms;
 
 use App\Http\Controllers\Controller;
-use App\Models\Auth\Permission;
-use App\Models\Auth\User;
 use App\Models\Auth\AdminApiToken;
+use App\Models\Auth\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -16,12 +15,12 @@ class AuthController extends Controller
     public function login(Request $request): JsonResponse
     {
         $data = $request->validate([
-            'email' => ['required', 'email'],
+            'email'    => ['required', 'email'],
             'password' => ['required', 'string', 'min:8'],
         ]);
 
         /** @var User|null $user */
-        $user = User::query()->where('email', $data['email'])->first();
+        $user = User::query()->with('roles')->where('email', $data['email'])->first();
 
         if (! $user || ! $user->is_active || ! Hash::check($data['password'], $user->password)) {
             return response()->json(['error' => 'Invalid credentials.'], 422);
@@ -30,20 +29,15 @@ class AuthController extends Controller
         $plain = Str::random(64);
 
         AdminApiToken::query()->create([
-            'user_id' => $user->id,
+            'user_id'    => $user->id,
             'token_hash' => hash('sha256', $plain),
             'expires_at' => now()->addHours(12),
         ]);
 
         return response()->json([
-            'token' => $plain,
-            'actor' => [
-                'id' => (string) $user->id,
-                'name' => $user->name,
-                'email' => $user->email,
-                'role' => $user->role,
-            ],
-            'permissions' => $this->permissionsForRole($user->role),
+            'token'       => $plain,
+            'actor'       => $this->actorPayload($user),
+            'permissions' => $this->permissionsForUser($user),
         ]);
     }
 
@@ -55,14 +49,12 @@ class AuthController extends Controller
             return response()->json(['error' => 'Unauthenticated.'], 401);
         }
 
+        // Ensure roles are loaded (AuthenticateAdminApi may not eager-load them)
+        $user->loadMissing('roles');
+
         return response()->json([
-            'actor' => [
-                'id' => (string) $user->id,
-                'name' => $user->name,
-                'email' => $user->email,
-                'role' => $user->role,
-            ],
-            'permissions' => $this->permissionsForRole($user->role),
+            'actor'       => $this->actorPayload($user),
+            'permissions' => $this->permissionsForUser($user),
         ]);
     }
 
@@ -72,16 +64,41 @@ class AuthController extends Controller
         if ($bearer) {
             AdminApiToken::query()->where('token_hash', hash('sha256', $bearer))->delete();
         }
+
         return response()->json(['ok' => true]);
     }
 
-    private function permissionsForRole(string $role): array
+    // ── Private helpers ──────────────────────────────────────────────────────
+
+    /**
+     * Build the actor payload included in login/me responses.
+     * Returns an array of role name-slugs so callers can check membership.
+     */
+    private function actorPayload(User $user): array
     {
-        return Permission::query()
-            ->join('role_permissions', 'permissions.id', '=', 'role_permissions.permission_id')
-            ->where('role_permissions.role', $role)
+        return [
+            'id'    => (string) $user->id,
+            'name'  => $user->name,
+            'email' => $user->email,
+            'roles' => $user->roles->pluck('name')->values()->all(),
+        ];
+    }
+
+    /**
+     * Collect the full set of permission codes reachable by the user through
+     * all their roles:  role_user → permission_role → permissions.code
+     *
+     * @return string[]
+     */
+    private function permissionsForUser(User $user): array
+    {
+        return \Illuminate\Support\Facades\DB::table('role_user')
+            ->join('permission_role', 'permission_role.role_id', '=', 'role_user.role_id')
+            ->join('permissions', 'permissions.id', '=', 'permission_role.permission_id')
+            ->where('role_user.user_id', $user->id)
             ->orderBy('permissions.code')
             ->pluck('permissions.code')
+            ->unique()
             ->values()
             ->all();
     }

@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 
 class NewsletterSubscription extends Model
 {
+    protected $table = 'newsletter_subscriptions';
     protected $keyType   = 'string';
     public    $incrementing = false;
 

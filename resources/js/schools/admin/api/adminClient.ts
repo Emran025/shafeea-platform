@@ -84,7 +84,7 @@ export interface AdminUserRow {
   id: string;
   name: string;
   email: string;
-  role: AuthorRole;
+  roles: AuthorRole[];
   active: boolean;
   topics: string[];
 }
@@ -109,7 +109,7 @@ export interface AdminTopicUser {
   id: number;
   name: string;
   email: string;
-  role: string;
+  roles: string[];
 }
 
 export interface AdminTopicRow {

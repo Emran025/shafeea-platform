@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware\Auth;
 
-use App\Models\Cms\AdminApiToken;
+use App\Models\Auth\AdminApiToken;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;

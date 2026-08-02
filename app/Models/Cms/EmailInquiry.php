@@ -8,6 +8,8 @@ use App\Models\Auth\User;
 
 class EmailInquiry extends Model
 {
+    protected $table = 'email_inquiries';
+
     protected $fillable = [
         'sender_name',
         'sender_email',

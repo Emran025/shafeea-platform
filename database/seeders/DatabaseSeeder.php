@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // Check if database has already been seeded
-        if (School::exists() || Admin::where('is_super_admin', true)->exists()) {
+        if (School::exists() || Admin::where('super_admin', true)->exists()) {
             $this->command->info('⚠️ Database is already seeded or Initial Admin exists. Skipping duplicate seeding.');
             return;
         }

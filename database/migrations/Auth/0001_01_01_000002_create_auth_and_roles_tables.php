@@ -44,6 +44,7 @@ return new class extends Migration
             $table->string('residence')->nullable()->comment('Neighborhood or residence area');
 
             $table->enum('status', ['active', 'inactive'])->default('inactive')->comment('User status');
+            $table->boolean('is_active')->default(true)->comment('CMS admin account active flag');
 
             $table->foreignId('school_id')
                 ->nullable()
@@ -86,8 +87,7 @@ return new class extends Migration
             $table->foreignId('user_id')->unique()->constrained()->onDelete('cascade')->comment('FK to users table, unique per admin');
             $table->string('name')->nullable();
             $table->string('email')->nullable()->unique();
-            $table->boolean('is_super_admin')->default(false);
-            $table->boolean('super_admin')->default(false)->comment('Is super admin');
+            $table->boolean('super_admin')->default(false)->comment('Is super admin (school management)');
             $table->enum('status', ['pending', 'accepted', 'rejected', 'suspended'])->default('pending');
             $table->timestamps();
             $table->softDeletes()->comment('Soft delete timestamp');
@@ -104,9 +104,8 @@ return new class extends Migration
 
         Schema::create('permissions', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
-            $table->string('display_name');
-            $table->text('description')->nullable();
+            $table->string('code')->unique()->comment('Machine-readable permission slug, e.g. edit_content');
+            $table->string('label')->comment('Human-readable label');
             $table->timestamps();
         });
 
@@ -122,11 +121,8 @@ return new class extends Migration
             $table->primary(['permission_id', 'role_id']);
         });
 
-        Schema::create('permission_user', function (Blueprint $table) {
-            $table->foreignId('permission_id')->constrained()->onDelete('cascade');
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->primary(['permission_id', 'user_id']);
-        });
+        // NOTE: No permission_user table — all permissions are transitive through roles only.
+        //       user → role_user → roles → permission_role → permissions
 
         // user_consents
         Schema::create('user_consents', function (Blueprint $table) {
@@ -142,7 +138,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('user_consents');
-        Schema::dropIfExists('permission_user');
         Schema::dropIfExists('permission_role');
         Schema::dropIfExists('role_user');
         Schema::dropIfExists('permissions');

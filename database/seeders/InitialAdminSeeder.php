@@ -62,7 +62,7 @@ class InitialAdminSeeder extends Seeder
             ['user_id' => $user->id],
             [
                 'super_admin' => true,
-                'status' => 'accepted',
+                'status'      => 'accepted',
             ]
         );
 

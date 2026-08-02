@@ -16,11 +16,12 @@ class Role extends Model
      */
     protected $fillable = [
         'name',
+        'display_name',
         'description',
     ];
 
     /**
-     * The users that belong to the role.
+     * The users that belong to this role (n-n via role_user).
      */
     public function users()
     {
@@ -28,7 +29,7 @@ class Role extends Model
     }
 
     /**
-     * The permissions that belong to the role.
+     * The permissions that belong to this role (n-n via permission_role).
      */
     public function permissions()
     {

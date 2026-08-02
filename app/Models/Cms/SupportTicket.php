@@ -8,6 +8,8 @@ use App\Models\Auth\User;
 
 class SupportTicket extends Model
 {
+    protected $table = 'support_tickets';
+
     protected $fillable = [
         'ticket_number',
         'requester_name',

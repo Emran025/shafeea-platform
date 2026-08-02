@@ -13,10 +13,10 @@ use Symfony\Component\HttpFoundation\Response;
  *   ->middleware('require.permission:manage_faq')
  *
  * The middleware resolves the authenticated admin user (set by AuthenticateAdminApi),
- * looks up their role's permissions via role_permissions, and rejects the request
- * with 403 if the required permission code is not present.
+ * walks the user → role_user → roles → permission_role → permissions chain,
+ * and rejects the request with 403 if the required permission code is not present.
  *
- * platform.admin is always allowed through regardless of permission code.
+ * Users with the platform.admin role always pass through regardless of permission code.
  */
 class RequirePermission
 {
@@ -29,7 +29,7 @@ class RequirePermission
         }
 
         // Platform admin bypasses all permission checks
-        if ($user->role === 'platform.admin') {
+        if ($user->hasRole('platform.admin')) {
             return $next($request);
         }
 
@@ -37,9 +37,9 @@ class RequirePermission
 
         if (! $hasPermission) {
             return response()->json([
-                'error'      => 'Forbidden.',
-                'required'   => $permissionCode,
-                'your_role'  => $user->role,
+                'error'           => 'Forbidden.',
+                'required'        => $permissionCode,
+                'your_roles'      => $user->roles->pluck('name')->values()->all(),
             ], 403);
         }
 
