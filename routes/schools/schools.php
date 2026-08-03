@@ -41,7 +41,7 @@ Route::group(['prefix' => 'school/{school_code}', 'as' => 'school.template.'], f
     Route::get('/api/info', [SchoolTemplateController::class, 'info'])->name('info');
     // Public School API endpoints
     Route::group(['prefix' => 'api', 'as' => 'api.'], function() {
-        Route::get('/content', [ContentController::class, 'index']);
+        Route::get('/content/{slug?}', [ContentController::class, 'show'])->where('slug', '.*');
         Route::get('/articles', [PublicArticleController::class, 'index']);
         Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe']);
 

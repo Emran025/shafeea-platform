@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1\content;
 
-use App\Engine\Schools\CompositionContext;
+use App\Engine\CompositionContext;
 use App\Http\Controllers\Controller;
 use App\Services\School\CompositionService;
 use App\Services\School\ResolutionService;
@@ -100,7 +100,7 @@ class ContentController extends Controller
         private readonly ResolutionService $resolutionService,
     ) {}
 
-    public function show(Request $request, string $slug): JsonResponse
+    public function show(Request $request, ?string $slug = null): JsonResponse
     {
         $requestId  = $request->header('X-Request-ID') ?? Str::uuid()->toString();
         $composedAt = now()->toISOString();
@@ -164,8 +164,9 @@ class ContentController extends Controller
         // ------------------------------------------------------------------
         // STAGE 1: Slug normalisation (ContentPipeline.md)
         // Lowercase, trim whitespace, strip leading and trailing slashes.
+        // Default to 'home' when no slug is provided (root page request).
         // ------------------------------------------------------------------
-        $slug = strtolower(trim($slug, "/ \t\n\r\0\x0B"));
+        $slug = strtolower(trim($slug ?? 'home', "/ \t\n\r\0\x0B")) ?: 'home';
 
         // ------------------------------------------------------------------
         // STAGE 4: Reserved slug guard (ContentPipeline.md)

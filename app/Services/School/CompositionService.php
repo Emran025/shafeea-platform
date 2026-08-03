@@ -2,7 +2,7 @@
 
 namespace App\Services\School;
 
-use App\Engine\Schools\CompositionContext;
+use App\Engine\CompositionContext;
 use App\Models\Cms\Block;
 use App\Models\Cms\EntityIdentity;
 use App\Models\Cms\Page;

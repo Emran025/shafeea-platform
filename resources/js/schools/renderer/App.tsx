@@ -8,10 +8,24 @@ const AdminApp    = lazy(() => import('../admin/orchestration/AdminApp'));
 const NewsDetail  = lazy(() => import('./pages/NewsDetailPage'));
 const StoryDetail = lazy(() => import('./pages/StoryDetailPage'));
 
+/**
+ * Derive the router basename from the school code injected by the Blade shell.
+ * The SPA is mounted at /school/{code}, so we set that as the basename so that
+ * React Router strips it from all pathnames — e.g. /school/shafeea → /.
+ * Falls back to '' (root) if no school code is present (e.g. dev / SSR).
+ */
+function getBasename(): string {
+    const schoolCode =
+        (window as any).__SCHOOL_DATA__?.code ||
+        document.getElementById('app')?.dataset.schoolCode ||
+        '';
+    return schoolCode ? `/school/${schoolCode}` : '';
+}
+
 export default function App() {
     return (
         <ErrorBoundary>
-            <BrowserRouter>
+            <BrowserRouter basename={getBasename()}>
                 <Routes>
                     <Route
                         path="/admin/*"
