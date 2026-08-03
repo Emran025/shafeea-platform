@@ -258,4 +258,36 @@ class School extends Model
     {
         return $this->hasMany(User::class)->whereHas('teacher');
     }
+
+    // ──────────────────────────────────────────────────────────────────────────
+    // Template Context
+    // ──────────────────────────────────────────────────────────────────────────
+
+    /**
+     * Returns a resolution context array for the TemplateResolver.
+     *
+     * Every {{school.*}} placeholder in the content JSON templates is resolved
+     * against the values returned here. Add new keys here as the templates evolve.
+     *
+     * @param  string $locale  'en' | 'ar'
+     * @return array           Keyed under 'school' so placeholders read {{school.name}} etc.
+     */
+    public function toTemplateContext(string $locale = 'en'): array
+    {
+        $phone = trim(($this->phone_zone ?? '') . ' ' . ($this->phone ?? ''));
+
+        return [
+            'school' => [
+                'code'     => $this->school_code ?? $this->code ?? '',
+                'name'     => $this->name ?? '',
+                'logo'     => $this->logo,   // accessor returns full URL
+                'phone'    => $phone,
+                'email'    => '',            // not in schema yet; extend when added
+                'country'  => $this->country  ?? '',
+                'city'     => $this->city     ?? '',
+                'address'  => $this->address  ?? '',
+                'location' => $this->location ?? '',
+            ],
+        ];
+    }
 }

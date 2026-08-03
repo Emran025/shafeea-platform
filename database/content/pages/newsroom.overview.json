@@ -1,751 +1,177 @@
 {
-  "id": "11111111-0000-0000-0000-000000000001",
-  "slug": "newsroom/overview",
-  "type": "newsroom.overview",
-  "identity": {
-    "title": {
-      "en": "ACCSYSTEM — Corporate Technology Entity"
-    },
-    "purpose": {
-      "en": "Corporate homepage"
-    },
-    "owner": "accsystem",
-    "canonical_url": "https://accsystemerp.com/",
-    "classification": "public"
-  },
-  "hierarchy": {
-    "depth": 0,
-    "position": 1,
-    "include_in_nav": true,
-    "nav_label": {
-      "en": "Home"
-    }
-  },
-  "composition": {
-    "section_order": "explicit",
-    "allow_dynamic": false,
-    "max_sections": 20,
-    "fallback_policy": "show_partial"
-  },
-  "meta": {
-    "seo_title": {
-      "en": "ACCSYSTEM — Corporate Technology Entity"
-    },
-    "seo_description": {
-      "en": "ACCSYSTEM operates and organizes accore, accommerce, and qayd — a structured system of platforms serving enterprise, consumer, and individual markets."
-    },
-    "og_title": {
-      "en": "ACCSYSTEM"
-    },
-    "og_description": {
-      "en": "The organizing framework for accore, accommerce, and qayd."
-    },
-    "og_image": null,
-    "robots": "index,follow"
-  },
-  "sections": [
-    {
-      "id": "22222222-0000-0000-0000-000000000001",
-      "type": "hero",
-      "name": "Hero",
-      "anchor_id": null,
-      "position": 1,
-      "group": "above-fold",
-      "required_block_types": [
-        "headline"
-      ],
-      "blocks": [
-        {
-          "id": "33333333-0000-0000-0000-000000000001",
-          "type": "label",
-          "position": 1,
-          "weight": 5,
-          "featured": false,
-          "content": {
-            "en": {
-              "text": "Corporate Technology Entity"
-            },
-            "ar": {
-              "text": "Corporate Technology Entity"
-            }
-          }
+    "id": "11111111-0000-0000-0000-000000000001",
+    "slug": "newsroom/overview",
+    "type": "newsroom.overview",
+    "identity": {
+        "title": {
+            "en": "{{school.name}} — Newsroom",
+            "ar": "{{school.name}} — غرفة الأخبار"
         },
-        {
-          "id": "33333333-0000-0000-0000-000000000002",
-          "type": "headline",
-          "position": 2,
-          "weight": 10,
-          "featured": true,
-          "content": {
-            "en": {
-              "text": "The operating framework for commerce and operations."
-            },
-            "ar": {
-              "text": "The operating framework for commerce and operations."
-            }
-          }
+        "purpose": {
+            "en": "School newsroom hub page — auto-resolved per school"
         },
-        {
-          "id": "33333333-0000-0000-0000-000000000003",
-          "type": "subheadline",
-          "position": 3,
-          "weight": 8,
-          "featured": false,
-          "content": {
-            "en": {
-              "text": "ACCSYSTEM organizes accore, accommerce, and qayd — a structured system connecting enterprise operations, commerce, and individual activity."
-            },
-            "ar": {
-              "text": "ACCSYSTEM organizes accore, accommerce, and qayd — a structured system connecting enterprise operations, commerce, and individual activity."
-            }
-          }
-        },
-        {
-          "id": "33333333-0000-0000-0000-000000000004",
-          "type": "cta",
-          "position": 4,
-          "weight": 5,
-          "featured": false,
-          "content": {
-            "en": {
-              "label": "Explore Platforms",
-              "destination": {
-                "type": "anchor",
-                "value": "platforms"
-              },
-              "intent": "primary"
-            },
-            "ar": {
-              "label": "Explore Platforms",
-              "intent": "primary",
-              "destination": {
-                "type": "anchor",
-                "value": "platforms"
-              }
-            }
-          }
-        },
-        {
-          "id": "33333333-0000-0000-0000-000000000005",
-          "type": "cta",
-          "position": 5,
-          "weight": 5,
-          "featured": false,
-          "content": {
-            "en": {
-              "label": "About ACCSYSTEM",
-              "destination": {
-                "type": "internal_page",
-                "value": "about"
-              },
-              "intent": "secondary"
-            },
-            "ar": {
-              "label": "عن ACCSYSTEM",
-              "intent": "secondary",
-              "destination": {
-                "type": "internal_page",
-                "value": "about"
-              }
-            }
-          }
+        "owner": "school_platform",
+        "canonical_url": "/school/{{school.code}}/newsroom/overview",
+        "classification": "public"
+    },
+    "hierarchy": {
+        "depth": 0,
+        "position": 1,
+        "include_in_nav": true,
+        "nav_label": {
+            "en": "Newsroom",
+            "ar": "الأخبار"
         }
-      ]
     },
-    {
-      "id": "22222222-0000-0000-0000-000000000002",
-      "type": "platform_showcase",
-      "name": "Platform Showcase",
-      "anchor_id": "platforms",
-      "position": 2,
-      "group": "below-fold",
-      "required_block_types": [],
-      "blocks": [
-        {
-          "id": "33333333-0000-0000-0000-000000000010",
-          "type": "label",
-          "position": 1,
-          "weight": 5,
-          "featured": false,
-          "content": {
-            "en": {
-              "text": "The Ecosystem"
-            },
-            "ar": {
-              "text": "The Ecosystem"
-            }
-          }
-        },
-        {
-          "id": "33333333-0000-0000-0000-000000000011",
-          "type": "headline",
-          "position": 2,
-          "weight": 9,
-          "featured": false,
-          "content": {
-            "en": {
-              "text": "Three platforms. One coherent system."
-            },
-            "ar": {
-              "text": "Three platforms. One coherent system."
-            }
-          }
-        },
-        {
-          "id": "33333333-0000-0000-0000-000000000012",
-          "type": "platform_card",
-          "position": 3,
-          "weight": 10,
-          "featured": true,
-          "content": {
-            "en": {
-              "product_site_id": "ACCORE"
-            },
-            "ar": {
-              "product_site_id": "ACCORE"
-            }
-          }
-        },
-        {
-          "id": "33333333-0000-0000-0000-000000000013",
-          "type": "platform_card",
-          "position": 4,
-          "weight": 10,
-          "featured": true,
-          "content": {
-            "en": {
-              "product_site_id": "ACCOMMERCE"
-            },
-            "ar": {
-              "product_site_id": "ACCOMMERCE"
-            }
-          }
-        },
-        {
-          "id": "33333333-0000-0000-0000-000000000014",
-          "type": "platform_card",
-          "position": 5,
-          "weight": 10,
-          "featured": true,
-          "content": {
-            "en": {
-              "product_site_id": "QAYD"
-            },
-            "ar": {
-              "product_site_id": "QAYD"
-            }
-          }
-        }
-      ]
+    "composition": {
+        "section_order": "explicit",
+        "allow_dynamic": false,
+        "max_sections": 10,
+        "fallback_policy": "show_partial"
     },
-    {
-      "id": "22222222-0000-0000-0000-000000000003",
-      "type": "value_proposition",
-      "name": "Value Proposition",
-      "anchor_id": "why-accsystem",
-      "position": 3,
-      "group": "below-fold",
-      "required_block_types": [],
-      "blocks": [
-        {
-          "id": "33333333-0000-0000-0000-000000000020",
-          "type": "label",
-          "position": 1,
-          "weight": 5,
-          "featured": false,
-          "content": {
-            "en": {
-              "text": "Why ACCSYSTEM"
-            },
-            "ar": {
-              "text": "Why ACCSYSTEM"
-            }
-          }
+    "meta": {
+        "seo_title": {
+            "en": "Newsroom — {{school.name}}",
+            "ar": "غرفة الأخبار — {{school.name}}"
         },
-        {
-          "id": "33333333-0000-0000-0000-000000000021",
-          "type": "headline",
-          "position": 2,
-          "weight": 9,
-          "featured": false,
-          "content": {
-            "en": {
-              "text": "Organized for how business actually works."
-            },
-            "ar": {
-              "text": "Organized for how business actually works."
-            }
-          }
+        "seo_description": {
+            "en": "News, stories, and updates from {{school.name}}.",
+            "ar": "الأخبار والقصص والتحديثات من {{school.name}}."
         },
-        {
-          "id": "33333333-0000-0000-0000-000000000022",
-          "type": "feature_item",
-          "position": 3,
-          "weight": 5,
-          "featured": false,
-          "content": {
-            "en": {
-              "label": "Structured by Design",
-              "description": "Every domain object in ACCSYSTEM is deterministic. Content, operations, and data follow explicit rules — no ambiguity, no hidden state."
-            },
-            "ar": {
-              "label": "Structured by Design",
-              "description": "Every domain object in ACCSYSTEM is deterministic. Content, operations, and data follow explicit rules — no ambiguity, no hidden state."
-            }
-          }
+        "og_title": {
+            "en": "{{school.name}} Newsroom",
+            "ar": "غرفة أخبار {{school.name}}"
         },
-        {
-          "id": "33333333-0000-0000-0000-000000000023",
-          "type": "feature_item",
-          "position": 4,
-          "weight": 5,
-          "featured": false,
-          "content": {
-            "en": {
-              "label": "Enterprise to Individual",
-              "description": "From large enterprise operations in accore to individual financial activity in qayd — the ecosystem scales with your context."
-            },
-            "ar": {
-              "label": "Enterprise to Individual",
-              "description": "From large enterprise operations in accore to individual financial activity in qayd — the ecosystem scales with your context."
-            }
-          }
+        "og_description": {
+            "en": "The latest from {{school.name}}.",
+            "ar": "آخر أخبار {{school.name}}."
         },
-        {
-          "id": "33333333-0000-0000-0000-000000000024",
-          "type": "feature_item",
-          "position": 5,
-          "weight": 5,
-          "featured": false,
-          "content": {
-            "en": {
-              "label": "Coherent by System",
-              "description": "accore, accommerce, and qayd are not isolated products. They are coordinated components of one system — data flows between them by design."
-            },
-            "ar": {
-              "label": "Coherent by System",
-              "description": "accore, accommerce, and qayd are not isolated products. They are coordinated components of one system — data flows between them by design."
-            }
-          }
-        }
-      ]
+        "og_image": null,
+        "robots": "index,follow"
     },
-    {
-      "id": "22222222-0000-0000-0000-000000000004",
-      "type": "statistics",
-      "name": "Statistics",
-      "anchor_id": null,
-      "position": 4,
-      "group": "below-fold",
-      "required_block_types": [],
-      "blocks": [
+    "sections": [
         {
-          "id": "33333333-0000-0000-0000-000000000030",
-          "type": "stat_item",
-          "position": 1,
-          "weight": 8,
-          "featured": false,
-          "content": {
-            "en": {
-              "value": "3",
-              "unit": "platforms",
-              "descriptor": "Integrated Components"
-            },
-            "ar": {
-              "unit": "المنصات",
-              "descriptor": "المكوّنات المتكاملة",
-              "value": "3"
-            }
-          }
+            "id": "22222222-0000-0000-0000-000000000001",
+            "type": "hero",
+            "name": "Newsroom Hero",
+            "anchor_id": null,
+            "position": 1,
+            "group": "above-fold",
+            "required_block_types": ["headline"],
+            "blocks": [
+                {
+                    "id": "33333333-0000-0000-0000-000000000001",
+                    "type": "label",
+                    "position": 1,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": { "text": "{{school.name}}" },
+                        "ar": { "text": "{{school.name}}" }
+                    }
+                },
+                {
+                    "id": "33333333-0000-0000-0000-000000000002",
+                    "type": "headline",
+                    "position": 2,
+                    "weight": 10,
+                    "featured": true,
+                    "content": {
+                        "en": { "text": "News, Stories & Updates" },
+                        "ar": { "text": "الأخبار والقصص والتحديثات" }
+                    }
+                },
+                {
+                    "id": "33333333-0000-0000-0000-000000000003",
+                    "type": "subheadline",
+                    "position": 3,
+                    "weight": 7,
+                    "featured": false,
+                    "content": {
+                        "en": { "text": "Everything happening at {{school.name}} — from student achievements to school announcements." },
+                        "ar": { "text": "كل ما يجري في {{school.name}} — من إنجازات الطلاب إلى الإعلانات المدرسية." }
+                    }
+                }
+            ]
         },
         {
-          "id": "33333333-0000-0000-0000-000000000031",
-          "type": "stat_item",
-          "position": 2,
-          "weight": 8,
-          "featured": false,
-          "content": {
-            "en": {
-              "value": "1",
-              "unit": "system",
-              "descriptor": "Coherent Architecture"
-            },
-            "ar": {
-              "unit": "النظام",
-              "descriptor": "بنية متماسكة",
-              "value": "1"
-            }
-          }
-        },
-        {
-          "id": "33333333-0000-0000-0000-000000000032",
-          "type": "stat_item",
-          "position": 3,
-          "weight": 8,
-          "featured": false,
-          "content": {
-            "en": {
-              "value": "2",
-              "unit": "locales",
-              "descriptor": "Language Support"
-            },
-            "ar": {
-              "unit": "اللغات والمناطق",
-              "descriptor": "دعم اللغات",
-              "value": "2"
-            }
-          }
-        },
-        {
-          "id": "33333333-0000-0000-0000-000000000033",
-          "type": "stat_item",
-          "position": 4,
-          "weight": 8,
-          "featured": false,
-          "content": {
-            "en": {
-              "value": "100%",
-              "unit": null,
-              "descriptor": "API-Driven Rendering"
-            },
-            "ar": {
-              "unit": null,
-              "descriptor": "عرض قائم على واجهات برمجية",
-              "value": "100%"
-            }
-          }
+            "id": "22222222-0000-0000-0000-000000000002",
+            "type": "cta_cards",
+            "name": "Newsroom Navigation",
+            "anchor_id": "newsroom-nav",
+            "position": 2,
+            "group": "below-fold",
+            "required_block_types": [],
+            "blocks": [
+                {
+                    "id": "33333333-0000-0000-0000-000000000010",
+                    "type": "label",
+                    "position": 1,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": { "text": "Explore" },
+                        "ar": { "text": "استعرض" }
+                    }
+                },
+                {
+                    "id": "33333333-0000-0000-0000-000000000011",
+                    "type": "cta",
+                    "position": 2,
+                    "weight": 7,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "label": "News",
+                            "destination": { "type": "internal_page", "value": "newsroom/news" },
+                            "intent": "primary"
+                        },
+                        "ar": {
+                            "label": "الأخبار",
+                            "destination": { "type": "internal_page", "value": "newsroom/news" },
+                            "intent": "primary"
+                        }
+                    }
+                },
+                {
+                    "id": "33333333-0000-0000-0000-000000000012",
+                    "type": "cta",
+                    "position": 3,
+                    "weight": 7,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "label": "Success Stories",
+                            "destination": { "type": "internal_page", "value": "newsroom/stories" },
+                            "intent": "secondary"
+                        },
+                        "ar": {
+                            "label": "قصص النجاح",
+                            "destination": { "type": "internal_page", "value": "newsroom/stories" },
+                            "intent": "secondary"
+                        }
+                    }
+                },
+                {
+                    "id": "33333333-0000-0000-0000-000000000013",
+                    "type": "cta",
+                    "position": 4,
+                    "weight": 7,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "label": "About {{school.name}}",
+                            "destination": { "type": "internal_page", "value": "newsroom/about" },
+                            "intent": "secondary"
+                        },
+                        "ar": {
+                            "label": "عن {{school.name}}",
+                            "destination": { "type": "internal_page", "value": "newsroom/about" },
+                            "intent": "secondary"
+                        }
+                    }
+                }
+            ]
         }
-      ]
-    },
-    {
-      "id": "22222222-0000-0000-0000-000000000005",
-      "type": "cta_band",
-      "name": "CTA Band",
-      "anchor_id": null,
-      "position": 5,
-      "group": "below-fold",
-      "required_block_types": [],
-      "blocks": [
-        {
-          "id": "33333333-0000-0000-0000-000000000040",
-          "type": "headline",
-          "position": 1,
-          "weight": 9,
-          "featured": false,
-          "content": {
-            "en": {
-              "text": "Ready to explore the system?"
-            },
-            "ar": {
-              "text": "Ready to explore the system?"
-            }
-          }
-        },
-        {
-          "id": "33333333-0000-0000-0000-000000000041",
-          "type": "subheadline",
-          "position": 2,
-          "weight": 7,
-          "featured": false,
-          "content": {
-            "en": {
-              "text": "Discover the platform built for your scale — from individual activity to enterprise operations."
-            },
-            "ar": {
-              "text": "Discover the platform built for your scale — from individual activity to enterprise operations."
-            }
-          }
-        },
-        {
-          "id": "33333333-0000-0000-0000-000000000042",
-          "type": "cta",
-          "position": 3,
-          "weight": 8,
-          "featured": false,
-          "content": {
-            "en": {
-              "label": "View All Platforms",
-              "destination": {
-                "type": "anchor",
-                "value": "platforms"
-              },
-              "intent": "primary"
-            },
-            "ar": {
-              "label": "View All Platforms",
-              "intent": "primary",
-              "destination": {
-                "type": "anchor",
-                "value": "platforms"
-              }
-            }
-          }
-        },
-        {
-          "id": "33333333-0000-0000-0000-000000000043",
-          "type": "cta",
-          "position": 4,
-          "weight": 6,
-          "featured": false,
-          "content": {
-            "en": {
-              "label": "About ACCSYSTEM",
-              "destination": {
-                "type": "internal_page",
-                "value": "about"
-              },
-              "intent": "secondary"
-            },
-            "ar": {
-              "label": "عن ACCSYSTEM",
-              "intent": "secondary",
-              "destination": {
-                "type": "internal_page",
-                "value": "about"
-              }
-            }
-          }
-        }
-      ]
-    },
-    {
-      "id": "22222222-0000-0000-0000-000000000006",
-      "type": "media_spotlight",
-      "name": "accore Spotlight",
-      "anchor_id": "accore-spotlight",
-      "position": 6,
-      "group": "below-fold",
-      "required_block_types": [],
-      "blocks": [
-        {
-          "id": "33333333-0000-0000-0000-000000000060",
-          "type": "label",
-          "position": 1,
-          "weight": 5,
-          "featured": false,
-          "content": {
-            "en": {
-              "text": "Enterprise Operations"
-            },
-            "ar": {
-              "text": "عمليات المؤسسات"
-            }
-          }
-        },
-        {
-          "id": "33333333-0000-0000-0000-000000000061",
-          "type": "headline",
-          "position": 2,
-          "weight": 9,
-          "featured": false,
-          "content": {
-            "en": {
-              "text": "accore — your B2B operations backbone."
-            },
-            "ar": {
-              "text": "accore — your B2B operations backbone."
-            }
-          }
-        },
-        {
-          "id": "33333333-0000-0000-0000-000000000062",
-          "type": "subheadline",
-          "position": 3,
-          "weight": 7,
-          "featured": false,
-          "content": {
-            "en": {
-              "text": "Manage contracts, partner networks, and supply-chain throughput from a single coherent dashboard. Real-time visibility across every operation."
-            },
-            "ar": {
-              "text": "Manage contracts, partner networks, and supply-chain throughput from a single coherent dashboard. Real-time visibility across every operation."
-            }
-          }
-        },
-        {
-          "id": "33333333-0000-0000-0000-000000000063",
-          "type": "media",
-          "position": 4,
-          "weight": 5,
-          "featured": false,
-          "media_id": "aaaaaaaa-0000-0000-0000-000000000001",
-          "content": {
-            "en": {},
-            "ar": {}
-          }
-        }
-      ]
-    },
-    {
-      "id": "22222222-0000-0000-0000-000000000007",
-      "type": "video_feature",
-      "name": "Platform Video",
-      "anchor_id": "platform-video",
-      "position": 7,
-      "group": "below-fold",
-      "required_block_types": [],
-      "blocks": [
-        {
-          "id": "33333333-0000-0000-0000-000000000070",
-          "type": "label",
-          "position": 1,
-          "weight": 5,
-          "featured": false,
-          "content": {
-            "en": {
-              "text": "See It In Action"
-            },
-            "ar": {
-              "text": "See It In Action"
-            }
-          }
-        },
-        {
-          "id": "33333333-0000-0000-0000-000000000071",
-          "type": "headline",
-          "position": 2,
-          "weight": 9,
-          "featured": false,
-          "content": {
-            "en": {
-              "text": "The system in motion."
-            },
-            "ar": {
-              "text": "The system in motion."
-            }
-          }
-        },
-        {
-          "id": "33333333-0000-0000-0000-000000000072",
-          "type": "rich_text",
-          "position": 3,
-          "weight": 6,
-          "featured": false,
-          "content": {
-            "en": {
-              "content": {
-                "type": "doc",
-                "content": [
-                  {
-                    "type": "paragraph",
-                    "content": [
-                      {
-                        "type": "text",
-                        "text": "Watch a walkthrough of the ACCSYSTEM ecosystem — how accore, accommerce, and qayd connect to form one coherent operating framework."
-                      }
-                    ]
-                  }
-                ]
-              }
-            },
-            "ar": {
-              "content": {
-                "type": "doc",
-                "content": [
-                  {
-                    "type": "paragraph",
-                    "content": [
-                      {
-                        "type": "text",
-                        "text": "Watch a walkthrough of the ACCSYSTEM ecosystem — how accore, accommerce, and qayd connect to form one coherent operating framework."
-                      }
-                    ]
-                  }
-                ]
-              }
-            }
-          }
-        },
-        {
-          "id": "33333333-0000-0000-0000-000000000073",
-          "type": "media",
-          "position": 4,
-          "weight": 5,
-          "featured": false,
-          "media_id": "aaaaaaaa-0000-0000-0000-000000000012",
-          "content": {
-            "en": {},
-            "ar": {}
-          }
-        }
-      ]
-    },
-    {
-      "id": "22222222-0000-0000-0000-000000000008",
-      "type": "media_grid",
-      "name": "Platform Gallery",
-      "anchor_id": "platform-gallery",
-      "position": 8,
-      "group": "below-fold",
-      "required_block_types": [],
-      "blocks": [
-        {
-          "id": "33333333-0000-0000-0000-000000000080",
-          "type": "label",
-          "position": 1,
-          "weight": 5,
-          "featured": false,
-          "content": {
-            "en": {
-              "text": "Platform Gallery"
-            },
-            "ar": {
-              "text": "Platform Gallery"
-            }
-          }
-        },
-        {
-          "id": "33333333-0000-0000-0000-000000000081",
-          "type": "headline",
-          "position": 2,
-          "weight": 9,
-          "featured": false,
-          "content": {
-            "en": {
-              "text": "Three interfaces. One system."
-            },
-            "ar": {
-              "text": "Three interfaces. One system."
-            }
-          }
-        },
-        {
-          "id": "33333333-0000-0000-0000-000000000082",
-          "type": "media",
-          "position": 3,
-          "weight": 5,
-          "featured": false,
-          "media_id": "aaaaaaaa-0000-0000-0000-000000000001",
-          "content": {
-            "en": {},
-            "ar": {}
-          }
-        },
-        {
-          "id": "33333333-0000-0000-0000-000000000083",
-          "type": "media",
-          "position": 4,
-          "weight": 5,
-          "featured": false,
-          "media_id": "aaaaaaaa-0000-0000-0000-000000000002",
-          "content": {
-            "en": {},
-            "ar": {}
-          }
-        },
-        {
-          "id": "33333333-0000-0000-0000-000000000084",
-          "type": "media",
-          "position": 5,
-          "weight": 5,
-          "featured": false,
-          "media_id": "aaaaaaaa-0000-0000-0000-000000000003",
-          "content": {
-            "en": {},
-            "ar": {}
-          }
-        }
-      ]
-    }
-  ]
+    ]
 }

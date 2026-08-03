@@ -1,317 +1,96 @@
 {
-  "id": "11111111-0000-0000-0000-000000000005",
-  "slug": "legal/terms",
-  "type": "corporate.legal",
-  "identity": {
-    "title": {
-      "en": "Terms of Use"
-    },
-    "purpose": {
-      "en": "Terms of Use legal page"
-    },
-    "owner": "accsystem",
-    "canonical_url": "https://accsystemerp.com/legal/terms",
-    "classification": "public"
-  },
-  "hierarchy": {
-    "depth": 1,
-    "position": 2,
-    "include_in_nav": false,
-    "nav_label": {
-      "en": "Terms of Use"
-    }
-  },
-  "composition": {
-    "section_order": "explicit",
-    "allow_dynamic": false,
-    "max_sections": 10,
-    "fallback_policy": "show_partial"
-  },
-  "meta": {
-    "seo_title": {
-      "en": "Terms of Use — ACCSYSTEM"
-    },
-    "seo_description": {
-      "en": "Terms of use for accsystemerp.com and the ACCSYSTEM corporate entity."
-    },
-    "og_title": null,
-    "og_description": null,
-    "og_image": null,
-    "robots": "noindex,follow"
-  },
-  "sections": [
-    {
-      "id": "22222222-0000-0000-0000-000000000310",
-      "type": "legal_body",
-      "name": "Terms of Use Body",
-      "anchor_id": null,
-      "position": 1,
-      "group": null,
-      "required_block_types": [],
-      "blocks": [
-        {
-          "id": "33333333-0000-0000-0000-000000000311",
-          "type": "headline",
-          "position": 1,
-          "weight": 9,
-          "featured": false,
-          "content": {
-            "en": {
-              "text": "Terms of Use"
-            },
-            "ar": {
-              "text": "Terms of Use"
-            }
-          }
+    "id": "11111111-0000-0000-0000-000000000005",
+    "slug": "legal/terms",
+    "type": "school.legal",
+    "identity": {
+        "title": {
+            "en": "Terms of Use — {{school.name}}",
+            "ar": "شروط الاستخدام — {{school.name}}"
         },
-        {
-          "id": "33333333-0000-0000-0000-000000000312",
-          "type": "label",
-          "position": 2,
-          "weight": 5,
-          "featured": false,
-          "content": {
-            "en": {
-              "text": "Effective date: June 2026"
-            },
-            "ar": {
-              "text": "Effective date: June 2026"
-            }
-          }
+        "purpose": {
+            "en": "School terms of use legal page"
         },
-        {
-          "id": "33333333-0000-0000-0000-000000000313",
-          "type": "rich_text",
-          "position": 3,
-          "weight": 7,
-          "featured": false,
-          "content": {
-            "en": {
-              "content": {
-                "type": "doc",
-                "content": [
-                  {
-                    "type": "heading",
-                    "attrs": {
-                      "level": 2
-                    },
-                    "content": [
-                      {
-                        "type": "text",
-                        "text": "Acceptance of Terms"
-                      }
-                    ]
-                  },
-                  {
-                    "type": "paragraph",
-                    "content": [
-                      {
-                        "type": "text",
-                        "text": "By accessing accsystemerp.com, you agree to these terms. If you do not agree, please do not use this site."
-                      }
-                    ]
-                  },
-                  {
-                    "type": "heading",
-                    "attrs": {
-                      "level": 2
-                    },
-                    "content": [
-                      {
-                        "type": "text",
-                        "text": "Permitted Use"
-                      }
-                    ]
-                  },
-                  {
-                    "type": "paragraph",
-                    "content": [
-                      {
-                        "type": "text",
-                        "text": "This site is provided for informational purposes. You may access and read content for personal, non-commercial use. You may not reproduce, distribute, or create derivative works without written permission."
-                      }
-                    ]
-                  },
-                  {
-                    "type": "heading",
-                    "attrs": {
-                      "level": 2
-                    },
-                    "content": [
-                      {
-                        "type": "text",
-                        "text": "Intellectual Property"
-                      }
-                    ]
-                  },
-                  {
-                    "type": "paragraph",
-                    "content": [
-                      {
-                        "type": "text",
-                        "text": "All content on accsystemerp.com is the property of ACCSYSTEM. The names ACCSYSTEM, accore, accommerce, and qayd are proprietary identifiers of this entity."
-                      }
-                    ]
-                  },
-                  {
-                    "type": "heading",
-                    "attrs": {
-                      "level": 2
-                    },
-                    "content": [
-                      {
-                        "type": "text",
-                        "text": "Limitation of Liability"
-                      }
-                    ]
-                  },
-                  {
-                    "type": "paragraph",
-                    "content": [
-                      {
-                        "type": "text",
-                        "text": "ACCSYSTEM provides this site on an as-is basis. We make no warranties regarding availability, accuracy, or completeness of content."
-                      }
-                    ]
-                  }
-                ]
-              }
-            },
-            "ar": {
-              "content": {
-                "type": "doc",
-                "content": [
-                  {
-                    "type": "heading",
-                    "attrs": {
-                      "level": 2
-                    },
-                    "content": [
-                      {
-                        "type": "text",
-                        "text": "Acceptance of Terms"
-                      }
-                    ]
-                  },
-                  {
-                    "type": "paragraph",
-                    "content": [
-                      {
-                        "type": "text",
-                        "text": "By accessing accsystemerp.com, you agree to these terms. If you do not agree, please do not use this site."
-                      }
-                    ]
-                  },
-                  {
-                    "type": "heading",
-                    "attrs": {
-                      "level": 2
-                    },
-                    "content": [
-                      {
-                        "type": "text",
-                        "text": "Permitted Use"
-                      }
-                    ]
-                  },
-                  {
-                    "type": "paragraph",
-                    "content": [
-                      {
-                        "type": "text",
-                        "text": "This site is provided for informational purposes. You may access and read content for personal, non-commercial use. You may not reproduce, distribute, or create derivative works without written permission."
-                      }
-                    ]
-                  },
-                  {
-                    "type": "heading",
-                    "attrs": {
-                      "level": 2
-                    },
-                    "content": [
-                      {
-                        "type": "text",
-                        "text": "Intellectual Property"
-                      }
-                    ]
-                  },
-                  {
-                    "type": "paragraph",
-                    "content": [
-                      {
-                        "type": "text",
-                        "text": "All content on accsystemerp.com is the property of ACCSYSTEM. The names ACCSYSTEM, accore, accommerce, and qayd are proprietary identifiers of this entity."
-                      }
-                    ]
-                  },
-                  {
-                    "type": "heading",
-                    "attrs": {
-                      "level": 2
-                    },
-                    "content": [
-                      {
-                        "type": "text",
-                        "text": "Limitation of Liability"
-                      }
-                    ]
-                  },
-                  {
-                    "type": "paragraph",
-                    "content": [
-                      {
-                        "type": "text",
-                        "text": "ACCSYSTEM provides this site on an as-is basis. We make no warranties regarding availability, accuracy, or completeness of content."
-                      }
-                    ]
-                  }
-                ]
-              }
-            }
-          }
-        },
-        {
-          "id": "33333333-0000-0000-0000-000000000314",
-          "type": "rich_text",
-          "position": 4,
-          "weight": 6,
-          "featured": false,
-          "content": {
-            "en": {
-              "content": {
-                "type": "doc",
-                "content": [
-                  {
-                    "type": "paragraph",
-                    "content": [
-                      {
-                        "type": "text",
-                        "text": "These terms may be updated without notice. Continued use of this site constitutes acceptance of any revised terms."
-                      }
-                    ]
-                  }
-                ]
-              }
-            },
-            "ar": {
-              "content": {
-                "type": "doc",
-                "content": [
-                  {
-                    "type": "paragraph",
-                    "content": [
-                      {
-                        "type": "text",
-                        "text": "These terms may be updated without notice. Continued use of this site constitutes acceptance of any revised terms."
-                      }
-                    ]
-                  }
-                ]
-              }
-            }
-          }
+        "owner": "school_platform",
+        "canonical_url": "/school/{{school.code}}/legal/terms",
+        "classification": "public"
+    },
+    "hierarchy": {
+        "depth": 1,
+        "position": 2,
+        "include_in_nav": false,
+        "nav_label": {
+            "en": "Terms of Use",
+            "ar": "شروط الاستخدام"
         }
-      ]
-    }
-  ]
+    },
+    "composition": {
+        "section_order": "explicit",
+        "allow_dynamic": false,
+        "max_sections": 5,
+        "fallback_policy": "show_partial"
+    },
+    "meta": {
+        "seo_title": {
+            "en": "Terms of Use — {{school.name}}",
+            "ar": "شروط الاستخدام — {{school.name}}"
+        },
+        "seo_description": {
+            "en": "Terms of use for the {{school.name}} platform — your rights and responsibilities.",
+            "ar": "شروط استخدام منصة {{school.name}} — حقوقك ومسؤولياتك."
+        },
+        "og_title": null,
+        "og_description": null,
+        "og_image": null,
+        "robots": "noindex,follow"
+    },
+    "sections": [
+        {
+            "id": "22222222-0000-0000-0000-000000000400",
+            "type": "legal_document",
+            "name": "Terms of Use Document",
+            "anchor_id": null,
+            "position": 1,
+            "group": null,
+            "required_block_types": [],
+            "blocks": [
+                {
+                    "id": "33333333-0000-0000-0000-000000000401",
+                    "type": "headline",
+                    "position": 1,
+                    "weight": 9,
+                    "featured": false,
+                    "content": {
+                        "en": { "text": "Terms of Use" },
+                        "ar": { "text": "شروط الاستخدام" }
+                    }
+                },
+                {
+                    "id": "33333333-0000-0000-0000-000000000402",
+                    "type": "subheadline",
+                    "position": 2,
+                    "weight": 6,
+                    "featured": false,
+                    "content": {
+                        "en": { "text": "{{school.name}} — {{school.city}}" },
+                        "ar": { "text": "{{school.name}} — {{school.city}}" }
+                    }
+                },
+                {
+                    "id": "33333333-0000-0000-0000-000000000403",
+                    "type": "rich_text",
+                    "position": 3,
+                    "weight": 6,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "By accessing the {{school.name}} platform, you agree to the following terms.\n\n**Platform Access**\nAccess to the platform is granted solely to enrolled students, registered parents, and authorised staff of {{school.name}}. Sharing your account credentials is prohibited.\n\n**Acceptable Use**\nUsers must use the platform for its intended educational and administrative purposes. Any misuse, including unauthorised access, tampering with data, or disruptive conduct, may result in account suspension.\n\n**Intellectual Property**\nAll content and materials within the platform remain the property of {{school.name}} and the platform provider. Unauthorised reproduction or distribution is prohibited.\n\n**Changes to These Terms**\n{{school.name}} reserves the right to update these terms. Users will be notified of material changes.\n\n**Contact**\nFor questions about these terms, please contact {{school.name}} at {{school.phone}}, {{school.address}}, {{school.city}}."
+                        },
+                        "ar": {
+                            "text": "بالوصول إلى منصة {{school.name}}، فإنك توافق على الشروط التالية.\n\n**الوصول إلى المنصة**\nيُمنح الوصول إلى المنصة فقط للطلاب المسجلين وأولياء الأمور المسجلين والموظفين المخوّلين في {{school.name}}. يُحظر مشاركة بيانات الاعتماد الخاصة بك.\n\n**الاستخدام المقبول**\nيجب على المستخدمين استخدام المنصة لأغراضها التعليمية والإدارية المقصودة. أي إساءة استخدام، بما في ذلك الوصول غير المصرح به أو العبث بالبيانات، قد يؤدي إلى تعليق الحساب.\n\n**الملكية الفكرية**\nتظل جميع المحتويات والمواد داخل المنصة ملكاً لـ {{school.name}} ومزود المنصة. يُحظر النسخ أو التوزيع غير المصرح به.\n\n**التواصل**\nللاستفسار عن هذه الشروط، يرجى التواصل مع {{school.name}} على {{school.phone}}، {{school.address}}، {{school.city}}."
+                        }
+                    }
+                }
+            ]
+        }
+    ]
 }

@@ -100,7 +100,7 @@ class ContentController extends Controller
         private readonly ResolutionService $resolutionService,
     ) {}
 
-    public function show(Request $request, ?string $slug = null): JsonResponse
+    public function show(Request $request, string $school_code, ?string $slug = null): JsonResponse
     {
         $requestId  = $request->header('X-Request-ID') ?? Str::uuid()->toString();
         $composedAt = now()->toISOString();
@@ -189,7 +189,7 @@ class ContentController extends Controller
         $cacheKey = null;
 
         if (! $preview && $audience !== 'admin_preview') {
-            $cacheKey = "engine:v1:{$slug}:{$locale}:{$audience}";
+            $cacheKey = "engine:v1:{$school_code}:{$slug}:{$locale}:{$audience}";
             $cached   = Cache::get($cacheKey);
 
             if ($cached !== null) {
@@ -210,6 +210,7 @@ class ContentController extends Controller
             isPreview: $preview,
             resolvedAt: Carbon::now(),
             requestId: $requestId,
+            schoolCode: $school_code,
         );
 
         // ------------------------------------------------------------------

@@ -291,7 +291,18 @@ class ContentSeeder extends Seeder
 
     private function seedPage(array $p, string $now, string $actor): void
     {
-        $id       = $p['id'];
+        $id = $p['id'];
+
+        // ── Clean up stale sections from previous seeds ───────────────────────
+        // Without this, removing sections from a JSON file leaves orphaned section
+        // rows still linked to the page, causing them to appear in composition.
+        $staleSectionIds = DB::table('sections')->where('page_id', $id)->pluck('id');
+        if ($staleSectionIds->isNotEmpty()) {
+            DB::table('section_block')->whereIn('section_id', $staleSectionIds)->delete();
+            DB::table('sections')->whereIn('id', $staleSectionIds)->delete();
+        }
+        // ─────────────────────────────────────────────────────────────────────
+
         $identity = $p['identity'];
         $hier     = $p['hierarchy'];
         $comp     = $p['composition'];

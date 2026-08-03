@@ -1,546 +1,213 @@
 {
-  "id": "55555555-0000-0000-0000-000000000003",
-  "slug": "newsroom/about",
-  "type": "newsroom.about",
-  "identity": {
-    "title": {
-      "en": "About ACCSYSTEM"
-    },
-    "purpose": {
-      "en": "Corporate about / newsroom hub page"
-    },
-    "owner": "accsystem",
-    "canonical_url": "https://accsystemerp.com/newsroom/about",
-    "classification": "public"
-  },
-  "hierarchy": {
-    "depth": 0,
-    "position": 2,
-    "include_in_nav": true,
-    "nav_label": {
-      "en": "About Us"
-    }
-  },
-  "composition": {
-    "section_order": "explicit",
-    "allow_dynamic": false,
-    "max_sections": 20,
-    "fallback_policy": "show_partial"
-  },
-  "meta": {
-    "seo_title": {
-      "en": "About ACCSYSTEM — The Operating Framework"
-    },
-    "seo_description": {
-      "en": "Learn about ACCSYSTEM — the corporate technology entity that organizes accore, accommerce, and qayd into one coherent ecosystem."
-    },
-    "og_title": null,
-    "og_description": null,
-    "og_image": null,
-    "robots": "index,follow"
-  },
-  "sections": [
-    {
-      "id": "22222222-0000-0000-0000-000000000010",
-      "type": "about_hero",
-      "name": "About Hero",
-      "anchor_id": "about-hero",
-      "position": 1,
-      "group": "above-fold",
-      "pinned": true,
-      "required_block_types": [
-        "headline"
-      ],
-      "blocks": [
-        {
-          "id": "33333333-0000-0000-0000-000000000101",
-          "type": "label",
-          "position": 1,
-          "weight": 5,
-          "featured": false,
-          "content": {
-            "en": {
-              "text": "About ACCSYSTEM"
-            },
-            "ar": {
-              "text": "عن ACCSYSTEM"
-            }
-          }
+    "id": "55555555-0000-0000-0000-000000000003",
+    "slug": "newsroom/about",
+    "type": "newsroom.about",
+    "identity": {
+        "title": {
+            "en": "About {{school.name}}",
+            "ar": "عن {{school.name}}"
         },
-        {
-          "id": "33333333-0000-0000-0000-000000000102",
-          "type": "headline",
-          "position": 2,
-          "weight": 10,
-          "featured": false,
-          "content": {
-            "en": {
-              "text": "Our mission is to organize the infrastructure of value."
-            },
-            "ar": {
-              "text": "Our mission is to organize the infrastructure of value."
-            }
-          }
+        "purpose": {
+            "en": "School about page — auto-resolved per school"
         },
-        {
-          "id": "33333333-0000-0000-0000-000000000103",
-          "type": "subheadline",
-          "position": 3,
-          "weight": 8,
-          "featured": false,
-          "content": {
-            "en": {
-              "text": "ACCSYSTEM is not a product. It is the organizing framework within which accore, accommerce, and qayd exist — a coherent system built to connect operations, commerce, and individual activity."
-            },
-            "ar": {
-              "text": "ACCSYSTEM is not a product. It is the organizing framework within which accore, accommerce, and qayd exist — a coherent system built to connect operations, commerce, and individual activity."
-            }
-          }
-        },
-        {
-          "id": "33333333-0000-0000-0000-000000000104",
-          "type": "cta",
-          "position": 4,
-          "weight": 5,
-          "featured": false,
-          "content": {
-            "en": {
-              "label": "Explore the Ecosystem",
-              "destination": {
-                "type": "internal_page",
-                "value": "newsroom"
-              },
-              "intent": "primary"
-            },
-            "ar": {
-              "label": "استكشف النظام البيئي",
-              "intent": "primary",
-              "destination": {
-                "type": "internal_page",
-                "value": "newsroom"
-              }
-            }
-          }
-        },
-        {
-          "id": "33333333-0000-0000-0000-000000000105",
-          "type": "cta",
-          "position": 5,
-          "weight": 5,
-          "featured": false,
-          "content": {
-            "en": {
-              "label": "Contact Us",
-              "destination": {
-                "type": "internal_page",
-                "value": "contact"
-              },
-              "intent": "secondary"
-            },
-            "ar": {
-              "label": "Contact Us",
-              "intent": "secondary",
-              "destination": {
-                "type": "internal_page",
-                "value": "contact"
-              }
-            }
-          }
+        "owner": "school_platform",
+        "canonical_url": "/school/{{school.code}}/newsroom/about",
+        "classification": "public"
+    },
+    "hierarchy": {
+        "depth": 0,
+        "position": 2,
+        "include_in_nav": true,
+        "nav_label": {
+            "en": "About Us",
+            "ar": "عن المدرسة"
         }
-      ]
     },
-    {
-      "id": "22222222-0000-0000-0000-000000000011",
-      "type": "mission_statement",
-      "name": "Mission Statement",
-      "anchor_id": "mission",
-      "position": 2,
-      "group": "below-fold",
-      "required_block_types": [
-        "headline"
-      ],
-      "blocks": [
-        {
-          "id": "33333333-0000-0000-0000-000000000110",
-          "type": "label",
-          "position": 1,
-          "weight": 5,
-          "featured": false,
-          "content": {
-            "en": {
-              "text": "Why We Exist"
-            },
-            "ar": {
-              "text": "Why We Exist"
-            }
-          }
-        },
-        {
-          "id": "33333333-0000-0000-0000-000000000111",
-          "type": "headline",
-          "position": 2,
-          "weight": 9,
-          "featured": false,
-          "content": {
-            "en": {
-              "text": "Value can only endure when protected by trust, and trust can only endure when it safeguards something of value."
-            },
-            "ar": {
-              "text": "Value can only endure when protected by trust, and trust can only endure when it safeguards something of value."
-            }
-          }
-        },
-        {
-          "id": "33333333-0000-0000-0000-000000000112",
-          "type": "subheadline",
-          "position": 3,
-          "weight": 7,
-          "featured": false,
-          "content": {
-            "en": {
-              "text": "This relationship has shaped commerce, governance, and civilization throughout history."
-            },
-            "ar": {
-              "text": "This relationship has shaped commerce, governance, and civilization throughout history."
-            }
-          }
-        },
-        {
-          "id": "33333333-0000-0000-0000-000000000113",
-          "type": "rich_text",
-          "position": 4,
-          "weight": 6,
-          "featured": false,
-          "content": {
-            "en": {
-              "text": "Naming across the ACCSYSTEM ecosystem was approached as an act of structural definition. Each name signals its position within a larger architecture — legible in isolation while drawing meaning from a shared conceptual foundation built around the ACC prefix: accounting, access, accuracy, accountability."
-            },
-            "ar": {
-              "text": "Naming across the ACCSYSTEM ecosystem was approached as an act of structural definition. Each name signals its position within a larger architecture — legible in isolation while drawing meaning from a shared conceptual foundation built around the ACC prefix: accounting, access, accuracy, accountability."
-            }
-          }
-        },
-        {
-          "id": "33333333-0000-0000-0000-000000000114",
-          "type": "feature_item",
-          "position": 5,
-          "weight": 5,
-          "featured": false,
-          "content": {
-            "en": {
-              "label": "Structural Integrity",
-              "description": "Every domain object is deterministic. Content, operations, and data follow explicit rules — no ambiguity, no hidden state."
-            },
-            "ar": {
-              "label": "Structural Integrity",
-              "description": "Every domain object is deterministic. Content, operations, and data follow explicit rules — no ambiguity, no hidden state."
-            }
-          }
-        },
-        {
-          "id": "33333333-0000-0000-0000-000000000115",
-          "type": "feature_item",
-          "position": 6,
-          "weight": 5,
-          "featured": false,
-          "content": {
-            "en": {
-              "label": "Coherent by Design",
-              "description": "accore, accommerce, and qayd are not isolated products. They are coordinated components — data flows between them by design."
-            },
-            "ar": {
-              "label": "Coherent by Design",
-              "description": "accore, accommerce, and qayd are not isolated products. They are coordinated components — data flows between them by design."
-            }
-          }
-        },
-        {
-          "id": "33333333-0000-0000-0000-000000000116",
-          "type": "feature_item",
-          "position": 7,
-          "weight": 5,
-          "featured": false,
-          "content": {
-            "en": {
-              "label": "Built for Stewardship",
-              "description": "Systems of trust require permanence. The deep navy foundation reflects governance and continuity built to outlast individual initiatives."
-            },
-            "ar": {
-              "label": "Built for Stewardship",
-              "description": "Systems of trust require permanence. The deep navy foundation reflects governance and continuity built to outlast individual initiatives."
-            }
-          }
-        },
-        {
-          "id": "33333333-0000-0000-0000-000000000117",
-          "type": "feature_item",
-          "position": 8,
-          "weight": 5,
-          "featured": false,
-          "content": {
-            "en": {
-              "label": "Enterprise to Individual",
-              "description": "From large enterprise operations to individual financial activity — the ecosystem scales with your context without losing coherence."
-            },
-            "ar": {
-              "label": "Enterprise to Individual",
-              "description": "From large enterprise operations to individual financial activity — the ecosystem scales with your context without losing coherence."
-            }
-          }
-        }
-      ]
+    "composition": {
+        "section_order": "explicit",
+        "allow_dynamic": false,
+        "max_sections": 10,
+        "fallback_policy": "show_partial"
     },
-    {
-      "id": "22222222-0000-0000-0000-000000000012",
-      "type": "timeline",
-      "name": "Company Timeline",
-      "anchor_id": "timeline",
-      "position": 3,
-      "group": "below-fold",
-      "required_block_types": [],
-      "blocks": [
-        {
-          "id": "33333333-0000-0000-0000-000000000130",
-          "type": "label",
-          "position": 1,
-          "weight": 5,
-          "featured": false,
-          "content": {
-            "en": {
-              "text": "Our Journey"
-            },
-            "ar": {
-              "text": "Our Journey"
-            }
-          }
+    "meta": {
+        "seo_title": {
+            "en": "About {{school.name}}",
+            "ar": "عن {{school.name}}"
         },
-        {
-          "id": "33333333-0000-0000-0000-000000000131",
-          "type": "headline",
-          "position": 2,
-          "weight": 9,
-          "featured": false,
-          "content": {
-            "en": {
-              "text": "From concept to ecosystem."
-            },
-            "ar": {
-              "text": "From concept to ecosystem."
-            }
-          }
+        "seo_description": {
+            "en": "Learn about {{school.name}} — our mission, values, and the team dedicated to student success.",
+            "ar": "تعرف على {{school.name}} — مهمتنا وقيمنا والفريق المكرس لنجاح الطلاب."
         },
-        {
-          "id": "33333333-0000-0000-0000-000000000132",
-          "type": "timeline_event",
-          "position": 3,
-          "weight": 8,
-          "featured": false,
-          "content": {
-            "en": {
-              "year": "2021",
-              "title": "Foundation of ACCSYSTEM",
-              "description": "The conceptual framework for a coherent commercial ecosystem was established. The ACC naming architecture was defined, with ACCSYSTEM designated as the governing parent identity."
-            },
-            "ar": {
-              "description": "The conceptual framework for a coherent commercial ecosystem was established. The ACC naming architecture was defined, with ACCSYSTEM designated as the governing parent identity.",
-              "title": "Foundation of ACCSYSTEM"
-            }
-          }
-        },
-        {
-          "id": "33333333-0000-0000-0000-000000000133",
-          "type": "timeline_event",
-          "position": 4,
-          "weight": 8,
-          "featured": false,
-          "content": {
-            "en": {
-              "year": "2022",
-              "title": "accore Architecture Defined",
-              "description": "The enterprise operations core was scoped. Domain models for contracts, inventory, supply chain, and B2B relationships were formalized as the foundation of the product layer."
-            },
-            "ar": {
-              "description": "The enterprise operations core was scoped. Domain models for contracts, inventory, supply chain, and B2B relationships were formalized as the foundation of the product layer.",
-              "title": "accore Architecture Defined"
-            }
-          }
-        },
-        {
-          "id": "33333333-0000-0000-0000-000000000134",
-          "type": "timeline_event",
-          "position": 5,
-          "weight": 8,
-          "featured": false,
-          "content": {
-            "en": {
-              "year": "2023",
-              "title": "accommerce & qayd Introduced",
-              "description": "The three-platform ecosystem was completed: accommerce for customer-facing commerce, qayd for individual financial activity. The ecosystem's complete value chain was established."
-            },
-            "ar": {
-              "description": "The three-platform ecosystem was completed: accommerce for customer-facing commerce, qayd for individual financial activity. The ecosystem's complete value chain was established.",
-              "title": "accommerce & qayd Introduced"
-            }
-          }
-        },
-        {
-          "id": "33333333-0000-0000-0000-000000000135",
-          "type": "timeline_event",
-          "position": 6,
-          "weight": 8,
-          "featured": false,
-          "content": {
-            "en": {
-              "year": "2024",
-              "title": "API-Driven Rendering Engine",
-              "description": "The CMS renderer — page contracts, section payloads, block primitives — was built as the delivery infrastructure, enabling complete separation of structure and content."
-            },
-            "ar": {
-              "description": "The CMS renderer — page contracts, section payloads, block primitives — was built as the delivery infrastructure, enabling complete separation of structure and content.",
-              "title": "API-Driven Rendering Engine"
-            }
-          }
-        },
-        {
-          "id": "33333333-0000-0000-0000-000000000136",
-          "type": "timeline_event",
-          "position": 7,
-          "weight": 8,
-          "featured": false,
-          "content": {
-            "en": {
-              "year": "2025",
-              "title": "Newsroom Hub Launch",
-              "description": "The Newsroom Hub was introduced, giving ACCSYSTEM a public-facing editorial and communications presence within the same structured rendering engine as all product pages."
-            },
-            "ar": {
-              "description": "The Newsroom Hub was introduced, giving ACCSYSTEM a public-facing editorial and communications presence within the same structured rendering engine as all product pages.",
-              "title": "Newsroom Hub Launch"
-            }
-          }
-        }
-      ]
+        "og_title": null,
+        "og_description": null,
+        "og_image": null,
+        "robots": "index,follow"
     },
-    {
-      "id": "22222222-0000-0000-0000-000000000013",
-      "type": "leadership",
-      "name": "Leadership",
-      "anchor_id": "leadership",
-      "position": 4,
-      "group": "below-fold",
-      "required_block_types": [],
-      "blocks": [
+    "sections": [
         {
-          "id": "33333333-0000-0000-0000-000000000150",
-          "type": "label",
-          "position": 1,
-          "weight": 5,
-          "featured": false,
-          "content": {
-            "en": {
-              "text": "Leadership"
-            },
-            "ar": {
-              "text": "Leadership"
-            }
-          }
+            "id": "22222222-0000-0000-0000-000000000010",
+            "type": "about_hero",
+            "name": "About Hero",
+            "anchor_id": "about-hero",
+            "position": 1,
+            "group": "above-fold",
+            "pinned": true,
+            "required_block_types": ["headline"],
+            "blocks": [
+                {
+                    "id": "33333333-0000-0000-0000-000000000101",
+                    "type": "label",
+                    "position": 1,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": { "text": "About {{school.name}}" },
+                        "ar": { "text": "عن {{school.name}}" }
+                    }
+                },
+                {
+                    "id": "33333333-0000-0000-0000-000000000102",
+                    "type": "headline",
+                    "position": 2,
+                    "weight": 10,
+                    "featured": false,
+                    "content": {
+                        "en": { "text": "Building a generation of capable, principled learners." },
+                        "ar": { "text": "بناء جيل من المتعلمين القادرين والمبدئيين." }
+                    }
+                },
+                {
+                    "id": "33333333-0000-0000-0000-000000000103",
+                    "type": "subheadline",
+                    "position": 3,
+                    "weight": 8,
+                    "featured": false,
+                    "content": {
+                        "en": { "text": "{{school.name}} is committed to academic excellence and character development — providing students with the tools, guidance, and environment they need to grow." },
+                        "ar": { "text": "{{school.name}} ملتزمة بالتميز الأكاديمي وتنمية الشخصية — تزويد الطلاب بالأدوات والتوجيه والبيئة التي يحتاجونها للنمو." }
+                    }
+                },
+                {
+                    "id": "33333333-0000-0000-0000-000000000104",
+                    "type": "cta",
+                    "position": 4,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "label": "Contact Us",
+                            "destination": { "type": "internal_page", "value": "contact" },
+                            "intent": "primary"
+                        },
+                        "ar": {
+                            "label": "تواصل معنا",
+                            "destination": { "type": "internal_page", "value": "contact" },
+                            "intent": "primary"
+                        }
+                    }
+                }
+            ]
         },
         {
-          "id": "33333333-0000-0000-0000-000000000151",
-          "type": "headline",
-          "position": 2,
-          "weight": 9,
-          "featured": false,
-          "content": {
-            "en": {
-              "text": "The team behind the system."
-            },
-            "ar": {
-              "text": "The team behind the system."
-            }
-          }
-        },
-        {
-          "id": "33333333-0000-0000-0000-000000000152",
-          "type": "person_card",
-          "position": 3,
-          "weight": 7,
-          "featured": false,
-          "content": {
-            "en": {
-              "full_name": "Emran Nasser",
-              "title": "Founder & Chief Executive Officer",
-              "bio_short": "Architect of the ACCSYSTEM ecosystem. Defined the structural framework, naming architecture, and product hierarchy.",
-              "image_url": "/media/emran.jpg"
-            },
-            "ar": {
-              "title": "Founder & Chief Executive Officer",
-              "bio_short": "Architect of the ACCSYSTEM ecosystem. Defined the structural framework, naming architecture, and product hierarchy.",
-              "image_url": "/media/emran.jpg"
-            }
-          }
-        },
-        {
-          "id": "33333333-0000-0000-0000-000000000153",
-          "type": "person_card",
-          "position": 4,
-          "weight": 7,
-          "featured": false,
-          "content": {
-            "en": {
-              "full_name": "Osama AL-Neshmi",
-              "title": "Chief Product Officer",
-              "bio_short": "Leads product architecture across accore, accommerce, and qayd. Responsible for coherence across all platform surfaces.",
-              "image_url": "/media/osama.png"
-            },
-            "ar": {
-              "title": "Chief Product Officer",
-              "bio_short": "Leads product architecture across accore, accommerce, and qayd. Responsible for coherence across all platform surfaces.",
-              "image_url": "/media/osama.png"
-            }
-          }
-        },
-        {
-          "id": "33333333-0000-0000-0000-000000000154",
-          "type": "person_card",
-          "position": 5,
-          "weight": 7,
-          "featured": false,
-          "content": {
-            "en": {
-              "full_name": "Mohammed AL-yafrosy",
-              "title": "Chief Commercial Officer",
-              "bio_short": "Leads go-to-market strategy and enterprise partnerships across the B2B and B2C platform segments.",
-              "image_url": "/media/mohammed.png"
-            },
-            "ar": {
-              "title": "Chief Commercial Officer",
-              "bio_short": "Leads go-to-market strategy and enterprise partnerships across the B2B and B2C platform segments.",
-              "image_url": "/media/mohammed.png"
-            }
-          }
-        },
-        {
-          "id": "33333333-0000-0000-0000-000000000155",
-          "type": "person_card",
-          "position": 6,
-          "weight": 7,
-          "featured": false,
-          "content": {
-            "en": {
-              "full_name": "Themar Morshed",
-              "title": "Chief Technology Officer",
-              "bio_short": "Oversees the API-driven rendering engine and the data infrastructure that connects all three platforms.",
-              "image_url": "/media/themar.png"
-            },
-            "ar": {
-              "title": "المدير التقني",
-              "bio_short": "Oversees the API-driven rendering engine and the data infrastructure that connects all three platforms.",
-              "image_url": "/media/themar.png"
-            }
-          }
+            "id": "22222222-0000-0000-0000-000000000011",
+            "type": "mission_statement",
+            "name": "Mission Statement",
+            "anchor_id": "mission",
+            "position": 2,
+            "group": "below-fold",
+            "required_block_types": ["headline"],
+            "blocks": [
+                {
+                    "id": "33333333-0000-0000-0000-000000000110",
+                    "type": "label",
+                    "position": 1,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": { "text": "Our Values" },
+                        "ar": { "text": "قيمنا" }
+                    }
+                },
+                {
+                    "id": "33333333-0000-0000-0000-000000000111",
+                    "type": "headline",
+                    "position": 2,
+                    "weight": 9,
+                    "featured": false,
+                    "content": {
+                        "en": { "text": "What we stand for at {{school.name}}." },
+                        "ar": { "text": "ما نؤمن به في {{school.name}}." }
+                    }
+                },
+                {
+                    "id": "33333333-0000-0000-0000-000000000114",
+                    "type": "feature_item",
+                    "position": 3,
+                    "weight": 6,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "label": "Academic Excellence",
+                            "description": "We hold ourselves to the highest standard of educational quality, consistently supporting every student's potential."
+                        },
+                        "ar": {
+                            "label": "التميز الأكاديمي",
+                            "description": "نلتزم بأعلى معايير الجودة التعليمية، ونسعى باستمرار إلى دعم إمكانات كل طالب."
+                        }
+                    }
+                },
+                {
+                    "id": "33333333-0000-0000-0000-000000000115",
+                    "type": "feature_item",
+                    "position": 4,
+                    "weight": 6,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "label": "Character & Integrity",
+                            "description": "Learning is inseparable from values. We develop principled individuals who contribute positively to their communities."
+                        },
+                        "ar": {
+                            "label": "الشخصية والنزاهة",
+                            "description": "التعلم لا ينفصل عن القيم. نُعد أفراداً مبدئيين يُسهمون إيجابياً في مجتمعاتهم."
+                        }
+                    }
+                },
+                {
+                    "id": "33333333-0000-0000-0000-000000000116",
+                    "type": "feature_item",
+                    "position": 5,
+                    "weight": 6,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "label": "Family Partnership",
+                            "description": "Education works best when schools and families work together. We maintain open, transparent communication at every step."
+                        },
+                        "ar": {
+                            "label": "الشراكة الأسرية",
+                            "description": "يعمل التعليم بشكل أفضل عندما تتعاون المدارس والعائلات. نحرص على التواصل المفتوح والشفاف في كل خطوة."
+                        }
+                    }
+                },
+                {
+                    "id": "33333333-0000-0000-0000-000000000117",
+                    "type": "feature_item",
+                    "position": 6,
+                    "weight": 6,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "label": "Continuous Improvement",
+                            "description": "We use data and feedback to refine our methods — keeping every student's learning experience as effective as possible."
+                        },
+                        "ar": {
+                            "label": "التحسين المستمر",
+                            "description": "نستخدم البيانات والتغذية الراجعة لتحسين أساليبنا — لإبقاء تجربة تعلم كل طالب فعالة قدر الإمكان."
+                        }
+                    }
+                }
+            ]
         }
-      ]
-    }
-  ]
+    ]
 }

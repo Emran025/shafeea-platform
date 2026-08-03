@@ -1,215 +1,107 @@
 {
-  "id": "11111111-0000-0000-0000-000000000003",
-  "slug": "contact",
-  "type": "corporate.contact",
-  "identity": {
-    "title": {
-      "en": "Contact ACCSYSTEM"
-    },
-    "purpose": {
-      "en": "Corporate contact page"
-    },
-    "owner": "accsystem",
-    "canonical_url": "https://accsystemerp.com/contact",
-    "classification": "public"
-  },
-  "hierarchy": {
-    "depth": 0,
-    "position": 3,
-    "include_in_nav": true,
-    "nav_label": {
-      "en": "Contact"
-    }
-  },
-  "composition": {
-    "section_order": "explicit",
-    "allow_dynamic": false,
-    "max_sections": 10,
-    "fallback_policy": "show_partial"
-  },
-  "meta": {
-    "seo_title": {
-      "en": "Contact ACCSYSTEM"
-    },
-    "seo_description": {
-      "en": "Get in touch with ACCSYSTEM — the corporate technology entity behind accore, accommerce, and qayd."
-    },
-    "og_title": null,
-    "og_description": null,
-    "og_image": null,
-    "robots": "index,follow"
-  },
-  "sections": [
-    {
-      "id": "22222222-0000-0000-0000-000000000200",
-      "type": "contact_form",
-      "name": "Contact Form",
-      "anchor_id": null,
-      "position": 1,
-      "group": null,
-      "required_block_types": [],
-      "blocks": [
-        {
-          "id": "33333333-0000-0000-0000-000000000201",
-          "type": "label",
-          "position": 1,
-          "weight": 5,
-          "featured": false,
-          "content": {
-            "en": {
-              "text": "Get in Touch"
-            },
-            "ar": {
-              "text": "Get in Touch"
-            }
-          }
+    "id": "11111111-0000-0000-0000-000000000003",
+    "slug": "contact",
+    "type": "school.contact",
+    "identity": {
+        "title": {
+            "en": "Contact {{school.name}}",
+            "ar": "تواصل مع {{school.name}}"
         },
-        {
-          "id": "33333333-0000-0000-0000-000000000202",
-          "type": "headline",
-          "position": 2,
-          "weight": 9,
-          "featured": false,
-          "content": {
-            "en": {
-              "text": "Contact ACCSYSTEM"
-            },
-            "ar": {
-              "text": "تواصل مع ACCSYSTEM"
-            }
-          }
+        "purpose": {
+            "en": "School contact page — auto-resolved per school"
         },
-        {
-          "id": "33333333-0000-0000-0000-000000000203",
-          "type": "rich_text",
-          "position": 3,
-          "weight": 7,
-          "featured": false,
-          "content": {
-            "en": {
-              "content": {
-                "type": "doc",
-                "content": [
-                  {
-                    "type": "paragraph",
-                    "content": [
-                      {
-                        "type": "text",
-                        "text": "For institutional inquiries, platform partnership discussions, or press matters, use the form below. We review all submissions and will respond through appropriate channels."
-                      }
-                    ]
-                  }
-                ]
-              }
-            },
-            "ar": {
-              "content": {
-                "type": "doc",
-                "content": [
-                  {
-                    "type": "paragraph",
-                    "content": [
-                      {
-                        "type": "text",
-                        "text": "For institutional inquiries, platform partnership discussions, or press matters, use the form below. We review all submissions and will respond through appropriate channels."
-                      }
-                    ]
-                  }
-                ]
-              }
-            }
-          }
-        },
-        {
-          "id": "33333333-0000-0000-0000-000000000204",
-          "type": "form_definition",
-          "position": 4,
-          "weight": 5,
-          "featured": false,
-          "content": {
-            "en": {
-              "form_title": "Send a Message",
-              "submit_label": "Send Message",
-              "success_message": "Your message has been received. We will be in touch.",
-              "fields": [
-                {
-                  "field_name": "name",
-                  "label": "Full Name",
-                  "field_type": "text",
-                  "is_required": true,
-                  "placeholder": "Your full name"
-                },
-                {
-                  "field_name": "email",
-                  "label": "Email",
-                  "field_type": "email",
-                  "is_required": true,
-                  "placeholder": "your@email.com"
-                },
-                {
-                  "field_name": "subject",
-                  "label": "Subject",
-                  "field_type": "select",
-                  "is_required": true,
-                  "options": [
-                    "Platform Inquiry",
-                    "Partnership",
-                    "Press & Media",
-                    "General"
-                  ]
-                },
-                {
-                  "field_name": "message",
-                  "label": "Message",
-                  "field_type": "textarea",
-                  "is_required": true,
-                  "placeholder": "Your message"
-                }
-              ]
-            },
-            "ar": {
-              "form_title": "Send a Message",
-              "submit_label": "Send Message",
-              "success_message": "Your message has been received. We will be in touch.",
-              "fields": [
-                {
-                  "field_name": "name",
-                  "label": "Full Name",
-                  "field_type": "text",
-                  "is_required": true,
-                  "placeholder": "Your full name"
-                },
-                {
-                  "field_name": "email",
-                  "label": "Email",
-                  "field_type": "email",
-                  "is_required": true,
-                  "placeholder": "your@email.com"
-                },
-                {
-                  "field_name": "subject",
-                  "label": "Subject",
-                  "field_type": "select",
-                  "is_required": true,
-                  "options": [
-                    "Platform Inquiry",
-                    "Partnership",
-                    "Press & Media",
-                    "General"
-                  ]
-                },
-                {
-                  "field_name": "message",
-                  "label": "Message",
-                  "field_type": "textarea",
-                  "is_required": true,
-                  "placeholder": "Your message"
-                }
-              ]
-            }
-          }
+        "owner": "school_platform",
+        "canonical_url": "/school/{{school.code}}/contact",
+        "classification": "public"
+    },
+    "hierarchy": {
+        "depth": 0,
+        "position": 3,
+        "include_in_nav": true,
+        "nav_label": {
+            "en": "Contact",
+            "ar": "تواصل"
         }
-      ]
-    }
-  ]
+    },
+    "composition": {
+        "section_order": "explicit",
+        "allow_dynamic": false,
+        "max_sections": 5,
+        "fallback_policy": "show_partial"
+    },
+    "meta": {
+        "seo_title": {
+            "en": "Contact {{school.name}}",
+            "ar": "تواصل مع {{school.name}}"
+        },
+        "seo_description": {
+            "en": "Get in touch with {{school.name}} — located in {{school.city}}.",
+            "ar": "تواصل مع {{school.name}} — في {{school.city}}."
+        },
+        "og_title": null,
+        "og_description": null,
+        "og_image": null,
+        "robots": "index,follow"
+    },
+    "sections": [
+        {
+            "id": "22222222-0000-0000-0000-000000000200",
+            "type": "contact_form",
+            "name": "Contact Form",
+            "anchor_id": null,
+            "position": 1,
+            "group": null,
+            "required_block_types": [],
+            "blocks": [
+                {
+                    "id": "33333333-0000-0000-0000-000000000201",
+                    "type": "label",
+                    "position": 1,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": { "text": "Get in Touch" },
+                        "ar": { "text": "تواصل معنا" }
+                    }
+                },
+                {
+                    "id": "33333333-0000-0000-0000-000000000202",
+                    "type": "headline",
+                    "position": 2,
+                    "weight": 9,
+                    "featured": false,
+                    "content": {
+                        "en": { "text": "We're here to help." },
+                        "ar": { "text": "نحن هنا للمساعدة." }
+                    }
+                },
+                {
+                    "id": "33333333-0000-0000-0000-000000000203",
+                    "type": "subheadline",
+                    "position": 3,
+                    "weight": 7,
+                    "featured": false,
+                    "content": {
+                        "en": { "text": "Reach out to {{school.name}} with any questions about enrolment, curriculum, or platform access." },
+                        "ar": { "text": "تواصل مع {{school.name}} بشأن أي أسئلة حول التسجيل أو المنهج أو الوصول إلى المنصة." }
+                    }
+                },
+                {
+                    "id": "33333333-0000-0000-0000-000000000204",
+                    "type": "rich_text",
+                    "position": 4,
+                    "weight": 6,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "Phone: {{school.phone}}\nLocation: {{school.city}}, {{school.country}}\nAddress: {{school.address}}"
+                        },
+                        "ar": {
+                            "text": "الهاتف: {{school.phone}}\nالموقع: {{school.city}}، {{school.country}}\nالعنوان: {{school.address}}"
+                        }
+                    }
+                }
+            ]
+        }
+    ]
 }

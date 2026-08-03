@@ -9,6 +9,8 @@ use App\Models\Cms\Page;
 use App\Models\Cms\Platform;
 use App\Models\Cms\ProductSite;
 use App\Models\Cms\Section;
+use App\Models\School\School;
+use App\Services\School\TemplateResolver;
 use Illuminate\Support\Str;
 
 /**
@@ -29,6 +31,7 @@ class CompositionService
     public function __construct(
         private readonly VisibilityService $visibility,
         private readonly ResolutionService $resolution,
+        private readonly TemplateResolver  $templateResolver = new TemplateResolver(),
     ) {}
 
     // =========================================================================
@@ -126,7 +129,24 @@ class CompositionService
             }
         }
 
-        return $this->envelope($contractType, $payload, $compositionId, $composedAt, $ctx);
+        $contract = $this->envelope($contractType, $payload, $compositionId, $composedAt, $ctx);
+
+        // ─────────────────────────────────────────────────────────────────────
+        // School-agnostic template resolution
+        // When a school context is present, resolve all {{school.*}} placeholders
+        // in the composed contract against the school's live DB record.
+        // This runs AFTER full composition so every field is already assembled.
+        // ─────────────────────────────────────────────────────────────────────
+        if ($ctx->schoolCode !== null) {
+            $school = School::where('school_code', $ctx->schoolCode)->first();
+
+            if ($school !== null) {
+                $templateContext = $school->toTemplateContext($ctx->locale);
+                $contract        = $this->templateResolver->resolve($contract, $templateContext);
+            }
+        }
+
+        return $contract;
     }
 
     // =========================================================================

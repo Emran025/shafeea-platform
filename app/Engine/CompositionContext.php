@@ -18,6 +18,7 @@ final class CompositionContext
         public readonly bool    $isPreview,
         public readonly Carbon  $resolvedAt,
         public readonly ?string $requestId,
+        public readonly ?string $schoolCode = null,  // School tenant identifier (school_code slug)
     ) {}
 
     // -------------------------------------------------------------------------
