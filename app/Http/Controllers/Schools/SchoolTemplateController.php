@@ -18,7 +18,7 @@ class SchoolTemplateController extends Controller
         $school = $this->resolveSchool($school_code);
         $seoData = $this->getSchoolSeoData($school, $school_code);
 
-        return view('schools.template.welcome', [
+        return view('schools.app', [
             'school' => $school,
             'school_code' => $school_code,
             'seo' => $seoData,
@@ -34,7 +34,7 @@ class SchoolTemplateController extends Controller
         $school = $this->resolveSchool($school_code);
         $seoData = $this->getSchoolSeoData($school, $school_code, $page);
 
-        return view('schools.template.app', [
+        return view('schools.app', [
             'school' => $school,
             'school_code' => $school_code,
             'page' => $page,

@@ -16,10 +16,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ $school->name ?? 'منصة شفيع' }}</title>
+    <title>{{ $seo['title'] ?? ($school->name ?? 'منصة شفيع') }}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="{{ $seo['description'] ?? '' }}">
+    <link rel="canonical" href="{{ $seo['canonical_url'] ?? '' }}">
+    <meta property="og:title" content="{{ $seo['title'] ?? ($school->name ?? 'منصة شفيع') }}">
+    <meta property="og:description" content="{{ $seo['description'] ?? '' }}">
+    <meta property="og:image" content="{{ $seo['og_image'] ?? '' }}">
+    @if(!empty($seo['json_ld']))
+    <script type="application/ld+json">{!! $seo['json_ld'] !!}</script>
+    @endif
     <meta name="school-data" content="{{ json_encode($schoolData) }}">
     <script>
         (function() {
@@ -38,7 +46,7 @@
         window.__SCHOOL_DATA__ = metaSchoolData ? JSON.parse(metaSchoolData.getAttribute('content')) : {};
     </script>
     @viteReactRefresh
-    @vite(['resources/css/app.css', 'resources/js/app.tsx'])
+    @vite(['resources/css/schools/app.css', 'resources/js/schools/app.tsx'])
 </head>
 
 <body>
