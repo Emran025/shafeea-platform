@@ -4,11 +4,12 @@ namespace App\Repositories;
 
 use App\Models\Student\Enrollment;
 use App\Models\Halaqah\Halaqah;
+use App\Models\Tracking\Tracking;
 use App\Models\Student\Student;
 use App\Models\Student\StudentReport;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
-use App\Models\Tracking\Tracking;
 use App\Models\Subscription\Plan;
 use App\Models\Tracking\TrackingDetail;
 
@@ -65,7 +66,7 @@ class StudentRepository
     {
         $student = Student::findByIdentifier($userId);
         if (!$student) {
-            throw (new \Illuminate\Database\Eloquent\ModelNotFoundException)->setModel(Student::class);
+            throw (new ModelNotFoundException)->setModel(Student::class);
         }
         return $student->load([
             'user',
@@ -179,31 +180,31 @@ class StudentRepository
         $student = Student::findByIdentifierOrFail($userId);
         $enrollmentIds = Enrollment::where('student_id', $student->id)->pluck('id');
 
-        return \App\Models\Tracking\Tracking::whereIn('enrollment_id', $enrollmentIds)->with(['details'])->get();
+        return Tracking::whereIn('enrollment_id', $enrollmentIds)->with(['details'])->get();
     }
 
     public function getTrackingDetails(int $trackingId)
     {
-        return \App\Models\Tracking\TrackingDetail::where('tracking_id', $trackingId)->get();
+        return TrackingDetail::where('tracking_id', $trackingId)->get();
     }
 
     public function deletePlan(int $planId): ?bool
     {
-        $plan = \App\Models\Subscription\Plan::findOrFail($planId);
+        $plan = Plan::findOrFail($planId);
 
         return $plan->delete();
     }
 
     public function deleteTracking(int $trackingId): ?bool
     {
-        $tracking = \App\Models\Tracking\Tracking::findOrFail($trackingId);
+        $tracking = Tracking::findOrFail($trackingId);
 
         return $tracking->delete();
     }
 
     public function deleteTrackingDetail(int $trackingDetailId): ?bool
     {
-        $detail = \App\Models\Tracking\TrackingDetail::findOrFail($trackingDetailId);
+        $detail = TrackingDetail::findOrFail($trackingDetailId);
 
         return $detail->delete();
     }

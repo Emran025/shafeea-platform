@@ -33,7 +33,7 @@ class Student extends Model
                 if ($student->user) {
                     $name = $student->user->name;
                 } elseif ($student->user_id) {
-                    $user = \App\Models\Auth\User::find($student->user_id);
+                    $user = User::find($student->user_id);
                     if ($user) {
                         $name = $user->name;
                     }

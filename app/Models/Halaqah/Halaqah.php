@@ -2,6 +2,10 @@
 
 namespace App\Models\Halaqah;
 
+use App\Models\School\School;
+use App\Models\Student\Enrollment;
+use App\Models\Student\Student;
+use App\Models\Teacher\Teacher;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -94,7 +98,7 @@ class Halaqah extends Model
     /**
      * Accessor to get the current teacher.
      *
-     * @return \App\Models\Teacher\Teacher|null
+     * @return Teacher|null
      */
     public function getTeacherAttribute()
     {

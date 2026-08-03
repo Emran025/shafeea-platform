@@ -3,9 +3,9 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-
+use App\Models\Student\Enrollment;
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Tracking\Tracking>
+ * @extends Factory<\App\Models\Tracking\Tracking>
  */
 class TrackingFactory extends Factory
 {
@@ -17,7 +17,7 @@ class TrackingFactory extends Factory
     public function definition(): array
     {
         return [
-            'enrollment_id' => \App\Models\Student\Enrollment::factory(),
+            'enrollment_id' => Enrollment::factory(),
             'date' => fake()->date(),
             'note' => fake()->optional()->sentence(),
             'behavior_note' => fake()->optional()->sentence(),
