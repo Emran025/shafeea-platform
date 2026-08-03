@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1\cms;
+namespace App\Http\Controllers\Api\V1\Cms;
 
 use App\Http\Controllers\Controller;
 use App\Models\Cms\NavigationEntry;

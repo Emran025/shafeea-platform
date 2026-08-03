@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1\cms\Inquiry;
+namespace App\Http\Controllers\Api\V1\Cms\Inquiry;
 
 use App\Http\Controllers\Controller;
 use App\Models\Cms\Faq;
