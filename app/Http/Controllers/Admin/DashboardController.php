@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Auth\Admin as AdminModel;
 use App\Models\Student\Enrollment;
 use App\Models\Halaqah\Halaqah;
-use App\Models\Halaqah\Halaqah\HalaqahSchedule;
+use App\Models\Halaqah\HalaqahSchedule;
 use App\Models\Content\Notification;
 use App\Models\Student\Student;
 use App\Models\Student\StudentReport;
@@ -93,8 +93,8 @@ class DashboardController extends Controller
                 ->get();
         }
 
-        $genderPerHalaqah = Halaqah::with(['enrollments.student'])->get()->map(function ($halaqah) {
-            $genders = $halaqah->enrollments->groupBy(fn($e) => $e->student->gender ?? 'unknown')->map->count();
+        $genderPerHalaqah = Halaqah::with(['enrollments.student.user'])->get()->map(function ($halaqah) {
+            $genders = $halaqah->enrollments->groupBy(fn($e) => $e->student?->user?->gender ?? 'unknown')->map->count();
 
             return [
                 'halaqah' => $halaqah->name,
