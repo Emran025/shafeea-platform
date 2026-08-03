@@ -17,11 +17,14 @@ export const getSchoolBrand = (): string => {
 };
 
 export const getSchoolLogo = (): string => {
+  if (window.__SCHOOL_DATA__?.logo) {
+    return window.__SCHOOL_DATA__.logo;
+  }
   const code = getSchoolCode();
   if (code) {
     return `/school/${code}/assets/LogoWithText.svg`;
   }
-  return window.__SCHOOL_DATA__?.logo || '/schools/LogoWithText.svg';
+  return '/schools/LogoWithText.svg';
 };
 
 export const getSchoolCode = (): string => {

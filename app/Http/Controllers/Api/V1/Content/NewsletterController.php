@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1\content;
+namespace App\Http\Controllers\Api\V1\Content;
 
 use App\Http\Controllers\Controller;
 use App\Models\Cms\NewsletterSubscription;

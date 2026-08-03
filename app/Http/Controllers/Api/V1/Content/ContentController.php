@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1\content;
+namespace App\Http\Controllers\Api\V1\Content;
 
 use App\Engine\CompositionContext;
 use App\Http\Controllers\Controller;
