@@ -91,7 +91,7 @@
         },
         {
             "id": "66666666-0000-0000-0002-000000000002",
-            "type": "news_grid",
+            "type": "news_article_grid",
             "name": "News Grid",
             "anchor_id": "all-news",
             "position": 2,

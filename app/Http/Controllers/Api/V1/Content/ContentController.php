@@ -91,6 +91,14 @@ class ContentController extends Controller
         'utility.comparison'      => 300,
         'editorial'               => 120,
         'utility'                 => 3600,
+        'school.home'             => 300,
+        'school.contact'          => 600,
+        'school.legal'            => 3600,
+        'school.about'            => 600,
+        'school.overview'         => 300,
+        'school.news'             => 120,
+        'school.stories'          => 300,
+        'school.full_page'         => 600,
     ];
 
     private const CACHE_TTL_DEFAULT = 300;

@@ -16,6 +16,14 @@ const STATUS_FILTERS: { value: string; label: string }[] = [
 ];
 
 const PAGE_TYPES = [
+  'school.home',
+  'school.contact',
+  'school.legal',
+  'school.about',
+  'school.overview',
+  'school.news',
+  'school.stories',
+  'school.full_page',
   'corporate.index',
   'corporate.platform',
   'corporate.about',

@@ -135,7 +135,7 @@
         },
         {
             "id": "88888888-0000-0000-0000-000000000002",
-            "type": "features_grid",
+            "type": "feature_grid",
             "name": "Platform Features",
             "anchor_id": "features",
             "position": 2,
@@ -236,7 +236,7 @@
         },
         {
             "id": "88888888-0000-0000-0000-000000000003",
-            "type": "contact_strip",
+            "type": "contact_form",
             "name": "Contact Strip",
             "anchor_id": "contact",
             "position": 3,

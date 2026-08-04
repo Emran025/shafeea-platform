@@ -46,7 +46,7 @@
     "sections": [
         {
             "id": "22222222-0000-0000-0000-000000000400",
-            "type": "legal_document",
+            "type": "legal_body",
             "name": "Terms of Use Document",
             "anchor_id": null,
             "position": 1,

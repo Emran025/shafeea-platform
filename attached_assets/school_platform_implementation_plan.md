@@ -386,8 +386,8 @@ These files are now **identical for every school** — no school name hardcoded.
       }
     },
     {
-      "id": "contact_strip",
-      "type": "contact_strip",
+      "id": "contact_form",
+      "type": "contact_form",
       "visible": true,
       "data": {
         "email": "{{school.email}}",

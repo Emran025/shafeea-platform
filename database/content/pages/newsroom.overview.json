@@ -96,7 +96,7 @@
         },
         {
             "id": "22222222-0000-0000-0000-000000000002",
-            "type": "cta_cards",
+            "type": "cta_band",
             "name": "Newsroom Navigation",
             "anchor_id": "newsroom-nav",
             "position": 2,

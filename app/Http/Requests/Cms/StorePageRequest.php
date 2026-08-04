@@ -28,7 +28,7 @@ class StorePageRequest extends FormRequest
         return [
             // Core identity
             'slug'                    => 'required|string|max:300|unique:pages,slug',
-            'type'                    => 'required|string|in:corporate.index,corporate.platform,corporate.about,corporate.contact,corporate.legal,editorial,utility,newsroom.article,newsroom.overview,newsroom.news,newsroom.stories,newsroom.about',
+            'type'                    => 'required|string|in:corporate.index,corporate.platform,corporate.about,corporate.contact,corporate.legal,corporate.home,editorial,editorial.press_release,utility,utility.comparison,platform.full_page,platform.features,platform.use_cases,pricing.overview,pricing.platform,pricing.compare,newsroom.article,newsroom.overview,newsroom.news,newsroom.stories,newsroom.about,solution.industry,solution.role,solution.business_type,solution.industry_tier,solution.tier_overview,industry.full_page,resource.blog_post,resource.report,resource.customer_story,resource.webinar,trust.overview,trust.section,campaign.landing,school.home,school.contact,school.legal,school.about,school.overview,school.news,school.stories,school.full_page',
             'site_scope'              => 'required|string|max:100',
 
             // PageIdentity columns

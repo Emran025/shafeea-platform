@@ -65,8 +65,8 @@ class ContentSeeder extends Seeder
                     'typographic_weight' => $item['typographic_weight'],
                     'positioning'        => json_encode($item['positioning']),
                     'color_tokens'       => $item['color_tokens'] !== null
-                                             ? json_encode($item['color_tokens'])
-                                             : null,
+                        ? json_encode($item['color_tokens'])
+                        : null,
                     'created_at'         => $now,
                     'updated_at'         => $now,
                 ]],
@@ -106,8 +106,18 @@ class ContentSeeder extends Seeder
                     'updated_at'       => $now,
                 ]],
                 ['platform_id'],
-                ['status', 'segment', 'target_users', 'strategic_role', 'tagline',
-                 'positioning', 'capabilities', 'relationships', 'website_presence', 'updated_at']
+                [
+                    'status',
+                    'segment',
+                    'target_users',
+                    'strategic_role',
+                    'tagline',
+                    'positioning',
+                    'capabilities',
+                    'relationships',
+                    'website_presence',
+                    'updated_at'
+                ]
             );
         }
 
@@ -239,6 +249,22 @@ class ContentSeeder extends Seeder
 
     private function seedAllPages(): void
     {
+        if (DB::getDriverName() === 'pgsql') {
+            DB::statement("ALTER TABLE pages DROP CONSTRAINT IF EXISTS pages_type_check");
+            DB::statement("ALTER TABLE pages ADD CONSTRAINT pages_type_check CHECK (type IN (
+                'corporate.index', 'corporate.about', 'corporate.product_gateway', 'corporate.product_index',
+                'corporate.contact', 'corporate.legal', 'corporate.platform', 'corporate.home',
+                'editorial', 'editorial.press_release', 'utility', 'utility.comparison',
+                'platform.full_page', 'platform.features', 'platform.use_cases',
+                'pricing.overview', 'pricing.platform', 'pricing.compare',
+                'newsroom.overview', 'newsroom.news', 'newsroom.stories', 'newsroom.about', 'newsroom.article',
+                'solution.industry', 'solution.role', 'solution.business_type', 'solution.industry_tier', 'solution.tier_overview',
+                'industry.full_page', 'resource.blog_post', 'resource.report', 'resource.customer_story', 'resource.webinar',
+                'trust.overview', 'trust.section', 'campaign.landing',
+                'school.home', 'school.contact', 'school.legal', 'school.about', 'school.overview', 'school.news', 'school.stories', 'school.full_page'
+            ))");
+        }
+
         $dir   = database_path('content/pages');
 
         if (! is_dir($dir)) {
@@ -354,9 +380,14 @@ class ContentSeeder extends Seeder
         ];
 
         DB::table('pages')->upsert([$row], ['id'], [
-            'slug', 'type', 'status',
-            'identity_title', 'meta_seo_title', 'meta_seo_description',
-            'meta_og_title', 'meta_og_description',
+            'slug',
+            'type',
+            'status',
+            'identity_title',
+            'meta_seo_title',
+            'meta_seo_description',
+            'meta_og_title',
+            'meta_og_description',
             'updated_at',
         ]);
 
