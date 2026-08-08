@@ -45,11 +45,38 @@
     },
     "sections": [
         {
+            "id": "22222222-0000-0000-0000-000000000310",
+            "type": "breadcrumb",
+            "name": "Breadcrumb Nav",
+            "anchor_id": null,
+            "position": 1,
+            "group": "above-fold",
+            "pinned": true,
+            "required_block_types": [],
+            "blocks": [
+                {
+                    "id": "33333333-0000-0000-0000-000000000311",
+                    "type": "label",
+                    "position": 1,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "Home > Legal > Privacy Policy"
+                        },
+                        "ar": {
+                            "text": "الرئيسية > المواد القانونية > سياسة الخصوصية"
+                        }
+                    }
+                }
+            ]
+        },
+        {
             "id": "22222222-0000-0000-0000-000000000300",
             "type": "legal_body",
             "name": "Privacy Policy Document",
-            "anchor_id": null,
-            "position": 1,
+            "anchor_id": "privacy-body",
+            "position": 2,
             "group": null,
             "required_block_types": [],
             "blocks": [
@@ -60,8 +87,12 @@
                     "weight": 9,
                     "featured": false,
                     "content": {
-                        "en": { "text": "Privacy Policy" },
-                        "ar": { "text": "سياسة الخصوصية" }
+                        "en": {
+                            "text": "Privacy Policy"
+                        },
+                        "ar": {
+                            "text": "سياسة الخصوصية"
+                        }
                     }
                 },
                 {
@@ -71,8 +102,12 @@
                     "weight": 6,
                     "featured": false,
                     "content": {
-                        "en": { "text": "{{school.name}} — {{school.city}}" },
-                        "ar": { "text": "{{school.name}} — {{school.city}}" }
+                        "en": {
+                            "text": "{{school.name}} — {{school.city}}"
+                        },
+                        "ar": {
+                            "text": "{{school.name}} — {{school.city}}"
+                        }
                     }
                 },
                 {

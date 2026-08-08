@@ -26,7 +26,7 @@
     "composition": {
         "section_order": "explicit",
         "allow_dynamic": false,
-        "max_sections": 10,
+        "max_sections": 15,
         "fallback_policy": "show_partial"
     },
     "meta": {
@@ -58,7 +58,9 @@
             "position": 1,
             "group": "above-fold",
             "pinned": true,
-            "required_block_types": ["headline"],
+            "required_block_types": [
+                "headline"
+            ],
             "blocks": [
                 {
                     "id": "dddddddd-0000-0001-0001-000000000001",
@@ -67,8 +69,12 @@
                     "weight": 5,
                     "featured": false,
                     "content": {
-                        "en": { "text": "School Management Platform" },
-                        "ar": { "text": "منصة إدارة المدرسة" }
+                        "en": {
+                            "text": "School Management Platform"
+                        },
+                        "ar": {
+                            "text": "منصة إدارة المدرسة"
+                        }
                     }
                 },
                 {
@@ -78,8 +84,12 @@
                     "weight": 10,
                     "featured": true,
                     "content": {
-                        "en": { "text": "{{school.name}}" },
-                        "ar": { "text": "{{school.name}}" }
+                        "en": {
+                            "text": "{{school.name}}"
+                        },
+                        "ar": {
+                            "text": "{{school.name}}"
+                        }
                     }
                 },
                 {
@@ -89,8 +99,12 @@
                     "weight": 8,
                     "featured": false,
                     "content": {
-                        "en": { "text": "A unified platform connecting students, teachers, and families — built to bring every part of school life into one place." },
-                        "ar": { "text": "منصة متكاملة تربط الطلاب والمعلمين وأولياء الأمور — مصممة لجمع كل جوانب الحياة المدرسية في مكان واحد." }
+                        "en": {
+                            "text": "A unified platform connecting students, teachers, and families — built to bring every part of school life into one place."
+                        },
+                        "ar": {
+                            "text": "منصة متكاملة تربط الطلاب والمعلمين وأولياء الأمور — مصممة لجمع كل جوانب الحياة المدرسية في مكان واحد."
+                        }
                     }
                 },
                 {
@@ -102,12 +116,18 @@
                     "content": {
                         "en": {
                             "label": "Contact Us",
-                            "destination": { "type": "internal_page", "value": "contact" },
+                            "destination": {
+                                "type": "internal_page",
+                                "value": "contact"
+                            },
                             "intent": "primary"
                         },
                         "ar": {
                             "label": "تواصل معنا",
-                            "destination": { "type": "internal_page", "value": "contact" },
+                            "destination": {
+                                "type": "internal_page",
+                                "value": "contact"
+                            },
                             "intent": "primary"
                         }
                     }
@@ -121,13 +141,99 @@
                     "content": {
                         "en": {
                             "label": "About the School",
-                            "destination": { "type": "internal_page", "value": "newsroom/about" },
+                            "destination": {
+                                "type": "internal_page",
+                                "value": "newsroom/about"
+                            },
                             "intent": "secondary"
                         },
                         "ar": {
                             "label": "عن المدرسة",
-                            "destination": { "type": "internal_page", "value": "newsroom/about" },
+                            "destination": {
+                                "type": "internal_page",
+                                "value": "newsroom/about"
+                            },
                             "intent": "secondary"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": "88888888-0000-0000-0000-000000000010",
+            "type": "statistics",
+            "name": "School Key Stats",
+            "anchor_id": "stats",
+            "position": 2,
+            "group": "above-fold",
+            "pinned": false,
+            "required_block_types": [],
+            "blocks": [
+                {
+                    "id": "dddddddd-0000-0001-0010-000000000001",
+                    "type": "stat_item",
+                    "position": 1,
+                    "weight": 8,
+                    "featured": true,
+                    "content": {
+                        "en": {
+                            "value": "500+",
+                            "label": "Students Enrolled"
+                        },
+                        "ar": {
+                            "value": "500+",
+                            "label": "طالب مسجّل"
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0001-0010-000000000002",
+                    "type": "stat_item",
+                    "position": 2,
+                    "weight": 8,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "value": "40+",
+                            "label": "Qualified Teachers"
+                        },
+                        "ar": {
+                            "value": "40+",
+                            "label": "معلم مؤهل"
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0001-0010-000000000003",
+                    "type": "stat_item",
+                    "position": 3,
+                    "weight": 8,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "value": "98%",
+                            "label": "Parent Satisfaction Rate"
+                        },
+                        "ar": {
+                            "value": "98%",
+                            "label": "رضا أولياء الأمور"
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0001-0010-000000000004",
+                    "type": "stat_item",
+                    "position": 4,
+                    "weight": 8,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "value": "15+",
+                            "label": "Years of Excellence"
+                        },
+                        "ar": {
+                            "value": "15+",
+                            "label": "سنة من التميز"
                         }
                     }
                 }
@@ -138,7 +244,7 @@
             "type": "feature_grid",
             "name": "Platform Features",
             "anchor_id": "features",
-            "position": 2,
+            "position": 3,
             "group": "below-fold",
             "required_block_types": [],
             "blocks": [
@@ -149,8 +255,12 @@
                     "weight": 5,
                     "featured": false,
                     "content": {
-                        "en": { "text": "Everything in One Place" },
-                        "ar": { "text": "كل شيء في مكان واحد" }
+                        "en": {
+                            "text": "Everything in One Place"
+                        },
+                        "ar": {
+                            "text": "كل شيء في مكان واحد"
+                        }
                     }
                 },
                 {
@@ -160,8 +270,12 @@
                     "weight": 9,
                     "featured": false,
                     "content": {
-                        "en": { "text": "A complete school management experience." },
-                        "ar": { "text": "تجربة متكاملة لإدارة المدرسة." }
+                        "en": {
+                            "text": "A complete school management experience."
+                        },
+                        "ar": {
+                            "text": "تجربة متكاملة لإدارة المدرسة."
+                        }
                     }
                 },
                 {
@@ -231,6 +345,559 @@
                             "description": "إبقاء العائلات على اطلاع من خلال تقارير التقدم والرسائل المباشرة."
                         }
                     }
+                },
+                {
+                    "id": "dddddddd-0000-0001-0002-000000000007",
+                    "type": "feature_item",
+                    "position": 7,
+                    "weight": 6,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "label": "Smart Scheduling",
+                            "description": "Automated timetable generation and conflict-free class scheduling for the entire school."
+                        },
+                        "ar": {
+                            "label": "الجدولة الذكية",
+                            "description": "توليد الجدول الزمني تلقائياً وجدولة الفصول خالية من التعارض لكل المدرسة."
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0001-0002-000000000008",
+                    "type": "feature_item",
+                    "position": 8,
+                    "weight": 6,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "label": "Exam & Assessment Tools",
+                            "description": "Create, distribute, and auto-grade assessments — from short quizzes to full semester exams."
+                        },
+                        "ar": {
+                            "label": "أدوات الاختبار والتقييم",
+                            "description": "إنشاء وتوزيع وتصحيح الاختبارات تلقائياً — من الاختبارات القصيرة إلى امتحانات الفصل الكامل."
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": "88888888-0000-0000-0000-000000000011",
+            "type": "video_feature",
+            "name": "Platform Walkthrough Video",
+            "anchor_id": "platform-video",
+            "position": 4,
+            "group": "below-fold",
+            "pinned": false,
+            "required_block_types": [],
+            "blocks": [
+                {
+                    "id": "dddddddd-0000-0001-0011-000000000001",
+                    "type": "label",
+                    "position": 1,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "See it in action"
+                        },
+                        "ar": {
+                            "text": "شاهده في العمل"
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0001-0011-000000000002",
+                    "type": "headline",
+                    "position": 2,
+                    "weight": 9,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "Managing a school has never been this simple."
+                        },
+                        "ar": {
+                            "text": "لم تكن إدارة المدرسة بهذه البساطة من قبل."
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0001-0011-000000000003",
+                    "type": "rich_text",
+                    "position": 3,
+                    "weight": 6,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "Watch how {{school.name}} uses the platform to track attendance, manage Quran memorisation plans, communicate with parents, and run the full academic cycle — all from one dashboard."
+                        },
+                        "ar": {
+                            "text": "شاهد كيف تستخدم {{school.name}} المنصة لتتبع الحضور وإدارة خطط حفظ القرآن والتواصل مع أولياء الأمور وإدارة الدورة الأكاديمية الكاملة — كل ذلك من لوحة تحكم واحدة."
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0001-0011-000000000004",
+                    "type": "video_embed",
+                    "position": 4,
+                    "weight": 10,
+                    "featured": true,
+                    "content": {
+                        "en": {
+                            "video_url": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                            "caption": "{{school.name}} — Platform Overview"
+                        },
+                        "ar": {
+                            "video_url": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                            "caption": "{{school.name}} — نظرة عامة على المنصة"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": "88888888-0000-0000-0000-000000000012",
+            "type": "testimonial",
+            "name": "Parent & Teacher Testimonials",
+            "anchor_id": "testimonials",
+            "position": 5,
+            "group": "below-fold",
+            "pinned": false,
+            "required_block_types": [],
+            "blocks": [
+                {
+                    "id": "dddddddd-0000-0001-0012-000000000001",
+                    "type": "label",
+                    "position": 1,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "What our community says"
+                        },
+                        "ar": {
+                            "text": "ما يقوله مجتمعنا"
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0001-0012-000000000002",
+                    "type": "headline",
+                    "position": 2,
+                    "weight": 9,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "Trusted by students, teachers, and families."
+                        },
+                        "ar": {
+                            "text": "موثوق به من الطلاب والمعلمين والعائلات."
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0001-0012-000000000003",
+                    "type": "testimonial_item",
+                    "position": 3,
+                    "weight": 9,
+                    "featured": true,
+                    "content": {
+                        "en": {
+                            "quote": "Since joining {{school.name}}, my child's progress has been remarkable. The weekly reports keep me fully informed and I feel genuinely connected to their education.",
+                            "author_name": "Umm Abdullah",
+                            "author_title": "Parent",
+                            "avatar_url": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=80&h=80&fit=crop&crop=face"
+                        },
+                        "ar": {
+                            "quote": "منذ الالتحاق بـ {{school.name}}، كان تقدم طفلي ملحوظاً. التقارير الأسبوعية تُبقيني على اطلاع كامل وأشعر بارتباط حقيقي بتعليمهم.",
+                            "author_name": "أم عبدالله",
+                            "author_title": "ولي أمر"
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0001-0012-000000000004",
+                    "type": "testimonial_item",
+                    "position": 4,
+                    "weight": 8,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "quote": "The platform completely transformed how I manage my classes. I spend less time on admin and more time teaching — and I can see every student's progress at a glance.",
+                            "author_name": "Ustaz Ibrahim",
+                            "author_title": "Quran Teacher, {{school.name}}",
+                            "avatar_url": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face"
+                        },
+                        "ar": {
+                            "quote": "غيّرت المنصة طريقة إدارتي للفصول تماماً. أقضي وقتاً أقل في الإدارة وأكثر في التدريس — ويمكنني رؤية تقدم كل طالب بنظرة واحدة.",
+                            "author_name": "أستاذ إبراهيم",
+                            "author_title": "معلم قرآن، {{school.name}}"
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0001-0012-000000000005",
+                    "type": "testimonial_item",
+                    "position": 5,
+                    "weight": 8,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "quote": "Having a clear memorisation plan made all the difference. I know exactly what to revise, when — and my confidence has grown enormously this semester.",
+                            "author_name": "Ahmad",
+                            "author_title": "Student, Grade 8",
+                            "avatar_url": "https://images.unsplash.com/photo-1552058544-f2b08422138a?w=80&h=80&fit=crop&crop=face"
+                        },
+                        "ar": {
+                            "quote": "وجود خطة حفظ واضحة كان له تأثير كبير. أعرف بالضبط ما يجب مراجعته ومتى — وقد نما ثقتي بنفسي بشكل هائل هذا الفصل.",
+                            "author_name": "أحمد",
+                            "author_title": "طالب، الصف الثامن"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": "88888888-0000-0000-0000-000000000013",
+            "type": "narrative",
+            "name": "Our Approach — Narrative",
+            "anchor_id": "our-approach",
+            "position": 6,
+            "group": "below-fold",
+            "pinned": false,
+            "required_block_types": [],
+            "blocks": [
+                {
+                    "id": "dddddddd-0000-0001-0013-000000000001",
+                    "type": "label",
+                    "position": 1,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "Our Approach"
+                        },
+                        "ar": {
+                            "text": "نهجنا"
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0001-0013-000000000002",
+                    "type": "headline",
+                    "position": 2,
+                    "weight": 9,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "Education grounded in values, powered by technology."
+                        },
+                        "ar": {
+                            "text": "تعليم مبني على القيم، مدعوم بالتكنولوجيا."
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0001-0013-000000000003",
+                    "type": "rich_text",
+                    "position": 3,
+                    "weight": 7,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "At {{school.name}}, we believe that strong academic performance and strong character development go hand in hand. Our platform gives teachers the tools to track every student's journey — academic progress, Quran memorisation, behaviour, and wellbeing — so no student is ever left behind.\n\nWe bring together structured curriculum planning, real-time parent communication, and transparent reporting into one unified environment — because when schools and families work together, students thrive."
+                        },
+                        "ar": {
+                            "text": "في {{school.name}}، نؤمن بأن الأداء الأكاديمي القوي وتنمية الشخصية القوية يسيران جنباً إلى جنب. تمنح منصتنا المعلمين الأدوات لتتبع رحلة كل طالب — التقدم الأكاديمي وحفظ القرآن والسلوك والرفاهية — حتى لا يتأخر أي طالب.\n\nنجمع تخطيط المناهج المنظم والتواصل الفوري مع أولياء الأمور والتقارير الشفافة في بيئة موحدة واحدة — لأنه عندما تتعاون المدارس والعائلات، يزدهر الطلاب."
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0001-0013-000000000004",
+                    "type": "media",
+                    "position": 4,
+                    "weight": 8,
+                    "featured": true,
+                    "content": {
+                        "en": {
+                            "alt": "Students studying at {{school.name}}",
+                            "image_url": "https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=800&h=600&fit=crop"
+                        },
+                        "ar": {
+                            "alt": "طلاب يدرسون في {{school.name}}",
+                            "image_url": "https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=800&h=600&fit=crop"
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0001-0013-000000000005",
+                    "type": "cta",
+                    "position": 5,
+                    "weight": 6,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "label": "Learn About Our Approach",
+                            "destination": {
+                                "type": "internal_page",
+                                "value": "newsroom/about"
+                            },
+                            "intent": "secondary"
+                        },
+                        "ar": {
+                            "label": "تعرف على نهجنا",
+                            "destination": {
+                                "type": "internal_page",
+                                "value": "newsroom/about"
+                            },
+                            "intent": "secondary"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": "88888888-0000-0000-0000-000000000014",
+            "type": "value_proposition",
+            "name": "Core Values",
+            "anchor_id": "values",
+            "position": 7,
+            "group": "below-fold",
+            "pinned": false,
+            "required_block_types": [],
+            "blocks": [
+                {
+                    "id": "dddddddd-0000-0001-0014-000000000001",
+                    "type": "label",
+                    "position": 1,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "Why {{school.name}}"
+                        },
+                        "ar": {
+                            "text": "لماذا {{school.name}}"
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0001-0014-000000000002",
+                    "type": "headline",
+                    "position": 2,
+                    "weight": 9,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "Three commitments we never compromise."
+                        },
+                        "ar": {
+                            "text": "ثلاثة التزامات لا نتنازل عنها أبداً."
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0001-0014-000000000003",
+                    "type": "value_item",
+                    "position": 3,
+                    "weight": 8,
+                    "featured": true,
+                    "content": {
+                        "en": {
+                            "icon": "shield",
+                            "title": "Safety First",
+                            "body": "Every student deserves a safe, supportive environment. We maintain strict safeguarding policies and ensure every child is cared for on and off the platform."
+                        },
+                        "ar": {
+                            "icon": "shield",
+                            "title": "السلامة أولاً",
+                            "body": "يستحق كل طالب بيئة آمنة وداعمة. نحافظ على سياسات صارمة للحماية ونضمن رعاية كل طفل على المنصة وخارجها."
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0001-0014-000000000004",
+                    "type": "value_item",
+                    "position": 4,
+                    "weight": 8,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "icon": "star",
+                            "title": "Academic Excellence",
+                            "body": "We hold ourselves to the highest educational standards — rigorous curriculum delivery, consistent assessment, and data-driven improvements that raise outcomes every year."
+                        },
+                        "ar": {
+                            "icon": "star",
+                            "title": "التميز الأكاديمي",
+                            "body": "نلتزم بأعلى المعايير التعليمية — تقديم مناهج صارمة وتقييم منتظم وتحسينات مبنية على البيانات ترفع النتائج كل عام."
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0001-0014-000000000005",
+                    "type": "value_item",
+                    "position": 5,
+                    "weight": 8,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "icon": "users",
+                            "title": "Family Partnership",
+                            "body": "Education works when schools and families work together. We keep parents fully informed at every step — progress reports, direct communication, and a shared vision for every student."
+                        },
+                        "ar": {
+                            "icon": "users",
+                            "title": "الشراكة الأسرية",
+                            "body": "يعمل التعليم عندما تتعاون المدارس والعائلات. نبقي أولياء الأمور على اطلاع كامل في كل خطوة — تقارير التقدم والتواصل المباشر ورؤية مشتركة لكل طالب."
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": "88888888-0000-0000-0000-000000000015",
+            "type": "logo_cloud",
+            "name": "Accreditations & Partners",
+            "anchor_id": "accreditations",
+            "position": 8,
+            "group": "below-fold",
+            "pinned": false,
+            "required_block_types": [],
+            "blocks": [
+                {
+                    "id": "dddddddd-0000-0001-0015-000000000001",
+                    "type": "label",
+                    "position": 1,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "Accreditations & Affiliations"
+                        },
+                        "ar": {
+                            "text": "الاعتمادات والانتماءات"
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0001-0015-000000000002",
+                    "type": "logo_item",
+                    "position": 2,
+                    "weight": 7,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "name": "Ministry of Education",
+                            "logo_url": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=120&h=60&fit=contain"
+                        },
+                        "ar": {
+                            "name": "وزارة التعليم",
+                            "logo_url": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=120&h=60&fit=contain"
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0001-0015-000000000003",
+                    "type": "logo_item",
+                    "position": 3,
+                    "weight": 7,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "name": "Accreditation Council",
+                            "logo_url": "https://images.unsplash.com/photo-1568992688065-536aad8a12f6?w=120&h=60&fit=contain"
+                        },
+                        "ar": {
+                            "name": "مجلس الاعتماد",
+                            "logo_url": "https://images.unsplash.com/photo-1568992688065-536aad8a12f6?w=120&h=60&fit=contain"
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0001-0015-000000000004",
+                    "type": "logo_item",
+                    "position": 4,
+                    "weight": 7,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "name": "Education Quality Authority",
+                            "logo_url": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=120&h=60&fit=contain"
+                        },
+                        "ar": {
+                            "name": "هيئة جودة التعليم",
+                            "logo_url": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=120&h=60&fit=contain"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": "88888888-0000-0000-0000-000000000016",
+            "type": "cta_band",
+            "name": "App Download CTA",
+            "anchor_id": "download-app",
+            "position": 9,
+            "group": "below-fold",
+            "pinned": false,
+            "required_block_types": [],
+            "blocks": [
+                {
+                    "id": "dddddddd-0000-0001-0016-000000000001",
+                    "type": "headline",
+                    "position": 1,
+                    "weight": 9,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "Download the {{school.name}} School App"
+                        },
+                        "ar": {
+                            "text": "حمّل تطبيق {{school.name}} المدرسي"
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0001-0016-000000000002",
+                    "type": "subheadline",
+                    "position": 2,
+                    "weight": 7,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "Access the full school management backend — available for Windows, macOS, and Android."
+                        },
+                        "ar": {
+                            "text": "الوصول إلى الواجهة الخلفية لإدارة المدرسة — متوفر لنظامي Windows وmacOS وAndroid."
+                        }
+                    }
+                },
+                {
+                    "id": "dddddddd-0000-0001-0016-000000000003",
+                    "type": "cta",
+                    "position": 3,
+                    "weight": 8,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "label": "Download the App",
+                            "destination": {
+                                "type": "internal_page",
+                                "value": "app"
+                            },
+                            "intent": "primary"
+                        },
+                        "ar": {
+                            "label": "تحميل التطبيق",
+                            "destination": {
+                                "type": "internal_page",
+                                "value": "app"
+                            },
+                            "intent": "primary"
+                        }
+                    }
                 }
             ]
         },
@@ -239,7 +906,7 @@
             "type": "contact_form",
             "name": "Contact Strip",
             "anchor_id": "contact",
-            "position": 3,
+            "position": 10,
             "group": "below-fold",
             "required_block_types": [],
             "blocks": [
@@ -250,8 +917,12 @@
                     "weight": 7,
                     "featured": false,
                     "content": {
-                        "en": { "text": "Get in touch with {{school.name}}" },
-                        "ar": { "text": "تواصل مع {{school.name}}" }
+                        "en": {
+                            "text": "Get in touch with {{school.name}}"
+                        },
+                        "ar": {
+                            "text": "تواصل مع {{school.name}}"
+                        }
                     }
                 },
                 {
@@ -278,12 +949,18 @@
                     "content": {
                         "en": {
                             "label": "Contact Us",
-                            "destination": { "type": "internal_page", "value": "contact" },
+                            "destination": {
+                                "type": "internal_page",
+                                "value": "contact"
+                            },
                             "intent": "primary"
                         },
                         "ar": {
                             "label": "تواصل معنا",
-                            "destination": { "type": "internal_page", "value": "contact" },
+                            "destination": {
+                                "type": "internal_page",
+                                "value": "contact"
+                            },
                             "intent": "primary"
                         }
                     }

@@ -52,7 +52,9 @@
             "position": 1,
             "group": "above-fold",
             "pinned": true,
-            "required_block_types": ["headline"],
+            "required_block_types": [
+                "headline"
+            ],
             "blocks": [
                 {
                     "id": "77777777-0000-0003-0001-000000000001",
@@ -61,8 +63,12 @@
                     "weight": 9,
                     "featured": false,
                     "content": {
-                        "en": { "text": "Success Stories" },
-                        "ar": { "text": "قصص النجاح" }
+                        "en": {
+                            "text": "Success Stories"
+                        },
+                        "ar": {
+                            "text": "قصص النجاح"
+                        }
                     }
                 },
                 {
@@ -72,8 +78,12 @@
                     "weight": 7,
                     "featured": false,
                     "content": {
-                        "en": { "text": "Students and teachers at {{school.name}} are achieving real results every day." },
-                        "ar": { "text": "يحقق الطلاب والمعلمون في {{school.name}} نتائج حقيقية كل يوم." }
+                        "en": {
+                            "text": "Students and teachers at {{school.name}} are achieving real results every day."
+                        },
+                        "ar": {
+                            "text": "يحقق الطلاب والمعلمون في {{school.name}} نتائج حقيقية كل يوم."
+                        }
                     }
                 },
                 {
@@ -87,16 +97,58 @@
                             "company": "Student Achievement",
                             "outcome": "A student at {{school.name}} improved their memorisation retention by 60% within one semester using structured weekly plans.",
                             "quote": "Having a clear plan made all the difference. I knew exactly what to revise and when.",
-                            "image_url": "/media/school-story-01.jpg",
+                            "image_url": "https://images.unsplash.com/photo-1544717305-2782549b5136?w=600&h=400&fit=crop",
                             "logo_url": "",
                             "url": "/newsroom/stories"
                         },
                         "ar": {
                             "outcome": "حسّن أحد طلاب {{school.name}} معدل الاحتفاظ بالحفظ بنسبة 60٪ خلال فصل دراسي واحد باستخدام خطط أسبوعية منظمة.",
                             "quote": "وجود خطة واضحة كان له تأثير كبير. كنت أعرف بالضبط ما يجب مراجعته ومتى.",
-                            "image_url": "/media/school-story-01.jpg",
+                            "image_url": "https://images.unsplash.com/photo-1544717305-2782549b5136?w=600&h=400&fit=crop",
                             "logo_url": "",
                             "url": "/newsroom/stories"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": "66666666-0000-0000-0003-000000000010",
+            "type": "media_spotlight",
+            "name": "Featured Story Spotlight",
+            "anchor_id": "spotlight",
+            "position": 2,
+            "group": "below-fold",
+            "pinned": false,
+            "required_block_types": [],
+            "blocks": [
+                {
+                    "id": "77777777-0000-0003-0010-000000000001",
+                    "type": "headline",
+                    "position": 1,
+                    "weight": 9,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "Teacher Spotlight: Inspiring Quran Recitation"
+                        },
+                        "ar": {
+                            "text": "تسليط الضوء على المعلم: إلهام في تلاوة القرآن"
+                        }
+                    }
+                },
+                {
+                    "id": "77777777-0000-0003-0010-000000000002",
+                    "type": "subheadline",
+                    "position": 2,
+                    "weight": 7,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "How personalised student tracking transformed classroom engagement."
+                        },
+                        "ar": {
+                            "text": "كيف أحدث التتبع المخصص للطلاب تحولاً في التفاعل داخل الفصل."
                         }
                     }
                 }
@@ -107,7 +159,7 @@
             "type": "stories_grid",
             "name": "Stories Grid",
             "anchor_id": "all-stories",
-            "position": 2,
+            "position": 3,
             "group": "below-fold",
             "required_block_types": [],
             "blocks": [
@@ -122,7 +174,7 @@
                             "company": "Teacher Spotlight",
                             "outcome": "A teacher at {{school.name}} reduced class preparation time by 40% after adopting the platform's structured lesson and tracking tools.",
                             "quote": "I can now focus on teaching instead of paperwork — every student's progress is right in front of me.",
-                            "image_url": "/media/school-story-02.jpg",
+                            "image_url": "https://images.unsplash.com/photo-1577896851231-70ef18881754?w=600&h=400&fit=crop",
                             "url": "/newsroom/stories",
                             "author_name": "Teacher story",
                             "author_title": "{{school.name}}"
@@ -130,7 +182,7 @@
                         "ar": {
                             "outcome": "قلّل أحد معلمي {{school.name}} وقت التحضير للحصص بنسبة 40٪ بعد اعتماد أدوات المنصة المنظمة للدروس والمتابعة.",
                             "quote": "أستطيع الآن التركيز على التدريس بدلاً من الأوراق — تقدم كل طالب أمامي مباشرة.",
-                            "image_url": "/media/school-story-02.jpg",
+                            "image_url": "https://images.unsplash.com/photo-1577896851231-70ef18881754?w=600&h=400&fit=crop",
                             "url": "/newsroom/stories",
                             "author_title": "{{school.name}}"
                         }
@@ -147,7 +199,7 @@
                             "company": "Parent Engagement",
                             "outcome": "Parents at {{school.name}} report feeling more connected to their child's education through real-time progress reports.",
                             "quote": "I used to wait for the end-of-term report. Now I can see my child's progress week by week.",
-                            "image_url": "/media/school-story-03.jpg",
+                            "image_url": "https://images.unsplash.com/photo-1531545514256-b1400bc00f31?w=600&h=400&fit=crop",
                             "url": "/newsroom/stories",
                             "author_name": "Parent story",
                             "author_title": "{{school.name}}"
@@ -155,34 +207,61 @@
                         "ar": {
                             "outcome": "أفاد أولياء الأمور في {{school.name}} بشعورهم بتواصل أكبر مع تعليم أبنائهم من خلال تقارير التقدم الفورية.",
                             "quote": "اعتدت الانتظار حتى نهاية الفصل. الآن أستطيع متابعة تقدم ابني أسبوعاً بأسبوع.",
-                            "image_url": "/media/school-story-03.jpg",
+                            "image_url": "https://images.unsplash.com/photo-1531545514256-b1400bc00f31?w=600&h=400&fit=crop",
                             "url": "/newsroom/stories",
                             "author_title": "{{school.name}}"
                         }
                     }
-                },
+                }
+            ]
+        },
+        {
+            "id": "66666666-0000-0000-0003-000000000020",
+            "type": "cta_band",
+            "name": "Share Story CTA",
+            "anchor_id": "share",
+            "position": 4,
+            "group": "below-fold",
+            "pinned": false,
+            "required_block_types": [],
+            "blocks": [
                 {
-                    "id": "77777777-0000-0003-0002-000000000003",
-                    "type": "customer_story_card",
-                    "position": 3,
-                    "weight": 6,
+                    "id": "77777777-0000-0003-0020-000000000001",
+                    "type": "headline",
+                    "position": 1,
+                    "weight": 9,
                     "featured": false,
                     "content": {
                         "en": {
-                            "company": "Academic Progress",
-                            "outcome": "A group of students at {{school.name}} completed their Quran memorisation goals three weeks ahead of schedule using structured tracking.",
-                            "quote": "",
-                            "image_url": "/media/school-story-04.jpg",
-                            "url": "/newsroom/stories",
-                            "author_name": "Student group",
-                            "author_title": "{{school.name}}"
+                            "text": "Have a success story to share?"
                         },
                         "ar": {
-                            "outcome": "أتمّت مجموعة من طلاب {{school.name}} أهداف حفظ القرآن قبل ثلاثة أسابيع من الموعد المحدد باستخدام المتابعة المنظمة.",
-                            "quote": "",
-                            "image_url": "/media/school-story-04.jpg",
-                            "url": "/newsroom/stories",
-                            "author_title": "{{school.name}}"
+                            "text": "هل لديك قصة نجاح تود مشاركتها؟"
+                        }
+                    }
+                },
+                {
+                    "id": "77777777-0000-0003-0020-000000000002",
+                    "type": "cta",
+                    "position": 2,
+                    "weight": 7,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "label": "Submit Your Story",
+                            "destination": {
+                                "type": "internal_page",
+                                "value": "contact"
+                            },
+                            "intent": "primary"
+                        },
+                        "ar": {
+                            "label": "إرسال قصتك",
+                            "destination": {
+                                "type": "internal_page",
+                                "value": "contact"
+                            },
+                            "intent": "primary"
                         }
                     }
                 }

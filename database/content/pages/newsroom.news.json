@@ -31,12 +31,12 @@
     },
     "meta": {
         "seo_title": {
-            "en": "News — {{school.name}}",
-            "ar": "الأخبار — {{school.name}}"
+            "en": "News & Announcements — {{school.name}}",
+            "ar": "الأخبار والإعلانات — {{school.name}}"
         },
         "seo_description": {
-            "en": "Latest news and announcements from {{school.name}}.",
-            "ar": "آخر الأخبار والإعلانات من {{school.name}}."
+            "en": "Latest news, event updates, and official announcements from {{school.name}}.",
+            "ar": "آخر الأخبار وتحديثات الفعاليات والإعلانات الرسمية من {{school.name}}."
         },
         "og_title": null,
         "og_description": null,
@@ -52,7 +52,9 @@
             "position": 1,
             "group": "above-fold",
             "pinned": true,
-            "required_block_types": ["headline"],
+            "required_block_types": [
+                "headline"
+            ],
             "blocks": [
                 {
                     "id": "77777777-0000-0002-0001-000000000001",
@@ -61,8 +63,12 @@
                     "weight": 5,
                     "featured": false,
                     "content": {
-                        "en": { "text": "{{school.name}}" },
-                        "ar": { "text": "{{school.name}}" }
+                        "en": {
+                            "text": "{{school.name}}"
+                        },
+                        "ar": {
+                            "text": "{{school.name}}"
+                        }
                     }
                 },
                 {
@@ -72,8 +78,12 @@
                     "weight": 9,
                     "featured": false,
                     "content": {
-                        "en": { "text": "News & Announcements" },
-                        "ar": { "text": "الأخبار والإعلانات" }
+                        "en": {
+                            "text": "News & Announcements"
+                        },
+                        "ar": {
+                            "text": "الأخبار والإعلانات"
+                        }
                     }
                 },
                 {
@@ -83,8 +93,49 @@
                     "weight": 7,
                     "featured": false,
                     "content": {
-                        "en": { "text": "Stay up to date with the latest from {{school.name}} — events, achievements, and important updates." },
-                        "ar": { "text": "ابقَ على اطلاع بآخر مستجدات {{school.name}} — الأحداث والإنجازات والتحديثات الهامة." }
+                        "en": {
+                            "text": "Stay up to date with the latest from {{school.name}} — events, achievements, and important updates."
+                        },
+                        "ar": {
+                            "text": "ابقَ على اطلاع بآخر مستجدات {{school.name}} — الأحداث والإنجازات والتحديثات الهامة."
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": "66666666-0000-0000-0002-000000000010",
+            "type": "in_page_nav",
+            "name": "Category Filter Nav",
+            "anchor_id": "filter",
+            "position": 2,
+            "group": "above-fold",
+            "pinned": false,
+            "required_block_types": [],
+            "blocks": [
+                {
+                    "id": "77777777-0000-0002-0010-000000000001",
+                    "type": "cta",
+                    "position": 1,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "label": "All Updates",
+                            "destination": {
+                                "type": "internal_page",
+                                "value": "newsroom/news"
+                            },
+                            "intent": "primary"
+                        },
+                        "ar": {
+                            "label": "جميع التحديثات",
+                            "destination": {
+                                "type": "internal_page",
+                                "value": "newsroom/news"
+                            },
+                            "intent": "primary"
+                        }
                     }
                 }
             ]
@@ -94,7 +145,7 @@
             "type": "news_article_grid",
             "name": "News Grid",
             "anchor_id": "all-news",
-            "position": 2,
+            "position": 3,
             "group": "below-fold",
             "required_block_types": [],
             "blocks": [
@@ -105,11 +156,68 @@
                     "weight": 5,
                     "featured": false,
                     "content": {
-                        "en": { "text": "Latest Updates" },
-                        "ar": { "text": "آخر التحديثات" }
+                        "en": {
+                            "text": "Latest Updates"
+                        },
+                        "ar": {
+                            "text": "آخر التحديثات"
+                        }
                     }
                 }
             ]
+        },
+        {
+            "id": "66666666-0000-0000-0002-000000000020",
+            "type": "media_banner",
+            "name": "Featured Event Banner",
+            "anchor_id": "event-banner",
+            "position": 4,
+            "group": "below-fold",
+            "pinned": false,
+            "required_block_types": [],
+            "blocks": [
+                {
+                    "id": "77777777-0000-0002-0020-000000000001",
+                    "type": "headline",
+                    "position": 1,
+                    "weight": 9,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "Annual Quran Recitation & Academic Ceremony"
+                        },
+                        "ar": {
+                            "text": "الحفل السنوي لقرآن التكريم والتميز الأكاديمي"
+                        }
+                    }
+                },
+                {
+                    "id": "77777777-0000-0002-0020-000000000002",
+                    "type": "subheadline",
+                    "position": 2,
+                    "weight": 7,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "Join us in celebrating our outstanding students next month."
+                        },
+                        "ar": {
+                            "text": "انضم إلينا للاحتفال بطلابنا المتميزين الشهر القادم."
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": "66666666-0000-0000-0002-000000000030",
+            "type": "newsletter_banner",
+            "name": "Subscribe Banner",
+            "anchor_id": "subscribe",
+            "position": 5,
+            "group": "below-fold",
+            "pinned": false,
+            "required_block_types": [],
+            "blocks": []
         }
     ]
 }

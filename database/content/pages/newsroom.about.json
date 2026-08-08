@@ -26,7 +26,7 @@
     "composition": {
         "section_order": "explicit",
         "allow_dynamic": false,
-        "max_sections": 10,
+        "max_sections": 15,
         "fallback_policy": "show_partial"
     },
     "meta": {
@@ -35,8 +35,8 @@
             "ar": "عن {{school.name}}"
         },
         "seo_description": {
-            "en": "Learn about {{school.name}} — our mission, values, and the team dedicated to student success.",
-            "ar": "تعرف على {{school.name}} — مهمتنا وقيمنا والفريق المكرس لنجاح الطلاب."
+            "en": "Learn about {{school.name}} — our mission, values, history, leadership, and the team dedicated to student success.",
+            "ar": "تعرف على {{school.name}} — مهمتنا وقيمنا وتاريخنا وقيادتنا والفريق المكرس لنجاح الطلاب."
         },
         "og_title": null,
         "og_description": null,
@@ -52,7 +52,9 @@
             "position": 1,
             "group": "above-fold",
             "pinned": true,
-            "required_block_types": ["headline"],
+            "required_block_types": [
+                "headline"
+            ],
             "blocks": [
                 {
                     "id": "33333333-0000-0000-0000-000000000101",
@@ -61,8 +63,12 @@
                     "weight": 5,
                     "featured": false,
                     "content": {
-                        "en": { "text": "About {{school.name}}" },
-                        "ar": { "text": "عن {{school.name}}" }
+                        "en": {
+                            "text": "About {{school.name}}"
+                        },
+                        "ar": {
+                            "text": "عن {{school.name}}"
+                        }
                     }
                 },
                 {
@@ -72,8 +78,12 @@
                     "weight": 10,
                     "featured": false,
                     "content": {
-                        "en": { "text": "Building a generation of capable, principled learners." },
-                        "ar": { "text": "بناء جيل من المتعلمين القادرين والمبدئيين." }
+                        "en": {
+                            "text": "Building a generation of capable, principled learners."
+                        },
+                        "ar": {
+                            "text": "بناء جيل من المتعلمين القادرين والمبدئيين."
+                        }
                     }
                 },
                 {
@@ -83,8 +93,12 @@
                     "weight": 8,
                     "featured": false,
                     "content": {
-                        "en": { "text": "{{school.name}} is committed to academic excellence and character development — providing students with the tools, guidance, and environment they need to grow." },
-                        "ar": { "text": "{{school.name}} ملتزمة بالتميز الأكاديمي وتنمية الشخصية — تزويد الطلاب بالأدوات والتوجيه والبيئة التي يحتاجونها للنمو." }
+                        "en": {
+                            "text": "{{school.name}} is committed to academic excellence and character development — providing students with the tools, guidance, and environment they need to grow."
+                        },
+                        "ar": {
+                            "text": "{{school.name}} ملتزمة بالتميز الأكاديمي وتنمية الشخصية — تزويد الطلاب بالأدوات والتوجيه والبيئة التي يحتاجونها للنمو."
+                        }
                     }
                 },
                 {
@@ -96,12 +110,18 @@
                     "content": {
                         "en": {
                             "label": "Contact Us",
-                            "destination": { "type": "internal_page", "value": "contact" },
+                            "destination": {
+                                "type": "internal_page",
+                                "value": "contact"
+                            },
                             "intent": "primary"
                         },
                         "ar": {
                             "label": "تواصل معنا",
-                            "destination": { "type": "internal_page", "value": "contact" },
+                            "destination": {
+                                "type": "internal_page",
+                                "value": "contact"
+                            },
                             "intent": "primary"
                         }
                     }
@@ -115,7 +135,9 @@
             "anchor_id": "mission",
             "position": 2,
             "group": "below-fold",
-            "required_block_types": ["headline"],
+            "required_block_types": [
+                "headline"
+            ],
             "blocks": [
                 {
                     "id": "33333333-0000-0000-0000-000000000110",
@@ -124,8 +146,12 @@
                     "weight": 5,
                     "featured": false,
                     "content": {
-                        "en": { "text": "Our Values" },
-                        "ar": { "text": "قيمنا" }
+                        "en": {
+                            "text": "Our Values"
+                        },
+                        "ar": {
+                            "text": "قيمنا"
+                        }
                     }
                 },
                 {
@@ -135,8 +161,12 @@
                     "weight": 9,
                     "featured": false,
                     "content": {
-                        "en": { "text": "What we stand for at {{school.name}}." },
-                        "ar": { "text": "ما نؤمن به في {{school.name}}." }
+                        "en": {
+                            "text": "What we stand for at {{school.name}}."
+                        },
+                        "ar": {
+                            "text": "ما نؤمن به في {{school.name}}."
+                        }
                     }
                 },
                 {
@@ -189,21 +219,352 @@
                             "description": "يعمل التعليم بشكل أفضل عندما تتعاون المدارس والعائلات. نحرص على التواصل المفتوح والشفاف في كل خطوة."
                         }
                     }
-                },
+                }
+            ]
+        },
+        {
+            "id": "22222222-0000-0000-0000-000000000012",
+            "type": "timeline",
+            "name": "School History",
+            "anchor_id": "history",
+            "position": 3,
+            "group": "below-fold",
+            "required_block_types": [],
+            "blocks": [
                 {
-                    "id": "33333333-0000-0000-0000-000000000117",
-                    "type": "feature_item",
-                    "position": 6,
-                    "weight": 6,
+                    "id": "33333333-0000-0000-0000-000000000120",
+                    "type": "label",
+                    "position": 1,
+                    "weight": 5,
                     "featured": false,
                     "content": {
                         "en": {
-                            "label": "Continuous Improvement",
-                            "description": "We use data and feedback to refine our methods — keeping every student's learning experience as effective as possible."
+                            "text": "Our Journey"
                         },
                         "ar": {
-                            "label": "التحسين المستمر",
-                            "description": "نستخدم البيانات والتغذية الراجعة لتحسين أساليبنا — لإبقاء تجربة تعلم كل طالب فعالة قدر الإمكان."
+                            "text": "مسيرتنا"
+                        }
+                    }
+                },
+                {
+                    "id": "33333333-0000-0000-0000-000000000121",
+                    "type": "headline",
+                    "position": 2,
+                    "weight": 9,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "Milestones of growth and impact."
+                        },
+                        "ar": {
+                            "text": "محطات النمو والأثر."
+                        }
+                    }
+                },
+                {
+                    "id": "33333333-0000-0000-0000-000000000122",
+                    "type": "timeline_item",
+                    "position": 3,
+                    "weight": 7,
+                    "featured": true,
+                    "content": {
+                        "en": {
+                            "year": "2010",
+                            "title": "Foundation",
+                            "body": "{{school.name}} was established with a vision to provide authentic, high-quality education in {{school.city}}."
+                        },
+                        "ar": {
+                            "year": "2010",
+                            "title": "التأسيس",
+                            "body": "تأسست {{school.name}} برؤية لتقديم تعليم أصيل عالي الجودة في {{school.city}}."
+                        }
+                    }
+                },
+                {
+                    "id": "33333333-0000-0000-0000-000000000123",
+                    "type": "timeline_item",
+                    "position": 4,
+                    "weight": 7,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "year": "2018",
+                            "title": "Campus Expansion",
+                            "body": "Opened state-of-the-art facilities, classrooms, and dedicated learning centers to accommodate growing enrollment."
+                        },
+                        "ar": {
+                            "year": "2018",
+                            "title": "توسع الحرم المدرسي",
+                            "body": "افتتاح مرافق حديثة وفصول دراسية ومراكز تعلم مخصصة لاستيعاب عدد الطلاب المتزايد."
+                        }
+                    }
+                },
+                {
+                    "id": "33333333-0000-0000-0000-000000000124",
+                    "type": "timeline_item",
+                    "position": 5,
+                    "weight": 7,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "year": "2024",
+                            "title": "Digital Transformation",
+                            "body": "Adopted the unified Shafeea school platform for end-to-end curriculum tracking, attendance, and parent involvement."
+                        },
+                        "ar": {
+                            "year": "2024",
+                            "title": "التحول الرقمي",
+                            "body": "اعتماد منصة الشفيع الموحدة للمدرسة لتتبع المناهج والحضور ومشاركة أولياء الأمور secara كاملة."
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": "22222222-0000-0000-0000-000000000013",
+            "type": "leadership",
+            "name": "School Leadership",
+            "anchor_id": "leadership",
+            "position": 4,
+            "group": "below-fold",
+            "required_block_types": [],
+            "blocks": [
+                {
+                    "id": "33333333-0000-0000-0000-000000000130",
+                    "type": "label",
+                    "position": 1,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "Leadership Team"
+                        },
+                        "ar": {
+                            "text": "فريق القيادة"
+                        }
+                    }
+                },
+                {
+                    "id": "33333333-0000-0000-0000-000000000131",
+                    "type": "headline",
+                    "position": 2,
+                    "weight": 9,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "Guided by experienced educators."
+                        },
+                        "ar": {
+                            "text": "بتوجيه من تربويين ذوي خبرة."
+                        }
+                    }
+                },
+                {
+                    "id": "33333333-0000-0000-0000-000000000132",
+                    "type": "person_profile",
+                    "position": 3,
+                    "weight": 8,
+                    "featured": true,
+                    "content": {
+                        "en": {
+                            "name": "Dr. Ahmad Al-Mansoor",
+                            "role": "School Principal",
+                            "bio": "Over 20 years in educational leadership, specialising in curriculum integration and values-based school culture.",
+                            "image_url": "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=300&h=300&fit=crop"
+                        },
+                        "ar": {
+                            "name": "د. أحمد المنصور",
+                            "role": "مدير المدرسة",
+                            "bio": "أكثر من 20 عاماً في القيادة التربوية، متخصص في دمج المناهج وثقافة المدرسة القائمة على القيم."
+                        }
+                    }
+                },
+                {
+                    "id": "33333333-0000-0000-0000-000000000133",
+                    "type": "person_profile",
+                    "position": 4,
+                    "weight": 8,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "name": "Ustaza Fatima Al-Zahra",
+                            "role": "Academic Director",
+                            "bio": "Leads curriculum development, teacher training, and academic assessment across all grade levels.",
+                            "image_url": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=300&h=300&fit=crop"
+                        },
+                        "ar": {
+                            "name": "أستاذة فاطمة الزهراء",
+                            "role": "المديرة الأكاديمية",
+                            "bio": "تقود تطوير المناهج وتدريب المعلمين والتقييم الأكاديمي لجميع المراحل."
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": "22222222-0000-0000-0000-000000000014",
+            "type": "media_grid",
+            "name": "Campus Life Gallery",
+            "anchor_id": "gallery",
+            "position": 5,
+            "group": "below-fold",
+            "required_block_types": [],
+            "blocks": [
+                {
+                    "id": "33333333-0000-0000-0000-000000000140",
+                    "type": "label",
+                    "position": 1,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "Campus Life"
+                        },
+                        "ar": {
+                            "text": "الحياة المدرسية"
+                        }
+                    }
+                },
+                {
+                    "id": "33333333-0000-0000-0000-000000000141",
+                    "type": "headline",
+                    "position": 2,
+                    "weight": 9,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "A vibrant, supportive learning environment."
+                        },
+                        "ar": {
+                            "text": "بيئة تعلم حيوية وداعمة."
+                        }
+                    }
+                },
+                {
+                    "id": "33333333-0000-0000-0000-000000000142",
+                    "type": "media",
+                    "position": 3,
+                    "weight": 7,
+                    "featured": true,
+                    "content": {
+                        "en": {
+                            "alt": "Classroom learning",
+                            "image_url": "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=600&h=400&fit=crop"
+                        },
+                        "ar": {
+                            "alt": "التعلم في الفصل",
+                            "image_url": "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=600&h=400&fit=crop"
+                        }
+                    }
+                },
+                {
+                    "id": "33333333-0000-0000-0000-000000000143",
+                    "type": "media",
+                    "position": 4,
+                    "weight": 7,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "alt": "School Library",
+                            "image_url": "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=600&h=400&fit=crop"
+                        },
+                        "ar": {
+                            "alt": "مكتبة المدرسة",
+                            "image_url": "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=600&h=400&fit=crop"
+                        }
+                    }
+                },
+                {
+                    "id": "33333333-0000-0000-0000-000000000144",
+                    "type": "media",
+                    "position": 5,
+                    "weight": 7,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "alt": "Sports and Activities",
+                            "image_url": "https://images.unsplash.com/photo-1571260899304-425eee4c7efc?w=600&h=400&fit=crop"
+                        },
+                        "ar": {
+                            "alt": "الرياضة والأنشطة",
+                            "image_url": "https://images.unsplash.com/photo-1571260899304-425eee4c7efc?w=600&h=400&fit=crop"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": "22222222-0000-0000-0000-000000000015",
+            "type": "cta_band",
+            "name": "About Page CTA",
+            "anchor_id": "connect",
+            "position": 6,
+            "group": "below-fold",
+            "pinned": false,
+            "required_block_types": [],
+            "blocks": [
+                {
+                    "id": "33333333-0000-0000-0000-000000000150",
+                    "type": "headline",
+                    "position": 1,
+                    "weight": 9,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "Want to learn more about admissions or policies?"
+                        },
+                        "ar": {
+                            "text": "هل تريد معرفة المزيد عن القبول أو السياسات؟"
+                        }
+                    }
+                },
+                {
+                    "id": "33333333-0000-0000-0000-000000000151",
+                    "type": "cta",
+                    "position": 2,
+                    "weight": 7,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "label": "View Admissions",
+                            "destination": {
+                                "type": "internal_page",
+                                "value": "admissions"
+                            },
+                            "intent": "primary"
+                        },
+                        "ar": {
+                            "label": "عرض القبول",
+                            "destination": {
+                                "type": "internal_page",
+                                "value": "admissions"
+                            },
+                            "intent": "primary"
+                        }
+                    }
+                },
+                {
+                    "id": "33333333-0000-0000-0000-000000000152",
+                    "type": "cta",
+                    "position": 3,
+                    "weight": 7,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "label": "School Policies",
+                            "destination": {
+                                "type": "internal_page",
+                                "value": "policies"
+                            },
+                            "intent": "secondary"
+                        },
+                        "ar": {
+                            "label": "سياسات المدرسة",
+                            "destination": {
+                                "type": "internal_page",
+                                "value": "policies"
+                            },
+                            "intent": "secondary"
                         }
                     }
                 }

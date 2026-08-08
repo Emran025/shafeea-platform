@@ -1,0 +1,150 @@
+{
+    "id": "44444444-0000-0000-0000-000000000002",
+    "slug": "policies",
+    "type": "school.full_page",
+    "page_subtype": "policies",
+    "identity": {
+        "title": {
+            "en": "{{school.name}} Policies",
+            "ar": "سياسات {{school.name}}"
+        },
+        "purpose": {
+            "en": "Comprehensive school code of conduct, academic, and operational policies"
+        },
+        "owner": "school_platform",
+        "canonical_url": "/school/{{school.code}}/policies",
+        "classification": "public"
+    },
+    "hierarchy": {
+        "depth": 0,
+        "position": 6,
+        "include_in_nav": true,
+        "nav_label": {
+            "en": "Policies",
+            "ar": "السياسات"
+        }
+    },
+    "composition": {
+        "section_order": "explicit",
+        "allow_dynamic": false,
+        "max_sections": 10,
+        "fallback_policy": "show_partial"
+    },
+    "meta": {
+        "seo_title": {
+            "en": "School Policies & Rules — {{school.name}}",
+            "ar": "سياسات وقواعد المدرسة — {{school.name}}"
+        },
+        "seo_description": {
+            "en": "Official regulations, academic policies, student code of conduct, and platform rules for {{school.name}}.",
+            "ar": "اللوائح الرسمية والسياسات الأكاديمية وقواعد سلوك الطلاب وقواعد المنصة لـ {{school.name}}."
+        },
+        "og_title": null,
+        "og_description": null,
+        "og_image": null,
+        "robots": "index,follow"
+    },
+    "sections": [
+        {
+            "id": "44444444-0000-0002-0001-000000000001",
+            "type": "hero",
+            "name": "Policies Hero",
+            "anchor_id": "hero",
+            "position": 1,
+            "group": "above-fold",
+            "pinned": true,
+            "required_block_types": [
+                "headline"
+            ],
+            "blocks": [
+                {
+                    "id": "55555555-0000-0002-0001-000000000001",
+                    "type": "label",
+                    "position": 1,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "Governance & Rules"
+                        },
+                        "ar": {
+                            "text": "الحوكمة والقواعد"
+                        }
+                    }
+                },
+                {
+                    "id": "55555555-0000-0002-0001-000000000002",
+                    "type": "headline",
+                    "position": 2,
+                    "weight": 10,
+                    "featured": true,
+                    "content": {
+                        "en": {
+                            "text": "{{school.name}} School Policies"
+                        },
+                        "ar": {
+                            "text": "سياسات مدرسة {{school.name}}"
+                        }
+                    }
+                },
+                {
+                    "id": "55555555-0000-0002-0001-000000000003",
+                    "type": "subheadline",
+                    "position": 3,
+                    "weight": 8,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "Clear standards ensuring safety, fairness, academic rigor, and respectful community conduct."
+                        },
+                        "ar": {
+                            "text": "معايير واضحة تضمن السلامة والعدالة والصرامة الأكاديمية والسلوك الفاضل."
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": "44444444-0000-0002-0002-000000000001",
+            "type": "freeform",
+            "name": "Academic Integrity & Student Conduct",
+            "anchor_id": "code-of-conduct",
+            "position": 2,
+            "group": "below-fold",
+            "pinned": false,
+            "required_block_types": [],
+            "blocks": [
+                {
+                    "id": "55555555-0000-0002-0002-000000000001",
+                    "type": "headline",
+                    "position": 1,
+                    "weight": 9,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "Student Code of Conduct & Academic Integrity"
+                        },
+                        "ar": {
+                            "text": "قواعد سلوك الطالب والنزاهة الأكاديمية"
+                        }
+                    }
+                },
+                {
+                    "id": "55555555-0000-0002-0002-000000000002",
+                    "type": "rich_text",
+                    "position": 2,
+                    "weight": 7,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "All students enrolled in {{school.name}} are expected to demonstrate respect, honesty, and diligence.\n\n1. **Attendance & Punctuality:** Students must arrive on time for all scheduled classes and sessions.\n2. **Academic Honesty:** Plagiarism, cheating, or submitting work not done independently is strictly prohibited.\n3. **Respect & Behavior:** Mutual respect between students, teachers, and staff is essential for a productive learning environment."
+                        },
+                        "ar": {
+                            "text": "يُتوقع من جميع الطلاب المسجلين في {{school.name}} إظهار الاحترام والصدق والاجتهاد.\n\n1. **الحضور والالتزام بالمواعيد:** يجب على الطلاب الحضور في الوقت المحدد بجميع الحصص.\n2. **الأمانة الأكاديمية:** يُحظر الغش أو تقديم أعمال غير مستقلة حظراً تاماً.\n3. **الاحترام والسلوك:** الاحترام المتبادل بين الطلاب والمعلمين والموظفين أساسي لبيئة تعلم منتجة."
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

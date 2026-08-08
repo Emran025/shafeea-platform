@@ -57,7 +57,10 @@
             "anchor_id": null,
             "position": 1,
             "group": "above-fold",
-            "required_block_types": ["headline"],
+            "pinned": true,
+            "required_block_types": [
+                "headline"
+            ],
             "blocks": [
                 {
                     "id": "33333333-0000-0000-0000-000000000001",
@@ -66,8 +69,12 @@
                     "weight": 5,
                     "featured": false,
                     "content": {
-                        "en": { "text": "{{school.name}}" },
-                        "ar": { "text": "{{school.name}}" }
+                        "en": {
+                            "text": "{{school.name}}"
+                        },
+                        "ar": {
+                            "text": "{{school.name}}"
+                        }
                     }
                 },
                 {
@@ -77,8 +84,12 @@
                     "weight": 10,
                     "featured": true,
                     "content": {
-                        "en": { "text": "News, Stories & Updates" },
-                        "ar": { "text": "الأخبار والقصص والتحديثات" }
+                        "en": {
+                            "text": "News, Stories & Updates"
+                        },
+                        "ar": {
+                            "text": "الأخبار والقصص والتحديثات"
+                        }
                     }
                 },
                 {
@@ -88,8 +99,12 @@
                     "weight": 7,
                     "featured": false,
                     "content": {
-                        "en": { "text": "Everything happening at {{school.name}} — from student achievements to school announcements." },
-                        "ar": { "text": "كل ما يجري في {{school.name}} — من إنجازات الطلاب إلى الإعلانات المدرسية." }
+                        "en": {
+                            "text": "Everything happening at {{school.name}} — from student achievements to school announcements."
+                        },
+                        "ar": {
+                            "text": "كل ما يجري في {{school.name}} — من إنجازات الطلاب إلى الإعلانات المدرسية."
+                        }
                     }
                 }
             ]
@@ -110,8 +125,12 @@
                     "weight": 5,
                     "featured": false,
                     "content": {
-                        "en": { "text": "Explore" },
-                        "ar": { "text": "استعرض" }
+                        "en": {
+                            "text": "Explore"
+                        },
+                        "ar": {
+                            "text": "استعرض"
+                        }
                     }
                 },
                 {
@@ -123,12 +142,18 @@
                     "content": {
                         "en": {
                             "label": "News",
-                            "destination": { "type": "internal_page", "value": "newsroom/news" },
+                            "destination": {
+                                "type": "internal_page",
+                                "value": "newsroom/news"
+                            },
                             "intent": "primary"
                         },
                         "ar": {
                             "label": "الأخبار",
-                            "destination": { "type": "internal_page", "value": "newsroom/news" },
+                            "destination": {
+                                "type": "internal_page",
+                                "value": "newsroom/news"
+                            },
                             "intent": "primary"
                         }
                     }
@@ -142,36 +167,61 @@
                     "content": {
                         "en": {
                             "label": "Success Stories",
-                            "destination": { "type": "internal_page", "value": "newsroom/stories" },
+                            "destination": {
+                                "type": "internal_page",
+                                "value": "newsroom/stories"
+                            },
                             "intent": "secondary"
                         },
                         "ar": {
                             "label": "قصص النجاح",
-                            "destination": { "type": "internal_page", "value": "newsroom/stories" },
-                            "intent": "secondary"
-                        }
-                    }
-                },
-                {
-                    "id": "33333333-0000-0000-0000-000000000013",
-                    "type": "cta",
-                    "position": 4,
-                    "weight": 7,
-                    "featured": false,
-                    "content": {
-                        "en": {
-                            "label": "About {{school.name}}",
-                            "destination": { "type": "internal_page", "value": "newsroom/about" },
-                            "intent": "secondary"
-                        },
-                        "ar": {
-                            "label": "عن {{school.name}}",
-                            "destination": { "type": "internal_page", "value": "newsroom/about" },
+                            "destination": {
+                                "type": "internal_page",
+                                "value": "newsroom/stories"
+                            },
                             "intent": "secondary"
                         }
                     }
                 }
             ]
+        },
+        {
+            "id": "22222222-0000-0000-0000-000000000030",
+            "type": "blog_post_grid",
+            "name": "Recent Articles Grid",
+            "anchor_id": "articles",
+            "position": 3,
+            "group": "below-fold",
+            "pinned": false,
+            "required_block_types": [],
+            "blocks": [
+                {
+                    "id": "33333333-0000-0000-0000-000000000031",
+                    "type": "label",
+                    "position": 1,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "Articles"
+                        },
+                        "ar": {
+                            "text": "المقالات"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": "22222222-0000-0000-0000-000000000040",
+            "type": "newsletter_banner",
+            "name": "Newsroom Newsletter",
+            "anchor_id": "newsletter",
+            "position": 4,
+            "group": "below-fold",
+            "pinned": false,
+            "required_block_types": [],
+            "blocks": []
         }
     ]
 }
