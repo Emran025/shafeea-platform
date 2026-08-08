@@ -95,7 +95,7 @@ const formErrors = errors as Record<string, string | undefined>;
             documents: filteredDocs.length > 0 ? filteredDocs : [],
         }));
 
-        post(route('teachers.store.apply'), {
+        post(window.location.pathname, {
             forceFormData: true,
             onSuccess: () => {
                 reset();

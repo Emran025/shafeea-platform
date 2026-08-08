@@ -20,9 +20,9 @@ class TeacherApplicationController extends Controller
         $this->applicantService = $applicantService;
     }
 
-    public function create(Request $request)
+    public function create(Request $request, ?string $school_code = null)
     {
-        $schoolParam = $request->query('school');
+        $schoolParam = $school_code ?? $request->query('school');
         $selectedSchool = null;
 
         if ($schoolParam) {
@@ -37,7 +37,7 @@ class TeacherApplicationController extends Controller
         }
 
         $schools = cache()->remember('schools_list_with_logo', 3600, function () {
-            return School::select('id', 'name', 'logo')->get();
+            return School::select('id', 'name', 'logo', 'school_code')->get();
         });
 
         return Inertia::render('teachers/apply', [
@@ -46,17 +46,23 @@ class TeacherApplicationController extends Controller
                 'id' => $selectedSchool->id,
                 'name' => $selectedSchool->name,
                 'logo' => $selectedSchool->logo,
+                'school_code' => $selectedSchool->school_code,
             ] : null,
         ]);
     }
 
-    public function store(StoreTeacherApplicationRequest $request)
+    public function store(StoreTeacherApplicationRequest $request, ?string $school_code = null)
     {
         try {
             $this->applicantService->createTeacherApplication(
                 $request->validated(),
                 $request->file('documents', [])   // ← files must come separately from validated()
             );
+
+            if ($school_code) {
+                return redirect()->route('school.template.teachers.apply', ['school_code' => $school_code])
+                    ->with('success', 'تم تقديم طلبك بنجاح! سيتم مراجعة الطلب وإشعارك بالنتيجة عبر البريد الإلكتروني.');
+            }
 
             return redirect()->route('teachers.apply')
                 ->with('success', 'تم تقديم طلبك بنجاح! سيتم مراجعة الطلب وإشعارك بالنتيجة عبر البريد الإلكتروني.');

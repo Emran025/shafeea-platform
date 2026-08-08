@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\V1\Content\NewsletterController;
 use App\Http\Controllers\Api\V1\Content\PublicArticleController;
 use App\Http\Controllers\Api\V1\Cms\PageController as SchoolAdminPageController;
 use App\Http\Controllers\Public\SchoolApplicationController;
+use App\Http\Controllers\Public\TeacherApplicationController;
 use App\Http\Controllers\Schools\SchoolTemplateController;
 use App\Http\Controllers\Schools\SchoolAssetController;
 
@@ -53,6 +54,10 @@ Route::group(['prefix' => 'school/{school_code}', 'as' => 'school.template.'], f
             Route::get('/media', [SchoolAdminMediaController::class, 'index']);
         });
     });
+
+    // Per-school Teacher Application route
+    Route::get('/teachers/apply', [TeacherApplicationController::class, 'create'])->name('teachers.apply');
+    Route::post('/teachers/apply', [TeacherApplicationController::class, 'store'])->name('teachers.store.apply');
 
     // Main template views & SPA catch-all fallback route for school sub-pages
     Route::get('/', [SchoolTemplateController::class, 'index'])->name('index');

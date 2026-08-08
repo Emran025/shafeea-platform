@@ -498,7 +498,7 @@
                 },
                 {
                     "id": "dddddddd-0000-0001-0012-000000000003",
-                    "type": "testimonial_item",
+                    "type": "quote",
                     "position": 3,
                     "weight": 9,
                     "featured": true,
@@ -518,7 +518,7 @@
                 },
                 {
                     "id": "dddddddd-0000-0001-0012-000000000004",
-                    "type": "testimonial_item",
+                    "type": "quote",
                     "position": 4,
                     "weight": 8,
                     "featured": false,
@@ -538,7 +538,7 @@
                 },
                 {
                     "id": "dddddddd-0000-0001-0012-000000000005",
-                    "type": "testimonial_item",
+                    "type": "quote",
                     "position": 5,
                     "weight": 8,
                     "featured": false,
@@ -699,7 +699,7 @@
                 },
                 {
                     "id": "dddddddd-0000-0001-0014-000000000003",
-                    "type": "value_item",
+                    "type": "feature_item",
                     "position": 3,
                     "weight": 8,
                     "featured": true,
@@ -718,7 +718,7 @@
                 },
                 {
                     "id": "dddddddd-0000-0001-0014-000000000004",
-                    "type": "value_item",
+                    "type": "feature_item",
                     "position": 4,
                     "weight": 8,
                     "featured": false,
@@ -737,7 +737,7 @@
                 },
                 {
                     "id": "dddddddd-0000-0001-0014-000000000005",
-                    "type": "value_item",
+                    "type": "feature_item",
                     "position": 5,
                     "weight": 8,
                     "featured": false,
@@ -783,7 +783,7 @@
                 },
                 {
                     "id": "dddddddd-0000-0001-0015-000000000002",
-                    "type": "logo_item",
+                    "type": "media",
                     "position": 2,
                     "weight": 7,
                     "featured": false,
@@ -800,7 +800,7 @@
                 },
                 {
                     "id": "dddddddd-0000-0001-0015-000000000003",
-                    "type": "logo_item",
+                    "type": "media",
                     "position": 3,
                     "weight": 7,
                     "featured": false,
@@ -817,7 +817,7 @@
                 },
                 {
                     "id": "dddddddd-0000-0001-0015-000000000004",
-                    "type": "logo_item",
+                    "type": "media",
                     "position": 4,
                     "weight": 7,
                     "featured": false,

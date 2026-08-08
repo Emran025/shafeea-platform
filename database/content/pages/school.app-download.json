@@ -171,7 +171,7 @@
                 },
                 {
                     "id": "55555555-0000-0001-0002-000000000003",
-                    "type": "workflow_step",
+                    "type": "step_item",
                     "position": 3,
                     "weight": 7,
                     "featured": true,
@@ -190,7 +190,7 @@
                 },
                 {
                     "id": "55555555-0000-0001-0002-000000000004",
-                    "type": "workflow_step",
+                    "type": "step_item",
                     "position": 4,
                     "weight": 7,
                     "featured": false,
@@ -209,7 +209,7 @@
                 },
                 {
                     "id": "55555555-0000-0001-0002-000000000005",
-                    "type": "workflow_step",
+                    "type": "step_item",
                     "position": 5,
                     "weight": 7,
                     "featured": false,
@@ -270,7 +270,7 @@
                 },
                 {
                     "id": "55555555-0000-0001-0003-000000000003",
-                    "type": "faq_item",
+                    "type": "feature_item",
                     "position": 3,
                     "weight": 7,
                     "featured": true,
@@ -287,7 +287,7 @@
                 },
                 {
                     "id": "55555555-0000-0001-0003-000000000004",
-                    "type": "faq_item",
+                    "type": "feature_item",
                     "position": 4,
                     "weight": 7,
                     "featured": false,

@@ -239,7 +239,7 @@
                 },
                 {
                     "id": "33333333-0000-0000-0000-000000000233",
-                    "type": "faq_item",
+                    "type": "feature_item",
                     "position": 3,
                     "weight": 7,
                     "featured": true,
@@ -256,7 +256,7 @@
                 },
                 {
                     "id": "33333333-0000-0000-0000-000000000234",
-                    "type": "faq_item",
+                    "type": "feature_item",
                     "position": 4,
                     "weight": 7,
                     "featured": false,

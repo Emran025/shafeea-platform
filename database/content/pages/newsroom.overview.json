@@ -214,7 +214,7 @@
         },
         {
             "id": "22222222-0000-0000-0000-000000000040",
-            "type": "newsletter_banner",
+            "type": "cta_band",
             "name": "Newsroom Newsletter",
             "anchor_id": "newsletter",
             "position": 4,

@@ -263,7 +263,7 @@
                 },
                 {
                     "id": "33333333-0000-0000-0000-000000000122",
-                    "type": "timeline_item",
+                    "type": "timeline_event",
                     "position": 3,
                     "weight": 7,
                     "featured": true,
@@ -282,7 +282,7 @@
                 },
                 {
                     "id": "33333333-0000-0000-0000-000000000123",
-                    "type": "timeline_item",
+                    "type": "timeline_event",
                     "position": 4,
                     "weight": 7,
                     "featured": false,
@@ -301,7 +301,7 @@
                 },
                 {
                     "id": "33333333-0000-0000-0000-000000000124",
-                    "type": "timeline_item",
+                    "type": "timeline_event",
                     "position": 5,
                     "weight": 7,
                     "featured": false,
@@ -361,7 +361,7 @@
                 },
                 {
                     "id": "33333333-0000-0000-0000-000000000132",
-                    "type": "person_profile",
+                    "type": "person_card",
                     "position": 3,
                     "weight": 8,
                     "featured": true,
@@ -381,7 +381,7 @@
                 },
                 {
                     "id": "33333333-0000-0000-0000-000000000133",
-                    "type": "person_profile",
+                    "type": "person_card",
                     "position": 4,
                     "weight": 8,
                     "featured": false,

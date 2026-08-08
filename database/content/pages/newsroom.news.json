@@ -210,7 +210,7 @@
         },
         {
             "id": "66666666-0000-0000-0002-000000000030",
-            "type": "newsletter_banner",
+            "type": "cta_band",
             "name": "Subscribe Banner",
             "anchor_id": "subscribe",
             "position": 5,
