@@ -51,6 +51,10 @@ import TabbedPricingSection     from './sections/TabbedPricingSection';
 import FeatureGridSection       from './sections/FeatureGridSection';
 import WorkflowStepsSection     from './sections/WorkflowStepsSection';
 import ComparisonTableSection   from './sections/ComparisonTableSection';
+// Newsletter
+import NewsletterBanner         from './sections/NewsletterBanner';
+import NewsArticleDetailSection from './sections/NewsArticleDetailSection';
+import StoryDetailSection       from './sections/StoryDetailSection';
 import type { SectionPayload, PageCore } from '../types/engine';
 import type { SectionBackground } from './PageRenderer';
 
@@ -114,11 +118,15 @@ const SECTION_MAP: Record<string, SectionComponent> = {
     mission_statement:   MissionStatementSection,
     timeline:            TimelineSection,
     // T003
-    solution_picker:     SolutionPickerSection,
-    tabbed_pricing:      TabbedPricingSection,
-    feature_grid:        FeatureGridSection,
-    workflow_steps:      WorkflowStepsSection,
-    comparison_table:    ComparisonTableSection,
+    solution_picker:       SolutionPickerSection,
+    tabbed_pricing:        TabbedPricingSection,
+    feature_grid:          FeatureGridSection,
+    workflow_steps:        WorkflowStepsSection,
+    comparison_table:      ComparisonTableSection,
+    // Newsletter & detail pages
+    newsletter_banner:     NewsletterBanner,
+    news_article_detail:   NewsArticleDetailSection,
+    story_detail:          StoryDetailSection,
 };
 
 /*

@@ -1,4 +1,5 @@
 # School Platform — Multi-Tenant Content Architecture
+
 ## Implementation Plan (School-Agnostic Design)
 
 > **Goal:** Every school that joins the platform (`/school/{slug}`) gets the same
@@ -9,7 +10,7 @@
 
 ## Guiding Principle
 
-```
+```txt
 Route /school/{slug}/api/content/{page}
          │
          ▼
@@ -48,17 +49,20 @@ On the server, temporarily add logging to `CompositionService::resolvePage()`:
 ```
 
 Then hit:
-```
+
+```txt
 GET /school/shafeea/api/content/home
 GET /school/shafeea/api/content/newsroom/stories
 ```
 
 And check:
+
 ```bash
 tail -f storage/logs/laravel-$(date +%Y-%m-%d).log | grep CompositionService
 ```
 
 This tells you whether:
+
 - (A) The page row doesn't exist in the DB at all
 - (B) The page exists but VisibilityService excludes it
 - (C) The page exists and is visible but section composition fails
@@ -71,6 +75,7 @@ helps you verify the fix is hitting the right layer.
 ## Phase 2 — Add the Schools Table (if it doesn't exist)
 
 Check first:
+
 ```bash
 php artisan tinker --execute="Schema::hasTable('schools') ? 'yes' : 'no';"
 ```
@@ -512,6 +517,7 @@ class SchoolSeeder extends Seeder
 ```
 
 Run on the server:
+
 ```bash
 php artisan db:seed --class=Database\\Seeders\\Schools\\SchoolSeeder
 ```
@@ -584,6 +590,7 @@ php artisan tinker
 ```
 
 Then:
+
 ```bash
 curl -s https://shafeea.systems360.cloud/school/test-school/api/content/home \
   | python3 -m json.tool | grep -i "test school"
@@ -596,7 +603,7 @@ Should return the home page with "Test School" in the title — **zero new JSON 
 ## What NOT to do
 
 | ❌ Wrong | ✅ Right |
-|---|---|
+| --- | --- |
 | Write `pages/home.shafeea.json` per school | One `pages/home.json` with `{{placeholders}}` |
 | Hardcode school name in seeder JSON | Store school name in `schools` table |
 | Re-run ContentSeeder for each new school | Only run SchoolSeeder for each new school |
