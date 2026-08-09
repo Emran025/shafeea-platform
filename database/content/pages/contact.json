@@ -127,7 +127,7 @@
                 },
                 {
                     "id": "33333333-0000-0000-0000-000000000204",
-                    "type": "rich_text",
+                    "type": "subheadline",
                     "position": 4,
                     "weight": 6,
                     "featured": false,
@@ -245,12 +245,12 @@
                     "featured": true,
                     "content": {
                         "en": {
-                            "question": "How do I register a new student?",
-                            "answer": "You can apply through our online Admissions page or visit the administration office with the required identity documents."
+                            "label": "How do I register a new student?",
+                            "description": "You can apply through our online Admissions page or visit the administration office with the required identity documents."
                         },
                         "ar": {
-                            "question": "كيف يمكنني تسجيل طالب جديد؟",
-                            "answer": "يمكنك التقديم من خلال صفحة القبول عبر الإنترنت أو زيارة المكتب الإداري مع وثائق الهوية المطلوبة."
+                            "label": "كيف يمكنني تسجيل طالب جديد؟",
+                            "description": "يمكنك التقديم من خلال صفحة القبول عبر الإنترنت أو زيارة المكتب الإداري مع وثائق الهوية المطلوبة."
                         }
                     }
                 },
@@ -262,12 +262,12 @@
                     "featured": false,
                     "content": {
                         "en": {
-                            "question": "How do parents obtain platform login credentials?",
-                            "answer": "Account credentials are provided upon student enrolment verification by the administration team."
+                            "label": "How do parents obtain platform login credentials?",
+                            "description": "Account credentials are provided upon student enrolment verification by the administration team."
                         },
                         "ar": {
-                            "question": "كيف يحصل أولياء الأمور على بيانات تسجيل الدخول للمنصة؟",
-                            "answer": "تُقدم بيانات الاعتماد للحساب فور التحقق من تسجيل الطالب بواسطة الفريق الإداري."
+                            "label": "كيف يحصل أولياء الأمور على بيانات تسجيل الدخول للمنصة؟",
+                            "description": "تُقدم بيانات الاعتماد للحساب فور التحقق من تسجيل الطالب بواسطة الفريق الإداري."
                         }
                     }
                 }

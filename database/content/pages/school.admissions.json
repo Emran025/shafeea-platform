@@ -138,12 +138,12 @@
                     "content": {
                         "en": {
                             "step_number": "1",
-                            "title": "Submit Inquiry",
+                            "label": "Submit Inquiry",
                             "description": "Fill out the contact/inquiry form below with basic student and family info."
                         },
                         "ar": {
                             "step_number": "1",
-                            "title": "تقديم الطلب",
+                            "label": "تقديم الطلب",
                             "description": "املأ نموذج الاستفسار بالمعلومات الأساسية للطفل والعائلة."
                         }
                     }
@@ -157,12 +157,12 @@
                     "content": {
                         "en": {
                             "step_number": "2",
-                            "title": "Assessment Meeting",
+                            "label": "Assessment Meeting",
                             "description": "Attend an informal placement meeting to evaluate student level and learning goals."
                         },
                         "ar": {
                             "step_number": "2",
-                            "title": "مقابلة التقييم",
+                            "label": "مقابلة التقييم",
                             "description": "حضور مقابلة تقييم لمستوى الطالب وأهدافه التعليمية."
                         }
                     }
@@ -176,12 +176,12 @@
                     "content": {
                         "en": {
                             "step_number": "3",
-                            "title": "Document Submission",
+                            "label": "Document Submission",
                             "description": "Provide official identification documents and prior academic records."
                         },
                         "ar": {
                             "step_number": "3",
-                            "title": "تقديم الوثائق",
+                            "label": "تقديم الوثائق",
                             "description": "تقديم وثائق الهوية الرسمية والسجلات الأكاديمية السابقة."
                         }
                     }
@@ -195,12 +195,12 @@
                     "content": {
                         "en": {
                             "step_number": "4",
-                            "title": "Platform Activation",
+                            "label": "Platform Activation",
                             "description": "Receive parent and student platform account credentials to begin your journey."
                         },
                         "ar": {
                             "step_number": "4",
-                            "title": "تفعيل المنصة",
+                            "label": "تفعيل المنصة",
                             "description": "استلام بيانات الحساب الخاصة بأولياء الأمور والطلاب على المنصة."
                         }
                     }

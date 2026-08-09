@@ -178,11 +178,11 @@
                     "content": {
                         "en": {
                             "value": "500+",
-                            "label": "Students Enrolled"
+                            "descriptor": "Students Enrolled"
                         },
                         "ar": {
                             "value": "500+",
-                            "label": "طالب مسجّل"
+                            "descriptor": "طالب مسجّل"
                         }
                     }
                 },
@@ -195,11 +195,11 @@
                     "content": {
                         "en": {
                             "value": "40+",
-                            "label": "Qualified Teachers"
+                            "descriptor": "Qualified Teachers"
                         },
                         "ar": {
                             "value": "40+",
-                            "label": "معلم مؤهل"
+                            "descriptor": "معلم مؤهل"
                         }
                     }
                 },
@@ -212,11 +212,11 @@
                     "content": {
                         "en": {
                             "value": "98%",
-                            "label": "Parent Satisfaction Rate"
+                            "descriptor": "Parent Satisfaction Rate"
                         },
                         "ar": {
                             "value": "98%",
-                            "label": "رضا أولياء الأمور"
+                            "descriptor": "رضا أولياء الأمور"
                         }
                     }
                 },
@@ -229,11 +229,11 @@
                     "content": {
                         "en": {
                             "value": "15+",
-                            "label": "Years of Excellence"
+                            "descriptor": "Years of Excellence"
                         },
                         "ar": {
                             "value": "15+",
-                            "label": "سنة من التميز"
+                            "descriptor": "سنة من التميز"
                         }
                     }
                 }
@@ -280,16 +280,18 @@
                 },
                 {
                     "id": "dddddddd-0000-0001-0002-000000000003",
-                    "type": "feature_item",
+                    "type": "feature_tile",
                     "position": 3,
                     "weight": 7,
                     "featured": false,
                     "content": {
                         "en": {
+                            "icon_name": "chart",
                             "label": "Student Tracking",
                             "description": "Monitor attendance, grades, and progress for every student in real time."
                         },
                         "ar": {
+                            "icon_name": "chart",
                             "label": "متابعة الطلاب",
                             "description": "متابعة الحضور والدرجات والتقدم لكل طالب في الوقت الفعلي."
                         }
@@ -297,16 +299,18 @@
                 },
                 {
                     "id": "dddddddd-0000-0001-0002-000000000004",
-                    "type": "feature_item",
+                    "type": "feature_tile",
                     "position": 4,
                     "weight": 7,
                     "featured": false,
                     "content": {
                         "en": {
+                            "icon_name": "support",
                             "label": "Quran & Curriculum Plans",
                             "description": "Set weekly memorisation, revision, and recitation targets for each student and group."
                         },
                         "ar": {
+                            "icon_name": "support",
                             "label": "خطط القرآن والمنهج",
                             "description": "تحديد أهداف أسبوعية للحفظ والمراجعة والتلاوة لكل طالب ومجموعة."
                         }
@@ -314,16 +318,18 @@
                 },
                 {
                     "id": "dddddddd-0000-0001-0002-000000000005",
-                    "type": "feature_item",
+                    "type": "feature_tile",
                     "position": 5,
                     "weight": 7,
                     "featured": false,
                     "content": {
                         "en": {
+                            "icon_name": "globe",
                             "label": "Teacher Management",
                             "description": "Assign teachers to classes and track their performance and schedules."
                         },
                         "ar": {
+                            "icon_name": "globe",
                             "label": "إدارة المعلمين",
                             "description": "تعيين المعلمين للفصول ومتابعة أدائهم وجداولهم."
                         }
@@ -331,16 +337,18 @@
                 },
                 {
                     "id": "dddddddd-0000-0001-0002-000000000006",
-                    "type": "feature_item",
+                    "type": "feature_tile",
                     "position": 6,
                     "weight": 7,
                     "featured": false,
                     "content": {
                         "en": {
+                            "icon_name": "shield",
                             "label": "Parent Communication",
                             "description": "Keep families informed with progress reports and direct messaging."
                         },
                         "ar": {
+                            "icon_name": "shield",
                             "label": "تواصل أولياء الأمور",
                             "description": "إبقاء العائلات على اطلاع من خلال تقارير التقدم والرسائل المباشرة."
                         }
@@ -348,16 +356,18 @@
                 },
                 {
                     "id": "dddddddd-0000-0001-0002-000000000007",
-                    "type": "feature_item",
+                    "type": "feature_tile",
                     "position": 7,
                     "weight": 6,
                     "featured": false,
                     "content": {
                         "en": {
+                            "icon_name": "payment",
                             "label": "Smart Scheduling",
                             "description": "Automated timetable generation and conflict-free class scheduling for the entire school."
                         },
                         "ar": {
+                            "icon_name": "payment",
                             "label": "الجدولة الذكية",
                             "description": "توليد الجدول الزمني تلقائياً وجدولة الفصول خالية من التعارض لكل المدرسة."
                         }
@@ -365,16 +375,18 @@
                 },
                 {
                     "id": "dddddddd-0000-0001-0002-000000000008",
-                    "type": "feature_item",
+                    "type": "feature_tile",
                     "position": 8,
                     "weight": 6,
                     "featured": false,
                     "content": {
                         "en": {
+                            "icon_name": "payout",
                             "label": "Exam & Assessment Tools",
                             "description": "Create, distribute, and auto-grade assessments — from short quizzes to full semester exams."
                         },
                         "ar": {
+                            "icon_name": "payout",
                             "label": "أدوات الاختبار والتقييم",
                             "description": "إنشاء وتوزيع وتصحيح الاختبارات تلقائياً — من الاختبارات القصيرة إلى امتحانات الفصل الكامل."
                         }
@@ -504,15 +516,14 @@
                     "featured": true,
                     "content": {
                         "en": {
-                            "quote": "Since joining {{school.name}}, my child's progress has been remarkable. The weekly reports keep me fully informed and I feel genuinely connected to their education.",
-                            "author_name": "Umm Abdullah",
-                            "author_title": "Parent",
-                            "avatar_url": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=80&h=80&fit=crop&crop=face"
+                            "text": "Since joining {{school.name}}, my child's progress has been remarkable. The weekly reports keep me fully informed and I feel genuinely connected to their education.",
+                            "attribution_name": "Umm Abdullah",
+                            "attribution_title": "Parent"
                         },
                         "ar": {
-                            "quote": "منذ الالتحاق بـ {{school.name}}، كان تقدم طفلي ملحوظاً. التقارير الأسبوعية تُبقيني على اطلاع كامل وأشعر بارتباط حقيقي بتعليمهم.",
-                            "author_name": "أم عبدالله",
-                            "author_title": "ولي أمر"
+                            "text": "منذ الالتحاق بـ {{school.name}}، كان تقدم طفلي ملحوظاً. التقارير الأسبوعية تُبقيني على اطلاع كامل وأشعر بارتباط حقيقي بتعليمهم.",
+                            "attribution_name": "أم عبدالله",
+                            "attribution_title": "ولي أمر"
                         }
                     }
                 },
@@ -524,15 +535,14 @@
                     "featured": false,
                     "content": {
                         "en": {
-                            "quote": "The platform completely transformed how I manage my classes. I spend less time on admin and more time teaching — and I can see every student's progress at a glance.",
-                            "author_name": "Ustaz Ibrahim",
-                            "author_title": "Quran Teacher, {{school.name}}",
-                            "avatar_url": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face"
+                            "text": "The platform completely transformed how I manage my classes. I spend less time on admin and more time teaching — and I can see every student's progress at a glance.",
+                            "attribution_name": "Ustaz Ibrahim",
+                            "attribution_title": "Quran Teacher, {{school.name}}"
                         },
                         "ar": {
-                            "quote": "غيّرت المنصة طريقة إدارتي للفصول تماماً. أقضي وقتاً أقل في الإدارة وأكثر في التدريس — ويمكنني رؤية تقدم كل طالب بنظرة واحدة.",
-                            "author_name": "أستاذ إبراهيم",
-                            "author_title": "معلم قرآن، {{school.name}}"
+                            "text": "غيّرت المنصة طريقة إدارتي للفصول تماماً. أقضي وقتاً أقل في الإدارة وأكثر في التدريس — ويمكنني رؤية تقدم كل طالب بنظرة واحدة.",
+                            "attribution_name": "أستاذ إبراهيم",
+                            "attribution_title": "معلم قرآن، {{school.name}}"
                         }
                     }
                 },
@@ -544,15 +554,14 @@
                     "featured": false,
                     "content": {
                         "en": {
-                            "quote": "Having a clear memorisation plan made all the difference. I know exactly what to revise, when — and my confidence has grown enormously this semester.",
-                            "author_name": "Ahmad",
-                            "author_title": "Student, Grade 8",
-                            "avatar_url": "https://images.unsplash.com/photo-1552058544-f2b08422138a?w=80&h=80&fit=crop&crop=face"
+                            "text": "Having a clear memorisation plan made all the difference. I know exactly what to revise, when — and my confidence has grown enormously this semester.",
+                            "attribution_name": "Ahmad",
+                            "attribution_title": "Student, Grade 8"
                         },
                         "ar": {
-                            "quote": "وجود خطة حفظ واضحة كان له تأثير كبير. أعرف بالضبط ما يجب مراجعته ومتى — وقد نما ثقتي بنفسي بشكل هائل هذا الفصل.",
-                            "author_name": "أحمد",
-                            "author_title": "طالب، الصف الثامن"
+                            "text": "وجود خطة حفظ واضحة كان له تأثير كبير. أعرف بالضبط ما يجب مراجعته ومتى — وقد نما ثقتي بنفسي بشكل هائل هذا الفصل.",
+                            "attribution_name": "أحمد",
+                            "attribution_title": "طالب، الصف الثامن"
                         }
                     }
                 }
@@ -705,14 +714,12 @@
                     "featured": true,
                     "content": {
                         "en": {
-                            "icon": "shield",
-                            "title": "Safety First",
-                            "body": "Every student deserves a safe, supportive environment. We maintain strict safeguarding policies and ensure every child is cared for on and off the platform."
+                            "label": "Safety First",
+                            "description": "Every student deserves a safe, supportive environment. We maintain strict safeguarding policies and ensure every child is cared for on and off the platform."
                         },
                         "ar": {
-                            "icon": "shield",
-                            "title": "السلامة أولاً",
-                            "body": "يستحق كل طالب بيئة آمنة وداعمة. نحافظ على سياسات صارمة للحماية ونضمن رعاية كل طفل على المنصة وخارجها."
+                            "label": "السلامة أولاً",
+                            "description": "يستحق كل طالب بيئة آمنة وداعمة. نحافظ على سياسات صارمة للحماية ونضمن رعاية كل طفل على المنصة وخارجها."
                         }
                     }
                 },
@@ -724,14 +731,12 @@
                     "featured": false,
                     "content": {
                         "en": {
-                            "icon": "star",
-                            "title": "Academic Excellence",
-                            "body": "We hold ourselves to the highest educational standards — rigorous curriculum delivery, consistent assessment, and data-driven improvements that raise outcomes every year."
+                            "label": "Academic Excellence",
+                            "description": "We hold ourselves to the highest educational standards — rigorous curriculum delivery, consistent assessment, and data-driven improvements that raise outcomes every year."
                         },
                         "ar": {
-                            "icon": "star",
-                            "title": "التميز الأكاديمي",
-                            "body": "نلتزم بأعلى المعايير التعليمية — تقديم مناهج صارمة وتقييم منتظم وتحسينات مبنية على البيانات ترفع النتائج كل عام."
+                            "label": "التميز الأكاديمي",
+                            "description": "نلتزم بأعلى المعايير التعليمية — تقديم مناهج صارمة وتقييم منتظم وتحسينات مبنية على البيانات ترفع النتائج كل عام."
                         }
                     }
                 },
@@ -743,14 +748,12 @@
                     "featured": false,
                     "content": {
                         "en": {
-                            "icon": "users",
-                            "title": "Family Partnership",
-                            "body": "Education works when schools and families work together. We keep parents fully informed at every step — progress reports, direct communication, and a shared vision for every student."
+                            "label": "Family Partnership",
+                            "description": "Education works when schools and families work together. We keep parents fully informed at every step — progress reports, direct communication, and a shared vision for every student."
                         },
                         "ar": {
-                            "icon": "users",
-                            "title": "الشراكة الأسرية",
-                            "body": "يعمل التعليم عندما تتعاون المدارس والعائلات. نبقي أولياء الأمور على اطلاع كامل في كل خطوة — تقارير التقدم والتواصل المباشر ورؤية مشتركة لكل طالب."
+                            "label": "الشراكة الأسرية",
+                            "description": "يعمل التعليم عندما تتعاون المدارس والعائلات. نبقي أولياء الأمور على اطلاع كامل في كل خطوة — تقارير التقدم والتواصل المباشر ورؤية مشتركة لكل طالب."
                         }
                     }
                 }
@@ -789,12 +792,12 @@
                     "featured": false,
                     "content": {
                         "en": {
-                            "name": "Ministry of Education",
-                            "logo_url": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=120&h=60&fit=contain"
+                            "alt": "Ministry of Education",
+                            "url": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=120&h=60&fit=contain"
                         },
                         "ar": {
-                            "name": "وزارة التعليم",
-                            "logo_url": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=120&h=60&fit=contain"
+                            "alt": "وزارة التعليم",
+                            "url": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=120&h=60&fit=contain"
                         }
                     }
                 },
@@ -806,12 +809,12 @@
                     "featured": false,
                     "content": {
                         "en": {
-                            "name": "Accreditation Council",
-                            "logo_url": "https://images.unsplash.com/photo-1568992688065-536aad8a12f6?w=120&h=60&fit=contain"
+                            "alt": "Accreditation Council",
+                            "url": "https://images.unsplash.com/photo-1568992688065-536aad8a12f6?w=120&h=60&fit=contain"
                         },
                         "ar": {
-                            "name": "مجلس الاعتماد",
-                            "logo_url": "https://images.unsplash.com/photo-1568992688065-536aad8a12f6?w=120&h=60&fit=contain"
+                            "alt": "مجلس الاعتماد",
+                            "url": "https://images.unsplash.com/photo-1568992688065-536aad8a12f6?w=120&h=60&fit=contain"
                         }
                     }
                 },
@@ -823,12 +826,12 @@
                     "featured": false,
                     "content": {
                         "en": {
-                            "name": "Education Quality Authority",
-                            "logo_url": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=120&h=60&fit=contain"
+                            "alt": "Education Quality Authority",
+                            "url": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=120&h=60&fit=contain"
                         },
                         "ar": {
-                            "name": "هيئة جودة التعليم",
-                            "logo_url": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=120&h=60&fit=contain"
+                            "alt": "هيئة جودة التعليم",
+                            "url": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=120&h=60&fit=contain"
                         }
                     }
                 }

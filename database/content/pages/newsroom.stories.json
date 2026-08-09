@@ -94,19 +94,16 @@
                     "featured": true,
                     "content": {
                         "en": {
-                            "company": "Student Achievement",
-                            "outcome": "A student at {{school.name}} improved their memorisation retention by 60% within one semester using structured weekly plans.",
-                            "quote": "Having a clear plan made all the difference. I knew exactly what to revise and when.",
-                            "image_url": "https://images.unsplash.com/photo-1544717305-2782549b5136?w=600&h=400&fit=crop",
-                            "logo_url": "",
-                            "url": "/newsroom/stories"
+                            "company_name": "Student Achievement",
+                            "headline": "A student at {{school.name}} improved memorisation retention by 60% in one semester using structured weekly plans.",
+                            "metric_value": "60%",
+                            "metric_descriptor": "Retention Improvement"
                         },
                         "ar": {
-                            "outcome": "حسّن أحد طلاب {{school.name}} معدل الاحتفاظ بالحفظ بنسبة 60٪ خلال فصل دراسي واحد باستخدام خطط أسبوعية منظمة.",
-                            "quote": "وجود خطة واضحة كان له تأثير كبير. كنت أعرف بالضبط ما يجب مراجعته ومتى.",
-                            "image_url": "https://images.unsplash.com/photo-1544717305-2782549b5136?w=600&h=400&fit=crop",
-                            "logo_url": "",
-                            "url": "/newsroom/stories"
+                            "company_name": "إنجاز الطالب",
+                            "headline": "حسّن أحد طلاب {{school.name}} معدل الاحتفاظ بالحفظ بنسبة 60٪ خلال فصل دراسي واحد.",
+                            "metric_value": "60٪",
+                            "metric_descriptor": "تحسن في الاحتفاظ"
                         }
                     }
                 }
@@ -145,10 +142,10 @@
                     "featured": false,
                     "content": {
                         "en": {
-                            "text": "How personalised student tracking transformed classroom engagement."
+                            "text": "How personalised student tracking transformed classroom engagement at {{school.name}}."
                         },
                         "ar": {
-                            "text": "كيف أحدث التتبع المخصص للطلاب تحولاً في التفاعل داخل الفصل."
+                            "text": "كيف أحدث التتبع المخصص للطلاب تحولاً في التفاعل داخل الفصل في {{school.name}}."
                         }
                     }
                 }
@@ -156,7 +153,7 @@
         },
         {
             "id": "66666666-0000-0000-0003-000000000002",
-            "type": "stories_grid",
+            "type": "customer_story_grid",
             "name": "Stories Grid",
             "anchor_id": "all-stories",
             "position": 3,
@@ -164,52 +161,80 @@
             "required_block_types": [],
             "blocks": [
                 {
-                    "id": "77777777-0000-0003-0002-000000000001",
-                    "type": "customer_story_card",
+                    "id": "77777777-0000-0003-0002-000000000000",
+                    "type": "headline",
                     "position": 1,
                     "weight": 9,
-                    "featured": true,
+                    "featured": false,
                     "content": {
                         "en": {
-                            "company": "Teacher Spotlight",
-                            "outcome": "A teacher at {{school.name}} reduced class preparation time by 40% after adopting the platform's structured lesson and tracking tools.",
-                            "quote": "I can now focus on teaching instead of paperwork — every student's progress is right in front of me.",
-                            "image_url": "https://images.unsplash.com/photo-1577896851231-70ef18881754?w=600&h=400&fit=crop",
-                            "url": "/newsroom/stories",
-                            "author_name": "Teacher story",
-                            "author_title": "{{school.name}}"
+                            "text": "More Stories from {{school.name}}"
                         },
                         "ar": {
-                            "outcome": "قلّل أحد معلمي {{school.name}} وقت التحضير للحصص بنسبة 40٪ بعد اعتماد أدوات المنصة المنظمة للدروس والمتابعة.",
-                            "quote": "أستطيع الآن التركيز على التدريس بدلاً من الأوراق — تقدم كل طالب أمامي مباشرة.",
-                            "image_url": "https://images.unsplash.com/photo-1577896851231-70ef18881754?w=600&h=400&fit=crop",
-                            "url": "/newsroom/stories",
-                            "author_title": "{{school.name}}"
+                            "text": "المزيد من القصص من {{school.name}}"
                         }
                     }
                 },
                 {
-                    "id": "77777777-0000-0003-0002-000000000002",
+                    "id": "77777777-0000-0003-0002-000000000001",
                     "type": "customer_story_card",
                     "position": 2,
                     "weight": 9,
                     "featured": true,
                     "content": {
                         "en": {
-                            "company": "Parent Engagement",
-                            "outcome": "Parents at {{school.name}} report feeling more connected to their child's education through real-time progress reports.",
-                            "quote": "I used to wait for the end-of-term report. Now I can see my child's progress week by week.",
-                            "image_url": "https://images.unsplash.com/photo-1531545514256-b1400bc00f31?w=600&h=400&fit=crop",
-                            "url": "/newsroom/stories",
-                            "author_name": "Parent story",
-                            "author_title": "{{school.name}}"
+                            "company_name": "Teacher Spotlight",
+                            "headline": "A teacher at {{school.name}} reduced class preparation time by 40% using structured lesson and tracking tools.",
+                            "metric_value": "40%",
+                            "metric_descriptor": "Preparation Time Saved"
                         },
                         "ar": {
-                            "outcome": "أفاد أولياء الأمور في {{school.name}} بشعورهم بتواصل أكبر مع تعليم أبنائهم من خلال تقارير التقدم الفورية.",
-                            "quote": "اعتدت الانتظار حتى نهاية الفصل. الآن أستطيع متابعة تقدم ابني أسبوعاً بأسبوع.",
-                            "image_url": "https://images.unsplash.com/photo-1531545514256-b1400bc00f31?w=600&h=400&fit=crop",
-                            "url": "/newsroom/stories",
-                            "author_title": "{{school.name}}"
+                            "company_name": "تسليط الضوء على المعلم",
+                            "headline": "قلّل أحد معلمي {{school.name}} وقت التحضير للحصص بنسبة 40٪ بعد اعتماد أدوات المنصة.",
+                            "metric_value": "40٪",
+                            "metric_descriptor": "توفير في وقت التحضير"
+                        }
+                    }
+                },
+                {
+                    "id": "77777777-0000-0003-0002-000000000002",
+                    "type": "customer_story_card",
+                    "position": 3,
+                    "weight": 9,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "company_name": "Parent Engagement",
+                            "headline": "Parents at {{school.name}} report feeling more connected to their child's education through real-time progress reports.",
+                            "metric_value": "3×",
+                            "metric_descriptor": "Increase in Parent Engagement"
+                        },
+                        "ar": {
+                            "company_name": "مشاركة أولياء الأمور",
+                            "headline": "أفاد أولياء الأمور في {{school.name}} بشعورهم بتواصل أكبر مع تعليم أبنائهم من خلال تقارير التقدم الفورية.",
+                            "metric_value": "3×",
+                            "metric_descriptor": "زيادة في مشاركة أولياء الأمور"
+                        }
+                    }
+                },
+                {
+                    "id": "77777777-0000-0003-0002-000000000003",
+                    "type": "customer_story_card",
+                    "position": 4,
+                    "weight": 8,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "company_name": "Administrative Efficiency",
+                            "headline": "The administration team at {{school.name}} reduced manual reporting workload by over 50% in the first term.",
+                            "metric_value": "50%",
+                            "metric_descriptor": "Reporting Workload Reduced"
+                        },
+                        "ar": {
+                            "company_name": "الكفاءة الإدارية",
+                            "headline": "قلّص الفريق الإداري في {{school.name}} عبء إعداد التقارير اليدوية بأكثر من 50٪ في الفصل الأول.",
+                            "metric_value": "50٪",
+                            "metric_descriptor": "تخفيض عبء التقارير"
                         }
                     }
                 }
@@ -242,8 +267,23 @@
                 },
                 {
                     "id": "77777777-0000-0003-0020-000000000002",
-                    "type": "cta",
+                    "type": "subheadline",
                     "position": 2,
+                    "weight": 7,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "We love hearing from students, parents, and teachers. Reach out and let us know."
+                        },
+                        "ar": {
+                            "text": "يسعدنا سماع قصصكم من الطلاب وأولياء الأمور والمعلمين. تواصل معنا."
+                        }
+                    }
+                },
+                {
+                    "id": "77777777-0000-0003-0020-000000000003",
+                    "type": "cta",
+                    "position": 3,
                     "weight": 7,
                     "featured": false,
                     "content": {

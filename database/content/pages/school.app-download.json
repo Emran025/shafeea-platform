@@ -178,12 +178,12 @@
                     "content": {
                         "en": {
                             "step_number": "1",
-                            "title": "Download Release",
+                            "label": "Download Release",
                             "description": "Click the download link to download the latest installer build for your operating system."
                         },
                         "ar": {
                             "step_number": "1",
-                            "title": "تنزيل الإصدار",
+                            "label": "تنزيل الإصدار",
                             "description": "انقر فوق رابط التنزيل لتنزيل أحدث حزمة تثبيت لنظام التشغيل الخاص بك."
                         }
                     }
@@ -197,12 +197,12 @@
                     "content": {
                         "en": {
                             "step_number": "2",
-                            "title": "Run Installer",
+                            "label": "Run Installer",
                             "description": "Open the setup executable and follow the quick automated installation wizard."
                         },
                         "ar": {
                             "step_number": "2",
-                            "title": "تشغيل برنامج التثبيت",
+                            "label": "تشغيل برنامج التثبيت",
                             "description": "افتح ملف التثبيت والتزم بمعالج التثبيت التلقائي السريع."
                         }
                     }
@@ -216,12 +216,12 @@
                     "content": {
                         "en": {
                             "step_number": "3",
-                            "title": "Enter School Code",
+                            "label": "Enter School Code",
                             "description": "Input your school code ({{school.code}}) and login using your authorized staff credentials."
                         },
                         "ar": {
                             "step_number": "3",
-                            "title": "إدخال كود المدرسة",
+                            "label": "إدخال كود المدرسة",
                             "description": "أدخل كود المدرسة ({{school.code}}) وسجّل الدخول باستخدام بيانات الموظف المعتمدة."
                         }
                     }
@@ -276,12 +276,12 @@
                     "featured": true,
                     "content": {
                         "en": {
-                            "question": "What operating systems are supported?",
-                            "answer": "Windows 10/11 (64-bit), macOS 11+, and Android 8.0+."
+                            "label": "What operating systems are supported?",
+                            "description": "Windows 10/11 (64-bit), macOS 11+, and Android 8.0+."
                         },
                         "ar": {
-                            "question": "ما هي أنظمة التشغيل المدعومة؟",
-                            "answer": "ويندوز 10/11 (64-بت)، ماك macOS 11+، وأندرويد 8.0+."
+                            "label": "ما هي أنظمة التشغيل المدعومة؟",
+                            "description": "ويندوز 10/11 (64-بت)، ماك macOS 11+، وأندرويد 8.0+."
                         }
                     }
                 },
@@ -293,12 +293,12 @@
                     "featured": false,
                     "content": {
                         "en": {
-                            "question": "How do updates work?",
-                            "answer": "The app automatically checks GitHub Releases for new versions and prompts for 1-click update."
+                            "label": "How do updates work?",
+                            "description": "The app automatically checks GitHub Releases for new versions and prompts for 1-click update."
                         },
                         "ar": {
-                            "question": "كيف تعمل التحديثات؟",
-                            "answer": "يتفقد التطبيق الإصدارات تلقائياً عبر GitHub ويُتيح التحديث بضغطة زر."
+                            "label": "كيف تعمل التحديثات؟",
+                            "description": "يتفقد التطبيق الإصدارات تلقائياً عبر GitHub ويُتيح التحديث بضغطة زر."
                         }
                     }
                 }

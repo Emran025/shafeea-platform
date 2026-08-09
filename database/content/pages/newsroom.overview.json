@@ -221,7 +221,63 @@
             "group": "below-fold",
             "pinned": false,
             "required_block_types": [],
-            "blocks": []
+            "blocks": [
+                {
+                    "id": "33333333-0000-0000-0000-000000000041",
+                    "type": "headline",
+                    "position": 1,
+                    "weight": 9,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "Stay Connected with {{school.name}}"
+                        },
+                        "ar": {
+                            "text": "ابقَ على تواصل مع {{school.name}}"
+                        }
+                    }
+                },
+                {
+                    "id": "33333333-0000-0000-0000-000000000042",
+                    "type": "subheadline",
+                    "position": 2,
+                    "weight": 7,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "Get official news and academic announcements delivered directly."
+                        },
+                        "ar": {
+                            "text": "احصل على الأخبار الرسمية والإعلانات الأكاديمية مباشرة."
+                        }
+                    }
+                },
+                {
+                    "id": "33333333-0000-0000-0000-000000000043",
+                    "type": "cta",
+                    "position": 3,
+                    "weight": 8,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "label": "Contact Us",
+                            "destination": {
+                                "type": "internal_page",
+                                "value": "contact"
+                            },
+                            "intent": "primary"
+                        },
+                        "ar": {
+                            "label": "تواصل معنا",
+                            "destination": {
+                                "type": "internal_page",
+                                "value": "contact"
+                            },
+                            "intent": "primary"
+                        }
+                    }
+                }
+            ]
         }
     ]
 }

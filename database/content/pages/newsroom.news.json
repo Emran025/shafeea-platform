@@ -217,7 +217,63 @@
             "group": "below-fold",
             "pinned": false,
             "required_block_types": [],
-            "blocks": []
+            "blocks": [
+                {
+                    "id": "77777777-0000-0002-0030-000000000001",
+                    "type": "headline",
+                    "position": 1,
+                    "weight": 9,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "Never Miss an Update from {{school.name}}"
+                        },
+                        "ar": {
+                            "text": "لا تفوت أي تحديث من {{school.name}}"
+                        }
+                    }
+                },
+                {
+                    "id": "77777777-0000-0002-0030-000000000002",
+                    "type": "subheadline",
+                    "position": 2,
+                    "weight": 7,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "Follow our latest announcements and upcoming events."
+                        },
+                        "ar": {
+                            "text": "تابع أحدث إعلاناتنا وفعالياتنا القادمة."
+                        }
+                    }
+                },
+                {
+                    "id": "77777777-0000-0002-0030-000000000003",
+                    "type": "cta",
+                    "position": 3,
+                    "weight": 8,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "label": "Contact Administration",
+                            "destination": {
+                                "type": "internal_page",
+                                "value": "contact"
+                            },
+                            "intent": "primary"
+                        },
+                        "ar": {
+                            "label": "تواصل مع الإدارة",
+                            "destination": {
+                                "type": "internal_page",
+                                "value": "contact"
+                            },
+                            "intent": "primary"
+                        }
+                    }
+                }
+            ]
         }
     ]
 }

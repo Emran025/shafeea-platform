@@ -271,12 +271,12 @@
                         "en": {
                             "year": "2010",
                             "title": "Foundation",
-                            "body": "{{school.name}} was established with a vision to provide authentic, high-quality education in {{school.city}}."
+                            "description": "{{school.name}} was established with a vision to provide authentic, high-quality education in {{school.city}}."
                         },
                         "ar": {
                             "year": "2010",
                             "title": "التأسيس",
-                            "body": "تأسست {{school.name}} برؤية لتقديم تعليم أصيل عالي الجودة في {{school.city}}."
+                            "description": "تأسست {{school.name}} برؤية لتقديم تعليم أصيل عالي الجودة في {{school.city}}."
                         }
                     }
                 },
@@ -290,12 +290,12 @@
                         "en": {
                             "year": "2018",
                             "title": "Campus Expansion",
-                            "body": "Opened state-of-the-art facilities, classrooms, and dedicated learning centers to accommodate growing enrollment."
+                            "description": "Opened state-of-the-art facilities, classrooms, and dedicated learning centers to accommodate growing enrollment."
                         },
                         "ar": {
                             "year": "2018",
                             "title": "توسع الحرم المدرسي",
-                            "body": "افتتاح مرافق حديثة وفصول دراسية ومراكز تعلم مخصصة لاستيعاب عدد الطلاب المتزايد."
+                            "description": "افتتاح مرافق حديثة وفصول دراسية ومراكز تعلم مخصصة لاستيعاب عدد الطلاب المتزايد."
                         }
                     }
                 },
@@ -309,12 +309,12 @@
                         "en": {
                             "year": "2024",
                             "title": "Digital Transformation",
-                            "body": "Adopted the unified Shafeea school platform for end-to-end curriculum tracking, attendance, and parent involvement."
+                            "description": "Adopted the unified Shafeea school platform for end-to-end curriculum tracking, attendance, and parent involvement."
                         },
                         "ar": {
                             "year": "2024",
                             "title": "التحول الرقمي",
-                            "body": "اعتماد منصة الشفيع الموحدة للمدرسة لتتبع المناهج والحضور ومشاركة أولياء الأمور secara كاملة."
+                            "description": "اعتماد منصة الشفيع الموحدة للمدرسة لتتبع المناهج والحضور ومشاركة أولياء الأمور secara كاملة."
                         }
                     }
                 }
@@ -367,15 +367,16 @@
                     "featured": true,
                     "content": {
                         "en": {
-                            "name": "Dr. Ahmad Al-Mansoor",
-                            "role": "School Principal",
-                            "bio": "Over 20 years in educational leadership, specialising in curriculum integration and values-based school culture.",
+                            "full_name": "Dr. Ahmad Al-Mansoor",
+                            "title": "School Principal",
+                            "bio_short": "Over 20 years in educational leadership, specialising in curriculum integration and values-based school culture.",
                             "image_url": "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=300&h=300&fit=crop"
                         },
                         "ar": {
-                            "name": "د. أحمد المنصور",
-                            "role": "مدير المدرسة",
-                            "bio": "أكثر من 20 عاماً في القيادة التربوية، متخصص في دمج المناهج وثقافة المدرسة القائمة على القيم."
+                            "full_name": "د. أحمد المنصور",
+                            "title": "مدير المدرسة",
+                            "bio_short": "أكثر من 20 عاماً في القيادة التربوية، متخصص في دمج المناهج وثقافة المدرسة القائمة على القيم.",
+                            "image_url": "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=300&h=300&fit=crop"
                         }
                     }
                 },
@@ -387,15 +388,16 @@
                     "featured": false,
                     "content": {
                         "en": {
-                            "name": "Ustaza Fatima Al-Zahra",
-                            "role": "Academic Director",
-                            "bio": "Leads curriculum development, teacher training, and academic assessment across all grade levels.",
+                            "full_name": "Ustaza Fatima Al-Zahra",
+                            "title": "Academic Director",
+                            "bio_short": "Leads curriculum development, teacher training, and academic assessment across all grade levels.",
                             "image_url": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=300&h=300&fit=crop"
                         },
                         "ar": {
-                            "name": "أستاذة فاطمة الزهراء",
-                            "role": "المديرة الأكاديمية",
-                            "bio": "تقود تطوير المناهج وتدريب المعلمين والتقييم الأكاديمي لجميع المراحل."
+                            "full_name": "أستاذة فاطمة الزهراء",
+                            "title": "المديرة الأكاديمية",
+                            "bio_short": "تقود تطوير المناهج وتدريب المعلمين والتقييم الأكاديمي لجميع المراحل.",
+                            "image_url": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=300&h=300&fit=crop"
                         }
                     }
                 }
