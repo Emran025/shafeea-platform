@@ -100,9 +100,56 @@
                             "text": "ابقَ على اطلاع بآخر مستجدات {{school.name}} — الأحداث والإنجازات والتحديثات الهامة."
                         }
                     }
+                },
+                {
+                    "id": "77777777-0000-0002-0001-00000000000a",
+                    "type": "news_category",
+                    "position": 4,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                        "label": "Latest"
+                        },
+                        "ar": {
+                        "label": "الأحدث"
+                        }
+                    }
+                },
+                {
+                    "id": "77777777-0000-0002-0001-00000000000b",
+                    "type": "news_category",
+                    "position": 5,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                        "label": "Corporate"
+                        },
+                        "ar": {
+                        "label": "مؤسسي"
+                        }
+                    }
+                },
+                {
+                    "id": "77777777-0000-0002-0001-00000000000c",
+                    "type": "news_category",
+                    "position": 6,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                        "label": "Product"
+                        },
+                        "ar": {
+                        "label": "المنتج"
+                        }
+                    }
                 }
             ]
         },
+
+
         {
             "id": "66666666-0000-0000-0002-000000000010",
             "type": "in_page_nav",
@@ -114,34 +161,43 @@
             "required_block_types": [],
             "blocks": [
                 {
-                    "key": "tabs",
-                    "items": [
-                        {
-                            "id": "77777777-0000-0002-0010-000000000001",
-                            "type": "nav_link",
-                            "position": 1,
-                            "weight": 5,
-                            "featured": false,
-                            "content": {
-                                "en": { "text": "All Updates" },
-                                "ar": { "text": "جميع التحديثات" }
-                            },
-                            "fields": {
-                                "label": {
-                                "en": "All Updates",
-                                "ar": "جميع التحديثات"
-                                },
-                                "anchor_id": "newsroom-news"
-                            },
-                            "media": null,
-                            "actions": [],
-                            "config": {
-                                "is_decorative": false,
-                                "is_featured": false,
-                                "display_weight": 1
-                            }
+                    "id": "77777777-0000-0002-0010-000000000001",
+                    "type": "nav_link",
+                    "position": 1,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                        "label": "All Updates",
+                        "destination": {
+                            "type": "internal_page",
+                            "value": "newsroom/news"
+                        },
+                        "intent": "primary"
+                        },
+                        "ar": {
+                        "label": "جميع التحديثات",
+                        "destination": {
+                            "type": "internal_page",
+                            "value": "newsroom/news"
+                        },
+                        "intent": "primary"
                         }
-                    ]
+                    },
+                    "fields": {
+                        "label": {
+                        "en": "All Updates",
+                        "ar": "جميع التحديثات"
+                        },
+                        "anchor_id": "newsroom-news"
+                    },
+                    "media": null,
+                    "actions": [],
+                    "config": {
+                        "is_decorative": false,
+                        "is_featured": false,
+                        "display_weight": 1
+                    }
                 }
             ]
         },

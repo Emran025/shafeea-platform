@@ -27,8 +27,9 @@ export default function LogoCloudSection({ blocks }: Props) {
                     <div className="logo-cloud__grid">
                         {logos.map(logo => {
                             const media = logo.media;
-                            const url = media?.variants?.[0]?.url || getTextField(logo, 'url');
-                            const alt = media ? (media.is_decorative ? '' : media.alt_text) : getTextField(logo, 'alt');
+                            const url = media?.variants?.[0]?.url || getTextField(logo, 'url') || getTextField(logo, 'image_url');
+                            const alt = media ? (media.is_decorative ? '' : media.alt_text) : (getTextField(logo, 'alt') || getTextField(logo, 'title'));
+                            if (!url) return null;
                             return (
                                 <div key={logo.id} className="logo-cloud__item">
                                     <img 

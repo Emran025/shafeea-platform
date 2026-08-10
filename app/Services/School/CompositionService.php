@@ -319,16 +319,21 @@ class CompositionService
             // Media resolution
             $composedMedia = $this->resolution->resolveMedia($block->media_id, $ctx->locale, $warnings);
 
-            // If block IS the media and media is unresolvable → treat as missing
-            if ($composedMedia === null && $block->type === 'media') {
-                $missing = $this->resolution->resolveMissingBlock($block->id, $pivotIsRequired);
-                $warnings[] = $missing['warning'];
+            // If block IS media and has neither a resolved media object nor inline URL fields → treat as missing
+            if ($block->type === 'media' && $composedMedia === null) {
+                $fields = $localeResult['content']['fields'] ?? [];
+                $hasInlineUrl = ! empty($fields['url']) || ! empty($fields['image_url']) || ! empty($fields['src']);
 
-                if ($missing['strategy'] === 'exclude_section') {
-                    return [[], true, $warnings];
+                if (! $hasInlineUrl) {
+                    $missing = $this->resolution->resolveMissingBlock($block->id, $pivotIsRequired);
+                    $warnings[] = $missing['warning'];
+
+                    if ($missing['strategy'] === 'exclude_section') {
+                        return [[], true, $warnings];
+                    }
+
+                    continue;
                 }
-
-                continue;
             }
 
             // Action / CTA resolution

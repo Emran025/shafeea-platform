@@ -23,10 +23,22 @@ export default function InPageNavSection({ blocks, page }: Props) {
     // Build links from blocks; fall back to page.anchor_ids
     const links: { label: string; anchor: string }[] = navLinks.length > 0
         ? navLinks.map(b => {
-            const f = b.fields as { text?: string; label?: string; anchor?: string; destination?: { value?: string } };
+            const f = b.fields as Record<string, any> | undefined;
+            let labelStr = '';
+            if (typeof f?.label === 'string') {
+                labelStr = f.label;
+            } else if (f?.label && typeof f.label === 'object') {
+                labelStr = f.label.en || f.label.ar || Object.values(f.label)[0] || '';
+            } else if (typeof f?.text === 'string') {
+                labelStr = f.text;
+            } else if (f?.text && typeof f.text === 'object') {
+                labelStr = f.text.en || f.text.ar || Object.values(f.text)[0] || '';
+            }
+
+            const anchorStr = f?.anchor_id ?? f?.anchor ?? f?.destination?.value ?? '';
             return {
-                label:  f?.label ?? f?.text ?? '',
-                anchor: f?.destination?.value ?? f?.anchor ?? '',
+                label:  String(labelStr),
+                anchor: String(anchorStr),
             };
         }).filter(l => l.label && l.anchor)
         : anchorIds.map(id => ({

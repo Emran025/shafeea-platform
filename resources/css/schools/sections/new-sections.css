@@ -23,8 +23,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 140px;
-    height: 60px;
+    width: 300px;
+    height: 100px;
     transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -33,10 +33,10 @@
 }
 
 .logo-cloud__img {
-    max-height: 38px;
+    /* max-height: 38px; */
     max-width: 100%;
     object-fit: contain;
-    filter: grayscale(1) opacity(0.55);
+    /* filter: grayscale(1) opacity(0.55); */
     transition: filter 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
