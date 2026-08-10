@@ -97,13 +97,19 @@
                             "company_name": "Student Achievement",
                             "headline": "A student at {{school.name}} improved memorisation retention by 60% in one semester using structured weekly plans.",
                             "metric_value": "60%",
-                            "metric_descriptor": "Retention Improvement"
+                            "metric_descriptor": "Retention Improvement",
+                            "image_url": "/schools/media/a22587226f6a2c840e045e23364f.jpg",
+                            "logo_url": "",
+                            "url": "/stories"
                         },
                         "ar": {
                             "company_name": "إنجاز الطالب",
                             "headline": "حسّن أحد طلاب {{school.name}} معدل الاحتفاظ بالحفظ بنسبة 60٪ خلال فصل دراسي واحد.",
                             "metric_value": "60٪",
-                            "metric_descriptor": "تحسن في الاحتفاظ"
+                            "metric_descriptor": "تحسن في الاحتفاظ",
+                            "image_url": "/schools/media/a22587226f6a2c840e045e23364f.jpg",
+                            "logo_url": "",
+                            "url": "/stories"
                         }
                     }
                 }
@@ -153,7 +159,7 @@
         },
         {
             "id": "66666666-0000-0000-0003-000000000002",
-            "type": "customer_story_grid",
+            "type": "stories_grid",
             "name": "Stories Grid",
             "anchor_id": "all-stories",
             "position": 3,
@@ -161,80 +167,212 @@
             "required_block_types": [],
             "blocks": [
                 {
-                    "id": "77777777-0000-0003-0002-000000000000",
-                    "type": "headline",
-                    "position": 1,
-                    "weight": 9,
-                    "featured": false,
-                    "content": {
-                        "en": {
-                            "text": "More Stories from {{school.name}}"
-                        },
-                        "ar": {
-                            "text": "المزيد من القصص من {{school.name}}"
-                        }
-                    }
-                },
-                {
                     "id": "77777777-0000-0003-0002-000000000001",
                     "type": "customer_story_card",
-                    "position": 2,
+                    "position": 1,
                     "weight": 9,
                     "featured": true,
                     "content": {
                         "en": {
-                            "company_name": "Teacher Spotlight",
-                            "headline": "A teacher at {{school.name}} reduced class preparation time by 40% using structured lesson and tracking tools.",
-                            "metric_value": "40%",
-                            "metric_descriptor": "Preparation Time Saved"
+                            "company": "Student Academic Transformation",
+                            "company_name": "Student Academic Transformation",
+                            "outcome": "A student at {{school.name}} improved memorization retention and test scores by 60% in one semester using structured weekly plans.",
+                            "headline": "A student at {{school.name}} improved memorization retention and test scores by 60% in one semester.",
+                            "quote": "The personalized academic tracking gave me clarity and confidence every week.",
+                            "image_url": "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800&h=600&fit=crop",
+                            "url": "/stories",
+                            "author_name": "Ahmed Mansour (Grade 10)",
+                            "author_title": "June 10, 2026",
+                            "metric_value": "60%",
+                            "metric_descriptor": "Retention Improvement"
                         },
                         "ar": {
-                            "company_name": "تسليط الضوء على المعلم",
-                            "headline": "قلّل أحد معلمي {{school.name}} وقت التحضير للحصص بنسبة 40٪ بعد اعتماد أدوات المنصة.",
-                            "metric_value": "40٪",
-                            "metric_descriptor": "توفير في وقت التحضير"
+                            "company": "التحول الأكاديمي للطلاب",
+                            "company_name": "التحول الأكاديمي للطلاب",
+                            "outcome": "حسّن أحد طلاب {{school.name}} معدل الاحتفاظ بالحفظ ودرجات الاختبار بنسبة 60٪ خلال فصل دراسي واحد بفضل المتابعة الفردية.",
+                            "headline": "حسّن أحد طلاب {{school.name}} معدل الاحتفاظ بالحفظ ودرجات الاختبار بنسبة 60٪ خلال فصل دراسي واحد.",
+                            "quote": "منحتني المتابعة الأكاديمية المخصصة الوضوح والثقة كل أسبوع.",
+                            "author_name": "أحمد المنصور (الصف العاشر)",
+                            "author_title": "10 يونيو 2026",
+                            "image_url": "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800&h=600&fit=crop",
+                            "url": "/stories",
+                            "metric_value": "60٪",
+                            "metric_descriptor": "تحسن في الاحتفاظ"
                         }
                     }
                 },
                 {
                     "id": "77777777-0000-0003-0002-000000000002",
                     "type": "customer_story_card",
-                    "position": 3,
+                    "position": 2,
                     "weight": 9,
-                    "featured": false,
+                    "featured": true,
                     "content": {
                         "en": {
-                            "company_name": "Parent Engagement",
-                            "headline": "Parents at {{school.name}} report feeling more connected to their child's education through real-time progress reports.",
-                            "metric_value": "3×",
-                            "metric_descriptor": "Increase in Parent Engagement"
+                            "company": "Teacher Classroom Empowerment",
+                            "company_name": "Teacher Classroom Empowerment",
+                            "outcome": "A senior science teacher at {{school.name}} reduced weekly lesson prep time by 45% while doubling student lab participation.",
+                            "headline": "A senior science teacher at {{school.name}} reduced weekly lesson prep time by 45%.",
+                            "quote": "Having integrated tools allowed me to focus directly on engaging my students rather than administrative paperwork.",
+                            "image_url": "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&h=600&fit=crop",
+                            "url": "/stories",
+                            "author_name": "Ustadh Tariq Al-Sabah",
+                            "author_title": "June 2, 2026",
+                            "metric_value": "45%",
+                            "metric_descriptor": "Prep Time Saved"
                         },
                         "ar": {
-                            "company_name": "مشاركة أولياء الأمور",
-                            "headline": "أفاد أولياء الأمور في {{school.name}} بشعورهم بتواصل أكبر مع تعليم أبنائهم من خلال تقارير التقدم الفورية.",
-                            "metric_value": "3×",
-                            "metric_descriptor": "زيادة في مشاركة أولياء الأمور"
+                            "company": "تمكين المعلم في الفصل",
+                            "company_name": "تمكين المعلم في الفصل",
+                            "outcome": "قلّص أحد معلمي العلوم في {{school.name}} وقت التحضير بنسبة 45٪ مع مضاعفة مشاركة الطلاب في التجارب.",
+                            "headline": "قلّص أحد معلمي العلوم في {{school.name}} وقت التحضير بنسبة 45٪ مع مضاعفة مشاركة الطلاب في التجارب.",
+                            "quote": "أتاحت لي الأدوات المتكاملة التركيز المباشر على تفاعل الطلاب بدلاً من المعاملات اليدوية.",
+                            "author_name": "الأستاذ طارق الصباح",
+                            "author_title": "2 يونيو 2026",
+                            "image_url": "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&h=600&fit=crop",
+                            "url": "/stories",
+                            "metric_value": "45٪",
+                            "metric_descriptor": "توفير في وقت التحضير"
                         }
                     }
                 },
                 {
                     "id": "77777777-0000-0003-0002-000000000003",
                     "type": "customer_story_card",
-                    "position": 4,
-                    "weight": 8,
+                    "position": 3,
+                    "weight": 6,
                     "featured": false,
                     "content": {
                         "en": {
-                            "company_name": "Administrative Efficiency",
-                            "headline": "The administration team at {{school.name}} reduced manual reporting workload by over 50% in the first term.",
-                            "metric_value": "50%",
-                            "metric_descriptor": "Reporting Workload Reduced"
+                            "company": "Parent Partnership & Engagement",
+                            "company_name": "Parent Partnership & Engagement",
+                            "outcome": "Parents at {{school.name}} report 3× higher satisfaction and daily insight into student Quran progress and attendance.",
+                            "headline": "Parents report 3× higher satisfaction through daily insight into progress.",
+                            "quote": "We receive real-time updates and feel genuinely connected to our children's spiritual and academic growth.",
+                            "image_url": "https://images.unsplash.com/photo-1577896851231-70ef18881754?w=800&h=600&fit=crop",
+                            "url": "/stories",
+                            "author_name": "Abu Omar (Parent Council)",
+                            "author_title": "May 25, 2026",
+                            "metric_value": "3×",
+                            "metric_descriptor": "Parent Engagement"
                         },
                         "ar": {
-                            "company_name": "الكفاءة الإدارية",
-                            "headline": "قلّص الفريق الإداري في {{school.name}} عبء إعداد التقارير اليدوية بأكثر من 50٪ في الفصل الأول.",
+                            "company": "شراكة ومشاركة أولياء الأمور",
+                            "company_name": "شراكة ومشاركة أولياء الأمور",
+                            "outcome": "أفاد أولياء الأمور بزيادة رضاهم بمقدار 3 أضعاف مع متابعة يومية لفروض القرآن وحضور الطلاب.",
+                            "headline": "أفاد أولياء الأمور بزيادة رضاهم بمقدار 3 أضعاف مع متابعة يومية لفروض القرآن وحضور الطلاب.",
+                            "quote": "نحصل على تحديثات فورية ونشعر بتواصل حقيقي مع النمو الروحي والأكاديمي لأبنائنا.",
+                            "author_name": "أبو عمر (مجلس أولياء الأمور)",
+                            "author_title": "25 مايو 2026",
+                            "image_url": "https://images.unsplash.com/photo-1577896851231-70ef18881754?w=800&h=600&fit=crop",
+                            "url": "/stories",
+                            "metric_value": "3×",
+                            "metric_descriptor": "مشاركة أولياء الأمور"
+                        }
+                    }
+                },
+                {
+                    "id": "77777777-0000-0003-0002-000000000004",
+                    "type": "customer_story_card",
+                    "position": 4,
+                    "weight": 6,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "company": "Quran & Values Excellence",
+                            "company_name": "Quran & Values Excellence",
+                            "outcome": "How 15 students completed full Quran memorization with Tajweed distinction at {{school.name}}.",
+                            "headline": "How 15 students completed full Quran memorization with Tajweed distinction.",
+                            "quote": "The structured daily recitation program made the journey clear and achievable.",
+                            "image_url": "https://images.unsplash.com/photo-1585036156171-384164a8c675?w=800&h=600&fit=crop",
+                            "url": "/stories",
+                            "author_name": "Quran Memorization Department",
+                            "author_title": "May 18, 2026",
+                            "metric_value": "100%",
+                            "metric_descriptor": "Tajweed Mastery"
+                        },
+                        "ar": {
+                            "company": "التميز في القرآن والقيم",
+                            "company_name": "التميز في القرآن والقيم",
+                            "outcome": "كيف أتم 15 طالباً وطالبة حفظ القرآن الكريم كاملاً مع التميز في التجويد في {{school.name}}.",
+                            "headline": "كيف أتم 15 طالباً وطالبة حفظ القرآن الكريم كاملاً مع التميز في التجويد.",
+                            "quote": "جعل برنامج التلاوة اليومي المُنظم رحلة الحفظ واضحة وممكنة.",
+                            "author_name": "قسم حفظ القرآن الكريم",
+                            "author_title": "18 مايو 2026",
+                            "image_url": "https://images.unsplash.com/photo-1585036156171-384164a8c675?w=800&h=600&fit=crop",
+                            "url": "/stories",
+                            "metric_value": "100٪",
+                            "metric_descriptor": "إتقان التجويد"
+                        }
+                    }
+                },
+                {
+                    "id": "77777777-0000-0003-0002-000000000005",
+                    "type": "customer_story_card",
+                    "position": 5,
+                    "weight": 6,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "company": "STEM & Innovation Champions",
+                            "company_name": "STEM & Innovation Champions",
+                            "outcome": "High school robotics team at {{school.name}} designed an automated solar tracking model for sustainable campus energy.",
+                            "headline": "High school robotics team designed an automated solar tracking model for campus energy.",
+                            "quote": "Hands-on project learning taught us engineering teamwork and practical problem solving.",
+                            "image_url": "https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=800&h=600&fit=crop",
+                            "url": "/stories",
+                            "author_name": "Robotics Club Leaders",
+                            "author_title": "May 10, 2026",
+                            "metric_value": "1st Place",
+                            "metric_descriptor": "Regional STEM Award"
+                        },
+                        "ar": {
+                            "company": "رواد العلوم والابتكار",
+                            "company_name": "رواد العلوم والابتكار",
+                            "outcome": "صمم فريق الروبوتات بمدرسة {{school.name}} نموذجاً آلياً لتتبع الشمس لتوليد الطاقة المستدامة.",
+                            "headline": "صمم فريق الروبوتات نموذجاً آلياً لتتبع الشمس لتوليد الطاقة المستدامة.",
+                            "quote": "علمنا التعلم القائم على المشاريع العمل السلس وحل المشكلات الهندسية.",
+                            "author_name": "قادة نادي الروبوتات",
+                            "author_title": "10 مايو 2026",
+                            "image_url": "https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=800&h=600&fit=crop",
+                            "url": "/stories",
+                            "metric_value": "المركز 1",
+                            "metric_descriptor": "جائزة العلوم الإقليمية"
+                        }
+                    }
+                },
+                {
+                    "id": "77777777-0000-0003-0002-000000000006",
+                    "type": "customer_story_card",
+                    "position": 6,
+                    "weight": 6,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "company": "Administrative Streamlining",
+                            "company_name": "Administrative Streamlining",
+                            "outcome": "{{school.name}} school administration reduced paper records and reporting overhead by 50% across all departments.",
+                            "headline": "{{school.name}} school administration reduced paper records and reporting overhead by 50%.",
+                            "quote": "Unified records mean faster response times to parent inquiries and seamless term transitions.",
+                            "image_url": "https://images.unsplash.com/photo-1546410531-bb4caa6b424d?w=800&h=600&fit=crop",
+                            "url": "/stories",
+                            "author_name": "School Administration",
+                            "author_title": "April 30, 2026",
+                            "metric_value": "50%",
+                            "metric_descriptor": "Overhead Reduced"
+                        },
+                        "ar": {
+                            "company": "تطوير الكفاءة الإدارية",
+                            "company_name": "تطوير الكفاءة الإدارية",
+                            "outcome": "قلصت إدارة {{school.name}} المعاملات الورقية وعبء إعداد التقارير بنسبة 50٪ عبر كافة الأقسام.",
+                            "headline": "قلصت إدارة {{school.name}} المعاملات الورقية وعبء إعداد التقارير بنسبة 50٪.",
+                            "quote": "السجلات الموحدة تعني استجابة أسرع لاستفسارات أولياء الأمور وانتقالاً سلس بين الفصول.",
+                            "author_name": "إدارة المدرسة",
+                            "author_title": "30 أبريل 2026",
+                            "image_url": "https://images.unsplash.com/photo-1546410531-bb4caa6b424d?w=800&h=600&fit=crop",
+                            "url": "/stories",
                             "metric_value": "50٪",
-                            "metric_descriptor": "تخفيض عبء التقارير"
+                            "metric_descriptor": "تقليص العبء الإداري"
                         }
                     }
                 }

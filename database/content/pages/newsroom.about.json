@@ -360,23 +360,65 @@
                     }
                 },
                 {
-                    "id": "33333333-0000-0000-0000-000000000132",
+                    "id": "33333333-0000-0000-0000-000000000152",
                     "type": "person_card",
                     "position": 3,
-                    "weight": 8,
-                    "featured": true,
+                    "weight": 7,
+                    "featured": false,
                     "content": {
                         "en": {
-                            "full_name": "Dr. Ahmad Al-Mansoor",
-                            "title": "School Principal",
-                            "bio_short": "Over 20 years in educational leadership, specialising in curriculum integration and values-based school culture.",
-                            "image_url": "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=300&h=300&fit=crop"
+                            "full_name": "Emran Nasser",
+                            "title": "Founder & Chief Executive Officer",
+                            "bio_short": "Architect of the ACCSYSTEM ecosystem. Defined the structural framework, naming architecture, and product hierarchy.",
+                            "image_url": "/schools/media/emran.jpg"
                         },
                         "ar": {
-                            "full_name": "د. أحمد المنصور",
-                            "title": "مدير المدرسة",
-                            "bio_short": "أكثر من 20 عاماً في القيادة التربوية، متخصص في دمج المناهج وثقافة المدرسة القائمة على القيم.",
-                            "image_url": "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=300&h=300&fit=crop"
+                            "full_name": "عمران ناصر",
+                            "title": "الرئيس التنفيذي",
+                            "bio_short": "Architect of the ACCSYSTEM ecosystem. Defined the structural framework, naming architecture, and product hierarchy.",
+                            "image_url": "/schools/media/emran.jpg"
+                        }
+                    }
+                    },
+                    {
+                    "id": "33333333-0000-0000-0000-000000000153",
+                    "type": "person_card",
+                    "position": 4,
+                    "weight": 7,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                        "full_name": "Osama AL-Neshmi",
+                            "title": "Chief Product Officer",
+                            "bio_short": "Leads product architecture across accore, accommerce, and qayd. Responsible for coherence across all platform surfaces.",
+                            "image_url": "/schools/media/osama.png"
+                        },
+                        "ar": {
+                            "full_name": "أسامة النشمي",
+                            "title": "المدير التقني",
+                            "bio_short": "Leads product architecture across accore, accommerce, and qayd. Responsible for coherence across all platform surfaces.",
+                            "image_url": "/schools/media/osama.png"
+                        }
+                    }
+                    },
+                    {
+                    "id": "33333333-0000-0000-0000-000000000155",
+                    "type": "person_card",
+                    "position": 6,
+                    "weight": 7,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "full_name": "Themar Morshed",
+                            "title": "Chief Technology Officer",
+                            "bio_short": "Oversees the API-driven rendering engine and the data infrastructure that connects all three platforms.",
+                            "image_url": "/schools/media/themar.png"
+                        },
+                        "ar": {
+                            "full_name": "ثمار مرشد",
+                            "title": "المدير التقني",
+                            "bio_short": "Oversees the API-driven rendering engine and the data infrastructure that connects all three platforms.",
+                            "image_url": "/schools/media/themar.png"
                         }
                     }
                 },
@@ -391,13 +433,13 @@
                             "full_name": "Ustaza Fatima Al-Zahra",
                             "title": "Academic Director",
                             "bio_short": "Leads curriculum development, teacher training, and academic assessment across all grade levels.",
-                            "image_url": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=300&h=300&fit=crop"
+                            "image_url": "https://media.licdn.com/dms/image/v2/C4D03AQFj0FjnhC0ohQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1531096499529?e=1787788800&v=beta&t=V17j5Vs5q6kAz3hrQivNz8ai9MFdA_XEnKcY1l6X4L0"
                         },
                         "ar": {
                             "full_name": "أستاذة فاطمة الزهراء",
                             "title": "المديرة الأكاديمية",
                             "bio_short": "تقود تطوير المناهج وتدريب المعلمين والتقييم الأكاديمي لجميع المراحل.",
-                            "image_url": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=300&h=300&fit=crop"
+                            "image_url": "https://media.licdn.com/dms/image/v2/C4D03AQFj0FjnhC0ohQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1531096499529?e=1787788800&v=beta&t=V17j5Vs5q6kAz3hrQivNz8ai9MFdA_XEnKcY1l6X4L0"
                         }
                     }
                 }

@@ -109,10 +109,10 @@
                     "featured": false,
                     "content": {
                         "en": {
-                        "label": "Latest"
+                            "label": "Latest"
                         },
                         "ar": {
-                        "label": "الأحدث"
+                            "label": "الأحدث"
                         }
                     }
                 },
@@ -124,10 +124,10 @@
                     "featured": false,
                     "content": {
                         "en": {
-                        "label": "Corporate"
+                            "label": "Academics"
                         },
                         "ar": {
-                        "label": "مؤسسي"
+                            "label": "أكاديمي"
                         }
                     }
                 },
@@ -139,17 +139,30 @@
                     "featured": false,
                     "content": {
                         "en": {
-                        "label": "Product"
+                            "label": "Events"
                         },
                         "ar": {
-                        "label": "المنتج"
+                            "label": "الفعاليات"
+                        }
+                    }
+                },
+                {
+                    "id": "77777777-0000-0002-0001-00000000000d",
+                    "type": "news_category",
+                    "position": 7,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "label": "Quran & Values"
+                        },
+                        "ar": {
+                            "label": "القرآن والقيم"
                         }
                     }
                 }
             ]
         },
-
-
         {
             "id": "66666666-0000-0000-0002-000000000010",
             "type": "in_page_nav",
@@ -204,24 +217,259 @@
         {
             "id": "66666666-0000-0000-0002-000000000002",
             "type": "news_article_grid",
-            "name": "News Grid",
-            "anchor_id": "all-news",
-            "position": 3,
+            "name": "News Article List",
+            "anchor_id": "news-list",
+            "position": 2,
             "group": "below-fold",
             "required_block_types": [],
             "blocks": [
                 {
                     "id": "77777777-0000-0002-0002-000000000001",
-                    "type": "label",
+                    "type": "news_article_card",
                     "position": 1,
+                    "weight": 5,
+                    "featured": true,
+                    "content": {
+                        "en": {
+                            "title": "{{school.name}} Students Excel in National Mathematics Olympiad",
+                            "date": "August 5, 2026",
+                            "category": "Academics",
+                            "url": "/news",
+                            "image_url": "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800&h=600&fit=crop",
+                            "excerpt": "Three students from {{school.name}} achieved top honours at the national competition, showcasing excellence in analytical problem solving."
+                        },
+                        "ar": {
+                            "title": "طلاب {{school.name}} يتألقون في أولمبياد الرياضيات الوطني",
+                            "excerpt": "حقق ثلاثة من طلاب {{school.name}} المراكز الأولى في المسابقة الوطنية، مستعرضين التميز في حل المشكلات التحليلية.",
+                            "category": "أكاديمي",
+                            "image_url": "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800&h=600&fit=crop",
+                            "url": "/news",
+                            "date": "5 أغسطس 2026"
+                        }
+                    }
+                },
+                {
+                    "id": "77777777-0000-0002-0002-000000000002",
+                    "type": "news_article_card",
+                    "position": 2,
+                    "weight": 5,
+                    "featured": true,
+                    "content": {
+                        "en": {
+                            "title": "Annual Quran Memorization Ceremony Honors 45 Students",
+                            "date": "July 28, 2026",
+                            "category": "Quran & Values",
+                            "url": "/news",
+                            "image_url": "https://images.unsplash.com/photo-1585036156171-384164a8c675?w=800&h=600&fit=crop",
+                            "excerpt": "{{school.name}} celebrated the graduation of its latest cohort of Quran memorizers in a formal ceremony attended by parents and community leaders."
+                        },
+                        "ar": {
+                            "title": "حفل تكريم حفظة القرآن الكريم السنوي يحتفي بـ 45 طالباً وطالبة",
+                            "excerpt": "احتفلت {{school.name}} بتخريج الدفعة الجديدة من حفظة القرآن الكريم في حفل رسمي بحضور أولياء الأمور وقيادات المجتمع.",
+                            "category": "القرآن والقيم",
+                            "image_url": "https://images.unsplash.com/photo-1585036156171-384164a8c675?w=800&h=600&fit=crop",
+                            "url": "/news",
+                            "date": "28 يوليو 2026"
+                        }
+                    }
+                },
+                {
+                    "id": "77777777-0000-0002-0002-000000000003",
+                    "type": "news_article_card",
+                    "position": 3,
                     "weight": 5,
                     "featured": false,
                     "content": {
                         "en": {
-                            "text": "Latest Updates"
+                            "title": "New Interactive STEM & Robotics Lab Opens for Upcoming Term",
+                            "date": "July 15, 2026",
+                            "category": "Events",
+                            "url": "/news",
+                            "image_url": "https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=800&h=600&fit=crop",
+                            "excerpt": "The state-of-the-art laboratory expands hands-on technology learning, giving students opportunities to build, code, and innovate."
                         },
                         "ar": {
-                            "text": "آخر التحديثات"
+                            "title": "افتتاح مختبر الروبوتات والعلوم التفاعلي للعام الدراسي الجديد",
+                            "excerpt": "يوسع المختبر الحديث التعلم التكنولوجي العملي، ممتعاً الطلاب بفرص البناء والبرمجة والابتكار.",
+                            "category": "الفعاليات",
+                            "image_url": "https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=800&h=600&fit=crop",
+                            "url": "/news",
+                            "date": "15 يوليو 2026"
+                        }
+                    }
+                },
+                {
+                    "id": "77777777-0000-0002-0002-000000000004",
+                    "type": "news_article_card",
+                    "position": 4,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "title": "{{school.name}} Hosts Regional Teachers Excellence Summit",
+                            "date": "July 2, 2026",
+                            "category": "Academics",
+                            "url": "/news",
+                            "image_url": "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&h=600&fit=crop",
+                            "excerpt": "Over 120 educators gathered at {{school.name}} to share modern pedagogical practices, values-based culture, and student-centered learning."
+                        },
+                        "ar": {
+                            "title": "{{school.name}} تستضيف القمة الإقليمية لتدريب وتميز المعلمين",
+                            "excerpt": "اجتمع أكثر من 120 معلماً في {{school.name}} لتبادل الممارسات التربوية الحديثة والثقافة القائمة على القيم والتعلم الممركز حول الطالب.",
+                            "category": "أكاديمي",
+                            "image_url": "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&h=600&fit=crop",
+                            "url": "/news",
+                            "date": "2 يوليو 2026"
+                        }
+                    }
+                },
+                {
+                    "id": "77777777-0000-0002-0002-000000000005",
+                    "type": "news_article_card",
+                    "position": 5,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "title": "Parent-Teacher Conference Focuses on Student Progress & Digital Portfolios",
+                            "date": "June 20, 2026",
+                            "category": "Events",
+                            "url": "/news",
+                            "image_url": "https://images.unsplash.com/photo-1577896851231-70ef18881754?w=800&h=600&fit=crop",
+                            "excerpt": "Parents engaged in personalized discussions regarding student academic progress, attendance trends, and behavioral milestones."
+                        },
+                        "ar": {
+                            "title": "مؤتمر أولياء الأمور والمعلمين يرصد نمو الطلاب وحقائبهم الرقمية",
+                            "excerpt": "تواصل أولياء الأمور في مناقشات مخصصة تناولت التقدم الأكاديمي للطلاب، ومعدلات الحضور، والمحطات السلوكية.",
+                            "category": "الفعاليات",
+                            "image_url": "https://images.unsplash.com/photo-1577896851231-70ef18881754?w=800&h=600&fit=crop",
+                            "url": "/news",
+                            "date": "20 يونيو 2026"
+                        }
+                    }
+                },
+                {
+                    "id": "77777777-0000-0002-0002-000000000006",
+                    "type": "news_article_card",
+                    "position": 6,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "title": "{{school.name}} Wins Gold in Inter-School Science & Sustainability Fair",
+                            "date": "June 10, 2026",
+                            "category": "Academics",
+                            "url": "/news",
+                            "image_url": "https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=800&h=600&fit=crop",
+                            "excerpt": "Students presented innovative environmental solutions using renewable energy models and water purification prototypes."
+                        },
+                        "ar": {
+                            "title": "فوز {{school.name}} بالذهبية في معرض العلوم والاستدامة بين المدارس",
+                            "excerpt": "قدم الطلاب حلولاً بيئية مبتكرة باستخدام نماذج الطاقة المتجددة وتكنولوجيا تنقية المياه.",
+                            "category": "أكاديمي",
+                            "image_url": "https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=800&h=600&fit=crop",
+                            "url": "/news",
+                            "date": "10 يونيو 2026"
+                        }
+                    }
+                },
+                {
+                    "id": "77777777-0000-0002-0002-000000000007",
+                    "type": "news_article_card",
+                    "position": 7,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "title": "Online Registration Open for New Student Admissions 2026-2027",
+                            "date": "June 1, 2026",
+                            "category": "Events",
+                            "url": "/news",
+                            "image_url": "https://images.unsplash.com/photo-1546410531-bb4caa6b424d?w=800&h=600&fit=crop",
+                            "excerpt": "Parents are invited to complete online enrollment applications for new students across primary, middle, and secondary divisions."
+                        },
+                        "ar": {
+                            "title": "فتح باب التسجيل الإلكتروني للطلاب الجدد للعام الدراسي 2026-2027",
+                            "excerpt": "ندعو أولياء الأمور لإكمال طلبات التسجيل الإلكترونية للطلاب الجدد في المراحل الأساسية والمتوسطة والثانوية.",
+                            "category": "الفعاليات",
+                            "image_url": "https://images.unsplash.com/photo-1546410531-bb4caa6b424d?w=800&h=600&fit=crop",
+                            "url": "/news",
+                            "date": "1 يونيو 2026"
+                        }
+                    }
+                },
+                {
+                    "id": "77777777-0000-0002-0002-000000000008",
+                    "type": "news_article_card",
+                    "position": 8,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "title": "Annual Sports Festival Brings Energy and School Spirit to Campus",
+                            "date": "May 22, 2026",
+                            "category": "Events",
+                            "url": "/news",
+                            "image_url": "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=800&h=600&fit=crop",
+                            "excerpt": "Students competed in track events, football tournaments, and team relays, fostering sportsmanship and physical wellness."
+                        },
+                        "ar": {
+                            "title": "اليوم الرياضي السنوي يبث الحيوية والروح المدرسية في الحرم المدرسي",
+                            "excerpt": "تنافس الطلاب في سباقات المضمار وبطولات كرة القدم والريليه، معززين الروح الرياضية واللياقة البدنية.",
+                            "category": "الفعاليات",
+                            "image_url": "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=800&h=600&fit=crop",
+                            "url": "/news",
+                            "date": "22 مايو 2026"
+                        }
+                    }
+                },
+                {
+                    "id": "77777777-0000-0002-0002-000000000009",
+                    "type": "news_article_card",
+                    "position": 9,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "title": "Art & Arabic Calligraphy Exhibition Showcases Student Creativity",
+                            "date": "May 14, 2026",
+                            "category": "Quran & Values",
+                            "url": "/news",
+                            "image_url": "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=800&h=600&fit=crop",
+                            "excerpt": "The annual exhibition displayed over 150 student artworks, featuring classic Arabic calligraphy, oil paintings, and digital art."
+                        },
+                        "ar": {
+                            "title": "معرض الفنون والخط العربي يستعرض إبداعات الطلاب المتميزة",
+                            "excerpt": "عرض المعرض السنوي أكثر من 150 لوحة فنية للطلاب، شملت الخط العربي الأصيل والرسم بالزيت والرسومات الرقمية.",
+                            "category": "القرآن والقيم",
+                            "image_url": "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=800&h=600&fit=crop",
+                            "url": "/news",
+                            "date": "14 مايو 2026"
+                        }
+                    }
+                },
+                {
+                    "id": "77777777-0000-0002-0002-00000000000a",
+                    "type": "news_article_card",
+                    "position": 10,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "title": "Student Council Organizes Community Service & Book Donation Drive",
+                            "date": "May 5, 2026",
+                            "category": "Events",
+                            "url": "/news",
+                            "image_url": "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=800&h=600&fit=crop",
+                            "excerpt": "Instilling empathy and active citizenship, {{school.name}} student council organized a successful donation initiative for local libraries."
+                        },
+                        "ar": {
+                            "title": "حملة خدمة المجتمع: مجلس طلاب {{school.name}} يطلق مبادرة للتبرع بالكتب والمستلزمات",
+                            "excerpt": "ترسيخاً لقيم التعاطف والمواطنة الفاعلة، نظم مجلس طلاب {{school.name}} حملة تبرعات ناجحة لدعم المكتبات والأسر المحلية.",
+                            "category": "الفعاليات",
+                            "image_url": "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=800&h=600&fit=crop",
+                            "url": "/news",
+                            "date": "5 مايو 2026"
                         }
                     }
                 }
