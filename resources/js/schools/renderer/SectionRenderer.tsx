@@ -134,7 +134,7 @@ const SECTION_MAP: Record<string, SectionComponent> = {
  * and layout entirely. The outer wrapper must be a bare transparent element
  * so the component renders edge-to-edge without a coloured strip around it.
  */
-const SELF_CONTAINED = new Set(['hero', 'media_banner']);
+const SELF_CONTAINED = new Set(['hero', 'media_banner', 'in_page_nav', 'breadcrumb', 'navigation_anchor']);
 
 /*
  * FIXED_BG sections always get a specific background regardless of the

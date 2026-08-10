@@ -378,9 +378,24 @@
                             "bio_short": "Architect of the ACCSYSTEM ecosystem. Defined the structural framework, naming architecture, and product hierarchy.",
                             "image_url": "/schools/media/emran.jpg"
                         }
-                    }
                     },
-                    {
+                    "fields": {
+                        "full_name": {
+                            "en": "Emran Nasser",
+                            "ar": "عمران ناصر"
+                        },
+                        "title": {
+                            "en": "Founder & Chief Executive Officer",
+                            "ar": "الرئيس التنفيذي"
+                        },
+                        "bio_short": {
+                            "en": "Architect of the ACCSYSTEM ecosystem. Defined the structural framework, naming architecture, and product hierarchy.",
+                            "ar": "Architect of the ACCSYSTEM ecosystem. Defined the structural framework, naming architecture, and product hierarchy."
+                        },
+                        "image_url": "/schools/media/emran.jpg"
+                    }
+                },
+                {
                     "id": "33333333-0000-0000-0000-000000000153",
                     "type": "person_card",
                     "position": 4,
@@ -388,7 +403,7 @@
                     "featured": false,
                     "content": {
                         "en": {
-                        "full_name": "Osama AL-Neshmi",
+                            "full_name": "Osama AL-Neshmi",
                             "title": "Chief Product Officer",
                             "bio_short": "Leads product architecture across accore, accommerce, and qayd. Responsible for coherence across all platform surfaces.",
                             "image_url": "/schools/media/osama.png"
@@ -399,12 +414,27 @@
                             "bio_short": "Leads product architecture across accore, accommerce, and qayd. Responsible for coherence across all platform surfaces.",
                             "image_url": "/schools/media/osama.png"
                         }
-                    }
                     },
-                    {
+                    "fields": {
+                        "full_name": {
+                            "en": "Osama AL-Neshmi",
+                            "ar": "أسامة النشمي"
+                        },
+                        "title": {
+                            "en": "Chief Product Officer",
+                            "ar": "المدير التقني"
+                        },
+                        "bio_short": {
+                            "en": "Leads product architecture across accore, accommerce, and qayd. Responsible for coherence across all platform surfaces.",
+                            "ar": "Leads product architecture across accore, accommerce, and qayd. Responsible for coherence across all platform surfaces."
+                        },
+                        "image_url": "/schools/media/osama.png"
+                    }
+                },
+                {
                     "id": "33333333-0000-0000-0000-000000000155",
                     "type": "person_card",
-                    "position": 6,
+                    "position": 5,
                     "weight": 7,
                     "featured": false,
                     "content": {
@@ -420,12 +450,27 @@
                             "bio_short": "Oversees the API-driven rendering engine and the data infrastructure that connects all three platforms.",
                             "image_url": "/schools/media/themar.png"
                         }
+                    },
+                    "fields": {
+                        "full_name": {
+                            "en": "Themar Morshed",
+                            "ar": "ثمار مرشد"
+                        },
+                        "title": {
+                            "en": "Chief Technology Officer",
+                            "ar": "المدير التقني"
+                        },
+                        "bio_short": {
+                            "en": "Oversees the API-driven rendering engine and the data infrastructure that connects all three platforms.",
+                            "ar": "Oversees the API-driven rendering engine and the data infrastructure that connects all three platforms."
+                        },
+                        "image_url": "/schools/media/themar.png"
                     }
                 },
                 {
                     "id": "33333333-0000-0000-0000-000000000133",
                     "type": "person_card",
-                    "position": 4,
+                    "position": 6,
                     "weight": 8,
                     "featured": false,
                     "content": {
@@ -441,6 +486,21 @@
                             "bio_short": "تقود تطوير المناهج وتدريب المعلمين والتقييم الأكاديمي لجميع المراحل.",
                             "image_url": "https://media.licdn.com/dms/image/v2/C4D03AQFj0FjnhC0ohQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1531096499529?e=1787788800&v=beta&t=V17j5Vs5q6kAz3hrQivNz8ai9MFdA_XEnKcY1l6X4L0"
                         }
+                    },
+                    "fields": {
+                        "full_name": {
+                            "en": "Ustaza Fatima Al-Zahra",
+                            "ar": "أستاذة فاطمة الزهراء"
+                        },
+                        "title": {
+                            "en": "Academic Director",
+                            "ar": "المديرة الأكاديمية"
+                        },
+                        "bio_short": {
+                            "en": "Leads curriculum development, teacher training, and academic assessment across all grade levels.",
+                            "ar": "تقود تطوير المناهج وتدريب المعلمين والتقييم الأكاديمي لجميع المراحل."
+                        },
+                        "image_url": "https://media.licdn.com/dms/image/v2/C4D03AQFj0FjnhC0ohQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1531096499529?e=1787788800&v=beta&t=V17j5Vs5q6kAz3hrQivNz8ai9MFdA_XEnKcY1l6X4L0"
                     }
                 }
             ]

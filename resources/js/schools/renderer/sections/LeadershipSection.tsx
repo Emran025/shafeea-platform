@@ -15,6 +15,15 @@ const cardVariant = {
     visible: (i: number) => ({ opacity: 1, y: 0, transition: { delay: i * 0.07, duration: 0.45 } }),
 };
 
+function extractStr(val: unknown): string {
+    if (typeof val === 'string') return val;
+    if (val && typeof val === 'object') {
+        const obj = val as Record<string, unknown>;
+        return (obj.en as string) || (obj.ar as string) || (Object.values(obj)[0] as string) || '';
+    }
+    return '';
+}
+
 export default function LeadershipSection({ blocks }: Props) {
     const label    = blocks.find(b => b.type === 'label');
     const headline = blocks.find(b => b.type === 'headline');
@@ -34,12 +43,12 @@ export default function LeadershipSection({ blocks }: Props) {
                 >
                     {people.map((block, i) => {
                         const fields = (block.fields ?? {}) as Record<string, unknown>;
-                        const name      = (fields.full_name as string)    ?? '';
-                        const title     = (fields.title as string)        ?? '';
-                        const dept      = (fields.department as string)   ?? '';
-                        const bio       = (fields.bio_short as string)    ?? '';
-                        const linkedin  = (fields.linkedin_url as string) ?? '';
-                        const imgUrl    = (fields.image_url as string)    ?? getDemoLeadershipPhoto(i).url;
+                        const name      = extractStr(fields.full_name || fields.name);
+                        const title     = extractStr(fields.title);
+                        const dept      = extractStr(fields.department);
+                        const bio       = extractStr(fields.bio_short || fields.bio);
+                        const linkedin  = extractStr(fields.linkedin_url);
+                        const imgUrl    = extractStr(fields.image_url) || getDemoLeadershipPhoto(i).url;
 
                         return (
                             <motion.div
