@@ -556,15 +556,17 @@ class CompositionService
                     }
 
                     if ($entry->destination_type === 'internal_page') {
-                        $page = Page::where('slug', $entry->destination_value)->first();
-                        if ($page === null || ! in_array($page->status, ['published'], true)) {
-                            $warnings[] = $this->resolution->buildWarning(
-                                code: 'BROKEN_NAV_ENTRY_DESTINATION',
-                                objectType: 'navigation_entry',
-                                objectId: $entry->id,
-                                message: "Navigation entry destination slug '{$entry->destination_value}' does not resolve to a published page.",
-                                severity: 'warning',
-                            );
+                        if (! in_array($entry->destination_value, ['teachers/apply', 'schools/apply', 'app'], true)) {
+                            $page = Page::where('slug', $entry->destination_value)->first();
+                            if ($page === null || ! in_array($page->status, ['published'], true)) {
+                                $warnings[] = $this->resolution->buildWarning(
+                                    code: 'BROKEN_NAV_ENTRY_DESTINATION',
+                                    objectType: 'navigation_entry',
+                                    objectId: $entry->id,
+                                    message: "Navigation entry destination slug '{$entry->destination_value}' does not resolve to a published page.",
+                                    severity: 'warning',
+                                );
+                            }
                         }
                     }
 

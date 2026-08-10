@@ -28,23 +28,32 @@ export default function MediaBannerSection({ section, blocks }: Props) {
     const ctas        = blocks.filter(b => b.type === 'cta');
     const mediaBlock  = blocks.find(b => b.type === 'media');
 
-    const bg       = mediaBlock ? getMediaSrc(mediaBlock) : null;
+    const mediaSrcFromBlock = mediaBlock ? getMediaSrc(mediaBlock) : null;
+    const mediaFields = (mediaBlock?.fields ?? {}) as Record<string, unknown>;
+    const inlineUrl   = (mediaFields.url || mediaFields.image_url || mediaFields.src) as string | undefined;
+
+    const bgSrc = section.background_image_url
+        || mediaSrcFromBlock?.src
+        || inlineUrl
+        || 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1600&h=900&fit=crop';
+
+    const isVideo = mediaSrcFromBlock?.isVideo ?? false;
     const centered = section.group === 'center';
 
     return (
         <div className="media-banner">
-            {bg && (
-                bg.isVideo ? (
+            {bgSrc && (
+                isVideo ? (
                     <video
                         className="media-banner__bg-video"
-                        src={bg.src}
+                        src={bgSrc}
                         autoPlay muted loop playsInline
                         aria-hidden="true"
                     />
                 ) : (
                     <img
                         className="media-banner__bg"
-                        src={bg.src}
+                        src={bgSrc}
                         alt=""
                         aria-hidden="true"
                     />

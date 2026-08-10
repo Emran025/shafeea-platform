@@ -559,6 +559,13 @@
                             "alt": "التعلم في الفصل",
                             "image_url": "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=600&h=400&fit=crop"
                         }
+                    },
+                    "fields": {
+                        "alt": {
+                            "en": "Classroom learning",
+                            "ar": "التعلم في الفصل"
+                        },
+                        "image_url": "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=600&h=400&fit=crop"
                     }
                 },
                 {
@@ -576,6 +583,13 @@
                             "alt": "مكتبة المدرسة",
                             "image_url": "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=600&h=400&fit=crop"
                         }
+                    },
+                    "fields": {
+                        "alt": {
+                            "en": "School Library",
+                            "ar": "مكتبة المدرسة"
+                        },
+                        "image_url": "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=600&h=400&fit=crop"
                     }
                 },
                 {
@@ -593,6 +607,13 @@
                             "alt": "الرياضة والأنشطة",
                             "image_url": "https://images.unsplash.com/photo-1571260899304-425eee4c7efc?w=600&h=400&fit=crop"
                         }
+                    },
+                    "fields": {
+                        "alt": {
+                            "en": "Sports and Activities",
+                            "ar": "الرياضة والأنشطة"
+                        },
+                        "image_url": "https://images.unsplash.com/photo-1571260899304-425eee4c7efc?w=600&h=400&fit=crop"
                     }
                 }
             ]

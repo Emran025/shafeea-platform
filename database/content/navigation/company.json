@@ -2,7 +2,8 @@
   "id": "0a000000-0000-0000-0002-000000000000",
   "group_id": "company",
   "label": {
-    "en": "Company"
+    "en": "Company",
+    "ar": "المؤسسة"
   },
   "type": "dropdown",
   "position": 3,
@@ -12,24 +13,27 @@
       "id": "0a000000-0000-0000-0002-000000000100",
       "column_id": "newsroom",
       "label": {
-        "en": "News Room"
+        "en": "News Room",
+        "ar": "غرفة الأخبار"
       },
       "entries": [
-        {"label": { "en": "Overview" }, "slug": "newsroom/overview"},
-        {"label": { "en": "News" }, "slug": "newsroom/news"},
-        {"label": { "en": "Stories" }, "slug": "newsroom/stories"},
-        {"label": { "en": "About Us" }, "slug": "newsroom/about"}
+        {"label": { "en": "Overview", "ar": "نظرة عامة" }, "slug": "newsroom/overview"},
+        {"label": { "en": "News", "ar": "الأخبار" }, "slug": "newsroom/news"},
+        {"label": { "en": "Stories", "ar": "القصص" }, "slug": "newsroom/stories"},
+        {"label": { "en": "About Us", "ar": "عن المدرسة" }, "slug": "newsroom/about"}
       ]
     },
     {
       "id": "0a000000-0000-0000-0002-000000000200",
       "column_id": "home",
       "label": {
-        "en": "Home"
+        "en": "Home",
+        "ar": "الرئيسية"
       },
       "entries": [
-        {"label": { "en": "Home Page" }, "slug": "home"},
-        {"label": { "en": "Contact Us" }, "slug": "contact"}
+        {"label": { "en": "Home Page", "ar": "الصفحة الرئيسية" }, "slug": "home"},
+        {"label": { "en": "Contact Us", "ar": "تواصل معنا" }, "slug": "contact"},
+        {"label": { "en": "Apply as Teacher", "ar": "الانضمام كمعلم" }, "slug": "teachers/apply"}
       ]
     }
   ]

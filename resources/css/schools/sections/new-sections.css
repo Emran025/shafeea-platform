@@ -867,3 +867,118 @@
     z-index: -1;
 }
 
+/* =========================================================================
+   Blog Post Grid & Cards
+   ========================================================================= */
+.blog-grid {
+    display: grid;
+    gap: 2rem;
+    margin-top: 2.5rem;
+}
+
+.blog-grid--cols-1 { grid-template-columns: 1fr; }
+.blog-grid--cols-2 { grid-template-columns: repeat(2, 1fr); }
+.blog-grid--cols-3 { grid-template-columns: repeat(3, 1fr); }
+
+@media (max-width: 1024px) {
+    .blog-grid--cols-3 { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 640px) {
+    .blog-grid--cols-2,
+    .blog-grid--cols-3 { grid-template-columns: 1fr; }
+}
+
+.blog-post-card {
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 4px 15px -3px rgba(0, 0, 0, 0.05);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    height: 100%;
+}
+
+.blog-post-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 25px -5px rgba(0, 0, 0, 0.1);
+    border-color: #cbd5e1;
+}
+
+.blog-post-card__image-wrap {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    background: #f8fafc;
+    position: relative;
+}
+
+.blog-post-card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.35s ease;
+}
+
+.blog-post-card:hover .blog-post-card__image {
+    transform: scale(1.05);
+}
+
+.blog-post-card__body {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.blog-post-card__category {
+    display: inline-block;
+    align-self: flex-start;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #b48512;
+    background: rgba(201, 162, 39, 0.12);
+    border-radius: 9999px;
+    margin-bottom: 0.75rem;
+}
+
+.blog-post-card__title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.4;
+    color: #0f172a;
+    margin-bottom: 0.75rem;
+}
+
+.blog-post-card__summary {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: #475569;
+    margin-bottom: 1.25rem;
+    flex-grow: 1;
+}
+
+.blog-post-card__meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 1rem;
+    border-top: 1px solid #f1f5f9;
+    font-size: 0.8125rem;
+    color: #64748b;
+}
+
+.blog-post-card__author {
+    font-weight: 600;
+    color: #334155;
+}
+
+.blog-post-card__date {
+    color: #94a3b8;
+}
+

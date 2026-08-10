@@ -482,6 +482,7 @@
             "anchor_id": "event-banner",
             "position": 4,
             "group": "below-fold",
+            "background_image_url": "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1600&h=900&fit=crop",
             "pinned": false,
             "required_block_types": [],
             "blocks": [
@@ -513,6 +514,30 @@
                         "ar": {
                             "text": "انضم إلينا للاحتفال بطلابنا المتميزين الشهر القادم."
                         }
+                    }
+                },
+                {
+                    "id": "77777777-0000-0002-0020-000000000003",
+                    "type": "media",
+                    "position": 3,
+                    "weight": 8,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "alt": "Annual Quran Ceremony",
+                            "image_url": "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1600&h=900&fit=crop"
+                        },
+                        "ar": {
+                            "alt": "حفل القرآن السنوي",
+                            "image_url": "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1600&h=900&fit=crop"
+                        }
+                    },
+                    "fields": {
+                        "alt": {
+                            "en": "Annual Quran Ceremony",
+                            "ar": "حفل القرآن السنوي"
+                        },
+                        "image_url": "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1600&h=900&fit=crop"
                     }
                 }
             ]

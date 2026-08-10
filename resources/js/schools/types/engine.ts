@@ -127,6 +127,7 @@ export interface BlockPayload {
   locale:            string;
   is_fallback_locale: boolean;
   fields:            BlockFields;
+  content?:          Record<string, unknown>;
   media:             MediaPayload | null;
   actions:           ActionPayload[];
   config:            BlockConfig;

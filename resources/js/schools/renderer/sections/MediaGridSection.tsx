@@ -5,21 +5,49 @@ import type { SectionPayload, BlockPayload, PageCore } from '../../types/engine'
 
 interface Props { section: SectionPayload; blocks: BlockPayload[]; page: PageCore; }
 
-function getMediaSrc(block: BlockPayload): { src: string; isVideo: boolean } | null {
-    if (!block.media) return null;
-    const variant = block.media.variants?.find(
-        v => (v as unknown as Record<string, unknown>)['label'] === 'original'
-    ) ?? block.media.variants?.[0];
-    if (!variant?.url) return null;
-    return { src: variant.url, isVideo: block.media.type === 'video' };
+function extractStr(val: unknown): string {
+    if (typeof val === 'string') return val;
+    if (val && typeof val === 'object') {
+        const obj = val as Record<string, unknown>;
+        return (obj.en as string) || (obj.ar as string) || (Object.values(obj)[0] as string) || '';
+    }
+    return '';
 }
 
-/**
- * MediaGridSection — media_grid
- * Responsive grid of images and/or videos with optional per-item captions.
- * Layout adapts: 3-col on desktop, 2-col on tablet, 1-col on mobile.
- * Add a label + headline block for an optional section header.
- */
+function getMediaAsset(block: BlockPayload): { src: string; isVideo: boolean; altText: string; caption: string | null } | null {
+    const f = (block.fields ?? {}) as Record<string, unknown>;
+    const c = (block.content ?? {}) as Record<string, unknown>;
+
+    // 1. Database attachment
+    if (block.media) {
+        const variant = block.media.variants?.find(
+            v => (v as unknown as Record<string, unknown>)['label'] === 'original'
+        ) ?? block.media.variants?.[0];
+        if (variant?.url) {
+            return {
+                src: variant.url,
+                isVideo: block.media.type === 'video',
+                altText: block.media.alt_text || extractStr(f.alt || c.alt),
+                caption: block.media.caption || extractStr(f.caption || c.caption) || null,
+            };
+        }
+    }
+
+    // 2. Inline fields or content properties
+    const src = extractStr(f.image_url || f.url || f.src || f.image || c.image_url || c.url || c.src || c.image);
+    if (src) {
+        const isVideo = src.endsWith('.mp4') || src.endsWith('.webm') || src.includes('video');
+        return {
+            src,
+            isVideo,
+            altText: extractStr(f.alt || c.alt) || 'Campus gallery image',
+            caption: extractStr(f.caption || c.caption) || null,
+        };
+    }
+
+    return null;
+}
+
 export default function MediaGridSection({ blocks }: Props) {
     const label    = blocks.find(b => b.type === 'label');
     const headline = blocks.find(b => b.type === 'headline');
@@ -56,9 +84,8 @@ export default function MediaGridSection({ blocks }: Props) {
                     className="media-grid__items"
                 >
                     {items.map(block => {
-                        const asset    = getMediaSrc(block);
-                        const altText  = block.media?.alt_text ?? '';
-                        const caption  = block.media?.caption ?? null;
+                        const asset = getMediaAsset(block);
+                        if (!asset) return null;
 
                         return (
                             <motion.div
@@ -70,24 +97,22 @@ export default function MediaGridSection({ blocks }: Props) {
                                 className="media-grid__item"
                             >
                                 <div className="media-grid__frame">
-                                    {asset && (
-                                        asset.isVideo ? (
-                                            <video
-                                                src={asset.src}
-                                                controls
-                                                aria-label={altText}
-                                            />
-                                        ) : (
-                                            <img
-                                                src={asset.src}
-                                                alt={altText}
-                                                loading="lazy"
-                                            />
-                                        )
+                                    {asset.isVideo ? (
+                                        <video
+                                            src={asset.src}
+                                            controls
+                                            aria-label={asset.altText}
+                                        />
+                                    ) : (
+                                        <img
+                                            src={asset.src}
+                                            alt={asset.altText}
+                                            loading="lazy"
+                                        />
                                     )}
                                 </div>
-                                {caption && (
-                                    <p className="media-grid__caption">{caption}</p>
+                                {asset.caption && (
+                                    <p className="media-grid__caption">{asset.caption}</p>
                                 )}
                             </motion.div>
                         );
