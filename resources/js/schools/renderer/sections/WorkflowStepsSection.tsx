@@ -14,7 +14,7 @@ export default function WorkflowStepsSection({ blocks }: Props) {
     const label       = blocks.find(b => b.type === 'label');
     const headline = blocks.find(b => b.type === 'headline');
     const subheadline = blocks.find(b => b.type === 'subheadline') || blocks.find(b => b.type === 'rich_text');
-    const steps       = blocks.filter(b => b.type === 'step_item');
+    const steps       = blocks.filter(b => b.type === 'step_item' || b.type === 'feature_item');
 
     // Sort steps by position to guarantee logical ordering
     const sortedSteps = [...steps].sort((a, b) => (a.position ?? 0) - (b.position ?? 0));

@@ -10,7 +10,12 @@ interface Props { section: SectionPayload; blocks: BlockPayload[]; page: PageCor
  * section as the user scrolls using IntersectionObserver.
  */
 export default function InPageNavSection({ blocks, page }: Props) {
-    const navLinks    = blocks.filter(b => b.type === 'nav_link' || b.type === 'label');
+    let navBlocks = blocks;
+    const tabsBlock = blocks.find(b => (b as any).key === 'tabs');
+    if (tabsBlock && Array.isArray((tabsBlock as any).items)) {
+        navBlocks = (tabsBlock as any).items;
+    }
+    const navLinks = navBlocks.filter(b => b.type === 'nav_link' || b.type === 'label');
     const anchorIds   = page.anchor_ids ?? [];
     const [active, setActive] = useState<string>(anchorIds[0] ?? '');
     const ticking = useRef(false);

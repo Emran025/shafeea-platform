@@ -50,6 +50,7 @@
 @import './sections/new-sections.css';
 @import './sections/newsroom-sections.css';
 @import './sections/feature-grid.css';
+@import './sections/breadcrumb.css';
 
 /* ─── News & Stories Cards + Leadership ────────────────────────── */
 @import './sections/news-cards.css';

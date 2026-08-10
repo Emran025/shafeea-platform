@@ -242,6 +242,12 @@ function CustomVideoPlayer({ src }: CustomPlayerProps) {
  * followed by a large, framed video player. Supports both embed URLs (video_embed
  * block) and uploaded video assets (media block with type=video).
  */
+function getPrivacyUrl(url: string | null): string | null {
+    if (!url) return null;
+    return url.replace('www.youtube.com/embed/', 'www.youtube-nocookie.com/embed/')
+              .replace('youtube.com/embed/', 'www.youtube-nocookie.com/embed/');
+}
+
 export default function VideoFeatureSection({ blocks }: Props) {
     const label    = blocks.find(b => b.type === 'label');
     const headline = blocks.find(b => b.type === 'headline');
@@ -251,7 +257,8 @@ export default function VideoFeatureSection({ blocks }: Props) {
     const captionBlock = blocks.find(b => b.type === 'caption');
 
     const embedFields  = videoEmbed ? (videoEmbed.fields as unknown as VideoEmbedFields) : null;
-    const embedUrl     = embedFields?.video_url ?? null;
+    const rawEmbedUrl  = embedFields?.video_url ?? null;
+    const embedUrl     = getPrivacyUrl(rawEmbedUrl);
     const uploadedUrl  = mediaVideo?.media?.variants?.[0]?.url ?? null;
     const captionText  = embedFields?.caption
         ?? (captionBlock ? getTextField(captionBlock, 'text') : null);

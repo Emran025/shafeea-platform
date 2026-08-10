@@ -107,36 +107,41 @@
             "id": "66666666-0000-0000-0002-000000000010",
             "type": "in_page_nav",
             "name": "Category Filter Nav",
-            "anchor_id": "filter",
+            "anchor_id": "in_page_nav",
             "position": 2,
             "group": "above-fold",
             "pinned": false,
             "required_block_types": [],
             "blocks": [
                 {
-                    "id": "77777777-0000-0002-0010-000000000001",
-                    "type": "cta",
-                    "position": 1,
-                    "weight": 5,
-                    "featured": false,
-                    "content": {
-                        "en": {
-                            "label": "All Updates",
-                            "destination": {
-                                "type": "internal_page",
-                                "value": "newsroom/news"
+                    "key": "tabs",
+                    "items": [
+                        {
+                            "id": "77777777-0000-0002-0010-000000000001",
+                            "type": "nav_link",
+                            "position": 1,
+                            "weight": 5,
+                            "featured": false,
+                            "content": {
+                                "en": { "text": "All Updates" },
+                                "ar": { "text": "جميع التحديثات" }
                             },
-                            "intent": "primary"
-                        },
-                        "ar": {
-                            "label": "جميع التحديثات",
-                            "destination": {
-                                "type": "internal_page",
-                                "value": "newsroom/news"
+                            "fields": {
+                                "label": {
+                                "en": "All Updates",
+                                "ar": "جميع التحديثات"
+                                },
+                                "anchor_id": "newsroom-news"
                             },
-                            "intent": "primary"
+                            "media": null,
+                            "actions": [],
+                            "config": {
+                                "is_decorative": false,
+                                "is_featured": false,
+                                "display_weight": 1
+                            }
                         }
-                    }
+                    ]
                 }
             ]
         },

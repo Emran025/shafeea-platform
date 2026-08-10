@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ExternalLink } from 'lucide-react';
 import type { BlockPayload, RenderContext, PlatformCardFields } from '../../types/engine';
+import { getSchoolLogo } from '../../utils/schoolBranding';
 
 interface Props { block: BlockPayload; context?: RenderContext; }
 
@@ -27,7 +28,7 @@ export default function PlatformCardBlock({ block }: Props) {
     const displayCase = f?.display_case ?? 'lowercase_product';
     const formatted   = displayCase === 'uppercase' ? name.toUpperCase() : name.toLowerCase();
     const iconName    = (f as unknown as Record<string, unknown>)?.icon as string || getIconForPlatform(name, f?.ecosystem_role);
-    const iconUrl     = `/icons/${iconName}`;
+    const iconUrl     = iconName.startsWith('/') || iconName.startsWith('http') ? iconName : `/icons/${iconName}`;
 
     return (
         <motion.div
@@ -45,7 +46,13 @@ export default function PlatformCardBlock({ block }: Props) {
                         src={iconUrl}
                         alt={name}
                         className="platform-card__icon-img"
-                        onError={e => { (e.currentTarget as HTMLImageElement).src = '/icons/base.svg'; }}
+                        onError={e => {
+                            const target = e.currentTarget as HTMLImageElement;
+                            if (!target.dataset.fallback) {
+                                target.dataset.fallback = 'true';
+                                target.src = getSchoolLogo();
+                            }
+                        }}
                     />
                 </div>
                 {f?.site_status !== 'live' && (

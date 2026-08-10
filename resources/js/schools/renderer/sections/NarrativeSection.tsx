@@ -11,7 +11,7 @@ export default function NarrativeSection({ blocks }: Props) {
     const others = blocks.filter(b => !['label', 'headline', 'media'].includes(b.type));
 
     return (
-        <SectionShell className="section--industry-grid">
+        <SectionShell className="section--narrative">
             <div className={`narrative__grid${media ? ' narrative__grid--with-media' : ''}`}>
                 <div className="narrative__body">
                     {label    && <BlockRenderer block={label} />}
@@ -19,7 +19,7 @@ export default function NarrativeSection({ blocks }: Props) {
                     {others.map(b => <BlockRenderer key={b.id} block={b} />)}
                 </div>
                 {media && (
-                    <div><BlockRenderer block={media} /></div>
+                    <div className="narrative__media"><BlockRenderer block={media} /></div>
                 )}
             </div>
         </SectionShell>

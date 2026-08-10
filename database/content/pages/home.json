@@ -763,77 +763,82 @@
             "id": "88888888-0000-0000-0000-000000000015",
             "type": "logo_cloud",
             "name": "Accreditations & Partners",
-            "anchor_id": "accreditations",
+            "anchor_id": "logo_cloud",
             "position": 8,
             "group": "below-fold",
             "pinned": false,
             "required_block_types": [],
             "blocks": [
                 {
-                    "id": "dddddddd-0000-0001-0015-000000000001",
-                    "type": "label",
-                    "position": 1,
-                    "weight": 5,
-                    "featured": false,
-                    "content": {
-                        "en": {
-                            "text": "Accreditations & Affiliations"
-                        },
-                        "ar": {
-                            "text": "الاعتمادات والانتماءات"
-                        }
+                "id": "dddddddd-0000-0001-0015-000000000000",
+                "type": "label",
+                "position": 1,
+                "weight": 3,
+                "featured": false,
+                "content": {
+                    "en": { "text": "Trusted By" },
+                    "ar": { "text": "موثوق من قبل" }
+                },
+                "fields": {
+                    "text": {
+                    "en": "Trusted By",
+                    "ar": "موثوق من قبل"
                     }
                 },
-                {
-                    "id": "dddddddd-0000-0001-0015-000000000002",
-                    "type": "media",
-                    "position": 2,
-                    "weight": 7,
-                    "featured": false,
-                    "content": {
-                        "en": {
-                            "alt": "Ministry of Education",
-                            "url": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=120&h=60&fit=contain"
-                        },
-                        "ar": {
-                            "alt": "وزارة التعليم",
-                            "url": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=120&h=60&fit=contain"
-                        }
-                    }
+                "media": null,
+                "actions": [],
+                "config": {
+                    "is_decorative": false,
+                    "is_featured": false,
+                    "display_weight": 1
+                }
                 },
                 {
-                    "id": "dddddddd-0000-0001-0015-000000000003",
-                    "type": "media",
-                    "position": 3,
-                    "weight": 7,
-                    "featured": false,
-                    "content": {
-                        "en": {
-                            "alt": "Accreditation Council",
-                            "url": "https://images.unsplash.com/photo-1568992688065-536aad8a12f6?w=120&h=60&fit=contain"
-                        },
-                        "ar": {
-                            "alt": "مجلس الاعتماد",
-                            "url": "https://images.unsplash.com/photo-1568992688065-536aad8a12f6?w=120&h=60&fit=contain"
-                        }
+                "id": "dddddddd-0000-0001-0015-000000000001",
+                "type": "headline",
+                "position": 2,
+                "weight": 5,
+                "featured": false,
+                "content": {
+                    "en": { "text": "Accreditations & Affiliations" },
+                    "ar": { "text": "الاعتمادات والانتماءات" }
+                },
+                "fields": {
+                    "text": {
+                    "en": "Accreditations & Affiliations",
+                    "ar": "الاعتمادات والانتماءات"
                     }
                 },
+                "media": null,
+                "actions": [],
+                "config": {
+                    "is_decorative": false,
+                    "is_featured": false,
+                    "display_weight": 1
+                }
+                }
+            ],
+            "logos": [
                 {
-                    "id": "dddddddd-0000-0001-0015-000000000004",
-                    "type": "media",
-                    "position": 4,
-                    "weight": 7,
-                    "featured": false,
-                    "content": {
-                        "en": {
-                            "alt": "Education Quality Authority",
-                            "url": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=120&h=60&fit=contain"
-                        },
-                        "ar": {
-                            "alt": "هيئة جودة التعليم",
-                            "url": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=120&h=60&fit=contain"
-                        }
-                    }
+                "url": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=2700&h=1080&fit=contain",
+                "alt": {
+                    "en": "Ministry of Education",
+                    "ar": "وزارة التعليم"
+                }
+                },
+                {
+                "url": "https://images.unsplash.com/photo-1568992688065-536aad8a12f6?w=2700&h=1080&fit=contain",
+                "alt": {
+                    "en": "Accreditation Council",
+                    "ar": "مجلس الاعتماد"
+                }
+                },
+                {
+                "url": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=2700&h=1080&fit=contain",
+                "alt": {
+                    "en": "Education Quality Authority",
+                    "ar": "هيئة جودة التعليم"
+                }
                 }
             ]
         },

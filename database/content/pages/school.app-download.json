@@ -354,51 +354,57 @@
                 },
                 {
                     "id": "55555555-0000-0001-0002-000000000003",
-                    "type": "feature_item",
+                    "type": "step_item",
                     "position": 3,
                     "weight": 7,
                     "featured": true,
                     "content": {
                         "en": {
-                            "label": "1. Download Release Package",
+                            "step_number": "1",
+                            "label": "Download Release Package",
                             "description": "Click the download button for Student App, Teacher App, or Windows Desktop Package above."
                         },
                         "ar": {
-                            "label": "١. تنزيل حزمة الإصدار",
+                            "step_number": "1",
+                            "label": "تنزيل حزمة الإصدار",
                             "description": "انقر فوق زر التحميل لتطبيق الطالب أو تطبيق المعلم أو حزمة الويندوز أعلاه."
                         }
                     }
                 },
                 {
                     "id": "55555555-0000-0001-0002-000000000004",
-                    "type": "feature_item",
+                    "type": "step_item",
                     "position": 4,
                     "weight": 7,
                     "featured": false,
                     "content": {
                         "en": {
-                            "label": "2. Run Installer / Enable Install",
+                            "step_number": "2",
+                            "label": "Run Installer / Enable Install",
                             "description": "Open the downloaded APK or EXE file and confirm installation permissions."
                         },
                         "ar": {
-                            "label": "٢. تشغيل التثبيت",
+                            "step_number": "2",
+                            "label": "تشغيل التثبيت",
                             "description": "افتح ملف APK أو EXE المحمل ووافق على أذونات التثبيت."
                         }
                     }
                 },
                 {
                     "id": "55555555-0000-0001-0002-000000000005",
-                    "type": "feature_item",
+                    "type": "step_item",
                     "position": 5,
                     "weight": 7,
                     "featured": false,
                     "content": {
                         "en": {
-                            "label": "3. Sign In to {{school.name}}",
+                            "step_number": "3",
+                            "label": "Sign In to {{school.name}}",
                             "description": "Log in using your student or staff account credentials to connect instantly."
                         },
                         "ar": {
-                            "label": "٣. تسجيل الدخول إلى {{school.name}}",
+                            "step_number": "3",
+                            "label": "تسجيل الدخول إلى {{school.name}}",
                             "description": "أدخل بيانات حسابك للطالب أو المعلم للاتصال فوراً بالسيرفر الرسمي."
                         }
                     }

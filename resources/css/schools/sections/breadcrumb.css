@@ -1,0 +1,45 @@
+/* ════════════════════════════════════════════════════════════════
+   SECTION — Breadcrumb
+   ════════════════════════════════════════════════════════════════ */
+.breadcrumb-section {
+    padding: 16px 0;
+    background: transparent;
+}
+.breadcrumb-trail {
+    display: flex;
+    align-items: center;
+}
+.breadcrumb-trail__list {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.breadcrumb-trail__item {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.875rem;
+    color: #64748b;
+}
+.breadcrumb-trail__separator {
+    color: #94a3b8;
+    user-select: none;
+}
+.breadcrumb-trail__link {
+    color: #0F2741;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.15s ease;
+}
+.breadcrumb-trail__link:hover {
+    color: #3b82f6;
+    text-decoration: underline;
+}
+.breadcrumb-trail__current {
+    color: #64748b;
+    font-weight: 600;
+}
