@@ -209,6 +209,147 @@
                             "text": "المقالات"
                         }
                     }
+                },
+                {
+                    "id": "33333333-0000-0000-0000-000000000032",
+                    "type": "headline",
+                    "position": 2,
+                    "weight": 9,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "Featured School Updates & Insights"
+                        },
+                        "ar": {
+                            "text": "أبرز تحديثات ورؤى المدرسة"
+                        }
+                    }
+                },
+                {
+                    "id": "33333333-0000-0000-0000-000000000033",
+                    "type": "blog_post_card",
+                    "position": 3,
+                    "weight": 7,
+                    "featured": true,
+                    "content": {
+                        "en": {
+                            "title": "Annual Academic Excellence Awards 2026",
+                            "category": "Academics",
+                            "summary": "Celebrating our top-performing students across Quran recitation, sciences, and mathematics at {{school.name}}.",
+                            "author": "School Administration",
+                            "date": "August 5, 2026"
+                        },
+                        "ar": {
+                            "title": "جوائز التميز الأكاديمي السنوية 2026",
+                            "category": "الأكاديميات",
+                            "summary": "الاحتفاء بتفوق طلابنا في تلاوة القرآن والعلوم والرياضيات في {{school.name}}.",
+                            "author": "إدارة المدرسة",
+                            "date": "5 أغسطس 2026"
+                        }
+                    },
+                    "fields": {
+                        "title": {
+                            "en": "Annual Academic Excellence Awards 2026",
+                            "ar": "جوائز التميز الأكاديمي السنوية 2026"
+                        },
+                        "category": {
+                            "en": "Academics",
+                            "ar": "الأكاديميات"
+                        },
+                        "summary": {
+                            "en": "Celebrating our top-performing students across Quran recitation, sciences, and mathematics at {{school.name}}.",
+                            "ar": "الاحتفاء بتفوق طلابنا في تلاوة القرآن والعلوم والرياضيات في {{school.name}}."
+                        },
+                        "author": {
+                            "en": "School Administration",
+                            "ar": "إدارة المدرسة"
+                        },
+                        "date": "August 5, 2026"
+                    }
+                },
+                {
+                    "id": "33333333-0000-0000-0000-000000000034",
+                    "type": "blog_post_card",
+                    "position": 4,
+                    "weight": 7,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "title": "Empowering Teachers with Digital Curriculum Tools",
+                            "category": "Innovation",
+                            "summary": "How {{school.name}} teachers are saving hours in lesson preparation and personalizing student learning.",
+                            "author": "Academic Council",
+                            "date": "July 28, 2026"
+                        },
+                        "ar": {
+                            "title": "تمكين المعلمين بأدوات المناهج الرقمية",
+                            "category": "الابتكار",
+                            "summary": "كيف يوفر معلّمو {{school.name}} الساعات في تحضير الدروس وتخصيص تعلم الطلاب.",
+                            "author": "المجلس الأكاديمي",
+                            "date": "28 يوليو 2026"
+                        }
+                    },
+                    "fields": {
+                        "title": {
+                            "en": "Empowering Teachers with Digital Curriculum Tools",
+                            "ar": "تمكين المعلمين بأدوات المناهج الرقمية"
+                        },
+                        "category": {
+                            "en": "Innovation",
+                            "ar": "الابتكار"
+                        },
+                        "summary": {
+                            "en": "How {{school.name}} teachers are saving hours in lesson preparation and personalizing student learning.",
+                            "ar": "كيف يوفر معلّمو {{school.name}} الساعات في تحضير الدروس وتخصيص تعلم الطلاب."
+                        },
+                        "author": {
+                            "en": "Academic Council",
+                            "ar": "المجلس الأكاديمي"
+                        },
+                        "date": "July 28, 2026"
+                    }
+                },
+                {
+                    "id": "33333333-0000-0000-0000-000000000035",
+                    "type": "blog_post_card",
+                    "position": 5,
+                    "weight": 7,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "title": "Parent Workshop: Supporting Memorization at Home",
+                            "category": "Community",
+                            "summary": "Practical strategies for parents to encourage steady daily Quran recitation and revision.",
+                            "author": "Quran Department",
+                            "date": "July 15, 2026"
+                        },
+                        "ar": {
+                            "title": "ورشة أولياء الأمور: دعم حفظ القرآن في المنزل",
+                            "category": "المجتمع",
+                            "summary": "استراتيجيات عملية لأولياء الأمور لتشجيع التلاوة والمراجعة اليومية للقرآن.",
+                            "author": "قسم القرآن الكريم",
+                            "date": "15 يوليو 2026"
+                        }
+                    },
+                    "fields": {
+                        "title": {
+                            "en": "Parent Workshop: Supporting Memorization at Home",
+                            "ar": "ورشة أولياء الأمور: دعم حفظ القرآن في المنزل"
+                        },
+                        "category": {
+                            "en": "Community",
+                            "ar": "المجتمع"
+                        },
+                        "summary": {
+                            "en": "Practical strategies for parents to encourage steady daily Quran recitation and revision.",
+                            "ar": "استراتيجيات عملية لأولياء الأمور لتشجيع التلاوة والمراجعة اليومية للقرآن."
+                        },
+                        "author": {
+                            "en": "Quran Department",
+                            "ar": "قسم القرآن الكريم"
+                        },
+                        "date": "July 15, 2026"
+                    }
                 }
             ]
         },

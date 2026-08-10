@@ -24,6 +24,7 @@ export default function BlogPostGridSection({ blocks }: Props) {
     const ctas       = blocks.filter(b => b.type === 'cta');
 
     const [featured, ...rest] = postCards;
+    if (postCards.length === 0) return null;
     const cols = rest.length >= 3 ? 3 : rest.length >= 2 ? 2 : 1;
 
     return (
