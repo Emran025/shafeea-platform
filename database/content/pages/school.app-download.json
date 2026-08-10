@@ -36,8 +36,8 @@
             "ar": "تحميل تطبيق {{school.name}}"
         },
         "seo_description": {
-            "en": "Download the official {{school.name}} backend desktop and mobile application packages.",
-            "ar": "تنزيل حزم التطبيقات الرسمية الخاصة بـ {{school.name}} لأجهزة سطح المكتب والهواتف."
+            "en": "Download the official {{school.name}} mobile and desktop application packages.",
+            "ar": "تنزيل حزم التطبيقات الرسمية الخاصة بـ {{school.name}} للهواتف وأجهزة سطح المكتب."
         },
         "og_title": null,
         "og_description": null,
@@ -80,10 +80,10 @@
                     "featured": true,
                     "content": {
                         "en": {
-                            "text": "Get the {{school.name}} Application"
+                            "text": "Get the Official {{school.name}} App"
                         },
                         "ar": {
-                            "text": "احصل على تطبيق {{school.name}}"
+                            "text": "احصل على التطبيق الرسمي لـ {{school.name}}"
                         }
                     }
                 },
@@ -95,10 +95,10 @@
                     "featured": false,
                     "content": {
                         "en": {
-                            "text": "Fast, secure, offline-capable application built specifically for {{school.name}} teachers and staff."
+                            "text": "Fast, secure, offline-capable application packages built specifically for {{school.name}} students, teachers, and administrators."
                         },
                         "ar": {
-                            "text": "تطبيق سريع وآمن ويعمل بدون إنترنت مخصص لمعلمي وموظفي {{school.name}}."
+                            "text": "تطبيقات سريعة وآمنة وتعمل بدون إنترنت مخصصة لطلاب ومعلمي وموظفي {{school.name}}."
                         }
                     }
                 },
@@ -110,20 +110,203 @@
                     "featured": false,
                     "content": {
                         "en": {
-                            "label": "Download Latest Windows Build (v1.2)",
+                            "label": "Download Latest Release",
                             "destination": {
-                                "type": "external_url",
-                                "value": "https://github.com/shafeea-platform/{{school.code}}-app/releases/latest"
+                                "type": "url",
+                                "value": "#downloads"
                             },
                             "intent": "primary"
                         },
                         "ar": {
-                            "label": "تنزيل أحدث نسخة لويندوز (v1.2)",
+                            "label": "تنزيل أحدث إصدار",
                             "destination": {
-                                "type": "external_url",
-                                "value": "https://github.com/shafeea-platform/{{school.code}}-app/releases/latest"
+                                "type": "url",
+                                "value": "#downloads"
                             },
                             "intent": "primary"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": "44444444-0000-0001-0004-000000000001",
+            "type": "platform_showcase",
+            "name": "Download Cards Showcase",
+            "anchor_id": "downloads",
+            "position": 2,
+            "group": "above-fold",
+            "pinned": false,
+            "required_block_types": [
+                "headline",
+                "platform_card"
+            ],
+            "blocks": [
+                {
+                    "id": "55555555-0000-0001-0004-000000000001",
+                    "type": "label",
+                    "position": 1,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "Direct Download"
+                        },
+                        "ar": {
+                            "text": "تحميل مباشر"
+                        }
+                    }
+                },
+                {
+                    "id": "55555555-0000-0001-0004-000000000002",
+                    "type": "headline",
+                    "position": 2,
+                    "weight": 9,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "Choose Your Dedicated School App"
+                        },
+                        "ar": {
+                            "text": "اختر التطبيق المناسب لمدرستك"
+                        }
+                    }
+                },
+                {
+                    "id": "55555555-0000-0001-0004-000000000003",
+                    "type": "subheadline",
+                    "position": 3,
+                    "weight": 7,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "Custom-built mobile and desktop applications connected directly to {{school.name}} server endpoints."
+                        },
+                        "ar": {
+                            "text": "تطبيقات مخصصة متصلة مباشرة بسيرفرات {{school.name}}."
+                        }
+                    }
+                },
+                {
+                    "id": "55555555-0000-0001-0004-000000000004",
+                    "type": "platform_card",
+                    "position": 4,
+                    "weight": 8,
+                    "featured": true,
+                    "content": {
+                        "en": {
+                            "canonical_name": "student_app",
+                            "display_name": "Student App",
+                            "display_case": "lowercase_product",
+                            "ecosystem_role": "For Students & Parents",
+                            "positioning_tagline": "Dedicated app for {{school.name}} students",
+                            "short_description": "Enables students to follow daily Quranic memorisation schedules, view grade reports, and receive instant school notifications.",
+                            "site_status": "live",
+                            "cta_label": "Download Student App (APK)",
+                            "cta_url": "https://github.com/shafeea-platform/{{school.code}}-app/releases/download/latest/student-app.apk",
+                            "cta_is_available": true,
+                            "color_tokens": {
+                                "primary": "#0F2741",
+                                "accent": "#3B82F6"
+                            }
+                        },
+                        "ar": {
+                            "canonical_name": "student_app",
+                            "display_name": "تطبيق الطالب",
+                            "display_case": "lowercase_product",
+                            "ecosystem_role": "للطلاب وأولياء الأمور",
+                            "positioning_tagline": "التطبيق المخصص لطلاب {{school.name}}",
+                            "short_description": "تطبيق شامل يُمكّن الطالب من متابعة مسيرته القرآنية، الاطلاع على جدوله، وتلقي إشعارات المدرسة.",
+                            "site_status": "live",
+                            "cta_label": "تحميل تطبيق الطالب (APK)",
+                            "cta_url": "https://github.com/shafeea-platform/{{school.code}}-app/releases/download/latest/student-app.apk",
+                            "cta_is_available": true,
+                            "color_tokens": {
+                                "primary": "#0F2741",
+                                "accent": "#3B82F6"
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "55555555-0000-0001-0004-000000000005",
+                    "type": "platform_card",
+                    "position": 5,
+                    "weight": 8,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "canonical_name": "teacher_app",
+                            "display_name": "Teacher & Admin App",
+                            "display_case": "lowercase_product",
+                            "ecosystem_role": "For Teachers & Staff",
+                            "positioning_tagline": "Classroom management for {{school.name}}",
+                            "short_description": "Comprehensive tool for teachers and admins to record attendance, enter grades, manage timetables, and communicate with parents.",
+                            "site_status": "live",
+                            "cta_label": "Download Teacher App (APK)",
+                            "cta_url": "https://github.com/shafeea-platform/{{school.code}}-app/releases/download/latest/teacher-app.apk",
+                            "cta_is_available": true,
+                            "color_tokens": {
+                                "primary": "#0F2741",
+                                "accent": "#10B981"
+                            }
+                        },
+                        "ar": {
+                            "canonical_name": "teacher_app",
+                            "display_name": "تطبيق المعلم والإدارة",
+                            "display_case": "lowercase_product",
+                            "ecosystem_role": "للمعلمين والإدارة",
+                            "positioning_tagline": "إدارة الفصول لكادر {{school.name}}",
+                            "short_description": "تطبيق متكامل لإدارة الفصول الدراسية، متابعة الطلاب، تسجيل الحضور، وإعداد التقارير المدرسية.",
+                            "site_status": "live",
+                            "cta_label": "تحميل تطبيق المعلم والإدارة (APK)",
+                            "cta_url": "https://github.com/shafeea-platform/{{school.code}}-app/releases/download/latest/teacher-app.apk",
+                            "cta_is_available": true,
+                            "color_tokens": {
+                                "primary": "#0F2741",
+                                "accent": "#10B981"
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "55555555-0000-0001-0004-000000000006",
+                    "type": "platform_card",
+                    "position": 6,
+                    "weight": 8,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "canonical_name": "desktop_app",
+                            "display_name": "Windows Desktop Package",
+                            "display_case": "lowercase_product",
+                            "ecosystem_role": "Desktop Administration",
+                            "positioning_tagline": "Windows desktop environment",
+                            "short_description": "Full standalone desktop software package for school administrators with offline data sync support.",
+                            "site_status": "live",
+                            "cta_label": "Download Windows Setup (.exe)",
+                            "cta_url": "https://github.com/shafeea-platform/{{school.code}}-app/releases/download/latest/{{school.code}}-setup.exe",
+                            "cta_is_available": true,
+                            "color_tokens": {
+                                "primary": "#0F2741",
+                                "accent": "#C9A227"
+                            }
+                        },
+                        "ar": {
+                            "canonical_name": "desktop_app",
+                            "display_name": "تطبيق سطح المكتب لويندوز",
+                            "display_case": "lowercase_product",
+                            "ecosystem_role": "مكتب الإدارة والإسناد",
+                            "positioning_tagline": "بيئة عمل الويندوز لـ {{school.name}}",
+                            "short_description": "حزمة برنامج سطح المكتب المتكاملة لإدارة المدرسة مع دعم العمل المباشر وتزامن البيانات تلقائياً.",
+                            "site_status": "live",
+                            "cta_label": "تحميل برنامج الويندوز (.exe)",
+                            "cta_url": "https://github.com/shafeea-platform/{{school.code}}-app/releases/download/latest/{{school.code}}-setup.exe",
+                            "cta_is_available": true,
+                            "color_tokens": {
+                                "primary": "#0F2741",
+                                "accent": "#C9A227"
+                            }
                         }
                     }
                 }
@@ -134,7 +317,7 @@
             "type": "workflow_steps",
             "name": "Installation Steps",
             "anchor_id": "steps",
-            "position": 2,
+            "position": 3,
             "group": "below-fold",
             "pinned": false,
             "required_block_types": [],
@@ -171,58 +354,52 @@
                 },
                 {
                     "id": "55555555-0000-0001-0002-000000000003",
-                    "type": "step_item",
+                    "type": "feature_item",
                     "position": 3,
                     "weight": 7,
                     "featured": true,
                     "content": {
                         "en": {
-                            "step_number": "1",
-                            "label": "Download Release",
-                            "description": "Click the download link to download the latest installer build for your operating system."
+                            "label": "1. Download Release Package",
+                            "description": "Click the download button for Student App, Teacher App, or Windows Desktop Package above."
                         },
                         "ar": {
-                            "step_number": "1",
-                            "label": "تنزيل الإصدار",
-                            "description": "انقر فوق رابط التنزيل لتنزيل أحدث حزمة تثبيت لنظام التشغيل الخاص بك."
+                            "label": "١. تنزيل حزمة الإصدار",
+                            "description": "انقر فوق زر التحميل لتطبيق الطالب أو تطبيق المعلم أو حزمة الويندوز أعلاه."
                         }
                     }
                 },
                 {
                     "id": "55555555-0000-0001-0002-000000000004",
-                    "type": "step_item",
+                    "type": "feature_item",
                     "position": 4,
                     "weight": 7,
                     "featured": false,
                     "content": {
                         "en": {
-                            "step_number": "2",
-                            "label": "Run Installer",
-                            "description": "Open the setup executable and follow the quick automated installation wizard."
+                            "label": "2. Run Installer / Enable Install",
+                            "description": "Open the downloaded APK or EXE file and confirm installation permissions."
                         },
                         "ar": {
-                            "step_number": "2",
-                            "label": "تشغيل برنامج التثبيت",
-                            "description": "افتح ملف التثبيت والتزم بمعالج التثبيت التلقائي السريع."
+                            "label": "٢. تشغيل التثبيت",
+                            "description": "افتح ملف APK أو EXE المحمل ووافق على أذونات التثبيت."
                         }
                     }
                 },
                 {
                     "id": "55555555-0000-0001-0002-000000000005",
-                    "type": "step_item",
+                    "type": "feature_item",
                     "position": 5,
                     "weight": 7,
                     "featured": false,
                     "content": {
                         "en": {
-                            "step_number": "3",
-                            "label": "Enter School Code",
-                            "description": "Input your school code ({{school.code}}) and login using your authorized staff credentials."
+                            "label": "3. Sign In to {{school.name}}",
+                            "description": "Log in using your student or staff account credentials to connect instantly."
                         },
                         "ar": {
-                            "step_number": "3",
-                            "label": "إدخال كود المدرسة",
-                            "description": "أدخل كود المدرسة ({{school.code}}) وسجّل الدخول باستخدام بيانات الموظف المعتمدة."
+                            "label": "٣. تسجيل الدخول إلى {{school.name}}",
+                            "description": "أدخل بيانات حسابك للطالب أو المعلم للاتصال فوراً بالسيرفر الرسمي."
                         }
                     }
                 }
@@ -233,7 +410,7 @@
             "type": "faq_accordion",
             "name": "App Compatibility FAQ",
             "anchor_id": "faq",
-            "position": 3,
+            "position": 4,
             "group": "below-fold",
             "pinned": false,
             "required_block_types": [],
@@ -277,11 +454,11 @@
                     "content": {
                         "en": {
                             "label": "What operating systems are supported?",
-                            "description": "Windows 10/11 (64-bit), macOS 11+, and Android 8.0+."
+                            "description": "Windows 10/11 (64-bit), macOS 11+, and Android 7.0+."
                         },
                         "ar": {
                             "label": "ما هي أنظمة التشغيل المدعومة؟",
-                            "description": "ويندوز 10/11 (64-بت)، ماك macOS 11+، وأندرويد 8.0+."
+                            "description": "ويندوز 10/11 (64-بت)، ماك macOS 11+، وأندرويد 7.0+."
                         }
                     }
                 },
@@ -294,11 +471,11 @@
                     "content": {
                         "en": {
                             "label": "How do updates work?",
-                            "description": "The app automatically checks GitHub Releases for new versions and prompts for 1-click update."
+                            "description": "The app automatically checks releases for new versions and prompts for a 1-click update."
                         },
                         "ar": {
                             "label": "كيف تعمل التحديثات؟",
-                            "description": "يتفقد التطبيق الإصدارات تلقائياً عبر GitHub ويُتيح التحديث بضغطة زر."
+                            "description": "يتفقد التطبيق الإصدارات تلقائياً ويُتيح التحديث بضغطة زر."
                         }
                     }
                 }

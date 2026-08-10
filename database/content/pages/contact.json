@@ -56,16 +56,22 @@
             "blocks": [
                 {
                     "id": "33333333-0000-0000-0000-000000000211",
-                    "type": "label",
+                    "type": "breadcrumb_trail",
                     "position": 1,
                     "weight": 5,
                     "featured": false,
                     "content": {
                         "en": {
-                            "text": "Home > Contact Us"
+                            "path_entries": [
+                                { "label": "Home", "url_path": "/" },
+                                { "label": "Contact Us", "url_path": "/contact" }
+                            ]
                         },
                         "ar": {
-                            "text": "الرئيسية > تواصل معنا"
+                            "path_entries": [
+                                { "label": "الرئيسية", "url_path": "/" },
+                                { "label": "تواصل معنا", "url_path": "/contact" }
+                            ]
                         }
                     }
                 }
@@ -74,11 +80,11 @@
         {
             "id": "22222222-0000-0000-0000-000000000200",
             "type": "contact_form",
-            "name": "Contact Form",
+            "name": "Contact Form Section",
             "anchor_id": "form",
             "position": 2,
             "group": "above-fold",
-            "required_block_types": [],
+            "required_block_types": ["form_definition"],
             "blocks": [
                 {
                     "id": "33333333-0000-0000-0000-000000000201",
@@ -127,16 +133,268 @@
                 },
                 {
                     "id": "33333333-0000-0000-0000-000000000204",
-                    "type": "subheadline",
+                    "type": "rich_text",
                     "position": 4,
                     "weight": 6,
                     "featured": false,
                     "content": {
                         "en": {
-                            "text": "Phone: {{school.phone}}\nLocation: {{school.city}}, {{school.country}}\nAddress: {{school.address}}"
+                            "content": "**Direct Contact Information:**\n- **Phone:** {{school.phone}}\n- **City/Country:** {{school.city}}, {{school.country}}\n- **Address:** {{school.address}}"
                         },
                         "ar": {
-                            "text": "الهاتف: {{school.phone}}\nالموقع: {{school.city}}، {{school.country}}\nالعنوان: {{school.address}}"
+                            "content": "**معلومات الاتصال المباشر:**\n- **الهاتف:** {{school.phone}}\n- **المدينة/الدولة:** {{school.city}}، {{school.country}}\n- **العنوان:** {{school.address}}"
+                        }
+                    }
+                },
+                {
+                    "id": "33333333-0000-0000-0000-000000000205",
+                    "type": "form_definition",
+                    "position": 5,
+                    "weight": 10,
+                    "featured": true,
+                    "content": {
+                        "en": {
+                            "form_title": "Send an Inquiry",
+                            "submit_label": "Submit Message",
+                            "success_message": "Thank you for contacting {{school.name}}. Our team will respond to your inquiry shortly.",
+                            "fields": [
+                                {
+                                    "field_name": "parent_name",
+                                    "label": "Full Name",
+                                    "field_type": "text",
+                                    "is_required": true,
+                                    "placeholder": "e.g. Abdullah Ahmed"
+                                },
+                                {
+                                    "field_name": "email",
+                                    "label": "Email Address",
+                                    "field_type": "email",
+                                    "is_required": true,
+                                    "placeholder": "name@example.com"
+                                },
+                                {
+                                    "field_name": "phone",
+                                    "label": "Phone Number",
+                                    "field_type": "phone",
+                                    "is_required": false,
+                                    "placeholder": "+966 5x xxx xxxx"
+                                },
+                                {
+                                    "field_name": "inquiry_type",
+                                    "label": "Inquiry Type",
+                                    "field_type": "select",
+                                    "is_required": true,
+                                    "options": [
+                                        "General Inquiry",
+                                        "Admissions & Registration",
+                                        "Academic & Curriculum",
+                                        "Platform & Technical Support"
+                                    ]
+                                },
+                                {
+                                    "field_name": "message",
+                                    "label": "Your Message",
+                                    "field_type": "textarea",
+                                    "is_required": true,
+                                    "placeholder": "How can we help you today?"
+                                }
+                            ]
+                        },
+                        "ar": {
+                            "form_title": "إرسال استفسار",
+                            "submit_label": "إرسال الرسالة",
+                            "success_message": "شكراً لتواصلك مع {{school.name}}. سيرد فريقنا على استفسارك في أقرب وقت.",
+                            "fields": [
+                                {
+                                    "field_name": "parent_name",
+                                    "label": "الاسم الكامل",
+                                    "field_type": "text",
+                                    "is_required": true,
+                                    "placeholder": "مثال: عبدالله أحمد"
+                                },
+                                {
+                                    "field_name": "email",
+                                    "label": "البريد الإلكتروني",
+                                    "field_type": "email",
+                                    "is_required": true,
+                                    "placeholder": "name@example.com"
+                                },
+                                {
+                                    "field_name": "phone",
+                                    "label": "رقم الهاتف",
+                                    "field_type": "phone",
+                                    "is_required": false,
+                                    "placeholder": "+966 5x xxx xxxx"
+                                },
+                                {
+                                    "field_name": "inquiry_type",
+                                    "label": "نوع الاستفسار",
+                                    "field_type": "select",
+                                    "is_required": true,
+                                    "options": [
+                                        "استفسار عام",
+                                        "القبول والتسجيل",
+                                        "الشؤون الأكاديمية والمناهج",
+                                        "الدعم الفني والمنصة"
+                                    ]
+                                },
+                                {
+                                    "field_name": "message",
+                                    "label": "رسالتك",
+                                    "field_type": "textarea",
+                                    "is_required": true,
+                                    "placeholder": "كيف يمكننا مساعدتك اليوم؟"
+                                }
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": "22222222-0000-0000-0000-000000000240",
+            "type": "feature_grid",
+            "name": "Direct Department Contacts",
+            "anchor_id": "departments",
+            "position": 3,
+            "group": "below-fold",
+            "required_block_types": ["headline", "feature_tile"],
+            "blocks": [
+                {
+                    "id": "33333333-0000-0000-0000-000000000241",
+                    "type": "label",
+                    "position": 1,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "Direct Assistance"
+                        },
+                        "ar": {
+                            "text": "المساعدة المباشرة"
+                        }
+                    }
+                },
+                {
+                    "id": "33333333-0000-0000-0000-000000000242",
+                    "type": "headline",
+                    "position": 2,
+                    "weight": 9,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "Department Contact Directory"
+                        },
+                        "ar": {
+                            "text": "دليل التواصل المباشر للإدارات"
+                        }
+                    }
+                },
+                {
+                    "id": "33333333-0000-0000-0000-000000000243",
+                    "type": "feature_tile",
+                    "position": 3,
+                    "weight": 7,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "icon_name": "support",
+                            "title": "Admissions & Registration",
+                            "description": "For enrollment questions, campus visits, and new student applications.",
+                            "bullets": [
+                                "Email: admissions@{{school.code}}.edu",
+                                "Direct Ext: 101"
+                            ]
+                        },
+                        "ar": {
+                            "icon_name": "support",
+                            "title": "القبول والتسجيل",
+                            "description": "لأسئلة التسجيل وزيارات الحرم المدرسي وطلبات الطلاب الجدد.",
+                            "bullets": [
+                                "البريد الإلكتروني: admissions@{{school.code}}.edu",
+                                "التحويلة المباشرة: 101"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "id": "33333333-0000-0000-0000-000000000244",
+                    "type": "feature_tile",
+                    "position": 4,
+                    "weight": 7,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "icon_name": "shield",
+                            "title": "Administration Office",
+                            "description": "For official school records, attestations, and principal appointments.",
+                            "bullets": [
+                                "Email: admin@{{school.code}}.edu",
+                                "Direct Ext: 102"
+                            ]
+                        },
+                        "ar": {
+                            "icon_name": "shield",
+                            "title": "المكتب الإداري",
+                            "description": "للسجلات المدرسية الرسمية والتصديقات ومواعيد الإدارة.",
+                            "bullets": [
+                                "البريد الإلكتروني: admin@{{school.code}}.edu",
+                                "التحويلة المباشرة: 102"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "id": "33333333-0000-0000-0000-000000000245",
+                    "type": "feature_tile",
+                    "position": 5,
+                    "weight": 7,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "icon_name": "payout",
+                            "title": "Finance & Tuition Office",
+                            "description": "For tuition payment methods, installment schedules, and fee statements.",
+                            "bullets": [
+                                "Email: finance@{{school.code}}.edu",
+                                "Direct Ext: 103"
+                            ]
+                        },
+                        "ar": {
+                            "icon_name": "payout",
+                            "title": "مكتب المالية والرسوم",
+                            "description": "لطرق سداد الرسوم الدراسية وجداول الأقساط وكشوفات الحسابات.",
+                            "bullets": [
+                                "البريد الإلكتروني: finance@{{school.code}}.edu",
+                                "التحويلة المباشرة: 103"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "id": "33333333-0000-0000-0000-000000000246",
+                    "type": "feature_tile",
+                    "position": 6,
+                    "weight": 7,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "icon_name": "globe",
+                            "title": "Digital Platform & IT Support",
+                            "description": "For parent portal logins, app support, and technical assistance.",
+                            "bullets": [
+                                "Email: support@{{school.code}}.edu",
+                                "Direct Ext: 104"
+                            ]
+                        },
+                        "ar": {
+                            "icon_name": "globe",
+                            "title": "الدعم الفني والمنصة الرقمية",
+                            "description": "لحسابات أولياء الأمور وتطبيق الهاتف والدعم التقني.",
+                            "bullets": [
+                                "البريد الإلكتروني: support@{{school.code}}.edu",
+                                "التحويلة المباشرة: 104"
+                            ]
                         }
                     }
                 }
@@ -147,9 +405,9 @@
             "type": "narrative",
             "name": "Campus Hours & Directions",
             "anchor_id": "location",
-            "position": 3,
+            "position": 4,
             "group": "below-fold",
-            "required_block_types": [],
+            "required_block_types": ["headline", "rich_text"],
             "blocks": [
                 {
                     "id": "33333333-0000-0000-0000-000000000221",
@@ -189,10 +447,10 @@
                     "featured": false,
                     "content": {
                         "en": {
-                            "text": "**School Hours:** Sunday – Thursday, 7:30 AM – 2:00 PM\n**Administration Office:** Sunday – Thursday, 8:00 AM – 3:00 PM\n\nVisitors are requested to schedule an appointment prior to arriving at the campus to ensure quick assistance."
+                            "content": "**School Hours:** Sunday – Thursday, 7:30 AM – 2:00 PM\n**Administration Office:** Sunday – Thursday, 8:00 AM – 3:00 PM\n\nVisitors are requested to schedule an appointment prior to arriving at the campus to ensure quick assistance."
                         },
                         "ar": {
-                            "text": "**ساعات الدراسة:** الأحد – الخميس، 7:30 صباحاً – 2:00 ظهراً\n**المكتب الإداري:** الأحد – الخميس، 8:00 صباحاً – 3:00 عصراً\n\nيُرجي من الزوار حجز موعد مسبق قبل الحضور للحرم المدرسي لضمان تقديم المساعدة السريعة."
+                            "content": "**ساعات الدراسة:** الأحد – الخميس، 7:30 صباحاً – 2:00 ظهراً\n**المكتب الإداري:** الأحد – الخميس، 8:00 صباحاً – 3:00 عصراً\n\nيُرجي من الزوار حجز موعد مسبق قبل الحضور للحرم المدرسي لضمان تقديم المساعدة السريعة."
                         }
                     }
                 }
@@ -203,9 +461,9 @@
             "type": "faq_accordion",
             "name": "Contact FAQ",
             "anchor_id": "contact-faq",
-            "position": 4,
+            "position": 5,
             "group": "below-fold",
-            "required_block_types": [],
+            "required_block_types": ["headline", "feature_item"],
             "blocks": [
                 {
                     "id": "33333333-0000-0000-0000-000000000231",
@@ -268,6 +526,40 @@
                         "ar": {
                             "label": "كيف يحصل أولياء الأمور على بيانات تسجيل الدخول للمنصة؟",
                             "description": "تُقدم بيانات الاعتماد للحساب فور التحقق من تسجيل الطالب بواسطة الفريق الإداري."
+                        }
+                    }
+                },
+                {
+                    "id": "33333333-0000-0000-0000-000000000235",
+                    "type": "feature_item",
+                    "position": 5,
+                    "weight": 7,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "label": "Can I schedule a school campus tour?",
+                            "description": "Yes! Submit a request through the contact form above or call our admissions office directly to choose a suitable date."
+                        },
+                        "ar": {
+                            "label": "هل يمكنني حجز جولة في الحرم المدرسي؟",
+                            "description": "نعم! يمكنك تقديم طلب عبر نموذج الاتصال أعلاه أو الاتصال بمكتب القبول مباشرة لتحديد موعد مناسب."
+                        }
+                    }
+                },
+                {
+                    "id": "33333333-0000-0000-0000-000000000236",
+                    "type": "feature_item",
+                    "position": 6,
+                    "weight": 7,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "label": "What is the response time for online inquiries?",
+                            "description": "Inquiries submitted through the online form are reviewed and responded to within 24 business hours."
+                        },
+                        "ar": {
+                            "label": "ما هو وقت الرد على الاستفسارات عبر الإنترنت؟",
+                            "description": "يتم مراجعة الاستفسارات المقدمة عبر النموذج والرد عليها في غضون 24 ساعة عمل."
                         }
                     }
                 }

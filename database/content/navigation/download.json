@@ -1,0 +1,27 @@
+{
+  "id": "0a000000-0000-0000-0003-000000000000",
+  "group_id": "app_download",
+  "label": {
+    "en": "Download App",
+    "ar": "تحميل التطبيق"
+  },
+  "type": "direct_link",
+  "position": 1,
+  "is_active": true,
+  "columns": [
+    {
+      "id": "0a000000-0000-0000-0003-000000000100",
+      "column_id": "app-download-link",
+      "label": null,
+      "entries": [
+        {
+          "label": {
+            "en": "Download App",
+            "ar": "تحميل التطبيق"
+          },
+          "slug": "app"
+        }
+      ]
+    }
+  ]
+}
