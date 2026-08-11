@@ -17,20 +17,20 @@ interface NavItem {
 }
 
 const NAV_ITEMS: NavItem[] = [
-    { to: '/admin',              label: L.dashboard,    icon: '/icons/spreadsheet_dashboard.svg', exact: true, section: 'main'    },
-    { to: '/admin/navigation',   label: L.navigation,   icon: '/icons/website.svg',                            section: 'content',
+    { to: '/admin',              label: L.dashboard,    icon: '/schools/icons/spreadsheet_dashboard.svg', exact: true, section: 'main'    },
+    { to: '/admin/navigation',   label: L.navigation,   icon: '/schools/icons/website.svg',                            section: 'content',
       roles: ['platform.admin'] },
-    { to: '/admin/pages',        label: L.pages,        icon: '/icons/website.svg',                            section: 'content'  },
-    { to: '/admin/articles',     label: L.articles,     icon: '/icons/website_blog.svg',                       section: 'publish'  },
-    { to: '/admin/publish',      label: L.publishQueue, icon: '/icons/mass_mailing.svg',                       section: 'publish',
+    { to: '/admin/pages',        label: L.pages,        icon: '/schools/icons/website.svg',                            section: 'content'  },
+    { to: '/admin/articles',     label: L.articles,     icon: '/schools/icons/website_blog.svg',                       section: 'publish'  },
+    { to: '/admin/publish',      label: L.publishQueue, icon: '/schools/icons/mass_mailing.svg',                       section: 'publish',
       roles: ['platform.admin', 'content.publisher'] },
-    { to: '/admin/permissions',  label: L.permissions,  icon: '/icons/approvals.svg',                          section: 'manage',
+    { to: '/admin/permissions',  label: L.permissions,  icon: '/schools/icons/approvals.svg',                          section: 'manage',
       roles: ['platform.admin'] },
-    { to: '/admin/users',        label: L.users,        icon: '/icons/contacts.svg',                           section: 'manage',
+    { to: '/admin/users',        label: L.users,        icon: '/schools/icons/contacts.svg',                           section: 'manage',
       roles: ['platform.admin'] },
-    { to: '/admin/keywords',     label: L.keywords,     icon: '/icons/utm.svg',                                section: 'publish',
+    { to: '/admin/keywords',     label: L.keywords,     icon: '/schools/icons/utm.svg',                                section: 'publish',
       roles: ['platform.admin', 'content.publisher'] },
-    { to: '/admin/topics',       label: L.topics,       icon: '/icons/library.svg',                            section: 'publish',
+    { to: '/admin/topics',       label: L.topics,       icon: '/schools/icons/library.svg',                            section: 'publish',
       roles: ['platform.admin', 'content.publisher'] },
 ];
 

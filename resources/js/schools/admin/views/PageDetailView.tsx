@@ -20,6 +20,7 @@ import SectionTypePickerModal from '../components/SectionTypePickerModal';
 import SectionComposerModal   from '../components/SectionComposerModal';
 import type { SectionTypeSchema } from '../sectionSchemas';
 import Button from '../components/Button';
+import { Icon } from '../components/Icon';
 
 function pageTitle(page: AdminPage): string {
     if (!page.identity_title) return page.slug;
@@ -130,7 +131,7 @@ function SectionPanel({ section, pageId, onRefresh }: SectionPanelProps) {
                         {isLocked && (
                             <div className="adm-lock-notice">
                                 <span className="adm-lock-notice__icon">
-                                    <img src="/icons/sign.svg" alt="" className="adm-inline-icon" />
+                                <Icon name="sign"/>
                                 </span>
                                 <span>
                                     <strong>Locked:</strong> This section is in review.
@@ -155,7 +156,7 @@ function SectionPanel({ section, pageId, onRefresh }: SectionPanelProps) {
                                         variant="edit"
                                         onClick={openEditor}
                                     >
-                                        <img src="/icons/web_studio.svg" alt="" className="adm-inline-icon" /> Edit blocks
+                                        <Icon name="web_studio"/>
                                     </Button>
                                 )}
                                 {!isPublished && (
@@ -163,9 +164,10 @@ function SectionPanel({ section, pageId, onRefresh }: SectionPanelProps) {
                                         variant="danger"
                                         onClick={handleDelete}
                                         loading={deleting}
-                                        loadingText={<><img src="/icons/data_recycle.svg" alt="" className="adm-inline-icon" /> Deleting…</>}
+                                        loadingText={<><Icon name="data_recycle"/>
+                                         Deleting…</>}
                                     >
-                                        <img src="/icons/data_recycle.svg" alt="" className="adm-inline-icon" /> Delete section
+                                        <Icon name="data_recycle"/> Delete section
                                     </Button>
                                 )}
                                 {deleteErr && (
@@ -809,7 +811,7 @@ export default function PageDetailView() {
                 {page.status === 'in_review' && (
                     <div className="adm-lock-notice">
                         <span className="adm-lock-notice__icon">
-                            <img src="/icons/sign.svg" alt="" className="adm-inline-icon" />
+                            <Icon name="sign"/>
                         </span>
                         <span>
                             <strong>Locked:</strong> This page is in review.

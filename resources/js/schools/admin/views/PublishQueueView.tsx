@@ -7,6 +7,7 @@ import WorkflowBadge from '../components/WorkflowBadge';
 import type { WorkflowStatus } from '../types';
 import { useNavigate } from 'react-router-dom';
 import { ADMIN_LANG } from '../lang/en';
+import { Icon } from '../components/Icon';
 
 const L = ADMIN_LANG.publishQueue;
 
@@ -48,7 +49,7 @@ export default function PublishQueueView() {
 
             {!canPublish && (
                 <div className="adm-alert adm-alert--warning">
-                    <img src="/icons/approvals.svg" alt="" className="adm-inline-icon" /> {L.restrictedMsg}
+                    <Icon name="approvals"/> {L.restrictedMsg}
                 </div>
             )}
 

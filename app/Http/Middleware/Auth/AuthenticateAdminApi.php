@@ -4,6 +4,8 @@ namespace App\Http\Middleware\Auth;
 
 use App\Models\Auth\AdminApiToken;
 use Closure;
+use App\Models\School\School;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -13,6 +15,15 @@ class AuthenticateAdminApi
     {
         $bearer = $request->bearerToken();
         if (! $bearer) {
+            if ($request->isMethod('GET') && $request->acceptsHtml() && ! $request->expectsJson()) {
+                $schoolCode = $request->route('school_code') ?? '';
+                $school = School::where('code', $schoolCode)->first();
+                return response()->view('schools.app', [
+                    'school'      => $school,
+                    'school_code' => $schoolCode,
+                    'seo'         => ['title' => 'لوحة التحكم - منصة شفيع'],
+                ]);
+            }
             return response()->json(['error' => 'Unauthenticated.'], 401);
         }
 
@@ -26,7 +37,13 @@ class AuthenticateAdminApi
 
         $token->forceFill(['last_used_at' => now()])->save();
         $request->attributes->set('admin_user', $token->user);
-        $request->headers->set('X-Actor-ID', (string) $token->user->id);
+
+        $userId = (string) $token->user->id;
+        $actorUuid = Str::isUuid($userId)
+            ? $userId
+            : sprintf('00000000-0000-0000-0000-%012d', (int) $token->user->id);
+
+        $request->headers->set('X-Actor-ID', $actorUuid);
 
         return $next($request);
     }

@@ -47,7 +47,12 @@ class PageController extends Controller
 
     public function show(string $id): JsonResponse
     {
-        $page = Page::with(['sections' => fn($q) => $q->orderBy('ordering_position')])->findOrFail($id);
+        $page = Page::with(['sections' => fn($q) => $q->orderBy('ordering_position')])->find($id);
+
+        if (! $page) {
+            return response()->json(['error' => 'Page not found.'], 404);
+        }
+
         return response()->json($page);
     }
 

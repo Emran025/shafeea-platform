@@ -5,6 +5,7 @@ import { fetchPages, createPage, workflowSubmit, workflowApprove, workflowPublis
 import WorkflowBadge from '../components/WorkflowBadge';
 import { useAuth } from '../context/AuthContext';
 import Button from '../components/Button';
+import { Icon } from '../components/Icon';
 
 const STATUS_FILTERS = [
     { value: '',          label: 'All'       },
@@ -133,7 +134,8 @@ export default function ArticlesView() {
                         loading={creating}
                         loadingText="Creating…"
                     >
-                        <img src="/icons/web_studio.svg" alt="" className="adm-inline-icon" /> New Article
+                        <Icon name='web_studio' />
+                        New Article
                     </Button>
                 )}
             </div>
@@ -185,7 +187,7 @@ export default function ArticlesView() {
                     {displayed.length === 0 ? (
                         <div className="adm-articles-empty">
                             <div className="adm-articles-empty__icon">
-                                <img src="/icons/website_blog.svg" alt="" className="adm-empty-icon" />
+                                <Icon name="website_blog"/>
                             </div>
                             <div className="adm-articles-empty__title">
                                 {search || filter ? 'No articles match your filter.' : 'No articles yet.'}

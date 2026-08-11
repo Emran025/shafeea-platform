@@ -32,7 +32,7 @@ export interface SectionTypeSchema {
     type:        string;
     label:       string;
     description: string;
-    icon:        string;  // path to SVG in /icons/
+    icon:        string;  // path to SVG in /schools/icons/
     group:       'hero' | 'content' | 'grid' | 'media' | 'navigation' | 'platform' | 'legal' | 'newsroom';
     blocks:      BlockDef[];
 }
@@ -83,7 +83,7 @@ export const SECTION_SCHEMAS: SectionTypeSchema[] = [
 
     // ── hero ─────────────────────────────────────────────────────────────
     {
-        type: 'hero', label: 'Hero', icon: '/icons/elearning_platform.svg',
+        type: 'hero', label: 'Hero', icon: '/schools/icons/elearning_platform.svg',
         description: 'Primary above-the-fold statement with headline, sub, and CTAs.',
         group: 'hero',
         blocks: [
@@ -96,7 +96,7 @@ export const SECTION_SCHEMAS: SectionTypeSchema[] = [
 
     // ── narrative ────────────────────────────────────────────────────────
     {
-        type: 'narrative', label: 'Narrative', icon: '/icons/documents.svg',
+        type: 'narrative', label: 'Narrative', icon: '/schools/icons/documents.svg',
         description: 'Explanatory story or editorial content with optional media.',
         group: 'content',
         blocks: [
@@ -124,7 +124,7 @@ export const SECTION_SCHEMAS: SectionTypeSchema[] = [
 
     // ── platform_showcase ────────────────────────────────────────────────
     {
-        type: 'platform_showcase', label: 'Platform Showcase', icon: '/icons/base.svg',
+        type: 'platform_showcase', label: 'Platform Showcase', icon: '/schools/icons/base.svg',
         description: 'Horizontal cards showcasing the three platforms with CTAs.',
         group: 'platform',
         blocks: [
@@ -146,7 +146,7 @@ export const SECTION_SCHEMAS: SectionTypeSchema[] = [
 
     // ── leadership ───────────────────────────────────────────────────────
     {
-        type: 'leadership', label: 'Leadership', icon: '/icons/hr.svg',
+        type: 'leadership', label: 'Leadership', icon: '/schools/icons/hr.svg',
         description: 'Team grid with headshots, names, and titles.',
         group: 'content',
         blocks: [
@@ -166,7 +166,7 @@ export const SECTION_SCHEMAS: SectionTypeSchema[] = [
 
     // ── statistics ───────────────────────────────────────────────────────
     {
-        type: 'statistics', label: 'Statistics', icon: '/icons/spreadsheet_dashboard.svg',
+        type: 'statistics', label: 'Statistics', icon: '/schools/icons/spreadsheet_dashboard.svg',
         description: 'Bold KPI numbers with labels in a horizontal band.',
         group: 'content',
         blocks: [
@@ -185,7 +185,7 @@ export const SECTION_SCHEMAS: SectionTypeSchema[] = [
 
     // ── testimonial ──────────────────────────────────────────────────────
     {
-        type: 'testimonial', label: 'Testimonial', icon: '/icons/im_livechat.svg',
+        type: 'testimonial', label: 'Testimonial', icon: '/schools/icons/im_livechat.svg',
         description: 'Single large pull-quote with attribution.',
         group: 'content',
         blocks: [
@@ -204,7 +204,7 @@ export const SECTION_SCHEMAS: SectionTypeSchema[] = [
 
     // ── cta_band ─────────────────────────────────────────────────────────
     {
-        type: 'cta_band', label: 'CTA Band', icon: '/icons/marketing_automation.svg',
+        type: 'cta_band', label: 'CTA Band', icon: '/schools/icons/marketing_automation.svg',
         description: 'Full-width dark band with headline and primary/secondary CTAs.',
         group: 'hero',
         blocks: [
@@ -233,7 +233,7 @@ export const SECTION_SCHEMAS: SectionTypeSchema[] = [
 
     // ── contact_form ─────────────────────────────────────────────────────
     {
-        type: 'contact_form', label: 'Contact Form', icon: '/icons/frontdesk.svg',
+        type: 'contact_form', label: 'Contact Form', icon: '/schools/icons/frontdesk.svg',
         description: 'Structured intake form with configurable fields.',
         group: 'content',
         blocks: [
@@ -251,7 +251,7 @@ export const SECTION_SCHEMAS: SectionTypeSchema[] = [
 
     // ── navigation_anchor ────────────────────────────────────────────────
     {
-        type: 'navigation_anchor', label: 'Navigation Anchor', icon: '/icons/website_links.svg',
+        type: 'navigation_anchor', label: 'Navigation Anchor', icon: '/schools/icons/website_links.svg',
         description: 'Sticky in-page anchor bar linking to sections below.',
         group: 'navigation',
         blocks: [
@@ -268,7 +268,7 @@ export const SECTION_SCHEMAS: SectionTypeSchema[] = [
 
     // ── freeform ─────────────────────────────────────────────────────────
     {
-        type: 'freeform', label: 'Freeform', icon: '/icons/web_studio.svg',
+        type: 'freeform', label: 'Freeform', icon: '/schools/icons/web_studio.svg',
         description: 'Open rich text area for custom editorial content.',
         group: 'content',
         blocks: [
@@ -279,7 +279,7 @@ export const SECTION_SCHEMAS: SectionTypeSchema[] = [
 
     // ── problem_statement ────────────────────────────────────────────────
     {
-        type: 'problem_statement', label: 'Problem Statement', icon: '/icons/knowledge.svg',
+        type: 'problem_statement', label: 'Problem Statement', icon: '/schools/icons/knowledge.svg',
         description: 'Contrast-heavy section that frames the problem the platform solves.',
         group: 'content',
         blocks: [
@@ -299,7 +299,7 @@ export const SECTION_SCHEMAS: SectionTypeSchema[] = [
 
     // ── capability_grid ──────────────────────────────────────────────────
     {
-        type: 'capability_grid', label: 'Capability Grid', icon: '/icons/databases.svg',
+        type: 'capability_grid', label: 'Capability Grid', icon: '/schools/icons/databases.svg',
         description: 'Icon + label + description tile grid for platform capabilities.',
         group: 'grid',
         blocks: [
@@ -310,7 +310,7 @@ export const SECTION_SCHEMAS: SectionTypeSchema[] = [
                 fields: [
                     { key: 'label',       label: 'Capability title',       type: 'text',     required: true },
                     { key: 'description', label: 'Capability description', type: 'textarea', required: true },
-                    { key: 'icon',        label: 'Icon path (optional)',    type: 'text',     placeholder: '/icons/databases.svg' },
+                    { key: 'icon',        label: 'Icon path (optional)',    type: 'text',     placeholder: '/schools/icons/databases.svg' },
                 ],
             },
         ],
@@ -318,7 +318,7 @@ export const SECTION_SCHEMAS: SectionTypeSchema[] = [
 
     // ── ecosystem_diagram ────────────────────────────────────────────────
     {
-        type: 'ecosystem_diagram', label: 'Ecosystem Diagram', icon: '/icons/iot.svg',
+        type: 'ecosystem_diagram', label: 'Ecosystem Diagram', icon: '/schools/icons/iot.svg',
         description: 'Visual diagram showing platform relationships and data flows.',
         group: 'platform',
         blocks: [
@@ -328,7 +328,7 @@ export const SECTION_SCHEMAS: SectionTypeSchema[] = [
 
     // ── use_case_grid ────────────────────────────────────────────────────
     {
-        type: 'use_case_grid', label: 'Use Case Grid', icon: '/icons/project.svg',
+        type: 'use_case_grid', label: 'Use Case Grid', icon: '/schools/icons/project.svg',
         description: 'Card grid of use cases or job-to-be-done scenarios.',
         group: 'grid',
         blocks: [
@@ -347,7 +347,7 @@ export const SECTION_SCHEMAS: SectionTypeSchema[] = [
 
     // ── industry_grid ────────────────────────────────────────────────────
     {
-        type: 'industry_grid', label: 'Industry Grid', icon: '/icons/hr_skills.svg',
+        type: 'industry_grid', label: 'Industry Grid', icon: '/schools/icons/hr_skills.svg',
         description: 'Grid of industry verticals with icons and short descriptors.',
         group: 'grid',
         blocks: [
@@ -358,7 +358,7 @@ export const SECTION_SCHEMAS: SectionTypeSchema[] = [
                 fields: [
                     { key: 'label',       label: 'Industry name',        type: 'text',     required: true },
                     { key: 'description', label: 'Short descriptor',     type: 'text' },
-                    { key: 'icon',        label: 'Icon path (optional)', type: 'text',     placeholder: '/icons/construction.svg' },
+                    { key: 'icon',        label: 'Icon path (optional)', type: 'text',     placeholder: '/schools/icons/construction.svg' },
                 ],
             },
         ],
@@ -389,7 +389,7 @@ export const SECTION_SCHEMAS: SectionTypeSchema[] = [
 
     // ── pricing_table ────────────────────────────────────────────────────
     {
-        type: 'pricing_table', label: 'Pricing Table', icon: '/icons/spreadsheet.svg',
+        type: 'pricing_table', label: 'Pricing Table', icon: '/schools/icons/spreadsheet.svg',
         description: 'Matrix-style feature comparison table across tiers.',
         group: 'content',
         blocks: [
@@ -415,7 +415,7 @@ export const SECTION_SCHEMAS: SectionTypeSchema[] = [
 
     // ── in_page_nav ──────────────────────────────────────────────────────
     {
-        type: 'in_page_nav', label: 'In-Page Nav', icon: '/icons/website.svg',
+        type: 'in_page_nav', label: 'In-Page Nav', icon: '/schools/icons/website.svg',
         description: 'Tab-style top navigation that jumps to page anchors.',
         group: 'navigation',
         blocks: [
@@ -432,7 +432,7 @@ export const SECTION_SCHEMAS: SectionTypeSchema[] = [
 
     // ── breadcrumb ───────────────────────────────────────────────────────
     {
-        type: 'breadcrumb', label: 'Breadcrumb', icon: '/icons/website_crm.svg',
+        type: 'breadcrumb', label: 'Breadcrumb', icon: '/schools/icons/website_crm.svg',
         description: 'Top-of-page breadcrumb trail.',
         group: 'navigation',
         blocks: [
@@ -449,7 +449,7 @@ export const SECTION_SCHEMAS: SectionTypeSchema[] = [
 
     // ── customer_story_grid ──────────────────────────────────────────────
     {
-        type: 'customer_story_grid', label: 'Customer Story Grid', icon: '/icons/project_todo.svg',
+        type: 'customer_story_grid', label: 'Customer Story Grid', icon: '/schools/icons/project_todo.svg',
         description: 'Featured card + list grid of customer success stories.',
         group: 'grid',
         blocks: [
@@ -471,7 +471,7 @@ export const SECTION_SCHEMAS: SectionTypeSchema[] = [
 
     // ── blog_post_grid ───────────────────────────────────────────────────
     {
-        type: 'blog_post_grid', label: 'Blog Post Grid', icon: '/icons/website_blog.svg',
+        type: 'blog_post_grid', label: 'Blog Post Grid', icon: '/schools/icons/website_blog.svg',
         description: 'Card grid of blog posts with date, category, and thumbnails.',
         group: 'grid',
         blocks: [
@@ -494,7 +494,7 @@ export const SECTION_SCHEMAS: SectionTypeSchema[] = [
 
     // ── media_spotlight ──────────────────────────────────────────────────
     {
-        type: 'media_spotlight', label: 'Media Spotlight', icon: '/icons/sign.svg',
+        type: 'media_spotlight', label: 'Media Spotlight', icon: '/schools/icons/sign.svg',
         description: 'Two-column layout: text on one side, featured image on other.',
         group: 'media',
         blocks: [
@@ -512,7 +512,7 @@ export const SECTION_SCHEMAS: SectionTypeSchema[] = [
 
     // ── media_banner ─────────────────────────────────────────────────────
     {
-        type: 'media_banner', label: 'Media Banner', icon: '/icons/billboard_rental.svg',
+        type: 'media_banner', label: 'Media Banner', icon: '/schools/icons/billboard_rental.svg',
         description: 'Full-width background image or video banner with overlay text.',
         group: 'media',
         blocks: [
@@ -530,7 +530,7 @@ export const SECTION_SCHEMAS: SectionTypeSchema[] = [
 
     // ── video_feature ────────────────────────────────────────────────────
     {
-        type: 'video_feature', label: 'Video Feature', icon: '/icons/website_slides.svg',
+        type: 'video_feature', label: 'Video Feature', icon: '/schools/icons/website_slides.svg',
         description: 'Featured video with heading and supporting text.',
         group: 'media',
         blocks: [
@@ -551,7 +551,7 @@ export const SECTION_SCHEMAS: SectionTypeSchema[] = [
 
     // ── media_grid ───────────────────────────────────────────────────────
     {
-        type: 'media_grid', label: 'Media Grid', icon: '/icons/gallery.svg',
+        type: 'media_grid', label: 'Media Grid', icon: '/schools/icons/gallery.svg',
         description: 'Gallery grid of images.',
         group: 'media',
         blocks: [
@@ -570,7 +570,7 @@ export const SECTION_SCHEMAS: SectionTypeSchema[] = [
 
     // ── logo_cloud ───────────────────────────────────────────────────────
     {
-        type: 'logo_cloud', label: 'Logo Cloud', icon: '/icons/partner_autocomplete.svg',
+        type: 'logo_cloud', label: 'Logo Cloud', icon: '/schools/icons/partner_autocomplete.svg',
         description: 'Grayscale grid/ticker of customer or partner logos.',
         group: 'media',
         blocks: [
@@ -588,7 +588,7 @@ export const SECTION_SCHEMAS: SectionTypeSchema[] = [
 
     // ── faq_accordion ────────────────────────────────────────────────────
     {
-        type: 'faq_accordion', label: 'FAQ Accordion', icon: '/icons/survey.svg',
+        type: 'faq_accordion', label: 'FAQ Accordion', icon: '/schools/icons/survey.svg',
         description: 'Interactive frequently asked questions list (SEO-friendly).',
         group: 'content',
         blocks: [
@@ -606,7 +606,7 @@ export const SECTION_SCHEMAS: SectionTypeSchema[] = [
 
     // ── tabbed_switcher ──────────────────────────────────────────────────
     {
-        type: 'tabbed_switcher', label: 'Tabbed Switcher', icon: '/icons/board.svg',
+        type: 'tabbed_switcher', label: 'Tabbed Switcher', icon: '/schools/icons/board.svg',
         description: 'Interactive switchable tabs to showcase product features.',
         group: 'content',
         blocks: [
@@ -624,7 +624,7 @@ export const SECTION_SCHEMAS: SectionTypeSchema[] = [
 
     // ── resource_gate ────────────────────────────────────────────────────
     {
-        type: 'resource_gate', label: 'Resource Gate', icon: '/icons/sign.svg',
+        type: 'resource_gate', label: 'Resource Gate', icon: '/schools/icons/sign.svg',
         description: 'Gated document/file download with contact intake form.',
         group: 'content',
         blocks: [
@@ -650,7 +650,7 @@ export const SECTION_SCHEMAS: SectionTypeSchema[] = [
 
     // ── product_comparison ───────────────────────────────────────────────
     {
-        type: 'product_comparison', label: 'Product Comparison', icon: '/icons/product_conversion.svg',
+        type: 'product_comparison', label: 'Product Comparison', icon: '/schools/icons/product_conversion.svg',
         description: 'Side-by-side platform feature and capability comparison matrix.',
         group: 'platform',
         blocks: [
@@ -683,7 +683,7 @@ export const SECTION_SCHEMAS: SectionTypeSchema[] = [
 
     // ── news_hero ─────────────────────────────────────────────────
     {
-        type: 'news_hero', label: 'News Hero', icon: '/icons/mass_mailing.svg',
+        type: 'news_hero', label: 'News Hero', icon: '/schools/icons/mass_mailing.svg',
         description: 'Dark top-of-page hero for the News index with optional category filter tabs.',
         group: 'newsroom',
         blocks: [
@@ -700,7 +700,7 @@ export const SECTION_SCHEMAS: SectionTypeSchema[] = [
 
     // ── news_article_grid ─────────────────────────────────────────
     {
-        type: 'news_article_grid', label: 'News Article Grid', icon: '/icons/website_blog.svg',
+        type: 'news_article_grid', label: 'News Article Grid', icon: '/schools/icons/website_blog.svg',
         description: 'Editorial list of news articles: date, category tag, title, thumbnail.',
         group: 'newsroom',
         blocks: [
@@ -723,7 +723,7 @@ export const SECTION_SCHEMAS: SectionTypeSchema[] = [
 
     // ── stories_hero ──────────────────────────────────────────────
     {
-        type: 'stories_hero', label: 'Stories Hero', icon: '/icons/gamification.svg',
+        type: 'stories_hero', label: 'Stories Hero', icon: '/schools/icons/gamification.svg',
         description: 'Two-column Stories page opener: left heading + right featured story card.',
         group: 'newsroom',
         blocks: [
@@ -745,7 +745,7 @@ export const SECTION_SCHEMAS: SectionTypeSchema[] = [
 
     // ── stories_grid ──────────────────────────────────────────────
     {
-        type: 'stories_grid', label: 'Stories Grid', icon: '/icons/event.svg',
+        type: 'stories_grid', label: 'Stories Grid', icon: '/schools/icons/event.svg',
         description: '2-col featured image cards + "All stories" editorial list rows.',
         group: 'newsroom',
         blocks: [
@@ -769,7 +769,7 @@ export const SECTION_SCHEMAS: SectionTypeSchema[] = [
 
     // ── about_hero ────────────────────────────────────────────────
     {
-        type: 'about_hero', label: 'About Hero', icon: '/icons/corporate_gifts.svg',
+        type: 'about_hero', label: 'About Hero', icon: '/schools/icons/corporate_gifts.svg',
         description: 'Dark two-column mission hero for the About Us page.',
         group: 'newsroom',
         blocks: [
@@ -787,7 +787,7 @@ export const SECTION_SCHEMAS: SectionTypeSchema[] = [
 
     // ── mission_statement ─────────────────────────────────────────
     {
-        type: 'mission_statement', label: 'Mission Statement', icon: '/icons/social.svg',
+        type: 'mission_statement', label: 'Mission Statement', icon: '/schools/icons/social.svg',
         description: 'Two-column: large gold-accented quote left, values list right.',
         group: 'newsroom',
         blocks: [
@@ -805,7 +805,7 @@ export const SECTION_SCHEMAS: SectionTypeSchema[] = [
 
     // ── timeline ──────────────────────────────────────────────────
     {
-        type: 'timeline', label: 'Timeline', icon: '/icons/calendar.svg',
+        type: 'timeline', label: 'Timeline', icon: '/schools/icons/calendar.svg',
         description: 'Alternating vertical timeline of company milestones.',
         group: 'newsroom',
         blocks: [

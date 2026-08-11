@@ -33,7 +33,7 @@ export interface AdminActor {
     name:  string;
     email: string;
     roles: AuthorRole[];
-    role?: AuthorRole;
+    role: AuthorRole;
 }
 
 export interface AdminPage {

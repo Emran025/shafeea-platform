@@ -96,9 +96,9 @@ return Application::configure(basePath: dirname(__DIR__))
             TokenMismatchException::class,
         ]);
 
-        // Custom exception rendering for API
+        // Custom exception rendering for API and School Admin API
         $exceptions->render(function (AuthenticationException $e, Request $request) {
-            if ($request->is('api/*')) {
+            if ($request->is('api/*') || $request->is('school/*/admin/*') || $request->wantsJson()) {
                 return response()->json([
                     'status' => 'error',
                     'message' => 'Token is invalid or already revoked',

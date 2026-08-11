@@ -4,6 +4,7 @@ import { ADMIN_LANG } from '../lang/en';
 import type { AuthorRole } from '../types';
 import { fetchPermissionsMatrix, updateRolePermissions } from '../api/adminClient';
 import Button from '../components/Button';
+import { Icon } from '../components/Icon';
 
 const L = ADMIN_LANG.permissions;
 
@@ -37,16 +38,16 @@ const ROLE_COLORS: Record<AuthorRole, string> = {
 };
 
 const ROLE_ICONS: Record<AuthorRole, string> = {
-    'platform.admin':    '/icons/base.svg',
-    'content.publisher': '/icons/mass_mailing.svg',
-    'content.editor':    '/icons/web_studio.svg',
-    'content.author':    '/icons/documents.svg',
-    'ops.manager':       '/icons/settings.svg',
-    'inquiry.email':     '/icons/mail.svg',
-    'content.supervisor':  '/icons/fact_check.svg',
-    'inquiry.faq':         '/icons/help.svg',
-    'inquiry.support':     '/icons/support_agent.svg',
-    'inquiry.manager':     '/icons/manage_accounts.svg',
+    'platform.admin':    '/schools/icons/base.svg',
+    'content.publisher': '/schools/icons/mass_mailing.svg',
+    'content.editor':    '/schools/icons/web_studio.svg',
+    'content.author':    '/schools/icons/documents.svg',
+    'ops.manager':       '/schools/icons/settings.svg',
+    'inquiry.email':     '/schools/icons/mail.svg',
+    'content.supervisor':  '/schools/icons/fact_check.svg',
+    'inquiry.faq':         '/schools/icons/help.svg',
+    'inquiry.support':     '/schools/icons/support_agent.svg',
+    'inquiry.manager':     '/schools/icons/manage_accounts.svg',
 };
 
 const PERM_GROUPS: { label: string; perms: Permission[] }[] = [
@@ -131,7 +132,7 @@ export default function PermissionsView() {
 
             {!canManage && (
                 <div className="adm-alert adm-alert--warning">
-                    <img src="/icons/approvals.svg" alt="" className="adm-inline-icon" /> Only Platform Admins can modify role permissions.
+                    <Icon name="approvals"/> Only Platform Admins can modify role permissions.
                 </div>
             )}
             {error && (
@@ -199,7 +200,7 @@ export default function PermissionsView() {
 
                 {selectedRole === 'platform.admin' && (
                     <div className="adm-perm-admin-notice">
-                        <span><img src="/icons/base.svg" alt="" className="adm-inline-icon" /></span>
+                        <span><Icon name="base"/></span>
                         <span>Platform Admin has all permissions and they cannot be modified.</span>
                     </div>
                 )}

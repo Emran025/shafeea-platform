@@ -28,7 +28,7 @@ export default function PlatformCardBlock({ block }: Props) {
     const displayCase = f?.display_case ?? 'lowercase_product';
     const formatted   = displayCase === 'uppercase' ? name.toUpperCase() : name.toLowerCase();
     const iconName    = (f as unknown as Record<string, unknown>)?.icon as string || getIconForPlatform(name, f?.ecosystem_role);
-    const iconUrl     = iconName.startsWith('/') || iconName.startsWith('http') ? iconName : `/icons/${iconName}`;
+    const iconUrl     = iconName.startsWith('/') || iconName.startsWith('http') ? iconName : `/schools/icons/${iconName}`;
 
     return (
         <motion.div
