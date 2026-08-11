@@ -2,8 +2,6 @@
 
 namespace Database\Seeders\Schools;
 
-use App\Models\Auth\Permission;
-use App\Models\Auth\Role;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -46,11 +44,8 @@ class AdminAccessSeeder extends Seeder
         }
 
         // ── 2. Users ──────────────────────────────────────────────────────────
-        $usersPath = database_path('content/admin/users.json');
-        if (! file_exists($usersPath)) {
-            throw new \RuntimeException('AdminAccessSeeder: users.json not found.');
-        }
-        $users = json_decode(file_get_contents($usersPath), true, 512, JSON_THROW_ON_ERROR);
+        // Source: config/admin.php → 'users'  (emails are env-driven)
+        $users = config('admin.users', []);
 
         foreach ($users as $userData) {
             $email = mb_strtolower(trim($userData['email']));
@@ -61,7 +56,7 @@ class AdminAccessSeeder extends Seeder
                     'name'               => $userData['name'],
                     'is_active'          => $userData['is_active'] ?? true,
                     'email_verified_at'  => $now,
-                    'password'           => Hash::make('Acc@123456'),
+                    'password'           => Hash::make(config('admin.default_password', 'Acc@123456')),
                     'updated_at'         => $now,
                     'created_at'         => $now,
                     // NOTE: No 'role' column — assignment happens via role_user pivot below.
@@ -83,6 +78,7 @@ class AdminAccessSeeder extends Seeder
         }
 
         // ── 3. Topics ─────────────────────────────────────────────────────────
+        // Still sourced from topics.json (non-sensitive structural content data).
         $topicsPath = database_path('content/admin/topics.json');
         if (! file_exists($topicsPath)) {
             throw new \RuntimeException('AdminAccessSeeder: topics.json not found.');
@@ -103,11 +99,8 @@ class AdminAccessSeeder extends Seeder
         }
 
         // ── 4. Permissions ────────────────────────────────────────────────────
-        $permissionsPath = database_path('content/admin/permissions.json');
-        if (! file_exists($permissionsPath)) {
-            throw new \RuntimeException('AdminAccessSeeder: permissions.json not found.');
-        }
-        $permissions = json_decode(file_get_contents($permissionsPath), true, 512, JSON_THROW_ON_ERROR);
+        // Source: config/admin.php → 'permissions'
+        $permissions = config('admin.permissions', []);
 
         foreach ($permissions as $perm) {
             DB::table('permissions')->updateOrInsert(
@@ -117,6 +110,8 @@ class AdminAccessSeeder extends Seeder
         }
 
         // ── 5. Role → Permission assignments (n-n via permission_role) ────────
+        // role_permissions.json maps role slugs → permission code arrays.
+        // This file remains JSON because it is a pure structural mapping with no secrets.
         $rolePermissionsPath = database_path('content/admin/role_permissions.json');
         if (! file_exists($rolePermissionsPath)) {
             throw new \RuntimeException('AdminAccessSeeder: role_permissions.json not found.');
@@ -144,11 +139,8 @@ class AdminAccessSeeder extends Seeder
         }
 
         // ── 6. Topic Assignments ──────────────────────────────────────────────
-        $topicAssignmentsPath = database_path('content/admin/topic_assignments.json');
-        if (! file_exists($topicAssignmentsPath)) {
-            throw new \RuntimeException('AdminAccessSeeder: topic_assignments.json not found.');
-        }
-        $topicAssignments = json_decode(file_get_contents($topicAssignmentsPath), true, 512, JSON_THROW_ON_ERROR);
+        // Source: config/admin.php → 'topic_assignments'  (emails are env-driven)
+        $topicAssignments = config('admin.topic_assignments', []);
 
         DB::table('topic_user')->delete();
 

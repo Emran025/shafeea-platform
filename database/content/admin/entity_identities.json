@@ -1,68 +1,52 @@
 [
   {
-    "entity_id": "accsystem",
+    "entity_id": "shafeea",
     "schema_version": "identity@1.0",
-    "canonical_name": "ACCSYSTEM",
+    "canonical_name": "Shafeea",
     "display_case": "uppercase",
     "tier": "corporate_parent",
     "typographic_weight": "institutional",
     "positioning": {
-      "role": "A corporate technology entity that operates and organizes a system of products.",
-      "not": "A product. ACCSYSTEM is the organizing framework — the corporate entity within which component products exist and from which they draw systemic coherence.",
-      "organizes": ["accore", "accommerce", "qayd"],
-      "website_scope": "Institutional presence of the corporate parent entity. References component products. Does not host their content.",
-      "description": "ACCSYSTEM is the corporate technology entity whose name combines the conceptual breadth of ACC with the idea of systems — organized frameworks connecting people, operations, relationships, and value over time."
+      "role": "A school management platform that delivers dedicated digital applications to multiple schools.",
+      "not": "A generic SaaS tool. Shafeea is a multi-tenant platform where each school receives its own branded environment, with features released centrally and deployed per-school.",
+      "organizes": ["shafeea_teacher", "shafeea_student"],
+      "website_scope": "Institutional presence of the Shafeea school platform. Hosts the school registration portal, the CMS-powered newsroom, and the per-school template engine.",
+      "description": "Shafeea is the school management platform that connects teachers, students, and school administrators through purpose-built applications — enabling Quran tracking, scheduling, enrollment, and school communications across a multi-school network."
     },
     "color_tokens": {
-      "primary": "#0F2741",
-      "accent": "#C9A227"
+      "primary": "#1A3C5E",
+      "accent": "#4CAF9A"
     }
   },
   {
-    "entity_id": "accore",
+    "entity_id": "shafeea_teacher",
     "schema_version": "identity@1.0",
-    "canonical_name": "ACCORE",
-    "display_case": "lowercase_product",
+    "canonical_name": "Shafeea Teacher",
+    "display_case": "uppercase",
     "tier": "component_product",
     "typographic_weight": "operational",
     "positioning": {
-      "role": "The enterprise operations and B2B commercial network core.",
-      "segment": "B2B / Enterprise",
-      "target_users": ["Organizations", "Enterprises", "Business operators"],
-      "description": "ACCORE is the operational nucleus. Activity originates here and extends outward. The point at which structural intent becomes operational coherence.",
-      "own_site": true
+      "role": "The dedicated teacher-facing application for school staff.",
+      "segment": "Education / School Staff",
+      "target_users": ["Teachers", "School staff", "Educators", "Halaqah supervisors"],
+      "description": "The Shafeea Teacher App gives school staff the tools to manage student groups, track Quran memorization progress, record attendance, and communicate with school administration — all from a purpose-built mobile experience.",
+      "own_site": false
     },
     "color_tokens": null
   },
   {
-    "entity_id": "accommerce",
+    "entity_id": "shafeea_student",
     "schema_version": "identity@1.0",
-    "canonical_name": "ACCOMMERCE",
-    "display_case": "lowercase_product",
+    "canonical_name": "Shafeea Student",
+    "display_case": "uppercase",
     "tier": "component_product",
     "typographic_weight": "operational",
     "positioning": {
-      "role": "The customer-facing commerce and discovery platform.",
-      "segment": "B2C / Consumer",
-      "target_users": ["Consumers", "Buyers", "Public users"],
-      "description": "ACCOMMERCE extends operational coherence into the marketplace — the surface where value enters open economic space and structured operations become public commerce experiences.",
-      "own_site": true
-    },
-    "color_tokens": null
-  },
-  {
-    "entity_id": "qayd",
-    "schema_version": "identity@1.0",
-    "canonical_name": "QAYD",
-    "display_case": "lowercase_product",
-    "tier": "component_product",
-    "typographic_weight": "operational",
-    "positioning": {
-      "role": "The lightweight financial and operational platform for individuals and independent activities.",
-      "segment": "Personal / SMB",
-      "target_users": ["Individuals", "Freelancers", "Independent workers", "Small merchants"],
-      "description": "QAYD embodies the earliest expression of structure — the point at which information is fixed, responsibility is established, and continuity begins. Its name carries longstanding associations with recording, documenting, registering, and preserving.",
-      "own_site": true
+      "role": "The dedicated student-facing application for school learners.",
+      "segment": "Education / Students",
+      "target_users": ["Students", "Learners", "Quran students"],
+      "description": "The Shafeea Student App provides learners with access to their Quran tracking records, lesson schedules, progress reports, and school notifications — delivering a focused and accessible experience tailored to the student journey.",
+      "own_site": false
     },
     "color_tokens": null
   }

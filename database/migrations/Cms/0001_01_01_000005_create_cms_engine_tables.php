@@ -17,7 +17,7 @@ return new class extends Migration
                 $table->string('identity_ref');
                 $table->enum('status', ['active', 'in_development', 'preview', 'deprecated'])
                     ->default('active');
-                $table->enum('segment', ['enterprise_b2b', 'consumer_b2c', 'personal_smb', 'infrastructure']);
+                $table->enum('segment', ['enterprise_b2b', 'consumer_b2c', 'personal_smb', 'infrastructure' , 'education_students' , 'education_school_staff']);
                 $table->json('target_users')->nullable();
                 $table->json('strategic_role')->nullable();
                 $table->json('tagline')->nullable();
