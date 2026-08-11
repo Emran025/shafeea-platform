@@ -56,10 +56,18 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'admin'                  => IsSuperVisor::class,
             'verify.build.signature' => VerifyBuildApiSignature::class,
+            'admin.auth'             => \App\Http\Middleware\Auth\AuthenticateAdminApi::class,
+            'require.permission'     => \App\Http\Middleware\Auth\RequirePermission::class,
         ]);
 
         // Exempt cookies from encryption
         $middleware->encryptCookies(except: ['appearance', 'sidebar_state']);
+
+        // Exempt school admin API routes from CSRF validation (authenticated via Bearer token)
+        $middleware->validateCsrfTokens(except: [
+            'school/*/admin/*',
+            'school/*/admin',
+        ]);
 
         // Append middleware to the web group
         $middleware->web(append: [

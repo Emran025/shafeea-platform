@@ -29,9 +29,13 @@ function getAdminBase(): string {
 
 function headers(): HeadersInit {
   const token = localStorage.getItem(TOKEN_KEY);
+  const csrfToken = typeof document !== 'undefined'
+    ? document.querySelector('meta[name="csrf-token"]')?.getAttribute('content')
+    : null;
   return {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
+    ...(csrfToken ? { 'X-CSRF-TOKEN': csrfToken } : {}),
     ...(token ? { Authorization: `Bearer ${token}` } : {}),
   };
 }
