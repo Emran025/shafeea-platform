@@ -11,6 +11,22 @@ import type { AdminActor, AuthorRole } from '../types';
 
 const TOKEN_KEY = 'acc_admin_token';
 
+/**
+ * Derives the school-scoped admin API base URL from the school code injected
+ * by the Blade shell — mirrors the pattern used in EngineClient.ts.
+ * Resolves to `/school/{code}/admin`.
+ */
+function getAdminBase(): string {
+  const schoolCode =
+    (window as any).__SCHOOL_DATA__?.code ||
+    document.getElementById('app')?.dataset.schoolCode ||
+    '';
+  if (!schoolCode) {
+    console.warn('[adminClient] No school code found — admin requests will fail.');
+  }
+  return `/school/${schoolCode}/admin`;
+}
+
 function headers(): HeadersInit {
   const token = localStorage.getItem(TOKEN_KEY);
   return {
@@ -30,7 +46,7 @@ export class ValidationError extends Error {
 }
 
 async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
-  const res = await fetch(`/api/admin${path}`, {
+  const res = await fetch(`${getAdminBase()}${path}`, {
     ...options,
     headers: { ...headers(), ...(options.headers ?? {}) },
   });
@@ -295,6 +311,17 @@ export function workflowApprove(type: ObjectType, id: string): Promise<WorkflowR
 
 export function workflowPublish(type: ObjectType, id: string): Promise<WorkflowResult> {
   return request<WorkflowResult>(`/workflow/${type}/${id}/publish`, { method: 'POST' });
+}
+
+export function workflowSchedule(
+  type: ObjectType,
+  id: string,
+  scheduledAt: string,
+): Promise<WorkflowResult> {
+  return request<WorkflowResult>(`/workflow/${type}/${id}/schedule`, {
+    method: 'POST',
+    body: JSON.stringify({ scheduled_at: scheduledAt }),
+  });
 }
 
 export function workflowUnpublish(
