@@ -86,7 +86,7 @@ export default function ArticlesView() {
             const page = await createPage({
                 slug,
                 type: 'newsroom.article',
-                site_scope: 'accsystem',
+                site_scope: (window as any).__SCHOOL_DATA__?.code || document.getElementById('app')?.dataset.schoolCode || 'accsystem',
                 identity_title: { en: 'Untitled Article' },
             });
             navigate(`/admin/articles/${page.id}/edit`);

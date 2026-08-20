@@ -61,7 +61,7 @@ function CreatePageModal({ onSuccess, onClose }: CreatePageModalProps) {
   const [form, setForm] = useState({
     slug:                     '',
     type:                     'corporate.about',
-    site_scope:               'main',
+    site_scope:               (window as any).__SCHOOL_DATA__?.code || document.getElementById('app')?.dataset.schoolCode || 'main',
     identity_title_en:        '',
     identity_purpose_en:      '',
     identity_owner:           'editorial',

@@ -62,7 +62,7 @@ export default function AdminLayout({ children }: Props) {
     const [mobileOpen, setMobileOpen] = useState(false);
 
     const visibleItems = NAV_ITEMS.filter(item =>
-        !item.roles || item.roles.includes(actor.role)
+        !item.roles || item.roles.includes(actor.role) || (actor.roles && actor.roles.some(r => item.roles!.includes(r)))
     );
 
     const mainItems    = visibleItems.filter(i => i.section === 'main');

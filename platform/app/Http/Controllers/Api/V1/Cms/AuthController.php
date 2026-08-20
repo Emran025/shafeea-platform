@@ -81,6 +81,7 @@ class AuthController extends Controller
             'name'  => $user->name,
             'email' => $user->email,
             'roles' => $user->roles->pluck('name')->values()->all(),
+            'role' => $user->roles->first()?->name ?? 'content.author',
         ];
     }
 

@@ -137,6 +137,10 @@ class SchoolService
                 }
             }
 
+            $platformAdminRole = \App\Models\Auth\Role::where("name", "platform.admin")->first();
+            if ($platformAdminRole) {
+                $user->roles()->attach($platformAdminRole->id);
+            }
             Admin::create([
                 'user_id' => $user->id,
                 'school_id' => $school->id,

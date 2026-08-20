@@ -32,7 +32,7 @@ class PageController extends Controller
             ->when($request->get('status'),     fn($q, $v) => $q->where('status', $v))
             ->when($request->get('type'),       fn($q, $v) => $q->where('type', $v))
             ->when($request->get('not_type'),   fn($q, $v) => $q->where('type', '!=', $v))
-            ->when($request->get('site_scope'), fn($q, $v) => $q->where('site_scope', $v))
+            ->where('site_scope', $request->route('school_code') ?? $request->get('site_scope'))
             ->when($request->get('parent_id'),  fn($q, $v) => $q->where('parent_id', $v))
             ->when($request->get('slug'),       fn($q, $v) => $q->where('slug', $v))
             ->orderBy('hierarchy_depth')

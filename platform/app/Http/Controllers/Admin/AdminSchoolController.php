@@ -136,6 +136,10 @@ class AdminSchoolController extends Controller
                 }
 
                 // 5. Create Admin with 'accepted' status (unlike public apply which uses 'pending')
+                $platformAdminRole = \App\Models\Auth\Role::where("name", "platform.admin")->first();
+                if ($platformAdminRole) {
+                    $user->roles()->attach($platformAdminRole->id);
+                }
                 Admin::create([
                     'user_id' => $user->id,
                     'status' => 'accepted',
