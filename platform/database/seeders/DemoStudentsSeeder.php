@@ -60,6 +60,7 @@ class DemoStudentsSeeder extends Seeder
 
             // Create student
             Student::create([
+                'school_id' => $user->school_id,
                 'user_id' => $user->id,
                 'memorization_level' => $studentData['memorization_level'] ?? 1,
                 'qualification' => $this->getQualificationByBirthYear($studentData['birth_year'] ?? 2010),

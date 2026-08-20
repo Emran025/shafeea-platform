@@ -11,7 +11,7 @@ class NavigationGroupController extends Controller
 {
     public function index(): JsonResponse
     {
-        $groups = NavigationGroup::withTrashed(false)
+        $groups = NavigationGroup::withTrashed(false)->where('site_scope', request()->route('school_code') ?? request()->get('site_scope'))
             ->with(['columns.entries'])
             ->orderBy('position')
             ->get()
@@ -24,7 +24,7 @@ class NavigationGroupController extends Controller
     {
         $data = $request->validate([
             'label'     => ['required', 'string', 'max:120'],
-            'group_id'  => ['required', 'string', 'max:120', 'unique:navigation_groups,group_id'],
+            'group_id'  => ['required', 'string', 'max:120', \Illuminate\Validation\Rule::unique("navigation_groups")->where(fn ($query) => $query->where("site_scope", $request->route("school_code") ?? $request->get("site_scope")))],
             'type'      => ['required', 'string', 'in:mega_menu,dropdown,direct_link'],
             'position'  => ['required', 'integer', 'min:0'],
             'is_active' => ['boolean'],
@@ -36,6 +36,7 @@ class NavigationGroupController extends Controller
             'type'      => $data['type'],
             'position'  => $data['position'],
             'is_active' => $data['is_active'] ?? true,
+            'site_scope' => $request->route('school_code') ?? $request->get('site_scope'),
         ]);
 
         return response()->json(['id' => (string) $group->id], 201);

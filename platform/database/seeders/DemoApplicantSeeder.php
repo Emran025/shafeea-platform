@@ -65,6 +65,7 @@ class DemoApplicantSeeder extends Seeder
             ]);
 
             Applicant::create([
+                'school_id' => $user->school_id,
                 'user_id' => $user->id,
                 'school_id' => $user->school_id,
                 'application_type' => $applicantData['application_type'],

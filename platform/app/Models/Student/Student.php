@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Student extends Model
 {
-    use HasFactory;
+    use HasFactory, \App\Models\Traits\BelongsToSchool;
 
     /**
      * The attributes that are mass assignable.

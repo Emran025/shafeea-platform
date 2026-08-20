@@ -533,7 +533,9 @@ return new class extends Migration
         if (! Schema::hasTable('navigation_groups')) {
             Schema::create('navigation_groups', function (Blueprint $table) {
                 $table->uuid('id')->primary();
-                $table->string('group_id')->unique();
+                $table->string('site_scope')->nullable();
+                $table->string('group_id');
+                $table->unique(['site_scope', 'group_id']);
                 $table->json('label');
                 $table->string('type'); // mega_menu | dropdown | direct_link
                 $table->integer('position');

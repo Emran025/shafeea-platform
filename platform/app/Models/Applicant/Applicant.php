@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Applicant extends Model
 {
-    use HasFactory;
+    use HasFactory, \App\Models\Traits\BelongsToSchool;
 
     /**
      * The table associated with the model.

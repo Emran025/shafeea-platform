@@ -77,6 +77,7 @@ class DemoTeachersSeeder extends Seeder
             ]);
 
             Teacher::create([
+                'school_id' => $user->school_id,
                 'user_id' => $user->id,
                 'bio' => $bios[$index % count($bios)],
                 'experience_years' => $experience,
