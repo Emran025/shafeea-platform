@@ -1,0 +1,15 @@
+name: Build School Apps
+on:
+  repository_dispatch:
+    types: [build-school]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+      - name: Build Apps
+        run: echo "Building apps for ${{ github.event.client_payload.school_code }}"
