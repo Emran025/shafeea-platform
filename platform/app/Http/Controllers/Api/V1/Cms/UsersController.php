@@ -41,6 +41,12 @@ class UsersController extends Controller
     public function index(Request $request): JsonResponse
     {
         $query = User::query()->with(['roles:id,name', 'topics:id,name'])->orderBy('id');
+        if ($request->route('school_code')) {
+            $school = AppModelsSchoolSchool::where('school_code', $request->route('school_code'))->first();
+            if ($school) {
+                $query->where('school_id', $school->id);
+            }
+        }
 
         // ?tier=platform|ops|content|author|inquiry — scopes results to that tier
         if ($tier = $request->query('tier')) {
@@ -89,6 +95,7 @@ class UsersController extends Controller
             'email'             => $data['email'],
             'is_active'         => $data['active'],
             'password'          => Hash::make($data['password'] ?? 'Acc@123456'),
+            'school_id'         => $request->route('school_code') ? AppModelsSchoolSchool::where('school_code', $request->route('school_code'))->value('id') : null,
             'email_verified_at' => now(),
         ]);
 
@@ -99,6 +106,12 @@ class UsersController extends Controller
     }
 
     public function update(Request $request, User $user): JsonResponse
+        if ($request->route('school_code')) {
+            $schoolId = AppModelsSchoolSchool::where('school_code', $request->route('school_code'))->value('id');
+            if ($user->school_id !== $schoolId) {
+                abort(403, "Unauthorized access to this user.");
+            }
+        }
     {
         $data = $request->validate([
             'name'     => ['required', 'string', 'max:255'],
@@ -131,7 +144,13 @@ class UsersController extends Controller
         return response()->json(['ok' => true]);
     }
 
-    public function destroy(User $user): JsonResponse
+    public function destroy(\Illuminate\Http\Request $request, User $user): JsonResponse
+        if ($request->route('school_code')) {
+            $schoolId = AppModelsSchoolSchool::where('school_code', $request->route('school_code'))->value('id');
+            if ($user->school_id !== $schoolId) {
+                abort(403, "Unauthorized access to this user.");
+            }
+        }
     {
         $user->roles()->detach();
         $user->topics()->detach();
