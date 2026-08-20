@@ -1,0 +1,62 @@
+import 'package:dartz/dartz.dart';
+import '../../../../core/entities/success_entity.dart';
+import '../../../../core/error/failures.dart';
+import '../entities/login_credentials_entity.dart';
+import '../entities/school_entity.dart';
+import '../entities/student_applicant.dart';
+import '../entities/user_entity.dart';
+// features/auth/domain/repositories/auth_repository.dart
+
+abstract class AuthRepository {
+  Future<Either<Failure, UserEntity>> logIn({
+    required LogInCredentialsEntity credentials,
+  });
+
+  Future<Either<Failure, SuccessEntity>> forgetPassword({
+    required String login,
+  });
+
+  Future<Either<Failure, UserEntity>> getUserProfile();
+
+  Future<Either<Failure, SuccessEntity>> changePassword({
+    required String currentPassword,
+    required String newPassword,
+  });
+  Future<String> isLoggedIn();
+  Future<Either<Failure, SuccessEntity>> logOut({
+    required bool deleteCredentials,
+  });
+
+  /// Retrieves a list of all locally cached users.
+  Future<Either<Failure, List<UserEntity>>> getAllUsers();
+
+  /// Switches the active session to the user identified by [userId].
+  ///
+  /// Returns the [UserEntity] of the newly selected user upon success.
+  Future<Either<Failure, UserEntity>> switchUser({required String userId});
+
+  Future<Either<Failure, UserEntity>> registerStudent(
+    StudentApplicantEntity student,
+  );
+
+  Future<Either<Failure, SuccessEntity>> resendEmailVerification();
+
+  Future<Either<Failure, UserEntity>> getProfileFromServer();
+
+  /// Returns a sanitized username candidate derived from [name].
+  ///
+  /// Calls the public `/username/suggest` endpoint (no auth required).
+  /// Returns [Right(String)] with the suggested username, or [Left(Failure)]
+  /// on a network error. An empty name always returns [Right('')].
+  Future<Either<Failure, String>> suggestUsername(String name);
+
+  /// Returns a sanitized username candidate derived from [name].
+  ///
+  /// Calls the public `/username/check` endpoint (no auth required).
+  /// Returns [Right(String)] with the checked username, or [Left(Failure)]
+  /// on a network error. An empty name always returns [Right('')].
+  Future<Either<Failure, bool>> checkUsername(String username);
+
+  /// Fetches the list of available schools from the public endpoint.
+  Future<Either<Failure, List<SchoolEntity>>> getSchools();
+}

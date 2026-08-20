@@ -1,0 +1,37 @@
+import 'package:dartz/dartz.dart';
+import 'package:equatable/equatable.dart';
+import 'package:shafeea/core/error/failures.dart';
+import 'package:shafeea/core/usecases/usecase.dart';
+import 'package:shafeea/core/models/bar_chart_datas.dart';
+import 'package:shafeea/features/home/domain/entities/chart_filter.dart';
+import 'package:injectable/injectable.dart';
+
+import '../repositories/tracking_repository.dart';
+
+@lazySingleton
+class GetErrorAnalysisChartData
+    implements UseCase<List<BarChartDatas>, GetErrorAnalysisChartDataParams> {
+  final TrackingRepository repository;
+
+  GetErrorAnalysisChartData(this.repository);
+
+  @override
+  Future<Either<Failure, List<BarChartDatas>>> call(
+    GetErrorAnalysisChartDataParams params,
+  ) async {
+    return await repository.getErrorAnalysisChartData(
+      filter: params.filter,
+    );
+  }
+}
+
+class GetErrorAnalysisChartDataParams extends Equatable {
+  final ChartFilter filter;
+
+  const GetErrorAnalysisChartDataParams({
+    required this.filter,
+  });
+
+  @override
+  List<Object?> get props => [filter];
+}
