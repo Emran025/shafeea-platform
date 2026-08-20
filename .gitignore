@@ -1,0 +1,8 @@
+.DS_Store
+platform/.env
+platform/vendor/
+platform/node_modules/
+teach/.dart_tool/
+teach/build/
+student/.dart_tool/
+student/build/
