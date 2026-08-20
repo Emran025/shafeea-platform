@@ -107,7 +107,7 @@ export default function AdminLayout({ children }: Props) {
     };
 
     return (
-        <div className="adm-layout">
+        <div className="adm-layout" dir="rtl">
 
             {/* Mobile overlay */}
             {mobileOpen && (

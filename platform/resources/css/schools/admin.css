@@ -5797,3 +5797,34 @@
 .dark .ae-topbar__divider {
     background: #334155;
 }
+
+/* --- RTL Overrides for Arabic --- */
+[dir="rtl"] .adm-sidebar__link-icon {
+    margin-right: 0;
+    margin-left: 12px;
+}
+[dir="rtl"] .adm-header__actions {
+    margin-left: 0;
+    margin-right: auto;
+}
+[dir="rtl"] .adm-sidebar {
+    border-right: none;
+    border-left: 1px solid var(--adm-border);
+}
+[dir="rtl"] .adm-main {
+    margin-left: 0;
+}
+@media (min-width: 769px) {
+    [dir="rtl"] .adm-main {
+        margin-right: 260px;
+    }
+}
+[dir="rtl"] .adm-header {
+    left: auto;
+    right: 0;
+}
+@media (min-width: 769px) {
+    [dir="rtl"] .adm-header {
+        right: 260px;
+    }
+}

@@ -620,7 +620,8 @@ return new class extends Migration
                 $table->id();
                 $table->string('site_scope')->nullable();
                 $table->string('name');
-                $table->string('slug', 120)->unique();
+                $table->string('slug', 120);
+                $table->unique(['site_scope', 'slug']);
                 $table->string('locale', 8)->default('en');
                 $table->unsignedSmallInteger('sort_order')->default(0);
                 $table->boolean('is_active')->default(true);

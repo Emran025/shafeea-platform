@@ -22,7 +22,7 @@ class FaqCategoryController extends Controller
 {
     public function index(Request $request): JsonResponse
     {
-        $query = FaqCategory::query()->withCount('faqs');
+        $query = FaqCategory::query()->withCount('faqs')->where('site_scope', $request->route('school_code') ?? $request->get('site_scope'));
 
         if ($locale = $request->query('locale')) {
             $query->where('locale', $locale);
@@ -44,6 +44,7 @@ class FaqCategoryController extends Controller
         ]);
 
         $data['slug'] = Str::slug($data['name'] . '-' . $data['locale']);
+        $data['site_scope'] = $request->route('school_code') ?? $request->get('site_scope');
 
         $category = FaqCategory::create($data);
 
@@ -62,6 +63,7 @@ class FaqCategoryController extends Controller
         if (isset($data['name'])) {
             $locale = $data['locale'] ?? $faqCategory->locale;
             $data['slug'] = Str::slug($data['name'] . '-' . $locale);
+        $data['site_scope'] = $request->route('school_code') ?? $request->get('site_scope');
         }
 
         $faqCategory->fill($data)->save();
