@@ -1,0 +1,424 @@
+{
+    "id": "11111111-0000-0000-0000-000000000001",
+    "slug": "newsroom/overview",
+    "type": "newsroom.overview",
+    "identity": {
+        "title": {
+            "en": "{{school.name}} — Newsroom",
+            "ar": "{{school.name}} — غرفة الأخبار"
+        },
+        "purpose": {
+            "en": "School newsroom hub page — auto-resolved per school"
+        },
+        "owner": "school_platform",
+        "canonical_url": "/school/{{school.code}}/newsroom/overview",
+        "classification": "public"
+    },
+    "hierarchy": {
+        "depth": 0,
+        "position": 1,
+        "include_in_nav": true,
+        "nav_label": {
+            "en": "Newsroom",
+            "ar": "الأخبار"
+        }
+    },
+    "composition": {
+        "section_order": "explicit",
+        "allow_dynamic": false,
+        "max_sections": 10,
+        "fallback_policy": "show_partial"
+    },
+    "meta": {
+        "seo_title": {
+            "en": "Newsroom — {{school.name}}",
+            "ar": "غرفة الأخبار — {{school.name}}"
+        },
+        "seo_description": {
+            "en": "News, stories, and updates from {{school.name}}.",
+            "ar": "الأخبار والقصص والتحديثات من {{school.name}}."
+        },
+        "og_title": {
+            "en": "{{school.name}} Newsroom",
+            "ar": "غرفة أخبار {{school.name}}"
+        },
+        "og_description": {
+            "en": "The latest from {{school.name}}.",
+            "ar": "آخر أخبار {{school.name}}."
+        },
+        "og_image": null,
+        "robots": "index,follow"
+    },
+    "sections": [
+        {
+            "id": "22222222-0000-0000-0000-000000000001",
+            "type": "hero",
+            "name": "Newsroom Hero",
+            "anchor_id": null,
+            "position": 1,
+            "group": "above-fold",
+            "pinned": true,
+            "required_block_types": [
+                "headline"
+            ],
+            "blocks": [
+                {
+                    "id": "33333333-0000-0000-0000-000000000001",
+                    "type": "label",
+                    "position": 1,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "{{school.name}}"
+                        },
+                        "ar": {
+                            "text": "{{school.name}}"
+                        }
+                    }
+                },
+                {
+                    "id": "33333333-0000-0000-0000-000000000002",
+                    "type": "headline",
+                    "position": 2,
+                    "weight": 10,
+                    "featured": true,
+                    "content": {
+                        "en": {
+                            "text": "News, Stories & Updates"
+                        },
+                        "ar": {
+                            "text": "الأخبار والقصص والتحديثات"
+                        }
+                    }
+                },
+                {
+                    "id": "33333333-0000-0000-0000-000000000003",
+                    "type": "subheadline",
+                    "position": 3,
+                    "weight": 7,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "Everything happening at {{school.name}} — from student achievements to school announcements."
+                        },
+                        "ar": {
+                            "text": "كل ما يجري في {{school.name}} — من إنجازات الطلاب إلى الإعلانات المدرسية."
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": "22222222-0000-0000-0000-000000000002",
+            "type": "cta_band",
+            "name": "Newsroom Navigation",
+            "anchor_id": "newsroom-nav",
+            "position": 2,
+            "group": "below-fold",
+            "required_block_types": [],
+            "blocks": [
+                {
+                    "id": "33333333-0000-0000-0000-000000000010",
+                    "type": "label",
+                    "position": 1,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "Explore"
+                        },
+                        "ar": {
+                            "text": "استعرض"
+                        }
+                    }
+                },
+                {
+                    "id": "33333333-0000-0000-0000-000000000011",
+                    "type": "cta",
+                    "position": 2,
+                    "weight": 7,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "label": "News",
+                            "destination": {
+                                "type": "internal_page",
+                                "value": "newsroom/news"
+                            },
+                            "intent": "primary"
+                        },
+                        "ar": {
+                            "label": "الأخبار",
+                            "destination": {
+                                "type": "internal_page",
+                                "value": "newsroom/news"
+                            },
+                            "intent": "primary"
+                        }
+                    }
+                },
+                {
+                    "id": "33333333-0000-0000-0000-000000000012",
+                    "type": "cta",
+                    "position": 3,
+                    "weight": 7,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "label": "Success Stories",
+                            "destination": {
+                                "type": "internal_page",
+                                "value": "newsroom/stories"
+                            },
+                            "intent": "secondary"
+                        },
+                        "ar": {
+                            "label": "قصص النجاح",
+                            "destination": {
+                                "type": "internal_page",
+                                "value": "newsroom/stories"
+                            },
+                            "intent": "secondary"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": "22222222-0000-0000-0000-000000000030",
+            "type": "blog_post_grid",
+            "name": "Recent Articles Grid",
+            "anchor_id": "articles",
+            "position": 3,
+            "group": "below-fold",
+            "pinned": false,
+            "required_block_types": [],
+            "blocks": [
+                {
+                    "id": "33333333-0000-0000-0000-000000000031",
+                    "type": "label",
+                    "position": 1,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "Articles"
+                        },
+                        "ar": {
+                            "text": "المقالات"
+                        }
+                    }
+                },
+                {
+                    "id": "33333333-0000-0000-0000-000000000032",
+                    "type": "headline",
+                    "position": 2,
+                    "weight": 9,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "Featured School Updates & Insights"
+                        },
+                        "ar": {
+                            "text": "أبرز تحديثات ورؤى المدرسة"
+                        }
+                    }
+                },
+                {
+                    "id": "33333333-0000-0000-0000-000000000033",
+                    "type": "blog_post_card",
+                    "position": 3,
+                    "weight": 7,
+                    "featured": true,
+                    "content": {
+                        "en": {
+                            "title": "Annual Academic Excellence Awards 2026",
+                            "category": "Academics",
+                            "summary": "Celebrating our top-performing students across Quran recitation, sciences, and mathematics at {{school.name}}.",
+                            "author": "School Administration",
+                            "date": "August 5, 2026"
+                        },
+                        "ar": {
+                            "title": "جوائز التميز الأكاديمي السنوية 2026",
+                            "category": "الأكاديميات",
+                            "summary": "الاحتفاء بتفوق طلابنا في تلاوة القرآن والعلوم والرياضيات في {{school.name}}.",
+                            "author": "إدارة المدرسة",
+                            "date": "5 أغسطس 2026"
+                        }
+                    },
+                    "fields": {
+                        "title": {
+                            "en": "Annual Academic Excellence Awards 2026",
+                            "ar": "جوائز التميز الأكاديمي السنوية 2026"
+                        },
+                        "category": {
+                            "en": "Academics",
+                            "ar": "الأكاديميات"
+                        },
+                        "summary": {
+                            "en": "Celebrating our top-performing students across Quran recitation, sciences, and mathematics at {{school.name}}.",
+                            "ar": "الاحتفاء بتفوق طلابنا في تلاوة القرآن والعلوم والرياضيات في {{school.name}}."
+                        },
+                        "author": {
+                            "en": "School Administration",
+                            "ar": "إدارة المدرسة"
+                        },
+                        "date": "August 5, 2026"
+                    }
+                },
+                {
+                    "id": "33333333-0000-0000-0000-000000000034",
+                    "type": "blog_post_card",
+                    "position": 4,
+                    "weight": 7,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "title": "Empowering Teachers with Digital Curriculum Tools",
+                            "category": "Innovation",
+                            "summary": "How {{school.name}} teachers are saving hours in lesson preparation and personalizing student learning.",
+                            "author": "Academic Council",
+                            "date": "July 28, 2026"
+                        },
+                        "ar": {
+                            "title": "تمكين المعلمين بأدوات المناهج الرقمية",
+                            "category": "الابتكار",
+                            "summary": "كيف يوفر معلّمو {{school.name}} الساعات في تحضير الدروس وتخصيص تعلم الطلاب.",
+                            "author": "المجلس الأكاديمي",
+                            "date": "28 يوليو 2026"
+                        }
+                    },
+                    "fields": {
+                        "title": {
+                            "en": "Empowering Teachers with Digital Curriculum Tools",
+                            "ar": "تمكين المعلمين بأدوات المناهج الرقمية"
+                        },
+                        "category": {
+                            "en": "Innovation",
+                            "ar": "الابتكار"
+                        },
+                        "summary": {
+                            "en": "How {{school.name}} teachers are saving hours in lesson preparation and personalizing student learning.",
+                            "ar": "كيف يوفر معلّمو {{school.name}} الساعات في تحضير الدروس وتخصيص تعلم الطلاب."
+                        },
+                        "author": {
+                            "en": "Academic Council",
+                            "ar": "المجلس الأكاديمي"
+                        },
+                        "date": "July 28, 2026"
+                    }
+                },
+                {
+                    "id": "33333333-0000-0000-0000-000000000035",
+                    "type": "blog_post_card",
+                    "position": 5,
+                    "weight": 7,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "title": "Parent Workshop: Supporting Memorization at Home",
+                            "category": "Community",
+                            "summary": "Practical strategies for parents to encourage steady daily Quran recitation and revision.",
+                            "author": "Quran Department",
+                            "date": "July 15, 2026"
+                        },
+                        "ar": {
+                            "title": "ورشة أولياء الأمور: دعم حفظ القرآن في المنزل",
+                            "category": "المجتمع",
+                            "summary": "استراتيجيات عملية لأولياء الأمور لتشجيع التلاوة والمراجعة اليومية للقرآن.",
+                            "author": "قسم القرآن الكريم",
+                            "date": "15 يوليو 2026"
+                        }
+                    },
+                    "fields": {
+                        "title": {
+                            "en": "Parent Workshop: Supporting Memorization at Home",
+                            "ar": "ورشة أولياء الأمور: دعم حفظ القرآن في المنزل"
+                        },
+                        "category": {
+                            "en": "Community",
+                            "ar": "المجتمع"
+                        },
+                        "summary": {
+                            "en": "Practical strategies for parents to encourage steady daily Quran recitation and revision.",
+                            "ar": "استراتيجيات عملية لأولياء الأمور لتشجيع التلاوة والمراجعة اليومية للقرآن."
+                        },
+                        "author": {
+                            "en": "Quran Department",
+                            "ar": "قسم القرآن الكريم"
+                        },
+                        "date": "July 15, 2026"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "22222222-0000-0000-0000-000000000040",
+            "type": "cta_band",
+            "name": "Newsroom Newsletter",
+            "anchor_id": "newsletter",
+            "position": 4,
+            "group": "below-fold",
+            "pinned": false,
+            "required_block_types": [],
+            "blocks": [
+                {
+                    "id": "33333333-0000-0000-0000-000000000041",
+                    "type": "headline",
+                    "position": 1,
+                    "weight": 9,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "Stay Connected with {{school.name}}"
+                        },
+                        "ar": {
+                            "text": "ابقَ على تواصل مع {{school.name}}"
+                        }
+                    }
+                },
+                {
+                    "id": "33333333-0000-0000-0000-000000000042",
+                    "type": "subheadline",
+                    "position": 2,
+                    "weight": 7,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "Get official news and academic announcements delivered directly."
+                        },
+                        "ar": {
+                            "text": "احصل على الأخبار الرسمية والإعلانات الأكاديمية مباشرة."
+                        }
+                    }
+                },
+                {
+                    "id": "33333333-0000-0000-0000-000000000043",
+                    "type": "cta",
+                    "position": 3,
+                    "weight": 8,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "label": "Contact Us",
+                            "destination": {
+                                "type": "internal_page",
+                                "value": "contact"
+                            },
+                            "intent": "primary"
+                        },
+                        "ar": {
+                            "label": "تواصل معنا",
+                            "destination": {
+                                "type": "internal_page",
+                                "value": "contact"
+                            },
+                            "intent": "primary"
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

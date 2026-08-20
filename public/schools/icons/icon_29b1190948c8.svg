@@ -1,0 +1,13 @@
+<svg class="Icon" height="36" viewbox="0 0 40 36" width="40"
+    xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <clippath id="verticalArrowsIconClipPath--a">
+            <path class="Icon__blendBackground" d="M11.65 9.52a2 2 0 0 1 2.7 0l11 10a2 2 0 1 1-2.7 2.96L15 15.52V34a2 2 0 1 1-4 0V15.52l-7.65 6.96a2 2 0 0 1-2.7-.01l-.13-.12a2 2 0 0 1 .13-2.83z" fill="#0F2741"></path>
+        </clippath>
+    </defs>
+    <path class="Icon__blendBackground" d="M11.65 9.52a2 2 0 0 1 2.7 0l11 10a2 2 0 1 1-2.7 2.96L15 15.52V34a2 2 0 1 1-4 0V15.52l-7.65 6.96a2 2 0 0 1-2.7-.01l-.13-.12a2 2 0 0 1 .13-2.83z" fill="#0F2741"></path>
+    <path class="Icon__blendForeground" d="M27 0a2 2 0 0 1 2 2v17.23l7.65-6.96a2 2 0 1 1 2.7 2.96l-11 10a2 2 0 0 1-2.7 0l-11-10a2 2 0 0 1 2.7-2.96L25 19.23V2c0-1.1.9-2 2-2z" fill="#0F2741"></path>
+    <g clip-path="url(#verticalArrowsIconClipPath--a)">
+        <path class="Icon__blendForeground" d="M27 0a2 2 0 0 1 2 2v17.23l7.65-6.96a2 2 0 1 1 2.7 2.96l-11 10a2 2 0 0 1-2.7 0l-11-10a2 2 0 0 1 2.7-2.96L25 19.23V2c0-1.1.9-2 2-2z" fill="#005E7A"></path>
+    </g>
+</svg>

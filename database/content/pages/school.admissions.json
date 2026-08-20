@@ -1,0 +1,238 @@
+{
+    "id": "44444444-0000-0000-0000-000000000003",
+    "slug": "admissions",
+    "type": "school.full_page",
+    "page_subtype": "admissions",
+    "identity": {
+        "title": {
+            "en": "Admissions — {{school.name}}",
+            "ar": "القبول والاطلاع — {{school.name}}"
+        },
+        "purpose": {
+            "en": "School enrolment and admissions details page"
+        },
+        "owner": "school_platform",
+        "canonical_url": "/school/{{school.code}}/admissions",
+        "classification": "public"
+    },
+    "hierarchy": {
+        "depth": 0,
+        "position": 4,
+        "include_in_nav": true,
+        "nav_label": {
+            "en": "Admissions",
+            "ar": "القبول والتسجيل"
+        }
+    },
+    "composition": {
+        "section_order": "explicit",
+        "allow_dynamic": false,
+        "max_sections": 10,
+        "fallback_policy": "show_partial"
+    },
+    "meta": {
+        "seo_title": {
+            "en": "Admissions & Enrolment — {{school.name}}",
+            "ar": "القبول والتسجيل — {{school.name}}"
+        },
+        "seo_description": {
+            "en": "Apply for enrolment at {{school.name}}. Review requirements, registration process, and open seats.",
+            "ar": "قدّم طلب التسجيل في {{school.name}}. استعرض الشروط، خطوات التسجيل، والمقاعد المتاحة."
+        },
+        "og_title": null,
+        "og_description": null,
+        "og_image": null,
+        "robots": "index,follow"
+    },
+    "sections": [
+        {
+            "id": "44444444-0000-0003-0001-000000000001",
+            "type": "hero",
+            "name": "Admissions Hero",
+            "anchor_id": "hero",
+            "position": 1,
+            "group": "above-fold",
+            "pinned": true,
+            "required_block_types": [
+                "headline"
+            ],
+            "blocks": [
+                {
+                    "id": "55555555-0000-0003-0001-000000000001",
+                    "type": "label",
+                    "position": 1,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "Join {{school.name}}"
+                        },
+                        "ar": {
+                            "text": "الانضمام إلى {{school.name}}"
+                        }
+                    }
+                },
+                {
+                    "id": "55555555-0000-0003-0001-000000000002",
+                    "type": "headline",
+                    "position": 2,
+                    "weight": 10,
+                    "featured": true,
+                    "content": {
+                        "en": {
+                            "text": "Enrolment for New Academic Year"
+                        },
+                        "ar": {
+                            "text": "التسجيل للعام الدراسي الجديد"
+                        }
+                    }
+                },
+                {
+                    "id": "55555555-0000-0003-0001-000000000003",
+                    "type": "subheadline",
+                    "position": 3,
+                    "weight": 8,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "We welcome applications for students seeking quality education, values, and strong Quranic grounding."
+                        },
+                        "ar": {
+                            "text": "نرحب بطلبات الطلاب الباحثين عن تعليم عالي الجودة وقيم راسخة وتربية قرآنية متينة."
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": "44444444-0000-0003-0002-000000000001",
+            "type": "workflow_steps",
+            "name": "Admissions Steps",
+            "anchor_id": "admissions-process",
+            "position": 2,
+            "group": "below-fold",
+            "pinned": false,
+            "required_block_types": [],
+            "blocks": [
+                {
+                    "id": "55555555-0000-0003-0002-000000000001",
+                    "type": "label",
+                    "position": 1,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "4-Step Process"
+                        },
+                        "ar": {
+                            "text": "عملية من 4 خطوات"
+                        }
+                    }
+                },
+                {
+                    "id": "55555555-0000-0003-0002-000000000002",
+                    "type": "step_item",
+                    "position": 2,
+                    "weight": 7,
+                    "featured": true,
+                    "content": {
+                        "en": {
+                            "step_number": "1",
+                            "label": "Submit Inquiry",
+                            "description": "Fill out the contact/inquiry form below with basic student and family info."
+                        },
+                        "ar": {
+                            "step_number": "1",
+                            "label": "تقديم الطلب",
+                            "description": "املأ نموذج الاستفسار بالمعلومات الأساسية للطفل والعائلة."
+                        }
+                    }
+                },
+                {
+                    "id": "55555555-0000-0003-0002-000000000003",
+                    "type": "step_item",
+                    "position": 3,
+                    "weight": 7,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "step_number": "2",
+                            "label": "Assessment Meeting",
+                            "description": "Attend an informal placement meeting to evaluate student level and learning goals."
+                        },
+                        "ar": {
+                            "step_number": "2",
+                            "label": "مقابلة التقييم",
+                            "description": "حضور مقابلة تقييم لمستوى الطالب وأهدافه التعليمية."
+                        }
+                    }
+                },
+                {
+                    "id": "55555555-0000-0003-0002-000000000004",
+                    "type": "step_item",
+                    "position": 4,
+                    "weight": 7,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "step_number": "3",
+                            "label": "Document Submission",
+                            "description": "Provide official identification documents and prior academic records."
+                        },
+                        "ar": {
+                            "step_number": "3",
+                            "label": "تقديم الوثائق",
+                            "description": "تقديم وثائق الهوية الرسمية والسجلات الأكاديمية السابقة."
+                        }
+                    }
+                },
+                {
+                    "id": "55555555-0000-0003-0002-000000000005",
+                    "type": "step_item",
+                    "position": 5,
+                    "weight": 7,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "step_number": "4",
+                            "label": "Platform Activation",
+                            "description": "Receive parent and student platform account credentials to begin your journey."
+                        },
+                        "ar": {
+                            "step_number": "4",
+                            "label": "تفعيل المنصة",
+                            "description": "استلام بيانات الحساب الخاصة بأولياء الأمور والطلاب على المنصة."
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": "44444444-0000-0003-0003-000000000001",
+            "type": "contact_form",
+            "name": "Admissions Inquiry Form",
+            "anchor_id": "apply-now",
+            "position": 3,
+            "group": "below-fold",
+            "pinned": false,
+            "required_block_types": [],
+            "blocks": [
+                {
+                    "id": "55555555-0000-0003-0003-000000000001",
+                    "type": "headline",
+                    "position": 1,
+                    "weight": 9,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "Request Admissions Information"
+                        },
+                        "ar": {
+                            "text": "طلب معلومات القبول والتسجيل"
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

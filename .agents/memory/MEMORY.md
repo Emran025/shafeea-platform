@@ -1,0 +1,3 @@
+- [npm install blocked by security policy](npm-shell-quote-cve-block.md) — Replit's package firewall blocks known-CVE transitive deps (e.g. shell-quote 1.8.3 via concurrently); fix with an `overrides` entry, not a workaround.
+- [Diagnosing "every POST redirects with no error"](laravel-inertia-302-no-error.md) — a clean 302 is often correct Inertia/Laravel behavior; verify locally before assuming a code bug.
+- [Case-insensitive email/username normalization](case-insensitive-normalization.md) — mutator alone isn't enough; raw where()/Auth::attempt() also need pre-normalized input.

@@ -1,0 +1,131 @@
+{
+    "id": "11111111-0000-0000-0000-000000000004",
+    "slug": "legal/privacy",
+    "type": "school.legal",
+    "identity": {
+        "title": {
+            "en": "Privacy Policy — {{school.name}}",
+            "ar": "سياسة الخصوصية — {{school.name}}"
+        },
+        "purpose": {
+            "en": "School privacy policy legal page"
+        },
+        "owner": "school_platform",
+        "canonical_url": "/school/{{school.code}}/legal/privacy",
+        "classification": "public"
+    },
+    "hierarchy": {
+        "depth": 1,
+        "position": 1,
+        "include_in_nav": false,
+        "nav_label": {
+            "en": "Privacy Policy",
+            "ar": "سياسة الخصوصية"
+        }
+    },
+    "composition": {
+        "section_order": "explicit",
+        "allow_dynamic": false,
+        "max_sections": 5,
+        "fallback_policy": "show_partial"
+    },
+    "meta": {
+        "seo_title": {
+            "en": "Privacy Policy — {{school.name}}",
+            "ar": "سياسة الخصوصية — {{school.name}}"
+        },
+        "seo_description": {
+            "en": "Privacy policy for {{school.name}} — how we collect, use, and protect your data.",
+            "ar": "سياسة الخصوصية لـ {{school.name}} — كيف نجمع بياناتك ونستخدمها ونحميها."
+        },
+        "og_title": null,
+        "og_description": null,
+        "og_image": null,
+        "robots": "noindex,follow"
+    },
+    "sections": [
+        {
+            "id": "22222222-0000-0000-0000-000000000310",
+            "type": "breadcrumb",
+            "name": "Breadcrumb Nav",
+            "anchor_id": null,
+            "position": 1,
+            "group": "above-fold",
+            "pinned": true,
+            "required_block_types": [],
+            "blocks": [
+                {
+                    "id": "33333333-0000-0000-0000-000000000311",
+                    "type": "label",
+                    "position": 1,
+                    "weight": 5,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "Home > Legal > Privacy Policy"
+                        },
+                        "ar": {
+                            "text": "الرئيسية > المواد القانونية > سياسة الخصوصية"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": "22222222-0000-0000-0000-000000000300",
+            "type": "legal_body",
+            "name": "Privacy Policy Document",
+            "anchor_id": "privacy-body",
+            "position": 2,
+            "group": null,
+            "required_block_types": [],
+            "blocks": [
+                {
+                    "id": "33333333-0000-0000-0000-000000000301",
+                    "type": "headline",
+                    "position": 1,
+                    "weight": 9,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "Privacy Policy"
+                        },
+                        "ar": {
+                            "text": "سياسة الخصوصية"
+                        }
+                    }
+                },
+                {
+                    "id": "33333333-0000-0000-0000-000000000302",
+                    "type": "subheadline",
+                    "position": 2,
+                    "weight": 6,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "{{school.name}} — {{school.city}}"
+                        },
+                        "ar": {
+                            "text": "{{school.name}} — {{school.city}}"
+                        }
+                    }
+                },
+                {
+                    "id": "33333333-0000-0000-0000-000000000303",
+                    "type": "rich_text",
+                    "position": 3,
+                    "weight": 6,
+                    "featured": false,
+                    "content": {
+                        "en": {
+                            "text": "{{school.name}} is committed to protecting the privacy of students, parents, and staff. This policy explains what personal data we collect, why we collect it, and how it is protected.\n\n**Data We Collect**\nWe collect names, contact details, academic records, and attendance information for enrolled students and their families. Staff data includes employment records and professional information.\n\n**How We Use Your Data**\nData is used solely for school management purposes — including academic tracking, parent communication, and platform access. We do not sell or share personal data with third parties.\n\n**Data Security**\nAll data is stored securely and access is restricted to authorised school staff. We use industry-standard security measures to prevent unauthorised access.\n\n**Contact**\nFor any privacy concerns, please contact {{school.name}} at {{school.phone}}, {{school.address}}, {{school.city}}."
+                        },
+                        "ar": {
+                            "text": "{{school.name}} ملتزمة بحماية خصوصية الطلاب وأولياء الأمور والموظفين. توضح هذه السياسة البيانات الشخصية التي نجمعها وسبب جمعها وكيفية حمايتها.\n\n**البيانات التي نجمعها**\nنجمع الأسماء وبيانات الاتصال والسجلات الأكاديمية ومعلومات الحضور للطلاب المسجلين وعائلاتهم.\n\n**كيف نستخدم بياناتك**\nتُستخدم البيانات فقط لأغراض إدارة المدرسة — بما في ذلك المتابعة الأكاديمية وتواصل أولياء الأمور والوصول إلى المنصة.\n\n**أمان البيانات**\nتُخزَّن جميع البيانات بشكل آمن ويقتصر الوصول إليها على موظفي المدرسة المخوّلين.\n\n**التواصل**\nلأي استفسارات تتعلق بالخصوصية، يرجى التواصل مع {{school.name}} على {{school.phone}}، {{school.address}}، {{school.city}}."
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

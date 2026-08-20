@@ -1,0 +1,155 @@
+/* ════════════════════════════════════════════════════════════════
+   COMPONENT — Button system.
+   All button variants live here: .btn base, size modifiers,
+   color variants, the btn-group wrapper, and hero-specific CTAs.
+════════════════════════════════════════════════════════════════ */
+
+/* ─── Typographic blocks (live here since they inform buttons) ── */
+.block-headline {
+    font-size: clamp(24px, 3.5vw, 40px);
+    font-weight: 800;
+    line-height: 1.15;
+    color: var(--brand-navy);
+    letter-spacing: -0.02em;
+    margin: 0;
+    font-family: var(--font-sans);
+}
+.block-headline--featured { font-size: clamp(32px, 5vw, 56px); }
+.block-headline--dark     { color: var(--dk-text-primary); }
+
+.block-subheadline {
+    font-size: clamp(16px, 2vw, 22px);
+    font-weight: 400;
+    line-height: 1.55;
+    color: var(--text-secondary);
+    margin: 0;
+    font-family: var(--font-sans);
+}
+.block-subheadline--dark { color: var(--dk-text-secondary); }
+
+/* ─── Base .btn ──────────────────────────────────────────────── */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 12px 28px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    border: 2px solid transparent;
+    font-family: var(--font-sans);
+    transition: background var(--transition-fast),
+                color var(--transition-fast),
+                border-color var(--transition-fast),
+                box-shadow var(--transition-fast);
+}
+
+/* Size modifiers */
+.btn--sm { padding: 8px 18px;  font-size: 13px; }
+.btn--lg { padding: 16px 36px; font-size: 16px; }
+
+/* Color variants */
+.btn--primary        { background: var(--brand-gold);  color: var(--brand-navy); border-color: var(--brand-gold); }
+.btn--primary:hover  { background: var(--brand-gold-hover); border-color: var(--brand-gold-hover); }
+
+.btn--secondary      { background: transparent; color: var(--brand-navy); border-color: var(--brand-navy); }
+.btn--secondary:hover { background: rgba(15,39,65,0.06); }
+
+.btn--ghost          { background: transparent; color: var(--brand-gold); border-color: var(--brand-gold); }
+.btn--ghost:hover    { background: rgba(201,162,39,0.08); }
+
+.btn--white          { background: var(--white); color: var(--brand-navy); border-color: var(--white); }
+.btn--white:hover    { background: rgba(255,255,255,0.9); }
+
+.btn--white-ghost    { background: transparent; color: var(--white); border-color: rgba(255,255,255,0.5); }
+.btn--white-ghost:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.7); }
+
+.btn--broken         { background: #f1f5f9; color: #94a3b8; border-color: var(--border); cursor: not-allowed; }
+
+/* Button group */
+.btn-group           { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+.btn-group--center   { justify-content: center; }
+
+/* ─── Hero CTAs (unique glow, no border, dark-bg optimized) ──── */
+.hero-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 32px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 8px;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    font-family: var(--font-sans);
+    border: none;
+    transition: background var(--transition-base),
+                box-shadow var(--transition-base),
+                transform var(--transition-fast);
+}
+.hero-cta--primary {
+    background: #f59e0b;
+    color: #020b18;
+    box-shadow: 0 0 20px rgba(245,158,11,0.3);
+}
+.hero-cta--primary:hover {
+    background: #fbbf24;
+    box-shadow: 0 0 30px rgba(245,158,11,0.5);
+    transform: translateY(-2px);
+}
+/*
+ * Same fix as hero__headline — hero background is always #020b18 so this
+ * button must always render white text, never the dark-mode-flipped --white.
+ */
+.hero-cta--secondary {
+    background: rgba(255,255,255,0.06);
+    color: var(--dk-text-primary);
+    border: 1px solid rgba(255,255,255,0.2);
+    backdrop-filter: blur(8px);
+}
+.hero-cta--secondary:hover {
+    background: rgba(255,255,255,0.12);
+    transform: translateY(-2px);
+}
+.hero-cta__icon {
+    margin-left: 8px;
+    width: 16px;
+    height: 16px;
+    transition: transform var(--transition-fast);
+}
+.hero-cta--primary:hover .hero-cta__icon { transform: translateX(4px); }
+
+/* ─── External link icon helpers ────────────────────────────── */
+.action-external-icon   { margin-left: 6px; vertical-align: middle; flex-shrink: 0; }
+.platform-card__cta-icon { margin-left: 8px; flex-shrink: 0; }
+
+/* ─── Dark mode overrides ────────────────────────────────────── */
+/*
+ * block-headline defaults to var(--brand-navy) which is a hardcoded
+ * dark navy (#0F2741) that never flips. Override globally when the
+ * .dark class is active so every section heading becomes readable.
+ */
+.dark .block-headline { color: var(--text-primary); }
+
+/*
+ * btn--secondary and btn--ghost use navy text/border that is invisible
+ * on dark backgrounds. Remap to the light token equivalents.
+ */
+.dark .btn--secondary {
+    color: var(--text-primary);
+    border-color: var(--border);
+}
+.dark .btn--secondary:hover {
+    background: rgba(255, 255, 255, 0.07);
+}
+.dark .btn--ghost {
+    color: var(--brand-gold);
+    border-color: rgba(201, 162, 39, 0.5);
+}
+.dark .btn--ghost:hover {
+    background: rgba(201, 162, 39, 0.1);
+}

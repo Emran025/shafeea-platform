@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 680" width="1200" height="680">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#0F2741"/><stop offset="100%" style="stop-color:#1a3a5c"/></linearGradient>
+    <linearGradient id="card" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:rgba(255,255,255,0.07)"/><stop offset="100%" style="stop-color:rgba(255,255,255,0.02)"/></linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#C9A227"/><stop offset="100%" style="stop-color:#e8b83a"/></linearGradient>
+  </defs>
+  <!-- background -->
+  <rect width="1200" height="680" fill="url(#bg)"/>
+  <!-- grid lines -->
+  <line x1="0" y1="120" x2="1200" y2="120" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+  <line x1="0" y1="560" x2="1200" y2="560" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+  <line x1="240" y1="0" x2="240" y2="680" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+  <line x1="960" y1="0" x2="960" y2="680" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+  <!-- sidebar -->
+  <rect x="0" y="0" width="240" height="680" fill="rgba(0,0,0,0.25)"/>
+  <rect x="20" y="140" width="200" height="36" rx="8" fill="url(#accent)" fill-opacity="0.15"/>
+  <text x="44" y="164" font-family="Inter,sans-serif" font-size="13" fill="#C9A227" font-weight="600">Operations Hub</text>
+  <rect x="20" y="186" width="200" height="36" rx="8" fill="rgba(255,255,255,0.04)"/>
+  <text x="44" y="210" font-family="Inter,sans-serif" font-size="13" fill="rgba(255,255,255,0.5)">Supply Chain</text>
+  <rect x="20" y="232" width="200" height="36" rx="8" fill="rgba(255,255,255,0.04)"/>
+  <text x="44" y="256" font-family="Inter,sans-serif" font-size="13" fill="rgba(255,255,255,0.5)">B2B Network</text>
+  <rect x="20" y="278" width="200" height="36" rx="8" fill="rgba(255,255,255,0.04)"/>
+  <text x="44" y="302" font-family="Inter,sans-serif" font-size="13" fill="rgba(255,255,255,0.5)">Contracts</text>
+  <rect x="20" y="324" width="200" height="36" rx="8" fill="rgba(255,255,255,0.04)"/>
+  <text x="44" y="348" font-family="Inter,sans-serif" font-size="13" fill="rgba(255,255,255,0.5)">Reporting</text>
+  <!-- top bar -->
+  <rect x="240" y="0" width="960" height="60" fill="rgba(0,0,0,0.18)"/>
+  <text x="272" y="36" font-family="Inter,sans-serif" font-size="20" fill="white" font-weight="700">accore — Operations Dashboard</text>
+  <!-- main content area -->
+  <rect x="272" y="84" width="280" height="140" rx="12" fill="url(#card)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+  <text x="296" y="118" font-family="Inter,sans-serif" font-size="12" fill="rgba(255,255,255,0.45)" font-weight="600" letter-spacing="0.08em">ACTIVE CONTRACTS</text>
+  <text x="296" y="162" font-family="Inter,sans-serif" font-size="42" fill="white" font-weight="800">1,482</text>
+  <text x="296" y="196" font-family="Inter,sans-serif" font-size="13" fill="#4ade80">↑ 12% this month</text>
+  <rect x="584" y="84" width="280" height="140" rx="12" fill="url(#card)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+  <text x="608" y="118" font-family="Inter,sans-serif" font-size="12" fill="rgba(255,255,255,0.45)" font-weight="600" letter-spacing="0.08em">NETWORK PARTNERS</text>
+  <text x="608" y="162" font-family="Inter,sans-serif" font-size="42" fill="white" font-weight="800">348</text>
+  <text x="608" y="196" font-family="Inter,sans-serif" font-size="13" fill="#4ade80">↑ 8 new this week</text>
+  <rect x="896" y="84" width="236" height="140" rx="12" fill="url(#card)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+  <text x="920" y="118" font-family="Inter,sans-serif" font-size="12" fill="rgba(255,255,255,0.45)" font-weight="600" letter-spacing="0.08em">THROUGHPUT</text>
+  <text x="920" y="162" font-family="Inter,sans-serif" font-size="42" fill="white" font-weight="800">99.4%</text>
+  <text x="920" y="196" font-family="Inter,sans-serif" font-size="13" fill="rgba(255,255,255,0.4)">7-day average</text>
+  <!-- chart area -->
+  <rect x="272" y="252" width="620" height="264" rx="12" fill="url(#card)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+  <text x="296" y="284" font-family="Inter,sans-serif" font-size="13" fill="rgba(255,255,255,0.7)" font-weight="600">Transaction Volume — 12 weeks</text>
+  <polyline points="296,460 352,440 408,450 464,420 520,400 576,390 632,370 688,350 744,360 800,330 856,310 868,480" fill="none" stroke="url(#accent)" stroke-width="2.5" stroke-linejoin="round"/>
+  <polyline points="296,480 352,470 408,478 464,460 520,448 576,445 632,438 688,425 744,432 800,410 856,395 868,480" fill="none" stroke="rgba(99,179,237,0.6)" stroke-width="2" stroke-linejoin="round"/>
+  <!-- table -->
+  <rect x="912" y="252" width="220" height="264" rx="12" fill="url(#card)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+  <text x="932" y="284" font-family="Inter,sans-serif" font-size="12" fill="rgba(255,255,255,0.45)" font-weight="600">TOP PARTNERS</text>
+  <rect x="928" y="298" width="188" height="1" fill="rgba(255,255,255,0.06)"/>
+  <text x="932" y="322" font-family="Inter,sans-serif" font-size="12" fill="rgba(255,255,255,0.7)">Meridian Corp</text>
+  <text x="932" y="352" font-family="Inter,sans-serif" font-size="12" fill="rgba(255,255,255,0.7)">Ashford Group</text>
+  <text x="932" y="382" font-family="Inter,sans-serif" font-size="12" fill="rgba(255,255,255,0.7)">Nexlink Trading</text>
+  <text x="932" y="412" font-family="Inter,sans-serif" font-size="12" fill="rgba(255,255,255,0.7)">Orinex Ltd</text>
+  <text x="932" y="442" font-family="Inter,sans-serif" font-size="12" fill="rgba(255,255,255,0.7)">Solvex Industries</text>
+  <!-- accent bar -->
+  <rect x="0" y="0" width="4" height="680" fill="url(#accent)"/>
+  <!-- logo -->
+  <rect x="14" y="28" width="32" height="32" rx="8" fill="url(#accent)"/>
+  <text x="22" y="51" font-family="Inter,sans-serif" font-size="18" fill="#020b18" font-weight="900">A</text>
+  <text x="56" y="50" font-family="Inter,sans-serif" font-size="13" fill="white" font-weight="700" letter-spacing="0.12em">ACCORE</text>
+</svg>

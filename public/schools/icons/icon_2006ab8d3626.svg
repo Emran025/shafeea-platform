@@ -1,0 +1,13 @@
+<svg class="Icon" fill="none" height="40" viewbox="0 0 40 40" width="40"
+    xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <clippath id="PhoneWithCreditCardIconClipPath-">
+            <path class="Icon__blendBackground" clip-rule="evenodd" d="M3 0a3 3 0 0 0-3 3v34a3 3 0 0 0 3 3h19a3 3 0 0 0 3-3V3a3 3 0 0 0-3-3H3Zm9.5 36a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" fill-rule="evenodd" style="fill: #005E7A;"></path>
+        </clippath>
+    </defs>
+    <path class="Icon__blendBackground" clip-rule="evenodd" d="M3 0a3 3 0 0 0-3 3v34a3 3 0 0 0 3 3h19a3 3 0 0 0 3-3V3a3 3 0 0 0-3-3H3Zm9.5 36a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" fill-rule="evenodd" style="fill: #005E7A;"></path>
+    <path class="Icon__blendForeground" clip-rule="evenodd" d="M12 4a4 4 0 0 0-4 4v14a4 4 0 0 0 4 4h24a4 4 0 0 0 4-4V8a4 4 0 0 0-4-4H12Zm-.25 4a.75.75 0 0 0-.75.75v1.5c0 .414.336.75.75.75h24.5a.75.75 0 0 0 .75-.75v-1.5a.75.75 0 0 0-.75-.75h-24.5Z" fill-rule="evenodd" style="fill: #005E7A ;"></path>
+    <g clip-path="url(#PhoneWithCreditCardIconClipPath-)">
+        <path class="Icon__blendForeground" clip-rule="evenodd" d="M12 4a4 4 0 0 0-4 4v14a4 4 0 0 0 4 4h24a4 4 0 0 0 4-4V8a4 4 0 0 0-4-4H12Zm-.25 4a.75.75 0 0 0-.75.75v1.5c0 .414.336.75.75.75h24.5a.75.75 0 0 0 .75-.75v-1.5a.75.75 0 0 0-.75-.75h-24.5Z" fill-rule="evenodd" style="fill: #0F2741;"></path>
+    </g>
+</svg>

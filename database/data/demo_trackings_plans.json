@@ -1,0 +1,113 @@
+[
+        
+    {
+    "name" : "الخطة المكثفة للحفظ",
+    "description" : "خطة مكثفة لحفظ وجه يوميًا مع مراجعة مستمرة",
+    "memorization_amount" : 1,
+    "memorization_unit_id" : 5,
+    "review_amount" : 1,
+    "review_unit_id" : 1,
+    "sard_amount" : 2,
+    "sard_unit_id" : 1,
+    "frequency_type_id" : 1
+    },
+    {
+        "name" : "خطة المراجعة الشاملة",
+        "description" : "تركيز على مراجعة المحفوظ مع حفظ جديد متوسط",
+        "memorization_amount" : 1,
+        "memorization_unit_id" : 3,
+        "review_amount" : 2,
+        "review_unit_id" : 1,
+        "sard_amount" : 10,
+        "sard_unit_id" : 1,
+        "frequency_type_id" : 1
+    },
+    {
+        "name" : "خطة المتوسط للحفظ",
+        "description" : "نصف صفحة يوميًا مع مراجعة جزء",
+        "memorization_amount" : 1,
+        "memorization_unit_id" : 4,
+        "review_amount" : 1,
+        "review_unit_id" : 1,
+        "sard_amount" : 3,
+        "sard_unit_id" : 1,
+        "frequency_type_id" : 1
+    },
+    {
+        "name" : "خطة ربع الحزب اليومي",
+        "description" : "ربع حزب يومي مع مراجعة نصف جزء",
+        "memorization_amount" : 1,
+        "memorization_unit_id" : 4,
+        "review_amount" : 1,
+        "review_unit_id" : 3,
+        "sard_amount" : 2,
+        "sard_unit_id" : 1,
+        "frequency_type_id" : 1
+    },
+    {
+        "name" : "خطة الصفحة اليومية",
+        "description" : "صفحة حفظ يوميًا مع مراجعة حزب",
+        "memorization_amount" : 1,
+        "memorization_unit_id" : 5,
+        "review_amount" : 1,
+        "review_unit_id" : 2,
+        "sard_amount" : 8,
+        "sard_unit_id" : 1,
+        "frequency_type_id" : 4
+    },
+    {
+        "name" : "خطة نهاية الأسبوع",
+        "description" : "تركيز على السرد والمراجعة في نهاية الأسبوع",
+        "memorization_amount" : 2,
+        "memorization_unit_id" : 5,
+        "review_amount" : 2,
+        "review_unit_id" : 1,
+        "sard_amount" : 15,
+        "sard_unit_id" : 1,
+        "frequency_type_id" :2
+    },
+    {
+        "name" : "خطة الحفظ السريع",
+        "description" : "وجهين يوميًا مع مراجعة مكثفة",
+        "memorization_amount" : 2,
+        "memorization_unit_id" : 5,
+        "review_amount" : 3,
+        "review_unit_id" : 1,
+        "sard_amount" : 20,
+        "sard_unit_id" : 1,
+        "frequency_type_id" : 3
+    },
+    {
+        "name" : "خطة المبتدئين",
+        "description" : "ربع حزب مع مراجعة خفيفة",
+        "memorization_amount" : 1,
+        "memorization_unit_id" : 4,
+        "review_amount" : 1,
+        "review_unit_id" : 4,
+        "sard_amount" : 1,
+        "sard_unit_id" : 1,
+        "frequency_type_id" : 1
+    },
+    {
+        "name" : "خطة المحافظة",
+        "description" : "مراجعة شاملة للمحفوظ مع حفظ بسيط",
+        "memorization_amount" : 1,
+        "memorization_unit_id" : 5,
+        "review_amount" : 5,
+        "review_unit_id" : 1,
+        "sard_amount" : 30,
+        "sard_unit_id" : 1,
+        "frequency_type_id" :2
+    },
+    {
+        "name" : "خطة التوازن",
+        "description" : "توازن بين الحفظ الجديد والمراجعة",
+        "memorization_amount" : 1,
+        "memorization_unit_id" : 2,
+        "review_amount" : 2,
+        "review_unit_id" : 1,
+        "sard_amount" : 10,
+        "sard_unit_id" : 1,
+        "frequency_type_id" : 4
+    }
+]

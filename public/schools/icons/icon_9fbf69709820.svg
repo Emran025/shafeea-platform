@@ -1,0 +1,13 @@
+<svg class="Icon" height="32" viewbox="0 0 40 32" width="40"
+    xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <clippath id="circularArrowsIconClipPath--a">
+            <path class="Icon__blendBackground" d="M20 32A16 16 0 0 1 4 16H0l6-7 6 7H8a12 12 0 1 0 24 0 2 2 0 1 1 4 0 16 16 0 0 1-16 16z" fill="#0F2741"></path>
+        </clippath>
+    </defs>
+    <path class="Icon__blendBackground" d="M20 32A16 16 0 0 1 4 16H0l6-7 6 7H8a12 12 0 1 0 24 0 2 2 0 1 1 4 0 16 16 0 0 1-16 16z" fill="#0F2741"></path>
+    <path class="Icon__blendForeground" d="M20 0a16 16 0 0 1 16 16h4l-6 7-6-7h4a12 12 0 1 0-24 0 2 2 0 1 1-4 0A16 16 0 0 1 20 0z" fill="#0F2741"></path>
+    <g clip-path="url(#circularArrowsIconClipPath--a)">
+        <path class="Icon__blendForeground" d="M20 0a16 16 0 0 1 16 16h4l-6 7-6-7h4a12 12 0 1 0-24 0 2 2 0 1 1-4 0A16 16 0 0 1 20 0z" fill="#005E7A"></path>
+    </g>
+</svg>

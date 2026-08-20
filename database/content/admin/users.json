@@ -1,0 +1,17 @@
+[
+  {"name": "System Admin",          "email": "admin@accsystemerp.com",      "role": "platform.admin",     "is_active": 1},
+  {"name": "Omar Operations",       "email": "omar@accsystemerp.com",       "role": "ops.manager",        "is_active": 1},
+  {"name": "Pat Publisher",         "email": "pat@accsystemerp.com",        "role": "content.publisher",  "is_active": 1},
+  {"name": "Robin Relay",           "email": "robin@accsystemerp.com",      "role": "content.publisher",  "is_active": 1},
+  {"name": "Sara Supervisor",       "email": "sara@accsystemerp.com",       "role": "content.supervisor", "is_active": 1},
+  {"name": "Emma Editor",           "email": "emma@accsystemerp.com",       "role": "content.editor",     "is_active": 1},
+  {"name": "Sam Sato",              "email": "sam@accsystemerp.com",        "role": "content.editor",     "is_active": 1},
+  {"name": "Alex Author",           "email": "alex@accsystemerp.com",       "role": "content.author",     "is_active": 1},
+  {"name": "Chris Writer",          "email": "chris@accsystemerp.com",      "role": "content.author",     "is_active": 1},
+  {"name": "Dana Pen",              "email": "dana@accsystemerp.com",       "role": "content.author",     "is_active": 1},
+  {"name": "Iman Inquiries",        "email": "iman@accsystemerp.com",       "role": "inquiry.manager",    "is_active": 1},
+  {"name": "Elan Email",            "email": "elan@accsystemerp.com",       "role": "inquiry.email",      "is_active": 1},
+  {"name": "Sophie Support",        "email": "sophie@accsystemerp.com",     "role": "inquiry.support",    "is_active": 1},
+  {"name": "Farid FAQ",             "email": "farid@accsystemerp.com",      "role": "inquiry.faq",        "is_active": 1}
+]
+

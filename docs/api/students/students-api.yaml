@@ -1,0 +1,448 @@
+openapi: 3.0.3
+info:
+  title: Students API
+  version: 1.0.0
+  description: API for managing students, plans, and tracking in the system.
+servers:
+  - url: /api/v1
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Student:
+      type: object
+      properties:
+        id: { type: integer }
+        name: { type: string }
+        avatar: { type: string, nullable: true }
+        gender: { type: string, enum: [Male, Female] }
+        birthDate: { type: string, format: date }
+        email: { type: string, format: email }
+        phoneZone: { type: string }
+        phone: { type: string }
+        whatsappZone: { type: string, nullable: true }
+        whatsappPhone: { type: string, nullable: true }
+        country: { type: string }
+        residence: { type: string }
+        city: { type: string }
+        qualification: { type: string }
+        memorizationLevel: { type: string }
+        status: { type: string, enum: [active, stopped, dropout] }
+        createdAt: { type: string, format: date-time }
+        updatedAt: { type: string, format: date-time }
+    Plan:
+      type: object
+      properties:
+        id: { type: integer }
+        name: { type: string }
+        description: { type: string, nullable: true }
+        startDate: { type: string, format: date }
+        endDate: { type: string, format: date, nullable: true }
+        hasReview: { type: boolean }
+        reviewUnitId: { type: integer, nullable: true }
+        reviewAmount: { type: integer, nullable: true }
+        hasMemorization: { type: boolean }
+        memorizationUnitId: { type: integer, nullable: true }
+        memorizationAmount: { type: integer, nullable: true }
+        hasSard: { type: boolean }
+        sardUnitId: { type: integer, nullable: true }
+        sardAmount: { type: integer, nullable: true }
+        frequencyTypeId: { type: integer }
+        createdAt: { type: string, format: date-time }
+        updatedAt: { type: string, format: date-time }
+    Tracking:
+      type: object
+      properties:
+        id: { type: integer }
+        planId: { type: integer }
+        date: { type: string, format: date }
+        note: { type: string, nullable: true }
+        behaviorNote: { type: string, nullable: true }
+        createdAt: { type: string, format: date-time }
+        updatedAt: { type: string, format: date-time }
+    TrackingDetail:
+      type: object
+      properties:
+        id: { type: integer }
+        trackingId: { type: integer }
+        trackingTypeId: { type: integer }
+        fromTrackingUnitId: { type: integer, nullable: true }
+        toTrackingUnitId: { type: integer, nullable: true }
+        actualAmount: { type: integer, nullable: true }
+        comment: { type: string, nullable: true }
+        score: { type: number, nullable: true }
+        createdAt: { type: string, format: date-time }
+        updatedAt: { type: string, format: date-time }
+    Pagination:
+      type: object
+      properties:
+        total: { type: integer }
+        per_page: { type: integer }
+        current_page: { type: integer }
+        total_pages: { type: integer }
+        has_more_pages: { type: boolean }
+        next_page_url: { type: string, nullable: true }
+        prev_page_url: { type: string, nullable: true }
+    SuccessResponse:
+      type: object
+      properties:
+        success: { type: boolean, example: true }
+        data: {}
+        message: { type: string, nullable: true }
+    PaginatedResponse:
+      type: object
+      properties:
+        success: { type: boolean, example: true }
+        data: { type: array, items: {} }
+        pagination: { $ref: '#/components/schemas/Pagination' }
+        message: { type: string, nullable: true }
+    ErrorResponse:
+      type: object
+      properties:
+        success: { type: boolean, example: false }
+        message: { type: string }
+        errors: { type: object, nullable: true }
+security:
+  - bearerAuth: []
+paths:
+  /students:
+    get:
+      summary: List students
+      tags: [Students]
+      parameters:
+        - in: query
+          name: page
+          schema: { type: integer }
+        - in: query
+          name: limit
+          schema: { type: integer }
+        - in: query
+          name: status
+          schema: { type: string }
+        - in: query
+          name: sortBy
+          schema: { type: string }
+        - in: query
+          name: sortOrder
+          schema: { type: string, enum: [asc, desc] }
+      responses:
+        '200':
+          description: Paginated list of students
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/PaginatedResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: array
+                        items: { $ref: '#/components/schemas/Student' }
+  /students/{id}:
+    get:
+      summary: Get student details
+      tags: [Students]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Student details
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+                  - type: object
+                    properties:
+                      data: { $ref: '#/components/schemas/Student' }
+    put:
+      summary: Update student
+      tags: [Students]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Student'
+      responses:
+        '200':
+          description: Updated student
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+                  - type: object
+                    properties:
+                      data: { $ref: '#/components/schemas/Student' }
+  /students/{id}/plans:
+    get:
+      summary: List all plans for a student
+      tags: [Plans]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: List of plans
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: array
+                        items: { $ref: '#/components/schemas/Plan' }
+    post:
+      summary: Create a plan for a student
+      tags: [Plans]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Plan'
+      responses:
+        '201':
+          description: Created plan
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+                  - type: object
+                    properties:
+                      data: { $ref: '#/components/schemas/Plan' }
+  /students/{id}/plans/active:
+    get:
+      summary: Get active plan for a student
+      tags: [Plans]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Active plan
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+                  - type: object
+                    properties:
+                      data: { $ref: '#/components/schemas/Plan' }
+  /students/plans/{planId}:
+    put:
+      summary: Update a plan
+      tags: [Plans]
+      parameters:
+        - in: path
+          name: planId
+          required: true
+          schema: { type: integer }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Plan'
+      responses:
+        '200':
+          description: Updated plan
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+                  - type: object
+                    properties:
+                      data: { $ref: '#/components/schemas/Plan' }
+    delete:
+      summary: Delete a plan
+      tags: [Plans]
+      parameters:
+        - in: path
+          name: planId
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Plan deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+  /students/{id}/trackings:
+    get:
+      summary: List all trackings for a student
+      tags: [Trackings]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: List of trackings
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: array
+                        items: { $ref: '#/components/schemas/Tracking' }
+  /students/plans/{planId}/trackings:
+    post:
+      summary: Create a tracking for a plan
+      tags: [Trackings]
+      parameters:
+        - in: path
+          name: planId
+          required: true
+          schema: { type: integer }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tracking'
+      responses:
+        '201':
+          description: Created tracking
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+                  - type: object
+                    properties:
+                      data: { $ref: '#/components/schemas/Tracking' }
+  /students/trackings/{trackingId}:
+    put:
+      summary: Update a tracking
+      tags: [Trackings]
+      parameters:
+        - in: path
+          name: trackingId
+          required: true
+          schema: { type: integer }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tracking'
+      responses:
+        '200':
+          description: Updated tracking
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+                  - type: object
+                    properties:
+                      data: { $ref: '#/components/schemas/Tracking' }
+    delete:
+      summary: Delete a tracking
+      tags: [Trackings]
+      parameters:
+        - in: path
+          name: trackingId
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Tracking deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+  /students/trackings/{trackingId}/details:
+    get:
+      summary: List tracking details
+      tags: [TrackingDetails]
+      parameters:
+        - in: path
+          name: trackingId
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: List of tracking details
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: array
+                        items: { $ref: '#/components/schemas/TrackingDetail' }
+    post:
+      summary: Add a tracking detail
+      tags: [TrackingDetails]
+      parameters:
+        - in: path
+          name: trackingId
+          required: true
+          schema: { type: integer }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrackingDetail'
+      responses:
+        '201':
+          description: Created tracking detail
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+                  - type: object
+                    properties:
+                      data: { $ref: '#/components/schemas/TrackingDetail' }
+  /students/tracking-details/{trackingDetailId}:
+    delete:
+      summary: Delete a tracking detail
+      tags: [TrackingDetails]
+      parameters:
+        - in: path
+          name: trackingDetailId
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Tracking detail deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'

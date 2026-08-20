@@ -1,0 +1,24 @@
+<?php
+
+namespace App\Http\Resources\Tracking;
+
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class TrackingResource extends JsonResource
+{
+    public function toArray($request)
+    {
+        return [
+            'id' => $this->id,
+            'studentUserId' => $this->enrollment->student->user_id,
+            'halaqaId' => $this->enrollment->halaqah_id,
+            'enrollmentId' => $this->enrollment_id,
+            'date' => $this->date,
+            'note' => $this->note,
+            'details' => $this->details() ? TrackingDetailResource::collection($this->whenLoaded('details')) : [],
+            'behaviorNote' => $this->behavior_note,
+            'createdAt' => $this->created_at,
+            'updatedAt' => $this->updated_at,
+        ];
+    }
+}

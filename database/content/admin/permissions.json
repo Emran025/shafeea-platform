@@ -1,0 +1,22 @@
+[
+  { "code": "edit_content",            "label": "Edit content" },
+  { "code": "submit_for_review",        "label": "Submit for review" },
+  { "code": "request_changes",          "label": "Request changes" },
+  { "code": "approve",                  "label": "Approve" },
+  { "code": "publish",                  "label": "Publish" },
+  { "code": "unpublish",                "label": "Unpublish" },
+  { "code": "manage_pages",             "label": "Manage pages" },
+  { "code": "manage_sections",          "label": "Manage sections" },
+  { "code": "manage_permissions",       "label": "Manage permissions" },
+  { "code": "manage_users",             "label": "Manage users" },
+  { "code": "manage_keywords",          "label": "Manage keywords" },
+  { "code": "manage_topics",            "label": "Manage topics" },
+  { "code": "manage_site_structure",    "label": "Manage site structure (tabs, top-bar, layout)" },
+  { "code": "manage_supervisors",       "label": "Manage supervisor accounts (T2/T3/T5)" },
+  { "code": "manage_content_users",     "label": "Manage content user accounts (editors & authors)" },
+  { "code": "assign_topics",            "label": "Assign topics to authors" },
+  { "code": "manage_inquiries",         "label": "Manage all inquiry channels (overview)" },
+  { "code": "manage_email_inquiries",   "label": "Manage inbound email inquiries" },
+  { "code": "manage_support_tickets",   "label": "Manage support panel tickets" },
+  { "code": "manage_faq",              "label": "Manage FAQ entries and categories" }
+]

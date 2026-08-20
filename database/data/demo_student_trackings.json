@@ -1,0 +1,393 @@
+
+[
+    {
+        "date" :"2025-07-21",
+        "note" :"بداية أسبوع غير موفقة، كان الطالب مشتتاً.",
+        "behavior_note" :3,
+        "created_at" :"2025-07-21 18:00:00",
+        "details" :[
+            {
+
+                "tracking_type_id" :1,
+                "from_tracking_unit_id" :550,
+                "to_tracking_unit_id" :551,
+                "actual_amount" :1,
+                "comment" :"لم يتمكن من الحفظ بسبب الإرهاق.",
+                "score" :4,
+                "gap" :0.0,
+                "created_at" :"2025-07-21 18:00:00"
+            },
+
+            {
+
+                "tracking_type_id" :2,
+                "from_tracking_unit_id" :1,
+                "to_tracking_unit_id" :2,
+                "actual_amount" :10,
+                "comment" :"المراجعة كانت متقطعة وبها أخطاء.",
+                "score" :3,
+                "gap" :0.0,
+                "created_at" :"2025-07-21 18:00:00"
+            }
+        ]
+    },
+
+    {
+        "date" :"2025-07-22",
+        "note" :"يوم استثنائي، أظهر الطالب تركيزًا عاليًا.",
+        "behavior_note" :5,
+        "created_at" :"2025-07-22 18:00:00",
+        "details" :[
+            {
+
+                "tracking_type_id" :1,
+                "from_tracking_unit_id" :551,
+                "to_tracking_unit_id" :553,
+                "actual_amount" :1,
+                "comment" :"حفظ جيد.",
+                "score" :4,
+                "gap" :189.018,
+                "created_at" :"2025-07-24 18:00:00"
+            },
+            {
+
+                "tracking_type_id" :2,
+                "from_tracking_unit_id" :2,
+                "to_tracking_unit_id" :3,
+                "actual_amount" :10,
+                "comment" :"المراجعة تمت بشكل جيد.",
+                "score" :4,
+                "gap" :491.024,
+                "created_at" :"2025-07-24 18:00:00"
+            }
+        ]
+    },
+
+    {
+        "date" :"2025-07-23",
+        "note" :"أداء مستقر، التزم بالخطة المحددة.",
+        "behavior_note" :4,
+        "created_at" :"2025-07-23 18:00:00",
+        "details" :[
+            {
+                "tracking_type_id" :1,
+                "from_tracking_unit_id" :550,
+                "to_tracking_unit_id" :551,
+                "actual_amount" :1,
+                "comment" :"حفظ جيد.",
+                "score" :4,
+                "gap" :0.0,
+                "created_at" :"2025-07-23 18:00:00"
+            },
+            {
+
+                "tracking_type_id" :2,
+                "from_tracking_unit_id" :1,
+                "to_tracking_unit_id" :2,
+                "actual_amount" :10,
+                "comment" :"مراجعة جيدة.",
+                "score" :4,
+                "gap" :0.0,
+                "created_at" :"2025-07-23 18:00:00"
+            }
+        ]
+    },
+
+    {
+        "date" :"2025-07-24",
+        "note" :"يوم مستقر، تم الالتزام بالخطة.",
+        "behavior_note" :4,
+        "created_at" :"2025-07-24 18:00:00",
+        "details" :[
+            {
+                "tracking_type_id" :1,
+                "from_tracking_unit_id" :283,
+                "to_tracking_unit_id" :283,
+                "actual_amount" :2, 
+                "comment" :"حفظ متقن للصفحة المقررة وصفحة إضافية.",
+                "score" :5,
+                "gap" :182.041,
+                "created_at" :"2025-07-22 18:00:00"
+            },
+            {
+                "tracking_type_id" :2, 
+                "from_tracking_unit_id" :50, 
+                "to_tracking_unit_id" :60,
+                "actual_amount" :11,
+                "comment" :"مراجعة ممتازة وثابتة.",
+                "score" :5,
+                "gap" :301.074,
+                "created_at" :"2025-07-22 18:00:00"
+            },
+            {
+                "tracking_type_id" :3,
+                "from_tracking_unit_id" :111,
+                "to_tracking_unit_id" :121,
+                "actual_amount" :10,
+                "comment" :"تلاوة خاشعة ومؤثرة.",
+                "score" :5,
+                "gap" :156.046, 
+                "created_at" :"2025-07-22 18:00:00"
+            }
+        ]
+
+    },
+
+    {
+        "date" :"2025-07-25",
+        "note" :"كان الطالب متعباً قليلاً.",
+        "behavior_note" :3,
+        "created_at" :"2025-07-25 18:00:00",
+        "details" :[
+            {
+
+                "tracking_type_id" :1,
+                "from_tracking_unit_id" :553,
+                "to_tracking_unit_id" :555,
+                "actual_amount" :1,
+                "comment" :"حفظ جيد.",
+                "score" :4,
+                "gap" :192.033,
+                "created_at" :"2025-07-25 18:00:00"
+            },
+            {
+
+                "tracking_type_id" :2,
+                "from_tracking_unit_id" :3,
+                "to_tracking_unit_id" :4,
+                "actual_amount" :8, 
+                "comment" :"لم يكمل المراجعة المقررة.",
+                "score" :3,
+                "gap" :572.001, 
+                "created_at" :"2025-07-25 18:00:00"
+            },
+            {
+
+                "tracking_type_id" :3,
+                "from_tracking_unit_id" :1,
+                "to_tracking_unit_id" :4,
+                "actual_amount" :10,
+                "comment" :"",
+                "score" :4,
+                "gap" :206.122,
+                "created_at" :"2025-07-25 18:00:00"
+            }
+        ]
+    },
+
+    {
+        "date" :"2025-07-26",
+        "note" :"تركيز عالٍ ورغبة في تعويض الأمس.",
+        "behavior_note" :5,
+        "created_at" :"2025-07-26 18:00:00",
+        "details" :[
+            {
+
+                "tracking_type_id" :1,
+                "from_tracking_unit_id" :555,
+                "to_tracking_unit_id" :555,
+                "actual_amount" :1,
+                "comment" :"حفظ متقن.",
+                "score" :5,
+                "gap" :0.174, 
+                "created_at" :"2025-07-26 18:00:00"
+            },
+            {
+
+                "tracking_type_id" :2,
+                "from_tracking_unit_id" :4,
+                "to_tracking_unit_id" :4,
+                "actual_amount" :12,
+                "comment" :"راجع المقرر وزيادة لتعويض الأمس.",
+                "score" :5,
+                "gap" :10.0,
+                "created_at" :"2025-07-26 18:00:00"
+            }
+        ]
+    },
+
+    {
+        "date" :"2025-07-27",
+        "note" :"غياب الطالب لظرف طارئ.",
+        "behavior_note" :1,
+        "created_at" :"2025-07-27 18:00:00",
+        "details" :[]
+    },
+
+    {
+        "id" :1008,
+        "date" :"2025-07-28",
+        "note" :"العقل ما زال متأثراً بالغياب.",
+        "behavior_note" :2,
+        "created_at" :"2025-07-28 18:00:00",
+        "details" :[
+            {
+
+                "tracking_type_id" :1,
+                "from_tracking_unit_id" :288,
+                "to_tracking_unit_id" :288,
+                "actual_amount" :0,
+                "comment" :"لم يستطع التركيز في الحفظ.",
+                "score" :1,
+                "gap" :194.046, 
+                "created_at" :"2025-07-28 18:00:00"
+            },
+            {
+
+                "tracking_type_id" :2,
+                "from_tracking_unit_id" :101,
+                "to_tracking_unit_id" :105,
+                "actual_amount" :5,
+                "comment" :"مراجعة ضعيفة.",
+                "score" :2,
+                "gap" :72.171, 
+                "created_at" :"2025-07-28 18:00:00"
+            }
+        ]
+    },
+
+    {
+        "date" :"2025-07-29",
+        "note" :"بدأ يستعيد تركيزه.",
+        "behavior_note" :4,
+        "created_at" :"2025-07-29 18:00:00",
+        "details" :[
+            {
+
+                "tracking_type_id" :1,
+                "from_tracking_unit_id" :288,
+                "to_tracking_unit_id" :288,
+                "actual_amount" :1,
+                "comment" :"تم حفظ مقرر اليوم لتعويض أمس.",
+                "score" :4,
+                "gap" :196.059,
+                "created_at" :"2025-07-29 18:00:00"
+            },
+            {
+
+                "tracking_type_id" :2,
+                "from_tracking_unit_id" :106,
+                "to_tracking_unit_id" :115,
+                "actual_amount" :10,
+                "comment" :"مراجعة جيدة.",
+                "score" :4,
+                "gap" :121.081, 
+                "created_at" :"2025-07-29 18:00:00"
+            }
+        ]
+    },
+
+    {
+        "date" :"2025-07-30",
+        "note" :"يوم رائع، حماس عالي.",
+        "behavior_note" :5,
+        "created_at" :"2025-07-30 18:00:00",
+        "details" :[
+            {
+                "id" :2020,
+                "tracking_type_id" :1,
+                "from_tracking_unit_id" :289,
+                "to_tracking_unit_id" :290,
+                "actual_amount" :2,
+                "comment" :"حفظ صفحتين بإتقان.",
+                "score" :5,
+                "gap" :201.092, 
+                "created_at" :"2025-07-30 18:00:00"
+            }
+        ]
+    },
+
+    {
+        "date" :"2025-07-31",
+        "note" :"عانى من التشتت الذهني.",
+        "behavior_note" :3,
+        "created_at" :"2025-07-31 18:00:00",
+        "details" :[
+            {
+
+                "tracking_type_id" :2,
+                "from_tracking_unit_id" :116,
+                "to_tracking_unit_id" :122,
+                "actual_amount" :7,
+                "comment" :"مراجعة غير مكتملة.",
+                "score" :2,
+                "gap" :156.046, 
+                "created_at" :"2025-07-31 18:00:00"
+            },
+            {
+
+                "tracking_type_id" :3,
+                "from_tracking_unit_id" :133,
+                "to_tracking_unit_id" :138,
+                "actual_amount" :5,
+                "comment" :"تلاوة سريعة.",
+                "score" :3,
+                "gap" :241.052, 
+                "created_at" :"2025-07-31 18:00:00"
+            }
+        ]
+    },
+
+    {
+        "date" :"2025-08-01",
+        "note" :"أداء قياسي لتعويض كل التقصير السابق.",
+        "behavior_note" :5,
+        "created_at" :"2025-08-01 18:00:00",
+        "details" :[
+            {
+
+                "tracking_type_id" :1,
+                "from_tracking_unit_id" :291,
+                "to_tracking_unit_id" :291,
+                "actual_amount" :1,
+                "comment" :"",
+                "score" :5,
+                "gap" :204.110,
+                "created_at" :"2025-08-01 18:00:00"
+            },
+            {
+
+                "tracking_type_id" :2,
+                "from_tracking_unit_id" :123,
+                "to_tracking_unit_id" :143,
+                "actual_amount" :20,
+                "comment" :"مراجعة جزء كامل بإتقان.",
+                "score" :5,
+                "gap" :267.099,
+                "created_at" :"2025-08-01 18:00:00"
+            }
+        ]
+    },
+    {
+
+        "date" :"2025-08-02",
+        "note" :"عودة إلى المسار الصحيح.",
+        "behavior_note" :4,
+        "created_at" :"2025-08-02 18:00:00",
+        "details" :[
+            {
+
+                "tracking_type_id" :1,
+                "from_tracking_unit_id" :292,
+                "to_tracking_unit_id" :292,
+                "actual_amount" :1,
+                "comment" :"",
+                "score" :4,
+                "gap" :206.121,
+                "created_at" :"2025-08-02 18:00:00"
+            },
+            {
+                "id" :2026,
+
+                "tracking_type_id" :2,
+                "from_tracking_unit_id" :144,
+                "to_tracking_unit_id" :153,
+                "actual_amount" :10,
+                "comment" :"",
+                "score" :4,
+                "gap" :317.082,
+                "created_at" :"2025-08-02 18:00:00"
+            }
+        ]
+    }
+]
