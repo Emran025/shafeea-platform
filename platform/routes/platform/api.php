@@ -1,0 +1,189 @@
+<?php
+
+use App\Http\Controllers\Api\Build\BuildApiController;
+use App\Http\Controllers\Api\V1\AccountController;
+use App\Http\Controllers\Api\V1\Admin\AdminApplicantController;
+use App\Http\Controllers\Api\V1\ApplicantController;
+use App\Http\Controllers\Api\V1\ApplicantSubmissionController;
+use App\Http\Controllers\Api\V1\AuthController;
+use App\Http\Controllers\Api\V1\FollowUpController;
+use App\Http\Controllers\Api\V1\HalaqahController;
+use App\Http\Controllers\Api\V1\PublicSchoolController;
+use App\Http\Controllers\Api\V1\SessionController;
+use App\Http\Controllers\Api\V1\StudentController;
+use App\Http\Controllers\Api\V1\SyncController;
+use App\Http\Controllers\Api\V1\TeacherApplicantController;
+use App\Http\Controllers\Api\V1\TeacherController;
+use App\Http\Controllers\Public\BuildWebhookController;
+use App\Http\Controllers\Public\WebhookController;
+use Illuminate\Support\Facades\Route;
+
+// Public routes
+Route::prefix('v1')->group(function () {
+    Route::prefix('auth')->name('auth.')->group(function () {
+        Route::post('register', [AuthController::class, 'register'])->name('register');
+        Route::post('login', [AuthController::class, 'login'])->name('login');
+        Route::post('forgot-password', [AuthController::class, 'forgotPassword'])->name('password.email');
+        Route::get('check-username', [AuthController::class, 'checkUsername'])->name('check-username');
+
+        Route::get('/username/suggest', [AuthController::class, 'suggest'])
+            ->name('username.suggest')
+            ->middleware('throttle:60,1');
+    });
+
+    // Public schools list — used by the student app registration dropdown.
+    Route::get('schools', [PublicSchoolController::class, 'index'])->name('schools.public');
+
+    Route::get('email/verify/{id}/{hash}', [AuthController::class, 'verify'])->middleware('signed')->name('verification.verify');
+});
+
+// Protected routes
+Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
+    // Auth routes
+    Route::prefix('auth')->name('auth.')->group(function () {
+        Route::post('refresh', [AuthController::class, 'refresh'])->name('refresh');
+        Route::get('me', [AuthController::class, 'me'])->name('me');
+        Route::get('applicant-status', [AuthController::class, 'applicantStatus'])->name('applicant-status');
+        Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+
+        // Email Verification Resend
+        Route::post('email/resend', [AuthController::class, 'resendVerification'])->name('verification.resend');
+    });
+
+    // Applicant Submission
+    Route::post('applicants', [ApplicantSubmissionController::class, 'store'])->name('applicants.store');
+
+    // Admin Applicant Management
+    Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
+        Route::get('applicants', [AdminApplicantController::class, 'index'])->name('applicants.index');
+        Route::get('applicants/{id}', [AdminApplicantController::class, 'show'])->name('applicants.show');
+        Route::post('applicants/{id}/approve', [AdminApplicantController::class, 'approve'])->name('applicants.approve');
+        Route::post('applicants/{id}/reject', [AdminApplicantController::class, 'reject'])->name('applicants.reject');
+    });
+
+    // Students routes with prefix 'students' and name prefix 'students.'
+    Route::prefix('students')->name('students.')->group(function () {
+        Route::get('/', [StudentController::class, 'index'])->name('index');
+        Route::post('/', [StudentController::class, 'store'])->name('store');
+        Route::get('{id}', [StudentController::class, 'show'])->name('show');
+        Route::put('{id}', [StudentController::class, 'update'])->name('update');
+        Route::delete('{id}', [StudentController::class, 'destroy'])->name('destroy');
+
+        Route::get('{id}/follow-up', [StudentController::class, 'followUp'])->name('followup.get');
+        Route::put('{id}/follow-up', [StudentController::class, 'updateFollowUp'])->name('followup.update');
+
+        Route::post('{id}/assign', [StudentController::class, 'assign'])->name('assign');
+
+        Route::post('{id}/actions', [StudentController::class, 'action'])->name('actions');
+
+        // Plan management
+        Route::get('{id}/plans', [StudentController::class, 'getPlans'])->name('plans.list');
+        Route::get('{id}/plans/active', [StudentController::class, 'getActivePlan'])->name('plans.active');
+        Route::post('{id}/plans', [StudentController::class, 'createPlan'])->name('plans.create');
+        Route::put('plans/{planId}', [StudentController::class, 'updatePlan'])->name('plans.update');
+        Route::delete('plans/{planId}', [StudentController::class, 'deletePlan'])->name('plans.delete');
+
+        // Tracking management
+        Route::get('{id}/trackings', [StudentController::class, 'getTrackingsForStudent'])->name('trackings.list');
+        Route::post('enrollments/{enrollmentId}/trackings', [StudentController::class, 'createTracking'])->name('trackings.create');
+        Route::post('{id}/halaqas/{halaqaId}/trackings', [StudentController::class, 'createTrackingByStudent'])->name('trackings.createByStudent');
+        Route::put('trackings/{trackingId}', [StudentController::class, 'updateTracking'])->name('trackings.update');
+        Route::delete('trackings/{trackingId}', [StudentController::class, 'deleteTracking'])->name('trackings.delete');
+        Route::get('trackings/{trackingId}/details', [StudentController::class, 'getTrackingDetails'])->name('trackings.details.list');
+        Route::post('trackings/{trackingId}/details', [StudentController::class, 'addTrackingDetail'])->name('trackings.details.create');
+        Route::delete('tracking-details/{trackingDetailId}', [StudentController::class, 'deleteTrackingDetail'])->name('trackings.details.delete');
+    });
+
+    // Applicants routes with name prefix 'students.applicants.'
+    Route::prefix('students/applicants')->name('students.applicants.')->group(function () {
+        Route::get('/', [ApplicantController::class, 'index'])->name('index');
+        Route::get('{id}', [ApplicantController::class, 'show'])->name('show');
+        Route::post('{id}/actions', [ApplicantController::class, 'takeAction'])->name('actions');
+        Route::post('/', [ApplicantController::class, 'store'])->name('store');
+    });
+    // halqa routes with name prefix 'halaqas.'
+    Route::prefix('halaqas')->name('halaqas.')->group(function () {
+        Route::get('/', [HalaqahController::class, 'index'])->name('index');
+        Route::post('/', [HalaqahController::class, 'store'])->name('store');
+        Route::get('{id}', [HalaqahController::class, 'show'])->name('show');
+        Route::put('{id}', [HalaqahController::class, 'update'])->name('update');
+
+        Route::post('{id}/assign-students', [HalaqahController::class, 'assignStudents'])->name('assign-students');
+        Route::post('{id}/assign-teacher', [HalaqahController::class, 'assignTeacher'])->name('assign-teacher');
+
+        Route::get('{id}/teachers/history', [HalaqahController::class, 'teachersHistory'])->name('teachers.history');
+
+        Route::get('{id}/students/khatm', [HalaqahController::class, 'studentsKhatm'])->name('students.khatm');
+        Route::get('{id}/students', [HalaqahController::class, 'studentsHistory'])->name('students.history');
+    });
+
+    Route::prefix('teachers')->name('teachers.')->group(function () {
+        Route::get('/', [TeacherController::class, 'index'])->name('index');
+        Route::post('/', [TeacherController::class, 'store'])->name('store');
+        Route::get('{id}', [TeacherController::class, 'show'])->name('show');
+        Route::put('{id}', [TeacherController::class, 'update'])->name('update');
+
+        Route::post('{id}/halaqas', [TeacherController::class, 'assignToHalaqas'])->name('assign-halaqas');
+        Route::get('{id}/halaqas', [TeacherController::class, 'listHalaqas'])->name('halaqas.list');
+
+        // Applicants routes under /teachers/applicants
+        Route::prefix('applicants')->name('applicants.')->group(function () {
+            Route::get('/', [TeacherApplicantController::class, 'index'])->name('index');
+            Route::get('{id}', [TeacherApplicantController::class, 'show'])->name('show');
+            Route::post('{id}/actions', [TeacherApplicantController::class, 'takeAction'])->name('actions');
+            Route::post('/', [TeacherApplicantController::class, 'store'])->name('store');
+        });
+    });
+    // Follow-ups routes grouped with prefix and name prefix
+    Route::prefix('follow-ups')->name('followups.')->group(function () {
+        Route::get('students', [FollowUpController::class, 'studentReports'])->name('students');
+        Route::get('halaqas', [FollowUpController::class, 'halaqaReports'])->name('halaqas');
+    });
+
+    // Sync routes with name prefix 'sync.'
+    Route::prefix('sync')->name('sync.')->group(function () {
+        Route::get('students', [SyncController::class, 'syncStudents'])->name('students');
+        Route::get('teachers', [SyncController::class, 'syncTeachers'])->name('teachers');
+        Route::get('halaqas', [SyncController::class, 'syncHalaqas'])->name('halaqas');
+        Route::get('reports', [SyncController::class, 'syncReports'])->name('reports');
+    });
+
+    Route::prefix('account')->name('account.')->middleware('auth:sanctum')->group(function () {
+        // Get the authenticated user's profile
+        Route::get('profile', [AccountController::class, 'getProfile'])->name('profile');
+        // Update profile (including username)
+        Route::put('profile', [AccountController::class, 'updateProfile'])->name('profile.update');
+        // List all active login sessions for the current user
+        Route::get('sessions', [SessionController::class, 'listSessions'])->name('sessions.list');
+        // Refresh the current session token
+        Route::post('sessions/refresh', [SessionController::class, 'refreshSession'])->name('sessions.refresh');
+        // Terminate all other login sessions except the current one
+        Route::post('sessions/terminate-all', [SessionController::class, 'terminateAllOtherSessions'])->name('sessions.terminateAll');
+        // Terminate a specific login session by ID
+        Route::delete('sessions/{id}', [SessionController::class, 'terminateSession'])->name('sessions.terminate');
+        // Change password
+        Route::post('change-password', [AccountController::class, 'changePassword'])->name('password.change');
+    });
+});
+
+Route::post('webhooks/payment', [WebhookController::class, 'handlePayment']);
+
+// ── Secure Build API ─────────────────────────────────────────────────────────
+// Protected by RSA-SHA256 signature verification (VerifyBuildApiSignature middleware).
+// Only accessible by GitHub Actions that possess the matching private key.
+// NEVER expose these routes publicly or add them to API documentation.
+Route::prefix('build')
+    ->middleware('verify.build.signature')
+    ->name('build.')
+    ->group(function () {
+        // List schools to build (supports ?mode=new_release|latest_release&release=v2.0.0)
+        Route::get('schools', [BuildApiController::class, 'index'])->name('schools.index');
+        // Single school full build config
+        Route::get('schools/{school}', [BuildApiController::class, 'show'])->name('schools.show');
+        // Lifecycle state updates (called by CI jobs)
+        Route::post('schools/{school}/mark-building', [BuildApiController::class, 'markBuilding'])->name('schools.mark-building');
+        Route::post('schools/{school}/mark-built',    [BuildApiController::class, 'markBuilt'])->name('schools.mark-built');
+        Route::post('schools/{school}/mark-failed',   [BuildApiController::class, 'markFailed'])->name('schools.mark-failed');
+        // Build-complete callback: marks school as built and sends admin notification email
+        Route::post('webhooks/build-complete', [BuildWebhookController::class, 'handleBuildComplete'])->name('webhooks.build-complete');
+    });

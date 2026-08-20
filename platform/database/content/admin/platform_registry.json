@@ -1,0 +1,132 @@
+[
+  {
+    "platform_id": "shafeea_teacher",
+    "schema_version": "platform@1.0",
+    "identity_ref": "shafeea_teacher",
+    "status": "active",
+    "segment": "education_school_staff",
+    "target_users": [
+      {"profile": "Teachers"},
+      {"profile": "School staff"},
+      {"profile": "Educators"},
+      {"profile": "Halaqah supervisors"},
+      {"profile": "School administrators"}
+    ],
+    "strategic_role": {
+      "en": "The primary operational interface for school staff. Enables teachers to manage student groups, record Quran memorization progress, track attendance, and coordinate with school administration — all from a purpose-built application distributed per school.",
+      "ar": "الواجهة التشغيلية الأساسية للكادر التعليمي. تمكّن المعلمين من إدارة مجموعات الطلاب، وتسجيل تقدم حفظ القرآن، ومتابعة الحضور، والتنسيق مع إدارة المدرسة — كل ذلك من خلال تطبيق مخصص يُوزّع لكل مدرسة على حدة."
+    },
+    "tagline": {
+      "en": "The teacher application for Shafeea schools.",
+      "ar": "تطبيق المعلم لمدارس شفيع."
+    },
+    "positioning": {
+      "conceptual_role": {
+        "en": "A dedicated mobile application for school teaching staff. Each school receives its own configured instance, delivering a focused and branded experience per institution.",
+        "ar": "تطبيق جوال مخصص للكادر التعليمي في المدرسة. تحصل كل مدرسة على نسختها المكونة خصيصاً لها، لتوفير تجربة مركزة ومُعَلمة لكل مؤسسة."
+      },
+      "structural_role": {
+        "en": "The staff-side complement to the student application. Together they form the two-sided operational layer of the Shafeea school platform.",
+        "ar": "الواجهة المكملة لتطبيق الطالب من جانب الكادر. يشكلان معاً الطبقة التشغيلية ثنائية الجانب لمنصة شفيع المدرسية."
+      },
+      "not": {
+        "en": "A generic school administration dashboard. The Teacher App is the daily operational tool for front-line teaching staff, not a back-office management system.",
+        "ar": "لوحة تحكم إدارية عامة للمدرسة. تطبيق المعلم هو الأداة التشغيلية اليومية للكادر التعليمي في الخط الأمامي، وليس نظام إدارة مكتبي خلفي."
+      },
+      "differentiator": {
+        "en": "Built specifically for Quran memorization school environments — with structured halaqah management, per-student tracking, and seamless integration with the Shafeea platform's multi-school feature release system.",
+        "ar": "مُصمم خصيصاً لبيئات مدارس تحفيظ القرآن — مع إدارة حلقات منظمة، وتتبع فردي لكل طالب، وتكامل سلس مع نظام إصدار الميزات متعدد المدارس في منصة شفيع."
+      }
+    },
+    "capabilities": [
+      {"capability_id": "halaqah_management",      "label": {"en": "Halaqah Management"},           "category": "education",  "is_featured": true},
+      {"capability_id": "quran_tracking",           "label": {"en": "Quran Memorization Tracking"},  "category": "education",  "is_featured": true},
+      {"capability_id": "attendance_recording",     "label": {"en": "Attendance Recording"},          "category": "operations", "is_featured": true},
+      {"capability_id": "student_progress_reports", "label": {"en": "Student Progress Reports"},      "category": "education",  "is_featured": true},
+      {"capability_id": "school_communications",    "label": {"en": "School Communications"},         "category": "communication", "is_featured": false},
+      {"capability_id": "schedule_management",      "label": {"en": "Schedule Management"},           "category": "operations", "is_featured": false},
+      {"capability_id": "enrollment_review",        "label": {"en": "Enrollment Review"},             "category": "operations", "is_featured": false}
+    ],
+    "relationships": [
+      {
+        "related_platform_id": "shafeea_student",
+        "relationship_type": "paired_with",
+        "description": {
+          "en": "The Teacher App and Student App form the two-sided operational layer of each Shafeea school. Teacher actions (tracking, grading, scheduling) are reflected in the Student App experience.",
+          "ar": "يشكل تطبيق المعلم وتطبيق الطالب الطبقة التشغيلية ثنائية الجانب لكل مدرسة من مدارس شفيع. تنعكس إجراءات المعلم (التتبع، والتقييم، والجدولة) في تجربة تطبيق الطالب."
+        }
+      }
+    ],
+    "website_presence": {
+      "page_type": "corporate.platform",
+      "page_slug": "platforms/teacher-app",
+      "include_in_nav": true,
+      "nav_label": "Teacher App",
+      "showcase_order": 4
+    }
+  },
+  {
+    "platform_id": "shafeea_student",
+    "schema_version": "platform@1.0",
+    "identity_ref": "shafeea_student",
+    "status": "active",
+    "segment": "education_students",
+    "target_users": [
+      {"profile": "Students"},
+      {"profile": "Learners"},
+      {"profile": "Quran students"},
+      {"profile": "School-enrolled children"}
+    ],
+    "strategic_role": {
+      "en": "The student-facing layer of the Shafeea platform. Delivers each learner's personal progress data, lesson schedule, and school notifications — providing a focused and accessible view of their academic journey.",
+      "ar": "الطبقة المواجهة للطالب في منصة شفيع. تقدم لكل متعلم بيانات تقدمه الشخصية، وجدول دروسه، وإشعارات المدرسة — مما يوفر عرضاً مركزاً وسهل الوصول لرحلته الأكاديمية."
+    },
+    "tagline": {
+      "en": "The student application for Shafeea schools.",
+      "ar": "تطبيق الطالب لمدارس شفيع."
+    },
+    "positioning": {
+      "conceptual_role": {
+        "en": "A dedicated mobile application for enrolled students. Provides a read-oriented, learner-centred experience that surfaces the information most relevant to each student's daily school life.",
+        "ar": "تطبيق جوال مخصص للطلاب المسجلين. يوفر تجربة تركز على القراءة وتتمحور حول المتعلم، وتعرض المعلومات الأكثر صلة بالحياة المدرسية اليومية لكل طالب."
+      },
+      "structural_role": {
+        "en": "The learner-side complement to the Teacher App. It surfaces the output of teacher activity — progress records, schedule updates, and notifications — in a simple, student-appropriate interface.",
+        "ar": "الواجهة المكملة لتطبيق المعلم من جانب المتعلم. تعرض مخرجات نشاط المعلم — سجلات التقدم، وتحديثات الجدول، والإشعارات — في واجهة بسيطة ومناسبة للطالب."
+      },
+      "not": {
+        "en": "A learning management system (LMS). The Student App is a progress-tracking and communication layer, not a content delivery or assessment platform.",
+        "ar": "نظام إدارة تعلم (LMS). تطبيق الطالب هو طبقة لتتبع التقدم والتواصل، وليس منصة لتقديم المحتوى أو التقييم."
+      },
+      "differentiator": {
+        "en": "Tailored specifically to Quran memorization school contexts — giving students clear visibility into their memorization milestones, daily lesson expectations, and school-wide communications without complexity.",
+        "ar": "مصمم خصيصاً لسياقات مدارس تحفيظ القرآن — مما يمنح الطلاب رؤية واضحة لإنجازاتهم في الحفظ، وتوقعات الدروس اليومية، والتواصل على مستوى المدرسة دون تعقيد."
+      }
+    },
+    "capabilities": [
+      {"capability_id": "progress_tracking",        "label": {"en": "Personal Progress Tracking"},    "category": "education",  "is_featured": true},
+      {"capability_id": "schedule_view",            "label": {"en": "Lesson Schedule View"},           "category": "education",  "is_featured": true},
+      {"capability_id": "quran_milestones",         "label": {"en": "Quran Memorization Milestones"}, "category": "education",  "is_featured": true},
+      {"capability_id": "school_notifications",     "label": {"en": "School Notifications"},           "category": "communication", "is_featured": true},
+      {"capability_id": "attendance_history",       "label": {"en": "Attendance History"},             "category": "education",  "is_featured": false},
+      {"capability_id": "report_access",            "label": {"en": "Progress Report Access"},         "category": "education",  "is_featured": false}
+    ],
+    "relationships": [
+      {
+        "related_platform_id": "shafeea_teacher",
+        "relationship_type": "receives_data_from",
+        "description": {
+          "en": "Student App data — progress records, attendance, schedule updates — originates from teacher activity in the Teacher App and flows into the student's personal view.",
+          "ar": "تنبع بيانات تطبيق الطالب — سجلات التقدم، والحضور، وتحديثات الجدول — من نشاط المعلم في تطبيق المعلم وتتدفق إلى العرض الشخصي للطالب."
+        }
+      }
+    ],
+    "website_presence": {
+      "page_type": "corporate.platform",
+      "page_slug": "platforms/student-app",
+      "include_in_nav": true,
+      "nav_label": "Student App",
+      "showcase_order": 5
+    }
+  }
+]

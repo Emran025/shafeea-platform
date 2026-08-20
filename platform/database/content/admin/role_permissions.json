@@ -1,0 +1,95 @@
+{
+  "content.author": [
+    "edit_content",
+    "submit_for_review"
+  ],
+
+  "content.editor": [
+    "edit_content",
+    "request_changes",
+    "approve"
+  ],
+
+  "content.supervisor": [
+    "edit_content",
+    "submit_for_review",
+    "request_changes",
+    "approve",
+    "publish",
+    "unpublish",
+    "manage_keywords",
+    "manage_topics",
+    "manage_content_users",
+    "assign_topics"
+  ],
+
+  "content.publisher": [
+    "edit_content",
+    "submit_for_review",
+    "request_changes",
+    "approve",
+    "publish",
+    "unpublish",
+    "manage_keywords",
+    "manage_topics"
+  ],
+
+  "ops.manager": [
+    "edit_content",
+    "submit_for_review",
+    "request_changes",
+    "approve",
+    "publish",
+    "unpublish",
+    "manage_keywords",
+    "manage_topics",
+    "manage_content_users",
+    "manage_supervisors",
+    "assign_topics"
+  ],
+
+  "inquiry.manager": [
+    "manage_inquiries",
+    "manage_email_inquiries",
+    "manage_support_tickets",
+    "manage_faq"
+  ],
+
+  "inquiry.email": [
+    "manage_inquiries",
+    "manage_email_inquiries"
+  ],
+
+  "inquiry.support": [
+    "manage_inquiries",
+    "manage_support_tickets"
+  ],
+
+  "inquiry.faq": [
+    "manage_inquiries",
+    "manage_faq"
+  ],
+
+  "platform.admin": [
+    "edit_content",
+    "submit_for_review",
+    "request_changes",
+    "approve",
+    "publish",
+    "unpublish",
+    "manage_pages",
+    "manage_sections",
+    "manage_permissions",
+    "manage_users",
+    "manage_keywords",
+    "manage_topics",
+    "manage_site_structure",
+    "manage_supervisors",
+    "manage_content_users",
+    "assign_topics",
+    "manage_inquiries",
+    "manage_email_inquiries",
+    "manage_support_tickets",
+    "manage_faq"
+  ]
+}

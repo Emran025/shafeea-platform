@@ -1,0 +1,53 @@
+[
+  {
+    "entity_id": "shafeea",
+    "schema_version": "identity@1.0",
+    "canonical_name": "Shafeea",
+    "display_case": "uppercase",
+    "tier": "corporate_parent",
+    "typographic_weight": "institutional",
+    "positioning": {
+      "role": "A school management platform that delivers dedicated digital applications to multiple schools.",
+      "not": "A generic SaaS tool. Shafeea is a multi-tenant platform where each school receives its own branded environment, with features released centrally and deployed per-school.",
+      "organizes": ["shafeea_teacher", "shafeea_student"],
+      "website_scope": "Institutional presence of the Shafeea school platform. Hosts the school registration portal, the CMS-powered newsroom, and the per-school template engine.",
+      "description": "Shafeea is the school management platform that connects teachers, students, and school administrators through purpose-built applications — enabling Quran tracking, scheduling, enrollment, and school communications across a multi-school network."
+    },
+    "color_tokens": {
+      "primary": "#1A3C5E",
+      "accent": "#4CAF9A"
+    }
+  },
+  {
+    "entity_id": "shafeea_teacher",
+    "schema_version": "identity@1.0",
+    "canonical_name": "Shafeea Teacher",
+    "display_case": "uppercase",
+    "tier": "component_product",
+    "typographic_weight": "operational",
+    "positioning": {
+      "role": "The dedicated teacher-facing application for school staff.",
+      "segment": "Education / School Staff",
+      "target_users": ["Teachers", "School staff", "Educators", "Halaqah supervisors"],
+      "description": "The Shafeea Teacher App gives school staff the tools to manage student groups, track Quran memorization progress, record attendance, and communicate with school administration — all from a purpose-built mobile experience.",
+      "own_site": false
+    },
+    "color_tokens": null
+  },
+  {
+    "entity_id": "shafeea_student",
+    "schema_version": "identity@1.0",
+    "canonical_name": "Shafeea Student",
+    "display_case": "uppercase",
+    "tier": "component_product",
+    "typographic_weight": "operational",
+    "positioning": {
+      "role": "The dedicated student-facing application for school learners.",
+      "segment": "Education / Students",
+      "target_users": ["Students", "Learners", "Quran students"],
+      "description": "The Shafeea Student App provides learners with access to their Quran tracking records, lesson schedules, progress reports, and school notifications — delivering a focused and accessible experience tailored to the student journey.",
+      "own_site": false
+    },
+    "color_tokens": null
+  }
+]

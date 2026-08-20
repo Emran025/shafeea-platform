@@ -1,0 +1,14 @@
+<svg class="AnimatedIcon__icon" data-js-controller="PricingIcon" height="96" preserveaspectratio="xMinYMin" viewbox="0 0 96 96" width="96"
+    xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <path d="M41.4 30.38l8.4 8.27A4 4 0 0 1 51 41.5V62a3 3 0 0 1-3 3H32a3 3 0 0 1-3-3V41.5a4 4 0 0 1 1.2-2.85l8.4-8.27a2 2 0 0 1 2.8 0zM40 36a3 3 0 1 0 0 6 3 3 0 0 0 0-6z" id="pricingIconTag"></path>
+        <clippath id="pricingClipPath">
+            <use data-js-target-list="PricingIcon.tagBacks" href="#pricingIconTag" style="transform-origin: 40px 39px; transform: rotate(45deg)"></use>
+        </clippath>
+    </defs>
+    <use data-js-target-list="PricingIcon.tagBacks" fill="#0F2741" href="#pricingIconTag" style="transform-origin: 40px 39px; transform: rotate(45deg)"></use>
+    <use class="PricingIcon__tag" data-js-target-list="PricingIcon.tagFronts" fill="#0F2741" href="#pricingIconTag" style="transform-origin: 40px 39px;"></use>
+    <g clip-path="url(#pricingClipPath)">
+        <use class="PricingIcon__tag" data-js-target-list="PricingIcon.tagFronts" fill="#005E7A" href="#pricingIconTag" style="transform-origin: 40px 39px;"></use>
+    </g>
+</svg>

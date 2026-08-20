@@ -1,0 +1,13 @@
+<svg class="Icon" height="40" viewbox="0 0 34 40" width="34"
+    xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <clippath id="documentsIconClipPath--a">
+            <rect class="Icon__blendBackground" fill="#0F2741" height="34" rx="2" width="26"></rect>
+        </clippath>
+    </defs>
+    <rect class="Icon__blendBackground" fill="#0F2741" height="34" rx="2" width="26"></rect>
+    <path class="Icon__blendForeground" d="M30 6a4 4 0 0 1 4 4v26a4 4 0 0 1-4 4H12a4 4 0 0 1-4-4V10a4 4 0 0 1 4-4h18zm0 28H12v2h18v-2zm0-5h-4v2h4v-2zm-6 0H12v2h12v-2zm6-5H12v2h18v-2zm0-5H12v2h18v-2zm0-9h-6v2h6v-2zm-10 0h-8v2h8v-2z" fill="#0F2741"></path>
+    <g clip-path="url(#documentsIconClipPath--a)">
+        <path class="Icon__blendForeground" d="M30 6a4 4 0 0 1 4 4v26a4 4 0 0 1-4 4H12a4 4 0 0 1-4-4V10a4 4 0 0 1 4-4h18zm0 28H12v2h18v-2zm0-5h-4v2h4v-2zm-6 0H12v2h12v-2zm6-5H12v2h18v-2zm0-5H12v2h18v-2zm0-9h-6v2h6v-2zm-10 0h-8v2h8v-2z" fill="#005E7A"></path>
+    </g>
+</svg>

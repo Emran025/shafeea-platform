@@ -1,0 +1,123 @@
+/* ════════════════════════════════════════════════════════════════
+   LAYOUT — Container, section scaffolding, and responsive grids.
+════════════════════════════════════════════════════════════════ */
+
+/* ─── Container ──────────────────────────────────────────────── */
+.container {
+    max-width: var(--container-max);
+    margin-inline: auto;
+    padding-inline: var(--container-px);
+}
+
+/* ─── Section wrapper ────────────────────────────────────────── */
+.section                { padding-block: var(--pad-section); }
+.section--sm            { padding-block: var(--pad-section-sm); }
+.section--lg            { padding-block: var(--pad-section-lg); }
+.section--white         { background: var(--white); }
+.section--surface       { background: var(--surface); }
+.section--navy          { background: var(--brand-navy); }
+.section--navy-grad     { background: linear-gradient(135deg, var(--brand-navy) 0%, var(--brand-navy-light) 100%); }
+/*
+ * section--dark: always renders a dark navy background regardless of theme.
+ * Used by sections that are semantically "dark" (problem statement, etc.)
+ * and must stay dark in both light mode and dark mode.
+ */
+.section--dark          { background: var(--brand-navy); }
+
+/*
+ * section--image-bg: full-bleed background image with a dark overlay to keep
+ * text legible. The inner .section__image-overlay provides the semi-transparent
+ * tint; .section__image-content lifts content above it.
+ */
+.section--image-bg {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.section__image-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    pointer-events: none;
+    z-index: 0;
+}
+.section__image-content {
+    position: relative;
+    z-index: 1;
+}
+
+/* ─── Section header block ───────────────────────────────────── */
+.section-header {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 64px;
+}
+.section-header--center {
+    text-align: center;
+    align-items: center;
+    max-width: 680px;
+    margin-inline: auto;
+    margin-bottom: 80px;
+}
+
+/* ─── Responsive grids ───────────────────────────────────────── */
+.grid-auto-2 { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 40px; }
+.grid-auto-3 { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 40px; }
+.grid-auto-4 { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 40px; }
+
+@media (max-width: 900px) {
+    .grid-auto-3, .grid-auto-4 { grid-template-columns: repeat(2, minmax(0,1fr)); }
+}
+@media (max-width: 600px) {
+    .grid-auto-2, .grid-auto-3, .grid-auto-4 { grid-template-columns: 1fr; }
+}
+
+/* ─── Section context — text colour cascade ──────────────────────
+ *
+ * .section--dark keeps var(--brand-navy) background in BOTH modes.
+ * var(--text-primary) flips to near-black in light mode, making text
+ * invisible on that dark background.  We override every common text
+ * token here so any component placed inside a dark section gets white
+ * text without needing explicit prop-threading.
+ *
+ * .section--white / .section--surface both use vars that flip in
+ * dark-mode (--white → #050A18, --surface → #0B132C), and
+ * var(--text-primary) also flips to #ffffff → those work automatically.
+ * ─────────────────────────────────────────────────────────────── */
+.section--dark {
+    color: var(--dk-text-secondary);
+}
+
+/* Headlines */
+.section--dark .block-headline,
+.section--dark .block-headline--dark { color: var(--dk-text-primary); }
+
+/* Sub-headlines / body paragraphs */
+.section--dark .block-sub,
+.section--dark .block-body,
+.section--dark p,
+.section--dark li { color: var(--dk-text-secondary); }
+
+/* Cards inside dark sections — translucent glass style */
+.section--dark .feature-card,
+.section--dark .capability-card,
+.section--dark .use-case-card,
+.section--dark .industry-card,
+.section--dark .stat-card,
+.section--dark .testimonial-card {
+    background: rgba(255,255,255,0.04);
+    border-color: rgba(255,255,255,0.09);
+}
+.section--dark .feature-card__title,
+.section--dark .capability-card__title,
+.section--dark .use-case-card__title,
+.section--dark .industry-card__title,
+.section--dark .stat-card__value { color: var(--dk-text-primary); }
+
+.section--dark .feature-card__desc,
+.section--dark .capability-card__desc,
+.section--dark .use-case-card__desc,
+.section--dark .industry-card__desc,
+.section--dark .stat-card__descriptor { color: var(--dk-text-secondary); }

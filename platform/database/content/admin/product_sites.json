@@ -1,0 +1,82 @@
+[
+  {
+    "site_id": "SHAFEEA_TEACHER",
+    "schema_version": "productsite@1.0",
+    "platform_id": "shafeea_teacher",
+    "status": "live",
+    "url_health": 1,
+    "identity_platform_name": "Shafeea Teacher",
+    "identity_display_name": "Teacher App",
+    "identity_display_case": "uppercase",
+    "identity_site_label": {"en": "Teacher App", "ar": "تطبيق المعلم"},
+    "identity_short_description": {
+      "en": "The dedicated teacher application — halaqah management, Quran tracking, attendance, and student progress reporting for school staff.",
+      "ar": "تطبيق المعلم المخصص — إدارة الحلقات وتتبع القرآن والحضور وتقارير تقدم الطلاب لموظفي المدرسة."
+    },
+    "identity_ecosystem_role": {
+      "en": "Teacher-side application",
+      "ar": "تطبيق جانب المعلم"
+    },
+    "urls_canonical": "https://shafeea.systems360.cloud",
+    "urls_localized": {
+      "en": "https://shafeea.systems360.cloud",
+      "ar": "https://shafeea.systems360.cloud/ar"
+    },
+    "urls_contact": "https://shafeea.systems360.cloud/contact",
+    "urls_docs": null,
+    "gateway_has_gateway_page": false,
+    "gateway_page_id": null,
+    "gateway_include_in_nav": true,
+    "gateway_nav_label": {"en": "Teacher App", "ar": "تطبيق المعلم"},
+    "gateway_showcase_order": 4,
+    "gateway_cta_label": {"en": "Explore Teacher App", "ar": "استكشف تطبيق المعلم"},
+    "gateway_cta_intent": "primary",
+    "gateway_unavailable_label": {"en": "Coming soon", "ar": "قريباً"},
+    "display_show_in_platform_index": true,
+    "display_show_in_nav": true,
+    "display_show_in_homepage_showcase": true,
+    "display_broken_link_policy": "show_unavailable_label",
+    "display_media_ref": null,
+    "version_number": 1
+  },
+  {
+    "site_id": "SHAFEEA_STUDENT",
+    "schema_version": "productsite@1.0",
+    "platform_id": "shafeea_student",
+    "status": "live",
+    "url_health": 1,
+    "identity_platform_name": "Shafeea Student",
+    "identity_display_name": "Student App",
+    "identity_display_case": "uppercase",
+    "identity_site_label": {"en": "Student App", "ar": "تطبيق الطالب"},
+    "identity_short_description": {
+      "en": "The dedicated student application — personal Quran milestones, lesson schedules, progress reports, and school notifications for enrolled learners.",
+      "ar": "تطبيق الطالب المخصص — المحطات القرآنية الشخصية وجداول الدروس وتقارير التقدم وإشعارات المدرسة للمتعلمين المسجلين."
+    },
+    "identity_ecosystem_role": {
+      "en": "Student-side application",
+      "ar": "تطبيق جانب الطالب"
+    },
+    "urls_canonical": "https://shafeea.systems360.cloud",
+    "urls_localized": {
+      "en": "https://shafeea.systems360.cloud",
+      "ar": "https://shafeea.systems360.cloud/ar"
+    },
+    "urls_contact": "https://shafeea.systems360.cloud/contact",
+    "urls_docs": null,
+    "gateway_has_gateway_page": false,
+    "gateway_page_id": null,
+    "gateway_include_in_nav": true,
+    "gateway_nav_label": {"en": "Student App", "ar": "تطبيق الطالب"},
+    "gateway_showcase_order": 5,
+    "gateway_cta_label": {"en": "Explore Student App", "ar": "استكشف تطبيق الطالب"},
+    "gateway_cta_intent": "primary",
+    "gateway_unavailable_label": {"en": "Coming soon", "ar": "قريباً"},
+    "display_show_in_platform_index": true,
+    "display_show_in_nav": true,
+    "display_show_in_homepage_showcase": true,
+    "display_broken_link_policy": "show_unavailable_label",
+    "display_media_ref": null,
+    "version_number": 1
+  }
+]

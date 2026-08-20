@@ -1,0 +1,10 @@
+/* ════════════════════════════════════════════════════════════════
+   SECTION — Contact Form
+════════════════════════════════════════════════════════════════ */
+.contact-form__grid { display: grid; gap: 64px; align-items: start; }
+.contact-form__grid--with-text { grid-template-columns: 1fr 1fr; }
+@media (max-width: 768px) { .contact-form__grid--with-text { grid-template-columns: 1fr; } }
+.contact-form__body { display: flex; flex-direction: column; gap: 20px; }
+.contact-form__privacy { margin-top: 16px; padding: 24px; background: var(--brand-navy); border-radius: var(--radius-card); }
+.contact-form__privacy-text { color: rgba(255,255,255,0.6); font-size: 13px; margin: 0; line-height: 1.6; font-family: var(--font-sans); }
+.contact-form__panel { background: var(--white); border-radius: var(--radius-card); padding: 40px 36px; border: 1px solid var(--border); }

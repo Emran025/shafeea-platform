@@ -1,0 +1,4851 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "meta": {
+    "title": "ACCSYSTEM School Platform Renderer Specification Tree",
+    "version": "1.0.0",
+    "description": "Comprehensive structural, mandatory, optional, and test requirements guide for all blocks and sections in the rendering engine.",
+    "target_directory_blocks": "resources/js/schools/renderer/blocks",
+    "target_directory_sections": "resources/js/schools/renderer/sections",
+    "total_blocks": 27,
+    "total_sections": 49
+  },
+  "blocks": {
+    "headline": {
+      "block_type": "headline",
+      "name": "Headline Block",
+      "description": "Renders primary/secondary heading text element with responsive context typography.",
+      "mandatory_fields": [
+        {
+          "name": "text",
+          "type": "string",
+          "rule": "Must be non-empty text content."
+        }
+      ],
+      "optional_fields": [],
+      "media_support": "none",
+      "actions_support": "none",
+      "config_flags": {
+        "is_featured": "Bold accent styling",
+        "display_weight": "Heading size hierarchy (1 = H1, 2 = H2)"
+      },
+      "test_requirements": [
+        "Assert target text matches fields.text",
+        "Assert 'block-headline--featured' when config.is_featured is true"
+      ],
+      "structure_tree": {
+        "BlockPayload": {
+          "id": "string",
+          "type": "headline",
+          "position": "number",
+          "fields": {
+            "text": "string"
+          }
+        }
+      },
+      "sample_payload": {
+        "id": "blk_h1",
+        "type": "headline",
+        "position": 1,
+        "fields": {
+          "text": "Empowering Education"
+        },
+        "config": {
+          "is_featured": true,
+          "display_weight": 1
+        }
+      }
+    },
+    "subheadline": {
+      "block_type": "subheadline",
+      "name": "Subheadline Block",
+      "description": "Renders lead paragraph text or section subtitle.",
+      "mandatory_fields": [
+        {
+          "name": "text",
+          "type": "string",
+          "rule": "Subtitle paragraph content."
+        }
+      ],
+      "optional_fields": [],
+      "media_support": "none",
+      "actions_support": "none",
+      "config_flags": {
+        "is_featured": "Optional accent styling"
+      },
+      "test_requirements": [
+        "Assert text renders in .block-subheadline"
+      ],
+      "structure_tree": {
+        "BlockPayload": {
+          "type": "subheadline",
+          "fields": {
+            "text": "string"
+          }
+        }
+      },
+      "sample_payload": {
+        "id": "blk_sub1",
+        "type": "subheadline",
+        "position": 2,
+        "fields": {
+          "text": "Comprehensive tools built for modern schools."
+        }
+      }
+    },
+    "label": {
+      "block_type": "label",
+      "name": "Label / Tag Block",
+      "description": "Renders category badge or eyebrow text.",
+      "mandatory_fields": [
+        {
+          "name": "text",
+          "type": "string"
+        }
+      ],
+      "optional_fields": [],
+      "media_support": "none",
+      "actions_support": "none",
+      "config_flags": {},
+      "test_requirements": [
+        "Assert label text renders inside badge tag"
+      ],
+      "structure_tree": {
+        "BlockPayload": {
+          "type": "label",
+          "fields": {
+            "text": "string"
+          }
+        }
+      },
+      "sample_payload": {
+        "id": "blk_lbl1",
+        "type": "label",
+        "position": 0,
+        "fields": {
+          "text": "ACADEMIC EXCELLENCE"
+        }
+      }
+    },
+    "rich_text": {
+      "block_type": "rich_text",
+      "name": "Rich Text Block",
+      "description": "Renders HTML or formatted node structure for longform body prose.",
+      "mandatory_fields": [
+        {
+          "name": "content",
+          "type": "string | RichTextNode",
+          "rule": "Formatted prose string or node document."
+        }
+      ],
+      "optional_fields": [],
+      "media_support": "optional",
+      "actions_support": "optional",
+      "config_flags": {},
+      "test_requirements": [
+        "Assert HTML nodes render safely without breaking DOM layout"
+      ],
+      "structure_tree": {
+        "BlockPayload": {
+          "type": "rich_text",
+          "fields": {
+            "content": "string|RichTextNode"
+          }
+        }
+      },
+      "sample_payload": {
+        "id": "blk_rt1",
+        "type": "rich_text",
+        "position": 1,
+        "fields": {
+          "content": "<p>Integrated administrative workflows for modern schools.</p>"
+        }
+      }
+    },
+    "quote": {
+      "block_type": "quote",
+      "name": "Quote Block",
+      "description": "Renders pull quote with attribution author and title.",
+      "mandatory_fields": [
+        {
+          "name": "text",
+          "type": "string"
+        }
+      ],
+      "optional_fields": [
+        {
+          "name": "attribution",
+          "type": "string"
+        }
+      ],
+      "media_support": "optional",
+      "actions_support": "none",
+      "config_flags": {},
+      "test_requirements": [
+        "Assert quote body renders inside blockquote",
+        "Assert attribution renders if present"
+      ],
+      "structure_tree": {
+        "BlockPayload": {
+          "type": "quote",
+          "fields": {
+            "text": "string",
+            "attribution": "string?"
+          }
+        }
+      },
+      "sample_payload": {
+        "id": "blk_q1",
+        "type": "quote",
+        "position": 1,
+        "fields": {
+          "text": "Shafeea transformed our administration.",
+          "attribution": "Dr. Sarah Ahmed"
+        }
+      }
+    },
+    "cta": {
+      "block_type": "cta",
+      "name": "Call to Action Block",
+      "description": "Renders interactive button linking to an internal/external route.",
+      "mandatory_fields": [
+        {
+          "name": "label",
+          "type": "string"
+        },
+        {
+          "name": "destination",
+          "type": "Destination",
+          "rule": "{ type, value } target location."
+        }
+      ],
+      "optional_fields": [
+        {
+          "name": "intent",
+          "type": "primary | secondary | tertiary",
+          "fallback": "primary"
+        },
+        {
+          "name": "open_in_new_tab",
+          "type": "boolean",
+          "fallback": "false"
+        }
+      ],
+      "media_support": "none",
+      "actions_support": "required",
+      "config_flags": {},
+      "test_requirements": [
+        "Assert destination route matches destination.value",
+        "Assert label text matches fields.label"
+      ],
+      "structure_tree": {
+        "BlockPayload": {
+          "type": "cta",
+          "fields": {
+            "label": "string",
+            "destination": "object"
+          }
+        }
+      },
+      "sample_payload": {
+        "id": "blk_cta1",
+        "type": "cta",
+        "position": 3,
+        "fields": {
+          "label": "Request Demo",
+          "destination": {
+            "type": "url",
+            "value": "/contact"
+          },
+          "intent": "primary"
+        }
+      }
+    },
+    "platform_card": {
+      "block_type": "platform_card",
+      "name": "Platform Card Block",
+      "description": "Renders platform module card with role, status badge, description, and link.",
+      "mandatory_fields": [
+        {
+          "name": "display_name",
+          "type": "string"
+        },
+        {
+          "name": "short_description",
+          "type": "string"
+        }
+      ],
+      "optional_fields": [
+        {
+          "name": "canonical_name",
+          "type": "string"
+        },
+        {
+          "name": "ecosystem_role",
+          "type": "string"
+        },
+        {
+          "name": "site_status",
+          "type": "live | coming_soon | in_development",
+          "fallback": "coming soon"
+        },
+        {
+          "name": "cta_label",
+          "type": "string",
+          "fallback": "Explore Platform"
+        },
+        {
+          "name": "cta_url",
+          "type": "string",
+          "fallback": "null"
+        },
+        {
+          "name": "cta_is_available",
+          "type": "boolean",
+          "fallback": "false"
+        }
+      ],
+      "media_support": "optional",
+      "actions_support": "optional",
+      "config_flags": {},
+      "test_requirements": [
+        "Assert card title matches display_name",
+        "Assert status badge renders when site_status is not 'live'"
+      ],
+      "structure_tree": {
+        "BlockPayload": {
+          "type": "platform_card",
+          "fields": {
+            "display_name": "string",
+            "short_description": "string"
+          }
+        }
+      },
+      "sample_payload": {
+        "id": "blk_pc1",
+        "type": "platform_card",
+        "position": 1,
+        "fields": {
+          "display_name": "Shafeea LMS",
+          "short_description": "Integrated learning portal",
+          "site_status": "live",
+          "cta_url": "https://lms.shafeea.edu",
+          "cta_is_available": true
+        }
+      }
+    },
+    "product_gateway_cta": {
+      "block_type": "product_gateway_cta",
+      "name": "Product Gateway CTA Block",
+      "description": "Conversion callout container with dual primary and secondary actions.",
+      "mandatory_fields": [
+        {
+          "name": "headline",
+          "type": "string"
+        },
+        {
+          "name": "subheadline",
+          "type": "string"
+        }
+      ],
+      "optional_fields": [
+        {
+          "name": "primary_cta_label",
+          "type": "string"
+        },
+        {
+          "name": "primary_cta_url",
+          "type": "string"
+        }
+      ],
+      "media_support": "optional",
+      "actions_support": "required",
+      "config_flags": {},
+      "test_requirements": [
+        "Assert headline and actions render inside callout container"
+      ],
+      "structure_tree": {
+        "BlockPayload": {
+          "type": "product_gateway_cta",
+          "fields": {
+            "headline": "string",
+            "subheadline": "string"
+          }
+        }
+      },
+      "sample_payload": {
+        "id": "blk_gw1",
+        "type": "product_gateway_cta",
+        "position": 1,
+        "fields": {
+          "headline": "Ready to Start?",
+          "subheadline": "Join over 150 schools today."
+        }
+      }
+    },
+    "person_card": {
+      "block_type": "person_card",
+      "name": "Person Card Block",
+      "description": "Renders staff or team member card with avatar and bio.",
+      "mandatory_fields": [
+        {
+          "name": "name",
+          "type": "string"
+        }
+      ],
+      "optional_fields": [
+        {
+          "name": "title",
+          "type": "string"
+        },
+        {
+          "name": "bio",
+          "type": "string"
+        }
+      ],
+      "media_support": "optional",
+      "actions_support": "optional",
+      "config_flags": {},
+      "test_requirements": [
+        "Assert person name renders in h3 title",
+        "Assert media image renders avatar when present"
+      ],
+      "structure_tree": {
+        "BlockPayload": {
+          "type": "person_card",
+          "fields": {
+            "name": "string",
+            "title": "string?"
+          }
+        }
+      },
+      "sample_payload": {
+        "id": "blk_per1",
+        "type": "person_card",
+        "position": 1,
+        "fields": {
+          "name": "Dr. Khalid Al-Mansoor",
+          "title": "Head of Academics"
+        }
+      }
+    },
+    "feature_item": {
+      "block_type": "feature_item",
+      "name": "Feature Item Block",
+      "description": "Single feature entry with title, description, and optional icon.",
+      "mandatory_fields": [
+        {
+          "name": "label",
+          "type": "string"
+        },
+        {
+          "name": "description",
+          "type": "string"
+        }
+      ],
+      "optional_fields": [
+        {
+          "name": "icon_name",
+          "type": "string"
+        }
+      ],
+      "media_support": "none",
+      "actions_support": "none",
+      "config_flags": {},
+      "test_requirements": [
+        "Assert label and description text render accurately"
+      ],
+      "structure_tree": {
+        "BlockPayload": {
+          "type": "feature_item",
+          "fields": {
+            "label": "string",
+            "description": "string"
+          }
+        }
+      },
+      "sample_payload": {
+        "id": "blk_fi1",
+        "type": "feature_item",
+        "position": 1,
+        "fields": {
+          "label": "Real-time Attendance",
+          "description": "Instant parent notifications."
+        }
+      }
+    },
+    "stat_item": {
+      "block_type": "stat_item",
+      "name": "Stat Item Block",
+      "description": "Numerical metric, unit suffix, and descriptor callout.",
+      "mandatory_fields": [
+        {
+          "name": "value",
+          "type": "string"
+        }
+      ],
+      "optional_fields": [
+        {
+          "name": "unit",
+          "type": "string"
+        },
+        {
+          "name": "descriptor",
+          "type": "string"
+        }
+      ],
+      "media_support": "none",
+      "actions_support": "none",
+      "config_flags": {},
+      "test_requirements": [
+        "Assert metric value and descriptor render"
+      ],
+      "structure_tree": {
+        "BlockPayload": {
+          "type": "stat_item",
+          "fields": {
+            "value": "string",
+            "unit": "string?",
+            "descriptor": "string?"
+          }
+        }
+      },
+      "sample_payload": {
+        "id": "blk_st1",
+        "type": "stat_item",
+        "position": 1,
+        "fields": {
+          "value": "99.9%",
+          "unit": "Uptime",
+          "descriptor": "Guaranteed SLA"
+        }
+      }
+    },
+    "media": {
+      "block_type": "media",
+      "name": "Media Block",
+      "description": "Renders image asset with alt text and responsive srcset variants.",
+      "mandatory_fields": [],
+      "optional_fields": [
+        {
+          "name": "alt_override",
+          "type": "string"
+        }
+      ],
+      "media_support": "required",
+      "actions_support": "none",
+      "config_flags": {
+        "is_decorative": "Sets aria-hidden='true'"
+      },
+      "test_requirements": [
+        "Assert img src matches media variant URL"
+      ],
+      "structure_tree": {
+        "BlockPayload": {
+          "type": "media",
+          "media": {
+            "variants": [
+              {
+                "url": "string"
+              }
+            ]
+          }
+        }
+      },
+      "sample_payload": {
+        "id": "blk_med1",
+        "type": "media",
+        "position": 1,
+        "fields": {},
+        "media": {
+          "id": "m1",
+          "type": "image",
+          "alt_text": "Dashboard",
+          "variants": [
+            {
+              "url": "/images/dash.webp"
+            }
+          ]
+        }
+      }
+    },
+    "media_group": {
+      "block_type": "media_group",
+      "name": "Media Group Block",
+      "description": "Gallery or cluster of multiple media items.",
+      "mandatory_fields": [
+        {
+          "name": "items",
+          "type": "MediaPayload[]"
+        }
+      ],
+      "optional_fields": [],
+      "media_support": "required",
+      "actions_support": "none",
+      "config_flags": {},
+      "test_requirements": [
+        "Assert media items render inside grid container"
+      ],
+      "structure_tree": {
+        "BlockPayload": {
+          "type": "media_group",
+          "fields": {
+            "items": "array"
+          }
+        }
+      },
+      "sample_payload": {
+        "id": "blk_mg1",
+        "type": "media_group",
+        "position": 1,
+        "fields": {
+          "items": []
+        }
+      }
+    },
+    "form_definition": {
+      "block_type": "form_definition",
+      "name": "Form Definition Block",
+      "description": "Interactive dynamic form with input fields and submission state.",
+      "mandatory_fields": [
+        {
+          "name": "fields",
+          "type": "FormField[]"
+        }
+      ],
+      "optional_fields": [
+        {
+          "name": "form_title",
+          "type": "string"
+        },
+        {
+          "name": "submit_label",
+          "type": "string"
+        },
+        {
+          "name": "success_message",
+          "type": "string"
+        }
+      ],
+      "media_support": "none",
+      "actions_support": "none",
+      "config_flags": {},
+      "test_requirements": [
+        "Assert inputs render for each field item",
+        "Assert success message replaces form upon submit"
+      ],
+      "structure_tree": {
+        "BlockPayload": {
+          "type": "form_definition",
+          "fields": {
+            "form_title": "string?",
+            "fields": "array"
+          }
+        }
+      },
+      "sample_payload": {
+        "id": "blk_fd1",
+        "type": "form_definition",
+        "position": 1,
+        "fields": {
+          "form_title": "Contact Us",
+          "fields": [
+            {
+              "field_name": "email",
+              "label": "Email",
+              "field_type": "email"
+            }
+          ]
+        }
+      }
+    },
+    "capability_card": {
+      "block_type": "capability_card",
+      "name": "Capability Card Block",
+      "description": "Capability summary tile with title and description.",
+      "mandatory_fields": [
+        {
+          "name": "label",
+          "type": "string"
+        },
+        {
+          "name": "description",
+          "type": "string"
+        }
+      ],
+      "optional_fields": [],
+      "media_support": "none",
+      "actions_support": "none",
+      "config_flags": {},
+      "test_requirements": [
+        "Assert label and description text render"
+      ],
+      "structure_tree": {
+        "BlockPayload": {
+          "type": "capability_card",
+          "fields": {
+            "label": "string",
+            "description": "string"
+          }
+        }
+      },
+      "sample_payload": {
+        "id": "blk_cc1",
+        "type": "capability_card",
+        "position": 1,
+        "fields": {
+          "label": "Automated Grading",
+          "description": "Instant gradebook calculations."
+        }
+      }
+    },
+    "use_case_card": {
+      "block_type": "use_case_card",
+      "name": "Use Case Card Block",
+      "description": "Solution scenario card with headline, narrative, and tags.",
+      "mandatory_fields": [
+        {
+          "name": "headline",
+          "type": "string"
+        },
+        {
+          "name": "scenario_narrative",
+          "type": "string"
+        }
+      ],
+      "optional_fields": [
+        {
+          "name": "tags",
+          "type": "string[]"
+        }
+      ],
+      "media_support": "optional",
+      "actions_support": "optional",
+      "config_flags": {},
+      "test_requirements": [
+        "Assert headline and narrative render",
+        "Assert tags render when present"
+      ],
+      "structure_tree": {
+        "BlockPayload": {
+          "type": "use_case_card",
+          "fields": {
+            "headline": "string",
+            "scenario_narrative": "string"
+          }
+        }
+      },
+      "sample_payload": {
+        "id": "blk_uc1",
+        "type": "use_case_card",
+        "position": 1,
+        "fields": {
+          "headline": "Multi-site Management",
+          "scenario_narrative": "Centralized controls for multiple school campuses."
+        }
+      }
+    },
+    "industry_card": {
+      "block_type": "industry_card",
+      "name": "Industry Card Block",
+      "description": "Industry segment tile with title, summary, and platforms list.",
+      "mandatory_fields": [
+        {
+          "name": "industry_name",
+          "type": "string"
+        },
+        {
+          "name": "description",
+          "type": "string"
+        }
+      ],
+      "optional_fields": [
+        {
+          "name": "platforms",
+          "type": "string[]"
+        }
+      ],
+      "media_support": "optional",
+      "actions_support": "optional",
+      "config_flags": {},
+      "test_requirements": [
+        "Assert industry name and platforms tags render"
+      ],
+      "structure_tree": {
+        "BlockPayload": {
+          "type": "industry_card",
+          "fields": {
+            "industry_name": "string",
+            "description": "string"
+          }
+        }
+      },
+      "sample_payload": {
+        "id": "blk_ic1",
+        "type": "industry_card",
+        "position": 1,
+        "fields": {
+          "industry_name": "K-12 Education",
+          "description": "Complete administration system."
+        }
+      }
+    },
+    "platform_recommendation": {
+      "block_type": "platform_recommendation",
+      "name": "Platform Recommendation Block",
+      "description": "Recommendation callout tile for matching platform products.",
+      "mandatory_fields": [
+        {
+          "name": "platform_name",
+          "type": "string"
+        },
+        {
+          "name": "description",
+          "type": "string"
+        }
+      ],
+      "optional_fields": [],
+      "media_support": "none",
+      "actions_support": "optional",
+      "config_flags": {},
+      "test_requirements": [
+        "Assert platform_name renders in tile header"
+      ],
+      "structure_tree": {
+        "BlockPayload": {
+          "type": "platform_recommendation",
+          "fields": {
+            "platform_name": "string",
+            "description": "string"
+          }
+        }
+      },
+      "sample_payload": {
+        "id": "blk_pr1",
+        "type": "platform_recommendation",
+        "position": 1,
+        "fields": {
+          "platform_name": "Shafeea Admissions",
+          "description": "Streamlined student enrollment."
+        }
+      }
+    },
+    "pricing_tier_card": {
+      "block_type": "pricing_tier_card",
+      "name": "Pricing Tier Card Block",
+      "description": "Pricing plan column with tier name, price, feature checklist, and buy button.",
+      "mandatory_fields": [
+        {
+          "name": "tier_name",
+          "type": "string"
+        },
+        {
+          "name": "price",
+          "type": "string"
+        }
+      ],
+      "optional_fields": [
+        {
+          "name": "price_descriptor",
+          "type": "string"
+        },
+        {
+          "name": "features",
+          "type": "string[]"
+        },
+        {
+          "name": "is_featured",
+          "type": "boolean"
+        }
+      ],
+      "media_support": "none",
+      "actions_support": "required",
+      "config_flags": {
+        "is_featured": "Highlights card with featured border"
+      },
+      "test_requirements": [
+        "Assert price and tier name render",
+        "Assert feature checklist items render"
+      ],
+      "structure_tree": {
+        "BlockPayload": {
+          "type": "pricing_tier_card",
+          "fields": {
+            "tier_name": "string",
+            "price": "string"
+          }
+        }
+      },
+      "sample_payload": {
+        "id": "blk_pt1",
+        "type": "pricing_tier_card",
+        "position": 1,
+        "fields": {
+          "tier_name": "Pro School",
+          "price": "$499/mo",
+          "features": [
+            "Full LMS",
+            "SIS",
+            "App"
+          ]
+        }
+      }
+    },
+    "feature_row": {
+      "block_type": "feature_row",
+      "name": "Feature Row Block",
+      "description": "Comparison table matrix row mapping feature to tier values.",
+      "mandatory_fields": [
+        {
+          "name": "feature_name",
+          "type": "string"
+        },
+        {
+          "name": "tier_values",
+          "type": "Record<string, string|boolean>"
+        }
+      ],
+      "optional_fields": [],
+      "media_support": "none",
+      "actions_support": "none",
+      "config_flags": {},
+      "test_requirements": [
+        "Assert feature_name renders in row label",
+        "Assert tier values map across columns"
+      ],
+      "structure_tree": {
+        "BlockPayload": {
+          "type": "feature_row",
+          "fields": {
+            "feature_name": "string",
+            "tier_values": "object"
+          }
+        }
+      },
+      "sample_payload": {
+        "id": "blk_fr1",
+        "type": "feature_row",
+        "position": 1,
+        "fields": {
+          "feature_name": "Custom Domain",
+          "tier_values": {
+            "basic": false,
+            "pro": true
+          }
+        }
+      }
+    },
+    "video_embed": {
+      "block_type": "video_embed",
+      "name": "Video Embed Block",
+      "description": "Responsive iframe video player block.",
+      "mandatory_fields": [
+        {
+          "name": "video_url",
+          "type": "string"
+        }
+      ],
+      "optional_fields": [
+        {
+          "name": "caption",
+          "type": "string"
+        }
+      ],
+      "media_support": "none",
+      "actions_support": "none",
+      "config_flags": {},
+      "test_requirements": [
+        "Assert iframe src matches video_url"
+      ],
+      "structure_tree": {
+        "BlockPayload": {
+          "type": "video_embed",
+          "fields": {
+            "video_url": "string",
+            "caption": "string?"
+          }
+        }
+      },
+      "sample_payload": {
+        "id": "blk_ve1",
+        "type": "video_embed",
+        "position": 1,
+        "fields": {
+          "video_url": "https://www.youtube.com/embed/xyz",
+          "caption": "Platform Intro"
+        }
+      }
+    },
+    "breadcrumb_trail": {
+      "block_type": "breadcrumb_trail",
+      "name": "Breadcrumb Trail Block",
+      "description": "Navigation breadcrumb links path.",
+      "mandatory_fields": [
+        {
+          "name": "path_entries",
+          "type": "{ label: string, url_path: string }[]"
+        }
+      ],
+      "optional_fields": [],
+      "media_support": "none",
+      "actions_support": "none",
+      "config_flags": {},
+      "test_requirements": [
+        "Assert path entries render in sequence with separators"
+      ],
+      "structure_tree": {
+        "BlockPayload": {
+          "type": "breadcrumb_trail",
+          "fields": {
+            "path_entries": "array"
+          }
+        }
+      },
+      "sample_payload": {
+        "id": "blk_bt1",
+        "type": "breadcrumb_trail",
+        "position": 1,
+        "fields": {
+          "path_entries": [
+            {
+              "label": "Home",
+              "url_path": "/"
+            },
+            {
+              "label": "About",
+              "url_path": "/about"
+            }
+          ]
+        }
+      }
+    },
+    "customer_story_card": {
+      "block_type": "customer_story_card",
+      "name": "Customer Story Card Block",
+      "description": "Case study card featuring company, headline, and metric.",
+      "mandatory_fields": [
+        {
+          "name": "company_name",
+          "type": "string"
+        },
+        {
+          "name": "headline",
+          "type": "string"
+        }
+      ],
+      "optional_fields": [
+        {
+          "name": "metric_value",
+          "type": "string"
+        },
+        {
+          "name": "metric_descriptor",
+          "type": "string"
+        }
+      ],
+      "media_support": "optional",
+      "actions_support": "optional",
+      "config_flags": {},
+      "test_requirements": [
+        "Assert company name and headline quote render"
+      ],
+      "structure_tree": {
+        "BlockPayload": {
+          "type": "customer_story_card",
+          "fields": {
+            "company_name": "string",
+            "headline": "string"
+          }
+        }
+      },
+      "sample_payload": {
+        "id": "blk_cs1",
+        "type": "customer_story_card",
+        "position": 1,
+        "fields": {
+          "company_name": "Al-Nour School",
+          "headline": "45% Workload Saved",
+          "metric_value": "45%"
+        }
+      }
+    },
+    "blog_post_card": {
+      "block_type": "blog_post_card",
+      "name": "Blog Post Card Block",
+      "description": "News article summary card with title, author, date, category tag, and summary.",
+      "mandatory_fields": [
+        {
+          "name": "title",
+          "type": "string"
+        },
+        {
+          "name": "summary",
+          "type": "string"
+        }
+      ],
+      "optional_fields": [
+        {
+          "name": "author",
+          "type": "string"
+        },
+        {
+          "name": "date",
+          "type": "string"
+        },
+        {
+          "name": "category",
+          "type": "string"
+        }
+      ],
+      "media_support": "optional",
+      "actions_support": "optional",
+      "config_flags": {},
+      "test_requirements": [
+        "Assert article title and summary render"
+      ],
+      "structure_tree": {
+        "BlockPayload": {
+          "type": "blog_post_card",
+          "fields": {
+            "title": "string",
+            "summary": "string"
+          }
+        }
+      },
+      "sample_payload": {
+        "id": "blk_bp1",
+        "type": "blog_post_card",
+        "position": 1,
+        "fields": {
+          "title": "EdTech Trends 2026",
+          "summary": "Key strategies for school leaders."
+        }
+      }
+    },
+    "nav_link": {
+      "block_type": "nav_link",
+      "name": "Navigation Link Block",
+      "description": "Single link item inside navigation containers.",
+      "mandatory_fields": [
+        {
+          "name": "label",
+          "type": "string"
+        },
+        {
+          "name": "url",
+          "type": "string"
+        }
+      ],
+      "optional_fields": [],
+      "media_support": "none",
+      "actions_support": "none",
+      "config_flags": {},
+      "test_requirements": [
+        "Assert navigation link label and url render"
+      ],
+      "structure_tree": {
+        "BlockPayload": {
+          "type": "nav_link",
+          "fields": {
+            "label": "string",
+            "url": "string"
+          }
+        }
+      },
+      "sample_payload": {
+        "id": "blk_nl1",
+        "type": "nav_link",
+        "position": 1,
+        "fields": {
+          "label": "Contact Us",
+          "url": "/contact"
+        }
+      }
+    },
+    "unknown": {
+      "block_type": "unknown",
+      "name": "Unknown Block Fallback",
+      "description": "Fallback block renderer for unregistered block types.",
+      "mandatory_fields": [],
+      "optional_fields": [],
+      "media_support": "optional",
+      "actions_support": "optional",
+      "config_flags": {},
+      "test_requirements": [
+        "Assert renders graceful fallback without crashing"
+      ],
+      "structure_tree": {
+        "BlockPayload": {
+          "type": "unknown",
+          "fields": {}
+        }
+      },
+      "sample_payload": {
+        "id": "blk_un1",
+        "type": "unknown",
+        "position": 1,
+        "fields": {}
+      }
+    },
+    "caption": {
+      "block_type": "caption",
+      "name": "Caption Block",
+      "description": "Renders image caption or footnote text (uses LabelBlock component).",
+      "mandatory_fields": [
+        {
+          "name": "text",
+          "type": "string"
+        }
+      ],
+      "optional_fields": [],
+      "media_support": "none",
+      "actions_support": "none",
+      "config_flags": {},
+      "test_requirements": [
+        "Assert caption text renders inside caption element"
+      ],
+      "structure_tree": {
+        "BlockPayload": {
+          "type": "caption",
+          "fields": {
+            "text": "string"
+          }
+        }
+      },
+      "sample_payload": {
+        "id": "blk_cap1",
+        "type": "caption",
+        "position": 1,
+        "fields": {
+          "text": "School Campus Overview"
+        }
+      }
+    }
+  },
+  "sections": {
+    "hero": {
+      "section_type": "hero",
+      "name": "Hero Section",
+      "description": "Section rendering hero section with responsive theme container.",
+      "category": "hero",
+      "background_rule": "self_contained",
+      "mandatory_child_blocks": [
+        {
+          "block_type": "headline",
+          "min_count": 1
+        }
+      ],
+      "optional_child_blocks": [
+        {
+          "block_type": "subheadline"
+        },
+        {
+          "block_type": "label"
+        },
+        {
+          "block_type": "cta"
+        },
+        {
+          "block_type": "media"
+        }
+      ],
+      "position_rules": "headline -> subheadline -> label -> cta -> media",
+      "test_requirements": [
+        "Assert Hero Section mounts correctly",
+        "Assert mandatory blocks render within container"
+      ],
+      "structure_tree": {
+        "SectionPayload": {
+          "type": "hero",
+          "blocks": [
+            {
+              "type": "headline"
+            }
+          ]
+        }
+      },
+      "sample_payload": {
+        "id": "sec_hero_01",
+        "type": "hero",
+        "anchor_id": "hero",
+        "position": 1,
+        "group": null,
+        "background_image_url": null,
+        "custom_css_classes": null,
+        "blocks": [
+          {
+            "id": "b_0",
+            "type": "headline",
+            "position": 1,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          }
+        ]
+      }
+    },
+    "narrative": {
+      "section_type": "narrative",
+      "name": "Narrative Section",
+      "description": "Section rendering narrative section with responsive theme container.",
+      "category": "content",
+      "background_rule": "dynamic",
+      "mandatory_child_blocks": [
+        {
+          "block_type": "headline",
+          "min_count": 1
+        },
+        {
+          "block_type": "rich_text",
+          "min_count": 1
+        }
+      ],
+      "optional_child_blocks": [
+        {
+          "block_type": "label"
+        },
+        {
+          "block_type": "media"
+        },
+        {
+          "block_type": "cta"
+        }
+      ],
+      "position_rules": "headline -> rich_text -> label -> media -> cta",
+      "test_requirements": [
+        "Assert Narrative Section mounts correctly",
+        "Assert mandatory blocks render within container"
+      ],
+      "structure_tree": {
+        "SectionPayload": {
+          "type": "narrative",
+          "blocks": [
+            {
+              "type": "headline"
+            },
+            {
+              "type": "rich_text"
+            }
+          ]
+        }
+      },
+      "sample_payload": {
+        "id": "sec_narrative_01",
+        "type": "narrative",
+        "anchor_id": "narrative",
+        "position": 1,
+        "group": null,
+        "background_image_url": null,
+        "custom_css_classes": null,
+        "blocks": [
+          {
+            "id": "b_0",
+            "type": "headline",
+            "position": 1,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          },
+          {
+            "id": "b_1",
+            "type": "rich_text",
+            "position": 2,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          }
+        ]
+      }
+    },
+    "value_proposition": {
+      "section_type": "value_proposition",
+      "name": "Value Proposition Section",
+      "description": "Section rendering value proposition section with responsive theme container.",
+      "category": "grid",
+      "background_rule": "dynamic",
+      "mandatory_child_blocks": [
+        {
+          "block_type": "headline",
+          "min_count": 1
+        },
+        {
+          "block_type": "feature_item",
+          "min_count": 1
+        }
+      ],
+      "optional_child_blocks": [
+        {
+          "block_type": "label"
+        },
+        {
+          "block_type": "subheadline"
+        }
+      ],
+      "position_rules": "headline -> feature_item -> label -> subheadline",
+      "test_requirements": [
+        "Assert Value Proposition Section mounts correctly",
+        "Assert mandatory blocks render within container"
+      ],
+      "structure_tree": {
+        "SectionPayload": {
+          "type": "value_proposition",
+          "blocks": [
+            {
+              "type": "headline"
+            },
+            {
+              "type": "feature_item"
+            }
+          ]
+        }
+      },
+      "sample_payload": {
+        "id": "sec_value_proposition_01",
+        "type": "value_proposition",
+        "anchor_id": "value_proposition",
+        "position": 1,
+        "group": null,
+        "background_image_url": null,
+        "custom_css_classes": null,
+        "blocks": [
+          {
+            "id": "b_0",
+            "type": "headline",
+            "position": 1,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          },
+          {
+            "id": "b_1",
+            "type": "feature_item",
+            "position": 2,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          }
+        ]
+      }
+    },
+    "platform_showcase": {
+      "section_type": "platform_showcase",
+      "name": "Platform Showcase Section",
+      "description": "Section rendering platform showcase section with responsive theme container.",
+      "category": "grid",
+      "background_rule": "dynamic",
+      "mandatory_child_blocks": [
+        {
+          "block_type": "headline",
+          "min_count": 1
+        },
+        {
+          "block_type": "platform_card",
+          "min_count": 1
+        }
+      ],
+      "optional_child_blocks": [
+        {
+          "block_type": "label"
+        },
+        {
+          "block_type": "subheadline"
+        }
+      ],
+      "position_rules": "headline -> platform_card -> label -> subheadline",
+      "test_requirements": [
+        "Assert Platform Showcase Section mounts correctly",
+        "Assert mandatory blocks render within container"
+      ],
+      "structure_tree": {
+        "SectionPayload": {
+          "type": "platform_showcase",
+          "blocks": [
+            {
+              "type": "headline"
+            },
+            {
+              "type": "platform_card"
+            }
+          ]
+        }
+      },
+      "sample_payload": {
+        "id": "sec_platform_showcase_01",
+        "type": "platform_showcase",
+        "anchor_id": "platform_showcase",
+        "position": 1,
+        "group": null,
+        "background_image_url": null,
+        "custom_css_classes": null,
+        "blocks": [
+          {
+            "id": "b_0",
+            "type": "headline",
+            "position": 1,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          },
+          {
+            "id": "b_1",
+            "type": "platform_card",
+            "position": 2,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          }
+        ]
+      }
+    },
+    "leadership": {
+      "section_type": "leadership",
+      "name": "Leadership Section",
+      "description": "Section rendering leadership section with responsive theme container.",
+      "category": "grid",
+      "background_rule": "dynamic",
+      "mandatory_child_blocks": [
+        {
+          "block_type": "headline",
+          "min_count": 1
+        },
+        {
+          "block_type": "person_card",
+          "min_count": 1
+        }
+      ],
+      "optional_child_blocks": [
+        {
+          "block_type": "subheadline"
+        }
+      ],
+      "position_rules": "headline -> person_card -> subheadline",
+      "test_requirements": [
+        "Assert Leadership Section mounts correctly",
+        "Assert mandatory blocks render within container"
+      ],
+      "structure_tree": {
+        "SectionPayload": {
+          "type": "leadership",
+          "blocks": [
+            {
+              "type": "headline"
+            },
+            {
+              "type": "person_card"
+            }
+          ]
+        }
+      },
+      "sample_payload": {
+        "id": "sec_leadership_01",
+        "type": "leadership",
+        "anchor_id": "leadership",
+        "position": 1,
+        "group": null,
+        "background_image_url": null,
+        "custom_css_classes": null,
+        "blocks": [
+          {
+            "id": "b_0",
+            "type": "headline",
+            "position": 1,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          },
+          {
+            "id": "b_1",
+            "type": "person_card",
+            "position": 2,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          }
+        ]
+      }
+    },
+    "statistics": {
+      "section_type": "statistics",
+      "name": "Statistics Section",
+      "description": "Section rendering statistics section with responsive theme container.",
+      "category": "content",
+      "background_rule": "fixed_navy",
+      "mandatory_child_blocks": [
+        {
+          "block_type": "stat_item",
+          "min_count": 1
+        }
+      ],
+      "optional_child_blocks": [
+        {
+          "block_type": "headline"
+        }
+      ],
+      "position_rules": "stat_item -> headline",
+      "test_requirements": [
+        "Assert Statistics Section mounts correctly",
+        "Assert mandatory blocks render within container"
+      ],
+      "structure_tree": {
+        "SectionPayload": {
+          "type": "statistics",
+          "blocks": [
+            {
+              "type": "stat_item"
+            }
+          ]
+        }
+      },
+      "sample_payload": {
+        "id": "sec_statistics_01",
+        "type": "statistics",
+        "anchor_id": "statistics",
+        "position": 1,
+        "group": null,
+        "background_image_url": null,
+        "custom_css_classes": null,
+        "blocks": [
+          {
+            "id": "b_0",
+            "type": "stat_item",
+            "position": 1,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          }
+        ]
+      }
+    },
+    "testimonial": {
+      "section_type": "testimonial",
+      "name": "Testimonial Section",
+      "description": "Section rendering testimonial section with responsive theme container.",
+      "category": "content",
+      "background_rule": "dynamic",
+      "mandatory_child_blocks": [
+        {
+          "block_type": "quote",
+          "min_count": 1
+        }
+      ],
+      "optional_child_blocks": [
+        {
+          "block_type": "headline"
+        },
+        {
+          "block_type": "media"
+        }
+      ],
+      "position_rules": "quote -> headline -> media",
+      "test_requirements": [
+        "Assert Testimonial Section mounts correctly",
+        "Assert mandatory blocks render within container"
+      ],
+      "structure_tree": {
+        "SectionPayload": {
+          "type": "testimonial",
+          "blocks": [
+            {
+              "type": "quote"
+            }
+          ]
+        }
+      },
+      "sample_payload": {
+        "id": "sec_testimonial_01",
+        "type": "testimonial",
+        "anchor_id": "testimonial",
+        "position": 1,
+        "group": null,
+        "background_image_url": null,
+        "custom_css_classes": null,
+        "blocks": [
+          {
+            "id": "b_0",
+            "type": "quote",
+            "position": 1,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          }
+        ]
+      }
+    },
+    "cta_band": {
+      "section_type": "cta_band",
+      "name": "CTA Band Section",
+      "description": "Section rendering cta band section with responsive theme container.",
+      "category": "hero",
+      "background_rule": "fixed_navy_grad",
+      "mandatory_child_blocks": [
+        {
+          "block_type": "headline",
+          "min_count": 1
+        },
+        {
+          "block_type": "cta",
+          "min_count": 1
+        }
+      ],
+      "optional_child_blocks": [
+        {
+          "block_type": "subheadline"
+        }
+      ],
+      "position_rules": "headline -> cta -> subheadline",
+      "test_requirements": [
+        "Assert CTA Band Section mounts correctly",
+        "Assert mandatory blocks render within container"
+      ],
+      "structure_tree": {
+        "SectionPayload": {
+          "type": "cta_band",
+          "blocks": [
+            {
+              "type": "headline"
+            },
+            {
+              "type": "cta"
+            }
+          ]
+        }
+      },
+      "sample_payload": {
+        "id": "sec_cta_band_01",
+        "type": "cta_band",
+        "anchor_id": "cta_band",
+        "position": 1,
+        "group": null,
+        "background_image_url": null,
+        "custom_css_classes": null,
+        "blocks": [
+          {
+            "id": "b_0",
+            "type": "headline",
+            "position": 1,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          },
+          {
+            "id": "b_1",
+            "type": "cta",
+            "position": 2,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          }
+        ]
+      }
+    },
+    "legal_body": {
+      "section_type": "legal_body",
+      "name": "Legal Body Section",
+      "description": "Section rendering legal body section with responsive theme container.",
+      "category": "content",
+      "background_rule": "dynamic",
+      "mandatory_child_blocks": [
+        {
+          "block_type": "rich_text",
+          "min_count": 1
+        }
+      ],
+      "optional_child_blocks": [
+        {
+          "block_type": "headline"
+        }
+      ],
+      "position_rules": "rich_text -> headline",
+      "test_requirements": [
+        "Assert Legal Body Section mounts correctly",
+        "Assert mandatory blocks render within container"
+      ],
+      "structure_tree": {
+        "SectionPayload": {
+          "type": "legal_body",
+          "blocks": [
+            {
+              "type": "rich_text"
+            }
+          ]
+        }
+      },
+      "sample_payload": {
+        "id": "sec_legal_body_01",
+        "type": "legal_body",
+        "anchor_id": "legal_body",
+        "position": 1,
+        "group": null,
+        "background_image_url": null,
+        "custom_css_classes": null,
+        "blocks": [
+          {
+            "id": "b_0",
+            "type": "rich_text",
+            "position": 1,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          }
+        ]
+      }
+    },
+    "contact_form": {
+      "section_type": "contact_form",
+      "name": "Contact Form Section",
+      "description": "Section rendering contact form section with responsive theme container.",
+      "category": "interactive",
+      "background_rule": "dynamic",
+      "mandatory_child_blocks": [
+        {
+          "block_type": "form_definition",
+          "min_count": 1
+        }
+      ],
+      "optional_child_blocks": [
+        {
+          "block_type": "headline"
+        },
+        {
+          "block_type": "subheadline"
+        }
+      ],
+      "position_rules": "form_definition -> headline -> subheadline",
+      "test_requirements": [
+        "Assert Contact Form Section mounts correctly",
+        "Assert mandatory blocks render within container"
+      ],
+      "structure_tree": {
+        "SectionPayload": {
+          "type": "contact_form",
+          "blocks": [
+            {
+              "type": "form_definition"
+            }
+          ]
+        }
+      },
+      "sample_payload": {
+        "id": "sec_contact_form_01",
+        "type": "contact_form",
+        "anchor_id": "contact_form",
+        "position": 1,
+        "group": null,
+        "background_image_url": null,
+        "custom_css_classes": null,
+        "blocks": [
+          {
+            "id": "b_0",
+            "type": "form_definition",
+            "position": 1,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          }
+        ]
+      }
+    },
+    "navigation_anchor": {
+      "section_type": "navigation_anchor",
+      "name": "Navigation Anchor Section",
+      "description": "Section rendering navigation anchor section with responsive theme container.",
+      "category": "utility",
+      "background_rule": "dynamic",
+      "mandatory_child_blocks": [],
+      "optional_child_blocks": [],
+      "position_rules": "",
+      "test_requirements": [
+        "Assert Navigation Anchor Section mounts correctly",
+        "Assert mandatory blocks render within container"
+      ],
+      "structure_tree": {
+        "SectionPayload": {
+          "type": "navigation_anchor",
+          "blocks": []
+        }
+      },
+      "sample_payload": {
+        "id": "sec_navigation_anchor_01",
+        "type": "navigation_anchor",
+        "anchor_id": "navigation_anchor",
+        "position": 1,
+        "group": null,
+        "background_image_url": null,
+        "custom_css_classes": null,
+        "blocks": []
+      }
+    },
+    "freeform": {
+      "section_type": "freeform",
+      "name": "Freeform Section",
+      "description": "Section rendering freeform section with responsive theme container.",
+      "category": "content",
+      "background_rule": "dynamic",
+      "mandatory_child_blocks": [
+        {
+          "block_type": "rich_text",
+          "min_count": 1
+        }
+      ],
+      "optional_child_blocks": [
+        {
+          "block_type": "media"
+        },
+        {
+          "block_type": "cta"
+        }
+      ],
+      "position_rules": "rich_text -> media -> cta",
+      "test_requirements": [
+        "Assert Freeform Section mounts correctly",
+        "Assert mandatory blocks render within container"
+      ],
+      "structure_tree": {
+        "SectionPayload": {
+          "type": "freeform",
+          "blocks": [
+            {
+              "type": "rich_text"
+            }
+          ]
+        }
+      },
+      "sample_payload": {
+        "id": "sec_freeform_01",
+        "type": "freeform",
+        "anchor_id": "freeform",
+        "position": 1,
+        "group": null,
+        "background_image_url": null,
+        "custom_css_classes": null,
+        "blocks": [
+          {
+            "id": "b_0",
+            "type": "rich_text",
+            "position": 1,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          }
+        ]
+      }
+    },
+    "problem_statement": {
+      "section_type": "problem_statement",
+      "name": "Problem Statement Section",
+      "description": "Section rendering problem statement section with responsive theme container.",
+      "category": "content",
+      "background_rule": "dynamic",
+      "mandatory_child_blocks": [
+        {
+          "block_type": "headline",
+          "min_count": 1
+        },
+        {
+          "block_type": "subheadline",
+          "min_count": 1
+        }
+      ],
+      "optional_child_blocks": [
+        {
+          "block_type": "feature_item"
+        }
+      ],
+      "position_rules": "headline -> subheadline -> feature_item",
+      "test_requirements": [
+        "Assert Problem Statement Section mounts correctly",
+        "Assert mandatory blocks render within container"
+      ],
+      "structure_tree": {
+        "SectionPayload": {
+          "type": "problem_statement",
+          "blocks": [
+            {
+              "type": "headline"
+            },
+            {
+              "type": "subheadline"
+            }
+          ]
+        }
+      },
+      "sample_payload": {
+        "id": "sec_problem_statement_01",
+        "type": "problem_statement",
+        "anchor_id": "problem_statement",
+        "position": 1,
+        "group": null,
+        "background_image_url": null,
+        "custom_css_classes": null,
+        "blocks": [
+          {
+            "id": "b_0",
+            "type": "headline",
+            "position": 1,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          },
+          {
+            "id": "b_1",
+            "type": "subheadline",
+            "position": 2,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          }
+        ]
+      }
+    },
+    "solution_overview": {
+      "section_type": "solution_overview",
+      "name": "Solution Overview Section",
+      "description": "Section rendering solution overview section with responsive theme container.",
+      "category": "content",
+      "background_rule": "dynamic",
+      "mandatory_child_blocks": [
+        {
+          "block_type": "headline",
+          "min_count": 1
+        },
+        {
+          "block_type": "rich_text",
+          "min_count": 1
+        }
+      ],
+      "optional_child_blocks": [
+        {
+          "block_type": "media"
+        },
+        {
+          "block_type": "cta"
+        }
+      ],
+      "position_rules": "headline -> rich_text -> media -> cta",
+      "test_requirements": [
+        "Assert Solution Overview Section mounts correctly",
+        "Assert mandatory blocks render within container"
+      ],
+      "structure_tree": {
+        "SectionPayload": {
+          "type": "solution_overview",
+          "blocks": [
+            {
+              "type": "headline"
+            },
+            {
+              "type": "rich_text"
+            }
+          ]
+        }
+      },
+      "sample_payload": {
+        "id": "sec_solution_overview_01",
+        "type": "solution_overview",
+        "anchor_id": "solution_overview",
+        "position": 1,
+        "group": null,
+        "background_image_url": null,
+        "custom_css_classes": null,
+        "blocks": [
+          {
+            "id": "b_0",
+            "type": "headline",
+            "position": 1,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          },
+          {
+            "id": "b_1",
+            "type": "rich_text",
+            "position": 2,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          }
+        ]
+      }
+    },
+    "capability_grid": {
+      "section_type": "capability_grid",
+      "name": "Capability Grid Section",
+      "description": "Section rendering capability grid section with responsive theme container.",
+      "category": "grid",
+      "background_rule": "dynamic",
+      "mandatory_child_blocks": [
+        {
+          "block_type": "headline",
+          "min_count": 1
+        },
+        {
+          "block_type": "capability_card",
+          "min_count": 1
+        }
+      ],
+      "optional_child_blocks": [
+        {
+          "block_type": "label"
+        }
+      ],
+      "position_rules": "headline -> capability_card -> label",
+      "test_requirements": [
+        "Assert Capability Grid Section mounts correctly",
+        "Assert mandatory blocks render within container"
+      ],
+      "structure_tree": {
+        "SectionPayload": {
+          "type": "capability_grid",
+          "blocks": [
+            {
+              "type": "headline"
+            },
+            {
+              "type": "capability_card"
+            }
+          ]
+        }
+      },
+      "sample_payload": {
+        "id": "sec_capability_grid_01",
+        "type": "capability_grid",
+        "anchor_id": "capability_grid",
+        "position": 1,
+        "group": null,
+        "background_image_url": null,
+        "custom_css_classes": null,
+        "blocks": [
+          {
+            "id": "b_0",
+            "type": "headline",
+            "position": 1,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          },
+          {
+            "id": "b_1",
+            "type": "capability_card",
+            "position": 2,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          }
+        ]
+      }
+    },
+    "ecosystem_diagram": {
+      "section_type": "ecosystem_diagram",
+      "name": "Ecosystem Diagram Section",
+      "description": "Section rendering ecosystem diagram section with responsive theme container.",
+      "category": "content",
+      "background_rule": "dynamic",
+      "mandatory_child_blocks": [
+        {
+          "block_type": "headline",
+          "min_count": 1
+        },
+        {
+          "block_type": "platform_card",
+          "min_count": 1
+        }
+      ],
+      "optional_child_blocks": [
+        {
+          "block_type": "media"
+        }
+      ],
+      "position_rules": "headline -> platform_card -> media",
+      "test_requirements": [
+        "Assert Ecosystem Diagram Section mounts correctly",
+        "Assert mandatory blocks render within container"
+      ],
+      "structure_tree": {
+        "SectionPayload": {
+          "type": "ecosystem_diagram",
+          "blocks": [
+            {
+              "type": "headline"
+            },
+            {
+              "type": "platform_card"
+            }
+          ]
+        }
+      },
+      "sample_payload": {
+        "id": "sec_ecosystem_diagram_01",
+        "type": "ecosystem_diagram",
+        "anchor_id": "ecosystem_diagram",
+        "position": 1,
+        "group": null,
+        "background_image_url": null,
+        "custom_css_classes": null,
+        "blocks": [
+          {
+            "id": "b_0",
+            "type": "headline",
+            "position": 1,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          },
+          {
+            "id": "b_1",
+            "type": "platform_card",
+            "position": 2,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          }
+        ]
+      }
+    },
+    "use_case_grid": {
+      "section_type": "use_case_grid",
+      "name": "Use Case Grid Section",
+      "description": "Section rendering use case grid section with responsive theme container.",
+      "category": "grid",
+      "background_rule": "dynamic",
+      "mandatory_child_blocks": [
+        {
+          "block_type": "headline",
+          "min_count": 1
+        },
+        {
+          "block_type": "use_case_card",
+          "min_count": 1
+        }
+      ],
+      "optional_child_blocks": [
+        {
+          "block_type": "label"
+        }
+      ],
+      "position_rules": "headline -> use_case_card -> label",
+      "test_requirements": [
+        "Assert Use Case Grid Section mounts correctly",
+        "Assert mandatory blocks render within container"
+      ],
+      "structure_tree": {
+        "SectionPayload": {
+          "type": "use_case_grid",
+          "blocks": [
+            {
+              "type": "headline"
+            },
+            {
+              "type": "use_case_card"
+            }
+          ]
+        }
+      },
+      "sample_payload": {
+        "id": "sec_use_case_grid_01",
+        "type": "use_case_grid",
+        "anchor_id": "use_case_grid",
+        "position": 1,
+        "group": null,
+        "background_image_url": null,
+        "custom_css_classes": null,
+        "blocks": [
+          {
+            "id": "b_0",
+            "type": "headline",
+            "position": 1,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          },
+          {
+            "id": "b_1",
+            "type": "use_case_card",
+            "position": 2,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          }
+        ]
+      }
+    },
+    "industry_grid": {
+      "section_type": "industry_grid",
+      "name": "Industry Grid Section",
+      "description": "Section rendering industry grid section with responsive theme container.",
+      "category": "grid",
+      "background_rule": "dynamic",
+      "mandatory_child_blocks": [
+        {
+          "block_type": "headline",
+          "min_count": 1
+        },
+        {
+          "block_type": "industry_card",
+          "min_count": 1
+        }
+      ],
+      "optional_child_blocks": [
+        {
+          "block_type": "label"
+        }
+      ],
+      "position_rules": "headline -> industry_card -> label",
+      "test_requirements": [
+        "Assert Industry Grid Section mounts correctly",
+        "Assert mandatory blocks render within container"
+      ],
+      "structure_tree": {
+        "SectionPayload": {
+          "type": "industry_grid",
+          "blocks": [
+            {
+              "type": "headline"
+            },
+            {
+              "type": "industry_card"
+            }
+          ]
+        }
+      },
+      "sample_payload": {
+        "id": "sec_industry_grid_01",
+        "type": "industry_grid",
+        "anchor_id": "industry_grid",
+        "position": 1,
+        "group": null,
+        "background_image_url": null,
+        "custom_css_classes": null,
+        "blocks": [
+          {
+            "id": "b_0",
+            "type": "headline",
+            "position": 1,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          },
+          {
+            "id": "b_1",
+            "type": "industry_card",
+            "position": 2,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          }
+        ]
+      }
+    },
+    "pricing_card_row": {
+      "section_type": "pricing_card_row",
+      "name": "Pricing Card Row Section",
+      "description": "Section rendering pricing card row section with responsive theme container.",
+      "category": "grid",
+      "background_rule": "dynamic",
+      "mandatory_child_blocks": [
+        {
+          "block_type": "headline",
+          "min_count": 1
+        },
+        {
+          "block_type": "pricing_tier_card",
+          "min_count": 1
+        }
+      ],
+      "optional_child_blocks": [
+        {
+          "block_type": "subheadline"
+        }
+      ],
+      "position_rules": "headline -> pricing_tier_card -> subheadline",
+      "test_requirements": [
+        "Assert Pricing Card Row Section mounts correctly",
+        "Assert mandatory blocks render within container"
+      ],
+      "structure_tree": {
+        "SectionPayload": {
+          "type": "pricing_card_row",
+          "blocks": [
+            {
+              "type": "headline"
+            },
+            {
+              "type": "pricing_tier_card"
+            }
+          ]
+        }
+      },
+      "sample_payload": {
+        "id": "sec_pricing_card_row_01",
+        "type": "pricing_card_row",
+        "anchor_id": "pricing_card_row",
+        "position": 1,
+        "group": null,
+        "background_image_url": null,
+        "custom_css_classes": null,
+        "blocks": [
+          {
+            "id": "b_0",
+            "type": "headline",
+            "position": 1,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          },
+          {
+            "id": "b_1",
+            "type": "pricing_tier_card",
+            "position": 2,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          }
+        ]
+      }
+    },
+    "breadcrumb": {
+      "section_type": "breadcrumb",
+      "name": "Breadcrumb Section",
+      "description": "Section rendering breadcrumb section with responsive theme container.",
+      "category": "utility",
+      "background_rule": "dynamic",
+      "mandatory_child_blocks": [
+        {
+          "block_type": "breadcrumb_trail",
+          "min_count": 1
+        }
+      ],
+      "optional_child_blocks": [],
+      "position_rules": "breadcrumb_trail",
+      "test_requirements": [
+        "Assert Breadcrumb Section mounts correctly",
+        "Assert mandatory blocks render within container"
+      ],
+      "structure_tree": {
+        "SectionPayload": {
+          "type": "breadcrumb",
+          "blocks": [
+            {
+              "type": "breadcrumb_trail"
+            }
+          ]
+        }
+      },
+      "sample_payload": {
+        "id": "sec_breadcrumb_01",
+        "type": "breadcrumb",
+        "anchor_id": "breadcrumb",
+        "position": 1,
+        "group": null,
+        "background_image_url": null,
+        "custom_css_classes": null,
+        "blocks": [
+          {
+            "id": "b_0",
+            "type": "breadcrumb_trail",
+            "position": 1,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          }
+        ]
+      }
+    },
+    "in_page_nav": {
+      "section_type": "in_page_nav",
+      "name": "In Page Nav Section",
+      "description": "Section rendering in page nav section with responsive theme container.",
+      "category": "utility",
+      "background_rule": "dynamic",
+      "mandatory_child_blocks": [
+        {
+          "block_type": "nav_link",
+          "min_count": 1
+        }
+      ],
+      "optional_child_blocks": [],
+      "position_rules": "nav_link",
+      "test_requirements": [
+        "Assert In Page Nav Section mounts correctly",
+        "Assert mandatory blocks render within container"
+      ],
+      "structure_tree": {
+        "SectionPayload": {
+          "type": "in_page_nav",
+          "blocks": [
+            {
+              "type": "nav_link"
+            }
+          ]
+        }
+      },
+      "sample_payload": {
+        "id": "sec_in_page_nav_01",
+        "type": "in_page_nav",
+        "anchor_id": "in_page_nav",
+        "position": 1,
+        "group": null,
+        "background_image_url": null,
+        "custom_css_classes": null,
+        "blocks": [
+          {
+            "id": "b_0",
+            "type": "nav_link",
+            "position": 1,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          }
+        ]
+      }
+    },
+    "customer_story_grid": {
+      "section_type": "customer_story_grid",
+      "name": "Customer Story Grid Section",
+      "description": "Section rendering customer story grid section with responsive theme container.",
+      "category": "grid",
+      "background_rule": "dynamic",
+      "mandatory_child_blocks": [
+        {
+          "block_type": "headline",
+          "min_count": 1
+        },
+        {
+          "block_type": "customer_story_card",
+          "min_count": 1
+        }
+      ],
+      "optional_child_blocks": [
+        {
+          "block_type": "subheadline"
+        }
+      ],
+      "position_rules": "headline -> customer_story_card -> subheadline",
+      "test_requirements": [
+        "Assert Customer Story Grid Section mounts correctly",
+        "Assert mandatory blocks render within container"
+      ],
+      "structure_tree": {
+        "SectionPayload": {
+          "type": "customer_story_grid",
+          "blocks": [
+            {
+              "type": "headline"
+            },
+            {
+              "type": "customer_story_card"
+            }
+          ]
+        }
+      },
+      "sample_payload": {
+        "id": "sec_customer_story_grid_01",
+        "type": "customer_story_grid",
+        "anchor_id": "customer_story_grid",
+        "position": 1,
+        "group": null,
+        "background_image_url": null,
+        "custom_css_classes": null,
+        "blocks": [
+          {
+            "id": "b_0",
+            "type": "headline",
+            "position": 1,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          },
+          {
+            "id": "b_1",
+            "type": "customer_story_card",
+            "position": 2,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          }
+        ]
+      }
+    },
+    "blog_post_grid": {
+      "section_type": "blog_post_grid",
+      "name": "Blog Post Grid Section",
+      "description": "Section rendering blog post grid section with responsive theme container.",
+      "category": "grid",
+      "background_rule": "dynamic",
+      "mandatory_child_blocks": [
+        {
+          "block_type": "headline",
+          "min_count": 1
+        },
+        {
+          "block_type": "blog_post_card",
+          "min_count": 1
+        }
+      ],
+      "optional_child_blocks": [
+        {
+          "block_type": "label"
+        }
+      ],
+      "position_rules": "headline -> blog_post_card -> label",
+      "test_requirements": [
+        "Assert Blog Post Grid Section mounts correctly",
+        "Assert mandatory blocks render within container"
+      ],
+      "structure_tree": {
+        "SectionPayload": {
+          "type": "blog_post_grid",
+          "blocks": [
+            {
+              "type": "headline"
+            },
+            {
+              "type": "blog_post_card"
+            }
+          ]
+        }
+      },
+      "sample_payload": {
+        "id": "sec_blog_post_grid_01",
+        "type": "blog_post_grid",
+        "anchor_id": "blog_post_grid",
+        "position": 1,
+        "group": null,
+        "background_image_url": null,
+        "custom_css_classes": null,
+        "blocks": [
+          {
+            "id": "b_0",
+            "type": "headline",
+            "position": 1,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          },
+          {
+            "id": "b_1",
+            "type": "blog_post_card",
+            "position": 2,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          }
+        ]
+      }
+    },
+    "pricing_table": {
+      "section_type": "pricing_table",
+      "name": "Pricing Table Section",
+      "description": "Section rendering pricing table section with responsive theme container.",
+      "category": "grid",
+      "background_rule": "dynamic",
+      "mandatory_child_blocks": [
+        {
+          "block_type": "headline",
+          "min_count": 1
+        },
+        {
+          "block_type": "pricing_tier_card",
+          "min_count": 1
+        }
+      ],
+      "optional_child_blocks": [
+        {
+          "block_type": "feature_row"
+        }
+      ],
+      "position_rules": "headline -> pricing_tier_card -> feature_row",
+      "test_requirements": [
+        "Assert Pricing Table Section mounts correctly",
+        "Assert mandatory blocks render within container"
+      ],
+      "structure_tree": {
+        "SectionPayload": {
+          "type": "pricing_table",
+          "blocks": [
+            {
+              "type": "headline"
+            },
+            {
+              "type": "pricing_tier_card"
+            }
+          ]
+        }
+      },
+      "sample_payload": {
+        "id": "sec_pricing_table_01",
+        "type": "pricing_table",
+        "anchor_id": "pricing_table",
+        "position": 1,
+        "group": null,
+        "background_image_url": null,
+        "custom_css_classes": null,
+        "blocks": [
+          {
+            "id": "b_0",
+            "type": "headline",
+            "position": 1,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          },
+          {
+            "id": "b_1",
+            "type": "pricing_tier_card",
+            "position": 2,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          }
+        ]
+      }
+    },
+    "media_spotlight": {
+      "section_type": "media_spotlight",
+      "name": "Media Spotlight Section",
+      "description": "Section rendering media spotlight section with responsive theme container.",
+      "category": "media",
+      "background_rule": "dynamic",
+      "mandatory_child_blocks": [
+        {
+          "block_type": "headline",
+          "min_count": 1
+        },
+        {
+          "block_type": "media",
+          "min_count": 1
+        }
+      ],
+      "optional_child_blocks": [
+        {
+          "block_type": "subheadline"
+        },
+        {
+          "block_type": "cta"
+        }
+      ],
+      "position_rules": "headline -> media -> subheadline -> cta",
+      "test_requirements": [
+        "Assert Media Spotlight Section mounts correctly",
+        "Assert mandatory blocks render within container"
+      ],
+      "structure_tree": {
+        "SectionPayload": {
+          "type": "media_spotlight",
+          "blocks": [
+            {
+              "type": "headline"
+            },
+            {
+              "type": "media"
+            }
+          ]
+        }
+      },
+      "sample_payload": {
+        "id": "sec_media_spotlight_01",
+        "type": "media_spotlight",
+        "anchor_id": "media_spotlight",
+        "position": 1,
+        "group": null,
+        "background_image_url": null,
+        "custom_css_classes": null,
+        "blocks": [
+          {
+            "id": "b_0",
+            "type": "headline",
+            "position": 1,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          },
+          {
+            "id": "b_1",
+            "type": "media",
+            "position": 2,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          }
+        ]
+      }
+    },
+    "media_banner": {
+      "section_type": "media_banner",
+      "name": "Media Banner Section",
+      "description": "Section rendering media banner section with responsive theme container.",
+      "category": "media",
+      "background_rule": "self_contained",
+      "mandatory_child_blocks": [
+        {
+          "block_type": "media",
+          "min_count": 1
+        }
+      ],
+      "optional_child_blocks": [
+        {
+          "block_type": "headline"
+        },
+        {
+          "block_type": "cta"
+        }
+      ],
+      "position_rules": "media -> headline -> cta",
+      "test_requirements": [
+        "Assert Media Banner Section mounts correctly",
+        "Assert mandatory blocks render within container"
+      ],
+      "structure_tree": {
+        "SectionPayload": {
+          "type": "media_banner",
+          "blocks": [
+            {
+              "type": "media"
+            }
+          ]
+        }
+      },
+      "sample_payload": {
+        "id": "sec_media_banner_01",
+        "type": "media_banner",
+        "anchor_id": "media_banner",
+        "position": 1,
+        "group": null,
+        "background_image_url": null,
+        "custom_css_classes": null,
+        "blocks": [
+          {
+            "id": "b_0",
+            "type": "media",
+            "position": 1,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          }
+        ]
+      }
+    },
+    "video_feature": {
+      "section_type": "video_feature",
+      "name": "Video Feature Section",
+      "description": "Section rendering video feature section with responsive theme container.",
+      "category": "media",
+      "background_rule": "dynamic",
+      "mandatory_child_blocks": [
+        {
+          "block_type": "video_embed",
+          "min_count": 1
+        }
+      ],
+      "optional_child_blocks": [
+        {
+          "block_type": "headline"
+        },
+        {
+          "block_type": "subheadline"
+        }
+      ],
+      "position_rules": "video_embed -> headline -> subheadline",
+      "test_requirements": [
+        "Assert Video Feature Section mounts correctly",
+        "Assert mandatory blocks render within container"
+      ],
+      "structure_tree": {
+        "SectionPayload": {
+          "type": "video_feature",
+          "blocks": [
+            {
+              "type": "video_embed"
+            }
+          ]
+        }
+      },
+      "sample_payload": {
+        "id": "sec_video_feature_01",
+        "type": "video_feature",
+        "anchor_id": "video_feature",
+        "position": 1,
+        "group": null,
+        "background_image_url": null,
+        "custom_css_classes": null,
+        "blocks": [
+          {
+            "id": "b_0",
+            "type": "video_embed",
+            "position": 1,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          }
+        ]
+      }
+    },
+    "media_grid": {
+      "section_type": "media_grid",
+      "name": "Media Grid Section",
+      "description": "Section rendering media grid section with responsive theme container.",
+      "category": "media",
+      "background_rule": "dynamic",
+      "mandatory_child_blocks": [
+        {
+          "block_type": "headline",
+          "min_count": 1
+        },
+        {
+          "block_type": "media_group",
+          "min_count": 1
+        }
+      ],
+      "optional_child_blocks": [
+        {
+          "block_type": "subheadline"
+        }
+      ],
+      "position_rules": "headline -> media_group -> subheadline",
+      "test_requirements": [
+        "Assert Media Grid Section mounts correctly",
+        "Assert mandatory blocks render within container"
+      ],
+      "structure_tree": {
+        "SectionPayload": {
+          "type": "media_grid",
+          "blocks": [
+            {
+              "type": "headline"
+            },
+            {
+              "type": "media_group"
+            }
+          ]
+        }
+      },
+      "sample_payload": {
+        "id": "sec_media_grid_01",
+        "type": "media_grid",
+        "anchor_id": "media_grid",
+        "position": 1,
+        "group": null,
+        "background_image_url": null,
+        "custom_css_classes": null,
+        "blocks": [
+          {
+            "id": "b_0",
+            "type": "headline",
+            "position": 1,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          },
+          {
+            "id": "b_1",
+            "type": "media_group",
+            "position": 2,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          }
+        ]
+      }
+    },
+    "logo_cloud": {
+      "section_type": "logo_cloud",
+      "name": "Logo Cloud Section",
+      "description": "Section rendering logo cloud section with responsive theme container.",
+      "category": "content",
+      "background_rule": "dynamic",
+      "mandatory_child_blocks": [
+        {
+          "block_type": "headline",
+          "min_count": 1
+        },
+        {
+          "block_type": "media",
+          "min_count": 1
+        }
+      ],
+      "optional_child_blocks": [],
+      "position_rules": "headline -> media",
+      "test_requirements": [
+        "Assert Logo Cloud Section mounts correctly",
+        "Assert mandatory blocks render within container"
+      ],
+      "structure_tree": {
+        "SectionPayload": {
+          "type": "logo_cloud",
+          "blocks": [
+            {
+              "type": "headline"
+            },
+            {
+              "type": "media"
+            }
+          ]
+        }
+      },
+      "sample_payload": {
+        "id": "sec_logo_cloud_01",
+        "type": "logo_cloud",
+        "anchor_id": "logo_cloud",
+        "position": 1,
+        "group": null,
+        "background_image_url": null,
+        "custom_css_classes": null,
+        "blocks": [
+          {
+            "id": "b_0",
+            "type": "headline",
+            "position": 1,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          },
+          {
+            "id": "b_1",
+            "type": "media",
+            "position": 2,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          }
+        ]
+      }
+    },
+    "faq_accordion": {
+      "section_type": "faq_accordion",
+      "name": "FAQ Accordion Section",
+      "description": "Section rendering faq accordion section with responsive theme container.",
+      "category": "interactive",
+      "background_rule": "dynamic",
+      "mandatory_child_blocks": [
+        {
+          "block_type": "headline",
+          "min_count": 1
+        },
+        {
+          "block_type": "feature_item",
+          "min_count": 1
+        }
+      ],
+      "optional_child_blocks": [],
+      "position_rules": "headline -> feature_item",
+      "test_requirements": [
+        "Assert FAQ Accordion Section mounts correctly",
+        "Assert mandatory blocks render within container"
+      ],
+      "structure_tree": {
+        "SectionPayload": {
+          "type": "faq_accordion",
+          "blocks": [
+            {
+              "type": "headline"
+            },
+            {
+              "type": "feature_item"
+            }
+          ]
+        }
+      },
+      "sample_payload": {
+        "id": "sec_faq_accordion_01",
+        "type": "faq_accordion",
+        "anchor_id": "faq_accordion",
+        "position": 1,
+        "group": null,
+        "background_image_url": null,
+        "custom_css_classes": null,
+        "blocks": [
+          {
+            "id": "b_0",
+            "type": "headline",
+            "position": 1,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          },
+          {
+            "id": "b_1",
+            "type": "feature_item",
+            "position": 2,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          }
+        ]
+      }
+    },
+    "tabbed_switcher": {
+      "section_type": "tabbed_switcher",
+      "name": "Tabbed Switcher Section",
+      "description": "Section rendering tabbed switcher section with responsive theme container.",
+      "category": "interactive",
+      "background_rule": "dynamic",
+      "mandatory_child_blocks": [
+        {
+          "block_type": "headline",
+          "min_count": 1
+        },
+        {
+          "block_type": "feature_item",
+          "min_count": 1
+        }
+      ],
+      "optional_child_blocks": [],
+      "position_rules": "headline -> feature_item",
+      "test_requirements": [
+        "Assert Tabbed Switcher Section mounts correctly",
+        "Assert mandatory blocks render within container"
+      ],
+      "structure_tree": {
+        "SectionPayload": {
+          "type": "tabbed_switcher",
+          "blocks": [
+            {
+              "type": "headline"
+            },
+            {
+              "type": "feature_item"
+            }
+          ]
+        }
+      },
+      "sample_payload": {
+        "id": "sec_tabbed_switcher_01",
+        "type": "tabbed_switcher",
+        "anchor_id": "tabbed_switcher",
+        "position": 1,
+        "group": null,
+        "background_image_url": null,
+        "custom_css_classes": null,
+        "blocks": [
+          {
+            "id": "b_0",
+            "type": "headline",
+            "position": 1,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          },
+          {
+            "id": "b_1",
+            "type": "feature_item",
+            "position": 2,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          }
+        ]
+      }
+    },
+    "resource_gate": {
+      "section_type": "resource_gate",
+      "name": "Resource Gate Section",
+      "description": "Section rendering resource gate section with responsive theme container.",
+      "category": "interactive",
+      "background_rule": "dynamic",
+      "mandatory_child_blocks": [
+        {
+          "block_type": "headline",
+          "min_count": 1
+        },
+        {
+          "block_type": "form_definition",
+          "min_count": 1
+        }
+      ],
+      "optional_child_blocks": [
+        {
+          "block_type": "subheadline"
+        }
+      ],
+      "position_rules": "headline -> form_definition -> subheadline",
+      "test_requirements": [
+        "Assert Resource Gate Section mounts correctly",
+        "Assert mandatory blocks render within container"
+      ],
+      "structure_tree": {
+        "SectionPayload": {
+          "type": "resource_gate",
+          "blocks": [
+            {
+              "type": "headline"
+            },
+            {
+              "type": "form_definition"
+            }
+          ]
+        }
+      },
+      "sample_payload": {
+        "id": "sec_resource_gate_01",
+        "type": "resource_gate",
+        "anchor_id": "resource_gate",
+        "position": 1,
+        "group": null,
+        "background_image_url": null,
+        "custom_css_classes": null,
+        "blocks": [
+          {
+            "id": "b_0",
+            "type": "headline",
+            "position": 1,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          },
+          {
+            "id": "b_1",
+            "type": "form_definition",
+            "position": 2,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          }
+        ]
+      }
+    },
+    "product_comparison": {
+      "section_type": "product_comparison",
+      "name": "Product Comparison Section",
+      "description": "Section rendering product comparison section with responsive theme container.",
+      "category": "grid",
+      "background_rule": "dynamic",
+      "mandatory_child_blocks": [
+        {
+          "block_type": "headline",
+          "min_count": 1
+        },
+        {
+          "block_type": "feature_row",
+          "min_count": 1
+        }
+      ],
+      "optional_child_blocks": [],
+      "position_rules": "headline -> feature_row",
+      "test_requirements": [
+        "Assert Product Comparison Section mounts correctly",
+        "Assert mandatory blocks render within container"
+      ],
+      "structure_tree": {
+        "SectionPayload": {
+          "type": "product_comparison",
+          "blocks": [
+            {
+              "type": "headline"
+            },
+            {
+              "type": "feature_row"
+            }
+          ]
+        }
+      },
+      "sample_payload": {
+        "id": "sec_product_comparison_01",
+        "type": "product_comparison",
+        "anchor_id": "product_comparison",
+        "position": 1,
+        "group": null,
+        "background_image_url": null,
+        "custom_css_classes": null,
+        "blocks": [
+          {
+            "id": "b_0",
+            "type": "headline",
+            "position": 1,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          },
+          {
+            "id": "b_1",
+            "type": "feature_row",
+            "position": 2,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          }
+        ]
+      }
+    },
+    "news_hero": {
+      "section_type": "news_hero",
+      "name": "News Hero Section",
+      "description": "Section rendering news hero section with responsive theme container.",
+      "category": "hero",
+      "background_rule": "dynamic",
+      "mandatory_child_blocks": [
+        {
+          "block_type": "headline",
+          "min_count": 1
+        },
+        {
+          "block_type": "blog_post_card",
+          "min_count": 1
+        }
+      ],
+      "optional_child_blocks": [],
+      "position_rules": "headline -> blog_post_card",
+      "test_requirements": [
+        "Assert News Hero Section mounts correctly",
+        "Assert mandatory blocks render within container"
+      ],
+      "structure_tree": {
+        "SectionPayload": {
+          "type": "news_hero",
+          "blocks": [
+            {
+              "type": "headline"
+            },
+            {
+              "type": "blog_post_card"
+            }
+          ]
+        }
+      },
+      "sample_payload": {
+        "id": "sec_news_hero_01",
+        "type": "news_hero",
+        "anchor_id": "news_hero",
+        "position": 1,
+        "group": null,
+        "background_image_url": null,
+        "custom_css_classes": null,
+        "blocks": [
+          {
+            "id": "b_0",
+            "type": "headline",
+            "position": 1,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          },
+          {
+            "id": "b_1",
+            "type": "blog_post_card",
+            "position": 2,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          }
+        ]
+      }
+    },
+    "news_article_grid": {
+      "section_type": "news_article_grid",
+      "name": "News Article Grid Section",
+      "description": "Section rendering news article grid section with responsive theme container.",
+      "category": "grid",
+      "background_rule": "dynamic",
+      "mandatory_child_blocks": [
+        {
+          "block_type": "headline",
+          "min_count": 1
+        },
+        {
+          "block_type": "blog_post_card",
+          "min_count": 1
+        }
+      ],
+      "optional_child_blocks": [],
+      "position_rules": "headline -> blog_post_card",
+      "test_requirements": [
+        "Assert News Article Grid Section mounts correctly",
+        "Assert mandatory blocks render within container"
+      ],
+      "structure_tree": {
+        "SectionPayload": {
+          "type": "news_article_grid",
+          "blocks": [
+            {
+              "type": "headline"
+            },
+            {
+              "type": "blog_post_card"
+            }
+          ]
+        }
+      },
+      "sample_payload": {
+        "id": "sec_news_article_grid_01",
+        "type": "news_article_grid",
+        "anchor_id": "news_article_grid",
+        "position": 1,
+        "group": null,
+        "background_image_url": null,
+        "custom_css_classes": null,
+        "blocks": [
+          {
+            "id": "b_0",
+            "type": "headline",
+            "position": 1,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          },
+          {
+            "id": "b_1",
+            "type": "blog_post_card",
+            "position": 2,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          }
+        ]
+      }
+    },
+    "stories_hero": {
+      "section_type": "stories_hero",
+      "name": "Stories Hero Section",
+      "description": "Section rendering stories hero section with responsive theme container.",
+      "category": "hero",
+      "background_rule": "dynamic",
+      "mandatory_child_blocks": [
+        {
+          "block_type": "headline",
+          "min_count": 1
+        },
+        {
+          "block_type": "customer_story_card",
+          "min_count": 1
+        }
+      ],
+      "optional_child_blocks": [],
+      "position_rules": "headline -> customer_story_card",
+      "test_requirements": [
+        "Assert Stories Hero Section mounts correctly",
+        "Assert mandatory blocks render within container"
+      ],
+      "structure_tree": {
+        "SectionPayload": {
+          "type": "stories_hero",
+          "blocks": [
+            {
+              "type": "headline"
+            },
+            {
+              "type": "customer_story_card"
+            }
+          ]
+        }
+      },
+      "sample_payload": {
+        "id": "sec_stories_hero_01",
+        "type": "stories_hero",
+        "anchor_id": "stories_hero",
+        "position": 1,
+        "group": null,
+        "background_image_url": null,
+        "custom_css_classes": null,
+        "blocks": [
+          {
+            "id": "b_0",
+            "type": "headline",
+            "position": 1,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          },
+          {
+            "id": "b_1",
+            "type": "customer_story_card",
+            "position": 2,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          }
+        ]
+      }
+    },
+    "stories_grid": {
+      "section_type": "stories_grid",
+      "name": "Stories Grid Section",
+      "description": "Section rendering stories grid section with responsive theme container.",
+      "category": "grid",
+      "background_rule": "dynamic",
+      "mandatory_child_blocks": [
+        {
+          "block_type": "headline",
+          "min_count": 1
+        },
+        {
+          "block_type": "customer_story_card",
+          "min_count": 1
+        }
+      ],
+      "optional_child_blocks": [],
+      "position_rules": "headline -> customer_story_card",
+      "test_requirements": [
+        "Assert Stories Grid Section mounts correctly",
+        "Assert mandatory blocks render within container"
+      ],
+      "structure_tree": {
+        "SectionPayload": {
+          "type": "stories_grid",
+          "blocks": [
+            {
+              "type": "headline"
+            },
+            {
+              "type": "customer_story_card"
+            }
+          ]
+        }
+      },
+      "sample_payload": {
+        "id": "sec_stories_grid_01",
+        "type": "stories_grid",
+        "anchor_id": "stories_grid",
+        "position": 1,
+        "group": null,
+        "background_image_url": null,
+        "custom_css_classes": null,
+        "blocks": [
+          {
+            "id": "b_0",
+            "type": "headline",
+            "position": 1,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          },
+          {
+            "id": "b_1",
+            "type": "customer_story_card",
+            "position": 2,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          }
+        ]
+      }
+    },
+    "about_hero": {
+      "section_type": "about_hero",
+      "name": "About Hero Section",
+      "description": "Section rendering about hero section with responsive theme container.",
+      "category": "hero",
+      "background_rule": "dynamic",
+      "mandatory_child_blocks": [
+        {
+          "block_type": "headline",
+          "min_count": 1
+        },
+        {
+          "block_type": "subheadline",
+          "min_count": 1
+        }
+      ],
+      "optional_child_blocks": [
+        {
+          "block_type": "media"
+        }
+      ],
+      "position_rules": "headline -> subheadline -> media",
+      "test_requirements": [
+        "Assert About Hero Section mounts correctly",
+        "Assert mandatory blocks render within container"
+      ],
+      "structure_tree": {
+        "SectionPayload": {
+          "type": "about_hero",
+          "blocks": [
+            {
+              "type": "headline"
+            },
+            {
+              "type": "subheadline"
+            }
+          ]
+        }
+      },
+      "sample_payload": {
+        "id": "sec_about_hero_01",
+        "type": "about_hero",
+        "anchor_id": "about_hero",
+        "position": 1,
+        "group": null,
+        "background_image_url": null,
+        "custom_css_classes": null,
+        "blocks": [
+          {
+            "id": "b_0",
+            "type": "headline",
+            "position": 1,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          },
+          {
+            "id": "b_1",
+            "type": "subheadline",
+            "position": 2,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          }
+        ]
+      }
+    },
+    "mission_statement": {
+      "section_type": "mission_statement",
+      "name": "Mission Statement Section",
+      "description": "Section rendering mission statement section with responsive theme container.",
+      "category": "content",
+      "background_rule": "dynamic",
+      "mandatory_child_blocks": [
+        {
+          "block_type": "headline",
+          "min_count": 1
+        },
+        {
+          "block_type": "rich_text",
+          "min_count": 1
+        }
+      ],
+      "optional_child_blocks": [
+        {
+          "block_type": "stat_item"
+        }
+      ],
+      "position_rules": "headline -> rich_text -> stat_item",
+      "test_requirements": [
+        "Assert Mission Statement Section mounts correctly",
+        "Assert mandatory blocks render within container"
+      ],
+      "structure_tree": {
+        "SectionPayload": {
+          "type": "mission_statement",
+          "blocks": [
+            {
+              "type": "headline"
+            },
+            {
+              "type": "rich_text"
+            }
+          ]
+        }
+      },
+      "sample_payload": {
+        "id": "sec_mission_statement_01",
+        "type": "mission_statement",
+        "anchor_id": "mission_statement",
+        "position": 1,
+        "group": null,
+        "background_image_url": null,
+        "custom_css_classes": null,
+        "blocks": [
+          {
+            "id": "b_0",
+            "type": "headline",
+            "position": 1,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          },
+          {
+            "id": "b_1",
+            "type": "rich_text",
+            "position": 2,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          }
+        ]
+      }
+    },
+    "timeline": {
+      "section_type": "timeline",
+      "name": "Timeline Section",
+      "description": "Section rendering timeline section with responsive theme container.",
+      "category": "content",
+      "background_rule": "dynamic",
+      "mandatory_child_blocks": [
+        {
+          "block_type": "headline",
+          "min_count": 1
+        },
+        {
+          "block_type": "feature_item",
+          "min_count": 1
+        }
+      ],
+      "optional_child_blocks": [],
+      "position_rules": "headline -> feature_item",
+      "test_requirements": [
+        "Assert Timeline Section mounts correctly",
+        "Assert mandatory blocks render within container"
+      ],
+      "structure_tree": {
+        "SectionPayload": {
+          "type": "timeline",
+          "blocks": [
+            {
+              "type": "headline"
+            },
+            {
+              "type": "feature_item"
+            }
+          ]
+        }
+      },
+      "sample_payload": {
+        "id": "sec_timeline_01",
+        "type": "timeline",
+        "anchor_id": "timeline",
+        "position": 1,
+        "group": null,
+        "background_image_url": null,
+        "custom_css_classes": null,
+        "blocks": [
+          {
+            "id": "b_0",
+            "type": "headline",
+            "position": 1,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          },
+          {
+            "id": "b_1",
+            "type": "feature_item",
+            "position": 2,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          }
+        ]
+      }
+    },
+    "solution_picker": {
+      "section_type": "solution_picker",
+      "name": "Solution Picker Section",
+      "description": "Section rendering solution picker section with responsive theme container.",
+      "category": "interactive",
+      "background_rule": "dynamic",
+      "mandatory_child_blocks": [
+        {
+          "block_type": "headline",
+          "min_count": 1
+        },
+        {
+          "block_type": "platform_recommendation",
+          "min_count": 1
+        }
+      ],
+      "optional_child_blocks": [],
+      "position_rules": "headline -> platform_recommendation",
+      "test_requirements": [
+        "Assert Solution Picker Section mounts correctly",
+        "Assert mandatory blocks render within container"
+      ],
+      "structure_tree": {
+        "SectionPayload": {
+          "type": "solution_picker",
+          "blocks": [
+            {
+              "type": "headline"
+            },
+            {
+              "type": "platform_recommendation"
+            }
+          ]
+        }
+      },
+      "sample_payload": {
+        "id": "sec_solution_picker_01",
+        "type": "solution_picker",
+        "anchor_id": "solution_picker",
+        "position": 1,
+        "group": null,
+        "background_image_url": null,
+        "custom_css_classes": null,
+        "blocks": [
+          {
+            "id": "b_0",
+            "type": "headline",
+            "position": 1,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          },
+          {
+            "id": "b_1",
+            "type": "platform_recommendation",
+            "position": 2,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          }
+        ]
+      }
+    },
+    "tabbed_pricing": {
+      "section_type": "tabbed_pricing",
+      "name": "Tabbed Pricing Section",
+      "description": "Section rendering tabbed pricing section with responsive theme container.",
+      "category": "interactive",
+      "background_rule": "dynamic",
+      "mandatory_child_blocks": [
+        {
+          "block_type": "headline",
+          "min_count": 1
+        },
+        {
+          "block_type": "pricing_tier_card",
+          "min_count": 1
+        }
+      ],
+      "optional_child_blocks": [],
+      "position_rules": "headline -> pricing_tier_card",
+      "test_requirements": [
+        "Assert Tabbed Pricing Section mounts correctly",
+        "Assert mandatory blocks render within container"
+      ],
+      "structure_tree": {
+        "SectionPayload": {
+          "type": "tabbed_pricing",
+          "blocks": [
+            {
+              "type": "headline"
+            },
+            {
+              "type": "pricing_tier_card"
+            }
+          ]
+        }
+      },
+      "sample_payload": {
+        "id": "sec_tabbed_pricing_01",
+        "type": "tabbed_pricing",
+        "anchor_id": "tabbed_pricing",
+        "position": 1,
+        "group": null,
+        "background_image_url": null,
+        "custom_css_classes": null,
+        "blocks": [
+          {
+            "id": "b_0",
+            "type": "headline",
+            "position": 1,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          },
+          {
+            "id": "b_1",
+            "type": "pricing_tier_card",
+            "position": 2,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          }
+        ]
+      }
+    },
+    "feature_grid": {
+      "section_type": "feature_grid",
+      "name": "Feature Grid Section",
+      "description": "Section rendering feature grid section with responsive theme container.",
+      "category": "grid",
+      "background_rule": "dynamic",
+      "mandatory_child_blocks": [
+        {
+          "block_type": "headline",
+          "min_count": 1
+        },
+        {
+          "block_type": "feature_item",
+          "min_count": 1
+        }
+      ],
+      "optional_child_blocks": [
+        {
+          "block_type": "label"
+        }
+      ],
+      "position_rules": "headline -> feature_item -> label",
+      "test_requirements": [
+        "Assert Feature Grid Section mounts correctly",
+        "Assert mandatory blocks render within container"
+      ],
+      "structure_tree": {
+        "SectionPayload": {
+          "type": "feature_grid",
+          "blocks": [
+            {
+              "type": "headline"
+            },
+            {
+              "type": "feature_item"
+            }
+          ]
+        }
+      },
+      "sample_payload": {
+        "id": "sec_feature_grid_01",
+        "type": "feature_grid",
+        "anchor_id": "feature_grid",
+        "position": 1,
+        "group": null,
+        "background_image_url": null,
+        "custom_css_classes": null,
+        "blocks": [
+          {
+            "id": "b_0",
+            "type": "headline",
+            "position": 1,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          },
+          {
+            "id": "b_1",
+            "type": "feature_item",
+            "position": 2,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          }
+        ]
+      }
+    },
+    "workflow_steps": {
+      "section_type": "workflow_steps",
+      "name": "Workflow Steps Section",
+      "description": "Section rendering workflow steps section with responsive theme container.",
+      "category": "content",
+      "background_rule": "dynamic",
+      "mandatory_child_blocks": [
+        {
+          "block_type": "headline",
+          "min_count": 1
+        },
+        {
+          "block_type": "feature_item",
+          "min_count": 1
+        }
+      ],
+      "optional_child_blocks": [],
+      "position_rules": "headline -> feature_item",
+      "test_requirements": [
+        "Assert Workflow Steps Section mounts correctly",
+        "Assert mandatory blocks render within container"
+      ],
+      "structure_tree": {
+        "SectionPayload": {
+          "type": "workflow_steps",
+          "blocks": [
+            {
+              "type": "headline"
+            },
+            {
+              "type": "feature_item"
+            }
+          ]
+        }
+      },
+      "sample_payload": {
+        "id": "sec_workflow_steps_01",
+        "type": "workflow_steps",
+        "anchor_id": "workflow_steps",
+        "position": 1,
+        "group": null,
+        "background_image_url": null,
+        "custom_css_classes": null,
+        "blocks": [
+          {
+            "id": "b_0",
+            "type": "headline",
+            "position": 1,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          },
+          {
+            "id": "b_1",
+            "type": "feature_item",
+            "position": 2,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          }
+        ]
+      }
+    },
+    "comparison_table": {
+      "section_type": "comparison_table",
+      "name": "Comparison Table Section",
+      "description": "Section rendering comparison table section with responsive theme container.",
+      "category": "grid",
+      "background_rule": "dynamic",
+      "mandatory_child_blocks": [
+        {
+          "block_type": "headline",
+          "min_count": 1
+        },
+        {
+          "block_type": "feature_row",
+          "min_count": 1
+        }
+      ],
+      "optional_child_blocks": [],
+      "position_rules": "headline -> feature_row",
+      "test_requirements": [
+        "Assert Comparison Table Section mounts correctly",
+        "Assert mandatory blocks render within container"
+      ],
+      "structure_tree": {
+        "SectionPayload": {
+          "type": "comparison_table",
+          "blocks": [
+            {
+              "type": "headline"
+            },
+            {
+              "type": "feature_row"
+            }
+          ]
+        }
+      },
+      "sample_payload": {
+        "id": "sec_comparison_table_01",
+        "type": "comparison_table",
+        "anchor_id": "comparison_table",
+        "position": 1,
+        "group": null,
+        "background_image_url": null,
+        "custom_css_classes": null,
+        "blocks": [
+          {
+            "id": "b_0",
+            "type": "headline",
+            "position": 1,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          },
+          {
+            "id": "b_1",
+            "type": "feature_row",
+            "position": 2,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          }
+        ]
+      }
+    },
+    "newsletter_banner": {
+      "section_type": "newsletter_banner",
+      "name": "Newsletter Banner Section",
+      "description": "Section rendering newsletter banner section with responsive theme container.",
+      "category": "interactive",
+      "background_rule": "fixed_navy",
+      "mandatory_child_blocks": [
+        {
+          "block_type": "headline",
+          "min_count": 1
+        },
+        {
+          "block_type": "form_definition",
+          "min_count": 1
+        }
+      ],
+      "optional_child_blocks": [],
+      "position_rules": "headline -> form_definition",
+      "test_requirements": [
+        "Assert Newsletter Banner Section mounts correctly",
+        "Assert mandatory blocks render within container"
+      ],
+      "structure_tree": {
+        "SectionPayload": {
+          "type": "newsletter_banner",
+          "blocks": [
+            {
+              "type": "headline"
+            },
+            {
+              "type": "form_definition"
+            }
+          ]
+        }
+      },
+      "sample_payload": {
+        "id": "sec_newsletter_banner_01",
+        "type": "newsletter_banner",
+        "anchor_id": "newsletter_banner",
+        "position": 1,
+        "group": null,
+        "background_image_url": null,
+        "custom_css_classes": null,
+        "blocks": [
+          {
+            "id": "b_0",
+            "type": "headline",
+            "position": 1,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          },
+          {
+            "id": "b_1",
+            "type": "form_definition",
+            "position": 2,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          }
+        ]
+      }
+    },
+    "news_article_detail": {
+      "section_type": "news_article_detail",
+      "name": "News Article Detail Section",
+      "description": "Section rendering news article detail section with responsive theme container.",
+      "category": "detail",
+      "background_rule": "dynamic",
+      "mandatory_child_blocks": [
+        {
+          "block_type": "headline",
+          "min_count": 1
+        },
+        {
+          "block_type": "rich_text",
+          "min_count": 1
+        }
+      ],
+      "optional_child_blocks": [
+        {
+          "block_type": "media"
+        }
+      ],
+      "position_rules": "headline -> rich_text -> media",
+      "test_requirements": [
+        "Assert News Article Detail Section mounts correctly",
+        "Assert mandatory blocks render within container"
+      ],
+      "structure_tree": {
+        "SectionPayload": {
+          "type": "news_article_detail",
+          "blocks": [
+            {
+              "type": "headline"
+            },
+            {
+              "type": "rich_text"
+            }
+          ]
+        }
+      },
+      "sample_payload": {
+        "id": "sec_news_article_detail_01",
+        "type": "news_article_detail",
+        "anchor_id": "news_article_detail",
+        "position": 1,
+        "group": null,
+        "background_image_url": null,
+        "custom_css_classes": null,
+        "blocks": [
+          {
+            "id": "b_0",
+            "type": "headline",
+            "position": 1,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          },
+          {
+            "id": "b_1",
+            "type": "rich_text",
+            "position": 2,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          }
+        ]
+      }
+    },
+    "story_detail": {
+      "section_type": "story_detail",
+      "name": "Story Detail Section",
+      "description": "Section rendering story detail section with responsive theme container.",
+      "category": "detail",
+      "background_rule": "dynamic",
+      "mandatory_child_blocks": [
+        {
+          "block_type": "headline",
+          "min_count": 1
+        },
+        {
+          "block_type": "rich_text",
+          "min_count": 1
+        }
+      ],
+      "optional_child_blocks": [
+        {
+          "block_type": "quote"
+        }
+      ],
+      "position_rules": "headline -> rich_text -> quote",
+      "test_requirements": [
+        "Assert Story Detail Section mounts correctly",
+        "Assert mandatory blocks render within container"
+      ],
+      "structure_tree": {
+        "SectionPayload": {
+          "type": "story_detail",
+          "blocks": [
+            {
+              "type": "headline"
+            },
+            {
+              "type": "rich_text"
+            }
+          ]
+        }
+      },
+      "sample_payload": {
+        "id": "sec_story_detail_01",
+        "type": "story_detail",
+        "anchor_id": "story_detail",
+        "position": 1,
+        "group": null,
+        "background_image_url": null,
+        "custom_css_classes": null,
+        "blocks": [
+          {
+            "id": "b_0",
+            "type": "headline",
+            "position": 1,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          },
+          {
+            "id": "b_1",
+            "type": "rich_text",
+            "position": 2,
+            "fields": {
+              "text": "Sample Title"
+            },
+            "media": null,
+            "actions": [],
+            "config": {
+              "is_decorative": false,
+              "is_featured": false,
+              "display_weight": 1
+            }
+          }
+        ]
+      }
+    },
+    "unknown": {
+      "section_type": "unknown",
+      "name": "Unknown Section Fallback",
+      "description": "Section rendering unknown section fallback with responsive theme container.",
+      "category": "utility",
+      "background_rule": "dynamic",
+      "mandatory_child_blocks": [],
+      "optional_child_blocks": [],
+      "position_rules": "",
+      "test_requirements": [
+        "Assert Unknown Section Fallback mounts correctly",
+        "Assert mandatory blocks render within container"
+      ],
+      "structure_tree": {
+        "SectionPayload": {
+          "type": "unknown",
+          "blocks": []
+        }
+      },
+      "sample_payload": {
+        "id": "sec_unknown_01",
+        "type": "unknown",
+        "anchor_id": "unknown",
+        "position": 1,
+        "group": null,
+        "background_image_url": null,
+        "custom_css_classes": null,
+        "blocks": []
+      }
+    }
+  }
+}

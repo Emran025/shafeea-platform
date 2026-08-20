@@ -1,0 +1,92 @@
+import React from 'react';
+import { motion } from 'framer-motion';
+import SectionHeader from '../ui/SectionHeader';
+import type { SectionPayload, BlockPayload, PageCore } from '../../types/engine';
+import { getDemoLeadershipPhoto } from '../../admin/lang/demoMedia';
+import { SITE_LANG } from '../lang/en';
+import { getTextField } from '../../utils/blockFields';
+
+const L = SITE_LANG.leadership;
+
+interface Props { section: SectionPayload; blocks: BlockPayload[]; page: PageCore; }
+
+const cardVariant = {
+    hidden:  { opacity: 0, y: 20 },
+    visible: (i: number) => ({ opacity: 1, y: 0, transition: { delay: i * 0.07, duration: 0.45 } }),
+};
+
+function extractStr(val: unknown): string {
+    if (typeof val === 'string') return val;
+    if (val && typeof val === 'object') {
+        const obj = val as Record<string, unknown>;
+        return (obj.en as string) || (obj.ar as string) || (Object.values(obj)[0] as string) || '';
+    }
+    return '';
+}
+
+export default function LeadershipSection({ blocks }: Props) {
+    const label    = blocks.find(b => b.type === 'label');
+    const headline = blocks.find(b => b.type === 'headline');
+    const people   = blocks.filter(b => b.type === 'person_card');
+
+    return (
+        <div className="container">
+            {(label || headline) && (
+                <SectionHeader label={label} headline={headline} align="center" />
+            )}
+            {people.length > 0 && (
+                <motion.div
+                    className="leadership-grid"
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, margin: '-40px' }}
+                >
+                    {people.map((block, i) => {
+                        const fields = (block.fields ?? {}) as Record<string, unknown>;
+                        const name      = extractStr(fields.full_name || fields.name);
+                        const title     = extractStr(fields.title);
+                        const dept      = extractStr(fields.department);
+                        const bio       = extractStr(fields.bio_short || fields.bio);
+                        const linkedin  = extractStr(fields.linkedin_url);
+                        const imgUrl    = extractStr(fields.image_url) || getDemoLeadershipPhoto(i).url;
+
+                        return (
+                            <motion.div
+                                key={block.id}
+                                className="leadership-card"
+                                variants={cardVariant}
+                                custom={i}
+                            >
+                                <div className="leadership-card__photo-wrap">
+                                    <img
+                                        src={imgUrl}
+                                        alt={name || 'Team member'}
+                                        className="leadership-card__photo"
+                                        loading="lazy"
+                                    />
+                                    <div className="leadership-card__photo-overlay" />
+                                </div>
+                                <div className="leadership-card__body">
+                                    <h3 className="leadership-card__name">{name}</h3>
+                                    {title && <p className="leadership-card__title">{title}</p>}
+                                    {dept  && <p className="leadership-card__dept">{dept}</p>}
+                                    {bio   && <p className="leadership-card__bio">{bio}</p>}
+                                    {linkedin && (
+                                        <a
+                                            href={linkedin}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="leadership-card__linkedin"
+                                        >
+                                            {L.connectOnLinkedIn} →
+                                        </a>
+                                    )}
+                                </div>
+                            </motion.div>
+                        );
+                    })}
+                </motion.div>
+            )}
+        </div>
+    );
+}

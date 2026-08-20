@@ -1,0 +1,587 @@
+/**
+ * article-detail.css — Full news article detail page styles.
+ *
+ * Layout:
+ *   .article-detail           — root wrapper
+ *   .article-detail__hero     — full-width hero image banner
+ *   .article-detail__meta-bar — sticky metadata strip (author, date, share)
+ *   .article-detail__body     — constrained prose content area
+ *   .article-detail__related  — full-width related articles footer
+ *
+ * All colours use design tokens from tokens.css.
+ */
+
+/* ── Root ─────────────────────────────────────────────────────────── */
+.article-detail {
+    min-height: 100vh;
+}
+
+/* ── Back link ────────────────────────────────────────────────────── */
+.article-detail__back-wrap {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 1.5rem var(--container-px) 0;
+}
+
+.article-detail__back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+.article-detail__back:hover { color: var(--text-primary); }
+
+.dark .article-detail__back { color: var(--dk-text-secondary); }
+.dark .article-detail__back:hover { color: var(--dk-text-primary); }
+
+/* ── Hero image ───────────────────────────────────────────────────── */
+.article-detail__hero {
+    position: relative;
+    width: 100%;
+    max-width: var(--container-max);
+    margin: 1.5rem auto 0;
+    height: clamp(320px, 48vw, 560px);
+    overflow: hidden;
+    border-radius: var(--radius-card-lg, 12px);
+}
+
+.article-detail__hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.article-detail__hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.1) 100%);
+}
+
+.article-detail__hero-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2.5rem max(var(--container-px), calc((100% - var(--container-max)) / 2 + var(--container-px)));
+    z-index: 2;
+}
+
+.article-detail__category {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--brand-gold);
+    background: rgba(201, 162, 39, 0.15);
+    border: 1px solid rgba(201, 162, 39, 0.35);
+    border-radius: 9999px;
+    padding: 0.3rem 0.875rem;
+    margin-bottom: 1rem;
+}
+
+.article-detail__title {
+    font-size: clamp(1.75rem, 4vw, 3rem);
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.15;
+    max-width: 760px;
+    margin: 0 0 0.875rem;
+}
+
+.article-detail__subtitle {
+    font-size: 1.0625rem;
+    color: rgba(255, 255, 255, 0.78);
+    max-width: 600px;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* ── Meta bar ─────────────────────────────────────────────────────── */
+.article-detail__meta-bar {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 112px; /* 64px nav + 48px newsroom bar */
+    z-index: 80;
+}
+
+.dark .article-detail__meta-bar {
+    background: var(--brand-navy);
+    border-bottom-color: rgba(255,255,255,0.08);
+}
+
+.article-detail__meta-bar-inner {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0.875rem var(--container-px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.article-detail__author {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.article-detail__author-photo {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: var(--surface);
+    flex-shrink: 0;
+}
+
+.article-detail__author-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #0F2741 0%, #3B82F6 100%);
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    letter-spacing: 0;
+    user-select: none;
+}
+
+.article-detail__author-name {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.dark .article-detail__author-name { color: var(--dk-text-primary); }
+
+.article-detail__author-title {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.article-detail__meta-right {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+}
+
+.article-detail__date,
+.article-detail__read-time {
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+    white-space: nowrap;
+}
+
+.dark .article-detail__date,
+.dark .article-detail__read-time { color: var(--dk-text-secondary); }
+
+.article-detail__share-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.375rem 0.875rem;
+    border-radius: 9999px;
+    border: 1.5px solid var(--border);
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all var(--transition-fast);
+}
+
+.article-detail__share-btn:hover {
+    border-color: var(--brand-navy);
+    color: var(--brand-navy);
+}
+
+/* ── Article body (prose) ─────────────────────────────────────────── */
+.article-detail__body {
+    max-width: var(--container-max);
+    margin: 3rem auto;
+    padding: 0 var(--container-px);
+}
+
+.article-detail__lead {
+    font-size: 1.1875rem;
+    font-weight: 500;
+    color: var(--text-body);
+    line-height: 1.7;
+    margin: 0 0 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.dark .article-detail__lead { color: var(--dk-text-secondary); }
+
+.article-detail__h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.25;
+    margin: 2.5rem 0 1rem;
+}
+
+.dark .article-detail__h2 { color: var(--dk-text-primary); }
+
+.article-detail__p {
+    font-size: 1rem;
+    color: var(--text-body);
+    line-height: 1.8;
+    margin: 0 0 1.5rem;
+}
+
+.dark .article-detail__p { color: var(--dk-text-secondary); }
+
+/* Pull quote */
+.article-detail__quote {
+    margin: 2.5rem 0;
+    padding: 1.5rem 2rem;
+    border-left: 4px solid var(--brand-gold);
+    background: var(--surface);
+    border-radius: 0 var(--radius-card) var(--radius-card) 0;
+}
+
+.dark .article-detail__quote { background: rgba(255,255,255,0.03); }
+
+.article-detail__quote-text {
+    font-size: 1.1875rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.5;
+    margin: 0 0 0.75rem;
+    font-style: italic;
+}
+
+.dark .article-detail__quote-text { color: var(--dk-text-primary); }
+
+.article-detail__quote-cite {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    font-style: normal;
+}
+
+/* Inline figure */
+.article-detail__figure {
+    margin: 2.5rem 0;
+}
+
+.article-detail__figure-img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-card-lg);
+    display: block;
+    object-fit: cover;
+    max-height: 480px;
+}
+
+.article-detail__caption {
+    margin-top: 0.75rem;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    text-align: center;
+    font-style: italic;
+}
+
+/* Callout box */
+.article-detail__callout {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+    background: #EFF6FF;
+    border: 1px solid #BFDBFE;
+    border-radius: var(--radius-card-lg);
+    margin: 2rem 0;
+}
+
+.dark .article-detail__callout {
+    background: rgba(59, 130, 246, 0.08);
+    border-color: rgba(59, 130, 246, 0.2);
+}
+
+.article-detail__callout-icon { font-size: 1.25rem; flex-shrink: 0; margin-top: 0.125rem; }
+.article-detail__callout p {
+    font-size: 0.9375rem;
+    color: #1E40AF;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.dark .article-detail__callout p { color: #93C5FD; }
+
+/* Keywords */
+.article-detail__keywords {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-subtle);
+}
+
+.article-detail__keywords-label {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.article-detail__keyword {
+    display: inline-block;
+    padding: 0.3rem 0.75rem;
+    border-radius: 9999px;
+    background: var(--surface);
+    color: var(--text-secondary);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    text-decoration: none;
+    border: 1px solid var(--border);
+    transition: all var(--transition-fast);
+}
+
+.article-detail__keyword:hover {
+    background: var(--brand-navy);
+    color: var(--brand-gold);
+    border-color: var(--brand-navy);
+}
+
+/* ── Related articles ─────────────────────────────────────────────── */
+.article-detail__related {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 4rem 0;
+    margin-top: 4rem;
+}
+
+.dark .article-detail__related {
+    background: rgba(255,255,255,0.02);
+    border-top-color: rgba(255,255,255,0.08);
+}
+
+.article-detail__related-inner {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 var(--container-px);
+}
+
+.article-detail__related-heading {
+    font-size: 1.375rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 2rem;
+}
+
+.dark .article-detail__related-heading { color: var(--dk-text-primary); }
+
+.news-card-grid--related {
+    max-width: 100%;
+}
+
+@media (max-width: 640px) {
+    .article-detail__hero-content { padding: 1.5rem var(--container-px); }
+    .article-detail__title { font-size: 1.625rem; }
+    .article-detail__meta-bar { top: 64px; }
+    .article-detail__meta-bar-inner { flex-direction: column; align-items: flex-start; }
+    .article-detail__meta-right { gap: 0.75rem; }
+    .article-detail__body { margin: 2rem auto; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   TipTap content viewer — .tiptap-content
+   Renders TipTap HTML output identically to the editor surface.
+   Used in the public article detail page via <TipTapContent />.
+═══════════════════════════════════════════════════════════════ */
+
+.article-detail__loading {
+    text-align: center;
+    padding: 2rem 0;
+    font-size: 0.9375rem;
+    color: var(--text-muted);
+}
+
+.article-detail__tiptap {
+    margin-top: 2rem;
+}
+
+/* Shared typography — used by both .tiptap-content and .article-detail__tiptap */
+.tiptap-content,
+.article-detail__tiptap {
+    font-size: 1rem;
+    line-height: 1.85;
+    color: var(--text-body);
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+}
+
+.tiptap-content h2,
+.article-detail__tiptap h2 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    line-height: 1.25;
+    margin: 2.5rem 0 1rem;
+    letter-spacing: -0.015em;
+}
+
+.tiptap-content h3,
+.article-detail__tiptap h3 {
+    font-size: 1.1875rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.3;
+    margin: 2rem 0 0.75rem;
+}
+
+.tiptap-content h4,
+.article-detail__tiptap h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 1.5rem 0 0.5rem;
+}
+
+.tiptap-content p,
+.article-detail__tiptap p {
+    margin: 0 0 1.5rem;
+    color: var(--text-body);
+}
+
+.tiptap-content ul,
+.tiptap-content ol,
+.article-detail__tiptap ul,
+.article-detail__tiptap ol {
+    padding-left: 1.5rem;
+    margin: 0 0 1.5rem;
+}
+
+.tiptap-content li,
+.article-detail__tiptap li {
+    margin-bottom: 0.375rem;
+    color: var(--text-body);
+}
+
+.tiptap-content blockquote,
+.article-detail__tiptap blockquote {
+    margin: 2.5rem 0;
+    padding: 1.25rem 2rem;
+    border-left: 4px solid var(--brand-gold);
+    background: var(--surface);
+    border-radius: 0 var(--radius-card) var(--radius-card) 0;
+    font-size: 1.0625rem;
+    font-weight: 600;
+    font-style: italic;
+    color: var(--text-primary);
+    line-height: 1.55;
+}
+
+.dark .tiptap-content blockquote,
+.dark .article-detail__tiptap blockquote {
+    background: rgba(255,255,255,0.03);
+}
+
+.tiptap-content pre,
+.article-detail__tiptap pre {
+    background: #0F2741;
+    color: #C9A227;
+    padding: 1rem 1.25rem;
+    border-radius: 10px;
+    margin: 1.5rem 0;
+    overflow-x: auto;
+    font-family: 'Fira Code', 'Cascadia Code', 'Courier New', monospace;
+    font-size: 0.875rem;
+    line-height: 1.65;
+}
+
+.tiptap-content code,
+.article-detail__tiptap code {
+    background: rgba(15, 39, 65, 0.07);
+    color: #0F2741;
+    padding: 0.15em 0.4em;
+    border-radius: 4px;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.875em;
+}
+
+.tiptap-content pre code,
+.article-detail__tiptap pre code {
+    background: transparent;
+    color: inherit;
+    padding: 0;
+    font-size: inherit;
+}
+
+.tiptap-content a,
+.article-detail__tiptap a {
+    color: var(--brand-blue, #2563EB);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.15s;
+}
+
+.tiptap-content a:hover,
+.article-detail__tiptap a:hover {
+    color: var(--brand-navy);
+}
+
+.tiptap-content img,
+.article-detail__tiptap img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius-card-lg, 12px);
+    display: block;
+    margin: 1.5rem auto;
+}
+
+.tiptap-content hr,
+.article-detail__tiptap hr {
+    border: none;
+    border-top: 2px solid var(--border-subtle, #F1F5F9);
+    margin: 2.5rem 0;
+}
+
+.tiptap-content strong,
+.tiptap-content b,
+.article-detail__tiptap strong,
+.article-detail__tiptap b {
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.tiptap-content mark,
+.article-detail__tiptap mark {
+    background: #FEF9C3;
+    color: #713F12;
+    padding: 0 0.15em;
+    border-radius: 2px;
+}
+
+.dark .tiptap-content h2,
+.dark .tiptap-content h3,
+.dark .tiptap-content h4,
+.dark .tiptap-content strong,
+.dark .article-detail__tiptap h2,
+.dark .article-detail__tiptap h3,
+.dark .article-detail__tiptap h4,
+.dark .article-detail__tiptap strong { color: var(--dk-text-primary); }
+
+.dark .tiptap-content p,
+.dark .tiptap-content li,
+.dark .article-detail__tiptap p,
+.dark .article-detail__tiptap li { color: var(--dk-text-secondary); }

@@ -1,0 +1,5 @@
+/* ════════════════════════════════════════════════════════════════
+   SECTION — Freeform content
+════════════════════════════════════════════════════════════════ */
+.freeform { background: var(--white); padding-block: 80px; }
+.freeform__inner { max-width: 960px; margin-inline: auto; padding-inline: var(--container-px); display: flex; flex-direction: column; gap: 28px; }

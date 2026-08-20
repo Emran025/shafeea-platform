@@ -1,0 +1,218 @@
+<?php
+
+namespace App\Http\Controllers\Api\V1\Admin;
+
+use App\Events\StudentApplicationApprovedEvent;
+use App\Events\StudentApplicationRejectedEvent;
+use App\Events\TeacherApplicationApprovedEvent;
+use App\Events\TeacherApplicationRejectedEvent;
+use App\Http\Controllers\Api\V1\ApiController;
+use App\Http\Resources\Applicant\AdminApplicantResource;
+use App\Models\Applicant\Applicant;
+use App\Models\Student\Student;
+use App\Models\Teacher\Teacher;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
+
+class AdminApplicantController extends ApiController
+{
+    public function index(Request $request)
+    {
+        $adminUser = $request->user();
+        $adminSchoolId = $adminUser->school_id;
+
+        // Load admin record to check super_admin status
+        $adminRecord = $adminUser->admin;
+        $isSuperAdmin = $adminRecord ? $adminRecord->super_admin : false;
+
+        // Get user IDs of all existing students and teachers to exclude them.
+        $studentUserIds = Student::pluck('user_id');
+        $teacherUserIds = Teacher::pluck('user_id');
+        $acceptedUserIds = $studentUserIds->merge($teacherUserIds)->unique();
+
+        $query = Applicant::query()->with('user')
+            // 1. Exclude applicants who are already students or teachers.
+            ->whereNotIn('user_id', $acceptedUserIds)
+            // 2. Exclude applicants whose email address has not been verified.
+            //    Unverified users must not appear in any recruitment pool.
+            ->whereHas('user', fn($q) => $q->whereNotNull('email_verified_at'));
+
+        // 2. If not super admin, filter by school
+        if (!$isSuperAdmin) {
+            $query->where(function ($q) use ($adminSchoolId) {
+                // Exclude applicants rejected by the current admin's school.
+                $q->whereDoesntHave('rejections', function ($sub) use ($adminSchoolId) {
+                    $sub->where('school_id', $adminSchoolId);
+                })
+                    // Include applicants assigned to the admin's school or available to all.
+                    ->where(function ($sub) use ($adminSchoolId) {
+                        $sub->where('school_id', $adminSchoolId)
+                            ->orWhereNull('school_id');
+                    });
+            });
+        }
+
+        if ($request->has('application_type')) {
+            $query->where('application_type', $request->application_type);
+        }
+
+        if ($request->has('status')) {
+            $query->where('status', $request->status);
+        }
+
+        $applicants = $query->paginate(15);
+
+        return $this->success(AdminApplicantResource::collection($applicants), 'applicants');
+    }
+
+    public function show(Request $request, $id)
+    {
+        $admin = $request->user();
+        $adminSchoolId = $admin->school_id;
+
+        $applicant = Applicant::findByIdentifier($id);
+        if ($applicant) {
+            $applicant->load('user', 'user.documents');
+        }
+
+        if (! $applicant) {
+            return $this->error('Applicant not found.', 404);
+        }
+
+        // Check if admin is authorized to view this applicant
+        if ($applicant->school_id !== null && $applicant->school_id != $adminSchoolId) {
+            return $this->error('You are not authorized to view this applicant.', 403);
+        }
+
+        return $this->success(new AdminApplicantResource($applicant), 'Applicant retrieved successfully.');
+    }
+
+    public function approve(Request $request, $id)
+    {
+        $admin = $request->user();
+        $adminSchoolId = $admin->school_id;
+
+        $applicant = Applicant::findByIdentifier($id);
+
+        if (! $applicant) {
+            return $this->error('Applicant not found.', 404);
+        }
+
+        // Check if admin is authorized to approve this applicant
+        if ($applicant->school_id !== null && $applicant->school_id != $adminSchoolId) {
+            return $this->error('You are not authorized to approve this applicant.', 403);
+        }
+
+        if ($applicant->status !== 'pending' && $applicant->status !== 'under_review') {
+            return $this->error('Only pending or under_review applications can be approved.', 422);
+        }
+
+        try {
+            DB::transaction(function () use ($applicant, $adminSchoolId) {
+                $applicant->update(['status' => 'approved']);
+
+                if ($applicant->application_type === 'teacher') {
+                    Teacher::create([
+                        'user_id' => $applicant->user_id,
+                        'username' => $applicant->username,
+                        'bio' => $applicant->bio ?? '',
+                    ]);
+                } else {
+                    Student::create([
+                        'user_id' => $applicant->user_id,
+                        'username' => $applicant->username,
+                        'qualification' => $applicant->qualifications ?? '',
+                        'memorization_level' => $applicant->memorization_level ?? '0',
+                        'status' => 'active',
+                    ]);
+                }
+
+                // Assign the user to the admin's school
+                $applicant->user()->update(['school_id' => $adminSchoolId, 'status' => 'inactive']);
+            });
+        } catch (\Exception $e) {
+            Log::error('Approval Error: ' . $e->getMessage());
+
+            return $this->error('An error occurred during the approval process.' . $e->getMessage(), 500);
+        }
+
+        $freshApplicant = $applicant->fresh();
+
+        if ($freshApplicant->application_type === 'teacher') {
+            TeacherApplicationApprovedEvent::dispatch($freshApplicant);
+        } else {
+            StudentApplicationApprovedEvent::dispatch($freshApplicant);
+        }
+
+        return $this->success($freshApplicant, 'Applicant approved and assigned to your school.');
+    }
+
+    public function reject(Request $request, $id)
+    {
+        $admin = $request->user();
+        $adminSchoolId = $admin->school_id;
+
+        $validator = Validator::make($request->all(), [
+            'reason' => 'required|string|max:1000',
+        ]);
+
+        if ($validator->fails()) {
+            return $this->error('Validation failed.', 422, $validator->errors());
+        }
+
+        $applicant = Applicant::findByIdentifier($id);
+
+        if (! $applicant) {
+            return $this->error('Applicant not found.', 404);
+        }
+
+        // Check if admin is authorized to reject this applicant
+        if ($applicant->school_id !== null && $applicant->school_id != $adminSchoolId) {
+            return $this->error('You are not authorized to reject this applicant.', 403);
+        }
+
+        if ($applicant->status === 'approved') {
+            return $this->error('This applicant has already been approved and cannot be rejected.', 422);
+        }
+
+        if ($applicant->status !== 'pending' && $applicant->status !== 'under_review') {
+            return $this->error('Only pending or under_review applications can be rejected.', 422);
+        }
+
+        // Check if the school has already rejected this applicant
+        if ($applicant->rejections()->where('school_id', $adminSchoolId)->exists()) {
+            return $this->error('This applicant has already been rejected by your school.', 422);
+        }
+
+        try {
+            DB::transaction(function () use ($applicant, $adminSchoolId, $request) {
+                $applicant->rejections()->create([
+                    'school_id' => $adminSchoolId,
+                    'reason' => $request->reason,
+                ]);
+
+                $applicant->update([
+                    'school_id' => null,
+                    'status' => 'pending', // Reset status
+                ]);
+            });
+        } catch (\Exception $e) {
+            Log::error('Rejection Error: ' . $e->getMessage());
+
+            return $this->error('An error occurred during the rejection process.', 500);
+        }
+
+        $freshApplicant = $applicant->fresh();
+        $rejectionReason = $request->reason;
+
+        if ($freshApplicant->application_type === 'teacher') {
+            TeacherApplicationRejectedEvent::dispatch($freshApplicant, $rejectionReason);
+        } else {
+            StudentApplicationRejectedEvent::dispatch($freshApplicant, $rejectionReason);
+        }
+
+        return $this->success(null, 'Applicant rejected and returned to the general pool.');
+    }
+}

@@ -1,0 +1,12 @@
+/* ════════════════════════════════════════════════════════════════
+   SECTION — CTA Band
+   .cta-band carries its own background + padding since it is
+   managed as a FIXED_BG section in SectionRenderer.
+════════════════════════════════════════════════════════════════ */
+.cta-band {
+    background: linear-gradient(135deg, var(--brand-navy) 0%, var(--brand-navy-light) 100%);
+}
+.cta-band__inner    { max-width: 760px; margin-inline: auto; padding-inline: var(--container-px); text-align: center; display: flex; flex-direction: column; gap: 16px; align-items: center; }
+.cta-band__headline { font-size: clamp(26px, 4vw, 44px); font-weight: 800; color: var(--white); margin: 0; letter-spacing: -0.025em; font-family: var(--font-sans); }
+.cta-band__sub      { font-size: 18px; color: rgba(255,255,255,0.68); line-height: 1.6; margin: 0; font-family: var(--font-sans); }
+.cta-band__actions  { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-top: 8px; }

@@ -1,0 +1,7 @@
+/* ════════════════════════════════════════════════════════════════
+   SECTION — Legal body
+════════════════════════════════════════════════════════════════ */
+.legal-body { background: var(--white); padding-block: 80px; }
+.legal-body__inner { max-width: 760px; margin-inline: auto; padding-inline: var(--container-px); font-family: var(--font-sans); }
+.legal-body__block           { margin-bottom: 24px; }
+.legal-body__block--headline { margin-bottom: 32px; }
