@@ -62,14 +62,14 @@ class DatabaseSeeder extends Seeder
             \Database\Seeders\Schools\NavigationGroupSeeder::class,
 
             // 6. Public Demo School & Academic Workflow Data
-            // DemoSchoolSeeder::class,
-            // DemoTeachersSeeder::class,
-            // DemoStudentsSeeder::class,
-            // DemoHalaqahsSeeder::class,
-            // DemoEnrollmentSeeder::class,
-            // DemoStudentTrackingsSeeder::class,
-            // DemoApplicantSeeder::class,
-            // DemoTrackingsPlansSeeder::class,
+            DemoSchoolSeeder::class,
+            DemoTeachersSeeder::class,
+            DemoStudentsSeeder::class,
+            DemoHalaqahsSeeder::class,
+            DemoTrackingsPlansSeeder::class,
+            DemoEnrollmentSeeder::class,
+            DemoStudentTrackingsSeeder::class,
+            DemoApplicantSeeder::class,
         ]);
 
         $this->command->info('✅ Comprehensive database seeding completed successfully!');
