@@ -141,6 +141,7 @@ class SchoolService
             if ($platformAdminRole) {
                 $user->roles()->attach($platformAdminRole->id);
             }
+            \Illuminate\Support\Facades\DB::table("school_site_scopes")->insert(["school_id" => $school->id, "site_scope" => $school->school_code, "created_at" => now(), "updated_at" => now()]);
             Admin::create([
                 'user_id' => $user->id,
                 'school_id' => $school->id,

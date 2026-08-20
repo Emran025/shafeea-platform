@@ -32,6 +32,7 @@ class DemoSchoolSeeder extends Seeder
                 'city' => 'صنعاء',
                 'location' => '15.3694,44.1910',
                 'address' => "حي $name - شارع رئيسي",
+                'school_code' => \Illuminate\Support\Str::slug("school-$name"),
             ]);
 
             // Create admin user for school
@@ -55,6 +56,7 @@ class DemoSchoolSeeder extends Seeder
             if ($platformAdminRole) {
                 $user->roles()->attach($platformAdminRole->id);
             }
+            \Illuminate\Support\Facades\DB::table("school_site_scopes")->insert(["school_id" => $school->id, "site_scope" => $school->school_code, "created_at" => now(), "updated_at" => now()]);
             Admin::create([
                 'user_id' => $user->id,
                 'super_admin' => false,

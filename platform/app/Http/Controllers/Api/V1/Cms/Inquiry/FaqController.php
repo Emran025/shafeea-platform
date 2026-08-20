@@ -24,7 +24,7 @@ class FaqController extends Controller
 {
     public function index(Request $request): JsonResponse
     {
-        $query = Faq::query()->with('category:id,name,slug');
+        $query = Faq::query()->with('category:id,name,slug')->whereHas('category', fn($q) => $q->where('site_scope', $request->route('school_code') ?? $request->get('site_scope')));
 
         if ($locale = $request->query('locale')) {
             $query->where('locale', $locale);

@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Faq extends Model
 {
-    use HasFactory;
+    use HasFactory, \App\Models\Traits\BelongsToSchool;
 
     protected $fillable = [
         'category_id',
