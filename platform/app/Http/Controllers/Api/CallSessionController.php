@@ -86,6 +86,31 @@ class CallSessionController extends Controller
     }
 
     /**
+     * Handle WebRTC signaling data (SDP / ICE candidates) and broadcast to peers.
+     */
+    public function signal(Request $request, $sessionId)
+    {
+        $request->validate([
+            'signal_data' => 'required|array',
+        ]);
+
+        $session = CallSession::where('session_id', $sessionId)->firstOrFail();
+        $user = $request->user();
+
+        if (!in_array($user->id, [$session->initiator_id, $session->target_id, $session->third_party_id])) {
+            return response()->json(['error' => 'Unauthorized.'], 403);
+        }
+
+        if (!in_array($session->status, ['requested', 'active'])) {
+            return response()->json(['error' => 'Session is not active.'], 422);
+        }
+
+        broadcast(new \App\Events\CallSignalingEvent($session, $user->id, $request->signal_data));
+
+        return response()->json(['message' => 'Signal broadcasted.']);
+    }
+
+    /**
      * Broadcast a Mushaf error mark to the student.
      */
     public function markMushafError(Request $request, $sessionId)
