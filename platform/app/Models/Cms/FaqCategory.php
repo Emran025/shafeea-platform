@@ -12,6 +12,7 @@ class FaqCategory extends Model
     protected $fillable = [
         'name',
         'slug',
+        'site_scope',
         'locale',
         'sort_order',
         'is_active',

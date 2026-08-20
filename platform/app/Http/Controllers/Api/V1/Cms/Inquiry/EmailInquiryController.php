@@ -21,7 +21,7 @@ class EmailInquiryController extends Controller
 {
     public function index(Request $request): JsonResponse
     {
-        $query = EmailInquiry::query()->with('assignedTo:id,name,email');
+        $query = EmailInquiry::query()->with('assignedTo:id,name,email')->where('site_scope', $request->route('school_code') ?? $request->get('site_scope'));
 
         if ($status = $request->query('status')) {
             $query->where('status', $status);

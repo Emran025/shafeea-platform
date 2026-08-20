@@ -12,6 +12,7 @@ class EmailInquiry extends Model
 
     protected $fillable = [
         'sender_name',
+        'site_scope',
         'sender_email',
         'subject',
         'body',

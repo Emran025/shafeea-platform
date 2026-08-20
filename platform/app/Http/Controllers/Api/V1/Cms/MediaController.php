@@ -34,7 +34,7 @@ class MediaController extends Controller
         $query = Media::query()
             ->when($request->get('status'),     fn($q, $v) => $q->where('status', $v))
             ->when($request->get('type'),       fn($q, $v) => $q->where('type', $v))
-            ->when($request->get('site_scope'), fn($q, $v) => $q->where('site_scope', $v))
+            ->where('site_scope', $request->route('school_code') ?? $request->get('site_scope'))
             ->orderBy('created_at', 'desc');
 
         return response()->json($query->paginate((int) $request->get('per_page', 50)));
@@ -113,6 +113,7 @@ class MediaController extends Controller
             'locale_meta'                => $altText ? ['en' => ['alt_text' => $altText]] : [],
             'created_by'                 => $actorId,
             'last_modified_by'           => $actorId,
+            'site_scope'                 => $request->route('school_code') ?? $request->get('site_scope'),
         ]);
 
         return response()->json([
@@ -166,6 +167,7 @@ class MediaController extends Controller
                 'locale_meta',
             ]),
             'status'           => 'processing',
+            'site_scope'       => $request->route('school_code') ?? $request->get('site_scope'),
             'created_by'       => $actorId,
             'last_modified_by' => $actorId,
         ]);

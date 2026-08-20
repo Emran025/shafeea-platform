@@ -18,6 +18,13 @@ use Illuminate\Foundation\Http\FormRequest;
  */
 class StorePageRequest extends FormRequest
 {
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'site_scope' => $this->route('school_code') ?? $this->get('site_scope'),
+        ]);
+    }
+
     public function authorize(): bool
     {
         return true;
@@ -29,7 +36,7 @@ class StorePageRequest extends FormRequest
             // Core identity
             'slug'                    => 'required|string|max:300|unique:pages,slug',
             'type'                    => 'required|string|in:corporate.index,corporate.platform,corporate.about,corporate.contact,corporate.legal,corporate.home,editorial,editorial.press_release,utility,utility.comparison,platform.full_page,platform.features,platform.use_cases,pricing.overview,pricing.platform,pricing.compare,newsroom.article,newsroom.overview,newsroom.news,newsroom.stories,newsroom.about,solution.industry,solution.role,solution.business_type,solution.industry_tier,solution.tier_overview,industry.full_page,resource.blog_post,resource.report,resource.customer_story,resource.webinar,trust.overview,trust.section,campaign.landing,school.home,school.contact,school.legal,school.about,school.overview,school.news,school.stories,school.full_page',
-            'site_scope'              => 'required|string|max:100',
+            'site_scope'              => 'nullable|string|max:100',
 
             // PageIdentity columns
             'identity_title'          => 'nullable|array',

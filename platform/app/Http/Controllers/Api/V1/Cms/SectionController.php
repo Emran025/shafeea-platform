@@ -28,7 +28,7 @@ class SectionController extends Controller
             ->when($request->get('page_id'), fn($q, $v) => $q->where('page_id', $v))
             ->when($request->get('status'),  fn($q, $v) => $q->where('status', $v))
             ->when($request->get('type'),    fn($q, $v) => $q->where('type', $v))
-            ->orderBy('ordering_position');
+            ->whereHas('page', fn($q) => $q->where('site_scope', $request->route('school_code') ?? $request->get('site_scope')))->orderBy('ordering_position');
 
         return response()->json($query->paginate((int) $request->get('per_page', 100)));
     }

@@ -12,6 +12,7 @@ class SupportTicket extends Model
 
     protected $fillable = [
         'ticket_number',
+        'site_scope',
         'requester_name',
         'requester_email',
         'category',

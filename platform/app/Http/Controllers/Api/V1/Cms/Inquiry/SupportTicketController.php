@@ -21,7 +21,7 @@ class SupportTicketController extends Controller
 {
     public function index(Request $request): JsonResponse
     {
-        $query = SupportTicket::query()->with('assignedTo:id,name,email');
+        $query = SupportTicket::query()->with('assignedTo:id,name,email')->where('site_scope', $request->route('school_code') ?? $request->get('site_scope'));
 
         if ($status = $request->query('status')) {
             $query->where('status', $status);
