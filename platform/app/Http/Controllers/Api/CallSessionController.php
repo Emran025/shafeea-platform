@@ -86,6 +86,33 @@ class CallSessionController extends Controller
     }
 
     /**
+     * Reject a call session.
+     */
+    public function rejectSession(Request $request, $sessionId)
+    {
+        $session = CallSession::where('session_id', $sessionId)->firstOrFail();
+        $user = $request->user();
+
+        if ($session->target_id !== $user->id) {
+            return response()->json(['error' => 'Unauthorized to reject this call.'], 403);
+        }
+
+        if ($session->status !== 'requested') {
+            return response()->json(['error' => 'Call is no longer in requested state.'], 422);
+        }
+
+        $session->update([
+            'status' => 'rejected',
+            'ended_at' => now(),
+        ]);
+
+        return response()->json([
+            'message' => 'Call rejected.',
+            'session' => $session
+        ]);
+    }
+
+    /**
      * Handle WebRTC signaling data (SDP / ICE candidates) and broadcast to peers.
      */
     public function signal(Request $request, $sessionId)
