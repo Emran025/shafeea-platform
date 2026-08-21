@@ -47,8 +47,8 @@ class CallSessionController extends Controller
             'status' => 'requested',
         ]);
 
-        // Here we would dispatch a Push Notification and a WebSocket event to the target
-        // broadcast(new \App\Events\CallRequested($session));
+        // Dispatch WebSocket notification to the target user
+        broadcast(new \App\Events\CallSessionNotificationEvent($session, 'requested', $target->id));
 
         return response()->json([
             'message' => 'Call requested successfully.',
@@ -77,7 +77,8 @@ class CallSessionController extends Controller
             'started_at' => now(),
         ]);
 
-        // broadcast(new \App\Events\CallAccepted($session));
+        // Dispatch WebSocket notification to the initiator that the call was accepted
+        broadcast(new \App\Events\CallSessionNotificationEvent($session, 'accepted', $session->initiator_id));
 
         return response()->json([
             'message' => 'Call accepted.',
@@ -105,6 +106,9 @@ class CallSessionController extends Controller
             'status' => 'rejected',
             'ended_at' => now(),
         ]);
+
+        // Dispatch WebSocket notification to the initiator that the call was rejected
+        broadcast(new \App\Events\CallSessionNotificationEvent($session, 'rejected', $session->initiator_id));
 
         return response()->json([
             'message' => 'Call rejected.',
@@ -184,7 +188,9 @@ class CallSessionController extends Controller
             'duration_seconds' => $duration,
         ]);
 
-        // broadcast(new \App\Events\CallEnded($session));
+        // Notify the other participant that the call ended
+        $notifyTarget = ($user->id === $session->initiator_id) ? $session->target_id : $session->initiator_id;
+        broadcast(new \App\Events\CallSessionNotificationEvent($session, 'ended', $notifyTarget));
 
         return response()->json([
             'message' => 'Call ended.',

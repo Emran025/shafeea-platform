@@ -7,6 +7,10 @@ Broadcast::channel('App.Models.Auth.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });
 
+Broadcast::channel('user.{id}', function ($user, $id) {
+    return (int) $user->id === (int) $id;
+});
+
 Broadcast::channel('session.{sessionId}', function ($user, $sessionId) {
     $session = CallSession::where('session_id', $sessionId)->first();
     if (!$session) return false;
