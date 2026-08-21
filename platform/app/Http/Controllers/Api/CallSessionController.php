@@ -41,6 +41,7 @@ class CallSessionController extends Controller
         }
 
         $session = CallSession::create([
+            'session_id' => \Illuminate\Support\Str::uuid()->toString(),
             'school_id' => $initiator->school_id,
             'initiator_id' => $initiator->id,
             'target_id' => $target->id,
