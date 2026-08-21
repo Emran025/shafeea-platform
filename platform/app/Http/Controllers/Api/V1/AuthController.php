@@ -449,6 +449,11 @@ class AuthController extends ApiController
      */
     protected function buildUserPayload(User $user, ?string $role = null): array
     {
+        // Load roles based on the custom roles relationship
+        $roles = $user->roles()->pluck('name')->toArray();
+        
+        // Assuming permissions are accessed via the roles (or custom implementation)
+        // We will just return the roles and the gender_scope
         return [
             'id'               => $user->id,
             'name'             => $user->name,
@@ -457,6 +462,8 @@ class AuthController extends ApiController
             'avatar'           => $user->avatar,
             'username'         => $this->resolveUsername($user, $role),
             'is_email_verified' => (bool) $user->email_verified_at,
+            'gender_scope'     => $user->gender_scope ?? 'all',
+            'roles'            => $roles,
         ];
     }
 

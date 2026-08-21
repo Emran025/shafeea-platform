@@ -13,11 +13,15 @@ class CallSessionControllerTest extends TestCase
 
     public function test_cannot_request_session_across_different_schools()
     {
-        $schoolA = School::factory()->create();
-        $schoolB = School::factory()->create();
+        $schoolA = new School(['name' => 'School A', 'domain' => 'a.com', 'phone' => '1', 'email' => 'a@a.com', 'address' => 'A', 'identity_title' => 'A', 'identity_purpose' => 'A', 'identity_owner' => 'A', 'identity_canonical_url' => 'A']);
+        $schoolA->save();
+        $schoolB = new School(['name' => 'School B', 'domain' => 'b.com', 'phone' => '2', 'email' => 'b@b.com', 'address' => 'B', 'identity_title' => 'B', 'identity_purpose' => 'B', 'identity_owner' => 'B', 'identity_canonical_url' => 'B']);
+        $schoolB->save();
 
-        $userA = User::factory()->create(['school_id' => $schoolA->id]);
-        $userB = User::factory()->create(['school_id' => $schoolB->id]);
+        $userA = new User(['name' => 'User A', 'email' => 'ua@test.com', 'password' => '123', 'school_id' => $schoolA->id]);
+        $userA->save();
+        $userB = new User(['name' => 'User B', 'email' => 'ub@test.com', 'password' => '123', 'school_id' => $schoolB->id]);
+        $userB->save();
 
         $response = $this->actingAs($userA)->postJson('/api/v1/calls/request', [
             'target_id' => $userB->id,
@@ -29,10 +33,13 @@ class CallSessionControllerTest extends TestCase
 
     public function test_can_request_session_within_same_school()
     {
-        $school = School::factory()->create();
+        $school = new School(['name' => 'School A', 'domain' => 'a.com', 'phone' => '1', 'email' => 'a@a.com', 'address' => 'A', 'identity_title' => 'A', 'identity_purpose' => 'A', 'identity_owner' => 'A', 'identity_canonical_url' => 'A']);
+        $school->save();
 
-        $userA = User::factory()->create(['school_id' => $school->id]);
-        $userB = User::factory()->create(['school_id' => $school->id]);
+        $userA = new User(['name' => 'User A', 'email' => 'ua@test.com', 'password' => '123', 'school_id' => $school->id]);
+        $userA->save();
+        $userB = new User(['name' => 'User B', 'email' => 'ub@test.com', 'password' => '123', 'school_id' => $school->id]);
+        $userB->save();
 
         $response = $this->actingAs($userA)->postJson('/api/v1/calls/request', [
             'target_id' => $userB->id,
