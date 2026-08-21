@@ -148,6 +148,15 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
         Route::get('reports', [SyncController::class, 'syncReports'])->name('reports');
     });
 
+    // Call Sessions (P2P Audio Signaling & Interactive Recitation)
+    Route::prefix('calls')->name('calls.')->group(function () {
+        Route::post('request', [\App\Http\Controllers\Api\CallSessionController::class, 'requestSession'])->name('request');
+        Route::post('{sessionId}/accept', [\App\Http\Controllers\Api\CallSessionController::class, 'acceptSession'])->name('accept');
+        Route::post('{sessionId}/end', [\App\Http\Controllers\Api\CallSessionController::class, 'endSession'])->name('end');
+        Route::post('{sessionId}/signal', [\App\Http\Controllers\Api\CallSessionController::class, 'signal'])->name('signal');
+        Route::post('{sessionId}/mark-error', [\App\Http\Controllers\Api\CallSessionController::class, 'markMushafError'])->name('mark-error');
+    });
+
     Route::prefix('account')->name('account.')->middleware('auth:sanctum')->group(function () {
         // Get the authenticated user's profile
         Route::get('profile', [AccountController::class, 'getProfile'])->name('profile');
