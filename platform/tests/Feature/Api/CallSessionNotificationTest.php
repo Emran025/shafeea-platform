@@ -17,12 +17,18 @@ class CallSessionNotificationTest extends TestCase
     {
         Event::fake();
 
-        $school = School::factory()->create();
-        $initiator = User::factory()->create(['school_id' => $school->id]);
-        $target = User::factory()->create(['school_id' => $school->id]);
-        $outsider = User::factory()->create(['school_id' => $school->id]);
+        $school = new School(['name' => 'School A', 'domain' => 'a.com', 'phone' => '1', 'email' => 'a@a.com', 'address' => 'A', 'identity_title' => 'A', 'identity_purpose' => 'A', 'identity_owner' => 'A', 'identity_canonical_url' => 'A']);
+        $school->save();
+        
+        $initiator = new User(['name' => 'Initiator', 'email' => 'i@test.com', 'password' => '123', 'school_id' => $school->id]);
+        $initiator->save();
+        $target = new User(['name' => 'Target', 'email' => 't@test.com', 'password' => '123', 'school_id' => $school->id]);
+        $target->save();
+        $outsider = new User(['name' => 'Outsider', 'email' => 'o@test.com', 'password' => '123', 'school_id' => $school->id]);
+        $outsider->save();
 
         $session = CallSession::create([
+            'session_id' => 'sess_123',
             'school_id' => $school->id,
             'initiator_id' => $initiator->id,
             'target_id' => $target->id,

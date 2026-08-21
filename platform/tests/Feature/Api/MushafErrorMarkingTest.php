@@ -17,12 +17,18 @@ class MushafErrorMarkingTest extends TestCase
     {
         Event::fake();
 
-        $school = School::factory()->create();
-        $teacher = User::factory()->create(['school_id' => $school->id]);
-        $student = User::factory()->create(['school_id' => $school->id]);
-        $outsider = User::factory()->create(['school_id' => $school->id]);
+        $school = new School(['name' => 'School A', 'domain' => 'a.com', 'phone' => '1', 'email' => 'a@a.com', 'address' => 'A', 'identity_title' => 'A', 'identity_purpose' => 'A', 'identity_owner' => 'A', 'identity_canonical_url' => 'A']);
+        $school->save();
+        
+        $teacher = new User(['name' => 'Teacher', 'email' => 't@test.com', 'password' => '123', 'school_id' => $school->id]);
+        $teacher->save();
+        $student = new User(['name' => 'Student', 'email' => 's@test.com', 'password' => '123', 'school_id' => $school->id]);
+        $student->save();
+        $outsider = new User(['name' => 'Outsider', 'email' => 'o@test.com', 'password' => '123', 'school_id' => $school->id]);
+        $outsider->save();
 
         $session = CallSession::create([
+            'session_id' => 'sess_456',
             'school_id' => $school->id,
             'initiator_id' => $student->id,
             'target_id' => $teacher->id,

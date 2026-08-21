@@ -7,6 +7,7 @@ use App\Models\Halaqah\Halaqah;
 use App\Models\Halaqah\HalaqahTeacher;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Scopes\GenderScope;
 
 class Teacher extends Model
 {
@@ -27,6 +28,7 @@ class Teacher extends Model
     protected static function boot()
     {
         parent::boot();
+        static::addGlobalScope(new GenderScope);
 
         static::creating(function ($teacher) {
             if (empty($teacher->username)) {

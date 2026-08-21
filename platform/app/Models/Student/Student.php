@@ -5,6 +5,7 @@ namespace App\Models\Student;
 use App\Models\Auth\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Scopes\GenderScope;
 
 class Student extends Model
 {
@@ -26,6 +27,7 @@ class Student extends Model
     protected static function boot()
     {
         parent::boot();
+        static::addGlobalScope(new GenderScope);
 
         static::creating(function ($student) {
             if (empty($student->username)) {
