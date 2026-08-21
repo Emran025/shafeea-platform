@@ -8,10 +8,16 @@ use App\Models\Student\Student;
 use App\Models\Teacher\Teacher;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Scopes\GenderScope;
 
 class Halaqah extends Model
 {
     use HasFactory, \App\Models\Traits\BelongsToSchool;
+
+    protected static function booted()
+    {
+        static::addGlobalScope(new GenderScope);
+    }
 
     /**
      * The attributes that are mass assignable.
