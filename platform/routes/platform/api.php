@@ -62,7 +62,7 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
     });
 
     // Students routes with prefix 'students' and name prefix 'students.'
-    Route::prefix('students')->name('students.')->group(function () {
+    Route::prefix('students')->name('students.')->middleware('role:school_admin|students_supervisor')->group(function () {
         Route::get('/', [StudentController::class, 'index'])->name('index');
         Route::post('/', [StudentController::class, 'store'])->name('store');
         Route::get('{id}', [StudentController::class, 'show'])->name('show');
@@ -102,7 +102,7 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
         Route::post('/', [ApplicantController::class, 'store'])->name('store');
     });
     // halqa routes with name prefix 'halaqas.'
-    Route::prefix('halaqas')->name('halaqas.')->group(function () {
+    Route::prefix('halaqas')->name('halaqas.')->middleware('role:school_admin|halaqah_supervisor')->group(function () {
         Route::get('/', [HalaqahController::class, 'index'])->name('index');
         Route::post('/', [HalaqahController::class, 'store'])->name('store');
         Route::get('{id}', [HalaqahController::class, 'show'])->name('show');
@@ -117,7 +117,7 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
         Route::get('{id}/students', [HalaqahController::class, 'studentsHistory'])->name('students.history');
     });
 
-    Route::prefix('teachers')->name('teachers.')->group(function () {
+    Route::prefix('teachers')->name('teachers.')->middleware('role:school_admin|teachers_supervisor')->group(function () {
         Route::get('/', [TeacherController::class, 'index'])->name('index');
         Route::post('/', [TeacherController::class, 'store'])->name('store');
         Route::get('{id}', [TeacherController::class, 'show'])->name('show');
@@ -135,7 +135,7 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
         });
     });
     // Follow-ups routes grouped with prefix and name prefix
-    Route::prefix('follow-ups')->name('followups.')->group(function () {
+    Route::prefix('follow-ups')->name('followups.')->middleware('role:school_admin|reports_supervisor')->group(function () {
         Route::get('students', [FollowUpController::class, 'studentReports'])->name('students');
         Route::get('halaqas', [FollowUpController::class, 'halaqaReports'])->name('halaqas');
     });

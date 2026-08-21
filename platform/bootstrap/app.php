@@ -58,6 +58,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'verify.build.signature' => VerifyBuildApiSignature::class,
             'admin.auth'             => \App\Http\Middleware\Auth\AuthenticateAdminApi::class,
             'require.permission'     => \App\Http\Middleware\Auth\RequirePermission::class,
+            'role'                   => \App\Http\Middleware\Auth\RoleMiddleware::class,
         ]);
 
         // Exempt cookies from encryption
