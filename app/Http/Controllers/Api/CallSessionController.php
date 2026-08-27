@@ -3,123 +3,66 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Halaqah\CallSession;
-use App\Models\Auth\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
+use App\Models\Halaqah\CallSession;
+use App\Events\CallSessionNotificationEvent;
+use App\Events\CallSignalingEvent;
+use Illuminate\Support\Str;
 
 class CallSessionController extends Controller
 {
-    /**
-     * Request a new call session.
-     */
     public function requestSession(Request $request)
     {
         $request->validate([
             'target_id' => 'required|exists:users,id',
+            'third_party_id' => 'nullable|exists:users,id',
         ]);
 
-        $initiator = $request->user();
-        $target = User::findOrFail($request->target_id);
-
-        // School Scoping: Must belong to the same school
-        if ($initiator->school_id !== $target->school_id) {
-            return response()->json(['error' => 'Users must belong to the same school to initiate a call.'], 403);
-        }
-
-        // Prevent active duplicate sessions
-        $activeSession = CallSession::where('initiator_id', $initiator->id)
-            ->whereIn('status', ['requested', 'active'])
-            ->first();
-
-        if ($activeSession) {
-            return response()->json([
-                'error' => 'You already have an active or requested session.',
-                'session_id' => $activeSession->session_id
-            ], 422);
-        }
-
+        // Max 3 participants logic enforced by schema (initiator, target, third_party)
+        
         $session = CallSession::create([
-            'session_id' => \Illuminate\Support\Str::uuid()->toString(),
-            'school_id' => $initiator->school_id,
-            'initiator_id' => $initiator->id,
-            'target_id' => $target->id,
-            'status' => 'requested',
+            'session_id' => Str::uuid()->toString(),
+            'initiator_id' => $request->user()->id,
+            'target_id' => $request->target_id,
+            'third_party_id' => $request->third_party_id,
+            'status' => 'pending',
         ]);
 
-        // Dispatch WebSocket notification to the target user
-        broadcast(new \App\Events\CallSessionNotificationEvent($session, 'requested', $target->id));
+        broadcast(new CallSessionNotificationEvent($session, 'requested', $session->target_id))->toOthers();
+        
+        if ($session->third_party_id) {
+            broadcast(new CallSessionNotificationEvent($session, 'requested', $session->third_party_id))->toOthers();
+        }
 
-        return response()->json([
-            'message' => 'Call requested successfully.',
-            'session' => $session
-        ], 201);
+        return response()->json(['session' => $session]);
     }
 
-    /**
-     * Accept a call session.
-     */
-    public function acceptSession(Request $request, $sessionId)
+    public function updateStatus(Request $request, $sessionId)
     {
+        $request->validate([
+            'status' => 'required|in:active,ended,rejected',
+        ]);
+
         $session = CallSession::where('session_id', $sessionId)->firstOrFail();
-        $user = $request->user();
-
-        if ($session->target_id !== $user->id) {
-            return response()->json(['error' => 'Unauthorized to accept this call.'], 403);
+        
+        // Only participants can update status
+        if (!in_array($request->user()->id, [$session->initiator_id, $session->target_id, $session->third_party_id])) {
+            return response()->json(['error' => 'Unauthorized'], 403);
         }
 
-        if ($session->status !== 'requested') {
-            return response()->json(['error' => 'Call is no longer in requested state.'], 422);
+        $session->update(['status' => $request->status]);
+
+        // Notify other participants
+        $participants = array_filter([$session->initiator_id, $session->target_id, $session->third_party_id]);
+        foreach ($participants as $participantId) {
+            if ($participantId !== $request->user()->id) {
+                broadcast(new CallSessionNotificationEvent($session, $request->status, $participantId))->toOthers();
+            }
         }
 
-        $session->update([
-            'status' => 'active',
-            'started_at' => now(),
-        ]);
-
-        // Dispatch WebSocket notification to the initiator that the call was accepted
-        broadcast(new \App\Events\CallSessionNotificationEvent($session, 'accepted', $session->initiator_id));
-
-        return response()->json([
-            'message' => 'Call accepted.',
-            'session' => $session
-        ]);
+        return response()->json(['session' => $session]);
     }
 
-    /**
-     * Reject a call session.
-     */
-    public function rejectSession(Request $request, $sessionId)
-    {
-        $session = CallSession::where('session_id', $sessionId)->firstOrFail();
-        $user = $request->user();
-
-        if ($session->target_id !== $user->id) {
-            return response()->json(['error' => 'Unauthorized to reject this call.'], 403);
-        }
-
-        if ($session->status !== 'requested') {
-            return response()->json(['error' => 'Call is no longer in requested state.'], 422);
-        }
-
-        $session->update([
-            'status' => 'rejected',
-            'ended_at' => now(),
-        ]);
-
-        // Dispatch WebSocket notification to the initiator that the call was rejected
-        broadcast(new \App\Events\CallSessionNotificationEvent($session, 'rejected', $session->initiator_id));
-
-        return response()->json([
-            'message' => 'Call rejected.',
-            'session' => $session
-        ]);
-    }
-
-    /**
-     * Handle WebRTC signaling data (SDP / ICE candidates) and broadcast to peers.
-     */
     public function signal(Request $request, $sessionId)
     {
         $request->validate([
@@ -127,75 +70,22 @@ class CallSessionController extends Controller
         ]);
 
         $session = CallSession::where('session_id', $sessionId)->firstOrFail();
-        $user = $request->user();
-
-        if (!in_array($user->id, [$session->initiator_id, $session->target_id, $session->third_party_id])) {
-            return response()->json(['error' => 'Unauthorized.'], 403);
+        
+        if (!in_array($request->user()->id, [$session->initiator_id, $session->target_id, $session->third_party_id])) {
+            return response()->json(['error' => 'Unauthorized'], 403);
         }
 
-        if (!in_array($session->status, ['requested', 'active'])) {
-            return response()->json(['error' => 'Session is not active.'], 422);
+        // Store public keys if they are part of the signal
+        if (isset($request->signal_data['type']) && $request->signal_data['type'] === 'rsa_pub_key') {
+            if ($request->user()->id === $session->initiator_id) {
+                $session->update(['initiator_rsa_pub' => $request->signal_data['key']]);
+            } elseif ($request->user()->id === $session->target_id) {
+                $session->update(['target_rsa_pub' => $request->signal_data['key']]);
+            }
         }
 
-        broadcast(new \App\Events\CallSignalingEvent($session, $user->id, $request->signal_data));
+        broadcast(new CallSignalingEvent($session, $request->user()->id, $request->signal_data))->toOthers();
 
-        return response()->json(['message' => 'Signal broadcasted.']);
-    }
-
-    /**
-     * Broadcast a Mushaf error mark to the student.
-     */
-    public function markMushafError(Request $request, $sessionId)
-    {
-        $request->validate([
-            'surah' => 'required|integer',
-            'ayah' => 'required|integer',
-            'word_index' => 'required|integer',
-        ]);
-
-        $session = CallSession::where('session_id', $sessionId)->firstOrFail();
-        $user = $request->user();
-
-        if (!in_array($user->id, [$session->initiator_id, $session->target_id])) {
-            return response()->json(['error' => 'Unauthorized.'], 403);
-        }
-
-        if ($session->status !== 'active') {
-            return response()->json(['error' => 'Session is not active.'], 422);
-        }
-
-        broadcast(new \App\Events\MushafErrorMarked($session, $request->only(['surah', 'ayah', 'word_index'])));
-
-        return response()->json(['message' => 'Error marked successfully.']);
-    }
-
-    /**
-     * End a call session.
-     */
-    public function endSession(Request $request, $sessionId)
-    {
-        $session = CallSession::where('session_id', $sessionId)->firstOrFail();
-        $user = $request->user();
-
-        if (!in_array($user->id, [$session->initiator_id, $session->target_id, $session->third_party_id])) {
-            return response()->json(['error' => 'Unauthorized.'], 403);
-        }
-
-        $duration = $session->started_at ? now()->diffInSeconds($session->started_at) : 0;
-
-        $session->update([
-            'status' => 'completed',
-            'ended_at' => now(),
-            'duration_seconds' => $duration,
-        ]);
-
-        // Notify the other participant that the call ended
-        $notifyTarget = ($user->id === $session->initiator_id) ? $session->target_id : $session->initiator_id;
-        broadcast(new \App\Events\CallSessionNotificationEvent($session, 'ended', $notifyTarget));
-
-        return response()->json([
-            'message' => 'Call ended.',
-            'duration' => $duration
-        ]);
+        return response()->json(['status' => 'Signal sent']);
     }
 }
