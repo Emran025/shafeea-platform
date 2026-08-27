@@ -10,15 +10,15 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
-        "endroid/qr-code": "*",
+        "endroid/qr-code": "^6.0",
         "inertiajs/inertia-laravel": "^2.0",
-        "intervention/image": "*",
+        "intervention/image": "^4.3",
         "laravel/framework": "^12.0",
         "laravel/sanctum": "^4.0",
         "laravel/telescope": "^5.10",
         "laravel/tinker": "^2.10.1",
-        "setasign/fpdi": "*",
-        "tecnickcom/tcpdf": "*",
+        "setasign/fpdi": "^2.6",
+        "tecnickcom/tcpdf": "^6.11",
         "tightenco/ziggy": "^2.4"
     },
     "require-dev": {
