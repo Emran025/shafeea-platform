@@ -23,7 +23,10 @@ class CertificateBatchController extends Controller
             'students' => 'required|array',
         ]);
 
-        $schoolId = $request->user()->school_id ?? 1; // Assuming school context
+        $schoolId = $request->user()->school_id;
+        if (!$schoolId) {
+            return response()->json(['status' => 'error', 'message' => 'Unauthorized: No school associated with user.'], 403);
+        }
 
         // Save Template Image
         $imgData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $validated['background_image']));
