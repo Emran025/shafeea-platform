@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Public;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
-use Inertia\Inertia;
 use Illuminate\Support\Str;
+use Inertia\Inertia;
 
 class DocsController extends Controller
 {
@@ -17,11 +17,11 @@ class DocsController extends Controller
         try {
             $docsPath = resource_path('docs');
 
-            if (!File::exists($docsPath)) {
+            if (! File::exists($docsPath)) {
                 abort(404, 'Docs folder missing');
             }
 
-            if (!$path || $path === '/' || $path === 'index') {
+            if (! $path || $path === '/' || $path === 'index') {
                 $path = 'README';
             }
 
@@ -30,40 +30,40 @@ class DocsController extends Controller
 
             // Block access to private documentation segments
             foreach (self::PRIVATE_SEGMENTS as $segment) {
-                if ($path === $segment || Str::startsWith($path, $segment . '/') || Str::startsWith($path, $segment . '\\')) {
+                if ($path === $segment || Str::startsWith($path, $segment.'/') || Str::startsWith($path, $segment.'\\')) {
                     abort(403, 'This section is not publicly available.');
                 }
             }
 
             // Normalize path for Linux/Windows
             $cleanPath = str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $path);
-            $fullPath = $docsPath . DIRECTORY_SEPARATOR . $cleanPath;
+            $fullPath = $docsPath.DIRECTORY_SEPARATOR.$cleanPath;
 
             $file = null;
 
             // Priority: Exact file -> .mdx -> .md -> folder/README -> folder/index
-            if (File::exists($fullPath) && !File::isDirectory($fullPath)) {
+            if (File::exists($fullPath) && ! File::isDirectory($fullPath)) {
                 $file = $fullPath;
             } else {
                 $checkPaths = [
-                    $fullPath . '.mdx',
-                    $fullPath . '.md',
-                    $fullPath . DIRECTORY_SEPARATOR . 'README.md',
-                    $fullPath . DIRECTORY_SEPARATOR . 'index.md',
-                    $fullPath . DIRECTORY_SEPARATOR . 'README.mdx',
+                    $fullPath.'.mdx',
+                    $fullPath.'.md',
+                    $fullPath.DIRECTORY_SEPARATOR.'README.md',
+                    $fullPath.DIRECTORY_SEPARATOR.'index.md',
+                    $fullPath.DIRECTORY_SEPARATOR.'README.mdx',
                 ];
 
                 foreach ($checkPaths as $p) {
-                    if (File::exists($p) && !File::isDirectory($p)) {
+                    if (File::exists($p) && ! File::isDirectory($p)) {
                         $file = $p;
                         break;
                     }
                 }
             }
 
-            if (!$file) {
+            if (! $file) {
                 // Final fallback to root README
-                $file = $docsPath . DIRECTORY_SEPARATOR . 'README.md';
+                $file = $docsPath.DIRECTORY_SEPARATOR.'README.md';
                 $path = 'README';
             }
 
@@ -79,13 +79,13 @@ class DocsController extends Controller
                 }
             }
 
-            if (!$hasIntro && (File::exists($docsPath . DIRECTORY_SEPARATOR . 'README.md') || File::exists($docsPath . DIRECTORY_SEPARATOR . 'README.mdx'))) {
+            if (! $hasIntro && (File::exists($docsPath.DIRECTORY_SEPARATOR.'README.md') || File::exists($docsPath.DIRECTORY_SEPARATOR.'README.mdx'))) {
                 array_unshift($sidebar, [
                     'type' => 'link',
                     'label' => 'مدخل',
                     'href' => '/docs/README',
                     'path' => 'README',
-                    'position' => -1
+                    'position' => -1,
                 ]);
             }
 
@@ -107,50 +107,56 @@ class DocsController extends Controller
             $next = ($currentIndex !== -1 && $currentIndex < count($flatSidebar) - 1) ? $flatSidebar[$currentIndex + 1] : null;
 
             return Inertia::render('Docs/Show', [
-                'content'         => $content,
-                'title'           => $title,
-                'metaTitle'       => $title . ' | توثيق قيد',
+                'content' => $content,
+                'title' => $title,
+                'metaTitle' => $title.' | توثيق قيد',
                 'metaDescription' => $metaDescription,
-                'sidebar'         => $sidebar,
-                'currentPath'     => $normalizedPath,
-                'navigation'      => [
+                'sidebar' => $sidebar,
+                'currentPath' => $normalizedPath,
+                'navigation' => [
                     'prev' => $prev,
                     'next' => $next,
                 ],
             ]);
         } catch (\Throwable $e) {
-            return response("Docs Error: " . $e->getMessage() . " in " . $e->getFile() . ":" . $e->getLine(), 200)
+            return response('Docs Error: '.$e->getMessage().' in '.$e->getFile().':'.$e->getLine(), 200)
                 ->header('Content-Type', 'text/plain');
         }
     }
 
     private function getSidebar($dir, $baseDir = null)
     {
-        if (!$baseDir) $baseDir = $dir;
+        if (! $baseDir) {
+            $baseDir = $dir;
+        }
         $items = [];
-        if (!File::isDirectory($dir)) return [];
+        if (! File::isDirectory($dir)) {
+            return [];
+        }
 
         $files = File::files($dir);
         $directories = File::directories($dir);
 
         foreach ($files as $file) {
             $name = $file->getFilename();
-            if (in_array($name, ['_category_.json', 'README.md', 'index.md', 'README.mdx', 'index.mdx'])) continue;
+            if (in_array($name, ['_category_.json', 'README.md', 'index.md', 'README.mdx', 'index.mdx'])) {
+                continue;
+            }
 
             $content = File::get($file->getPathname());
             $position = $this->extractPosition($content, $name);
             $label = $this->extractTitle($content) ?? $this->formatLabel($name);
 
-            $relativePath = str_replace($baseDir . DIRECTORY_SEPARATOR, '', $file->getPathname());
+            $relativePath = str_replace($baseDir.DIRECTORY_SEPARATOR, '', $file->getPathname());
             $relativePath = str_replace(['.mdx', '.md'], '', $relativePath);
             $relativePath = str_replace(DIRECTORY_SEPARATOR, '/', $relativePath);
 
             $items[] = [
                 'type' => 'link',
                 'label' => $label,
-                'href' => '/docs/' . $relativePath,
+                'href' => '/docs/'.$relativePath,
                 'path' => $relativePath,
-                'position' => $position
+                'position' => $position,
             ];
         }
 
@@ -159,21 +165,23 @@ class DocsController extends Controller
 
             // Skip private segments entirely from sidebar
             foreach (self::PRIVATE_SEGMENTS as $segment) {
-                if ($name === $segment) continue 2;
+                if ($name === $segment) {
+                    continue 2;
+                }
             }
 
-            $categoryFile = $directory . DIRECTORY_SEPARATOR . '_category_.json';
+            $categoryFile = $directory.DIRECTORY_SEPARATOR.'_category_.json';
             $label = $this->formatLabel($name);
             $position = $this->extractPosition('', $name);
 
             $indexFile = null;
             $indexExtensions = ['README.md', 'index.md', 'README.mdx', 'index.mdx'];
             foreach ($indexExtensions as $ext) {
-                if (File::exists($directory . DIRECTORY_SEPARATOR . $ext)) {
-                    $idxContent = File::get($directory . DIRECTORY_SEPARATOR . $ext);
+                if (File::exists($directory.DIRECTORY_SEPARATOR.$ext)) {
+                    $idxContent = File::get($directory.DIRECTORY_SEPARATOR.$ext);
                     $label = $this->extractTitle($idxContent) ?? $label;
 
-                    $relativePath = str_replace($baseDir . DIRECTORY_SEPARATOR, '', $directory . DIRECTORY_SEPARATOR . $ext);
+                    $relativePath = str_replace($baseDir.DIRECTORY_SEPARATOR, '', $directory.DIRECTORY_SEPARATOR.$ext);
                     $relativePath = str_replace(['.mdx', '.md'], '', $relativePath);
                     $indexFile = str_replace(DIRECTORY_SEPARATOR, '/', $relativePath);
                     break;
@@ -189,10 +197,10 @@ class DocsController extends Controller
             $items[] = [
                 'type' => 'category',
                 'label' => $label,
-                'href' => $indexFile ? '/docs/' . $indexFile : null,
+                'href' => $indexFile ? '/docs/'.$indexFile : null,
                 'path' => $indexFile,
                 'items' => $this->getSidebar($directory, $baseDir),
-                'position' => $position
+                'position' => $position,
             ];
         }
 
@@ -200,6 +208,7 @@ class DocsController extends Controller
             if (($a['position'] ?? 999) !== ($b['position'] ?? 999)) {
                 return ($a['position'] ?? 999) <=> ($b['position'] ?? 999);
             }
+
             return strnatcmp($a['label'] ?? '', $b['label'] ?? '');
         });
 
@@ -214,17 +223,19 @@ class DocsController extends Controller
         if (preg_match('/^#\s+(.+)$/m', $content, $matches)) {
             return trim($matches[1]);
         }
+
         return null;
     }
 
     private function extractPosition($content, $filename)
     {
         if (preg_match('/^(\d+)_/', $filename, $matches)) {
-            return (int)$matches[1];
+            return (int) $matches[1];
         }
         if (preg_match('/^sidebar_position:\s*(-?\d+)$/m', $content, $matches)) {
-            return (int)$matches[1];
+            return (int) $matches[1];
         }
+
         return 999;
     }
 
@@ -242,6 +253,7 @@ class DocsController extends Controller
                 $flat = array_merge($flat, $this->flattenSidebar($item['items'] ?? []));
             }
         }
+
         return $flat;
     }
 
@@ -250,6 +262,7 @@ class DocsController extends Controller
         $name = str_replace(['.md', '.mdx'], '', $name);
         $name = preg_replace('/^\d+_/', '', $name);
         $name = str_replace(['_', '-'], ' ', $name);
+
         return Str::title($name);
     }
 
@@ -259,9 +272,9 @@ class DocsController extends Controller
      */
     private function extractMetaDescription(string $content): string
     {
-        $lines     = explode("\n", $content);
-        $inCode    = false;
-        $inFront   = false;
+        $lines = explode("\n", $content);
+        $inCode = false;
+        $inFront = false;
         $firstLine = true;
 
         foreach ($lines as $line) {
@@ -271,29 +284,50 @@ class DocsController extends Controller
             if ($firstLine && $trimmed === '---') {
                 $inFront = true;
                 $firstLine = false;
+
                 continue;
             }
             if ($inFront) {
-                if ($trimmed === '---') $inFront = false;
+                if ($trimmed === '---') {
+                    $inFront = false;
+                }
+
                 continue;
             }
             $firstLine = false;
 
             // Skip code blocks
             if (str_starts_with($trimmed, '```') || str_starts_with($trimmed, '~~~')) {
-                $inCode = !$inCode;
+                $inCode = ! $inCode;
+
                 continue;
             }
-            if ($inCode) continue;
+            if ($inCode) {
+                continue;
+            }
 
             // Skip headings, tables, HTML, empty lines, and list markers
-            if (empty($trimmed)) continue;
-            if (str_starts_with($trimmed, '#'))  continue;
-            if (str_starts_with($trimmed, '|'))  continue;
-            if (str_starts_with($trimmed, '<'))  continue;
-            if (str_starts_with($trimmed, '- ')) continue;
-            if (str_starts_with($trimmed, '* ')) continue;
-            if (preg_match('/^\d+\.\s/', $trimmed)) continue;
+            if (empty($trimmed)) {
+                continue;
+            }
+            if (str_starts_with($trimmed, '#')) {
+                continue;
+            }
+            if (str_starts_with($trimmed, '|')) {
+                continue;
+            }
+            if (str_starts_with($trimmed, '<')) {
+                continue;
+            }
+            if (str_starts_with($trimmed, '- ')) {
+                continue;
+            }
+            if (str_starts_with($trimmed, '* ')) {
+                continue;
+            }
+            if (preg_match('/^\d+\.\s/', $trimmed)) {
+                continue;
+            }
 
             // Clean inline markdown and return first paragraph
             $plain = preg_replace('/[*_`\[\]()#>]/', '', $trimmed);

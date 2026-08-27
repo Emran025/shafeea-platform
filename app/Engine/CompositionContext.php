@@ -13,10 +13,10 @@ use Carbon\Carbon;
 final class CompositionContext
 {
     public function __construct(
-        public readonly string  $locale,
-        public readonly string  $audience,
-        public readonly bool    $isPreview,
-        public readonly Carbon  $resolvedAt,
+        public readonly string $locale,
+        public readonly string $audience,
+        public readonly bool $isPreview,
+        public readonly Carbon $resolvedAt,
         public readonly ?string $requestId,
         public readonly ?string $schoolCode = null,  // School tenant identifier (school_code slug)
     ) {}
@@ -65,12 +65,12 @@ final class CompositionContext
     public function toContractArray(string $engineVersion = '1.0.0', string $contractVersion = 'rendering_contract@1.0'): array
     {
         return [
-            'locale'            => $this->locale,
-            'locale_direction'  => $this->localeDirection(),
-            'audience'          => $this->audience,
-            'is_preview'        => $this->isPreview,
-            'engine_version'    => $engineVersion,
-            'contract_version'  => $contractVersion,
+            'locale' => $this->locale,
+            'locale_direction' => $this->localeDirection(),
+            'audience' => $this->audience,
+            'is_preview' => $this->isPreview,
+            'engine_version' => $engineVersion,
+            'contract_version' => $contractVersion,
         ];
     }
 }

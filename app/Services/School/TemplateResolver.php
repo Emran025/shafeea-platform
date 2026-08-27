@@ -17,9 +17,9 @@ class TemplateResolver
      * Recursively walk any array/string structure and replace
      * {{dotted.key}} tokens with values from $context.
      *
-     * @param  mixed $template  The composed contract or any sub-structure.
-     * @param  array $context   Flat-or-nested resolution context, e.g. ['school' => [...]]
-     * @return mixed            Same type as $template, with placeholders resolved.
+     * @param  mixed  $template  The composed contract or any sub-structure.
+     * @param  array  $context  Flat-or-nested resolution context, e.g. ['school' => [...]]
+     * @return mixed Same type as $template, with placeholders resolved.
      */
     public function resolve(mixed $template, array $context): mixed
     {
@@ -44,7 +44,7 @@ class TemplateResolver
     private function interpolate(string $str, array $context): string
     {
         // Fast path — skip strings that have no placeholder
-        if (!str_contains($str, '{{')) {
+        if (! str_contains($str, '{{')) {
             return $str;
         }
 
@@ -75,7 +75,7 @@ class TemplateResolver
         $value = $data;
 
         foreach ($parts as $part) {
-            if (!is_array($value) || !array_key_exists($part, $value)) {
+            if (! is_array($value) || ! array_key_exists($part, $value)) {
                 return null;
             }
             $value = $value[$part];

@@ -74,8 +74,8 @@ class UsernameGenerator
      * called safely on every keystroke from the front-end suggestion endpoint.
      * Uniqueness is still enforced server-side when the form is submitted.
      *
-     * @param string $name Raw name string (Arabic, Latin, or mixed).
-     * @return string      A sanitized, human-readable base username candidate.
+     * @param  string  $name  Raw name string (Arabic, Latin, or mixed).
+     * @return string A sanitized, human-readable base username candidate.
      */
     public static function suggest(string $name): string
     {
@@ -101,9 +101,13 @@ class UsernameGenerator
     // =========================================================================
 
     private const INVISIBLE_CHARS_PATTERN = '/[\x{200B}-\x{200F}\x{202A}-\x{202E}\x{2060}\x{FEFF}\x{00AD}]/u';
+
     private const ARABIC_PUNCTUATION_PATTERN = '/[\x{060C}\x{061B}\x{061F}\x{066A}-\x{066D}\x{06D4}\x{FD3E}\x{FD3F}]/u';
+
     private const ARABIC_DIACRITICS_PATTERN = '/[\x{0610}-\x{061A}\x{064B}-\x{065F}\x{0670}\x{06D6}-\x{06DC}\x{06DF}-\x{06E8}\x{06EA}-\x{06ED}]/u';
+
     private const EMOJI_PATTERN = '/[\x{1F000}-\x{1FFFF}\x{2600}-\x{27BF}\x{2190}-\x{21FF}\x{2B00}-\x{2BFF}\x{FE0F}]/u';
+
     private const WHITESPACE_RUN_PATTERN = '/[\s\x{00A0}]+/u';
 
     private static function normalizeUnicode(string $name): string
@@ -126,7 +130,7 @@ class UsernameGenerator
      */
     private static function normalizeUnicodeForm(string $name): string
     {
-        if (!class_exists(\Normalizer::class)) {
+        if (! class_exists(\Normalizer::class)) {
             return $name;
         }
 
@@ -174,6 +178,7 @@ class UsernameGenerator
     private const ICU_RULE_SET = 'Any-Latin; Latin-ASCII';
 
     private static ?Transliterator $icuTransliterator = null;
+
     private static bool $icuInitialized = false;
 
     private static function transliterate(string $normalizedText): string
@@ -238,7 +243,7 @@ class UsernameGenerator
 
     private static function asciiFallbackEngine(string $word): ?string
     {
-        if (!function_exists('iconv')) {
+        if (! function_exists('iconv')) {
             return null;
         }
 
@@ -260,7 +265,7 @@ class UsernameGenerator
 
         self::$icuInitialized = true;
 
-        if (!extension_loaded('intl') || !class_exists(Transliterator::class)) {
+        if (! extension_loaded('intl') || ! class_exists(Transliterator::class)) {
             return self::$icuTransliterator = null;
         }
 
@@ -276,9 +281,13 @@ class UsernameGenerator
     // =========================================================================
 
     private const ALLOWED_CHARACTERS_PATTERN = '/[^a-z0-9._-]+/';
+
     private const REPEATED_SEPARATORS_PATTERN = '/[._-]{2,}/';
+
     private const SEPARATOR_TRIM_CHARS = '._-';
+
     private const FALLBACK_USERNAME = 'user';
+
     private const MINIMUM_USERNAME_LENGTH = 3;
 
     private static function sanitizeUsername(string $text): string
@@ -309,7 +318,7 @@ class UsernameGenerator
             return $left;
         }
 
-        return $left . $separator . $right;
+        return $left.$separator.$right;
     }
 
     /**
@@ -343,7 +352,7 @@ class UsernameGenerator
     private const WORD_SUFFIXES = ['dev', 'student', 'official', 'user'];
 
     /**
-     * @param list<string> $tokens Sanitized individual name parts, in order.
+     * @param  list<string>  $tokens  Sanitized individual name parts, in order.
      * @return list<string> Ordered, de-duplicated candidate usernames.
      */
     private static function generateCandidates(string $baseUsername, array $tokens): array
@@ -367,7 +376,7 @@ class UsernameGenerator
             $only = $tokens[0];
             array_push(
                 $candidates,
-                $only . 'q',
+                $only.'q',
                 self::joinFragments($only, 'a'),
                 self::joinFragments($only, 'aa', '-'),
             );
@@ -381,7 +390,7 @@ class UsernameGenerator
     }
 
     /**
-     * @param list<string> $candidates
+     * @param  list<string>  $candidates
      * @return list<string>
      */
     private static function deduplicateCandidates(array $candidates): array
@@ -414,8 +423,11 @@ class UsernameGenerator
     // =========================================================================
 
     private const USERNAME_TABLES = ['students', 'teachers', 'applicants'];
+
     private const USERNAME_COLUMN = 'username';
+
     private const NUMERIC_SUFFIX_BATCH_SIZE = 25;
+
     private const MAX_NUMERIC_SUFFIX_ATTEMPTS = 1000;
 
     /**
@@ -423,7 +435,7 @@ class UsernameGenerator
      * already exist in any tracked table — or null if every candidate in
      * the batch is taken.
      *
-     * @param list<string> $candidates
+     * @param  list<string>  $candidates
      */
     private static function resolveUniqueness(array $candidates): ?string
     {
@@ -434,7 +446,7 @@ class UsernameGenerator
         $taken = self::fetchTakenUsernames($candidates);
 
         foreach ($candidates as $candidate) {
-            if (!isset($taken[$candidate])) {
+            if (! isset($taken[$candidate])) {
                 return $candidate;
             }
         }
@@ -454,7 +466,7 @@ class UsernameGenerator
         while ($attempted < self::MAX_NUMERIC_SUFFIX_ATTEMPTS) {
             $batch = [];
             for ($offset = 1; $offset <= self::NUMERIC_SUFFIX_BATCH_SIZE; $offset++) {
-                $batch[] = $base . ($attempted + $offset);
+                $batch[] = $base.($attempted + $offset);
             }
 
             $available = self::resolveUniqueness($batch);
@@ -482,8 +494,8 @@ class UsernameGenerator
         $attempt = 0;
 
         do {
-            $suffix = substr(hash('crc32b', $base . '#' . $attempt), 0, 8);
-            $candidate = $base . $suffix;
+            $suffix = substr(hash('crc32b', $base.'#'.$attempt), 0, 8);
+            $candidate = $base.$suffix;
             $attempt++;
         } while (self::resolveUniqueness([$candidate]) === null && $attempt < self::MAX_NUMERIC_SUFFIX_ATTEMPTS);
 
@@ -494,7 +506,7 @@ class UsernameGenerator
      * Runs exactly one query per tracked table (three total, regardless
      * of batch size) and merges the results into a single lookup set.
      *
-     * @param list<string> $candidates
+     * @param  list<string>  $candidates
      * @return array<string, true>
      */
     private static function fetchTakenUsernames(array $candidates): array

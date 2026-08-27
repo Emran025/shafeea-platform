@@ -38,12 +38,11 @@ return new class extends Migration
             $table->string('location')->nullable()->comment('Location description');
             $table->string('address')->nullable()->comment('Full address');
             $table->string('status')->default('active')->comment('Operational status');
-            
+
             // Subscriptions & Resolution fields
             $table->foreignId('current_plan_id')->nullable()->constrained('subscription_plans')->onDelete('set null');
             $table->enum('subscription_status', ['active', 'past_due', 'canceled', 'pending_payment'])->default('pending_payment');
             $table->timestamp('subscription_ends_at')->nullable();
-
 
             $table->timestamps();
             $table->softDeletes()->comment('Soft delete timestamp');

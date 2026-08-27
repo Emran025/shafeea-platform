@@ -5,13 +5,13 @@ namespace App\Models\Teacher;
 use App\Models\Auth\User;
 use App\Models\Halaqah\Halaqah;
 use App\Models\Halaqah\HalaqahTeacher;
+use App\Models\Scopes\GenderScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Scopes\GenderScope;
 
 class Teacher extends Model
 {
-    use HasFactory, \App\Models\Traits\BelongsToSchool;
+    use \App\Models\Traits\BelongsToSchool, HasFactory;
 
     /**
      * The attributes that are mass assignable.
@@ -58,18 +58,20 @@ class Teacher extends Model
     public static function findByIdentifier($identifier)
     {
         $teacher = self::where('username', $identifier)->first();
-        if (!$teacher && is_numeric($identifier)) {
+        if (! $teacher && is_numeric($identifier)) {
             $teacher = self::where('user_id', $identifier)->first();
         }
+
         return $teacher;
     }
 
     public static function findByIdentifierOrFail($identifier)
     {
         $teacher = self::findByIdentifier($identifier);
-        if (!$teacher) {
+        if (! $teacher) {
             throw (new \Illuminate\Database\Eloquent\ModelNotFoundException)->setModel(self::class);
         }
+
         return $teacher;
     }
 

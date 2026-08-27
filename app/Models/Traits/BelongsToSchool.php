@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models\Traits;
 
 use Illuminate\Database\Eloquent\Builder;
@@ -10,7 +11,7 @@ trait BelongsToSchool
     {
         static::addGlobalScope('school', function (Builder $builder) {
             if (request()->has('school_id')) {
-                $builder->where($builder->getModel()->getTable() . '.school_id', request()->school_id);
+                $builder->where($builder->getModel()->getTable().'.school_id', request()->school_id);
             }
         });
 

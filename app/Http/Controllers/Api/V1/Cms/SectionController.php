@@ -24,11 +24,11 @@ class SectionController extends Controller
 
     public function index(Request $request): JsonResponse
     {
-        $query = Section::with(['blocks' => fn($q) => $q->orderByPivot('position')])
-            ->when($request->get('page_id'), fn($q, $v) => $q->where('page_id', $v))
-            ->when($request->get('status'),  fn($q, $v) => $q->where('status', $v))
-            ->when($request->get('type'),    fn($q, $v) => $q->where('type', $v))
-            ->whereHas('page', fn($q) => $q->where('site_scope', $request->route('school_code') ?? $request->get('site_scope')))->orderBy('ordering_position');
+        $query = Section::with(['blocks' => fn ($q) => $q->orderByPivot('position')])
+            ->when($request->get('page_id'), fn ($q, $v) => $q->where('page_id', $v))
+            ->when($request->get('status'), fn ($q, $v) => $q->where('status', $v))
+            ->when($request->get('type'), fn ($q, $v) => $q->where('type', $v))
+            ->whereHas('page', fn ($q) => $q->where('site_scope', $request->route('school_code') ?? $request->get('site_scope')))->orderBy('ordering_position');
 
         return response()->json($query->paginate((int) $request->get('per_page', 100)));
     }
@@ -39,7 +39,7 @@ class SectionController extends Controller
 
     public function show(string $id): JsonResponse
     {
-        $section = Section::with(['blocks' => fn($q) => $q->orderByPivot('position')])
+        $section = Section::with(['blocks' => fn ($q) => $q->orderByPivot('position')])
             ->findOrFail($id);
 
         return response()->json($section);
@@ -54,15 +54,15 @@ class SectionController extends Controller
         $actorId = $request->header('X-Actor-ID', '00000000-0000-0000-0000-000000000001');
 
         $section = Section::create([
-            'identity_name'    => $request->type,
-            'identity_owner'   => 'editorial',
+            'identity_name' => $request->type,
+            'identity_owner' => 'editorial',
             'identity_purpose' => '',
             ...$request->validated(),
-            'status'           => 'draft',
-            'created_by'       => $actorId,
+            'status' => 'draft',
+            'created_by' => $actorId,
             'last_modified_by' => $actorId,
-            'schema_version'   => 'section@1.0',
-            'version_number'   => 1,
+            'schema_version' => 'section@1.0',
+            'version_number' => 1,
         ]);
 
         return response()->json($section, 201);
@@ -79,7 +79,7 @@ class SectionController extends Controller
 
         $request->validate([
             'background_image_url' => 'nullable|string|max:2048',
-            'custom_css_classes'   => 'nullable|string|max:500',
+            'custom_css_classes' => 'nullable|string|max:500',
         ]);
 
         // SR-004: section type is immutable after first publish
@@ -108,7 +108,7 @@ class SectionController extends Controller
         }
 
         $data['last_modified_by'] = $actorId;
-        $data['version_number']   = ($section->version_number ?? 1) + 1;
+        $data['version_number'] = ($section->version_number ?? 1) + 1;
 
         $section->fill($data)->save();
 
@@ -124,13 +124,13 @@ class SectionController extends Controller
         $section = Section::findOrFail($sectionId);
 
         $request->validate([
-            'position'    => 'nullable|integer|min:0',
+            'position' => 'nullable|integer|min:0',
             'is_required' => 'boolean',
         ]);
 
         $section->blocks()->syncWithoutDetaching([
             $blockId => [
-                'position'    => $request->get('position', 0),
+                'position' => $request->get('position', 0),
                 'is_required' => $request->boolean('is_required', false),
             ],
         ]);

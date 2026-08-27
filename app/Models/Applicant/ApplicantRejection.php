@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ApplicantRejection extends Model
 {
-    use HasFactory, \App\Models\Traits\BelongsToSchool;
+    use \App\Models\Traits\BelongsToSchool, HasFactory;
 
     protected $fillable = [
         'applicant_id',

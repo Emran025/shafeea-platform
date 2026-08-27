@@ -37,13 +37,13 @@ class FaqCategoryController extends Controller
     public function store(Request $request): JsonResponse
     {
         $data = $request->validate([
-            'name'       => ['required', 'string', 'max:120'],
-            'locale'     => ['required', Rule::in(['en', 'ar'])],
+            'name' => ['required', 'string', 'max:120'],
+            'locale' => ['required', Rule::in(['en', 'ar'])],
             'sort_order' => ['sometimes', 'integer', 'min:0'],
-            'is_active'  => ['sometimes', 'boolean'],
+            'is_active' => ['sometimes', 'boolean'],
         ]);
 
-        $data['slug'] = Str::slug($data['name'] . '-' . $data['locale']);
+        $data['slug'] = Str::slug($data['name'].'-'.$data['locale']);
         $data['site_scope'] = $request->route('school_code') ?? $request->get('site_scope');
 
         $category = FaqCategory::create($data);
@@ -54,16 +54,16 @@ class FaqCategoryController extends Controller
     public function update(Request $request, FaqCategory $faqCategory): JsonResponse
     {
         $data = $request->validate([
-            'name'       => ['sometimes', 'string', 'max:120'],
-            'locale'     => ['sometimes', Rule::in(['en', 'ar'])],
+            'name' => ['sometimes', 'string', 'max:120'],
+            'locale' => ['sometimes', Rule::in(['en', 'ar'])],
             'sort_order' => ['sometimes', 'integer', 'min:0'],
-            'is_active'  => ['sometimes', 'boolean'],
+            'is_active' => ['sometimes', 'boolean'],
         ]);
 
         if (isset($data['name'])) {
             $locale = $data['locale'] ?? $faqCategory->locale;
-            $data['slug'] = Str::slug($data['name'] . '-' . $locale);
-        $data['site_scope'] = $request->route('school_code') ?? $request->get('site_scope');
+            $data['slug'] = Str::slug($data['name'].'-'.$locale);
+            $data['site_scope'] = $request->route('school_code') ?? $request->get('site_scope');
         }
 
         $faqCategory->fill($data)->save();
@@ -74,6 +74,7 @@ class FaqCategoryController extends Controller
     public function destroy(FaqCategory $faqCategory): JsonResponse
     {
         $faqCategory->delete();
+
         return response()->json(null, 204);
     }
 }

@@ -32,8 +32,8 @@ class MediaController extends Controller
     public function index(Request $request): JsonResponse
     {
         $query = Media::query()
-            ->when($request->get('status'),     fn($q, $v) => $q->where('status', $v))
-            ->when($request->get('type'),       fn($q, $v) => $q->where('type', $v))
+            ->when($request->get('status'), fn ($q, $v) => $q->where('status', $v))
+            ->when($request->get('type'), fn ($q, $v) => $q->where('type', $v))
             ->where('site_scope', $request->route('school_code') ?? $request->get('site_scope'))
             ->orderBy('created_at', 'desc');
 
@@ -56,69 +56,69 @@ class MediaController extends Controller
     public function upload(Request $request): JsonResponse
     {
         $request->validate([
-            'file'     => 'required|file|mimes:jpeg,jpg,png,gif,webp,svg,avif|max:20480',
+            'file' => 'required|file|mimes:jpeg,jpg,png,gif,webp,svg,avif|max:20480',
             'alt_text' => 'nullable|string|max:500',
-            'name'     => 'nullable|string|max:255',
+            'name' => 'nullable|string|max:255',
         ]);
 
-        $file    = $request->file('file');
+        $file = $request->file('file');
         $actorId = $request->header('X-Actor-ID', '00000000-0000-0000-0000-000000000001');
-        $ext     = strtolower($file->getClientOriginalExtension() ?: 'jpg');
-        $uid     = substr(str_replace('-', '', (string) Str::uuid()), 0, 14);
-        $filename = 'media_' . $uid . '.' . $ext;
-        $dir      = public_path('uploads/media');
+        $ext = strtolower($file->getClientOriginalExtension() ?: 'jpg');
+        $uid = substr(str_replace('-', '', (string) Str::uuid()), 0, 14);
+        $filename = 'media_'.$uid.'.'.$ext;
+        $dir = public_path('uploads/media');
 
         // Capture these before move() deletes the temp file
-        $mime        = $file->getMimeType() ?: 'image/jpeg';
-        $clientName  = $file->getClientOriginalName();
-        $inputName   = $request->input('name') ?: pathinfo($clientName, PATHINFO_FILENAME);
+        $mime = $file->getMimeType() ?: 'image/jpeg';
+        $clientName = $file->getClientOriginalName();
+        $inputName = $request->input('name') ?: pathinfo($clientName, PATHINFO_FILENAME);
 
         if (! is_dir($dir)) {
             mkdir($dir, 0755, true);
         }
 
         $file->move($dir, $filename);
-        $fullPath = $dir . DIRECTORY_SEPARATOR . $filename;
+        $fullPath = $dir.DIRECTORY_SEPARATOR.$filename;
 
         // Attempt to read image dimensions
-        $width  = null;
+        $width = null;
         $height = null;
         if (in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'webp'], true)) {
-            $size   = @getimagesize($fullPath);
-            $width  = $size[0] ?? null;
+            $size = @getimagesize($fullPath);
+            $width = $size[0] ?? null;
             $height = $size[1] ?? null;
         }
 
         // Use a root-relative path so images work on any hostname/proxy
-        $relativePath = '/uploads/media/' . $filename;
-        $altText      = $request->input('alt_text');
-        $name         = $inputName;
-        $imgType      = str_starts_with($mime, 'image/svg') ? 'image.graphic' : 'image.photo';
+        $relativePath = '/uploads/media/'.$filename;
+        $altText = $request->input('alt_text');
+        $name = $inputName;
+        $imgType = str_starts_with($mime, 'image/svg') ? 'image.graphic' : 'image.photo';
 
         $media = Media::create([
-            'type'                       => $imgType,
-            'status'                     => 'ready',
-            'identity_name'              => $name,
+            'type' => $imgType,
+            'status' => 'ready',
+            'identity_name' => $name,
             'identity_original_filename' => $clientName,
-            'identity_owner'             => 'upload',
-            'identity_tags'              => [],
-            'source_store_type'          => 'external_url',
-            'source_external_url'        => $relativePath,
-            'source_mime_type'           => $mime,
-            'source_size_bytes'          => file_exists($fullPath) ? filesize($fullPath) : null,
-            'dimensions_width'           => $width,
-            'dimensions_height'          => $height,
-            'delivery_base_url'          => $relativePath,
-            'delivery_variants'          => [['label' => 'original', 'url' => $relativePath]],
-            'locale_meta'                => $altText ? ['en' => ['alt_text' => $altText]] : [],
-            'created_by'                 => $actorId,
-            'last_modified_by'           => $actorId,
-            'site_scope'                 => $request->route('school_code') ?? $request->get('site_scope'),
+            'identity_owner' => 'upload',
+            'identity_tags' => [],
+            'source_store_type' => 'external_url',
+            'source_external_url' => $relativePath,
+            'source_mime_type' => $mime,
+            'source_size_bytes' => file_exists($fullPath) ? filesize($fullPath) : null,
+            'dimensions_width' => $width,
+            'dimensions_height' => $height,
+            'delivery_base_url' => $relativePath,
+            'delivery_variants' => [['label' => 'original', 'url' => $relativePath]],
+            'locale_meta' => $altText ? ['en' => ['alt_text' => $altText]] : [],
+            'created_by' => $actorId,
+            'last_modified_by' => $actorId,
+            'site_scope' => $request->route('school_code') ?? $request->get('site_scope'),
         ]);
 
         return response()->json([
             'media' => $media,
-            'url'   => $relativePath,
+            'url' => $relativePath,
         ], 201);
     }
 
@@ -131,17 +131,17 @@ class MediaController extends Controller
         $actorId = $request->header('X-Actor-ID', '00000000-0000-0000-0000-000000000001');
 
         $request->validate([
-            'type'                       => 'required|in:image.photo,image.graphic,image.icon,image.logo,video.hosted,video.native,document.pdf,document.report',
-            'identity_name'              => 'required|string|max:500',
+            'type' => 'required|in:image.photo,image.graphic,image.icon,image.logo,video.hosted,video.native,document.pdf,document.report',
+            'identity_name' => 'required|string|max:500',
             'identity_original_filename' => 'required|string|max:500',
-            'identity_owner'             => 'required|string|max:255',
-            'source_store_type'          => 'required|in:s3_compatible,external_url',
-            'source_mime_type'           => 'required|string|max:200',
-            'source_bucket'              => 'nullable|string|max:255',
-            'source_object_key'          => 'nullable|string|max:1000',
-            'source_external_url'        => 'nullable|string|max:2000',
-            'delivery_base_url'          => 'required|string|max:2000',
-            'locale_meta'                => 'nullable|array',
+            'identity_owner' => 'required|string|max:255',
+            'source_store_type' => 'required|in:s3_compatible,external_url',
+            'source_mime_type' => 'required|string|max:200',
+            'source_bucket' => 'nullable|string|max:255',
+            'source_object_key' => 'nullable|string|max:1000',
+            'source_external_url' => 'nullable|string|max:2000',
+            'delivery_base_url' => 'required|string|max:2000',
+            'locale_meta' => 'nullable|array',
         ]);
 
         $media = Media::create([
@@ -166,9 +166,9 @@ class MediaController extends Controller
                 'delivery_is_public',
                 'locale_meta',
             ]),
-            'status'           => 'processing',
-            'site_scope'       => $request->route('school_code') ?? $request->get('site_scope'),
-            'created_by'       => $actorId,
+            'status' => 'processing',
+            'site_scope' => $request->route('school_code') ?? $request->get('site_scope'),
+            'created_by' => $actorId,
             'last_modified_by' => $actorId,
         ]);
 
@@ -181,13 +181,13 @@ class MediaController extends Controller
 
     public function update(Request $request, string $id): JsonResponse
     {
-        $media   = Media::findOrFail($id);
+        $media = Media::findOrFail($id);
         $actorId = $request->header('X-Actor-ID', '00000000-0000-0000-0000-000000000001');
 
         $request->validate([
-            'identity_name'  => 'sometimes|string|max:500',
-            'locale_meta'    => 'sometimes|array',
-            'identity_tags'  => 'sometimes|array',
+            'identity_name' => 'sometimes|string|max:500',
+            'locale_meta' => 'sometimes|array',
+            'identity_tags' => 'sometimes|array',
             'delivery_is_public' => 'sometimes|boolean',
         ]);
 

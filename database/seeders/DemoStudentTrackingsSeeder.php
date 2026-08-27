@@ -11,7 +11,7 @@ class DemoStudentTrackingsSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     * 
+     *
      * Seeds demo enrollment with specific creation dates and memorization levels
      * Useful for demonstrating historical data and various teacher states
      */
@@ -23,7 +23,8 @@ class DemoStudentTrackingsSeeder extends Seeder
 
         if (! file_exists($jsonPath)) {
             $this->command->warn('⚠️  Demo students JSON file not found. Skipping seeder.');
-            $this->command->info('Expected path: ' . $jsonPath);
+            $this->command->info('Expected path: '.$jsonPath);
+
             return;
         }
 
@@ -32,6 +33,7 @@ class DemoStudentTrackingsSeeder extends Seeder
 
         if (empty($demoStudentTrackings)) {
             $this->command->warn('⚠️  No demo students found in JSON file.');
+
             return;
         }
 

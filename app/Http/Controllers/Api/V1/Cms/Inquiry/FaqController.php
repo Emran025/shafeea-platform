@@ -24,7 +24,7 @@ class FaqController extends Controller
 {
     public function index(Request $request): JsonResponse
     {
-        $query = Faq::query()->with('category:id,name,slug')->whereHas('category', fn($q) => $q->where('site_scope', $request->route('school_code') ?? $request->get('site_scope')));
+        $query = Faq::query()->with('category:id,name,slug')->whereHas('category', fn ($q) => $q->where('site_scope', $request->route('school_code') ?? $request->get('site_scope')));
 
         if ($locale = $request->query('locale')) {
             $query->where('locale', $locale);
@@ -45,10 +45,10 @@ class FaqController extends Controller
     {
         $data = $request->validate([
             'category_id' => ['nullable', 'exists:faq_categories,id'],
-            'locale'      => ['required', Rule::in(['en', 'ar'])],
-            'question'    => ['required', 'string'],
-            'answer'      => ['required', 'string'],
-            'sort_order'  => ['sometimes', 'integer', 'min:0'],
+            'locale' => ['required', Rule::in(['en', 'ar'])],
+            'question' => ['required', 'string'],
+            'answer' => ['required', 'string'],
+            'sort_order' => ['sometimes', 'integer', 'min:0'],
         ]);
 
         $actorId = $request->attributes->get('admin_user')?->id;
@@ -68,10 +68,10 @@ class FaqController extends Controller
     {
         $data = $request->validate([
             'category_id' => ['sometimes', 'nullable', 'exists:faq_categories,id'],
-            'locale'      => ['sometimes', Rule::in(['en', 'ar'])],
-            'question'    => ['sometimes', 'string'],
-            'answer'      => ['sometimes', 'string'],
-            'sort_order'  => ['sometimes', 'integer', 'min:0'],
+            'locale' => ['sometimes', Rule::in(['en', 'ar'])],
+            'question' => ['sometimes', 'string'],
+            'answer' => ['sometimes', 'string'],
+            'sort_order' => ['sometimes', 'integer', 'min:0'],
         ]);
 
         $faq->fill($data)->save();
@@ -82,6 +82,7 @@ class FaqController extends Controller
     public function destroy(Faq $faq): JsonResponse
     {
         $faq->delete();
+
         return response()->json(null, 204);
     }
 

@@ -36,13 +36,13 @@ class StatusTransition extends Model
         ?string $notes = null,
     ): self {
         return self::create([
-            'object_type'      => $objectType,
-            'object_id'        => $objectId,
-            'from_status'      => $fromStatus,
-            'to_status'        => $toStatus,
-            'transitioned_by'  => $transitionedBy,
-            'transitioned_at'  => now(),
-            'notes'            => $notes,
+            'object_type' => $objectType,
+            'object_id' => $objectId,
+            'from_status' => $fromStatus,
+            'to_status' => $toStatus,
+            'transitioned_by' => $transitionedBy,
+            'transitioned_at' => now(),
+            'notes' => $notes,
         ]);
     }
 

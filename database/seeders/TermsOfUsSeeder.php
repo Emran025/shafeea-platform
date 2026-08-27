@@ -19,7 +19,8 @@ class TermsOfUsSeeder extends Seeder
 
         if (! file_exists($jsonPath)) {
             $this->command->warn('⚠️  Demo terms_of_us JSON file not found. Skipping seeder.');
-            $this->command->info('Expected path: ' . $jsonPath);
+            $this->command->info('Expected path: '.$jsonPath);
+
             return;
         }
 
@@ -28,6 +29,7 @@ class TermsOfUsSeeder extends Seeder
 
         if (empty($terms_of_us)) {
             $this->command->warn('⚠️  No terms_of_us found in JSON file.');
+
             return;
         }
 
@@ -43,7 +45,7 @@ class TermsOfUsSeeder extends Seeder
                 'is_active' => true,
             ]
         );
-        
+
         $this->command->info('✅ Terms of Use seeded successfully.');
     }
 }

@@ -114,7 +114,7 @@ class ServiceController extends Controller
             // Delete old file if it was a stored path
             // Note: We use getRawOriginal to get the path without the accessor's URL conversion
             $oldPath = $service->getRawOriginal('image');
-            if ($oldPath && !str_starts_with($oldPath, 'http')) {
+            if ($oldPath && ! str_starts_with($oldPath, 'http')) {
                 Storage::disk('public')->delete($oldPath);
             }
 

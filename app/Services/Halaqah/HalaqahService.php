@@ -3,13 +3,13 @@
 namespace App\Services\Halaqah;
 
 use App\Events\StudentEnrolledInHalaqahEvent;
-use App\Models\Student\Enrollment;
 use App\Models\Halaqah\Halaqah;
-use App\Models\Teacher\Teacher;
+use App\Models\Student\Enrollment;
 use App\Models\Student\Student;
 use App\Models\Subscription\Plan;
-use Illuminate\Support\Facades\DB;
+use App\Models\Teacher\Teacher;
 use Exception;
+use Illuminate\Support\Facades\DB;
 
 class HalaqahService
 {
@@ -95,7 +95,7 @@ class HalaqahService
             }
 
             $defaultPlanId = 1;
-            if (!Plan::where('id', $defaultPlanId)->exists()) {
+            if (! Plan::where('id', $defaultPlanId)->exists()) {
                 throw new Exception('Default plan with ID 1 does not exist.');
             }
 
@@ -134,7 +134,7 @@ class HalaqahService
         });
 
         // Dispatch one enrollment notification per newly enrolled student (post-commit)
-        if (!empty($newStudentIds)) {
+        if (! empty($newStudentIds)) {
             $newEnrollments = Enrollment::where('halaqah_id', $id)
                 ->whereIn('student_id', array_values($newStudentIds))
                 ->get();

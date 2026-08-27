@@ -34,8 +34,8 @@ class StoreSchoolApplicationRequest extends FormRequest
     {
         return [
             // School Data
-            'school_name'     => ['required', 'string', 'max:255'],
-            'school_code'     => [
+            'school_name' => ['required', 'string', 'max:255'],
+            'school_code' => [
                 'required',
                 'string',
                 'min:3',
@@ -43,7 +43,7 @@ class StoreSchoolApplicationRequest extends FormRequest
                 'regex:/^[a-z0-9][a-z0-9\-]*[a-z0-9]$/',
                 'unique:schools,school_code',
             ],
-            'school_logo'     => ['required', 'file', 'image', 'max:5120'],
+            'school_logo' => ['required', 'file', 'image', 'max:5120'],
             'school_phone_zone' => ['required', 'string', 'max:10'],
             'school_phone' => ['required', 'string', 'max:255'],
             'school_country' => ['required', 'string', 'max:255'],
@@ -112,13 +112,13 @@ class StoreSchoolApplicationRequest extends FormRequest
         );
 
         foreach (array_keys($documents) as $index) {
-            $attributes["documents.{$index}.name"] = "اسم الوثيقة رقم " . ($index + 1);
-            $attributes["documents.{$index}.certificate_type"] = "نوع الوثيقة رقم " . ($index + 1);
-            $attributes["documents.{$index}.certificate_type_other"] = "نوع الوثيقة (أخرى) رقم " . ($index + 1);
-            $attributes["documents.{$index}.riwayah"] = "الرواية للوثيقة رقم " . ($index + 1);
-            $attributes["documents.{$index}.issuing_place"] = "مكان إصدار الوثيقة رقم " . ($index + 1);
-            $attributes["documents.{$index}.issuing_date"] = "تاريخ إصدار الوثيقة رقم " . ($index + 1);
-            $attributes["documents.{$index}.file"] = "ملف الوثيقة رقم " . ($index + 1);
+            $attributes["documents.{$index}.name"] = 'اسم الوثيقة رقم '.($index + 1);
+            $attributes["documents.{$index}.certificate_type"] = 'نوع الوثيقة رقم '.($index + 1);
+            $attributes["documents.{$index}.certificate_type_other"] = 'نوع الوثيقة (أخرى) رقم '.($index + 1);
+            $attributes["documents.{$index}.riwayah"] = 'الرواية للوثيقة رقم '.($index + 1);
+            $attributes["documents.{$index}.issuing_place"] = 'مكان إصدار الوثيقة رقم '.($index + 1);
+            $attributes["documents.{$index}.issuing_date"] = 'تاريخ إصدار الوثيقة رقم '.($index + 1);
+            $attributes["documents.{$index}.file"] = 'ملف الوثيقة رقم '.($index + 1);
         }
 
         return $attributes;
@@ -130,13 +130,13 @@ class StoreSchoolApplicationRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'school_name.required'    => 'اسم المدرسة مطلوب.',
-            'school_code.required'    => 'رمز المدرسة مطلوب.',
-            'school_code.min'         => 'رمز المدرسة يجب ألا يقل عن 3 أحرف.',
-            'school_code.max'         => 'رمز المدرسة يجب ألا يتجاوز 40 حرفاً.',
-            'school_code.regex'       => 'رمز المدرسة يجب أن يحتوي فقط على أحرف إنجليزية صغيرة وأرقام وشرطات، ولا يبدأ أو ينتهي بشرطة.',
-            'school_code.unique'      => 'رمز المدرسة هذا مستخدم بالفعل. يرجى اختيار رمز آخر.',
-            'school_logo.required'    => 'شعار المدرسة مطلوب.',
+            'school_name.required' => 'اسم المدرسة مطلوب.',
+            'school_code.required' => 'رمز المدرسة مطلوب.',
+            'school_code.min' => 'رمز المدرسة يجب ألا يقل عن 3 أحرف.',
+            'school_code.max' => 'رمز المدرسة يجب ألا يتجاوز 40 حرفاً.',
+            'school_code.regex' => 'رمز المدرسة يجب أن يحتوي فقط على أحرف إنجليزية صغيرة وأرقام وشرطات، ولا يبدأ أو ينتهي بشرطة.',
+            'school_code.unique' => 'رمز المدرسة هذا مستخدم بالفعل. يرجى اختيار رمز آخر.',
+            'school_logo.required' => 'شعار المدرسة مطلوب.',
             'school_logo.file' => 'شعار المدرسة المرفوع غير صالح.',
             'school_logo.image' => 'يجب أن يكون الشعار صورة.',
             'school_logo.max' => 'حجم الشعار يجب ألا يتجاوز 5 ميجابايت.',

@@ -17,8 +17,8 @@ class NavigationEntry extends Model
     protected function casts(): array
     {
         return [
-            'label'                => 'array',
-            'badge_text'           => 'array',
+            'label' => 'array',
+            'badge_text' => 'array',
             'is_badge_highlighted' => 'boolean',
         ];
     }

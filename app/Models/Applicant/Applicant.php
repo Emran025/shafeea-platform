@@ -2,7 +2,6 @@
 
 namespace App\Models\Applicant;
 
-use App\Models\Applicant\ApplicantRejection;
 use App\Models\Auth\User;
 use App\Models\School\School;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Applicant extends Model
 {
-    use HasFactory, \App\Models\Traits\BelongsToSchool;
+    use \App\Models\Traits\BelongsToSchool, HasFactory;
 
     /**
      * The table associated with the model.
@@ -65,21 +64,23 @@ class Applicant extends Model
     public static function findByIdentifier($identifier)
     {
         $applicant = self::where('username', $identifier)->first();
-        if (!$applicant && is_numeric($identifier)) {
+        if (! $applicant && is_numeric($identifier)) {
             $applicant = self::find($identifier);
-            if (!$applicant) {
+            if (! $applicant) {
                 $applicant = self::where('user_id', $identifier)->first();
             }
         }
+
         return $applicant;
     }
 
     public static function findByIdentifierOrFail($identifier)
     {
         $applicant = self::findByIdentifier($identifier);
-        if (!$applicant) {
+        if (! $applicant) {
             throw (new \Illuminate\Database\Eloquent\ModelNotFoundException)->setModel(self::class);
         }
+
         return $applicant;
     }
 

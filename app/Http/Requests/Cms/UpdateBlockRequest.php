@@ -28,14 +28,14 @@ class UpdateBlockRequest extends FormRequest
     {
         return [
             // type intentionally excluded — SR-005: type is immutable after creation
-            'locale_content'               => 'sometimes|array',
+            'locale_content' => 'sometimes|array',
             'locale_content.*.is_complete' => 'nullable|boolean',
-            'locale_content.*.fields'      => 'nullable|array',
-            'media_id'                     => 'sometimes|nullable|uuid|exists:media,id',
-            'actions'                      => 'sometimes|array',
-            'config_is_decorative'         => 'sometimes|boolean',
-            'config_is_featured'           => 'sometimes|boolean',
-            'config_display_weight'        => 'sometimes|integer|min:1|max:10',
+            'locale_content.*.fields' => 'nullable|array',
+            'media_id' => 'sometimes|nullable|uuid|exists:media,id',
+            'actions' => 'sometimes|array',
+            'config_is_decorative' => 'sometimes|boolean',
+            'config_is_featured' => 'sometimes|boolean',
+            'config_display_weight' => 'sometimes|integer|min:1|max:10',
         ];
     }
 
@@ -45,7 +45,7 @@ class UpdateBlockRequest extends FormRequest
         $validator->after(function ($v) {
             if ($this->has('type')) {
                 $blockId = $this->route('block');
-                $block   = Block::find($blockId);
+                $block = Block::find($blockId);
 
                 if ($block && $this->get('type') !== $block->type) {
                     $v->errors()->add(

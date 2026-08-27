@@ -10,12 +10,11 @@ class DemoHalaqahsSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     * 
+     *
      * Seeds 23 schools with admin users based on predefined Arabic names
      */
     public function run(): void
     {
-
 
         // Load school names from JSON file
         $schoolNames = json_decode(
@@ -46,6 +45,6 @@ class DemoHalaqahsSeeder extends Seeder
             $halaqahs->push($halaqah);
         }
 
-        $this->command->info('✅ Created ' . count($schoolNames) . ' Halaqahs with its Teacher.');
+        $this->command->info('✅ Created '.count($schoolNames).' Halaqahs with its Teacher.');
     }
 }

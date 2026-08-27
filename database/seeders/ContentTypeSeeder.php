@@ -26,6 +26,6 @@ class ContentTypeSeeder extends Seeder
             );
         }
 
-        $this->command->info('✅ Seeded ' . ContentType::count() . ' content types.');
+        $this->command->info('✅ Seeded '.ContentType::count().' content types.');
     }
 }

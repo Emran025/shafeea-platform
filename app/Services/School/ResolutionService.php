@@ -13,8 +13,9 @@ use App\Models\Cms\Page;
  */
 class ResolutionService
 {
-    private const ENGINE_FALLBACK_LOCALE  = 'en';
-    private const BROKEN_LINK_POLICY      = 'keep_with_warning';   // CR-default
+    private const ENGINE_FALLBACK_LOCALE = 'en';
+
+    private const BROKEN_LINK_POLICY = 'keep_with_warning';   // CR-default
 
     // -------------------------------------------------------------------------
     // 1. Locale Resolution
@@ -29,7 +30,7 @@ class ResolutionService
      *   or null if no resolvable locale exists (block should be excluded).
      */
     public function resolveBlockLocale(
-        Block  $block,
+        Block $block,
         string $requestedLocale,
         string $localeStrategy,
         string $tenantDefaultLocale = 'en',
@@ -39,8 +40,8 @@ class ResolutionService
         // Attempt 1: requested locale
         if (isset($localeContent[$requestedLocale]) && $this->isLocaleComplete($localeContent[$requestedLocale])) {
             return [
-                'content'     => $localeContent[$requestedLocale],
-                'locale'      => $requestedLocale,
+                'content' => $localeContent[$requestedLocale],
+                'locale' => $requestedLocale,
                 'is_fallback' => false,
             ];
         }
@@ -57,22 +58,22 @@ class ResolutionService
             && $this->isLocaleComplete($localeContent[$tenantDefaultLocale])
         ) {
             return [
-                'content'     => $localeContent[$tenantDefaultLocale],
-                'locale'      => $tenantDefaultLocale,
+                'content' => $localeContent[$tenantDefaultLocale],
+                'locale' => $tenantDefaultLocale,
                 'is_fallback' => true,
             ];
         }
 
         // Attempt 3: engine fallback locale ('en')
         if (
-            self::ENGINE_FALLBACK_LOCALE !== $requestedLocale
-            && self::ENGINE_FALLBACK_LOCALE !== $tenantDefaultLocale
+            $requestedLocale !== self::ENGINE_FALLBACK_LOCALE
+            && $tenantDefaultLocale !== self::ENGINE_FALLBACK_LOCALE
             && isset($localeContent[self::ENGINE_FALLBACK_LOCALE])
             && $this->isLocaleComplete($localeContent[self::ENGINE_FALLBACK_LOCALE])
         ) {
             return [
-                'content'     => $localeContent[self::ENGINE_FALLBACK_LOCALE],
-                'locale'      => self::ENGINE_FALLBACK_LOCALE,
+                'content' => $localeContent[self::ENGINE_FALLBACK_LOCALE],
+                'locale' => self::ENGINE_FALLBACK_LOCALE,
                 'is_fallback' => true,
             ];
         }
@@ -135,18 +136,19 @@ class ResolutionService
                 message: "Media reference '{$mediaId}' does not resolve to a ready media object.",
                 severity: 'warning',
             );
+
             return null;
         }
 
         $localeMeta = $media->resolveLocaleMeta($locale) ?? [];
 
         return [
-            'id'           => $media->id,
-            'type'         => $media->type,
-            'alt_text'     => $localeMeta['alt_text'] ?? '',
-            'caption'      => $localeMeta['caption'] ?? null,
+            'id' => $media->id,
+            'type' => $media->type,
+            'alt_text' => $localeMeta['alt_text'] ?? '',
+            'caption' => $localeMeta['caption'] ?? null,
             'is_decorative' => false,
-            'variants'     => $media->delivery_variants ?? [],
+            'variants' => $media->delivery_variants ?? [],
         ];
     }
 
@@ -163,7 +165,7 @@ class ResolutionService
         string $sectionId,
         string $sectionType,
         string $reason,
-        array  &$warnings = [],
+        array &$warnings = [],
     ): string {
         $warnings[] = $this->buildWarning(
             code: 'SECTION_EXCLUDED_INVALID',
@@ -174,10 +176,10 @@ class ResolutionService
         );
 
         return match ($fallbackPolicy) {
-            'show_partial'        => 'exclude_section',
-            'show_none'           => 'abort_composition',
+            'show_partial' => 'exclude_section',
+            'show_none' => 'abort_composition',
             'show_error_contract' => 'partial_contract',
-            default               => 'exclude_section',
+            default => 'exclude_section',
         };
     }
 
@@ -197,10 +199,10 @@ class ResolutionService
     public function buildPageFallback(string $case, array $navigation = []): array
     {
         return match ($case) {
-            'not_found'  => $this->errorPayload('PAGE_NOT_FOUND', 404,  'The requested page does not exist.', $navigation),
-            'archived'   => $this->errorPayload('PAGE_ARCHIVED',  410,  'The requested page has been archived.', $navigation),
+            'not_found' => $this->errorPayload('PAGE_NOT_FOUND', 404, 'The requested page does not exist.', $navigation),
+            'archived' => $this->errorPayload('PAGE_ARCHIVED', 410, 'The requested page has been archived.', $navigation),
             'restricted' => $this->errorPayload('PAGE_RESTRICTED', 403, 'The requested page is not accessible for this audience.', $navigation),
-            default      => $this->errorPayload('PAGE_NOT_FOUND', 404,  'The requested page could not be resolved.', $navigation),
+            default => $this->errorPayload('PAGE_NOT_FOUND', 404, 'The requested page could not be resolved.', $navigation),
         };
     }
 
@@ -208,10 +210,10 @@ class ResolutionService
     {
         return [
             'contract_type' => 'error',
-            'payload'       => [
+            'payload' => [
                 'error_type' => $errorType,
-                'http_hint'  => $httpHint,
-                'message'    => $message,
+                'http_hint' => $httpHint,
+                'message' => $message,
                 'navigation' => $navigation,
             ],
         ];
@@ -227,9 +229,9 @@ class ResolutionService
      */
     public function resolveCtaDestination(array $action, bool $isPreview, array &$warnings = []): array
     {
-        $destination     = $action['destination'] ?? [];
+        $destination = $action['destination'] ?? [];
         $destinationType = $destination['type'] ?? null;
-        $isBroken        = false;
+        $isBroken = false;
 
         if ($destinationType === 'internal_page') {
             $slug = $destination['value'] ?? null;
@@ -271,6 +273,7 @@ class ResolutionService
         );
 
         $warnings[] = $warning;
+
         return $warning;
     }
 
@@ -286,11 +289,11 @@ class ResolutionService
         string $severity = 'warning',
     ): array {
         return [
-            'code'        => $code,
+            'code' => $code,
             'object_type' => $objectType,
-            'object_id'   => $objectId,
-            'message'     => $message,
-            'severity'    => $severity,
+            'object_id' => $objectId,
+            'message' => $message,
+            'severity' => $severity,
         ];
     }
 }

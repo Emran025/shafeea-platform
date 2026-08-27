@@ -40,19 +40,19 @@ class LoginRequest extends FormRequest
         $isApiRequest = $this->expectsJson() || $this->is('api/*');
 
         return [
-            'email'    => 'required|email',
+            'email' => 'required|email',
             'password' => 'required',
 
             // device_info is mandatory for mobile/API clients, optional for web logins
-            'device_info'              => $isApiRequest ? 'required|array' : 'nullable|array',
-            'device_info.device_id'    => $isApiRequest ? 'required|string|max:255' : 'nullable|string|max:255',
-            'device_info.model'        => $isApiRequest ? 'required|string|max:100' : 'nullable|string|max:100',
+            'device_info' => $isApiRequest ? 'required|array' : 'nullable|array',
+            'device_info.device_id' => $isApiRequest ? 'required|string|max:255' : 'nullable|string|max:255',
+            'device_info.model' => $isApiRequest ? 'required|string|max:100' : 'nullable|string|max:100',
             'device_info.manufacturer' => $isApiRequest ? 'required|string|max:100' : 'nullable|string|max:100',
-            'device_info.os_version'   => $isApiRequest ? 'required|string|max:50'  : 'nullable|string|max:50',
-            'device_info.app_version'  => 'nullable|string|max:20',
-            'device_info.timezone'     => 'nullable|string|max:50',
-            'device_info.locale'       => 'nullable|string|max:10',
-            'device_info.fcm_token'    => 'nullable|string|max:255',
+            'device_info.os_version' => $isApiRequest ? 'required|string|max:50' : 'nullable|string|max:50',
+            'device_info.app_version' => 'nullable|string|max:20',
+            'device_info.timezone' => 'nullable|string|max:50',
+            'device_info.locale' => 'nullable|string|max:10',
+            'device_info.fcm_token' => 'nullable|string|max:255',
         ];
     }
 }

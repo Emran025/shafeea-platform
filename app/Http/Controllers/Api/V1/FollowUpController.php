@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use Illuminate\Http\Request;
 use App\Models\Student\Student;
 use App\Models\Tracking\Tracking;
+use Illuminate\Http\Request;
 
 class FollowUpController extends ApiController
 {
@@ -12,7 +12,6 @@ class FollowUpController extends ApiController
      * GET /follow-ups/students
      * Retrieve follow-up reports for a student with optional summary.
      */
-
     public function studentReports(Request $request)
     {
         $studentUserId = $request->query('studentId');
@@ -23,7 +22,6 @@ class FollowUpController extends ApiController
         $sortOrder = strtolower($request->query('sortOrder', 'asc'));
 
         $student = Student::where('user_id', $studentUserId)->first();
-
 
         if (! $student) {
             return $this->error('Student not found', 404);

@@ -3,7 +3,6 @@
 namespace App\Models\Auth;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Auth\User;
 
 class AdminApiToken extends Model
 {

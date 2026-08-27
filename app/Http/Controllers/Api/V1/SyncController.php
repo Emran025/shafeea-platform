@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Resources\Halaqah\HalaqahResource;
+use App\Http\Resources\Student\StudentReportResource;
 use App\Http\Resources\Student\StudentSyncResource;
 use App\Http\Resources\Teacher\TeacherSyncResource;
-use App\Http\Resources\Student\StudentReportResource;
-use App\Models\Teacher\Teacher;
 use App\Models\Student\Student;
 use App\Models\Student\StudentReport;
+use App\Models\Teacher\Teacher;
 use App\Repositories\HalaqahRepository;
 use App\Repositories\StudentRepository;
 use Illuminate\Http\Request;
@@ -78,7 +78,9 @@ class SyncController extends ApiController
         $limit = (int) $request->query('limit', 100);
 
         // Standardize updatedSince '0' as null
-        if ($updatedSince == '0') $updatedSince = null;
+        if ($updatedSince == '0') {
+            $updatedSince = null;
+        }
 
         $halaqas = $repository->getUpdatedSince($updatedSince, $limit, $page);
 

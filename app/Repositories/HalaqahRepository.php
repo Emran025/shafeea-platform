@@ -2,8 +2,8 @@
 
 namespace App\Repositories;
 
-use App\Models\Student\Enrollment;
 use App\Models\Halaqah\Halaqah;
+use App\Models\Student\Enrollment;
 
 class HalaqahRepository
 {
@@ -30,7 +30,7 @@ class HalaqahRepository
         }
 
         if (isset($filters['name'])) {
-            $query->where('name', 'like', '%' . $filters['name'] . '%');
+            $query->where('name', 'like', '%'.$filters['name'].'%');
         }
 
         $sortBy = $filters['sortBy'] ?? 'created_at';

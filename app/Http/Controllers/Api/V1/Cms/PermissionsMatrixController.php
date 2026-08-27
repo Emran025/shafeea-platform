@@ -70,7 +70,7 @@ class PermissionsMatrixController extends Controller
     public function update(Request $request): JsonResponse
     {
         $roleName = $request->input('role');
-        $codes    = $request->input('permissions', []);
+        $codes = $request->input('permissions', []);
 
         if (! in_array($roleName, self::EDITABLE_ROLES, true)) {
             return response()->json([

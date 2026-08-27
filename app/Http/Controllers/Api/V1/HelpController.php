@@ -7,13 +7,13 @@ use App\Http\Resources\Content\ContentTypeResource;
 use App\Http\Resources\Content\FaqResource;
 use App\Http\Resources\Content\PolicyResource;
 use App\Http\Resources\Content\TagResource;
+use App\Models\Auth\UserConsent;
 use App\Models\Content\Category;
 use App\Models\Content\ContentType;
 use App\Models\Content\Faq;
 use App\Models\Content\PrivacyPolicy;
 use App\Models\Content\Tag;
 use App\Models\Content\TermsOfUse;
-use App\Models\Auth\UserConsent;
 use Illuminate\Http\Request;
 
 class HelpController extends ApiController

@@ -29,17 +29,17 @@ class AdminSchoolBuildController extends Controller
     public function updateBuildConfig(Request $request, School $school)
     {
         $validated = $request->validate([
-            'school_locked_mode'      => 'boolean',
-            'keystore_file'           => 'nullable|string',       // base64-encoded keystore
+            'school_locked_mode' => 'boolean',
+            'keystore_file' => 'nullable|string',       // base64-encoded keystore
             'keystore_store_password' => 'nullable|string|max:255',
-            'keystore_key_alias'      => 'nullable|string|max:255',
-            'keystore_key_password'   => 'nullable|string|max:255',
-            'build_notes'             => 'nullable|string|max:2000',
+            'keystore_key_alias' => 'nullable|string|max:255',
+            'keystore_key_password' => 'nullable|string|max:255',
+            'build_notes' => 'nullable|string|max:2000',
         ]);
 
         // Only update keystore fields that were actually provided in this request.
         // Prevents accidentally nullifying a field when the admin only edits one field.
-        $updateData = array_filter($validated, fn($v) => !is_null($v));
+        $updateData = array_filter($validated, fn ($v) => ! is_null($v));
 
         $school->update($updateData);
 
@@ -55,7 +55,7 @@ class AdminSchoolBuildController extends Controller
      */
     public function triggerRebuild(School $school)
     {
-        if (!$school->isApproved()) {
+        if (! $school->isApproved()) {
             return Redirect::back()->with('error', 'لا يمكن إعادة بناء تطبيق مدرسة غير مفعّلة.');
         }
 
@@ -68,9 +68,10 @@ class AdminSchoolBuildController extends Controller
 
         $dispatched = $this->githubDispatch->dispatchSchoolRebuild($school);
 
-        if (!$dispatched) {
+        if (! $dispatched) {
             // Revert status if dispatch failed
             $school->update(['build_status' => 'failed']);
+
             return Redirect::back()->with('error', 'فشل إرسال طلب إعادة البناء إلى GitHub. تحقق من إعداد GITHUB_DISPATCH_TOKEN.');
         }
 
@@ -86,8 +87,8 @@ class AdminSchoolBuildController extends Controller
     public function getBuildStatus(School $school)
     {
         return response()->json([
-            'build_status'       => $school->build_status,
-            'last_built_at'      => $school->last_built_at?->toISOString(),
+            'build_status' => $school->build_status,
+            'last_built_at' => $school->last_built_at?->toISOString(),
             'last_built_release' => $school->last_built_release,
         ]);
     }

@@ -45,12 +45,11 @@ class ApiController extends Controller
      * Return a successful JSON response with pagination.
      *
      * @param  mixed  $data
-     * @param  string  $resourceClass
      */
     protected function paginatedSuccess($paginator, string $resourceClass, ?string $message = null): JsonResponse
     {
         $collection = $resourceClass::collection($paginator);
-        
+
         return $this->success($collection, $message);
     }
 

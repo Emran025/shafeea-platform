@@ -3,10 +3,10 @@
 namespace App\Http\Middleware\Auth;
 
 use App\Models\Auth\AdminApiToken;
-use Closure;
 use App\Models\School\School;
-use Illuminate\Support\Str;
+use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
 
 class AuthenticateAdminApi
@@ -18,12 +18,14 @@ class AuthenticateAdminApi
             if ($request->isMethod('GET') && $request->acceptsHtml() && ! $request->expectsJson()) {
                 $schoolCode = $request->route('school_code') ?? '';
                 $school = School::where('code', $schoolCode)->first();
+
                 return response()->view('schools.app', [
-                    'school'      => $school,
+                    'school' => $school,
                     'school_code' => $schoolCode,
-                    'seo'         => ['title' => 'لوحة التحكم - منصة شفيع'],
+                    'seo' => ['title' => 'لوحة التحكم - منصة شفيع'],
                 ]);
             }
+
             return response()->json(['error' => 'Unauthenticated.'], 401);
         }
 

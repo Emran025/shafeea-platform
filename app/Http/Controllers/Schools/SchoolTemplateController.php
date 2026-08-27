@@ -93,7 +93,7 @@ class SchoolTemplateController extends Controller
         $pages = ['', '/page/about', '/page/services', '/page/contact', '/page/faq'];
 
         foreach ($pages as $p) {
-            $loc = htmlspecialchars($baseUrl . $p);
+            $loc = htmlspecialchars($baseUrl.$p);
             $xml .= "<url><loc>{$loc}</loc><lastmod>{$now}</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>";
         }
 
@@ -109,8 +109,8 @@ class SchoolTemplateController extends Controller
     {
         $school = School::where('school_code', $school_code)->first();
 
-        if (!$school) {
-            $schoolName = 'مدرسة ' . ucfirst(str_replace(['-', '_'], ' ', $school_code));
+        if (! $school) {
+            $schoolName = 'مدرسة '.ucfirst(str_replace(['-', '_'], ' ', $school_code));
             $school = new School([
                 'name' => $schoolName,
                 'school_code' => $school_code,
@@ -131,7 +131,7 @@ class SchoolTemplateController extends Controller
      */
     private function getSchoolSeoData(School $school, string $school_code, string $page = 'home'): array
     {
-        $canonicalUrl = url("/school/{$school_code}" . ($page !== 'home' ? "/page/{$page}" : ''));
+        $canonicalUrl = url("/school/{$school_code}".($page !== 'home' ? "/page/{$page}" : ''));
         $title = "{$school->name} - البوابة الإلكترونية المعتمدة";
         $description = "البوابة الإلكترونية الرسمية لـ {$school->name} في {$school->city}، {$school->country}. نظام متكامل لمتابعة الحلقات والطلاب والدروس وتفاصيل التواصل.";
         $logoUrl = asset($school->logo);

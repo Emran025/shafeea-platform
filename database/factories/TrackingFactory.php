@@ -2,8 +2,9 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Student\Enrollment;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
 /**
  * @extends Factory<\App\Models\Tracking\Tracking>
  */

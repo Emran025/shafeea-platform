@@ -20,16 +20,16 @@ use App\Listeners\LogAdminLoginSession;
 use App\Listeners\LogApiLoginSession;
 use App\Listeners\SendContactInquiryAlertListener;
 use App\Listeners\SendContactInquiryResponseListener;
-use App\Listeners\SendSchoolRegistrationAlertListener;
 use App\Listeners\SendSchoolApprovedEmailListener;
+use App\Listeners\SendSchoolRegistrationAlertListener;
 use App\Listeners\SendSchoolRejectedEmailListener;
+use App\Listeners\SendStudentApplicationAlertListener;
+use App\Listeners\SendStudentApprovedEmailListener;
+use App\Listeners\SendStudentEnrolledEmailListener;
+use App\Listeners\SendStudentRejectedEmailListener;
 use App\Listeners\SendTeacherApplicationAlertListener;
 use App\Listeners\SendTeacherApprovedEmailListener;
 use App\Listeners\SendTeacherRejectedEmailListener;
-use App\Listeners\SendStudentApplicationAlertListener;
-use App\Listeners\SendStudentApprovedEmailListener;
-use App\Listeners\SendStudentRejectedEmailListener;
-use App\Listeners\SendStudentEnrolledEmailListener;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider

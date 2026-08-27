@@ -49,9 +49,9 @@ class EmailInquiryController extends Controller
     public function update(Request $request, EmailInquiry $emailInquiry): JsonResponse
     {
         $data = $request->validate([
-            'status'      => ['sometimes', Rule::in(EmailInquiry::STATUSES)],
+            'status' => ['sometimes', Rule::in(EmailInquiry::STATUSES)],
             'assigned_to' => ['sometimes', 'nullable', 'exists:users,id'],
-            'notes'       => ['sometimes', 'nullable', 'string'],
+            'notes' => ['sometimes', 'nullable', 'string'],
         ]);
 
         if (isset($data['status']) && $data['status'] === 'resolved' && ! $emailInquiry->resolved_at) {
@@ -66,6 +66,7 @@ class EmailInquiryController extends Controller
     public function destroy(EmailInquiry $emailInquiry): JsonResponse
     {
         $emailInquiry->update(['status' => 'archived']);
+
         return response()->json(['ok' => true]);
     }
 }

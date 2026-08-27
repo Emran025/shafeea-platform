@@ -2,8 +2,8 @@
 
 namespace App\Services\Payment;
 
-use App\Models\Subscription\Payment;
 use App\Models\School\School;
+use App\Models\Subscription\Payment;
 use App\Models\Subscription\Subscription;
 use Illuminate\Support\Str;
 
@@ -11,15 +11,10 @@ class PaymentService
 {
     /**
      * Initiate an online payment.
-     * 
-     * @param School $school
-     * @param float $amount
-     * @param int|null $subscriptionId
-     * @return array
      */
     public function initiateOnlinePayment(School $school, float $amount, ?int $subscriptionId = null): array
     {
-        $transactionId = 'TXN_' . Str::random(12);
+        $transactionId = 'TXN_'.Str::random(12);
 
         $payment = Payment::create([
             'school_id' => $school->id,
@@ -36,21 +31,16 @@ class PaymentService
             'payment_id' => $payment->id,
             'transaction_id' => $transactionId,
             'checkout_url' => route('register.index'), // In real app, this would be a URL from the gateway
-            'message' => 'تم بدء عملية الدفع الرقمي بنجاح.'
+            'message' => 'تم بدء عملية الدفع الرقمي بنجاح.',
         ];
     }
 
     /**
      * Generate a reference number for bank transfer/offline payment.
-     * 
-     * @param School $school
-     * @param float $amount
-     * @param int|null $subscriptionId
-     * @return array
      */
     public function generateReferenceNumber(School $school, float $amount, ?int $subscriptionId = null): array
     {
-        $referenceNumber = 'REF-' . strtoupper(Str::random(8));
+        $referenceNumber = 'REF-'.strtoupper(Str::random(8));
 
         $payment = Payment::create([
             'school_id' => $school->id,
@@ -65,16 +55,12 @@ class PaymentService
             'success' => true,
             'payment_id' => $payment->id,
             'reference_number' => $referenceNumber,
-            'message' => 'تم إصدار رقم مرجعي للتحويل البنكي.'
+            'message' => 'تم إصدار رقم مرجعي للتحويل البنكي.',
         ];
     }
 
     /**
      * Mark a payment as paid and activate/update subscription.
-     * 
-     * @param Payment $payment
-     * @param array $payload
-     * @return bool
      */
     public function completePayment(Payment $payment, array $payload = []): bool
     {

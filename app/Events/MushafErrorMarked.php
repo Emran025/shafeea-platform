@@ -15,13 +15,14 @@ class MushafErrorMarked implements ShouldBroadcastNow
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $session;
+
     public $wordData;
 
     /**
      * Create a new event instance.
      *
-     * @param CallSession $session The active call session
-     * @param array $wordData Contains word identification (e.g., surah, ayah, word index)
+     * @param  CallSession  $session  The active call session
+     * @param  array  $wordData  Contains word identification (e.g., surah, ayah, word index)
      */
     public function __construct(CallSession $session, array $wordData)
     {
@@ -38,7 +39,7 @@ class MushafErrorMarked implements ShouldBroadcastNow
     {
         // Broadcast securely on a private channel for this specific session
         return [
-            new PrivateChannel('session.' . $this->session->session_id),
+            new PrivateChannel('session.'.$this->session->session_id),
         ];
     }
 

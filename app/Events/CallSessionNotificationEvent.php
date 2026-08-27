@@ -14,15 +14,13 @@ class CallSessionNotificationEvent implements ShouldBroadcastNow
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $session;
+
     public $action; // 'requested', 'accepted', 'rejected', 'ended'
+
     public $targetUserId;
 
     /**
      * Create a new event instance.
-     *
-     * @param CallSession $session
-     * @param string $action
-     * @param int $targetUserId
      */
     public function __construct(CallSession $session, string $action, int $targetUserId)
     {
@@ -39,7 +37,7 @@ class CallSessionNotificationEvent implements ShouldBroadcastNow
     public function broadcastOn()
     {
         // Broadcast directly to the user's private notification channel
-        return new PrivateChannel('user.' . $this->targetUserId);
+        return new PrivateChannel('user.'.$this->targetUserId);
     }
 
     public function broadcastAs()

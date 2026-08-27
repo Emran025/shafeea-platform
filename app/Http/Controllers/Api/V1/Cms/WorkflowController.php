@@ -42,11 +42,11 @@ class WorkflowController extends Controller
     private function resolveEntity(string $type, string $id): ?Model
     {
         return match ($type) {
-            'page'    => Page::find($id),
+            'page' => Page::find($id),
             'section' => Section::find($id),
-            'block'   => Block::find($id),
-            'media'   => Media::find($id),
-            default   => null,
+            'block' => Block::find($id),
+            'media' => Media::find($id),
+            default => null,
         };
     }
 
@@ -81,7 +81,7 @@ class WorkflowController extends Controller
     {
         // platform.admin may self-approve so they can manage the full workflow
         // when operating without a second reviewer account.
-        $adminUser   = $request->attributes->get('admin_user');
+        $adminUser = $request->attributes->get('admin_user');
         $bypassWr002 = $adminUser && ($adminUser->role ?? '') === 'platform.admin';
 
         return $this->doTransition($request, $type, $id, 'approved', $bypassWr002);
@@ -100,15 +100,15 @@ class WorkflowController extends Controller
         }
 
         $actorId = $this->actorId($request);
-        $locale  = $request->get('locale', 'en');
+        $locale = $request->get('locale', 'en');
 
         // Run publish validation gate before committing the transition
         $gate = $this->workflow->runPublishValidationGate($type, $entity, $locale);
 
         if (! $gate['is_valid']) {
             return response()->json([
-                'error'    => 'Publish validation gate failed. Resolve the errors below before publishing.',
-                'errors'   => $gate['errors'],
+                'error' => 'Publish validation gate failed. Resolve the errors below before publishing.',
+                'errors' => $gate['errors'],
                 'warnings' => $gate['warnings'],
             ], 422);
         }
@@ -122,10 +122,10 @@ class WorkflowController extends Controller
         $entity->refresh();
 
         return response()->json([
-            'status'       => 'published',
+            'status' => 'published',
             'published_at' => $entity->published_at,
-            'object_type'  => $type,
-            'object_id'    => $id,
+            'object_type' => $type,
+            'object_id' => $id,
         ]);
     }
 
@@ -158,10 +158,10 @@ class WorkflowController extends Controller
         }
 
         return response()->json([
-            'status'       => 'scheduled',
+            'status' => 'scheduled',
             'scheduled_at' => $request->scheduled_at,
-            'object_type'  => $type,
-            'object_id'    => $id,
+            'object_type' => $type,
+            'object_id' => $id,
         ]);
     }
 
@@ -182,20 +182,20 @@ class WorkflowController extends Controller
         }
 
         $actorId = $this->actorId($request);
-        $mode    = $request->get('mode', 'retract');
+        $mode = $request->get('mode', 'retract');
 
         try {
             $this->workflow->unpublish($type, $entity, $actorId, $mode);
-        } catch (\RuntimeException | \InvalidArgumentException $e) {
+        } catch (\RuntimeException|\InvalidArgumentException $e) {
             return response()->json(['error' => $e->getMessage()], 422);
         }
 
         $entity->refresh();
 
         return response()->json([
-            'status'      => $entity->status,
+            'status' => $entity->status,
             'object_type' => $type,
-            'object_id'   => $id,
+            'object_id' => $id,
         ]);
     }
 
@@ -220,9 +220,9 @@ class WorkflowController extends Controller
         }
 
         return response()->json([
-            'status'      => $toStatus,
+            'status' => $toStatus,
             'object_type' => $type,
-            'object_id'   => $id,
+            'object_id' => $id,
         ]);
     }
 

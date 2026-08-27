@@ -6,8 +6,8 @@ use App\Events\ContactInquirySubmittedEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Public\StoreContactRequest;
 use App\Models\Content\HelpTicket;
-use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class ContactController extends Controller
 {
@@ -23,7 +23,7 @@ class ContactController extends Controller
         $ticketData = $validated;
         $ticketData['body'] = $validated['message']; // Map message to body
         unset($ticketData['message']);
-        
+
         if (Auth::check()) {
             $ticketData['user_id'] = Auth::id();
         }

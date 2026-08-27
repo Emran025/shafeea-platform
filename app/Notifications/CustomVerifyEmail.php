@@ -30,7 +30,7 @@ class CustomVerifyEmail extends VerifyEmail
             ->subject('تأكيد بريدك الإلكتروني — منصة شفيع')
             ->view('emails.auth.verify-email', [
                 'verificationUrl' => $verificationUrl,
-                'userName'        => $notifiable->name,
+                'userName' => $notifiable->name,
             ]);
     }
 }

@@ -21,7 +21,7 @@ class StoreTeacherApplicationRequest extends FormRequest
         $this->merge(array_filter([
             'user_email' => $this->has('user_email') ? mb_strtolower(trim((string) $this->input('user_email'))) : null,
             'username' => $this->has('username') ? mb_strtolower(trim((string) $this->input('username'))) : null,
-        ], fn($value) => $value !== null));
+        ], fn ($value) => $value !== null));
     }
 
     public function rules(): array
@@ -93,13 +93,13 @@ class StoreTeacherApplicationRequest extends FormRequest
         );
 
         foreach (array_keys($documents) as $index) {
-            $attributes["documents.{$index}.name"] = "اسم الشهادة رقم " . ($index + 1);
-            $attributes["documents.{$index}.certificate_type"] = "نوع الشهادة رقم " . ($index + 1);
-            $attributes["documents.{$index}.certificate_type_other"] = "نوع الشهادة (أخرى) رقم " . ($index + 1);
-            $attributes["documents.{$index}.riwayah"] = "الرواية للشهادة رقم " . ($index + 1);
-            $attributes["documents.{$index}.issuing_place"] = "مكان إصدار الشهادة رقم " . ($index + 1);
-            $attributes["documents.{$index}.issuing_date"] = "تاريخ إصدار الشهادة رقم " . ($index + 1);
-            $attributes["documents.{$index}.file"] = "ملف الشهادة رقم " . ($index + 1);
+            $attributes["documents.{$index}.name"] = 'اسم الشهادة رقم '.($index + 1);
+            $attributes["documents.{$index}.certificate_type"] = 'نوع الشهادة رقم '.($index + 1);
+            $attributes["documents.{$index}.certificate_type_other"] = 'نوع الشهادة (أخرى) رقم '.($index + 1);
+            $attributes["documents.{$index}.riwayah"] = 'الرواية للشهادة رقم '.($index + 1);
+            $attributes["documents.{$index}.issuing_place"] = 'مكان إصدار الشهادة رقم '.($index + 1);
+            $attributes["documents.{$index}.issuing_date"] = 'تاريخ إصدار الشهادة رقم '.($index + 1);
+            $attributes["documents.{$index}.file"] = 'ملف الشهادة رقم '.($index + 1);
         }
 
         return $attributes;

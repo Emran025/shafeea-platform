@@ -9,11 +9,10 @@ class DemoTrackingsPlansSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     * 
+     *
      * Seeds demo plans with specific creation dates and memorization levels
      * Useful for demonstrating historical data and various student states
      */
-
     public function run(): void
     {
         // Path to demo plans JSON file
@@ -21,7 +20,8 @@ class DemoTrackingsPlansSeeder extends Seeder
 
         if (! file_exists($jsonPath)) {
             $this->command->warn('⚠️  Demo plans JSON file not found. Skipping seeder.');
-            $this->command->info('Expected path: ' . $jsonPath);
+            $this->command->info('Expected path: '.$jsonPath);
+
             return;
         }
 
@@ -30,6 +30,7 @@ class DemoTrackingsPlansSeeder extends Seeder
 
         if (empty($realisticPlans)) {
             $this->command->warn('⚠️  No demo plans found in JSON file.');
+
             return;
         }
 
@@ -52,6 +53,6 @@ class DemoTrackingsPlansSeeder extends Seeder
             'frequency_type_id' => $planData['frequency_type_id'],
         ]);
         // }
-        $this->command->info('✅ Created ' . count($realisticPlans) . ' demo plans.');
+        $this->command->info('✅ Created '.count($realisticPlans).' demo plans.');
     }
 }

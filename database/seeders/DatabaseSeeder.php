@@ -2,30 +2,27 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-use App\Models\School\School;
 use App\Models\Auth\Admin;
+use App\Models\School\School;
+use Illuminate\Database\Seeder;
 
 /**
  * Class DatabaseSeeder
  *
  * Primary orchestrator for the database seeding process.
  * Integrates system data, platform settings, unified user/school content, and school template seeders.
- *
- * @package Database\Seeders
  */
 class DatabaseSeeder extends Seeder
 {
     /**
      * Seed the application's database.
-     *
-     * @return void
      */
     public function run(): void
     {
         // Check if database has already been seeded
         if (School::exists() || Admin::where('super_admin', true)->exists()) {
             $this->command->info('⚠️ Database is already seeded or Initial Admin exists. Skipping duplicate seeding.');
+
             return;
         }
 

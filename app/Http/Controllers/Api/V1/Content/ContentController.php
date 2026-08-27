@@ -66,39 +66,39 @@ class ContentController extends Controller
      * Cache TTL (seconds) by page type — ContentPipeline.md Stage 9.
      */
     private const CACHE_TTL = [
-        'corporate.index'         => 300,
-        'corporate.platform'      => 600,
-        'corporate.about'         => 600,
-        'corporate.contact'       => 600,
-        'corporate.legal'         => 3600,
-        'platform.full_page'      => 600,
-        'platform.features'       => 600,
-        'platform.use_cases'      => 600,
-        'solution.industry'       => 600,
-        'solution.role'           => 600,
-        'solution.business_type'  => 600,
-        'pricing.overview'        => 300,
-        'pricing.platform'        => 300,
-        'pricing.compare'         => 300,
-        'resource.blog_post'      => 120,
-        'resource.report'         => 600,
+        'corporate.index' => 300,
+        'corporate.platform' => 600,
+        'corporate.about' => 600,
+        'corporate.contact' => 600,
+        'corporate.legal' => 3600,
+        'platform.full_page' => 600,
+        'platform.features' => 600,
+        'platform.use_cases' => 600,
+        'solution.industry' => 600,
+        'solution.role' => 600,
+        'solution.business_type' => 600,
+        'pricing.overview' => 300,
+        'pricing.platform' => 300,
+        'pricing.compare' => 300,
+        'resource.blog_post' => 120,
+        'resource.report' => 600,
         'resource.customer_story' => 600,
-        'resource.webinar'        => 600,
+        'resource.webinar' => 600,
         'editorial.press_release' => 120,
-        'trust.overview'          => 3600,
-        'trust.section'           => 3600,
-        'campaign.landing'        => 120,
-        'utility.comparison'      => 300,
-        'editorial'               => 120,
-        'utility'                 => 3600,
-        'school.home'             => 300,
-        'school.contact'          => 600,
-        'school.legal'            => 3600,
-        'school.about'            => 600,
-        'school.overview'         => 300,
-        'school.news'             => 120,
-        'school.stories'          => 300,
-        'school.full_page'         => 600,
+        'trust.overview' => 3600,
+        'trust.section' => 3600,
+        'campaign.landing' => 120,
+        'utility.comparison' => 300,
+        'editorial' => 120,
+        'utility' => 3600,
+        'school.home' => 300,
+        'school.contact' => 600,
+        'school.legal' => 3600,
+        'school.about' => 600,
+        'school.overview' => 300,
+        'school.news' => 120,
+        'school.stories' => 300,
+        'school.full_page' => 600,
     ];
 
     private const CACHE_TTL_DEFAULT = 300;
@@ -110,7 +110,7 @@ class ContentController extends Controller
 
     public function show(Request $request, string $school_code, ?string $slug = null): JsonResponse
     {
-        $requestId  = $request->header('X-Request-ID') ?? Str::uuid()->toString();
+        $requestId = $request->header('X-Request-ID') ?? Str::uuid()->toString();
         $composedAt = now()->toISOString();
 
         // ------------------------------------------------------------------
@@ -123,7 +123,7 @@ class ContentController extends Controller
                 errorType: 'CONTRACT_MISMATCH',
                 httpStatus: 406,
                 message: "Renderer contract version '{$contractVersion}' is incompatible with engine version. "
-                    . 'Required: ' . self::SUPPORTED_CONTRACT_VERSION,
+                    .'Required: '.self::SUPPORTED_CONTRACT_VERSION,
                 requestId: $requestId,
                 composedAt: $composedAt,
             );
@@ -132,15 +132,15 @@ class ContentController extends Controller
         // ------------------------------------------------------------------
         // Parse and validate context headers
         // ------------------------------------------------------------------
-        $locale   = $request->header('X-Locale', 'en');
+        $locale = $request->header('X-Locale', 'en');
         $audience = $request->header('X-Audience', 'public');
-        $preview  = filter_var($request->header('X-Preview', 'false'), FILTER_VALIDATE_BOOLEAN);
+        $preview = filter_var($request->header('X-Preview', 'false'), FILTER_VALIDATE_BOOLEAN);
 
         if (! in_array($audience, self::SUPPORTED_AUDIENCES, true)) {
             return $this->errorResponse(
                 errorType: 'CONTRACT_MISMATCH',
                 httpStatus: 406,
-                message: "Unsupported X-Audience value '{$audience}'. Allowed: " . implode(', ', self::SUPPORTED_AUDIENCES),
+                message: "Unsupported X-Audience value '{$audience}'. Allowed: ".implode(', ', self::SUPPORTED_AUDIENCES),
                 requestId: $requestId,
                 composedAt: $composedAt,
             );
@@ -150,7 +150,7 @@ class ContentController extends Controller
             return $this->errorResponse(
                 errorType: 'CONTRACT_MISMATCH',
                 httpStatus: 406,
-                message: "Unsupported X-Locale value '{$locale}'. Allowed: " . implode(', ', self::SUPPORTED_LOCALES),
+                message: "Unsupported X-Locale value '{$locale}'. Allowed: ".implode(', ', self::SUPPORTED_LOCALES),
                 requestId: $requestId,
                 composedAt: $composedAt,
             );
@@ -198,7 +198,7 @@ class ContentController extends Controller
 
         if (! $preview && $audience !== 'admin_preview') {
             $cacheKey = "engine:v1:{$school_code}:{$slug}:{$locale}:{$audience}";
-            $cached   = Cache::get($cacheKey);
+            $cached = Cache::get($cacheKey);
 
             if ($cached !== null) {
                 return response()->json($cached, 200)
@@ -225,7 +225,7 @@ class ContentController extends Controller
         // Run the Composition Pipeline
         // ------------------------------------------------------------------
         $compositionService = new CompositionService($this->visibilityService, $this->resolutionService);
-        $contract           = $compositionService->compose($slug, $context);
+        $contract = $compositionService->compose($slug, $context);
 
         // ------------------------------------------------------------------
         // Determine HTTP status from contract
@@ -251,7 +251,7 @@ class ContentController extends Controller
         // ------------------------------------------------------------------
         if ($cacheKey !== null && $contract['contract_type'] === 'page' && $httpStatus === 200) {
             $pageType = $contract['payload']['page']['type'] ?? 'default';
-            $ttl      = self::CACHE_TTL[$pageType] ?? self::CACHE_TTL_DEFAULT;
+            $ttl = self::CACHE_TTL[$pageType] ?? self::CACHE_TTL_DEFAULT;
             Cache::put($cacheKey, $contract, $ttl);
         }
 
@@ -268,21 +268,21 @@ class ContentController extends Controller
 
     private function errorResponse(
         string $errorType,
-        int    $httpStatus,
+        int $httpStatus,
         string $message,
         string $requestId,
         string $composedAt,
     ): JsonResponse {
         $envelope = [
             'contract_version' => self::SUPPORTED_CONTRACT_VERSION,
-            'contract_type'    => 'error',
-            'engine_version'   => '1.0.0',
-            'request_id'       => $requestId,
-            'composed_at'      => $composedAt,
-            'payload'          => [
+            'contract_type' => 'error',
+            'engine_version' => '1.0.0',
+            'request_id' => $requestId,
+            'composed_at' => $composedAt,
+            'payload' => [
                 'error_type' => $errorType,
-                'http_hint'  => $httpStatus,
-                'message'    => $message,
+                'http_hint' => $httpStatus,
+                'message' => $message,
                 'navigation' => ['locale' => 'en', 'primary' => []],
             ],
         ];

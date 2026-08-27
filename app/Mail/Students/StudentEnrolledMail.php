@@ -3,8 +3,8 @@
 namespace App\Mail\Students;
 
 use App\Mail\CategorizedMailable;
-use App\Models\Student\Enrollment;
 use App\Models\Halaqah\Halaqah;
+use App\Models\Student\Enrollment;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailables\Content;
@@ -19,6 +19,7 @@ class StudentEnrolledMail extends CategorizedMailable implements ShouldQueue
     protected string $emailCategory = 'noreply';
 
     public int $tries = 3;
+
     public int $backoff = 60;
 
     public Halaqah $halaqah;
@@ -31,9 +32,10 @@ class StudentEnrolledMail extends CategorizedMailable implements ShouldQueue
     public function envelope(): Envelope
     {
         $base = parent::envelope();
+
         return new Envelope(
             from: $base->from,
-            subject: 'تم تسجيلك في حلقة "' . $this->halaqah->name . '"',
+            subject: 'تم تسجيلك في حلقة "'.$this->halaqah->name.'"',
         );
     }
 
@@ -43,7 +45,7 @@ class StudentEnrolledMail extends CategorizedMailable implements ShouldQueue
             view: 'emails.students.enrolled',
             with: [
                 'enrollment' => $this->enrollment,
-                'halaqah'    => $this->halaqah,
+                'halaqah' => $this->halaqah,
             ],
         );
     }
@@ -56,7 +58,7 @@ class StudentEnrolledMail extends CategorizedMailable implements ShouldQueue
     public function failed(\Throwable $e): void
     {
         Log::error('Email dispatch failed', [
-            'mail'  => static::class,
+            'mail' => static::class,
             'error' => $e->getMessage(),
         ]);
     }

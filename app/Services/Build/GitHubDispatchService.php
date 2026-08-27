@@ -24,19 +24,22 @@ use Illuminate\Support\Facades\Log;
 class GitHubDispatchService
 {
     private string $apiBase = 'https://api.github.com';
+
     private string $token;
+
     private string $owner;
 
     // The two application repositories that host the build workflows
     private string $studentRepo;
+
     private string $teachRepo;
 
     public function __construct()
     {
-        $this->token       = config('services.github.token', '');
-        $this->owner       = config('services.github.owner', 'Emran025');
+        $this->token = config('services.github.token', '');
+        $this->owner = config('services.github.owner', 'Emran025');
         $this->studentRepo = config('services.github.student_repo', 'shafeea_student');
-        $this->teachRepo   = config('services.github.teach_repo',   'shafeea_teach');
+        $this->teachRepo = config('services.github.teach_repo', 'shafeea_teach');
     }
 
     /**
@@ -47,37 +50,38 @@ class GitHubDispatchService
      * workflow in parallel, each building their own branded APK and attaching
      * it to their latest GitHub Release.
      *
-     * @return bool  true if BOTH dispatches were accepted (HTTP 204), false if either failed.
+     * @return bool true if BOTH dispatches were accepted (HTTP 204), false if either failed.
      */
     public function dispatchSchoolRebuild(School $school): bool
     {
         if (empty($this->token)) {
             Log::error('GitHubDispatchService: GITHUB_DISPATCH_TOKEN is not set. Cannot trigger rebuild.');
+
             return false;
         }
 
         $logoUrl = $school->logo
-            ? rtrim(config('app.url'), '/') . '/storage/' . $school->getRawOriginal('logo')
+            ? rtrim(config('app.url'), '/').'/storage/'.$school->getRawOriginal('logo')
             : '';
 
         $payload = [
             // Identity
-            'school_id'          => $school->id,
-            'school_code'        => $school->school_code,
-            'school_name'        => $school->name,
-            'logo_url'           => $logoUrl,
+            'school_id' => $school->id,
+            'school_code' => $school->school_code,
+            'school_name' => $school->name,
+            'logo_url' => $logoUrl,
             // App-lock
-            'app_key'            => $school->app_key,
+            'app_key' => $school->app_key,
             'school_locked_mode' => (bool) $school->school_locked_mode,
             // Signing (passwords decrypted by model accessors before dispatch)
-            'keystore_file'           => $school->keystore_file ?? '',
+            'keystore_file' => $school->keystore_file ?? '',
             'keystore_store_password' => $school->keystore_store_password ?? '',
-            'keystore_key_alias'      => $school->keystore_key_alias ?? '',
-            'keystore_key_password'   => $school->keystore_key_password ?? '',
+            'keystore_key_alias' => $school->keystore_key_alias ?? '',
+            'keystore_key_password' => $school->keystore_key_password ?? '',
         ];
 
         $studentOk = $this->dispatch($this->studentRepo, $payload, $school->school_code);
-        $teachOk   = $this->dispatch($this->teachRepo,   $payload, $school->school_code);
+        $teachOk = $this->dispatch($this->teachRepo, $payload, $school->school_code);
 
         return $studentOk && $teachOk;
     }
@@ -89,21 +93,22 @@ class GitHubDispatchService
     {
         $response = Http::withToken($this->token)
             ->withHeaders([
-                'Accept'     => 'application/vnd.github+json',
+                'Accept' => 'application/vnd.github+json',
                 'User-Agent' => 'Shafeea-Platform/1.0',
             ])
             ->post("{$this->apiBase}/repos/{$this->owner}/{$repo}/dispatches", [
-                'event_type'     => 'rebuild_school',
+                'event_type' => 'rebuild_school',
                 'client_payload' => $clientPayload,
             ]);
 
         if ($response->successful()) {
             Log::info("GitHubDispatchService: Rebuild dispatched to [{$repo}] for school [{$schoolCode}].");
+
             return true;
         }
 
         Log::error("GitHubDispatchService: Failed to dispatch rebuild to [{$repo}] for school [{$schoolCode}].", [
-            'status'   => $response->status(),
+            'status' => $response->status(),
             'response' => $response->body(),
         ]);
 

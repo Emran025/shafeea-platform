@@ -27,11 +27,11 @@ class BlockObserver
         // SR-005: block type immutability
         if ($block->isDirty('type')) {
             $originalType = $block->getOriginal('type');
-            $newType      = $block->type;
+            $newType = $block->type;
 
             throw new \RuntimeException(
-                "SR-005: Block type cannot be changed after creation. "
-                    . "Current type: '{$originalType}', attempted: '{$newType}'."
+                'SR-005: Block type cannot be changed after creation. '
+                    ."Current type: '{$originalType}', attempted: '{$newType}'."
             );
         }
     }

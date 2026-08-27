@@ -31,12 +31,12 @@ class InquiryController extends Controller
 
         // Fetch New Tickets (HelpTickets)
         $ticketsQuery = \App\Models\Content\HelpTicket::where('status', 'pending');
-         if ($request->has('search')) {
+        if ($request->has('search')) {
             $ticketsQuery->where(function ($q) use ($request) {
                 $q->where('subject', 'like', '%'.$request->input('search').'%')
-                  ->orWhere('body', 'like', '%'.$request->input('search').'%')
-                  ->orWhere('name', 'like', '%'.$request->input('search').'%')
-                  ->orWhere('email', 'like', '%'.$request->input('search').'%');
+                    ->orWhere('body', 'like', '%'.$request->input('search').'%')
+                    ->orWhere('name', 'like', '%'.$request->input('search').'%')
+                    ->orWhere('email', 'like', '%'.$request->input('search').'%');
             });
         }
         $newTickets = $ticketsQuery->latest()->get();
@@ -95,7 +95,6 @@ class InquiryController extends Controller
         $inquiry->update($validated);
 
         $isNewlyAnswered = ! $wasAnswered && ! empty($validated['answer']);
-
 
         if ($isNewlyAnswered) {
             $user = $inquiry->createdBy;

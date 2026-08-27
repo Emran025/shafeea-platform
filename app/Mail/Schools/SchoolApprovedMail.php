@@ -18,6 +18,7 @@ class SchoolApprovedMail extends CategorizedMailable implements ShouldQueue
     protected string $emailCategory = 'noreply';
 
     public int $tries = 3;
+
     public int $backoff = 60;
 
     public function __construct(public readonly School $school) {}
@@ -25,9 +26,10 @@ class SchoolApprovedMail extends CategorizedMailable implements ShouldQueue
     public function envelope(): Envelope
     {
         $base = parent::envelope();
+
         return new Envelope(
             from: $base->from,
-            subject: 'مبروك! تم قبول ' . $this->school->name . ' في منصة شفيع',
+            subject: 'مبروك! تم قبول '.$this->school->name.' في منصة شفيع',
         );
     }
 
@@ -47,7 +49,7 @@ class SchoolApprovedMail extends CategorizedMailable implements ShouldQueue
     public function failed(\Throwable $e): void
     {
         Log::error('Email dispatch failed', [
-            'mail'  => static::class,
+            'mail' => static::class,
             'error' => $e->getMessage(),
         ]);
     }

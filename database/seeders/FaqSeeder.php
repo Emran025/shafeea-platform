@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Auth\User;
 use App\Models\Content\Category;
 use App\Models\Content\Faq;
 use App\Models\Content\Tag;
-use App\Models\Auth\User;
 use Illuminate\Database\Seeder;
 
 class FaqSeeder extends Seeder
@@ -19,6 +19,7 @@ class FaqSeeder extends Seeder
 
         if ($categories->isEmpty() || $tags->isEmpty() || ! $user) {
             $this->command->info('Please seed FAQ categories, tags, and users before running the FaqSeeder.');
+
             return;
         }
 
@@ -27,7 +28,8 @@ class FaqSeeder extends Seeder
 
         if (! file_exists($jsonPath)) {
             $this->command->warn('⚠️  Demo faqs JSON file not found. Skipping seeder.');
-            $this->command->info('Expected path: ' . $jsonPath);
+            $this->command->info('Expected path: '.$jsonPath);
+
             return;
         }
 
@@ -36,6 +38,7 @@ class FaqSeeder extends Seeder
 
         if (empty($faqs)) {
             $this->command->warn('⚠️  No faqs found in JSON file.');
+
             return;
         }
 
@@ -60,6 +63,6 @@ class FaqSeeder extends Seeder
             }
         }
 
-        $this->command->info('✅ Created ' . Faq::count() . ' FAQs from JSON file.');
+        $this->command->info('✅ Created '.Faq::count().' FAQs from JSON file.');
     }
 }

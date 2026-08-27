@@ -35,7 +35,7 @@ class RoleMiddleware
         if (! $hasRole) {
             return response()->json([
                 'error' => 'Forbidden.',
-                'message' => 'You do not have the required role to access this resource.'
+                'message' => 'You do not have the required role to access this resource.',
             ], 403);
         }
 

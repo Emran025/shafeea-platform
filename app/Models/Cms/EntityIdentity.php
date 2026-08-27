@@ -11,21 +11,24 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * System-owned: only platform.admin may update (Identity.md Invariant 2).
  * The four canonical entities may never be deleted (Identity.md Invariant 1).
  *
- * @property string  $entity_id           'accsystem' | 'accore' | 'accommerce' | 'qayd'
- * @property string  $schema_version
- * @property string  $canonical_name      'ACCSYSTEM' | 'ACCORE' | 'ACCOMMERCE' | 'QAYD'
- * @property string  $display_case        'uppercase' | 'lowercase_product'
- * @property string  $tier                'corporate_parent' | 'component_product'
- * @property string  $typographic_weight  'institutional' | 'operational'
- * @property array   $positioning
- * @property array|null $color_tokens     { primary, accent } — only ACCSYSTEM carries system-level tokens
+ * @property string $entity_id 'accsystem' | 'accore' | 'accommerce' | 'qayd'
+ * @property string $schema_version
+ * @property string $canonical_name 'ACCSYSTEM' | 'ACCORE' | 'ACCOMMERCE' | 'QAYD'
+ * @property string $display_case 'uppercase' | 'lowercase_product'
+ * @property string $tier 'corporate_parent' | 'component_product'
+ * @property string $typographic_weight 'institutional' | 'operational'
+ * @property array $positioning
+ * @property array|null $color_tokens { primary, accent } — only ACCSYSTEM carries system-level tokens
  */
 class EntityIdentity extends Model
 {
-    protected $table      = 'entity_identities';
+    protected $table = 'entity_identities';
+
     protected $primaryKey = 'entity_id';
-    protected $keyType    = 'string';
-    public    $incrementing = false;
+
+    protected $keyType = 'string';
+
+    public $incrementing = false;
 
     protected $guarded = [];
 
@@ -39,7 +42,7 @@ class EntityIdentity extends Model
     protected function casts(): array
     {
         return [
-            'positioning'  => 'array',
+            'positioning' => 'array',
             'color_tokens' => 'array',
         ];
     }
@@ -72,9 +75,9 @@ class EntityIdentity extends Model
     public function displayName(): string
     {
         return match ($this->display_case) {
-            'uppercase'         => strtoupper($this->canonical_name),
+            'uppercase' => strtoupper($this->canonical_name),
             'lowercase_product' => strtolower($this->canonical_name),
-            default             => $this->canonical_name,
+            default => $this->canonical_name,
         };
     }
 
@@ -84,12 +87,12 @@ class EntityIdentity extends Model
     public function toIdentityToken(string $positioningTagline = ''): array
     {
         return [
-            'entity_id'           => $this->entity_id,
-            'canonical_name'      => $this->canonical_name,
-            'display_name'        => $this->displayName(),
-            'display_case'        => $this->display_case,
+            'entity_id' => $this->entity_id,
+            'canonical_name' => $this->canonical_name,
+            'display_name' => $this->displayName(),
+            'display_case' => $this->display_case,
             'positioning_tagline' => $positioningTagline,
-            'color_tokens'        => $this->color_tokens,
+            'color_tokens' => $this->color_tokens,
         ];
     }
 }

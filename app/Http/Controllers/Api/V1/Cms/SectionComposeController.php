@@ -74,34 +74,34 @@ class SectionComposeController extends Controller
         $typeList = implode(',', self::VALID_TYPES);
 
         $request->validate([
-            'page_id'           => 'required|uuid|exists:pages,id',
-            'type'              => "required|string|in:{$typeList}",
-            'identity_name'     => 'nullable|string|max:200',
+            'page_id' => 'required|uuid|exists:pages,id',
+            'type' => "required|string|in:{$typeList}",
+            'identity_name' => 'nullable|string|max:200',
             'ordering_position' => 'nullable|integer|min:0',
-            'blocks'            => 'required|array|min:1',
-            'blocks.*.type'     => 'required|string|max:100',
-            'blocks.*.fields'   => 'required|array',
+            'blocks' => 'required|array|min:1',
+            'blocks.*.type' => 'required|string|max:100',
+            'blocks.*.fields' => 'required|array',
         ]);
 
-        $actorId  = $request->header('X-Actor-ID', '00000000-0000-0000-0000-000000000001');
+        $actorId = $request->header('X-Actor-ID', '00000000-0000-0000-0000-000000000001');
         $position = $request->integer(
             'ordering_position',
             Section::where('page_id', $request->page_id)->count()
         );
 
         $section = Section::create([
-            'page_id'           => $request->page_id,
-            'type'              => $request->type,
-            'identity_name'     => $request->get('identity_name', $request->type),
-            'identity_owner'    => 'editorial',
-            'identity_purpose'  => 'composed section',
+            'page_id' => $request->page_id,
+            'type' => $request->type,
+            'identity_name' => $request->get('identity_name', $request->type),
+            'identity_owner' => 'editorial',
+            'identity_purpose' => 'composed section',
             'ordering_position' => $position,
-            'ordering_group'    => 'below-fold',
-            'status'            => 'draft',
-            'created_by'        => $actorId,
-            'last_modified_by'  => $actorId,
-            'schema_version'    => 'section@1.0',
-            'version_number'    => 1,
+            'ordering_group' => 'below-fold',
+            'status' => 'draft',
+            'created_by' => $actorId,
+            'last_modified_by' => $actorId,
+            'schema_version' => 'section@1.0',
+            'version_number' => 1,
         ]);
 
         $this->attachBlocks($section, $request->blocks, $actorId);
@@ -124,23 +124,27 @@ class SectionComposeController extends Controller
         }
 
         $request->validate([
-            'identity_name'     => 'nullable|string|max:200',
+            'identity_name' => 'nullable|string|max:200',
             'ordering_position' => 'nullable|integer|min:0',
-            'blocks'            => 'required|array|min:1',
-            'blocks.*.type'     => 'required|string|max:100',
-            'blocks.*.fields'   => 'required|array',
+            'blocks' => 'required|array|min:1',
+            'blocks.*.type' => 'required|string|max:100',
+            'blocks.*.fields' => 'required|array',
         ]);
 
         $actorId = $request->header('X-Actor-ID', '00000000-0000-0000-0000-000000000001');
 
         // Update section metadata
         $meta = [
-            'status'           => 'draft',
+            'status' => 'draft',
             'last_modified_by' => $actorId,
-            'version_number'   => ($section->version_number ?? 1) + 1,
+            'version_number' => ($section->version_number ?? 1) + 1,
         ];
-        if ($request->has('identity_name'))     $meta['identity_name']     = $request->identity_name;
-        if ($request->has('ordering_position')) $meta['ordering_position'] = $request->ordering_position;
+        if ($request->has('identity_name')) {
+            $meta['identity_name'] = $request->identity_name;
+        }
+        if ($request->has('ordering_position')) {
+            $meta['ordering_position'] = $request->ordering_position;
+        }
         $section->fill($meta)->save();
 
         // Detach all blocks and delete draft blocks currently linked to this section
@@ -167,19 +171,19 @@ class SectionComposeController extends Controller
     {
         foreach ($blocksData as $idx => $blockData) {
             $block = Block::create([
-                'type'           => $blockData['type'],
+                'type' => $blockData['type'],
                 'locale_content' => [
                     'en' => [
-                        'locale'      => 'en',
+                        'locale' => 'en',
                         'is_complete' => true,
-                        'fields'      => $blockData['fields'],
+                        'fields' => $blockData['fields'],
                     ],
                 ],
-                'status'           => 'draft',
-                'created_by'       => $actorId,
+                'status' => 'draft',
+                'created_by' => $actorId,
                 'last_modified_by' => $actorId,
-                'schema_version'   => 'block@1.0',
-                'version_number'   => 1,
+                'schema_version' => 'block@1.0',
+                'version_number' => 1,
             ]);
 
             $section->blocks()->syncWithoutDetaching([
@@ -190,6 +194,6 @@ class SectionComposeController extends Controller
 
     private function fresh(string $id): Section
     {
-        return Section::with(['blocks' => fn($q) => $q->orderByPivot('position')])->find($id);
+        return Section::with(['blocks' => fn ($q) => $q->orderByPivot('position')])->find($id);
     }
 }

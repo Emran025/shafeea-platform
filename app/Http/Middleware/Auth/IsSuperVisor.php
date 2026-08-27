@@ -12,7 +12,7 @@ class IsSuperVisor
     {
         $user = $request->user();
 
-        if ($user && $user->admin && $user->admin->status === AdminStatus::ACCEPTED ) {
+        if ($user && $user->admin && $user->admin->status === AdminStatus::ACCEPTED) {
             return $next($request);
         }
 

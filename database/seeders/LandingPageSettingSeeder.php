@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\Content\LandingPageSetting;
+use Illuminate\Database\Seeder;
 
 class LandingPageSettingSeeder extends Seeder
 {

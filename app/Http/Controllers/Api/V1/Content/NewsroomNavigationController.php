@@ -14,7 +14,7 @@ class NewsroomNavigationController extends Controller
             ->where('is_active', true)
             ->orderBy('position')
             ->get(['label', 'href'])
-            ->map(fn(NewsroomLink $link) => [
+            ->map(fn (NewsroomLink $link) => [
                 'label' => $link->label,
                 'href' => $link->href,
             ]);

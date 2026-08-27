@@ -129,14 +129,14 @@ class VisibilityService
         }
 
         return match ($ctx->audience) {
-            'public'        => in_array('public', $sectionAudience, true)
+            'public' => in_array('public', $sectionAudience, true)
                 ? null
                 : 'Section audience does not include "public".',
             'authenticated' => ! empty(array_intersect(['public', 'authenticated'], $sectionAudience))
                 ? null
                 : 'Section audience requires higher privilege.',
             'admin_preview' => null, // admin_preview sees all audiences
-            default         => 'Unknown audience type.',
+            default => 'Unknown audience type.',
         };
     }
 
@@ -164,7 +164,7 @@ class VisibilityService
      */
     private function checkLocaleFilter(array $filter, string $locale): ?string
     {
-        $mode    = $filter['mode'] ?? 'include';
+        $mode = $filter['mode'] ?? 'include';
         $locales = $filter['locales'] ?? [];
 
         if ($mode === 'include' && ! in_array($locale, $locales, true)) {

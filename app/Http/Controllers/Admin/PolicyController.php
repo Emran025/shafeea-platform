@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\Admin\UpdatePolicyRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\UpdatePolicyRequest;
 use App\Models\Content\PrivacyPolicy;
 use App\Models\Content\TermsOfUse;
 use Illuminate\Support\Facades\Redirect;

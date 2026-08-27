@@ -69,10 +69,10 @@ class School extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'is_active'            => 'boolean',
-        'school_locked_mode'   => 'boolean',
-        'approved_at'          => 'datetime',
-        'last_built_at'        => 'datetime',
+        'is_active' => 'boolean',
+        'school_locked_mode' => 'boolean',
+        'approved_at' => 'datetime',
+        'last_built_at' => 'datetime',
         'subscription_ends_at' => 'datetime',
     ];
 
@@ -90,7 +90,7 @@ class School extends Model
      */
     public function getLogoAttribute($value): string
     {
-        if (!$value) {
+        if (! $value) {
             return self::DEFAULT_LOGO;
         }
         // Full external URL
@@ -101,6 +101,7 @@ class School extends Model
         if (str_starts_with($value, '/')) {
             return $value;
         }
+
         // Relative path stored via Storage::disk('public') — needs /storage/ prefix
         return Storage::disk('public')->url($value);
     }
@@ -188,7 +189,7 @@ class School extends Model
      */
     public function isApproved(): bool
     {
-        return $this->is_active && !is_null($this->approved_at);
+        return $this->is_active && ! is_null($this->approved_at);
     }
 
     /**
@@ -196,10 +197,10 @@ class School extends Model
      */
     public function hasBuildConfig(): bool
     {
-        return !is_null($this->keystore_file)
-            && !is_null($this->keystore_store_password)
-            && !is_null($this->keystore_key_alias)
-            && !is_null($this->keystore_key_password);
+        return ! is_null($this->keystore_file)
+            && ! is_null($this->keystore_store_password)
+            && ! is_null($this->keystore_key_alias)
+            && ! is_null($this->keystore_key_password);
     }
 
     /**
@@ -269,23 +270,23 @@ class School extends Model
      * Every {{school.*}} placeholder in the content JSON templates is resolved
      * against the values returned here. Add new keys here as the templates evolve.
      *
-     * @param  string $locale  'en' | 'ar'
-     * @return array           Keyed under 'school' so placeholders read {{school.name}} etc.
+     * @param  string  $locale  'en' | 'ar'
+     * @return array Keyed under 'school' so placeholders read {{school.name}} etc.
      */
     public function toTemplateContext(string $locale = 'en'): array
     {
-        $phone = trim(($this->phone_zone ?? '') . ' ' . ($this->phone ?? ''));
+        $phone = trim(($this->phone_zone ?? '').' '.($this->phone ?? ''));
 
         return [
             'school' => [
-                'code'     => $this->school_code ?? $this->code ?? '',
-                'name'     => $this->name ?? '',
-                'logo'     => $this->logo,   // accessor returns full URL
-                'phone'    => $phone,
-                'email'    => '',            // not in schema yet; extend when added
-                'country'  => $this->country  ?? '',
-                'city'     => $this->city     ?? '',
-                'address'  => $this->address  ?? '',
+                'code' => $this->school_code ?? $this->code ?? '',
+                'name' => $this->name ?? '',
+                'logo' => $this->logo,   // accessor returns full URL
+                'phone' => $phone,
+                'email' => '',            // not in schema yet; extend when added
+                'country' => $this->country ?? '',
+                'city' => $this->city ?? '',
+                'address' => $this->address ?? '',
                 'location' => $this->location ?? '',
             ],
         ];

@@ -17,7 +17,7 @@ class TeacherSyncResource extends JsonResource
         $teacher = $this->resource;
         $user = $teacher->user;
 
-        if (!$user) {
+        if (! $user) {
             return [
                 'id' => $teacher->id,
                 'error' => 'Missing user data',
@@ -55,15 +55,15 @@ class TeacherSyncResource extends JsonResource
             'updatedAt' => $teacher->updated_at instanceof \Illuminate\Support\Carbon ? $teacher->updated_at->toIso8601String() : $teacher->updated_at,
             'createdAt' => $teacher->created_at instanceof \Illuminate\Support\Carbon ? $teacher->created_at->toIso8601String() : $teacher->created_at,
             'documents' => $user->documents->map(fn ($doc) => [
-                'id'                   => $doc->id,
-                'name'                 => $doc->name,
-                'certificateType'      => $doc->certificate_type,
+                'id' => $doc->id,
+                'name' => $doc->name,
+                'certificateType' => $doc->certificate_type,
                 'certificateTypeOther' => $doc->certificate_type_other,
-                'riwayah'              => $doc->riwayah,
-                'issuingPlace'         => $doc->issuing_place,
-                'issuingDate'          => $doc->issuing_date,
-                'fileUrl'              => $doc->file_url,
-                'hasFile'              => $doc->file_url !== null,
+                'riwayah' => $doc->riwayah,
+                'issuingPlace' => $doc->issuing_place,
+                'issuingDate' => $doc->issuing_date,
+                'fileUrl' => $doc->file_url,
+                'hasFile' => $doc->file_url !== null,
             ]),
         ];
     }

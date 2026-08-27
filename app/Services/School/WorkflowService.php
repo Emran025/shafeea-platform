@@ -3,10 +3,8 @@
 namespace App\Services\School;
 
 use App\Models\Cms\Block;
-use App\Models\Cms\Page;
 use App\Models\Cms\PublishBundle;
 use App\Models\Cms\PublishEvent;
-use App\Models\Cms\Section;
 use App\Models\Cms\StatusTransition;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -26,14 +24,14 @@ class WorkflowService
     // -------------------------------------------------------------------------
 
     private const TRANSITIONS = [
-        'draft'     => ['in_review'],
+        'draft' => ['in_review'],
         'in_review' => ['draft', 'approved'],
-        'approved'  => ['published', 'scheduled', 'draft'],
+        'approved' => ['published', 'scheduled', 'draft'],
         'published' => ['archived', 'draft', 'hidden'],
         'scheduled' => ['approved', 'published', 'archived'],
-        'hidden'    => ['published', 'archived'],
-        'archived'  => [],
-        'deleted'   => [],
+        'hidden' => ['published', 'archived'],
+        'archived' => [],
+        'deleted' => [],
     ];
 
     // -------------------------------------------------------------------------
@@ -43,8 +41,8 @@ class WorkflowService
     /**
      * Returns ['can' => bool, 'reason' => string|null].
      *
-     * @param bool $bypassWr002  When true, the WR-002 self-approval check is skipped.
-     *                           Pass true only for platform.admin actors.
+     * @param  bool  $bypassWr002  When true, the WR-002 self-approval check is skipped.
+     *                             Pass true only for platform.admin actors.
      */
     public function canTransition(Model $object, string $toStatus, string $actorId, bool $bypassWr002 = false): array
     {
@@ -54,7 +52,7 @@ class WorkflowService
 
         if (! in_array($toStatus, $allowed, true)) {
             return [
-                'can'    => false,
+                'can' => false,
                 'reason' => "Cannot transition from '{$fromStatus}' to '{$toStatus}'.",
             ];
         }
@@ -65,7 +63,7 @@ class WorkflowService
             $lastModifiedBy = $object->last_modified_by ?? null;
             if ($lastModifiedBy !== null && $lastModifiedBy === $actorId) {
                 return [
-                    'can'    => false,
+                    'can' => false,
                     'reason' => 'WR-002: Self-approval is not permitted. The approver must differ from the last modifier.',
                 ];
             }
@@ -109,10 +107,10 @@ class WorkflowService
         if ($objectType === 'section') {
             $sourceStatuses = match ($toStatus) {
                 'in_review' => ['draft'],
-                'approved'  => ['in_review'],
-                'draft'     => ['in_review'],
+                'approved' => ['in_review'],
+                'draft' => ['in_review'],
                 'scheduled' => ['approved'],
-                default     => [],
+                default => [],
             };
             if (! empty($sourceStatuses)) {
                 $blocks = $object->blocks()->whereIn('status', $sourceStatuses)->get();
@@ -136,7 +134,7 @@ class WorkflowService
         Model $object,
         string $locale = 'en',
     ): array {
-        $errors   = [];
+        $errors = [];
         $warnings = [];
 
         // --- BLOCKING CHECKS ---
@@ -144,7 +142,7 @@ class WorkflowService
         // status_check: must be in approved status (WR-003)
         if ($object->status !== 'approved') {
             $errors[] = [
-                'code'    => 'status_check',
+                'code' => 'status_check',
                 'message' => "Content must be in 'approved' status before publishing. Current: '{$object->status}'.",
             ];
         }
@@ -156,7 +154,7 @@ class WorkflowService
 
             if ($canonicalContent === null || ! ($canonicalContent['is_complete'] ?? false)) {
                 $errors[] = [
-                    'code'    => 'locale_completeness',
+                    'code' => 'locale_completeness',
                     'message' => "Block content is not marked is_complete in canonical locale '{$locale}'.",
                 ];
             }
@@ -167,7 +165,7 @@ class WorkflowService
                 $media = \App\Models\Cms\Media::find($mediaId);
                 if ($media === null || $media->status !== 'ready') {
                     $errors[] = [
-                        'code'    => 'media_integrity',
+                        'code' => 'media_integrity',
                         'message' => "Media reference '{$mediaId}' does not resolve to a ready media object.",
                     ];
                 }
@@ -184,7 +182,7 @@ class WorkflowService
 
             if ($publishedBlockCount < $minBlocks) {
                 $errors[] = [
-                    'code'    => 'min_blocks',
+                    'code' => 'min_blocks',
                     'message' => "Section requires at least {$minBlocks} approved blocks; found {$publishedBlockCount}.",
                 ];
             }
@@ -200,7 +198,7 @@ class WorkflowService
                 foreach ($requiredTypes as $requiredType) {
                     if (! in_array($requiredType, $presentTypes, true)) {
                         $errors[] = [
-                            'code'    => 'required_blocks',
+                            'code' => 'required_blocks',
                             'message' => "Required block type '{$requiredType}' is not present in the section.",
                         ];
                     }
@@ -215,7 +213,7 @@ class WorkflowService
             $enMeta = $meta['en'] ?? null;
             if ($enMeta === null || empty($enMeta['og_image_id'])) {
                 $warnings[] = [
-                    'code'    => 'og_image_missing',
+                    'code' => 'og_image_missing',
                     'message' => 'Page has no og_image declared in PageMeta.',
                 ];
             }
@@ -225,7 +223,7 @@ class WorkflowService
             $localeContent = $object->locale_content ?? [];
             if (! isset($localeContent['ar']) || ! ($localeContent['ar']['is_complete'] ?? false)) {
                 $warnings[] = [
-                    'code'    => 'rtl_locale_completeness',
+                    'code' => 'rtl_locale_completeness',
                     'message' => 'RTL locale (ar) content is absent or incomplete.',
                 ];
             }
@@ -233,7 +231,7 @@ class WorkflowService
 
         return [
             'is_valid' => empty($errors),
-            'errors'   => $errors,
+            'errors' => $errors,
             'warnings' => $warnings,
         ];
     }
@@ -259,11 +257,11 @@ class WorkflowService
         $previousStatus = $object->status;
 
         if ($triggerType === 'scheduled' && $scheduledAt !== null) {
-            $object->status       = 'scheduled';
+            $object->status = 'scheduled';
             $object->scheduled_at = $scheduledAt;
             $object->scheduled_by = $actorId;
         } else {
-            $object->status       = 'published';
+            $object->status = 'published';
             $object->published_at = now();
             $object->published_by = $actorId;
         }
@@ -304,7 +302,7 @@ class WorkflowService
     // -------------------------------------------------------------------------
 
     /**
-     * @param string $mode  'retract' → archived | 'revert_to_draft' → draft | 'suppress' → hidden
+     * @param  string  $mode  'retract' → archived | 'revert_to_draft' → draft | 'suppress' → hidden
      */
     public function unpublish(
         string $objectType,
@@ -312,15 +310,15 @@ class WorkflowService
         string $actorId,
         string $mode = 'retract',
     ): void {
-        $previousStatus  = $object->status;
+        $previousStatus = $object->status;
         $resultingStatus = match ($mode) {
-            'retract'         => 'archived',
+            'retract' => 'archived',
             'revert_to_draft' => 'draft',
-            'suppress'        => 'hidden',
-            default           => throw new \InvalidArgumentException("Unknown unpublish mode: {$mode}"),
+            'suppress' => 'hidden',
+            default => throw new \InvalidArgumentException("Unknown unpublish mode: {$mode}"),
         };
 
-        $object->status           = $resultingStatus;
+        $object->status = $resultingStatus;
         $object->last_modified_by = $actorId;
         $object->save();
 
@@ -362,7 +360,7 @@ class WorkflowService
         if (! $validation['valid']) {
             throw new \RuntimeException(
                 'WR-006: Bundle cannot publish — not all members are in approved status. '
-                    . 'Failing members: ' . json_encode($validation['failing_members'])
+                    .'Failing members: '.json_encode($validation['failing_members'])
             );
         }
 
@@ -401,14 +399,14 @@ class WorkflowService
         }
 
         $newBlock = $publishedBlock->replicate();
-        $newBlock->id               = Str::uuid()->toString();
-        $newBlock->status           = 'draft';
+        $newBlock->id = Str::uuid()->toString();
+        $newBlock->status = 'draft';
         $newBlock->parent_version_id = $publishedBlock->id;
-        $newBlock->published_at     = null;
-        $newBlock->published_by     = null;
-        $newBlock->created_by       = $actorId;
+        $newBlock->published_at = null;
+        $newBlock->published_by = null;
+        $newBlock->created_by = $actorId;
         $newBlock->last_modified_by = $actorId;
-        $newBlock->version_number   = ($publishedBlock->version_number ?? 1) + 1;
+        $newBlock->version_number = ($publishedBlock->version_number ?? 1) + 1;
         $newBlock->save();
 
         StatusTransition::record(

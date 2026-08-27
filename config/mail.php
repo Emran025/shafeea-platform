@@ -160,12 +160,12 @@ return [
     |
     */
 
-    'verify_email'  => env('MAIL_VERIFY_ADDRESS'),
+    'verify_email' => env('MAIL_VERIFY_ADDRESS'),
 
     'contact_email' => env('MAIL_CONTACT_ADDRESS'),
 
     'noreply_email' => env('MAIL_NOREPLY_ADDRESS'),
 
-    'info_email'    => env('MAIL_INFO_ADDRESS'),
+    'info_email' => env('MAIL_INFO_ADDRESS'),
 
 ];

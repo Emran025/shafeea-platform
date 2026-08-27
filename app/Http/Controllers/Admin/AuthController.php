@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Events\AdminLogin;
-use App\Http\Requests\Admin\LoginRequest;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\Admin\LoginRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;

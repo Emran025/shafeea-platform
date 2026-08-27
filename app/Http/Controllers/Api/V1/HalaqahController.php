@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Http\Requests\Halaqah\StoreHalaqahRequest;
+use App\Http\Requests\Halaqah\UpdateHalaqahRequest;
+use App\Http\Requests\Student\AssignStudentsRequest;
+use App\Http\Requests\Teacher\AssignTeacherRequest;
 use App\Http\Resources\Halaqah\HalaqahResource;
 use App\Http\Resources\Student\StudentHistoryResource;
 use App\Http\Resources\Student\StudentKhatmResource;
-use App\Http\Requests\Student\AssignStudentsRequest;
-use App\Http\Requests\Teacher\AssignTeacherRequest;
-use App\Http\Requests\Halaqah\StoreHalaqahRequest;
-use App\Http\Requests\Halaqah\UpdateHalaqahRequest;
 use App\Repositories\HalaqahRepository;
 use App\Services\Halaqah\HalaqahService;
 use Exception;
@@ -55,7 +55,6 @@ class HalaqahController extends ApiController
         // Use the success helper for a single resource retrieval
         return $this->success(new HalaqahResource($halaqah), 'Halaqah retrieved successfully.');
     }
-
 
     public function update(UpdateHalaqahRequest $request, $id)
     {

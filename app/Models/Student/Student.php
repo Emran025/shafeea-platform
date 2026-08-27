@@ -3,13 +3,13 @@
 namespace App\Models\Student;
 
 use App\Models\Auth\User;
+use App\Models\Scopes\GenderScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Scopes\GenderScope;
 
 class Student extends Model
 {
-    use HasFactory, \App\Models\Traits\BelongsToSchool;
+    use \App\Models\Traits\BelongsToSchool, HasFactory;
 
     /**
      * The attributes that are mass assignable.
@@ -57,18 +57,20 @@ class Student extends Model
     public static function findByIdentifier($identifier)
     {
         $student = self::where('username', $identifier)->first();
-        if (!$student && is_numeric($identifier)) {
+        if (! $student && is_numeric($identifier)) {
             $student = self::where('user_id', $identifier)->first();
         }
+
         return $student;
     }
 
     public static function findByIdentifierOrFail($identifier)
     {
         $student = self::findByIdentifier($identifier);
-        if (!$student) {
+        if (! $student) {
             throw (new \Illuminate\Database\Eloquent\ModelNotFoundException)->setModel(self::class);
         }
+
         return $student;
     }
 

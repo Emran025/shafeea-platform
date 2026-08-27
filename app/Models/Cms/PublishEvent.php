@@ -20,7 +20,7 @@ class PublishEvent extends Model
     protected function casts(): array
     {
         return [
-            'triggered_at'      => 'datetime',
+            'triggered_at' => 'datetime',
             'validation_result' => 'array',
         ];
     }
@@ -40,15 +40,15 @@ class PublishEvent extends Model
         ?string $notes = null,
     ): self {
         return self::create([
-            'event_type'        => $eventType,
-            'object_type'       => $objectType,
-            'object_id'         => $objectId,
-            'triggered_by'      => $triggeredBy,
-            'triggered_at'      => now(),
-            'previous_status'   => $previousStatus,
-            'resulting_status'  => $resultingStatus,
+            'event_type' => $eventType,
+            'object_type' => $objectType,
+            'object_id' => $objectId,
+            'triggered_by' => $triggeredBy,
+            'triggered_at' => now(),
+            'previous_status' => $previousStatus,
+            'resulting_status' => $resultingStatus,
             'validation_result' => $validationResult,
-            'notes'             => $notes,
+            'notes' => $notes,
         ]);
     }
 

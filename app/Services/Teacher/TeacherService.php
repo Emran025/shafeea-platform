@@ -2,12 +2,11 @@
 
 namespace App\Services\Teacher;
 
-use App\Models\Teacher\Teacher;
 use App\Models\Auth\User;
 use App\Models\Halaqah\Halaqah;
+use App\Models\Teacher\Teacher;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 class TeacherService
@@ -72,12 +71,12 @@ class TeacherService
                     'phone_zone',
                     'whatsapp',
                     'whatsapp_zone',
-                    'birth_date'
+                    'birth_date',
                 ];
 
                 $userData = array_intersect_key($data, array_flip($userFields));
 
-                if (!empty($userData)) {
+                if (! empty($userData)) {
                     $teacher->user->update($userData);
                 }
             }
@@ -93,7 +92,7 @@ class TeacherService
             if (empty($halaqaIds)) {
                 return true;
             }
-            // Reset existing assignments if needed? 
+            // Reset existing assignments if needed?
             // The original logic just updated teacher_id for the given halaqahs
             Halaqah::whereIn('id', $halaqaIds)->update(['teacher_id' => $teacher->id]);
 

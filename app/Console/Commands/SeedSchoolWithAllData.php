@@ -3,16 +3,16 @@
 namespace App\Console\Commands;
 
 use App\Models\Auth\Admin;
-use App\Models\Student\Enrollment;
-use App\Models\Tracking\FrequencyType;
+use App\Models\Auth\User;
 use App\Models\Halaqah\Halaqah;
-use App\Models\Subscription\Plan;
 use App\Models\School\School;
+use App\Models\Student\Enrollment;
 use App\Models\Student\Student;
 use App\Models\Student\StudentReport;
+use App\Models\Subscription\Plan;
 use App\Models\Teacher\Teacher;
+use App\Models\Tracking\FrequencyType;
 use App\Models\Tracking\Unit;
-use App\Models\Auth\User;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
@@ -44,7 +44,7 @@ class SeedSchoolWithAllData extends Command
         $school = School::create([
             'name' => 'مدرسة الوفاء لتحفيظ القرآن',
             'logo' => 'https://example.com/wafa.png',
-            'phone' => '+967' . rand(700000000, 799999999),
+            'phone' => '+967'.rand(700000000, 799999999),
             'country' => 'اليمن',
             'city' => 'صنعاء',
             'location' => '15.3694,44.1910',
@@ -65,7 +65,7 @@ class SeedSchoolWithAllData extends Command
             ['name' => 'يومي', 'days_between' => 1],
             ['name' => 'أسبوعي', 'days_between' => 7],
             ['name' => 'كل 3 أيام', 'days_between' => 3],
-        ])->map(fn($f) => FrequencyType::create([
+        ])->map(fn ($f) => FrequencyType::create([
             'name' => $f['name'],
             'days_between' => $f['days_between'],
             'description' => "تكرار {$f['name']}",
@@ -79,8 +79,8 @@ class SeedSchoolWithAllData extends Command
             'avatar' => 'https://example.com/wafa.jpg',
             'gender' => 'Female',
             'birth_date' => '1985-05-01',
-            'phone' => '+9677' . rand(10000000, 99999999),
-            'whatsapp' => '+9677' . rand(10000000, 99999999),
+            'phone' => '+9677'.rand(10000000, 99999999),
+            'whatsapp' => '+9677'.rand(10000000, 99999999),
             'country' => 'اليمن',
             'city' => 'صنعاء',
             'residence' => 'الوحدة',
@@ -107,9 +107,9 @@ class SeedSchoolWithAllData extends Command
                 'password' => bcrypt('password'),
                 'avatar' => 'https://example.com/teacher.jpg',
                 'gender' => 'Male',
-                'birth_date' => '1980-01-' . rand(10, 28),
-                'phone' => '+9677' . rand(10000000, 99999999),
-                'whatsapp' => '+9677' . rand(10000000, 99999999),
+                'birth_date' => '1980-01-'.rand(10, 28),
+                'phone' => '+9677'.rand(10000000, 99999999),
+                'whatsapp' => '+9677'.rand(10000000, 99999999),
                 'country' => 'اليمن',
                 'city' => 'صنعاء',
                 'residence' => 'التحرير',
@@ -150,9 +150,9 @@ class SeedSchoolWithAllData extends Command
                 'password' => bcrypt('password'),
                 'avatar' => 'https://example.com/student.jpg',
                 'gender' => 'Male',
-                'birth_date' => '2007-05-' . rand(10, 28),
-                'phone' => '+9677' . rand(10000000, 99999999),
-                'whatsapp' => '+9677' . rand(10000000, 99999999),
+                'birth_date' => '2007-05-'.rand(10, 28),
+                'phone' => '+9677'.rand(10000000, 99999999),
+                'whatsapp' => '+9677'.rand(10000000, 99999999),
                 'country' => 'اليمن',
                 'city' => 'صنعاء',
                 'residence' => 'خور مكسر',
@@ -202,7 +202,7 @@ class SeedSchoolWithAllData extends Command
             $report = StudentReport::create([
                 'student_id' => $student->id,
                 'report_date' => $reportDate,
-                'summary' => 'Student performance summary on ' . $reportDate->format('Y-m-d'),
+                'summary' => 'Student performance summary on '.$reportDate->format('Y-m-d'),
                 'details' => json_encode([
                     'attendance' => rand(0, 1) ? 'Present' : 'Absent',
                     'participation' => rand(1, 10),
@@ -222,7 +222,7 @@ class SeedSchoolWithAllData extends Command
             \App\Models\Content\Notification::create([
                 'type' => $notificationTypes[array_rand($notificationTypes)], // اختيار عشوائي من القائمة
                 'title' => 'تقرير جديد للطالب',
-                'message' => 'تم إنشاء تقرير جديد للطالب بتاريخ ' . $reportDate->format('Y-m-d'),
+                'message' => 'تم إنشاء تقرير جديد للطالب بتاريخ '.$reportDate->format('Y-m-d'),
                 'read' => false,
                 'user_id' => $admin->id ?? null, // تأكد من وجود علاقة user للطالب، أو استخدم null
                 'scheduled_for' => now(), // يمكن تغييرها لتكون لاحقًا إذا لزم الأمر
