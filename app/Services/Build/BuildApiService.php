@@ -26,7 +26,7 @@ class BuildApiService
      *   Returns only active schools that have NOT yet been built for the given
      *   release version. Avoids rebuilding schools that already have an APK.
      *
-     * @param  string       $mode     "new_release" | "all" | "latest_release"
+     * @param  string  $mode  "new_release" | "all" | "latest_release"
      * @param  string|null  $release  Version tag, e.g. "v2.0.0" (required for latest_release)
      */
     public function getSchoolsForBuild(string $mode, ?string $release): Collection
@@ -50,8 +50,8 @@ class BuildApiService
     public function markSchoolBuilt(School $school, string $release): void
     {
         $school->update([
-            'build_status'       => 'built',
-            'last_built_at'      => now(),
+            'build_status' => 'built',
+            'last_built_at' => now(),
             'last_built_release' => $release,
         ]);
 
@@ -85,25 +85,25 @@ class BuildApiService
     {
         return [
             // ── Identity ───────────────────────────────────────────────────────
-            'id'                 => $school->id,
-            'school_code'        => $school->school_code,
-            'name'               => $school->name,
-            'logo_url'           => $school->getPublicLogoUrl(),
+            'id' => $school->id,
+            'school_code' => $school->school_code,
+            'name' => $school->name,
+            'logo_url' => $school->getPublicLogoUrl(),
 
             // ── Application mode ──────────────────────────────────────────────
             'school_locked_mode' => $school->school_locked_mode,
-            'app_key'            => $school->school_locked_mode ? $school->app_key : null,
+            'app_key' => $school->school_locked_mode ? $school->app_key : null,
 
             // ── Android signing ───────────────────────────────────────────────
-            'keystore_file'           => $school->keystore_file,           // base64
+            'keystore_file' => $school->keystore_file,           // base64
             'keystore_store_password' => $school->keystore_store_password, // decrypted by accessor
-            'keystore_key_alias'      => $school->keystore_key_alias,
-            'keystore_key_password'   => $school->keystore_key_password,   // decrypted by accessor
+            'keystore_key_alias' => $school->keystore_key_alias,
+            'keystore_key_password' => $school->keystore_key_password,   // decrypted by accessor
 
             // ── Build metadata ────────────────────────────────────────────────
-            'build_status'       => $school->build_status,
+            'build_status' => $school->build_status,
             'last_built_release' => $school->last_built_release,
-            'build_notes'        => $school->build_notes,
+            'build_notes' => $school->build_notes,
         ];
     }
 }

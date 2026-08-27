@@ -192,8 +192,8 @@ Route::prefix('build')
         Route::get('schools/{school}', [BuildApiController::class, 'show'])->name('schools.show');
         // Lifecycle state updates (called by CI jobs)
         Route::post('schools/{school}/mark-building', [BuildApiController::class, 'markBuilding'])->name('schools.mark-building');
-        Route::post('schools/{school}/mark-built',    [BuildApiController::class, 'markBuilt'])->name('schools.mark-built');
-        Route::post('schools/{school}/mark-failed',   [BuildApiController::class, 'markFailed'])->name('schools.mark-failed');
+        Route::post('schools/{school}/mark-built', [BuildApiController::class, 'markBuilt'])->name('schools.mark-built');
+        Route::post('schools/{school}/mark-failed', [BuildApiController::class, 'markFailed'])->name('schools.mark-failed');
         // Build-complete callback: marks school as built and sends admin notification email
         Route::post('webhooks/build-complete', [BuildWebhookController::class, 'handleBuildComplete'])->name('webhooks.build-complete');
     });

@@ -24,10 +24,10 @@ class PlatformController extends Controller
     public function index(Request $request): JsonResponse
     {
         $platforms = Platform::with('entityIdentity')
-            ->when($request->get('status'),  fn($q, $v) => $q->where('status', $v))
-            ->when($request->get('segment'), fn($q, $v) => $q->where('segment', $v))
+            ->when($request->get('status'), fn ($q, $v) => $q->where('status', $v))
+            ->when($request->get('segment'), fn ($q, $v) => $q->where('segment', $v))
             ->get()
-            ->sortBy(fn(Platform $p) => $p->showcaseOrder())
+            ->sortBy(fn (Platform $p) => $p->showcaseOrder())
             ->values();
 
         return response()->json($platforms);
@@ -40,6 +40,7 @@ class PlatformController extends Controller
     public function show(string $id): JsonResponse
     {
         $platform = Platform::with('entityIdentity')->findOrFail($id);
+
         return response()->json($platform);
     }
 
@@ -50,6 +51,7 @@ class PlatformController extends Controller
     public function identities(): JsonResponse
     {
         $identities = EntityIdentity::with('platform')->get();
+
         return response()->json($identities);
     }
 }

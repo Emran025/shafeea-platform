@@ -54,13 +54,13 @@ class VerifyBuildApiSignature
         }
 
         // ── Timestamp validation ──────────────────────────────────────────────
-        if (!ctype_digit((string) $timestamp)) {
+        if (! ctype_digit((string) $timestamp)) {
             return $this->unauthorized('Invalid timestamp format.');
         }
 
         $age = abs(time() - (int) $timestamp);
         if ($age > self::MAX_TIMESTAMP_AGE) {
-            return $this->unauthorized("Request timestamp is too old ({$age}s). Maximum allowed age is " . self::MAX_TIMESTAMP_AGE . "s.");
+            return $this->unauthorized("Request timestamp is too old ({$age}s). Maximum allowed age is ".self::MAX_TIMESTAMP_AGE.'s.');
         }
 
         // ── Load public key from environment ─────────────────────────────────
@@ -68,20 +68,22 @@ class VerifyBuildApiSignature
         if (empty($publicKeyPem)) {
             // Public key not configured — deny access to protect the endpoint
             \Illuminate\Support\Facades\Log::critical('Build API: BUILD_API_PUBLIC_KEY is not set in .env. All requests denied.');
+
             return $this->unauthorized('Build API is not configured on this server.');
         }
 
         $publicKey = openssl_pkey_get_public($publicKeyPem);
         if ($publicKey === false) {
             \Illuminate\Support\Facades\Log::critical('Build API: BUILD_API_PUBLIC_KEY is malformed and could not be parsed.');
+
             return $this->unauthorized('Build API public key is malformed.');
         }
 
         // ── Build the signed message ──────────────────────────────────────────
         // The signed string is: "{timestamp}\n{raw_body}"
         // For GET requests the body is an empty string.
-        $rawBody   = $request->getContent();
-        $signedMsg = $timestamp . "\n" . $rawBody;
+        $rawBody = $request->getContent();
+        $signedMsg = $timestamp."\n".$rawBody;
 
         // ── Signature verification ────────────────────────────────────────────
         $decodedSig = base64_decode($signature, strict: true);

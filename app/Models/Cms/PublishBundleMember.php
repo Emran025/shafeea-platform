@@ -10,7 +10,8 @@ class PublishBundleMember extends Model
     protected $table = 'publish_bundle_members';
 
     public $incrementing = false;
-    public $timestamps   = false;
+
+    public $timestamps = false;
 
     protected $guarded = [];
 
@@ -33,10 +34,10 @@ class PublishBundleMember extends Model
     public function resolveObject(): Page|Section|Block|null
     {
         return match ($this->object_type) {
-            'page'    => Page::find($this->object_id),
+            'page' => Page::find($this->object_id),
             'section' => Section::find($this->object_id),
-            'block'   => Block::find($this->object_id),
-            default   => null,
+            'block' => Block::find($this->object_id),
+            default => null,
         };
     }
 }

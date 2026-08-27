@@ -51,19 +51,19 @@ class BuildApiController extends Controller
      */
     public function index(Request $request): JsonResponse
     {
-        $mode    = $request->query('mode', 'latest_release');
+        $mode = $request->query('mode', 'latest_release');
         $release = $request->query('release');
 
         $schools = $this->buildService->getSchoolsForBuild($mode, $release);
 
-        $payload = $schools->map(fn(School $school) => $this->buildService->generateBuildPayload($school));
+        $payload = $schools->map(fn (School $school) => $this->buildService->generateBuildPayload($school));
 
         return response()->json([
             'success' => true,
-            'mode'    => $mode,
+            'mode' => $mode,
             'release' => $release,
-            'count'   => $payload->count(),
-            'data'    => $payload->values(),
+            'count' => $payload->count(),
+            'data' => $payload->values(),
         ]);
     }
 
@@ -74,7 +74,7 @@ class BuildApiController extends Controller
      */
     public function show(School $school): JsonResponse
     {
-        if (!$school->is_active) {
+        if (! $school->is_active) {
             return response()->json([
                 'success' => false,
                 'message' => "School [{$school->school_code}] is not active and cannot be built.",
@@ -83,7 +83,7 @@ class BuildApiController extends Controller
 
         return response()->json([
             'success' => true,
-            'school'  => $this->buildService->generateBuildPayload($school),
+            'school' => $this->buildService->generateBuildPayload($school),
         ]);
     }
 

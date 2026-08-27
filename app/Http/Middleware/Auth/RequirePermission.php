@@ -37,9 +37,9 @@ class RequirePermission
 
         if (! $hasPermission) {
             return response()->json([
-                'error'           => 'Forbidden.',
-                'required'        => $permissionCode,
-                'your_roles'      => $user->roles->pluck('name')->values()->all(),
+                'error' => 'Forbidden.',
+                'required' => $permissionCode,
+                'your_roles' => $user->roles->pluck('name')->values()->all(),
             ], 403);
         }
 

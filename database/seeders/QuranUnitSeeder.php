@@ -27,6 +27,6 @@ class QuranUnitSeeder extends Seeder
             );
         }
 
-        $this->command->info('✅ Created ' . Unit::count() . ' Quran units.');
+        $this->command->info('✅ Created '.Unit::count().' Quran units.');
     }
 }

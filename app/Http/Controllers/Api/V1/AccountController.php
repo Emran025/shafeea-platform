@@ -89,7 +89,7 @@ class AccountController extends ApiController
 
         $validator = Validator::make($request->all(), [
             'name' => ['sometimes', 'string', 'max:255'],
-            'email' => ['sometimes', 'string', 'email', 'max:255', 'unique:users,email,' . $user->id],
+            'email' => ['sometimes', 'string', 'email', 'max:255', 'unique:users,email,'.$user->id],
             'username' => ['sometimes', 'string', 'max:255', new \App\Rules\UniqueUsername($user->id)],
             'role' => ['sometimes', 'string', 'in:student,teacher,applicant'],
         ]);
@@ -108,7 +108,7 @@ class AccountController extends ApiController
 
         if ($request->has('username')) {
             $role = $request->input('role');
-            if (!$role) {
+            if (! $role) {
                 if ($user->student) {
                     $role = 'student';
                 } elseif ($user->teacher) {

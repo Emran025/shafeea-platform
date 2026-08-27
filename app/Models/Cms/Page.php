@@ -2,12 +2,12 @@
 
 namespace App\Models\Cms;
 
+use App\Models\Auth\User;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Models\Auth\User;
 
 class Page extends Model
 {
@@ -34,24 +34,24 @@ class Page extends Model
     {
         return [
             // PageIdentity
-            'identity_title'          => 'array',
-            'identity_purpose'        => 'array',
+            'identity_title' => 'array',
+            'identity_purpose' => 'array',
 
             // PageHierarchy
             'hierarchy_include_in_nav' => 'boolean',
-            'hierarchy_nav_label'      => 'array',
-            'breadcrumb_label'         => 'array',
+            'hierarchy_nav_label' => 'array',
+            'breadcrumb_label' => 'array',
 
             // PageCompositionPolicy
             'composition_allow_dynamic' => 'boolean',
 
             // PageMeta
-            'meta_seo_title'       => 'array',
+            'meta_seo_title' => 'array',
             'meta_seo_description' => 'array',
-            'meta_og_title'        => 'array',
-            'meta_og_description'  => 'array',
-            'meta_og_image'        => 'array',
-            'meta_hreflang'        => 'array',
+            'meta_og_title' => 'array',
+            'meta_og_description' => 'array',
+            'meta_og_image' => 'array',
+            'meta_hreflang' => 'array',
 
             // AuditRecord
             'published_at' => 'datetime',
@@ -134,7 +134,7 @@ class Page extends Model
     {
         return [
             'fallback_policy' => $this->composition_fallback_policy ?? 'show_partial',
-            'max_sections'    => $this->composition_max_sections ?? PHP_INT_MAX,
+            'max_sections' => $this->composition_max_sections ?? PHP_INT_MAX,
         ];
     }
 
@@ -142,12 +142,12 @@ class Page extends Model
     {
         $locales = [];
 
-        $seoTitle  = $this->meta_seo_title  ?? [];
-        $seoDesc   = $this->meta_seo_description ?? [];
-        $ogTitle   = $this->meta_og_title    ?? [];
-        $ogDesc    = $this->meta_og_description ?? [];
-        $robots    = $this->meta_robots      ?? 'index,follow';
-        $schema    = $this->meta_schema_markup ?? null;
+        $seoTitle = $this->meta_seo_title ?? [];
+        $seoDesc = $this->meta_seo_description ?? [];
+        $ogTitle = $this->meta_og_title ?? [];
+        $ogDesc = $this->meta_og_description ?? [];
+        $robots = $this->meta_robots ?? 'index,follow';
+        $schema = $this->meta_schema_markup ?? null;
 
         $allLocales = array_unique(array_merge(
             array_keys($seoTitle),
@@ -157,12 +157,12 @@ class Page extends Model
 
         foreach ($allLocales as $locale) {
             $locales[$locale] = [
-                'seo_title'       => $seoTitle[$locale]  ?? $seoTitle['en']  ?? '',
-                'seo_description' => $seoDesc[$locale]   ?? $seoDesc['en']   ?? '',
-                'og_title'        => $ogTitle[$locale]   ?? $ogTitle['en']   ?? null,
-                'og_description'  => $ogDesc[$locale]    ?? $ogDesc['en']    ?? null,
-                'robots'          => $robots,
-                'schema_markup'   => $schema,
+                'seo_title' => $seoTitle[$locale] ?? $seoTitle['en'] ?? '',
+                'seo_description' => $seoDesc[$locale] ?? $seoDesc['en'] ?? '',
+                'og_title' => $ogTitle[$locale] ?? $ogTitle['en'] ?? null,
+                'og_description' => $ogDesc[$locale] ?? $ogDesc['en'] ?? null,
+                'robots' => $robots,
+                'schema_markup' => $schema,
             ];
         }
 

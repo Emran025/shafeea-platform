@@ -4,11 +4,11 @@ namespace App\Services\School;
 
 use App\Events\SchoolRegistrationSubmittedEvent;
 use App\Models\Auth\Admin;
+use App\Models\Auth\User;
 use App\Models\Content\Document;
 use App\Models\School\School;
-use App\Models\Auth\User;
-use App\Models\Subscription\SubscriptionPlan;
 use App\Models\Subscription\Payment;
+use App\Models\Subscription\SubscriptionPlan;
 use App\Services\Payment\PaymentService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -87,16 +87,16 @@ class SchoolService
 
             // 3. Create User
             $user = User::create([
-                'name'      => $regData['user_name'],
-                'email'     => $regData['user_email'],
+                'name' => $regData['user_name'],
+                'email' => $regData['user_email'],
                 'phone_zone' => $regData['user_phone_zone'],
-                'phone'     => $regData['user_phone'],
-                'whatsapp'  => $regData['is_whatsapp_different'] ? ($regData['user_whatsapp'] ?? null) : ($regData['user_phone'] ?? null),
+                'phone' => $regData['user_phone'],
+                'whatsapp' => $regData['is_whatsapp_different'] ? ($regData['user_whatsapp'] ?? null) : ($regData['user_phone'] ?? null),
                 'whatsapp_zone' => $regData['is_whatsapp_different'] ? ($regData['user_whatsapp_zone'] ?? null) : ($regData['user_phone_zone'] ?? null),
-                'country'   => $regData['user_country'],
+                'country' => $regData['user_country'],
                 'residence' => $regData['user_residence'],
-                'city'      => $regData['user_city'],
-                'password'  => Hash::make($regData['user_password']),
+                'city' => $regData['user_city'],
+                'password' => Hash::make($regData['user_password']),
                 'school_id' => $school->id,
             ]);
 
@@ -112,7 +112,7 @@ class SchoolService
 
                     if ($tempPath) {
                         if (Storage::disk('public')->exists($tempPath)) {
-                            $finalPath = str_replace('temp/documents', 'documents/schools/' . $school->id, $tempPath);
+                            $finalPath = str_replace('temp/documents', 'documents/schools/'.$school->id, $tempPath);
                             Storage::disk('public')->move($tempPath, $finalPath);
                         } else {
                             // Temp file is gone (e.g. between deployments) — keep path as-is so admin knows a file was submitted
@@ -122,26 +122,26 @@ class SchoolService
 
                     // Always save the document record, even if no file was uploaded
                     // Text metadata (name, type, date) must never be lost
-                    if (!empty($doc['name']) || !empty($doc['certificate_type'])) {
+                    if (! empty($doc['name']) || ! empty($doc['certificate_type'])) {
                         Document::create([
-                            'user_id'                => $user->id,
-                            'name'                   => $doc['name'] ?? '',
-                            'certificate_type'       => $doc['certificate_type'] ?? '',
+                            'user_id' => $user->id,
+                            'name' => $doc['name'] ?? '',
+                            'certificate_type' => $doc['certificate_type'] ?? '',
                             'certificate_type_other' => $doc['certificate_type_other'] ?? null,
-                            'riwayah'                => $doc['riwayah'] ?? null,
-                            'issuing_place'          => $doc['issuing_place'] ?? null,
-                            'issuing_date'           => $doc['issuing_date'] ?? null,
-                            'file_path'              => $finalPath,
+                            'riwayah' => $doc['riwayah'] ?? null,
+                            'issuing_place' => $doc['issuing_place'] ?? null,
+                            'issuing_date' => $doc['issuing_date'] ?? null,
+                            'file_path' => $finalPath,
                         ]);
                     }
                 }
             }
 
-            $platformAdminRole = \App\Models\Auth\Role::where("name", "platform.admin")->first();
+            $platformAdminRole = \App\Models\Auth\Role::where('name', 'platform.admin')->first();
             if ($platformAdminRole) {
                 $user->roles()->attach($platformAdminRole->id);
             }
-            \Illuminate\Support\Facades\DB::table("school_site_scopes")->insert(["school_id" => $school->id, "site_scope" => $school->school_code, "created_at" => now(), "updated_at" => now()]);
+            \Illuminate\Support\Facades\DB::table('school_site_scopes')->insert(['school_id' => $school->id, 'site_scope' => $school->school_code, 'created_at' => now(), 'updated_at' => now()]);
             Admin::create([
                 'user_id' => $user->id,
                 'school_id' => $school->id,
@@ -159,7 +159,7 @@ class SchoolService
                     'payment_method' => 'online',
                     'amount' => 0,
                     'status' => 'pending',
-                    'transaction_id' => 'FREE_' . Str::random(10),
+                    'transaction_id' => 'FREE_'.Str::random(10),
                 ]);
 
                 $this->paymentService->completePayment($payment);
@@ -171,14 +171,16 @@ class SchoolService
             }
 
             if ($paymentMethod === 'online') {
-                $result = $this->paymentService->initiateOnlinePayment($school, (float)$plan->price);
+                $result = $this->paymentService->initiateOnlinePayment($school, (float) $plan->price);
+
                 return [
                     'type' => 'online',
                     'checkout_url' => $result['checkout_url'],
                     'school' => $school,
                 ];
             } else {
-                $result = $this->paymentService->generateReferenceNumber($school, (float)$plan->price);
+                $result = $this->paymentService->generateReferenceNumber($school, (float) $plan->price);
+
                 return [
                     'type' => 'reference',
                     'reference_number' => $result['reference_number'],

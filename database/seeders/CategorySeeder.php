@@ -23,10 +23,10 @@ class CategorySeeder extends Seeder
         foreach ($categories as $category) {
             Category::firstOrCreate(
                 ['display_order' => $category['display_order']],
-                ['name'          => $category['name']]
+                ['name' => $category['name']]
             );
         }
 
-        $this->command->info('✅ Seeded ' . Category::count() . ' categories.');
+        $this->command->info('✅ Seeded '.Category::count().' categories.');
     }
 }

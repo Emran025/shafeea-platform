@@ -17,7 +17,7 @@ class SchoolFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->unique()->company() . ' School',
+            'name' => fake()->unique()->company().' School',
             'logo' => fake()->imageUrl(),
             'phone' => fake()->phoneNumber(),
             'country' => 'Yemen',

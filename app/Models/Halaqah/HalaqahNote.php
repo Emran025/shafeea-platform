@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Models\Halaqah;
-use App\Models\Auth\Admin;
 
+use App\Models\Auth\Admin;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 

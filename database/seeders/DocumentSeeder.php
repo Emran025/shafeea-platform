@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\Content\Document;
 use App\Models\Auth\User;
+use App\Models\Content\Document;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Storage;
 
@@ -18,8 +18,8 @@ class DocumentSeeder extends Seeder
 
         foreach ($users as $user) {
             // Create a fake file
-            $fileName = 'document_' . uniqid() . '.txt';
-            $filePath = 'public/documents/' . $fileName;
+            $fileName = 'document_'.uniqid().'.txt';
+            $filePath = 'public/documents/'.$fileName;
             Storage::put($filePath, 'This is a sample document.');
 
             Document::create([

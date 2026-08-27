@@ -49,10 +49,10 @@ class SupportTicketController extends Controller
     public function update(Request $request, SupportTicket $supportTicket): JsonResponse
     {
         $data = $request->validate([
-            'status'      => ['sometimes', Rule::in(SupportTicket::STATUSES)],
-            'priority'    => ['sometimes', Rule::in(SupportTicket::PRIORITIES)],
+            'status' => ['sometimes', Rule::in(SupportTicket::STATUSES)],
+            'priority' => ['sometimes', Rule::in(SupportTicket::PRIORITIES)],
             'assigned_to' => ['sometimes', 'nullable', 'exists:users,id'],
-            'category'    => ['sometimes', 'string', 'max:64'],
+            'category' => ['sometimes', 'string', 'max:64'],
         ]);
 
         $supportTicket->fill($data)->save();
@@ -63,6 +63,7 @@ class SupportTicketController extends Controller
     public function destroy(SupportTicket $supportTicket): JsonResponse
     {
         $supportTicket->update(['status' => 'closed']);
+
         return response()->json(['ok' => true]);
     }
 }

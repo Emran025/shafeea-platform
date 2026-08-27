@@ -4,13 +4,12 @@ namespace Database\Seeders;
 
 use App\Models\Tracking\TrackingUnit;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class QuranTrackingUnitsSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     * 
+     *
      * Seeds 1,054 Quran tracking units from external JSON file
      * These units represent different memorization levels and page ranges
      */
@@ -19,6 +18,7 @@ class QuranTrackingUnitsSeeder extends Seeder
         // Check if tracking units already exist
         if (TrackingUnit::query()->exists()) {
             $this->command->warn('⚠️  Tracking units already exist. Skipping seeder.');
+
             return;
         }
 
@@ -29,6 +29,7 @@ class QuranTrackingUnitsSeeder extends Seeder
             $this->command->error('❌ Quran tracking units JSON file not found!');
             $this->command->info("Expected path: $jsonPath");
             $this->command->info('Please extract tracking units from DatabaseSeeder::seedSystemData() to this file.');
+
             return;
         }
 
@@ -37,6 +38,7 @@ class QuranTrackingUnitsSeeder extends Seeder
 
         if (empty($quranTrackingUnits)) {
             $this->command->error('❌ No tracking units found in JSON file!');
+
             return;
         }
 
@@ -55,6 +57,6 @@ class QuranTrackingUnitsSeeder extends Seeder
             ]));
         }
 
-        $this->command->info('✅ Created ' . count($trackingUnits) . ' Quran tracking units.');
+        $this->command->info('✅ Created '.count($trackingUnits).' Quran tracking units.');
     }
 }

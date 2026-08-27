@@ -18,7 +18,8 @@ class PrivacyPolicySeeder extends Seeder
 
         if (! file_exists($jsonPath)) {
             $this->command->warn('⚠️  Demo privacy_Policy JSON file not found. Skipping seeder.');
-            $this->command->info('Expected path: ' . $jsonPath);
+            $this->command->info('Expected path: '.$jsonPath);
+
             return;
         }
 
@@ -27,6 +28,7 @@ class PrivacyPolicySeeder extends Seeder
 
         if (empty($privacy_Policy)) {
             $this->command->warn('⚠️  No privacy_Policy found in JSON file.');
+
             return;
         }
 

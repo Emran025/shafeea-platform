@@ -27,31 +27,31 @@ class StoreBlockRequest extends FormRequest
     {
         return [
             // SR-005: type is required and immutable after creation
-            'type'                         => 'required|string|max:100',
+            'type' => 'required|string|max:100',
 
             // locale_content: keyed by locale — at least 'en' should be present
-            'locale_content'               => 'required|array',
-            'locale_content.en'            => 'required|array',
-            'locale_content.en.fields'     => 'required|array',
+            'locale_content' => 'required|array',
+            'locale_content.en' => 'required|array',
+            'locale_content.en.fields' => 'required|array',
             'locale_content.*.is_complete' => 'nullable|boolean',
 
             // Media reference
-            'media_id'                     => 'nullable|uuid|exists:media,id',
+            'media_id' => 'nullable|uuid|exists:media,id',
 
             // Actions (CTAs, links)
-            'actions'                      => 'nullable|array',
+            'actions' => 'nullable|array',
 
             // Composition config — actual column names
-            'config_is_decorative'         => 'nullable|boolean',
-            'config_is_featured'           => 'nullable|boolean',
-            'config_display_weight'        => 'nullable|integer|min:1|max:10',
+            'config_is_decorative' => 'nullable|boolean',
+            'config_is_featured' => 'nullable|boolean',
+            'config_display_weight' => 'nullable|integer|min:1|max:10',
         ];
     }
 
     public function messages(): array
     {
         return [
-            'locale_content.en.required'        => "locale_content must include an 'en' (English) entry.",
+            'locale_content.en.required' => "locale_content must include an 'en' (English) entry.",
             'locale_content.en.fields.required' => "The 'en' locale entry must include a 'fields' object.",
         ];
     }

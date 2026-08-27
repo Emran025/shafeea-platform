@@ -15,7 +15,7 @@ class AuthController extends Controller
     public function login(Request $request): JsonResponse
     {
         $data = $request->validate([
-            'email'    => ['required', 'email'],
+            'email' => ['required', 'email'],
             'password' => ['required', 'string', 'min:8'],
         ]);
 
@@ -29,14 +29,14 @@ class AuthController extends Controller
         $plain = Str::random(64);
 
         AdminApiToken::query()->create([
-            'user_id'    => $user->id,
+            'user_id' => $user->id,
             'token_hash' => hash('sha256', $plain),
             'expires_at' => now()->addHours(12),
         ]);
 
         return response()->json([
-            'token'       => $plain,
-            'actor'       => $this->actorPayload($user),
+            'token' => $plain,
+            'actor' => $this->actorPayload($user),
             'permissions' => $this->permissionsForUser($user),
         ]);
     }
@@ -53,7 +53,7 @@ class AuthController extends Controller
         $user->loadMissing('roles');
 
         return response()->json([
-            'actor'       => $this->actorPayload($user),
+            'actor' => $this->actorPayload($user),
             'permissions' => $this->permissionsForUser($user),
         ]);
     }
@@ -77,8 +77,8 @@ class AuthController extends Controller
     private function actorPayload(User $user): array
     {
         return [
-            'id'    => (string) $user->id,
-            'name'  => $user->name,
+            'id' => (string) $user->id,
+            'name' => $user->name,
             'email' => $user->email,
             'roles' => $user->roles->pluck('name')->values()->all(),
             'role' => $user->roles->first()?->name ?? 'content.author',

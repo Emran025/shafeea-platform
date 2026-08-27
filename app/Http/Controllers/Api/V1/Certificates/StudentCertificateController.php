@@ -19,15 +19,15 @@ class StudentCertificateController extends Controller
                     'id' => $cert->id,
                     'batch_name' => $cert->batch->name ?? 'شهادة',
                     'issue_date' => $cert->updated_at->format('Y-m-d'),
-                    'file_url_pdf' => asset('storage/' . $cert->file_path_pdf),
-                    'file_url_jpg' => asset('storage/' . $cert->file_path_jpg),
+                    'file_url_pdf' => asset('storage/'.$cert->file_path_pdf),
+                    'file_url_jpg' => asset('storage/'.$cert->file_path_jpg),
                     'verify_url' => route('certificates.verify', ['id' => $cert->id]),
                 ];
             });
 
         return response()->json([
             'status' => 'success',
-            'data' => $certificates
+            'data' => $certificates,
         ]);
     }
 }

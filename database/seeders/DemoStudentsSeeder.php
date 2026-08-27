@@ -2,19 +2,18 @@
 
 namespace Database\Seeders;
 
-use App\Models\Student\Student;
 use App\Models\Auth\User;
+use App\Models\Student\Student;
 use Illuminate\Database\Seeder;
 
 class DemoStudentsSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     * 
+     *
      * Seeds demo students with specific creation dates and memorization levels
      * Useful for demonstrating historical data and various student states
      */
-
     public function run(): void
     {
         // Path to demo students JSON file
@@ -22,7 +21,8 @@ class DemoStudentsSeeder extends Seeder
 
         if (! file_exists($jsonPath)) {
             $this->command->warn('⚠️  Demo students JSON file not found. Skipping seeder.');
-            $this->command->info('Expected path: ' . $jsonPath);
+            $this->command->info('Expected path: '.$jsonPath);
+
             return;
         }
 
@@ -31,6 +31,7 @@ class DemoStudentsSeeder extends Seeder
 
         if (empty($demoStudents)) {
             $this->command->warn('⚠️  No demo students found in JSON file.');
+
             return;
         }
 
@@ -39,6 +40,7 @@ class DemoStudentsSeeder extends Seeder
 
         if (! $schoolId) {
             $this->command->error('❌ No schools found! Please run SchoolSeeder first.');
+
             return;
         }
 
@@ -49,8 +51,8 @@ class DemoStudentsSeeder extends Seeder
                 'email' => $studentData['email'],
                 'password' => bcrypt('password'),
                 'gender' => $studentData['gender'],
-                'birth_date' => ($studentData['birth_year'] ?? 2010) . '-01-01',
-                'phone' => '+9677' . rand(10000000, 99999999),
+                'birth_date' => ($studentData['birth_year'] ?? 2010).'-01-01',
+                'phone' => '+9677'.rand(10000000, 99999999),
                 'country' => 'اليمن',
                 'city' => 'صنعاء',
                 'school_id' => $schoolId,
@@ -70,8 +72,7 @@ class DemoStudentsSeeder extends Seeder
             ]);
         }
 
-
-        $this->command->info('✅ Created ' . count($demoStudents) . ' demo students.');
+        $this->command->info('✅ Created '.count($demoStudents).' demo students.');
     }
 
     /**

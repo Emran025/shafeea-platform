@@ -25,8 +25,6 @@ abstract class CategorizedMailable extends Mailable
      *   'noreply' → MAIL_NOREPLY_ADDRESS (automated system notifications)
      *   'contact' → MAIL_CONTACT_ADDRESS (human-led support & inquiries)
      *   'info'    → MAIL_INFO_ADDRESS    (general inquiries)
-     *
-     * @var string
      */
     protected string $emailCategory = 'noreply';
 
@@ -38,10 +36,10 @@ abstract class CategorizedMailable extends Mailable
         $appName = config('app.name', 'منصة شفيع');
 
         $map = [
-            'verify'  => config('mail.verify_email',  config('mail.from.address')),
+            'verify' => config('mail.verify_email', config('mail.from.address')),
             'noreply' => config('mail.noreply_email', config('mail.from.address')),
             'contact' => config('mail.contact_email', config('mail.from.address')),
-            'info'    => config('mail.info_email',    config('mail.from.address')),
+            'info' => config('mail.info_email', config('mail.from.address')),
         ];
 
         $address = $map[$this->emailCategory] ?? config('mail.from.address');

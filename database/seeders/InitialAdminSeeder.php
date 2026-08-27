@@ -3,15 +3,15 @@
 namespace Database\Seeders;
 
 use App\Models\Auth\Admin;
-use App\Models\School\School;
 use App\Models\Auth\User;
+use App\Models\School\School;
 use Illuminate\Database\Seeder;
 
 class InitialAdminSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     * 
+     *
      * Seeds the initial super admin user and admin record.
      * This seeder is idempotent and safe to run multiple times.
      */
@@ -20,13 +20,13 @@ class InitialAdminSeeder extends Seeder
         $school = School::updateOrCreate(
             ['school_code' => 'shafeea'],
             [
-                'name' => "مدرسة شفيع الإفتراضية",
-                'logo' => "https://shafeea.systems360.cloud/logo.png",
-                'phone' => '+96605' . rand(1000000, 9999999),
+                'name' => 'مدرسة شفيع الإفتراضية',
+                'logo' => 'https://shafeea.systems360.cloud/logo.png',
+                'phone' => '+96605'.rand(1000000, 9999999),
                 'country' => 'المملكة العربية السعودية',
                 'city' => 'مكة المكرمة',
                 'location' => '21.4225,39.82617',
-                'address' => "shafeea.systems360.cloud",
+                'address' => 'shafeea.systems360.cloud',
                 'is_active' => true,
                 'school_locked_mode' => true,
                 'approved_at' => now(),
@@ -41,12 +41,12 @@ class InitialAdminSeeder extends Seeder
         );
 
         $user = User::updateOrCreate(
-            ['email' =>  config('app.admin_email')],
+            ['email' => config('app.admin_email')],
             [
                 'name' => config('app.admin_name'),
                 'password' => bcrypt(config('app.admin_password')),
                 'avatar' => 'https://example.com/avatar.jpg',
-                'gender' => "Male",
+                'gender' => 'Male',
                 'birth_date' => '1980-01-15',
                 'phone' => config('app.admin_phone'),
                 'whatsapp' => config('app.admin_whatsapp'),
@@ -62,7 +62,7 @@ class InitialAdminSeeder extends Seeder
             ['user_id' => $user->id],
             [
                 'super_admin' => true,
-                'status'      => 'accepted',
+                'status' => 'accepted',
             ]
         );
 

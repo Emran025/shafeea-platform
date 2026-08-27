@@ -6,11 +6,11 @@ use App\Enums\AdminStatus;
 use App\Events\ApiLogin;
 use App\Models\Applicant\Applicant;
 use App\Models\Applicant\ApplicantRejection;
+use App\Models\Auth\User;
 use App\Models\Student\Student;
 use App\Models\Teacher\Teacher;
-use App\Services\Auth\UsernameGenerator;
-use App\Models\Auth\User;
 use App\Services\Applicant\ApplicantService;
+use App\Services\Auth\UsernameGenerator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
@@ -76,7 +76,7 @@ class AuthController extends ApiController
         }
 
         // If not found by username, fallback to checking email for admin/legacy login
-        if (!$userId && filter_var($loginValue, FILTER_VALIDATE_EMAIL)) {
+        if (! $userId && filter_var($loginValue, FILTER_VALIDATE_EMAIL)) {
             $fallbackUser = User::where('email', $loginValue)->first();
             if ($fallbackUser) {
                 $userId = $fallbackUser->id;
@@ -84,13 +84,13 @@ class AuthController extends ApiController
             }
         }
 
-        if (!$userId) {
+        if (! $userId) {
             return $this->error('Unauthorized. Invalid credentials.', 401, []);
         }
 
         $user = User::find($userId);
 
-        if (!$user || !Hash::check($request->password, $user->password)) {
+        if (! $user || ! Hash::check($request->password, $user->password)) {
             return $this->error('Unauthorized. Invalid credentials.', 401, []);
         }
 
@@ -106,7 +106,7 @@ class AuthController extends ApiController
 
         return $this->success([
             'token' => $token,
-            'user'  => $this->buildUserPayload($user, $role),
+            'user' => $this->buildUserPayload($user, $role),
             'role' => $role,
         ], 'Login successful.');
     }
@@ -122,7 +122,7 @@ class AuthController extends ApiController
         $request->merge(array_filter([
             'email' => $request->has('email') ? mb_strtolower(trim((string) $request->input('email'))) : null,
             'username' => $request->has('username') ? mb_strtolower(trim((string) $request->input('username'))) : null,
-        ], fn($value) => $value !== null));
+        ], fn ($value) => $value !== null));
 
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
@@ -169,7 +169,7 @@ class AuthController extends ApiController
 
         return $this->success([
             'token' => $token,
-            'user'  => $this->buildUserPayload($user, 'applicant'),
+            'user' => $this->buildUserPayload($user, 'applicant'),
             'role' => 'applicant',
         ], 'Application submitted successfully');
     }
@@ -197,8 +197,8 @@ class AuthController extends ApiController
         $role = $this->resolveUserRole($user);
 
         return $this->success([
-            'user'  => $this->buildUserPayload($user, $role),
-            'role'  => $role,
+            'user' => $this->buildUserPayload($user, $role),
+            'role' => $role,
         ], 'Authenticated profile retrieved successfully.');
     }
 
@@ -303,7 +303,7 @@ class AuthController extends ApiController
         }
 
         // If not found by email, try lookup by username across the three tables
-        if (!$user) {
+        if (! $user) {
             $student = \Illuminate\Support\Facades\DB::table('students')->where('username', $loginValue)->first();
             $teacher = \Illuminate\Support\Facades\DB::table('teachers')->where('username', $loginValue)->first();
             $applicant = \Illuminate\Support\Facades\DB::table('applicants')->where('username', $loginValue)->first();
@@ -328,7 +328,8 @@ class AuthController extends ApiController
             $status = Password::broker()->sendResetLink(['email' => $user->email]);
 
             if ($status === Password::RESET_LINK_SENT) {
-                Log::info('Password reset link sent to: ' . $user->email);
+                Log::info('Password reset link sent to: '.$user->email);
+
                 return $this->success(null, 'If the email or username exists, a reset link has been sent.');
             }
 
@@ -355,6 +356,7 @@ class AuthController extends ApiController
         $name = (string) $request->query('name', '');
 
         $suggestion = UsernameGenerator::suggest($name);
+
         return $this->success([
             'username' => $suggestion,
         ], 'suggestion successful.');
@@ -371,7 +373,7 @@ class AuthController extends ApiController
         if (! hash_equals((string) $request->route('hash'), sha1($user->getEmailForVerification()))) {
             return response()->view('auth.verify-result', [
                 'success' => false,
-                'title'   => 'رابط غير صالح',
+                'title' => 'رابط غير صالح',
                 'message' => 'عذراً، هذا الرابط غير صالح أو قد انتهت صلاحيته. يرجى طلب رابط جديد.',
             ], 403);
         }
@@ -379,7 +381,7 @@ class AuthController extends ApiController
         if ($user->hasVerifiedEmail()) {
             return response()->view('auth.verify-result', [
                 'success' => true,
-                'title'   => 'الحساب مفعل بالفعل',
+                'title' => 'الحساب مفعل بالفعل',
                 'message' => 'لقد تم تأكيد بريدك الإلكتروني مسبقاً. يمكنك المتابعة واستخدام التطبيق بشكل طبيعي.',
             ]);
         }
@@ -388,7 +390,7 @@ class AuthController extends ApiController
 
         return response()->view('auth.verify-result', [
             'success' => true,
-            'title'   => 'تم التحقق بنجاح!',
+            'title' => 'تم التحقق بنجاح!',
             'message' => 'تهانينا، تم تأكيد بريدك الإلكتروني بنجاح. يمكنك الآن الاستمتاع بكافة مميزات منصة شفيع.',
         ]);
     }
@@ -451,19 +453,19 @@ class AuthController extends ApiController
     {
         // Load roles based on the custom roles relationship
         $roles = $user->roles()->pluck('name')->toArray();
-        
+
         // Assuming permissions are accessed via the roles (or custom implementation)
         // We will just return the roles and the gender_scope
         return [
-            'id'               => $user->id,
-            'name'             => $user->name,
-            'email'            => $user->email,
-            'phone'            => $user->phone,
-            'avatar'           => $user->avatar,
-            'username'         => $this->resolveUsername($user, $role),
+            'id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'phone' => $user->phone,
+            'avatar' => $user->avatar,
+            'username' => $this->resolveUsername($user, $role),
             'is_email_verified' => (bool) $user->email_verified_at,
-            'gender_scope'     => $user->gender_scope ?? 'all',
-            'roles'            => $roles,
+            'gender_scope' => $user->gender_scope ?? 'all',
+            'roles' => $roles,
         ];
     }
 
@@ -518,12 +520,12 @@ class AuthController extends ApiController
             'Avater' => base64_encode(Str::random(30)),
             'gender' => fake()->randomElement(['Male', 'Female']),
             'email' => fake()->unique()->safeEmail(),
-            'phone' => '+1' . rand(1000000000, 9999999999),
+            'phone' => '+1'.rand(1000000000, 9999999999),
             'birthDate' => fake()->date('Y-m-d', '2000-01-01'),
             'profilePictureUrl' => fake()->imageUrl(),
             'phoneZone' => '+1',
             'whatsappZone' => '+1',
-            'whatsappPhone' => '+1' . rand(1000000000, 9999999999),
+            'whatsappPhone' => '+1'.rand(1000000000, 9999999999),
             'qualification' => fake()->randomElement([
                 'PhD in Islamic Studies',
                 'MA in Arabic Linguistics',

@@ -2,9 +2,9 @@
 
 namespace App\Models\Cms;
 
+use App\Models\Auth\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use App\Models\Auth\User;
 
 class Faq extends Model
 {
@@ -26,7 +26,7 @@ class Faq extends Model
     {
         return [
             'is_published' => 'boolean',
-            'sort_order'   => 'integer',
+            'sort_order' => 'integer',
             'published_at' => 'datetime',
         ];
     }

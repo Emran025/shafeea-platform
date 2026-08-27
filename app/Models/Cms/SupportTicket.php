@@ -2,9 +2,9 @@
 
 namespace App\Models\Cms;
 
+use App\Models\Auth\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use App\Models\Auth\User;
 
 class SupportTicket extends Model
 {
@@ -29,8 +29,9 @@ class SupportTicket extends Model
         return $this->belongsTo(User::class, 'assigned_to');
     }
 
-    public const STATUSES    = ['open', 'in_progress', 'resolved', 'closed'];
-    public const PRIORITIES  = ['low', 'normal', 'high', 'urgent'];
+    public const STATUSES = ['open', 'in_progress', 'resolved', 'closed'];
+
+    public const PRIORITIES = ['low', 'normal', 'high', 'urgent'];
 
     /**
      * Auto-generate a unique ticket number before creation.
@@ -39,7 +40,7 @@ class SupportTicket extends Model
     {
         static::creating(function (self $ticket): void {
             if (empty($ticket->ticket_number)) {
-                $ticket->ticket_number = 'TKT-' . strtoupper(substr(uniqid(), -6));
+                $ticket->ticket_number = 'TKT-'.strtoupper(substr(uniqid(), -6));
             }
         });
     }

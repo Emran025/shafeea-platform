@@ -33,17 +33,17 @@ class PublishBundleController extends Controller
     public function store(Request $request): JsonResponse
     {
         $request->validate([
-            'name'  => 'required|string|max:255',
+            'name' => 'required|string|max:255',
             'notes' => 'nullable|string|max:2000',
         ]);
 
         $actorId = $request->header('X-Actor-ID', '00000000-0000-0000-0000-000000000001');
 
         $bundle = PublishBundle::create([
-            'name'             => $request->name,
-            'status'           => 'staging',
-            'notes'            => $request->notes,
-            'created_by'       => $actorId,
+            'name' => $request->name,
+            'status' => 'staging',
+            'notes' => $request->notes,
+            'created_by' => $actorId,
             'last_modified_by' => $actorId,
         ]);
 
@@ -57,6 +57,7 @@ class PublishBundleController extends Controller
     public function show(string $id): JsonResponse
     {
         $bundle = PublishBundle::with('members')->findOrFail($id);
+
         return response()->json($bundle);
     }
 
@@ -76,18 +77,18 @@ class PublishBundleController extends Controller
 
         $request->validate([
             'object_type' => 'required|in:page,section,block,media',
-            'object_id'   => 'required|string|max:50',
-            'is_anchor'   => 'boolean',
+            'object_id' => 'required|string|max:50',
+            'is_anchor' => 'boolean',
         ]);
 
         $actorId = $request->header('X-Actor-ID', '00000000-0000-0000-0000-000000000001');
 
         $member = PublishBundleMember::create([
-            'bundle_id'   => $bundle->id,
+            'bundle_id' => $bundle->id,
             'object_type' => $request->object_type,
-            'object_id'   => $request->object_id,
-            'is_anchor'   => $request->boolean('is_anchor', false),
-            'added_by'    => $actorId,
+            'object_id' => $request->object_id,
+            'is_anchor' => $request->boolean('is_anchor', false),
+            'added_by' => $actorId,
         ]);
 
         return response()->json($member, 201);
@@ -113,8 +114,8 @@ class PublishBundleController extends Controller
             ], 422);
         }
 
-        $actorId           = $request->header('X-Actor-ID', '00000000-0000-0000-0000-000000000001');
-        $bundle->status           = 'ready';
+        $actorId = $request->header('X-Actor-ID', '00000000-0000-0000-0000-000000000001');
+        $bundle->status = 'ready';
         $bundle->last_modified_by = $actorId;
         $bundle->save();
 
@@ -145,8 +146,8 @@ class PublishBundleController extends Controller
         }
 
         return response()->json([
-            'status'       => 'published',
-            'bundle_id'    => $bundle->id,
+            'status' => 'published',
+            'bundle_id' => $bundle->id,
             'member_count' => $bundle->members->count(),
         ]);
     }
@@ -165,8 +166,8 @@ class PublishBundleController extends Controller
             ], 422);
         }
 
-        $actorId           = $request->header('X-Actor-ID', '00000000-0000-0000-0000-000000000001');
-        $bundle->status           = 'cancelled';
+        $actorId = $request->header('X-Actor-ID', '00000000-0000-0000-0000-000000000001');
+        $bundle->status = 'cancelled';
         $bundle->last_modified_by = $actorId;
         $bundle->save();
 

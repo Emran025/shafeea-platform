@@ -3,8 +3,8 @@
 namespace Database\Factories;
 
 use App\Models\Auth\User;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class StudentFactory extends Factory
 {
@@ -35,11 +35,11 @@ class StudentFactory extends Factory
 
     public function inactive(): static
     {
-        return $this->state(fn(array $attributes) => ['status' => 'inactive']);
+        return $this->state(fn (array $attributes) => ['status' => 'inactive']);
     }
 
     public function suspended(): static
     {
-        return $this->state(fn(array $attributes) => ['status' => 'suspended']);
+        return $this->state(fn (array $attributes) => ['status' => 'suspended']);
     }
 }

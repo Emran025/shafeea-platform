@@ -17,6 +17,7 @@ class ContactInquiryResponseMail extends Mailable implements ShouldQueue
     use Queueable, SerializesModels;
 
     public int $tries = 3;
+
     public int $backoff = 60;
 
     public function __construct(
@@ -31,7 +32,7 @@ class ContactInquiryResponseMail extends Mailable implements ShouldQueue
                 config('mail.contact_email', config('mail.from.address')),
                 config('app.name')
             ),
-            subject: 'ردًّا على استفسارك: ' . $this->ticket->subject,
+            subject: 'ردًّا على استفسارك: '.$this->ticket->subject,
         );
     }
 
@@ -40,7 +41,7 @@ class ContactInquiryResponseMail extends Mailable implements ShouldQueue
         return new Content(
             view: 'emails.contacts.inquiry-response',
             with: [
-                'ticket'          => $this->ticket,
+                'ticket' => $this->ticket,
                 'responseMessage' => $this->responseMessage,
             ],
         );
@@ -54,7 +55,7 @@ class ContactInquiryResponseMail extends Mailable implements ShouldQueue
     public function failed(\Throwable $e): void
     {
         Log::error('Email dispatch failed', [
-            'mail'  => static::class,
+            'mail' => static::class,
             'error' => $e->getMessage(),
         ]);
     }

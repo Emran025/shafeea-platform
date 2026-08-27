@@ -48,16 +48,16 @@ class AdminApplicantResource extends JsonResource
                 'deletedAt' => $this->user->deleted_at,
             ],
             'documents' => $this->whenLoaded('user', function () {
-                return $this->user->documents->map(fn($doc) => [
-                    'id'                   => $doc->id,
-                    'name'                 => $doc->name,
-                    'certificateType'      => $doc->certificate_type,
+                return $this->user->documents->map(fn ($doc) => [
+                    'id' => $doc->id,
+                    'name' => $doc->name,
+                    'certificateType' => $doc->certificate_type,
                     'certificateTypeOther' => $doc->certificate_type_other,
-                    'riwayah'              => $doc->riwayah,
-                    'issuingPlace'         => $doc->issuing_place,
-                    'issuingDate'          => $doc->issuing_date,
-                    'fileUrl'              => $doc->file_url,
-                    'hasFile'              => $doc->file_url !== null,
+                    'riwayah' => $doc->riwayah,
+                    'issuingPlace' => $doc->issuing_place,
+                    'issuingDate' => $doc->issuing_date,
+                    'fileUrl' => $doc->file_url,
+                    'hasFile' => $doc->file_url !== null,
                 ]);
             }),
         ];

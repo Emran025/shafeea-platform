@@ -25,6 +25,6 @@ class TrackingTypesSeeder extends Seeder
             );
         }
 
-        $this->command->info('✅ Created ' . TrackingType::count() . ' tracking types.');
+        $this->command->info('✅ Created '.TrackingType::count().' tracking types.');
     }
 }

@@ -16,6 +16,7 @@ class TeacherRejectedMail extends Mailable implements ShouldQueue
     use Queueable, SerializesModels;
 
     public int $tries = 3;
+
     public int $backoff = 60;
 
     public function __construct(
@@ -26,7 +27,7 @@ class TeacherRejectedMail extends Mailable implements ShouldQueue
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'تحديث بخصوص طلبك في ' . ($this->applicant->school->name ?? 'المؤسسة'),
+            subject: 'تحديث بخصوص طلبك في '.($this->applicant->school->name ?? 'المؤسسة'),
         );
     }
 
@@ -35,7 +36,7 @@ class TeacherRejectedMail extends Mailable implements ShouldQueue
         return new Content(
             view: 'emails.teachers.rejected',
             with: [
-                'applicant'       => $this->applicant,
+                'applicant' => $this->applicant,
                 'rejectionReason' => $this->rejectionReason,
             ],
         );
@@ -49,7 +50,7 @@ class TeacherRejectedMail extends Mailable implements ShouldQueue
     public function failed(\Throwable $e): void
     {
         Log::error('Email dispatch failed', [
-            'mail'  => static::class,
+            'mail' => static::class,
             'error' => $e->getMessage(),
         ]);
     }

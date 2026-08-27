@@ -2,12 +2,12 @@
 
 namespace App\Models\Cms;
 
+use App\Models\Auth\User;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Models\Auth\User;
 
 class Media extends Model
 {
@@ -23,19 +23,19 @@ class Media extends Model
      * so we supply their defaults here instead.
      */
     protected $attributes = [
-        'identity_tags'     => '[]',
+        'identity_tags' => '[]',
         'delivery_variants' => '[]',
-        'locale_meta'       => '{}',
+        'locale_meta' => '{}',
     ];
 
     protected function casts(): array
     {
         return [
-            'identity_tags'       => 'array',
-            'delivery_variants'   => 'array',
-            'delivery_is_public'  => 'boolean',
-            'locale_meta'         => 'array',
-            'published_at'        => 'datetime',
+            'identity_tags' => 'array',
+            'delivery_variants' => 'array',
+            'delivery_is_public' => 'boolean',
+            'locale_meta' => 'array',
+            'published_at' => 'datetime',
         ];
     }
 

@@ -25,10 +25,10 @@ class GenerateCertificateJob implements ShouldQueue
     {
         try {
             $generatorService->generate($this->certificate);
-            
+
             $batch = $this->certificate->batch;
             $batch->increment('processed_count');
-            
+
             if ($batch->processed_count >= $batch->total_count) {
                 $batch->update(['status' => 'completed']);
             }

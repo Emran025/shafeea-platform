@@ -7,9 +7,9 @@ use App\Events\SchoolRejectedEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\School\StoreSchoolApplicationRequest;
 use App\Models\Auth\Admin;
+use App\Models\Auth\User;
 use App\Models\Content\Document;
 use App\Models\School\School;
-use App\Models\Auth\User;
 use App\Services\Build\GitHubDispatchService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -53,10 +53,10 @@ class AdminSchoolController extends Controller
 
         $stats = [
             'total' => $query->clone()->count(),
-            'accepted' => $query->clone()->whereHas('admin', fn($q) => $q->where('admins.status', 'accepted'))->count(),
-            'pending' => $query->clone()->whereHas('admin', fn($q) => $q->where('admins.status', 'pending'))->count(),
-            'rejected' => $query->clone()->whereHas('admin', fn($q) => $q->where('admins.status', 'rejected'))->count(),
-            'suspended' => $query->clone()->whereHas('admin', fn($q) => $q->where('admins.status', 'suspended'))->count(),
+            'accepted' => $query->clone()->whereHas('admin', fn ($q) => $q->where('admins.status', 'accepted'))->count(),
+            'pending' => $query->clone()->whereHas('admin', fn ($q) => $q->where('admins.status', 'pending'))->count(),
+            'rejected' => $query->clone()->whereHas('admin', fn ($q) => $q->where('admins.status', 'rejected'))->count(),
+            'suspended' => $query->clone()->whereHas('admin', fn ($q) => $q->where('admins.status', 'suspended'))->count(),
         ];
 
         $schools = $query->paginate(15);
@@ -117,7 +117,7 @@ class AdminSchoolController extends Controller
                     foreach ($request->documents as $doc) {
                         if (isset($doc['file']) && $doc['file'] instanceof \Illuminate\Http\UploadedFile) {
                             $filePath = $doc['file']->store(
-                                'documents/schools/' . $school->id,
+                                'documents/schools/'.$school->id,
                                 'public'
                             );
 
@@ -136,11 +136,11 @@ class AdminSchoolController extends Controller
                 }
 
                 // 5. Create Admin with 'accepted' status (unlike public apply which uses 'pending')
-                $platformAdminRole = \App\Models\Auth\Role::where("name", "platform.admin")->first();
+                $platformAdminRole = \App\Models\Auth\Role::where('name', 'platform.admin')->first();
                 if ($platformAdminRole) {
                     $user->roles()->attach($platformAdminRole->id);
                 }
-                \Illuminate\Support\Facades\DB::table("school_site_scopes")->insert(["school_id" => $school->id, "site_scope" => $school->school_code, "created_at" => now(), "updated_at" => now()]);
+                \Illuminate\Support\Facades\DB::table('school_site_scopes')->insert(['school_id' => $school->id, 'site_scope' => $school->school_code, 'created_at' => now(), 'updated_at' => now()]);
                 Admin::create([
                     'user_id' => $user->id,
                     'status' => 'accepted',
@@ -160,6 +160,7 @@ class AdminSchoolController extends Controller
     public function edit(School $school)
     {
         $school->load('admin.user');
+
         return Inertia::render('admin/schools/edit', [
             'school' => $school,
         ]);
@@ -168,13 +169,13 @@ class AdminSchoolController extends Controller
     public function update(Request $request, School $school)
     {
         $validated = $request->validate([
-            'name'     => 'required|string|max:255|unique:schools,name,' . $school->id,
-            'phone'    => 'required|string|max:20',
-            'country'  => 'required|string|max:100',
-            'city'     => 'required|string|max:100',
+            'name' => 'required|string|max:255|unique:schools,name,'.$school->id,
+            'phone' => 'required|string|max:20',
+            'country' => 'required|string|max:100',
+            'city' => 'required|string|max:100',
             'location' => 'required|string|max:255',
-            'address'  => 'required|string|max:500',
-            'logo'     => 'nullable|file|image|max:5120',
+            'address' => 'required|string|max:500',
+            'logo' => 'nullable|file|image|max:5120',
         ]);
 
         // Handle updating Logo file
@@ -217,11 +218,11 @@ class AdminSchoolController extends Controller
 
             // 2. Activate the school and record approval timestamp
             $school->update([
-                'is_active'   => true,
+                'is_active' => true,
                 'approved_at' => now(),
                 // Generate a unique, cryptographically secure App Key (128 hex chars = 512 bits)
                 // Only generated once — subsequent approvals of the same school do not overwrite it.
-                'app_key'     => $school->app_key ?? Str::random(64) . bin2hex(random_bytes(16)),
+                'app_key' => $school->app_key ?? Str::random(64).bin2hex(random_bytes(16)),
             ]);
         });
 
@@ -229,7 +230,7 @@ class AdminSchoolController extends Controller
         SchoolApprovedEvent::dispatch($school->fresh());
 
         // 4. Auto-trigger the GitHub rebuild so the school gets its APK immediately
-        if (!empty(config('services.github.token'))) {
+        if (! empty(config('services.github.token'))) {
             $school->update(['build_status' => 'building']);
             $this->githubDispatch->dispatchSchoolRebuild($school);
         }

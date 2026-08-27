@@ -2,18 +2,17 @@
 
 namespace Database\Seeders;
 
+use App\Models\Halaqah\Halaqah;
 use App\Models\Student\Enrollment;
-use App\Models\Auth\User;
 use App\Models\Student\Student;
 use App\Models\Subscription\Plan;
-use App\Models\Halaqah\Halaqah;
 use Illuminate\Database\Seeder;
 
 class DemoEnrollmentSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     * 
+     *
      * Seeds demo enrollment with specific creation dates and memorization levels
      * Useful for demonstrating historical data and various teacher states
      */

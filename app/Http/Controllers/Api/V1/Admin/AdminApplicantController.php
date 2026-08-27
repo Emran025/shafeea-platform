@@ -37,10 +37,10 @@ class AdminApplicantController extends ApiController
             ->whereNotIn('user_id', $acceptedUserIds)
             // 2. Exclude applicants whose email address has not been verified.
             //    Unverified users must not appear in any recruitment pool.
-            ->whereHas('user', fn($q) => $q->whereNotNull('email_verified_at'));
+            ->whereHas('user', fn ($q) => $q->whereNotNull('email_verified_at'));
 
         // 2. If not super admin, filter by school
-        if (!$isSuperAdmin) {
+        if (! $isSuperAdmin) {
             $query->where(function ($q) use ($adminSchoolId) {
                 // Exclude applicants rejected by the current admin's school.
                 $q->whereDoesntHave('rejections', function ($sub) use ($adminSchoolId) {
@@ -133,9 +133,9 @@ class AdminApplicantController extends ApiController
                 $applicant->user()->update(['school_id' => $adminSchoolId, 'status' => 'inactive']);
             });
         } catch (\Exception $e) {
-            Log::error('Approval Error: ' . $e->getMessage());
+            Log::error('Approval Error: '.$e->getMessage());
 
-            return $this->error('An error occurred during the approval process.' . $e->getMessage(), 500);
+            return $this->error('An error occurred during the approval process.'.$e->getMessage(), 500);
         }
 
         $freshApplicant = $applicant->fresh();
@@ -199,7 +199,7 @@ class AdminApplicantController extends ApiController
                 ]);
             });
         } catch (\Exception $e) {
-            Log::error('Rejection Error: ' . $e->getMessage());
+            Log::error('Rejection Error: '.$e->getMessage());
 
             return $this->error('An error occurred during the rejection process.', 500);
         }

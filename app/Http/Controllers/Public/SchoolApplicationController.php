@@ -3,13 +3,11 @@
 namespace App\Http\Controllers\Public;
 
 use App\Http\Controllers\Controller;
-
 use App\Http\Requests\School\StoreSchoolApplicationRequest;
-use App\Models\School\School;
 use App\Models\Subscription\SubscriptionPlan;
 use App\Services\School\SchoolService;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 
 class SchoolApplicationController extends Controller
@@ -47,16 +45,16 @@ class SchoolApplicationController extends Controller
 
     public function selectPlan()
     {
-        if (!session()->has('school_registration_data')) {
+        if (! session()->has('school_registration_data')) {
             return redirect()->route('register.index');
         }
 
-        $regData            = session('school_registration_data');
-        $preselectedPlanId  = $regData['subscription_plan_id'] ?? null;
+        $regData = session('school_registration_data');
+        $preselectedPlanId = $regData['subscription_plan_id'] ?? null;
 
         return Inertia::render('schools/select-subscription-plan', [
-            'subscriptionPlans'  => SubscriptionPlan::where('is_active', true)->orderBy('sort_order')->get(),
-            'preselectedPlanId'  => $preselectedPlanId,
+            'subscriptionPlans' => SubscriptionPlan::where('is_active', true)->orderBy('sort_order')->get(),
+            'preselectedPlanId' => $preselectedPlanId,
         ]);
     }
 
@@ -68,14 +66,14 @@ class SchoolApplicationController extends Controller
         ]);
 
         $regData = session('school_registration_data');
-        if (!$regData) {
+        if (! $regData) {
             return redirect()->route('register.index')->withErrors(['error' => 'انتهت صلاحية الجلسة، يرجى إعادة إدخال البيانات.']);
         }
 
         try {
             $result = $this->schoolService->registerSchool(
                 $regData,
-                (int)$request->subscription_plan_id,
+                (int) $request->subscription_plan_id,
                 $request->payment_method
             );
 
@@ -90,10 +88,11 @@ class SchoolApplicationController extends Controller
                 return Inertia::location($result['checkout_url']);
             }
 
-            return redirect()->route('register.index')->with('success', 'تم تسجيل طلبكم بنجاح. رقم المرجع للدفع: ' . $result['reference_number'] . '. سيتم تفعيل حسابكم فور تأكيد الدفع.');
+            return redirect()->route('register.index')->with('success', 'تم تسجيل طلبكم بنجاح. رقم المرجع للدفع: '.$result['reference_number'].'. سيتم تفعيل حسابكم فور تأكيد الدفع.');
         } catch (\Exception $e) {
-            Log::error('Registration checkout error: ' . $e->getMessage());
-            return back()->withErrors(['error' => 'حدث خطأ أثناء إتمام عملية التسجيل: ' . $e->getMessage()]);
+            Log::error('Registration checkout error: '.$e->getMessage());
+
+            return back()->withErrors(['error' => 'حدث خطأ أثناء إتمام عملية التسجيل: '.$e->getMessage()]);
         }
     }
 

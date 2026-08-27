@@ -3,10 +3,10 @@
 namespace App\Services\Student;
 
 use App\Events\StudentEnrolledInHalaqahEvent;
-use App\Models\Student\Enrollment;
-use App\Models\Halaqah\Halaqah;
-use App\Models\Student\Student;
 use App\Models\Auth\User;
+use App\Models\Halaqah\Halaqah;
+use App\Models\Student\Enrollment;
+use App\Models\Student\Student;
 use App\Models\Subscription\Plan;
 use App\Models\Tracking\Tracking;
 use App\Models\Tracking\TrackingDetail;
@@ -101,12 +101,12 @@ class StudentService
                 'whatsapp',
                 'country',
                 'residence',
-                'city'
+                'city',
             ];
 
             $userData = array_intersect_key($data, array_flip($userFields));
 
-            if (!empty($userData) && $student->user) {
+            if (! empty($userData) && $student->user) {
                 $student->user->update($userData);
             }
 
@@ -143,6 +143,7 @@ class StudentService
     public function leaveHalaqah($userId, int $halaqahId)
     {
         $student = Student::findByIdentifierOrFail($userId);
+
         return Enrollment::where('student_id', $student->id)
             ->where('halaqah_id', $halaqahId)
             ->delete();
@@ -172,6 +173,7 @@ class StudentService
     {
         $plan = Plan::findOrFail($planId);
         $plan->update($data);
+
         return $plan;
     }
 
@@ -195,7 +197,7 @@ class StudentService
 
             $tracking = Tracking::create($data);
 
-            if (!empty($detailsData)) {
+            if (! empty($detailsData)) {
                 foreach ($detailsData as $detailData) {
                     $this->addTrackingDetail($tracking->id, $detailData);
                 }
@@ -229,7 +231,7 @@ class StudentService
 
                 $detail->mistakes()->delete();
 
-                if (!empty($mistakesData)) {
+                if (! empty($mistakesData)) {
                     $detail->mistakes()->createMany($mistakesData);
                 }
             }
@@ -248,7 +250,7 @@ class StudentService
 
             $trackingDetail = TrackingDetail::create($data);
 
-            if (!empty($mistakesData)) {
+            if (! empty($mistakesData)) {
                 $trackingDetail->mistakes()->createMany($mistakesData);
             }
 

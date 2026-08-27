@@ -46,7 +46,7 @@ class ResolveSchoolFromAppKey
             ->where('is_active', true)
             ->first();
 
-        if (!$school) {
+        if (! $school) {
             return response()->json([
                 'success' => false,
                 'message' => 'Invalid or inactive application key.',

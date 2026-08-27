@@ -1,26 +1,26 @@
 <?php
 
+use App\Http\Middleware\Api\VerifyBuildApiSignature;
+use App\Http\Middleware\Auth\IsSuperVisor;
 use App\Http\Middleware\Inertia\HandleAppearance;
 use App\Http\Middleware\Inertia\HandleInertiaRequests;
 use App\Http\Middleware\School\ResolveSchoolFromAppKey;
-use App\Http\Middleware\Api\VerifyBuildApiSignature;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
-use Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets;
+use Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets; // Required for proxy headers
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route; // Required for proxy headers
-use Illuminate\Auth\AuthenticationException;
-use App\Http\Middleware\Auth\IsSuperVisor;
 use Illuminate\Session\TokenMismatchException;
-use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Validation\ValidationException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
-        web: __DIR__ . '/../routes/platform/web.php',
-        api: __DIR__ . '/../routes/platform/api.php',
-        commands: __DIR__ . '/../routes/console.php',
+        web: __DIR__.'/../routes/platform/web.php',
+        api: __DIR__.'/../routes/platform/api.php',
+        commands: __DIR__.'/../routes/console.php',
         health: '/up',
         then: function () {
             // Custom route files
@@ -40,7 +40,7 @@ return Application::configure(basePath: dirname(__DIR__))
         },
     )
     ->withMiddleware(function (Middleware $middleware) {
-        $middleware->redirectGuestsTo(fn(Request $request) => $request->is('admin/*') || $request->is('admin') ? route('admin.login') : '/');
+        $middleware->redirectGuestsTo(fn (Request $request) => $request->is('admin/*') || $request->is('admin') ? route('admin.login') : '/');
 
         // Trust proxies for Render/Load Balancers to fix HTTPS/Mixed Content issues
         $middleware->trustProxies(
@@ -54,11 +54,11 @@ return Application::configure(basePath: dirname(__DIR__))
 
         // Middleware Aliases
         $middleware->alias([
-            'admin'                  => IsSuperVisor::class,
+            'admin' => IsSuperVisor::class,
             'verify.build.signature' => VerifyBuildApiSignature::class,
-            'admin.auth'             => \App\Http\Middleware\Auth\AuthenticateAdminApi::class,
-            'require.permission'     => \App\Http\Middleware\Auth\RequirePermission::class,
-            'role'                   => \App\Http\Middleware\Auth\RoleMiddleware::class,
+            'admin.auth' => \App\Http\Middleware\Auth\AuthenticateAdminApi::class,
+            'require.permission' => \App\Http\Middleware\Auth\RequirePermission::class,
+            'role' => \App\Http\Middleware\Auth\RoleMiddleware::class,
         ]);
 
         // Exempt cookies from encryption

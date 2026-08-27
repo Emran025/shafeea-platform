@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Public;
 
 use App\Http\Controllers\Controller;
-
 use App\Models\Subscription\Payment;
 use App\Services\Payment\PaymentService;
 use Illuminate\Http\Request;
@@ -13,9 +12,7 @@ class WebhookController extends Controller
 {
     /**
      * Handle payment webhook.
-     * 
-     * @param Request $request
-     * @param PaymentService $paymentService
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function handlePayment(Request $request, PaymentService $paymentService)
@@ -27,7 +24,7 @@ class WebhookController extends Controller
 
         $payment = Payment::where('transaction_id', $transactionId)->first();
 
-        if (!$payment) {
+        if (! $payment) {
             return response()->json(['message' => 'Payment not found'], 404);
         }
 

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Public;
 
 use App\Http\Controllers\Controller;
-use App\Models\Subscription\SubscriptionPlan;
 use App\Models\Content\Service;
+use App\Models\Subscription\SubscriptionPlan;
 use Inertia\Inertia;
 
 class ServiceController extends Controller

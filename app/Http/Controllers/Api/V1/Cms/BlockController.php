@@ -30,6 +30,7 @@ class BlockController extends Controller
     public function show(string $id): JsonResponse
     {
         $block = Block::with('media')->findOrFail($id);
+
         return response()->json($block);
     }
 
@@ -43,11 +44,11 @@ class BlockController extends Controller
 
         $block = Block::create([
             ...$request->validated(),
-            'status'           => 'draft',
-            'created_by'       => $actorId,
+            'status' => 'draft',
+            'created_by' => $actorId,
             'last_modified_by' => $actorId,
-            'schema_version'   => 'block@1.0',
-            'version_number'   => 1,
+            'schema_version' => 'block@1.0',
+            'version_number' => 1,
         ]);
 
         return response()->json($block, 201);
@@ -59,7 +60,7 @@ class BlockController extends Controller
 
     public function update(UpdateBlockRequest $request, string $id): JsonResponse
     {
-        $block   = Block::findOrFail($id);
+        $block = Block::findOrFail($id);
         $actorId = $request->header('X-Actor-ID', '00000000-0000-0000-0000-000000000001');
 
         // WR-005: editing a published block creates a new draft version.
@@ -74,17 +75,17 @@ class BlockController extends Controller
             ])->save();
 
             return response()->json([
-                'message'           => 'WR-005: Published blocks are immutable. A new draft version has been created with your changes.',
+                'message' => 'WR-005: Published blocks are immutable. A new draft version has been created with your changes.',
                 'original_block_id' => $block->id,
-                'draft_block_id'    => $draftBlock->id,
-                'draft_block'       => $draftBlock->fresh(),
+                'draft_block_id' => $draftBlock->id,
+                'draft_block' => $draftBlock->fresh(),
             ], 201);
         }
 
         $block->fill([
             ...$request->validated(),
             'last_modified_by' => $actorId,
-            'version_number'   => ($block->version_number ?? 1) + 1,
+            'version_number' => ($block->version_number ?? 1) + 1,
         ])->save();
 
         return response()->json($block->fresh());

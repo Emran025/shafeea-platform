@@ -9,7 +9,7 @@ class ServiceSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     * 
+     *
      * Seeds services from JSON file
      */
     public function run(): void
@@ -17,9 +17,10 @@ class ServiceSeeder extends Seeder
         // Path to services JSON file
         $jsonPath = database_path('data/services.json');
 
-        if (!file_exists($jsonPath)) {
+        if (! file_exists($jsonPath)) {
             $this->command->warn('⚠️  Services JSON file not found. Skipping seeder.');
-            $this->command->info('Expected path: ' . $jsonPath);
+            $this->command->info('Expected path: '.$jsonPath);
+
             return;
         }
 
@@ -28,6 +29,7 @@ class ServiceSeeder extends Seeder
 
         if (empty($services)) {
             $this->command->warn('⚠️  No services found in JSON file.');
+
             return;
         }
 
@@ -49,6 +51,6 @@ class ServiceSeeder extends Seeder
             );
         }
 
-        $this->command->info('✅ Created ' . Service::count() . ' services from JSON file.');
+        $this->command->info('✅ Created '.Service::count().' services from JSON file.');
     }
 }

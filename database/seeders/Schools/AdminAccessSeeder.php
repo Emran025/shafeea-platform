@@ -13,16 +13,16 @@ class AdminAccessSeeder extends Seeder
      * This map is the single source of truth for the roles table.
      */
     private const ROLE_DISPLAY_NAMES = [
-        'platform.admin'      => 'Platform Administrator',
-        'ops.manager'         => 'Operations Manager',
-        'content.supervisor'  => 'Content Supervisor',
-        'content.publisher'   => 'Content Publisher',
-        'content.editor'      => 'Content Editor',
-        'content.author'      => 'Content Author',
-        'inquiry.manager'     => 'Inquiry Manager',
-        'inquiry.email'       => 'Inquiry (Email)',
-        'inquiry.support'     => 'Inquiry (Support)',
-        'inquiry.faq'         => 'Inquiry (FAQ)',
+        'platform.admin' => 'Platform Administrator',
+        'ops.manager' => 'Operations Manager',
+        'content.supervisor' => 'Content Supervisor',
+        'content.publisher' => 'Content Publisher',
+        'content.editor' => 'Content Editor',
+        'content.author' => 'Content Author',
+        'inquiry.manager' => 'Inquiry Manager',
+        'inquiry.email' => 'Inquiry (Email)',
+        'inquiry.support' => 'Inquiry (Support)',
+        'inquiry.faq' => 'Inquiry (FAQ)',
     ];
 
     public function run(): void
@@ -36,9 +36,9 @@ class AdminAccessSeeder extends Seeder
                 ['name' => $name],
                 [
                     'display_name' => $displayName,
-                    'description'  => null,
-                    'updated_at'   => $now,
-                    'created_at'   => $now,
+                    'description' => null,
+                    'updated_at' => $now,
+                    'created_at' => $now,
                 ]
             );
         }
@@ -53,12 +53,12 @@ class AdminAccessSeeder extends Seeder
             DB::table('users')->updateOrInsert(
                 ['email' => $email],
                 [
-                    'name'               => $userData['name'],
-                    'is_active'          => $userData['is_active'] ?? true,
-                    'email_verified_at'  => $now,
-                    'password'           => Hash::make(config('admin.default_password', 'Acc@123456')),
-                    'updated_at'         => $now,
-                    'created_at'         => $now,
+                    'name' => $userData['name'],
+                    'is_active' => $userData['is_active'] ?? true,
+                    'email_verified_at' => $now,
+                    'password' => Hash::make(config('admin.default_password', 'Acc@123456')),
+                    'updated_at' => $now,
+                    'created_at' => $now,
                     // NOTE: No 'role' column — assignment happens via role_user pivot below.
                 ]
             );
@@ -89,11 +89,11 @@ class AdminAccessSeeder extends Seeder
             DB::table('topics')->updateOrInsert(
                 ['name' => $topic['name']],
                 [
-                    'description'    => $topic['description'],
-                    'color'          => $topic['color'],
+                    'description' => $topic['description'],
+                    'color' => $topic['color'],
                     'articles_count' => $topic['articles_count'],
-                    'updated_at'     => $now,
-                    'created_at'     => $now,
+                    'updated_at' => $now,
+                    'created_at' => $now,
                 ]
             );
         }
@@ -132,7 +132,7 @@ class AdminAccessSeeder extends Seeder
                 if ($permissionId) {
                     DB::table('permission_role')->insertOrIgnore([
                         'permission_id' => $permissionId,
-                        'role_id'       => $roleId,
+                        'role_id' => $roleId,
                     ]);
                 }
             }
@@ -156,7 +156,7 @@ class AdminAccessSeeder extends Seeder
                 if ($userId) {
                     DB::table('topic_user')->insertOrIgnore([
                         'topic_id' => $topicId,
-                        'user_id'  => $userId,
+                        'user_id' => $userId,
                     ]);
                 }
             }

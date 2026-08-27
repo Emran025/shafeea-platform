@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Public;
 
 use App\Http\Controllers\Controller;
-
 use App\Http\Requests\Teacher\StoreTeacherApplicationRequest;
 use App\Models\School\School;
 use App\Services\Applicant\ApplicantService;
@@ -67,7 +66,7 @@ class TeacherApplicationController extends Controller
             return redirect()->route('teachers.apply')
                 ->with('success', 'تم تقديم طلبك بنجاح! سيتم مراجعة الطلب وإشعارك بالنتيجة عبر البريد الإلكتروني.');
         } catch (\Exception $e) {
-            Log::error('Teacher application error: ' . $e->getMessage(), [
+            Log::error('Teacher application error: '.$e->getMessage(), [
                 'exception' => get_class($e),
                 'file' => $e->getFile(),
                 'line' => $e->getLine(),

@@ -2,11 +2,11 @@
 
 namespace App\Models\Cms;
 
+use App\Models\Auth\User;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use App\Models\Auth\User;
 
 // Coordinated publish bundle (Publishing.md).
 // Groups multiple content objects for atomic simultaneous publication.
@@ -62,14 +62,14 @@ class PublishBundle extends Model
             if ($model === null || $model->status !== 'approved') {
                 $failingMembers[] = [
                     'object_type' => $member->object_type,
-                    'object_id'   => $member->object_id,
-                    'status'      => $model?->status ?? 'not_found',
+                    'object_id' => $member->object_id,
+                    'status' => $model?->status ?? 'not_found',
                 ];
             }
         }
 
         return [
-            'valid'           => empty($failingMembers),
+            'valid' => empty($failingMembers),
             'failing_members' => $failingMembers,
         ];
     }

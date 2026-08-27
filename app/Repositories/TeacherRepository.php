@@ -11,7 +11,6 @@ class TeacherRepository
      * PURE DATA ACCESS METHODS
      * --------------------------------------------------------------------------
      */
-
     public function all($filters = [], $pagination = true)
     {
         $query = Teacher::with(['user', 'halaqahs']);
@@ -19,7 +18,7 @@ class TeacherRepository
             $query->where('status', $filters['status']);
         }
 
-        if (isset($filters['search']) && !empty($filters['search'])) {
+        if (isset($filters['search']) && ! empty($filters['search'])) {
             $search = $filters['search'];
             $query->where(function ($q) use ($search) {
                 $q->where('username', 'like', "%{$search}%")
@@ -45,9 +44,10 @@ class TeacherRepository
     public function find($userId)
     {
         $teacher = Teacher::findByIdentifier($userId);
-        if (!$teacher) {
+        if (! $teacher) {
             throw (new \Illuminate\Database\Eloquent\ModelNotFoundException)->setModel(Teacher::class);
         }
+
         return $teacher->load(['user', 'user.documents', 'halaqahs']);
     }
 }

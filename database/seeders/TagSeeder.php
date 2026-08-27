@@ -30,7 +30,7 @@ class TagSeeder extends Seeder
             );
         }
 
-        $this->command->info('✅ Created ' . Tag::count() . ' tags.');
+        $this->command->info('✅ Created '.Tag::count().' tags.');
 
     }
 }

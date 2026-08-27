@@ -20,7 +20,7 @@ class SchoolAssetController extends Controller
 
         // Check school-specific directory first: public/schools/[school_code]/[path]
         $schoolSpecificPath = public_path("schools/{$school_code}/{$path}");
-        
+
         if (File::exists($schoolSpecificPath) && File::isFile($schoolSpecificPath)) {
             return $this->buildFileResponse($schoolSpecificPath);
         }

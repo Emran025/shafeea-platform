@@ -18,7 +18,7 @@ class NavigationColumn extends Model
     protected function casts(): array
     {
         return [
-            'label'          => 'array',
+            'label' => 'array',
             'featured_block' => 'array',
         ];
     }

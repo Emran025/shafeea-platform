@@ -3,8 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\Applicant\Applicant;
-use App\Models\School\School;
 use App\Models\Auth\User;
+use App\Models\School\School;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -27,7 +27,8 @@ class DemoApplicantSeeder extends Seeder
 
         if (! file_exists($jsonPath)) {
             $this->command->warn('⚠️  Demo applicants JSON file not found. Skipping seeder.');
-            $this->command->info('Expected path: ' . $jsonPath);
+            $this->command->info('Expected path: '.$jsonPath);
+
             return;
         }
 
@@ -36,6 +37,7 @@ class DemoApplicantSeeder extends Seeder
 
         if (empty($demoApplicants)) {
             $this->command->warn('⚠️  No demo applicants found in JSON file.');
+
             return;
         }
 
@@ -50,16 +52,16 @@ class DemoApplicantSeeder extends Seeder
                 : null;
 
             $user = User::create([
-                'name'       => $applicantData['name'],
-                'email'      => $applicantData['email'],
-                'password'   => Hash::make('password'),
-                'avatar'     => 'https://i.pravatar.cc/150?u=' . $applicantData['email'],
-                'gender'     => $applicantData['gender'],
+                'name' => $applicantData['name'],
+                'email' => $applicantData['email'],
+                'password' => Hash::make('password'),
+                'avatar' => 'https://i.pravatar.cc/150?u='.$applicantData['email'],
+                'gender' => $applicantData['gender'],
                 'birth_date' => $this->getQualificationByBirthYear($applicantData['birth_year']),
-                'phone'      => $applicantData['phone'],
-                'country'    => $applicantData['country'],
-                'city'       => $applicantData['city'],
-                'school_id'  => $resolvedSchoolId,
+                'phone' => $applicantData['phone'],
+                'country' => $applicantData['country'],
+                'city' => $applicantData['city'],
+                'school_id' => $resolvedSchoolId,
                 'created_at' => $applicantData['created_at'],
                 'updated_at' => $applicantData['created_at'],
             ]);
@@ -76,7 +78,7 @@ class DemoApplicantSeeder extends Seeder
                 'updated_at' => $applicantData['created_at'],
             ]);
         }
-        $this->command->info('✅ Created ' . count($demoApplicants) . ' Applicant.');
+        $this->command->info('✅ Created '.count($demoApplicants).' Applicant.');
     }
 
     private function getQualificationByBirthYear($birthYear): string

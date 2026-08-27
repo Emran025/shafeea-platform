@@ -12,18 +12,18 @@ use Illuminate\Support\Facades\Route;
 // All routes use controller actions (not closures) so php artisan route:cache
 // can serialize them without throwing LogicException.
 
-Route::get('/',        [PageController::class, 'welcome'])->name('welcome');
-Route::get('/about',   [PageController::class, 'about'])->name('about');
+Route::get('/', [PageController::class, 'welcome'])->name('welcome');
+Route::get('/about', [PageController::class, 'about'])->name('about');
 Route::get('/privacy', [PageController::class, 'privacy'])->name('privacy');
-Route::get('/terms',   [PageController::class, 'terms'])->name('terms');
-Route::get('/faq',     [PageController::class, 'faq'])->name('faq');
+Route::get('/terms', [PageController::class, 'terms'])->name('terms');
+Route::get('/faq', [PageController::class, 'faq'])->name('faq');
 
 Route::get('/services', [ServiceController::class, 'index'])->name('services');
 
-Route::get('/contact',  [ContactController::class, 'index'])->name('contact');
+Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
-Route::get('/help',    [HelpCenterController::class, 'index'])->name('help');
+Route::get('/help', [HelpCenterController::class, 'index'])->name('help');
 Route::get('/support', [SupportController::class, 'index'])->name('support');
 
 Route::get('/download', [PageController::class, 'download'])->name('download');
@@ -33,7 +33,6 @@ Route::get('/countries', [\App\Http\Controllers\Public\CountryController::class,
 Route::get('/username/suggest', [UsernameController::class, 'suggest'])
     ->name('username.suggest')
     ->middleware('throttle:60,1');
-
 
 Route::middleware('auth')->group(function () {
     Route::get('dashboard', [PageController::class, 'dashboard'])
@@ -50,4 +49,3 @@ Route::middleware('auth')->group(function () {
         ->middleware('throttle:6,1')
         ->name('verification.send');
 });
-

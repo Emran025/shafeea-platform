@@ -2,29 +2,29 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Requests\Subscription\PlanRequest;
 use App\Http\Requests\Student\ActionRequest;
 use App\Http\Requests\Student\AssignHalaqaRequest;
 use App\Http\Requests\Student\FollowUpRequest;
 use App\Http\Requests\Student\UpdateStudentRequest;
+use App\Http\Requests\Subscription\PlanRequest;
 use App\Http\Requests\Tracking\TrackingDetailRequest;
 use App\Http\Requests\Tracking\TrackingRequest;
 use App\Http\Resources\Applicant\ApplicantResource;
-use App\Http\Resources\Tracking\FollowUpResource;
-use App\Http\Resources\Subscription\PlanResource;
 use App\Http\Resources\Student\StudentPlanResource;
 use App\Http\Resources\Student\StudentResource;
 use App\Http\Resources\Student\StudentSyncResource;
+use App\Http\Resources\Subscription\PlanResource;
+use App\Http\Resources\Tracking\FollowUpResource;
 use App\Http\Resources\Tracking\TrackingDetailResource;
 use App\Http\Resources\Tracking\TrackingResource;
+use App\Models\Student\Enrollment;
+use App\Models\Student\Student;
+use App\Models\Subscription\Plan;
 use App\Repositories\ApplicantRepository;
 use App\Repositories\StudentRepository;
 use App\Services\Student\StudentService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use App\Models\Subscription\Plan;
-use App\Models\Student\Student;
-use App\Models\Student\Enrollment;
 
 class StudentController extends ApiController
 {
@@ -217,6 +217,7 @@ class StudentController extends ApiController
     public function getActivePlan($userId)
     {
         $plan = $this->students->getActivePlan($userId);
+
         return $this->success($plan ? new StudentPlanResource($plan) : null);
     }
 
@@ -245,6 +246,7 @@ class StudentController extends ApiController
     public function getTrackingsForStudent($userId)
     {
         $trackings = $this->students->getTrackingsForStudent($userId);
+
         return $this->success(TrackingResource::collection($trackings));
     }
 

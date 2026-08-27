@@ -24,15 +24,15 @@ class NewsletterController extends Controller
     public function subscribe(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
-            'email'  => ['required', 'email', 'max:254'],
-            'name'   => ['nullable', 'string', 'max:120'],
+            'email' => ['required', 'email', 'max:254'],
+            'name' => ['nullable', 'string', 'max:120'],
             'source' => ['nullable', 'string', 'max:60'],
         ]);
 
         if ($validator->fails()) {
             return response()->json([
                 'message' => 'Invalid email address.',
-                'errors'  => $validator->errors(),
+                'errors' => $validator->errors(),
             ], 422);
         }
 
@@ -46,9 +46,9 @@ class NewsletterController extends Controller
         }
 
         NewsletterSubscription::create([
-            'email'      => $email,
-            'name'       => trim($request->input('name', '')) ?: null,
-            'source'     => $request->input('source', 'newsroom'),
+            'email' => $email,
+            'name' => trim($request->input('name', '')) ?: null,
+            'source' => $request->input('source', 'newsroom'),
             'ip_address' => $request->ip(),
         ]);
 
@@ -64,6 +64,7 @@ class NewsletterController extends Controller
     public function index(): JsonResponse
     {
         $subs = NewsletterSubscription::orderByDesc('created_at')->paginate(50);
+
         return response()->json($subs);
     }
 }

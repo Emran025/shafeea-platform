@@ -8,8 +8,10 @@ use Illuminate\Support\Str;
 class NewsletterSubscription extends Model
 {
     protected $table = 'newsletter_subscriptions';
-    protected $keyType   = 'string';
-    public    $incrementing = false;
+
+    protected $keyType = 'string';
+
+    public $incrementing = false;
 
     protected $fillable = [
         'id',

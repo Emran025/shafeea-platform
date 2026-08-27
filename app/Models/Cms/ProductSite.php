@@ -2,9 +2,9 @@
 
 namespace App\Models\Cms;
 
+use App\Models\Auth\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use App\Models\Auth\User;
 
 class ProductSite extends Model
 {
@@ -12,8 +12,10 @@ class ProductSite extends Model
 
     // PK is a canonical string identifier — e.g. "site.accore"
     protected $primaryKey = 'site_id';
-    protected $keyType    = 'string';
-    public    $incrementing = false;
+
+    protected $keyType = 'string';
+
+    public $incrementing = false;
 
     protected $guarded = [];
 
@@ -34,25 +36,25 @@ class ProductSite extends Model
     {
         return [
             // ProductSiteIdentity
-            'identity_site_label'        => 'array',
+            'identity_site_label' => 'array',
             'identity_short_description' => 'array',
-            'identity_ecosystem_role'    => 'array',
+            'identity_ecosystem_role' => 'array',
 
             // ProductSiteUrls
             'urls_localized' => 'array',
 
             // GatewayPageConfig
             'gateway_has_gateway_page' => 'boolean',
-            'gateway_include_in_nav'   => 'boolean',
-            'gateway_nav_label'        => 'array',
-            'gateway_cta_label'        => 'array',
+            'gateway_include_in_nav' => 'boolean',
+            'gateway_nav_label' => 'array',
+            'gateway_cta_label' => 'array',
             'gateway_unavailable_label' => 'array',
 
             // ProductSiteDisplay
-            'display_show_in_platform_index'    => 'boolean',
-            'display_show_in_nav'               => 'boolean',
+            'display_show_in_platform_index' => 'boolean',
+            'display_show_in_nav' => 'boolean',
             'display_show_in_homepage_showcase' => 'boolean',
-            'display_media_ref'                 => 'array',
+            'display_media_ref' => 'array',
 
             // url_health maintained by external monitoring
             'url_health' => 'boolean',

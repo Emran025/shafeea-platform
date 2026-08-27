@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Api\V1\Certificates;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\Certificates\GenerateCertificateJob;
 use App\Models\Certificates\CertificateBatch;
 use App\Models\Certificates\CertificateTemplate;
-use App\Jobs\Certificates\GenerateCertificateJob;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use App\Models\User;
 
 class CertificateBatchController extends Controller
 {
@@ -27,7 +27,7 @@ class CertificateBatchController extends Controller
 
         // Save Template Image
         $imgData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $validated['background_image']));
-        $bgPath = "templates/{$schoolId}/" . Str::random(10) . ".jpg";
+        $bgPath = "templates/{$schoolId}/".Str::random(10).'.jpg';
         Storage::disk('public')->put($bgPath, $imgData);
 
         // Create Template
@@ -43,12 +43,11 @@ class CertificateBatchController extends Controller
         $batch = CertificateBatch::create([
             'school_id' => $schoolId,
             'certificate_template_id' => $template->id,
-            'name' => "دفعة " . now()->format('Y-m-d H:i'),
+            'name' => 'دفعة '.now()->format('Y-m-d H:i'),
             'total_count' => count($validated['students']),
             'status' => 'processing',
         ]);
 
-        
         // Create Certificates and Dispatch Jobs
         foreach ($validated['students'] as $studentData) {
             $phone = $studentData['recipient_whatsapp'] ?? $studentData['phone'] ?? null;
@@ -77,8 +76,8 @@ class CertificateBatchController extends Controller
             'data' => [
                 'batch_id' => $batch->id,
                 'status' => 'processing',
-                'message' => 'تم استلام الدفعة وجاري التوليد في الخلفية.'
-            ]
+                'message' => 'تم استلام الدفعة وجاري التوليد في الخلفية.',
+            ],
         ]);
     }
 
@@ -86,15 +85,15 @@ class CertificateBatchController extends Controller
     {
         $schoolId = $request->user()->school_id ?? 1;
         $batch = CertificateBatch::where('school_id', $schoolId)->with('certificates')->findOrFail($id);
-        
+
         $certificates = $batch->certificates->map(function ($cert) {
             return [
                 'id' => $cert->id,
                 'recipient_name' => $cert->recipient_name,
                 'recipient_whatsapp' => $cert->recipient_whatsapp,
                 'status' => $cert->status,
-                'file_url_pdf' => $cert->file_path_pdf ? asset('storage/' . $cert->file_path_pdf) : null,
-                'file_url_jpg' => $cert->file_path_jpg ? asset('storage/' . $cert->file_path_jpg) : null,
+                'file_url_pdf' => $cert->file_path_pdf ? asset('storage/'.$cert->file_path_pdf) : null,
+                'file_url_jpg' => $cert->file_path_jpg ? asset('storage/'.$cert->file_path_jpg) : null,
             ];
         });
 
@@ -102,8 +101,8 @@ class CertificateBatchController extends Controller
             'status' => 'success',
             'data' => [
                 'batch' => $batch->only(['id', 'name', 'status', 'total_count', 'processed_count']),
-                'certificates' => $certificates
-            ]
+                'certificates' => $certificates,
+            ],
         ]);
     }
 }

@@ -2,11 +2,11 @@
 
 namespace App\Models\Cms;
 
+use App\Models\Auth\User;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use App\Models\Auth\User;
 
 class Section extends Model
 {
@@ -23,7 +23,7 @@ class Section extends Model
      */
     protected $attributes = [
         'composition_required_types' => '[]',
-        'visibility_audience'        => '["public"]',
+        'visibility_audience' => '["public"]',
     ];
 
     // -------------------------------------------------------------------------
@@ -42,8 +42,8 @@ class Section extends Model
 
             // VisibilityPolicy
             // Stores AudienceType[] — e.g. ["public"] | ["authenticated"]
-            'visibility_audience'      => 'array',
-            'visibility_visible_from'  => 'datetime',
+            'visibility_audience' => 'array',
+            'visibility_visible_from' => 'datetime',
             'visibility_visible_until' => 'datetime',
 
             // AuditRecord
@@ -113,8 +113,8 @@ class Section extends Model
     public function getCompositionPolicyAttribute(): array
     {
         return [
-            'min_blocks'      => (int) ($this->composition_min_blocks ?? 0),
-            'required_types'  => $this->composition_required_types ?? [],
+            'min_blocks' => (int) ($this->composition_min_blocks ?? 0),
+            'required_types' => $this->composition_required_types ?? [],
             'locale_strategy' => $this->composition_locale_strategy ?? 'fallback',
         ];
     }

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api\V1\Cms;
 
 use App\Http\Controllers\Controller;
-use App\Models\Cms\Topic;
 use App\Models\Auth\User;
+use App\Models\Cms\Topic;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -22,7 +22,7 @@ class TopicsController extends Controller
             ->with('users:id,name,email,role')
             ->orderBy('id')
             ->get()
-            ->map(fn(Topic $topic) => [
+            ->map(fn (Topic $topic) => [
                 'id' => (string) $topic->id,
                 'name' => $topic->name,
                 'desc' => $topic->description ?? '',
@@ -84,6 +84,7 @@ class TopicsController extends Controller
     {
         $topic->users()->detach();
         $topic->delete();
+
         return response()->json(null, 204);
     }
 

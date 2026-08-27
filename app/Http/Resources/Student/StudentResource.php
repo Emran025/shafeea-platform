@@ -28,9 +28,9 @@ class StudentResource extends JsonResource
             'phone' => $user->phone ?? null,
             'whatsappZone' => $user->whatsapp_zone ?? null,
             'whatsappPhone' => $user->whatsapp ?? null,
-            'country'       => $user->country ?? null,
-            'residence'     => $user->residence ?? null,
-            'city'          => $user->city ?? null,
+            'country' => $user->country ?? null,
+            'residence' => $user->residence ?? null,
+            'city' => $user->city ?? null,
             'isEmailVerified' => (bool) ($user->email_verified_at !== null),
             $this->mergeWhen(! $this->collection, [
                 'qualification' => $this->qualification,

@@ -3,15 +3,15 @@
 namespace Database\Seeders;
 
 use App\Models\Auth\Admin;
-use App\Models\School\School;
 use App\Models\Auth\User;
+use App\Models\School\School;
 use Illuminate\Database\Seeder;
 
 class DemoSchoolSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     * 
+     *
      * Seeds 23 schools with admin users based on predefined Arabic names
      */
     public function run(): void
@@ -27,7 +27,7 @@ class DemoSchoolSeeder extends Seeder
             $school = School::create([
                 'name' => "مدرسة $name لتحفيظ القرآن",
                 'logo' => null,
-                'phone' => '+9677' . rand(10000000, 99999999),
+                'phone' => '+9677'.rand(10000000, 99999999),
                 'country' => 'اليمن',
                 'city' => 'صنعاء',
                 'location' => '15.3694,44.1910',
@@ -42,7 +42,7 @@ class DemoSchoolSeeder extends Seeder
                 'password' => bcrypt('amran$$$025'),
                 'avatar' => 'https://example.com/teacher.jpg',
                 'gender' => 'Male',
-                'birth_date' => '1980-01-' . rand(10, 28),
+                'birth_date' => '1980-01-'.rand(10, 28),
                 'phone' => '+967739123473',
                 'whatsapp' => '+96771989025',
                 'country' => 'اليمن',
@@ -52,11 +52,11 @@ class DemoSchoolSeeder extends Seeder
             ]);
 
             // Create admin record
-            $platformAdminRole = \App\Models\Auth\Role::where("name", "platform.admin")->first();
+            $platformAdminRole = \App\Models\Auth\Role::where('name', 'platform.admin')->first();
             if ($platformAdminRole) {
                 $user->roles()->attach($platformAdminRole->id);
             }
-            \Illuminate\Support\Facades\DB::table("school_site_scopes")->insert(["school_id" => $school->id, "site_scope" => $school->school_code, "created_at" => now(), "updated_at" => now()]);
+            \Illuminate\Support\Facades\DB::table('school_site_scopes')->insert(['school_id' => $school->id, 'site_scope' => $school->school_code, 'created_at' => now(), 'updated_at' => now()]);
             Admin::create([
                 'user_id' => $user->id,
                 'super_admin' => false,
@@ -64,6 +64,6 @@ class DemoSchoolSeeder extends Seeder
             ]);
         }
 
-        $this->command->info('✅ Created ' . count($schoolNames) . ' schools with admin users.');
+        $this->command->info('✅ Created '.count($schoolNames).' schools with admin users.');
     }
 }

@@ -12,7 +12,7 @@ return new class extends Migration
             $driver = DB::getDriverName();
 
             if ($driver === 'pgsql') {
-                DB::statement("ALTER TABLE pages DROP CONSTRAINT IF EXISTS pages_type_check");
+                DB::statement('ALTER TABLE pages DROP CONSTRAINT IF EXISTS pages_type_check');
                 DB::statement("ALTER TABLE pages ADD CONSTRAINT pages_type_check CHECK (type IN (
                     'corporate.index', 'corporate.about', 'corporate.product_gateway', 'corporate.product_index',
                     'corporate.contact', 'corporate.legal', 'corporate.platform', 'corporate.home',

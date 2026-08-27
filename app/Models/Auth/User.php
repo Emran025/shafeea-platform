@@ -3,9 +3,9 @@
 namespace App\Models\Auth;
 
 use App\Models\Applicant\Applicant;
+use App\Models\Cms\Topic;
 use App\Models\Content\Document;
 use App\Models\School\School;
-use App\Models\Cms\Topic;
 use App\Models\Student\Student;
 use App\Models\Teacher\Teacher;
 use App\Notifications\CustomVerifyEmail;
@@ -173,9 +173,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return [
             'email_verified_at' => 'datetime',
-            'password'          => 'hashed',
-            'birth_date'        => 'date',
-            'is_active'         => 'boolean',
+            'password' => 'hashed',
+            'birth_date' => 'date',
+            'is_active' => 'boolean',
         ];
     }
 

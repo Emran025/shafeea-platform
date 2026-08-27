@@ -40,9 +40,9 @@ class BuildWebhookController extends Controller
     {
         $validated = $request->validate([
             'school_id' => 'required|integer|exists:schools,id',
-            'release'   => 'required|string|max:30',
-            'apk_url'   => 'required|url',
-            'app_type'  => 'required|in:student,teach',
+            'release' => 'required|string|max:30',
+            'apk_url' => 'required|url',
+            'app_type' => 'required|in:student,teach',
         ]);
 
         $school = School::findOrFail($validated['school_id']);
@@ -54,9 +54,9 @@ class BuildWebhookController extends Controller
         $this->sendAdminNotification($school, $validated);
 
         Log::info("BuildWebhook: School [{$school->school_code}] build complete.", [
-            'release'  => $validated['release'],
+            'release' => $validated['release'],
             'app_type' => $validated['app_type'],
-            'apk_url'  => $validated['apk_url'],
+            'apk_url' => $validated['apk_url'],
         ]);
 
         return response()->json([
@@ -73,22 +73,22 @@ class BuildWebhookController extends Controller
     {
         try {
             $adminUser = $school->admin?->user;
-            if (!$adminUser || empty($adminUser->email)) {
+            if (! $adminUser || empty($adminUser->email)) {
                 return;
             }
 
             $appLabel = $data['app_type'] === 'student' ? 'تطبيق الطالب' : 'تطبيق المعلم';
-            $release  = $data['release'];
-            $apkUrl   = $data['apk_url'];
-            $name     = $school->name;
-            $code     = $school->school_code;
+            $release = $data['release'];
+            $apkUrl = $data['apk_url'];
+            $name = $school->name;
+            $code = $school->school_code;
 
             Mail::raw(
-                "السلام عليكم،\n\n" .
-                    "تم إنشاء {$appLabel} الخاص بـ {$name} بنجاح للإصدار {$release}.\n\n" .
-                    "رابط تحميل التطبيق:\n{$apkUrl}\n\n" .
-                    "هذا الرابط دائم ويشير مباشرةً إلى الإصدار {$release} من تطبيق {$code}.\n\n" .
-                    "فريق شافيعة",
+                "السلام عليكم،\n\n".
+                    "تم إنشاء {$appLabel} الخاص بـ {$name} بنجاح للإصدار {$release}.\n\n".
+                    "رابط تحميل التطبيق:\n{$apkUrl}\n\n".
+                    "هذا الرابط دائم ويشير مباشرةً إلى الإصدار {$release} من تطبيق {$code}.\n\n".
+                    'فريق شافيعة',
                 function ($message) use ($adminUser, $school, $release, $appLabel) {
                     $message->to($adminUser->email, $adminUser->name)
                         ->subject("الإصدار {$release} جاهز — {$appLabel} لـ {$school->name}");

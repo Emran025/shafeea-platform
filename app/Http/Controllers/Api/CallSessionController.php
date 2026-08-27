@@ -3,11 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Halaqah\CallSession;
 use App\Models\Auth\User;
+use App\Models\Halaqah\CallSession;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 
 class CallSessionController extends Controller
 {
@@ -36,7 +34,7 @@ class CallSessionController extends Controller
         if ($activeSession) {
             return response()->json([
                 'error' => 'You already have an active or requested session.',
-                'session_id' => $activeSession->session_id
+                'session_id' => $activeSession->session_id,
             ], 422);
         }
 
@@ -53,7 +51,7 @@ class CallSessionController extends Controller
 
         return response()->json([
             'message' => 'Call requested successfully.',
-            'session' => $session
+            'session' => $session,
         ], 201);
     }
 
@@ -83,7 +81,7 @@ class CallSessionController extends Controller
 
         return response()->json([
             'message' => 'Call accepted.',
-            'session' => $session
+            'session' => $session,
         ]);
     }
 
@@ -113,7 +111,7 @@ class CallSessionController extends Controller
 
         return response()->json([
             'message' => 'Call rejected.',
-            'session' => $session
+            'session' => $session,
         ]);
     }
 
@@ -129,11 +127,11 @@ class CallSessionController extends Controller
         $session = CallSession::where('session_id', $sessionId)->firstOrFail();
         $user = $request->user();
 
-        if (!in_array($user->id, [$session->initiator_id, $session->target_id, $session->third_party_id])) {
+        if (! in_array($user->id, [$session->initiator_id, $session->target_id, $session->third_party_id])) {
             return response()->json(['error' => 'Unauthorized.'], 403);
         }
 
-        if (!in_array($session->status, ['requested', 'active'])) {
+        if (! in_array($session->status, ['requested', 'active'])) {
             return response()->json(['error' => 'Session is not active.'], 422);
         }
 
@@ -156,7 +154,7 @@ class CallSessionController extends Controller
         $session = CallSession::where('session_id', $sessionId)->firstOrFail();
         $user = $request->user();
 
-        if (!in_array($user->id, [$session->initiator_id, $session->target_id])) {
+        if (! in_array($user->id, [$session->initiator_id, $session->target_id])) {
             return response()->json(['error' => 'Unauthorized.'], 403);
         }
 
@@ -177,7 +175,7 @@ class CallSessionController extends Controller
         $session = CallSession::where('session_id', $sessionId)->firstOrFail();
         $user = $request->user();
 
-        if (!in_array($user->id, [$session->initiator_id, $session->target_id, $session->third_party_id])) {
+        if (! in_array($user->id, [$session->initiator_id, $session->target_id, $session->third_party_id])) {
             return response()->json(['error' => 'Unauthorized.'], 403);
         }
 
@@ -195,7 +193,7 @@ class CallSessionController extends Controller
 
         return response()->json([
             'message' => 'Call ended.',
-            'duration' => $duration
+            'duration' => $duration,
         ]);
     }
 }

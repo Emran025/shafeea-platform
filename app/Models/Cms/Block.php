@@ -2,11 +2,11 @@
 
 namespace App\Models\Cms;
 
+use App\Models\Auth\User;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use App\Models\Auth\User;
 
 class Block extends Model
 {
@@ -25,8 +25,8 @@ class Block extends Model
      */
     protected $attributes = [
         'locale_content' => '{}',
-        'actions'        => '[]',
-        'references'     => '[]',
+        'actions' => '[]',
+        'references' => '[]',
     ];
 
     // -------------------------------------------------------------------------
@@ -47,7 +47,7 @@ class Block extends Model
 
             // BlockConfig
             'config_is_decorative' => 'boolean',
-            'config_is_featured'   => 'boolean',
+            'config_is_featured' => 'boolean',
 
             // AuditRecord
             'published_at' => 'datetime',

@@ -33,7 +33,7 @@ class NavigationGroupSeeder extends Seeder
             throw new \RuntimeException("NavigationGroupSeeder: navigation directory not found at {$dir}");
         }
 
-        $files = glob($dir . '/*.json');
+        $files = glob($dir.'/*.json');
         if (empty($files)) {
             throw new \RuntimeException("NavigationGroupSeeder: no .json files found in {$dir}");
         }
@@ -44,12 +44,12 @@ class NavigationGroupSeeder extends Seeder
             $group = json_decode(file_get_contents($file), true, 512, JSON_THROW_ON_ERROR);
 
             DB::table('navigation_groups')->insert([
-                'id'         => $group['id'],
-                'group_id'   => $group['group_id'],
-                'label'      => json_encode($group['label']),
-                'type'       => $group['type'],
-                'position'   => $group['position'],
-                'is_active'  => $group['is_active'],
+                'id' => $group['id'],
+                'group_id' => $group['group_id'],
+                'label' => json_encode($group['label']),
+                'type' => $group['type'],
+                'position' => $group['position'],
+                'is_active' => $group['is_active'],
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
@@ -61,14 +61,14 @@ class NavigationGroupSeeder extends Seeder
                 }
 
                 DB::table('navigation_columns')->insert([
-                    'id'                  => $col['id'],
+                    'id' => $col['id'],
                     'navigation_group_id' => $group['id'],
-                    'column_id'           => $col['column_id'],
-                    'label'               => $colLabel,
-                    'position'            => $idx + 1,
-                    'featured_block'      => null,
-                    'created_at'          => now(),
-                    'updated_at'          => now(),
+                    'column_id' => $col['column_id'],
+                    'label' => $colLabel,
+                    'position' => $idx + 1,
+                    'featured_block' => null,
+                    'created_at' => now(),
+                    'updated_at' => now(),
                 ]);
 
                 foreach ($col['entries'] as $eIdx => $e) {
@@ -81,16 +81,16 @@ class NavigationGroupSeeder extends Seeder
                     }
 
                     DB::table('navigation_entries')->insert([
-                        'id'                   => $entryId,
+                        'id' => $entryId,
                         'navigation_column_id' => $col['id'],
-                        'label'                => $entryLabel,
-                        'destination_type'     => 'internal_page',
-                        'destination_value'    => $e['slug'],
-                        'position'             => $eIdx + 1,
+                        'label' => $entryLabel,
+                        'destination_type' => 'internal_page',
+                        'destination_value' => $e['slug'],
+                        'position' => $eIdx + 1,
                         'is_badge_highlighted' => isset($e['badge']) ? true : false,
-                        'badge_text'           => $badgeText,
-                        'created_at'           => now(),
-                        'updated_at'           => now(),
+                        'badge_text' => $badgeText,
+                        'created_at' => now(),
+                        'updated_at' => now(),
                     ]);
                 }
             }

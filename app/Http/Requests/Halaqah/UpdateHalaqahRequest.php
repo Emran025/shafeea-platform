@@ -2,11 +2,11 @@
 
 namespace App\Http\Requests\Halaqah;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
-use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Http\Exceptions\HttpResponseException;
 
 class UpdateHalaqahRequest extends FormRequest
 {
@@ -39,7 +39,7 @@ class UpdateHalaqahRequest extends FormRequest
                     if (! $exists) {
                         $fail('The selected teacher is invalid.');
                     }
-                }
+                },
             ],
             'school_id' => 'sometimes|required|exists:schools,id',
         ];
@@ -50,7 +50,7 @@ class UpdateHalaqahRequest extends FormRequest
         throw new HttpResponseException(
             response()->json([
                 'message' => 'The given data was invalid.',
-                'errors'  => $validator->errors(),
+                'errors' => $validator->errors(),
             ], 422)
         );
     }

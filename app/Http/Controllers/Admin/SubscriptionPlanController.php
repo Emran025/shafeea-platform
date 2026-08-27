@@ -17,7 +17,7 @@ class SubscriptionPlanController extends Controller
         $subscriptionPlans = SubscriptionPlan::orderBy('sort_order')->get();
 
         return Inertia::render('admin/subscription-plans/index', [
-            'subscriptionPlans' => $subscriptionPlans
+            'subscriptionPlans' => $subscriptionPlans,
         ]);
     }
 
@@ -27,7 +27,7 @@ class SubscriptionPlanController extends Controller
     public function edit(SubscriptionPlan $subscriptionPlan)
     {
         return Inertia::render('admin/subscription-plans/edit', [
-            'subscriptionPlans' => $subscriptionPlan
+            'subscriptionPlans' => $subscriptionPlan,
         ]);
     }
 

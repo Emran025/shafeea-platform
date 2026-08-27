@@ -36,7 +36,7 @@ class Document extends Model
     /**
      * Get the full publicly accessible URL for the document file.
      * Returns null if no file has been uploaded yet.
-     * 
+     *
      * Path resolution rules (same contract as School::getLogoAttribute):
      *   - null            → null  (no file uploaded)
      *   - http(s)://...   → as-is (external/CDN URL)
@@ -47,7 +47,7 @@ class Document extends Model
     {
         $path = $this->file_path;
 
-        if (!$path) {
+        if (! $path) {
             return null;
         }
         if (str_starts_with($path, 'http')) {
@@ -56,6 +56,7 @@ class Document extends Model
         if (str_starts_with($path, '/')) {
             return $path;
         }
+
         return Storage::disk('public')->url($path);
     }
 

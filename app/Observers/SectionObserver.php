@@ -23,11 +23,11 @@ class SectionObserver
         // SR-004: type immutability post-first-publish
         if ($section->isDirty('type') && $section->published_at !== null) {
             $originalType = $section->getOriginal('type');
-            $newType      = $section->type;
+            $newType = $section->type;
 
             throw new \RuntimeException(
-                "SR-004: Section type cannot be changed after it has been published. "
-                    . "Current type: '{$originalType}', attempted: '{$newType}'."
+                'SR-004: Section type cannot be changed after it has been published. '
+                    ."Current type: '{$originalType}', attempted: '{$newType}'."
             );
         }
     }

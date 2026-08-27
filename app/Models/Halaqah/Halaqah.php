@@ -3,16 +3,16 @@
 namespace App\Models\Halaqah;
 
 use App\Models\School\School;
+use App\Models\Scopes\GenderScope;
 use App\Models\Student\Enrollment;
 use App\Models\Student\Student;
 use App\Models\Teacher\Teacher;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Scopes\GenderScope;
 
 class Halaqah extends Model
 {
-    use HasFactory, \App\Models\Traits\BelongsToSchool;
+    use \App\Models\Traits\BelongsToSchool, HasFactory;
 
     protected static function booted()
     {

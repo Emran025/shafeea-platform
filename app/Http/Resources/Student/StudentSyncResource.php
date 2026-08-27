@@ -16,7 +16,7 @@ class StudentSyncResource extends JsonResource
         $student = $this->resource;
         $user = $student->user;
 
-        if (!$user) {
+        if (! $user) {
             return [
                 'id' => $student->id,
                 'error' => 'Missing user data',

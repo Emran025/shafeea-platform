@@ -10,7 +10,6 @@ use App\Models\Cms\Platform;
 use App\Models\Cms\ProductSite;
 use App\Models\Cms\Section;
 use App\Models\School\School;
-use App\Services\School\TemplateResolver;
 use Illuminate\Support\Str;
 
 /**
@@ -25,13 +24,14 @@ use Illuminate\Support\Str;
  */
 class CompositionService
 {
-    private const ENGINE_VERSION   = '1.0.0';
+    private const ENGINE_VERSION = '1.0.0';
+
     private const CONTRACT_VERSION = 'rendering_contract@2.0';
 
     public function __construct(
         private readonly VisibilityService $visibility,
         private readonly ResolutionService $resolution,
-        private readonly TemplateResolver  $templateResolver = new TemplateResolver(),
+        private readonly TemplateResolver $templateResolver = new TemplateResolver,
     ) {}
 
     // =========================================================================
@@ -45,8 +45,8 @@ class CompositionService
     public function compose(string $slug, CompositionContext $ctx): array
     {
         $compositionId = Str::uuid()->toString();
-        $composedAt    = now()->toISOString();
-        $warnings      = [];
+        $composedAt = now()->toISOString();
+        $warnings = [];
 
         // -----------------------------------------------------------------
         // STEP 1: Page Resolution
@@ -57,6 +57,7 @@ class CompositionService
             // Navigation still composed even on error (RenderingContract.md)
             $navigation = $this->composeNavigation($ctx, $warnings);
             $pageError['payload']['navigation'] = $navigation;
+
             return $this->envelope('error', $pageError['payload'], $compositionId, $composedAt, $ctx);
         }
 
@@ -67,10 +68,11 @@ class CompositionService
 
         if ($abortComposition) {
             $navigation = $this->composeNavigation($ctx, $warnings);
+
             return $this->envelope('error', [
                 'error_type' => 'PAGE_NOT_FOUND',
-                'http_hint'  => 500,
-                'message'    => 'Page composition aborted due to fallback_policy: show_none.',
+                'http_hint' => 500,
+                'message' => 'Page composition aborted due to fallback_policy: show_none.',
                 'navigation' => $navigation,
             ], $compositionId, $composedAt, $ctx);
         }
@@ -95,18 +97,18 @@ class CompositionService
             ->all();
 
         $pageCore = [
-            'id'             => $page->id,
-            'slug'           => $page->slug,
-            'type'           => $page->type,
+            'id' => $page->id,
+            'slug' => $page->slug,
+            'type' => $page->type,
             'classification' => $page->identity_classification ?? 'public',
-            'anchor_ids'     => $anchorIds,
+            'anchor_ids' => $anchorIds,
         ];
 
         $payload = [
-            'page'            => $pageCore,
-            'navigation'      => $navigation,
-            'sections'        => $composedSections,
-            'meta'            => $meta,
+            'page' => $pageCore,
+            'navigation' => $navigation,
+            'sections' => $composedSections,
+            'meta' => $meta,
             'breadcrumb_path' => $this->composeBreadcrumbPath($page, $ctx->locale),
         ];
 
@@ -142,7 +144,7 @@ class CompositionService
 
             if ($school !== null) {
                 $templateContext = $school->toTemplateContext($ctx->locale);
-                $contract        = $this->templateResolver->resolve($contract, $templateContext);
+                $contract = $this->templateResolver->resolve($contract, $templateContext);
             }
         }
 
@@ -175,6 +177,7 @@ class CompositionService
             if (($page->identity_classification ?? 'public') === 'restricted') {
                 return [null, $this->resolution->buildPageFallback('restricted')];
             }
+
             return [null, $this->resolution->buildPageFallback('not_found')];
         }
 
@@ -188,16 +191,16 @@ class CompositionService
     private function resolveSections(Page $page, CompositionContext $ctx, array &$warnings): array
     {
         $allSections = $page->sections()
-            ->with(['blocks' => fn($q) => $q->orderByPivot('position')])
+            ->with(['blocks' => fn ($q) => $q->orderByPivot('position')])
             ->orderBy('ordering_position')
             ->get();
 
-        $policy         = $page->composition_policy ?? [];
+        $policy = $page->composition_policy ?? [];
         $fallbackPolicy = $policy['fallback_policy'] ?? 'show_partial';
-        $maxSections    = $policy['max_sections'] ?? PHP_INT_MAX;
+        $maxSections = $policy['max_sections'] ?? PHP_INT_MAX;
 
         $composedSections = [];
-        $partialFailures  = [];
+        $partialFailures = [];
         $heroSectionFound = false;
 
         foreach ($allSections as $section) {
@@ -217,6 +220,7 @@ class CompositionService
                         message: 'Second hero section found — excluded from composition (UR-003).',
                         severity: 'warning',
                     );
+
                     continue;
                 }
                 $heroSectionFound = true;
@@ -229,7 +233,7 @@ class CompositionService
             if ($sectionInvalid) {
                 // STEP 4: Fallback Resolution
                 $sectionPolicy = $section->composition_policy ?? [];
-                $sectionMin    = $sectionPolicy['min_blocks'] ?? 0;
+                $sectionMin = $sectionPolicy['min_blocks'] ?? 0;
 
                 $strategy = $this->resolution->resolveSectionValidity(
                     fallbackPolicy: $fallbackPolicy,
@@ -246,7 +250,7 @@ class CompositionService
                 if ($strategy === 'partial_contract') {
                     $partialFailures[] = [
                         'section_type' => $section->type,
-                        'reason'       => 'Section failed composition policy validation.',
+                        'reason' => 'Section failed composition policy validation.',
                     ];
                 }
 
@@ -254,14 +258,14 @@ class CompositionService
             }
 
             $composedSections[] = [
-                'id'                   => $section->id,
-                'type'                 => $section->type,
-                'anchor_id'            => $section->anchor_id,
-                'position'             => $section->position,
-                'group'                => $section->group ?? null,
+                'id' => $section->id,
+                'type' => $section->type,
+                'anchor_id' => $section->anchor_id,
+                'position' => $section->position,
+                'group' => $section->group ?? null,
                 'background_image_url' => $section->background_image_url ?? null,
-                'custom_css_classes'   => $section->custom_css_classes ?? null,
-                'blocks'               => $composedBlocks,
+                'custom_css_classes' => $section->custom_css_classes ?? null,
+                'blocks' => $composedBlocks,
             ];
 
             if (count($composedSections) >= $maxSections) {
@@ -274,14 +278,14 @@ class CompositionService
 
     private function resolveBlocks(Section $section, CompositionContext $ctx): array
     {
-        $sectionPolicy  = $section->composition_policy ?? [];
-        $minBlocks      = $sectionPolicy['min_blocks'] ?? 0;
-        $requiredTypes  = $sectionPolicy['required_types'] ?? [];
+        $sectionPolicy = $section->composition_policy ?? [];
+        $minBlocks = $sectionPolicy['min_blocks'] ?? 0;
+        $requiredTypes = $sectionPolicy['required_types'] ?? [];
         $localeStrategy = $sectionPolicy['locale_strategy'] ?? 'fallback';
 
         $composedBlocks = [];
-        $warnings       = [];
-        $presentTypes   = [];
+        $warnings = [];
+        $presentTypes = [];
 
         foreach ($section->blocks as $block) {
             // Block visibility check
@@ -340,23 +344,23 @@ class CompositionService
             $actions = $this->resolveActions($block, $localeResult['content'], $ctx, $warnings);
 
             $composedBlock = [
-                'id'                 => $block->id,
-                'type'               => $block->type,
-                'position'           => $block->pivot?->position ?? 0,
-                'locale'             => $localeResult['locale'],
+                'id' => $block->id,
+                'type' => $block->type,
+                'position' => $block->pivot?->position ?? 0,
+                'locale' => $localeResult['locale'],
                 'is_fallback_locale' => $localeResult['is_fallback'],
-                'fields'             => $this->extractFields($block, $localeResult['content'], $ctx->locale, $warnings),
-                'media'              => $composedMedia,
-                'actions'            => $actions,
-                'config'             => [
-                    'is_decorative'  => (bool) ($block->is_decorative ?? false),
-                    'is_featured'    => (bool) ($block->is_featured ?? false),
+                'fields' => $this->extractFields($block, $localeResult['content'], $ctx->locale, $warnings),
+                'media' => $composedMedia,
+                'actions' => $actions,
+                'config' => [
+                    'is_decorative' => (bool) ($block->is_decorative ?? false),
+                    'is_featured' => (bool) ($block->is_featured ?? false),
                     'display_weight' => $block->display_weight ?? 5,
                 ],
             ];
 
             $composedBlocks[] = $composedBlock;
-            $presentTypes[]   = $block->type;
+            $presentTypes[] = $block->type;
         }
 
         // Validate section composition policy
@@ -407,10 +411,10 @@ class CompositionService
      * }
      */
     private function resolvePlatformCardFields(
-        Block  $block,
-        array  $authoredFields,
+        Block $block,
+        array $authoredFields,
         string $locale,
-        array  &$warnings,
+        array &$warnings,
     ): array {
         $productSiteId = $authoredFields['product_site_id'] ?? null;
 
@@ -422,6 +426,7 @@ class CompositionService
                 message: 'platform_card block has no product_site_id in authored fields.',
                 severity: 'error',
             );
+
             return $authoredFields;
         }
 
@@ -436,6 +441,7 @@ class CompositionService
                 message: "platform_card: ProductSite '{$productSiteId}' not found in registry (PlatformRegistry.md Rule 3).",
                 severity: 'error',
             );
+
             return $authoredFields;
         }
 
@@ -454,7 +460,7 @@ class CompositionService
         }
 
         // --- Platform registry lookup for tagline ---
-        $platform          = Platform::find($productSite->platform_id);
+        $platform = Platform::find($productSite->platform_id);
         $positioningTagline = '';
         if ($platform !== null) {
             $positioningTagline = $platform->getTagline($locale);
@@ -462,34 +468,34 @@ class CompositionService
 
         // --- CTA resolution ---
         $isAvailable = $productSite->isCtaAvailable();
-        $ctaUrl      = $isAvailable ? $productSite->resolveCanonicalUrl($locale) : null;
+        $ctaUrl = $isAvailable ? $productSite->resolveCanonicalUrl($locale) : null;
 
         // JSON columns are already cast to array by ProductSite model
-        $ecosystemRole    = $productSite->identity_ecosystem_role ?? [];
-        $shortDesc        = $productSite->identity_short_description ?? [];
-        $siteLabel        = $productSite->identity_site_label ?? [];
-        $ctaLabel         = $productSite->gateway_cta_label ?? [];
+        $ecosystemRole = $productSite->identity_ecosystem_role ?? [];
+        $shortDesc = $productSite->identity_short_description ?? [];
+        $siteLabel = $productSite->identity_site_label ?? [];
+        $ctaLabel = $productSite->gateway_cta_label ?? [];
         $unavailableLabel = $productSite->gateway_unavailable_label ?? [];
 
         return [
-            'product_site_id'    => $productSiteId,
+            'product_site_id' => $productSiteId,
             // Identity tokens (Identity.md rendering contract format)
-            'entity_id'          => $entityIdentity?->entity_id ?? $productSite->platform_id,
-            'canonical_name'     => $entityIdentity?->canonical_name ?? $productSite->identity_platform_name,
-            'display_name'       => $entityIdentity?->displayName() ?? $productSite->identity_display_name,
-            'display_case'       => $entityIdentity?->display_case ?? $productSite->identity_display_case,
+            'entity_id' => $entityIdentity?->entity_id ?? $productSite->platform_id,
+            'canonical_name' => $entityIdentity?->canonical_name ?? $productSite->identity_platform_name,
+            'display_name' => $entityIdentity?->displayName() ?? $productSite->identity_display_name,
+            'display_case' => $entityIdentity?->display_case ?? $productSite->identity_display_case,
             'positioning_tagline' => $positioningTagline,
-            'color_tokens'       => $entityIdentity?->color_tokens,
+            'color_tokens' => $entityIdentity?->color_tokens,
             // Site data
-            'site_label'         => $siteLabel[$locale]   ?? $siteLabel['en']   ?? '',
-            'ecosystem_role'     => $ecosystemRole[$locale] ?? $ecosystemRole['en'] ?? '',
-            'short_description'  => $shortDesc[$locale]   ?? $shortDesc['en']   ?? '',
-            'site_status'        => $productSite->status,
+            'site_label' => $siteLabel[$locale] ?? $siteLabel['en'] ?? '',
+            'ecosystem_role' => $ecosystemRole[$locale] ?? $ecosystemRole['en'] ?? '',
+            'short_description' => $shortDesc[$locale] ?? $shortDesc['en'] ?? '',
+            'site_status' => $productSite->status,
             // Gateway CTA
-            'cta_label'          => $ctaLabel[$locale]         ?? $ctaLabel['en']         ?? '',
-            'cta_url'            => $ctaUrl,
-            'cta_is_available'   => $isAvailable,
-            'unavailable_label'  => $unavailableLabel[$locale] ?? $unavailableLabel['en'] ?? '',
+            'cta_label' => $ctaLabel[$locale] ?? $ctaLabel['en'] ?? '',
+            'cta_url' => $ctaUrl,
+            'cta_is_available' => $isAvailable,
+            'unavailable_label' => $unavailableLabel[$locale] ?? $unavailableLabel['en'] ?? '',
         ];
     }
 
@@ -509,15 +515,15 @@ class CompositionService
 
         foreach ($rawActions as $action) {
             $action['id'] = $block->id;
-            $action       = $this->resolution->resolveCtaDestination($action, $ctx->isPreview, $warnings);
+            $action = $this->resolution->resolveCtaDestination($action, $ctx->isPreview, $warnings);
 
             $resolved[] = [
-                'type'                  => $action['type'] ?? 'cta',
-                'label'                 => $action['label'] ?? '',
-                'destination'           => $action['destination'] ?? ['type' => 'external', 'value' => '#'],
+                'type' => $action['type'] ?? 'cta',
+                'label' => $action['label'] ?? '',
+                'destination' => $action['destination'] ?? ['type' => 'external', 'value' => '#'],
                 'is_broken_destination' => $action['is_broken_destination'] ?? false,
-                'open_in_new_tab'       => (bool) ($action['open_in_new_tab'] ?? false),
-                'position'              => $position++,
+                'open_in_new_tab' => (bool) ($action['open_in_new_tab'] ?? false),
+                'position' => $position++,
             ];
         }
 
@@ -571,12 +577,12 @@ class CompositionService
                     }
 
                     $composedEntries[] = [
-                        'label'                => $entryLabel,
-                        'destination_type'     => $entry->destination_type,
-                        'destination_value'    => $entry->destination_value,
-                        'position'             => (int) $entry->position,
+                        'label' => $entryLabel,
+                        'destination_type' => $entry->destination_type,
+                        'destination_value' => $entry->destination_value,
+                        'position' => (int) $entry->position,
                         'is_badge_highlighted' => (bool) $entry->is_badge_highlighted,
-                        'badge_text'           => $entry->badge_text[$ctx->locale] ?? $entry->badge_text['en'] ?? null,
+                        'badge_text' => $entry->badge_text[$ctx->locale] ?? $entry->badge_text['en'] ?? null,
                     ];
                 }
 
@@ -592,44 +598,44 @@ class CompositionService
                             'destination' => [
                                 'type' => $feat['cta_destination_type'] ?? 'external_url',
                                 'value' => $feat['cta_destination_value'] ?? '#',
-                            ]
+                            ],
                         ], $ctx->isPreview, $warnings);
 
                         $composedFeatured = [
-                            'headline'    => $featHeadline,
+                            'headline' => $featHeadline,
                             'description' => $feat['description'][$ctx->locale] ?? $feat['description']['en'] ?? null,
-                            'media'       => isset($feat['media_id']) ? $this->resolution->resolveMedia($feat['media_id'], $ctx->locale, $warnings) : null,
-                            'cta'         => [
-                                'label'                 => $resolvedCta['label'] ?? '',
-                                'destination'           => $resolvedCta['destination'] ?? ['type' => 'external_url', 'value' => '#'],
+                            'media' => isset($feat['media_id']) ? $this->resolution->resolveMedia($feat['media_id'], $ctx->locale, $warnings) : null,
+                            'cta' => [
+                                'label' => $resolvedCta['label'] ?? '',
+                                'destination' => $resolvedCta['destination'] ?? ['type' => 'external_url', 'value' => '#'],
                                 'is_broken_destination' => $resolvedCta['is_broken_destination'] ?? false,
-                                'open_in_new_tab'       => false,
-                                'position'              => 1,
+                                'open_in_new_tab' => false,
+                                'position' => 1,
                             ],
                         ];
                     }
                 }
 
                 $composedColumns[] = [
-                    'column_id'      => $col->column_id,
-                    'label'          => $colLabel,
-                    'position'       => (int) $col->position,
-                    'entries'        => $composedEntries,
+                    'column_id' => $col->column_id,
+                    'label' => $colLabel,
+                    'position' => (int) $col->position,
+                    'entries' => $composedEntries,
                     'featured_block' => $composedFeatured,
                 ];
             }
 
             $composedGroups[] = [
                 'group_id' => $group->group_id,
-                'label'    => $groupLabel,
-                'type'     => $group->type,
+                'label' => $groupLabel,
+                'type' => $group->type,
                 'position' => (int) $group->position,
-                'columns'  => $composedColumns,
+                'columns' => $composedColumns,
             ];
         }
 
         return [
-            'locale'  => $ctx->locale,
+            'locale' => $ctx->locale,
             'primary' => $composedGroups,
         ];
     }
@@ -643,7 +649,7 @@ class CompositionService
             $label = $this->getBreadcrumbLabel($current, $locale);
 
             array_unshift($path, [
-                'slug'  => $current->slug,
+                'slug' => $current->slug,
                 'label' => $label,
             ]);
 
@@ -656,8 +662,8 @@ class CompositionService
     private function getBreadcrumbLabel(Page $page, string $locale): string
     {
         $breadcrumbLabels = $page->breadcrumb_labels ?? [];
-        $navLabels        = $page->nav_labels ?? [];
-        $titles           = $page->identity_title ?? [];
+        $navLabels = $page->nav_labels ?? [];
+        $titles = $page->identity_title ?? [];
 
         return $breadcrumbLabels[$locale]
             ?? $breadcrumbLabels['en']
@@ -674,41 +680,41 @@ class CompositionService
 
     private function composePageMeta(Page $page, string $locale): array
     {
-        $pageMeta   = $page->page_meta ?? [];
+        $pageMeta = $page->page_meta ?? [];
         $localeMeta = $pageMeta[$locale] ?? $pageMeta['en'] ?? [];
 
-        $ogImageId   = $localeMeta['og_image_id'] ?? null;
+        $ogImageId = $localeMeta['og_image_id'] ?? null;
         $ogImageData = null;
 
         if ($ogImageId !== null) {
             $ogImageData = $this->resolution->resolveMedia($ogImageId, $locale);
         }
 
-        $hreflang   = [];
+        $hreflang = [];
         $allLocales = array_keys($pageMeta);
         foreach ($allLocales as $l) {
-            $baseUrl    = config('app.url', 'https://accsystemerp.com');
+            $baseUrl = config('app.url', 'https://accsystemerp.com');
             $localePath = $l === 'en' ? '' : "/{$l}";
             $hreflang[] = [
                 'locale' => $l,
-                'url'    => "{$baseUrl}{$localePath}/{$page->slug}",
+                'url' => "{$baseUrl}{$localePath}/{$page->slug}",
             ];
         }
 
-        $baseUrl      = config('app.url', 'https://accsystemerp.com');
-        $localePath   = $locale === 'en' ? '' : "/{$locale}";
+        $baseUrl = config('app.url', 'https://accsystemerp.com');
+        $localePath = $locale === 'en' ? '' : "/{$locale}";
         $canonicalUrl = "{$baseUrl}{$localePath}/{$page->slug}";
 
         return [
-            'seo_title'       => $localeMeta['seo_title'] ?? '',
+            'seo_title' => $localeMeta['seo_title'] ?? '',
             'seo_description' => $localeMeta['seo_description'] ?? '',
-            'og_title'        => $localeMeta['og_title'] ?? null,
-            'og_description'  => $localeMeta['og_description'] ?? null,
-            'og_image'        => $ogImageData,
-            'robots'          => $localeMeta['robots'] ?? 'index,follow',
-            'canonical_url'   => $canonicalUrl,
-            'hreflang'        => $hreflang,
-            'schema_markup'   => $localeMeta['schema_markup'] ?? null,
+            'og_title' => $localeMeta['og_title'] ?? null,
+            'og_description' => $localeMeta['og_description'] ?? null,
+            'og_image' => $ogImageData,
+            'robots' => $localeMeta['robots'] ?? 'index,follow',
+            'canonical_url' => $canonicalUrl,
+            'hreflang' => $hreflang,
+            'schema_markup' => $localeMeta['schema_markup'] ?? null,
         ];
     }
 
@@ -718,18 +724,18 @@ class CompositionService
 
     private function envelope(
         string $contractType,
-        array  $payload,
+        array $payload,
         string $compositionId,
         string $composedAt,
         CompositionContext $ctx,
     ): array {
         return [
             'contract_version' => self::CONTRACT_VERSION,
-            'contract_type'    => $contractType,
-            'engine_version'   => self::ENGINE_VERSION,
-            'request_id'       => $ctx->requestId ?? Str::uuid()->toString(),
-            'composed_at'      => $composedAt,
-            'payload'          => $payload,
+            'contract_type' => $contractType,
+            'engine_version' => self::ENGINE_VERSION,
+            'request_id' => $ctx->requestId ?? Str::uuid()->toString(),
+            'composed_at' => $composedAt,
+            'payload' => $payload,
         ];
     }
 }

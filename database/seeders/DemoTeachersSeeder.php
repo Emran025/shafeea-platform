@@ -2,16 +2,16 @@
 
 namespace Database\Seeders;
 
-use App\Models\Teacher\Teacher;
 use App\Models\Auth\User;
 use App\Models\School\School;
+use App\Models\Teacher\Teacher;
 use Illuminate\Database\Seeder;
 
 class DemoTeachersSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     * 
+     *
      * Seeds demo teachers with specific creation dates and memorization levels
      * Useful for demonstrating historical data and various teacher states
      */
@@ -22,7 +22,8 @@ class DemoTeachersSeeder extends Seeder
 
         if (! file_exists($jsonPath)) {
             $this->command->warn('⚠️  Demo teachers JSON file not found. Skipping seeder.');
-            $this->command->info('Expected path: ' . $jsonPath);
+            $this->command->info('Expected path: '.$jsonPath);
+
             return;
         }
 
@@ -31,6 +32,7 @@ class DemoTeachersSeeder extends Seeder
 
         if (empty($demoTeachers)) {
             $this->command->warn('⚠️  No demo teachers found in JSON file.');
+
             return;
         }
 
@@ -39,6 +41,7 @@ class DemoTeachersSeeder extends Seeder
 
         if (! $schoolId) {
             $this->command->error('❌ No schools found! Please run SchoolSeeder first.');
+
             return;
         }
 
@@ -66,8 +69,8 @@ class DemoTeachersSeeder extends Seeder
                 'avatar' => 'https://example.com/teacher.jpg',
                 'gender' => $teacherData['gender'],
                 'birth_date' => $this->generateBirthDate($estimatedBirthYear),
-                'phone' => '+9665' . rand(10000000, 99999999), // Using Saudi prefix for realism with SAR
-                'whatsapp' => '+9665' . rand(10000000, 99999999),
+                'phone' => '+9665'.rand(10000000, 99999999), // Using Saudi prefix for realism with SAR
+                'whatsapp' => '+9665'.rand(10000000, 99999999),
                 'country' => 'السعودية',
                 'city' => $this->getRandomCity(),
                 'residence' => $this->getRandomResidence(),
@@ -86,8 +89,7 @@ class DemoTeachersSeeder extends Seeder
             ]);
         }
 
-
-        $this->command->info('✅ Created ' . count($demoTeachers) . ' demo teachers.');
+        $this->command->info('✅ Created '.count($demoTeachers).' demo teachers.');
     }
 
     private function generateBirthDate($birthYear)
@@ -97,10 +99,10 @@ class DemoTeachersSeeder extends Seeder
 
         return "{$birthYear}-{$month}-{$day}";
     }
+
     /**
      * Determine qualification based on birth year
      */
-
     private function getRandomCity()
     {
         $cities = ['الرياض', 'جدة', 'مكة المكرمة', 'المدينة المنورة', 'الدمام', 'الخبر', 'أبها', 'تبوك', 'بريدة'];

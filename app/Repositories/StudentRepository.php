@@ -3,15 +3,13 @@
 namespace App\Repositories;
 
 use App\Models\Student\Enrollment;
-use App\Models\Halaqah\Halaqah;
-use App\Models\Tracking\Tracking;
 use App\Models\Student\Student;
 use App\Models\Student\StudentReport;
+use App\Models\Subscription\Plan;
+use App\Models\Tracking\Tracking;
+use App\Models\Tracking\TrackingDetail;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Facades\DB;
-use App\Models\Subscription\Plan;
-use App\Models\Tracking\TrackingDetail;
 
 class StudentRepository
 {
@@ -20,7 +18,6 @@ class StudentRepository
      * PURE DATA ACCESS METHODS
      * --------------------------------------------------------------------------
      */
-
     public function all($filters = [], $pagination = true)
     {
         $query = Student::with([
@@ -39,7 +36,7 @@ class StudentRepository
             $query->where('status', $filters['status']);
         }
 
-        if (isset($filters['search']) && !empty($filters['search'])) {
+        if (isset($filters['search']) && ! empty($filters['search'])) {
             $search = $filters['search'];
             $query->where(function ($q) use ($search) {
                 $q->where('username', 'like', "%{$search}%")
@@ -65,9 +62,10 @@ class StudentRepository
     public function find($userId)
     {
         $student = Student::findByIdentifier($userId);
-        if (!$student) {
+        if (! $student) {
             throw (new ModelNotFoundException)->setModel(Student::class);
         }
+
         return $student->load([
             'user',
             'enrollments' => function ($query) {
@@ -118,6 +116,7 @@ class StudentRepository
     public function getReports($userId)
     {
         $student = Student::findByIdentifierOrFail($userId);
+
         return StudentReport::where('student_id', $student->id)->get();
     }
 
@@ -129,6 +128,7 @@ class StudentRepository
     public function isInHalaqah($userId, int $halaqahId): bool
     {
         $student = Student::findByIdentifierOrFail($userId);
+
         return Enrollment::where('student_id', $student->id)
             ->where('halaqah_id', $halaqahId)
             ->exists();
@@ -148,6 +148,7 @@ class StudentRepository
     public function getPlans($userId)
     {
         $student = Student::findByIdentifierOrFail($userId);
+
         return Enrollment::where('student_id', $student->id)
             ->with('plans')
             ->get()
@@ -169,6 +170,7 @@ class StudentRepository
     public function getEnrollment($userId, int $halaqahId): Enrollment
     {
         $student = Student::findByIdentifierOrFail($userId);
+
         return Enrollment::firstOrCreate([
             'student_id' => $student->id,
             'halaqah_id' => $halaqahId,

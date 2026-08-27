@@ -2,8 +2,8 @@
 
 namespace App\Models\Cms;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Models\Auth\User;
+use Illuminate\Database\Eloquent\Model;
 
 class Topic extends Model
 {

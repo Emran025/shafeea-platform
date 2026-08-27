@@ -18,7 +18,7 @@ class NavigationGroup extends Model
     protected function casts(): array
     {
         return [
-            'label'     => 'array',
+            'label' => 'array',
             'is_active' => 'boolean',
         ];
     }

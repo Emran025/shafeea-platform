@@ -14,15 +14,15 @@ class CallSignalingEvent implements ShouldBroadcastNow
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $session;
+
     public $senderId;
+
     public $signalData;
 
     /**
      * Create a new event instance.
      *
-     * @param CallSession $session
-     * @param int $senderId
-     * @param array $signalData SDP offer/answer or ICE candidate
+     * @param  array  $signalData  SDP offer/answer or ICE candidate
      */
     public function __construct(CallSession $session, int $senderId, array $signalData)
     {
@@ -39,7 +39,7 @@ class CallSignalingEvent implements ShouldBroadcastNow
     public function broadcastOn(): array
     {
         return [
-            new PrivateChannel('session.' . $this->session->session_id),
+            new PrivateChannel('session.'.$this->session->session_id),
         ];
     }
 
