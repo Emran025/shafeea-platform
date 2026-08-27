@@ -9,6 +9,7 @@ use App\Jobs\Certificates\GenerateCertificateJob;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use App\Models\User;
 
 class CertificateBatchController extends Controller
 {
@@ -47,12 +48,23 @@ class CertificateBatchController extends Controller
             'status' => 'processing',
         ]);
 
+        
         // Create Certificates and Dispatch Jobs
         foreach ($validated['students'] as $studentData) {
+            $phone = $studentData['recipient_whatsapp'] ?? $studentData['phone'] ?? null;
+            $studentId = null;
+            if ($phone) {
+                $user = User::where('phone', $phone)->orWhere('whatsapp_number', $phone)->first();
+                if ($user) {
+                    $studentId = $user->id;
+                }
+            }
+
             $cert = $batch->certificates()->create([
                 'school_id' => $schoolId,
+                'student_id' => $studentId,
                 'recipient_name' => $studentData['recipient_name'] ?? 'بدون اسم',
-                'recipient_whatsapp' => $studentData['recipient_whatsapp'] ?? null,
+                'recipient_whatsapp' => $phone,
                 'fields_data' => $studentData,
                 'status' => 'pending',
             ]);
