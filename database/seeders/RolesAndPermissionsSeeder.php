@@ -41,6 +41,8 @@ class RolesAndPermissionsSeeder extends Seeder
             ['code' => 'manage_pages', 'label' => 'إدارة الصفحات'],
             ['code' => 'manage_articles', 'label' => 'إدارة المقالات والتحرير'],
             ['code' => 'write_articles', 'label' => 'كتابة المقالات المسندة'],
+            ['code' => 'view_teachers', 'label' => 'عرض بيانات المعلمين'],
+            ['code' => 'view_halaqas', 'label' => 'عرض بيانات الحلقات'],
         ];
 
         foreach ($permissions as $permission) {
